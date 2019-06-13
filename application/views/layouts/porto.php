@@ -15,7 +15,7 @@
 
         <meta name="keywords" content="seminar,ortophedic" />
         <meta name="description" content="Seminar ortophedic">
-        <meta name="author" content="okler.net">
+        <meta name="anonym" content="Seminar ortophedic International in Banjarmasin">
 
         <!-- Favicon -->
         <link rel="shortcut icon" href="<?=$theme_path;?>img/favicon.ico" type="image/x-icon" />
