@@ -18,6 +18,5 @@ class Site extends CI_Controller {
 
 	public function certificate(){
         $this->layout->render('site/certificate');
-
     }
 }
