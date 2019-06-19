@@ -1,6 +1,8 @@
 <?php
 /**
  * @var $content
+ * @var $breadcrumb
+ * @var $script_js
  */
 ?>
 <!DOCTYPE html>
@@ -25,10 +27,10 @@
 
     <!-- Argon CSS -->
     <link type="text/css" href="<?= base_url(); ?>themes/argon/css/argon.min.css" rel="stylesheet">
+    <script src="<?= base_url('themes/script/vue.js'); ?>"></script>
 </head>
 
 <body>
-<div id="app">
     <nav class="navbar navbar-vertical fixed-left navbar-expand-md navbar-light bg-white" id="sidenav-main">
         <div class="container-fluid">
             <!-- Toggler -->
@@ -127,30 +129,33 @@
                 <!-- Navigation -->
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="./index.html">
+                        <a class="nav-link" href="<?=base_url('admin/dashboard');?>">
                             <i class="ni ni-tv-2 text-primary"></i> Dashboard
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./examples/profile.html">
-                            <i class="ni ni-single-02 text-yellow"></i> Participants
+                        <a class="nav-link" href="<?=base_url('admin/participant');?>">
+                            <i class="ni ni-single-02 text-orange"></i> Participants
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./examples/icons.html">
+                        <a class="nav-link" href="<?=base_url('admin/event');?>">
                             <i class="ni ni-planet text-blue"></i> Events List
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="./examples/maps.html">
+                        <a class="nav-link" href="<?=base_url('admin/hotel_service');?>">
                             <i class="ni ni-building text-orange"></i> Hotel Services
                         </a>
                     </li>
-
                     <li class="nav-item">
-                        <a class="nav-link" href="./examples/tables.html">
-
-                            <i class="ni ni-settings text-red"></i> Application Config
+                        <a class="nav-link" href="<?=base_url('admin/hotel_service');?>">
+                            <i class="ni ni-chat-round text-blue"></i> Send Message
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="<?=base_url('admin/setting');?>">
+                            <i class="ni ni-settings text-red"></i> Application Setting
                         </a>
                     </li>
                 </ul>
@@ -180,7 +185,7 @@
         <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
             <div class="container-fluid">
                 <!-- Brand -->
-                <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="./index.html">Dashboard</a>
+                <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="<?=current_url();?>"><?=$breadcrumb;?></a>
                 <!-- Form -->
                 <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
                     <div class="form-group mb-0">
@@ -239,14 +244,33 @@
 
         <?= $content; ?>
 
+        <!-- Footer -->
+        <div class="container-fluid">
+        <footer class="footer">
+            <div class="row align-items-center justify-content-xl-between">
+                <div class="col-xl-6">
+                    <div class="copyright text-center text-xl-left text-muted">
+                        &copy; 2018 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Design By Creative Tim</a>
+                    </div>
+                </div>
+                <div class="col-xl-6">
+                    <div class="copyright text-center text-xl-left text-muted">
+                        &copy; 2018 <a href="https://www.facebook.com/untung.bimantara" class="font-weight-bold ml-1" target="_blank">Created By USB & Friends</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        </div>
+
     </div>
-</div>
 <!-- Core -->
 <script src="<?= base_url(); ?>themes/argon/vendor/jquery/dist/jquery.min.js"></script>
 <script src="<?= base_url(); ?>themes/argon/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
 <!-- Argon JS -->
 <script src="<?= base_url(); ?>themes/argon/js/argon.min.js"></script>
+<script src="<?= base_url("themes/script/vue-bootstrap4-table.min.js?").time(); ?>"></script>
+<?=$script_js;?>
 </body>
 
 </html>

@@ -6,6 +6,9 @@ class Layout {
 	protected $ci;
 	protected $menu_active;
     protected $base_view = "";
+    protected $breadcrumb = "";
+    protected $script_js;
+
 	public function __construct($params = array()){
 		$this->ci =& get_instance();
 		if(isset($params['layout']))
@@ -35,6 +38,26 @@ class Layout {
 		$this->menu_active = $menu;
 	}
 
+    /**
+     * @param $breadcrumb string
+     */
+	public function set_breadcrumb($breadcrumb){
+	    $this->breadcrumb = $breadcrumb;
+    }
+
+    /**
+     * Flag as a start js script
+     */
+    public function begin_script(){
+	    ob_start();
+    }
+
+    /**
+     * Flag as a end js script
+     */
+    public function end_script(){
+	    $this->script_js = ob_get_clean();
+    }
 	/**
 	 * Render Layout
 	 * @param  String $view       Path File View
@@ -43,7 +66,11 @@ class Layout {
 	 */
 	public function render($view,$data = array(),$dataLayout = array()){
 		$content = $this->ci->load->view($this->base_view.$view,$data,true);
+
 		$dataLayout['active_menu'] = (isset($dataLayout['active_menu'])) ? $dataLayout['active_menu']: $this->menu_active;
+		$dataLayout['breadcrumb'] = ($this->breadcrumb == ""?str_replace("_"," ",$this->ci->router->class):$this->breadcrumb);
+        $dataLayout['script_js'] = $this->script_js;
+
 		$this->ci->load->view($this->layout,array_merge($dataLayout,array('content'=>$content)));
 	}
 

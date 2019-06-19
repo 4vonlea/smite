@@ -42,6 +42,6 @@ class Admin_Controller extends MY_Controller{
 
         $this->layout->setLayout("layouts/argon");
         $this->layout->setBaseView("admin/");
-
     }
+
 }
