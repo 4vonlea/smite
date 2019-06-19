@@ -89,14 +89,18 @@
                                                     </li>
                                                     <li class="dropdown dropdown-primary">
                                                         <a class="dropdown-toggle nav-link"
-                                                           href="#">
+                                                           href="">
                                                             Scientific &nbsp;<i class="fa fa-chevron-circle-down"></i>
                                                         </a>
                                                         <ul class="dropdown-menu">
                                                             <li>
-                                                                <a class="dropdown-item"
-                                                                   href="#">
+                                                                <a class="dropdown-item" href="<?=base_url("site/simposium");?>">
                                                                     Simposium & Workshop
+                                                                </a>
+                                                            </li>
+                                                            <li>
+                                                                <a class="dropdown-item" href="">
+                                                                    Paper
                                                                 </a>
                                                             </li>
                                                         </ul>
@@ -104,11 +108,6 @@
                                                     <li>
                                                         <a class="nav-link" href="<?=base_url("site/certificate");?>">
                                                             Certificate
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="nav-link" href="demo-business-consulting-tertimonials.html">
-                                                            Hotels
                                                         </a>
                                                     </li>
                                                     <li class="dropdown dropdown-primary">
