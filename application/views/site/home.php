@@ -23,7 +23,7 @@
                      data-transform_in="y:[-300%];opacity:0;s:500;" style="font-size: 42px;">Pro Business Plan
                 </div>
 
-                <a href="#about-us"
+                <a href="#login"
                    class="btn btn-primary tp-caption text-uppercase text-color-light custom-border-radius"
                    data-hash
                    data-hash-offset="85"
@@ -74,9 +74,8 @@
         <div class="row align-items-center">
             <div class="col-md-6 col-lg-7">
                 <div class="looking-for-box">
-                    <h2>- <span class="text-1 custom-secondary-font">Are you looking for a</span><br>
-                        Business Plan Consultant?</h2>
-                    <p>Schedule your company strategy right session now</p>
+                    <h2>- <span class="text-1 custom-secondary-font">2nd</span><br>
+                       East Indonesian Society of Dermatology and Venerology</h2>
                 </div>
             </div>
             <div class="col-md-3 d-flex justify-content-md-end mb-4 mb-md-0">
@@ -99,749 +98,92 @@
     </div>
 </section>
 
-<section class="about-us custom-section-padding" id="about-us">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 col-lg-6">
-                <h2 class="font-weight-bold text-color-dark">- About Us</h2>
-                <p class="pl-4">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla volutpat ex finibus
-                    urna tincidunt, auctor ullamcorper risus luctus. Nunc et feugiat arcu, in placerat risus.
-                    Phasellus condimentum sapien vitae.</p>
-                <div class="pl-4">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <ul class="list list-icons list-icons-style-3 list-tertiary">
-                                <li><i class="fas fa-chevron-right"></i> Certified Professionals</li>
-                                <li><i class="fas fa-chevron-right"></i> Former Chief Executives</li>
-                                <li><i class="fas fa-chevron-right"></i> Real Estate Professionals</li>
-                            </ul>
-                        </div>
-                        <div class="col-lg-6">
-                            <ul class="list list-icons list-icons-style-3 list-tertiary">
-                                <li><i class="fas fa-chevron-right"></i> Nobel Laureate Economists</li>
-                                <li><i class="fas fa-chevron-right"></i> Former Political Leaders</li>
-                                <li><i class="fas fa-chevron-right"></i> Chartered Financial Analysts</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <a class="btn btn-outline custom-border-width btn-primary mt-3 mb-2 custom-border-radius font-weight-semibold text-uppercase"
-                       href="demo-business-consulting-about-us.html">Read More</a>
-                </div>
-            </div>
-            <div class="col-md-6 col-lg-6">
-                <div class="content-grid custom-content-grid mt-5 mb-4">
-                    <div class="row content-grid-row">
-                        <div class="content-grid-item col-lg-6 bg-color-light p-4">
-                            <div class="counters">
-                                <div class="counter custom-sm-counter-style">
-                                    <img class="counter-icon"
-                                         src="<?= base_url('themes/porto'); ?>/img/demos/business-consulting/icons/icon-1.png"
-                                         alt/>
-                                    <strong class="text-color-primary custom-primary-font" data-to="15"
-                                            data-append="+">0</strong>
-                                    <label>Years in Business</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="content-grid-item col-lg-6 p-4">
-                            <div class="counters">
-                                <div class="counter margin-style-2 custom-sm-counter-style">
-                                    <img class="counter-icon"
-                                         src="<?= base_url('themes/porto'); ?>/img/demos/business-consulting/icons/icon-2.png"
-                                         alt/>
-                                    <strong class="text-color-primary custom-primary-font" data-to="2000"
-                                            data-append="+">0</strong>
-                                    <label>Successfull Cases</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row content-grid-row">
-                        <div class="content-grid-item col-lg-6 p-4">
-                            <div class="counters">
-                                <div class="counter custom-sm-counter-style">
-                                    <img class="counter-icon"
-                                         src="<?= base_url('themes/porto'); ?>/img/demos/business-consulting/icons/icon-3.png"
-                                         alt/>
-                                    <strong class="text-color-primary custom-primary-font" data-to="240"
-                                            data-append="+">0</strong>
-                                    <label>Satisfied Clients</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="content-grid-item col-lg-6 bg-color-light p-4">
-                            <div class="counters">
-                                <div class="counter margin-style-2 custom-sm-counter-style">
-                                    <img class="counter-icon"
-                                         src="<?= base_url('themes/porto'); ?>/img/demos/business-consulting/icons/icon-4.png"
-                                         alt/>
-                                    <strong class="text-color-primary custom-primary-font" data-to="130"
-                                            data-append="+">0</strong>
-                                    <label>Pro Consultants</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="section-secondary custom-section-padding">
-    <div class="container">
-        <div class="row mb-4">
-            <div class="col">
-                <h2 class="font-weight-bold text-color-dark mb-3">- Expertises</h2>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-4">
-                <a href="demo-business-consulting-expertise-detail.html"
-                   class="text-decoration-none appear-animation" data-appear-animation="fadeInUp"
-                   data-appear-animation-delay="0">
-                    <div class="feature-box custom-feature-box feature-box-style-2">
-                        <div class="feature-box-icon">
-                            <img src="<?= base_url('themes/porto'); ?>/img/demos/business-consulting/expertise/expertise-1.jpg"
-                                 alt="">
-                        </div>
-                        <div class="feature-box-info ml-3">
-                            <h4 class="font-weight-normal text-5">Corporate Finance</h4>
-                            <p class="text-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
-                                volutpat ex finibus urna.</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-4">
-                <a href="demo-business-consulting-expertise-detail.html"
-                   class="text-decoration-none appear-animation" data-appear-animation="fadeInUp"
-                   data-appear-animation-delay="100">
-                    <div class="feature-box custom-feature-box feature-box-style-2">
-                        <div class="feature-box-icon">
-                            <img src="<?= base_url('themes/porto'); ?>/img/demos/business-consulting/expertise/expertise-2.jpg"
-                                 alt="">
-                        </div>
-                        <div class="feature-box-info ml-3">
-                            <h4 class="font-weight-normal text-5">Corp Restructuring</h4>
-                            <p class="text-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
-                                volutpat ex finibus urna.</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-4">
-                <a href="demo-business-consulting-expertise-detail.html"
-                   class="text-decoration-none appear-animation" data-appear-animation="fadeInUp"
-                   data-appear-animation-delay="200">
-                    <div class="feature-box custom-feature-box feature-box-style-2">
-                        <div class="feature-box-icon">
-                            <img src="<?= base_url('themes/porto'); ?>/img/demos/business-consulting/expertise/expertise-3.jpg"
-                                 alt="">
-                        </div>
-                        <div class="feature-box-info ml-3">
-                            <h4 class="font-weight-normal text-5">Economic Consulting</h4>
-                            <p class="text-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
-                                volutpat ex finibus urna.</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-4">
-                <a href="demo-business-consulting-expertise-detail.html"
-                   class="text-decoration-none appear-animation" data-appear-animation="fadeInUp"
-                   data-appear-animation-delay="300">
-                    <div class="feature-box custom-feature-box feature-box-style-2">
-                        <div class="feature-box-icon">
-                            <img src="<?= base_url('themes/porto'); ?>/img/demos/business-consulting/expertise/expertise-4.jpg"
-                                 alt="">
-                        </div>
-                        <div class="feature-box-info ml-3">
-                            <h4 class="font-weight-normal text-5">Litigation Consulting</h4>
-                            <p class="text-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
-                                volutpat ex finibus urna.</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-4">
-                <a href="demo-business-consulting-expertise-detail.html"
-                   class="text-decoration-none appear-animation" data-appear-animation="fadeInUp"
-                   data-appear-animation-delay="400">
-                    <div class="feature-box custom-feature-box feature-box-style-2">
-                        <div class="feature-box-icon">
-                            <img src="<?= base_url('themes/porto'); ?>/img/demos/business-consulting/expertise/expertise-5.jpg"
-                                 alt="">
-                        </div>
-                        <div class="feature-box-info ml-3">
-                            <h4 class="font-weight-normal text-5">Strategic Consulting</h4>
-                            <p class="text-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce
-                                consectetur diam id urna.</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-4">
-                <a href="demo-business-consulting-expertise-detail.html"
-                   class="text-decoration-none appear-animation" data-appear-animation="fadeInUp"
-                   data-appear-animation-delay="500">
-                    <div class="feature-box custom-feature-box feature-box-style-2">
-                        <div class="feature-box-icon">
-                            <img src="<?= base_url('themes/porto'); ?>/img/demos/business-consulting/expertise/expertise-6.jpg"
-                                 alt="">
-                        </div>
-                        <div class="feature-box-info ml-3">
-                            <h4 class="font-weight-normal text-5">Tech Consulting</h4>
-                            <p class="text-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce
-                                consectetur diam id urna.</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <a class="btn btn-outline custom-border-width btn-primary custom-border-radius font-weight-semibold text-uppercase mb-3"
-                   href="demo-business-consulting-expertise.html" title="View All">View All</a>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="custom-section-padding">
+<section class="section-secondary custom-section-padding" id="login">
     <div class="container">
         <div class="row mb-3">
             <div class="col-lg-6">
-                <h2 class="font-weight-bold text-color-dark">- Our Strategy</h2>
-                <div class="owl-carousel owl-theme nav-bottom rounded-nav numbered-dots pl-1 pr-1"
-                     data-plugin-options="{'items': 1, 'loop': false, 'dots': true, 'nav': false}">
-                    <div>
-                        <div class="custom-step-item">
-											<span class="step text-uppercase">
-												Step
-												<span class="step-number text-color-primary">
-													01
-												</span>
-											</span>
-                            <div class="step-content">
-                                <h4 class="mb-3">The first meeting<br> <strong>Understanding the Problem</strong>
-                                </h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla volutpat ex
-                                    finibus urna tincidunt, auctor ullamcorper risus luctus. Nunc et feugiat arcu,
-                                    in placerat risus. Phasellus condimentum sapien vitae odio.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="custom-step-item">
-											<span class="step text-uppercase">
-												Step
-												<span class="step-number text-color-primary">
-													02
-												</span>
-											</span>
-                            <div class="step-content">
-                                <h4 class="mb-3">The second meeting<br> <strong>Business Plan Consultant</strong>
-                                </h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla volutpat ex
-                                    finibus urna tincidunt, auctor ullamcorper risus luctus. Nunc et feugiat arcu,
-                                    in placerat risus. Phasellus condimentum sapien vitae odio.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="custom-step-item">
-											<span class="step text-uppercase">
-												Step
-												<span class="step-number text-color-primary">
-													03
-												</span>
-											</span>
-                            <div class="step-content">
-                                <h4 class="mb-3">The final meeting<br> <strong>Problem Solved</strong></h4>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla volutpat ex
-                                    finibus urna tincidunt, auctor ullamcorper risus luctus. Nunc et feugiat arcu,
-                                    in placerat risus. Phasellus condimentum sapien vitae odio.</p>
-                            </div>
+                
+            <h2 class="font-weight-bold">Login Form</h2>
+            <form class="custom-contact-form-style-1" action="https://coe67-surakarta.com/frontend/login/login" method="POST">
+                <div class="form-row">
+                    <div class="form-group col">
+                        <div class="custom-input-box">
+                            <i class="icon-user icons text-color-primary"></i>
+                            <input type="text" value="" data-msg-required="Please enter your Email." maxlength="100" class="form-control" name="email"   placeholder="Email" required>
                         </div>
                     </div>
                 </div>
+                <div class="form-row">
+                    <div class="form-group col">
+                        <div class="custom-input-box">
+                            <i class="icon-key icons text-color-primary"></i>
+                            <input type="password" value="" data-msg-required="Please enter your password." data-msg-password="Password can not empty." maxlength="100" class="form-control" name="password"  placeholder="Password" required>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col">
+                        <input type="submit" value="Login Now" class="btn btn-outline custom-border-width btn-primary custom-border-radius font-weight-semibold text-uppercase" data-loading-text="Loading...">
+                    </div>
+                </div>
+            </form>
             </div>
             <div class="col-lg-6">
-                <h2 class="font-weight-bold text-color-dark">- Frequently asked questions</h2>
-                <div class="accordion without-bg custom-accordion-style-1" id="accordion7">
-                    <div class="card card-default">
-                        <div class="card-header">
-                            <h4 class="card-title m-0">
-                                <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion7"
-                                   href="#collapse7One" aria-expanded="true">
-                                    Praesent sit amet quam a lorem commodo tincidunt.
-                                    <span class="custom-accordion-plus"></span>
-                                </a>
-                            </h4>
-                        </div>
-                        <div id="collapse7One" class="collapse show" aria-expanded="true">
-                            <div class="card-body">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla volutpat ex
-                                    finibus urna tincidunt, auctor ullamcorper risus luctus.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card card-default">
-                        <div class="card-header">
-                            <h4 class="card-title m-0">
-                                <a class="accordion-toggle collapsed" data-toggle="collapse"
-                                   data-parent="#accordion7" href="#collapse7Two" aria-expanded="false">
-                                    Integer ac elit id est euismod pellentesque.
-                                    <span class="custom-accordion-plus"></span>
-                                </a>
-                            </h4>
-                        </div>
-                        <div id="collapse7Two" class="collapse" aria-expanded="false" style="height: 0px;">
-                            <div class="card-body">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla volutpat ex
-                                    finibus urna tincidunt, auctor ullamcorper risus luctus.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card card-default">
-                        <div class="card-header">
-                            <h4 class="card-title m-0">
-                                <a class="accordion-toggle collapsed" data-toggle="collapse"
-                                   data-parent="#accordion7" href="#collapse7Three" aria-expanded="false">
-                                    Cras interdum neque sit amet justo maximus, ut sollicitudin eros.
-                                    <span class="custom-accordion-plus"></span>
-                                </a>
-                            </h4>
-                        </div>
-                        <div id="collapse7Three" class="collapse" aria-expanded="false" style="height: 0px;">
-                            <div class="card-body">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla volutpat ex
-                                    finibus urna tincidunt, auctor ullamcorper risus luctus.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card card-default">
-                        <div class="card-header">
-                            <h4 class="card-title m-0">
-                                <a class="accordion-toggle collapsed" data-toggle="collapse"
-                                   data-parent="#accordion7" href="#collapse7Four" aria-expanded="false">
-                                    Pellentesque in ex molestie, convallis nulla ut, ornare erat.
-                                    <span class="custom-accordion-plus"></span>
-                                </a>
-                            </h4>
-                        </div>
-                        <div id="collapse7Four" class="collapse" aria-expanded="false" style="height: 0px;">
-                            <div class="card-body">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla volutpat ex
-                                    finibus urna tincidunt, auctor ullamcorper risus luctus.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+            
+                                <h2 class="font-weight-bold">Frequently Asked Question</h2>
+                                <div class="owl-carousel owl-theme nav-bottom rounded-nav numbered-dots pl-1 pr-1" data-plugin-options="{'items': 1, 'loop': false, 'dots': true, 'nav': false}">
+                                    <div>
+                                        <div class="custom-step-item">
+                                            <span class="step text-uppercase" style="color:black">
+                                                Ask
+                                                <span class="step-number text-color-primary">
+                                                    01
+                                                </span>
+                                            </span>
+                                            <div class="step-content">
+                                                <h4 class="mb-3"><strong>Why must we make an account?</strong></h4>
+                                                <p>It is part of terms to make it easier to register as a symposium / workshop participant getting many facilities, including:
+                                                Personal notification pre and during event about COE 67th, 
+                                                Download symposium and workshops material, 
+                                                Facilitating attendance registration during event (via application & QR code scan), 
+                                                Unexpected bonuses later
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="custom-step-item">
+                                            <span class="step text-uppercase" style="color:black">
+                                                Ask
+                                                <span class="step-number text-color-primary">
+                                                    02
+                                                </span>
+                                            </span>
+                                            <div class="step-content">
+                                                <h4 class="mb-3"><strong>What if the participant cannot get online?</strong></h4>
+                                                <p>All participat registration can only be served online</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="custom-step-item">
+                                            <span class="step text-uppercase" style="color:black">
+                                                Ask
+                                                <span class="step-number text-color-primary">
+                                                    03
+                                                </span>
+                                            </span>
+                                            <div class="step-content">
+                                                <h4 class="mb-3"><strong>What if there are participants who want to change / edit their registration the paid is confirmed?</strong></h4>
+                                                <p>To change it only can be done by sending letter to the committee with terms and conditions applied. For any changes to hotel bookings are subject to additional fees.
+                                                for more FAQ <a href="https://coe67-surakarta.com/frontend/read/faq">Click here</a> </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                        
 
-<section class="section-secondary custom-section-padding-2">
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <h2 class="font-weight-bold text-color-dark mb-3">- Our Cases</h2>
-            </div>
-        </div>
-    </div>
-    <div class="owl-carousel show-nav-title custom-both-sides-shadow custom-dots-position-2 custom-dots-style-1 custom-xs-arrows-style-2 mb-0"
-         data-plugin-options="{'items': 6, 'loop': false, 'dots': true, 'nav': false}">
-        <div>
-            <a href="demo-business-consulting-cases-detail.html" class="text-decoration-none">
-								<span class="thumb-info custom-thumb-info-style-1 thumb-info-hide-wrapper-bg">
-									<span class="thumb-info-wrapper m-0">
-										<img src="<?= base_url('themes/porto'); ?>/img/demos/business-consulting/cases/case-1.jpg"
-                                             class="img-fluid"
-                                             alt="">
-									</span>
-									<span class="thumb-info-caption bg-color-secondary p-4 pt-5 pb-5">
-										<span class="custom-thumb-info-title">
-											<span class="custom-thumb-info-name font-weight-semibold text-color-dark text-4">Corporate Finance</span>
-											<span class="custom-thumb-info-desc font-weight-light">Okler</span>
-										</span>
-										<span class="custom-arrow"></span>
-									</span>
-								</span>
-            </a>
-        </div>
-        <div>
-            <a href="demo-business-consulting-cases-detail.html" class="text-decoration-none">
-								<span class="thumb-info custom-thumb-info-style-1 thumb-info-hide-wrapper-bg">
-									<span class="thumb-info-wrapper m-0">
-										<img src="<?= base_url('themes/porto'); ?>/img/demos/business-consulting/cases/case-2.jpg"
-                                             class="img-fluid"
-                                             alt="">
-									</span>
-									<span class="thumb-info-caption bg-color-secondary p-4 pt-5 pb-5">
-										<span class="custom-thumb-info-title">
-											<span class="custom-thumb-info-name font-weight-semibold text-color-dark text-4">Corporate Restructuring</span>
-											<span class="custom-thumb-info-desc font-weight-light">Envato</span>
-										</span>
-										<span class="custom-arrow"></span>
-									</span>
-								</span>
-            </a>
-        </div>
-        <div>
-            <a href="demo-business-consulting-cases-detail.html" class="text-decoration-none">
-								<span class="thumb-info custom-thumb-info-style-1 thumb-info-hide-wrapper-bg">
-									<span class="thumb-info-wrapper m-0">
-										<img src="<?= base_url('themes/porto'); ?>/img/demos/business-consulting/cases/case-3.jpg"
-                                             class="img-fluid"
-                                             alt="">
-									</span>
-									<span class="thumb-info-caption bg-color-secondary p-4 pt-5 pb-5">
-										<span class="custom-thumb-info-title">
-											<span class="custom-thumb-info-name font-weight-semibold text-color-dark text-4">Economic Consultanting</span>
-											<span class="custom-thumb-info-desc font-weight-light">Porto</span>
-										</span>
-										<span class="custom-arrow"></span>
-									</span>
-								</span>
-            </a>
-        </div>
-        <div>
-            <a href="demo-business-consulting-cases-detail.html" class="text-decoration-none">
-								<span class="thumb-info custom-thumb-info-style-1 thumb-info-hide-wrapper-bg">
-									<span class="thumb-info-wrapper m-0">
-										<img src="<?= base_url('themes/porto'); ?>/img/demos/business-consulting/cases/case-4.jpg"
-                                             class="img-fluid"
-                                             alt="">
-									</span>
-									<span class="thumb-info-caption bg-color-secondary p-4 pt-5 pb-5">
-										<span class="custom-thumb-info-title">
-											<span class="custom-thumb-info-name font-weight-semibold text-color-dark text-4">Tech Consulting</span>
-											<span class="custom-thumb-info-desc font-weight-light">GetCustom</span>
-										</span>
-										<span class="custom-arrow"></span>
-									</span>
-								</span>
-            </a>
-        </div>
-        <div>
-            <a href="demo-business-consulting-cases-detail.html" class="text-decoration-none">
-								<span class="thumb-info custom-thumb-info-style-1 thumb-info-hide-wrapper-bg">
-									<span class="thumb-info-wrapper m-0">
-										<img src="<?= base_url('themes/porto'); ?>/img/demos/business-consulting/cases/case-5.jpg"
-                                             class="img-fluid"
-                                             alt="">
-									</span>
-									<span class="thumb-info-caption bg-color-secondary p-4 pt-5 pb-5">
-										<span class="custom-thumb-info-title">
-											<span class="custom-thumb-info-name font-weight-semibold text-color-dark text-4">Strategic</span>
-											<span class="custom-thumb-info-desc font-weight-light">Jet Orange</span>
-										</span>
-										<span class="custom-arrow"></span>
-									</span>
-								</span>
-            </a>
-        </div>
-        <div>
-            <a href="demo-business-consulting-cases-detail.html" class="text-decoration-none">
-								<span class="thumb-info custom-thumb-info-style-1 thumb-info-hide-wrapper-bg">
-									<span class="thumb-info-wrapper m-0">
-										<img src="<?= base_url('themes/porto'); ?>/img/demos/business-consulting/cases/case-1.jpg"
-                                             class="img-fluid"
-                                             alt="">
-									</span>
-									<span class="thumb-info-caption bg-color-secondary p-4 pt-5 pb-5">
-										<span class="custom-thumb-info-title">
-											<span class="custom-thumb-info-name font-weight-semibold text-color-dark text-4">Litigation</span>
-											<span class="custom-thumb-info-desc font-weight-light">Paradoxx</span>
-										</span>
-										<span class="custom-arrow"></span>
-									</span>
-								</span>
-            </a>
-        </div>
-        <div>
-            <a href="demo-business-consulting-cases-detail.html" class="text-decoration-none">
-								<span class="thumb-info custom-thumb-info-style-1 thumb-info-hide-wrapper-bg">
-									<span class="thumb-info-wrapper m-0">
-										<img src="<?= base_url('themes/porto'); ?>/img/demos/business-consulting/cases/case-2.jpg"
-                                             class="img-fluid"
-                                             alt="">
-									</span>
-									<span class="thumb-info-caption bg-color-secondary p-4 pt-5 pb-5">
-										<span class="custom-thumb-info-title">
-											<span class="custom-thumb-info-name font-weight-semibold text-color-dark text-4">Consulting</span>
-											<span class="custom-thumb-info-desc font-weight-light">iMessenger</span>
-										</span>
-										<span class="custom-arrow"></span>
-									</span>
-								</span>
-            </a>
-        </div>
-        <div>
-            <a href="demo-business-consulting-cases-detail.html" class="text-decoration-none">
-								<span class="thumb-info custom-thumb-info-style-1 thumb-info-hide-wrapper-bg">
-									<span class="thumb-info-wrapper m-0">
-										<img src="<?= base_url('themes/porto'); ?>/img/demos/business-consulting/cases/case-3.jpg"
-                                             class="img-fluid"
-                                             alt="">
-									</span>
-									<span class="thumb-info-caption bg-color-secondary p-4 pt-5 pb-5">
-										<span class="custom-thumb-info-title">
-											<span class="custom-thumb-info-name font-weight-semibold text-color-dark text-4">Brand Consulting</span>
-											<span class="custom-thumb-info-desc font-weight-light">Theme Forest</span>
-										</span>
-										<span class="custom-arrow"></span>
-									</span>
-								</span>
-            </a>
-        </div>
-        <div>
-            <a href="demo-business-consulting-cases-detail.html" class="text-decoration-none">
-								<span class="thumb-info custom-thumb-info-style-1 thumb-info-hide-wrapper-bg">
-									<span class="thumb-info-wrapper m-0">
-										<img src="<?= base_url('themes/porto'); ?>/img/demos/business-consulting/cases/case-4.jpg"
-                                             class="img-fluid"
-                                             alt="">
-									</span>
-									<span class="thumb-info-caption bg-color-secondary p-4 pt-5 pb-5">
-										<span class="custom-thumb-info-title">
-											<span class="custom-thumb-info-name font-weight-semibold text-color-dark text-4">Corporate Consulting</span>
-											<span class="custom-thumb-info-desc font-weight-light">Tucson</span>
-										</span>
-										<span class="custom-arrow"></span>
-									</span>
-								</span>
-            </a>
-        </div>
-    </div>
-</section>
-
-<section class="custom-section-padding">
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <h2 class="font-weight-bold text-color-dark">- Testimonials</h2>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <div class="owl-carousel show-nav-title custom-dots-style-1 custom-dots-position custom-xs-arrows-style-2 mb-0"
-                     data-plugin-options="{'items': 1, 'autoHeight': true, 'loop': false, 'nav': false, 'dots': true}">
-                    <div class="row">
-                        <div class="col-8 col-sm-4 col-lg-2 text-center pt-5">
-                            <img src="<?= base_url('themes/porto'); ?>/img/demos/business-consulting/testimonials/testimonial-author-2.jpg"
-                                 alt
-                                 class="img-fluid custom-rounded-image"/>
-                        </div>
-                        <div class="col-12 col-sm-12 col-lg-10">
-                            <div class="testimonial custom-testimonial-style-1 testimonial-with-quotes mb-0">
-                                <blockquote class="pb-2">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eget risus
-                                        porta, tincidunt turpis at, interdum tortor. Suspendisse potenti. Lorem
-                                        ipsum dolor sit amet, consectetur adipiscing elit. Sociis natoque penatibus
-                                        et magnis dis parturient montes, nascetur ridiculus mus. Fusce ante tellus,
-                                        convallis non consectetur sed, pharetra nec ex. Aliquam et tortor nisi. Duis
-                                        mollis diam nec elit volutpat suscipit.</p>
-                                </blockquote>
-                                <div class="testimonial-author float-left">
-                                    <p><strong>John Smith</strong><span class="text-color-primary">CEO &amp; Founder - Okler</span>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-8 col-sm-4 col-lg-2 text-center pt-5">
-                            <img src="<?= base_url('themes/porto'); ?>/img/demos/business-consulting/testimonials/testimonial-author-3.jpg"
-                                 alt
-                                 class="img-fluid custom-rounded-image"/>
-                        </div>
-                        <div class="col-12 col-sm-12 col-lg-10">
-                            <div class="testimonial custom-testimonial-style-1 testimonial-with-quotes mb-0">
-                                <blockquote class="pb-2">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed eget risus
-                                        porta, tincidunt turpis at, interdum tortor. Suspendisse potenti. Lorem
-                                        ipsum dolor sit amet, consectetur adipiscing elit. Sociis natoque penatibus
-                                        et magnis dis parturient montes, nascetur ridiculus mus. Fusce ante tellus,
-                                        convallis non consectetur sed, pharetra nec ex. Aliquam et tortor nisi. Duis
-                                        mollis diam nec elit volutpat suscipit.</p>
-                                </blockquote>
-                                <div class="testimonial-author float-left">
-                                    <p><strong>John Smith</strong><span class="text-color-primary">CEO &amp; Founder - Okler</span>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="section-secondary custom-section-padding">
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <h2 class="font-weight-bold text-color-dark">- Our Team</h2>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <div class="owl-carousel show-nav-title custom-dots-style-1 custom-dots-position custom-xs-arrows-style-2 mb-0"
-                     data-plugin-options="{'items': 4, 'margin': 20, 'autoHeight': true, 'loop': false, 'nav': false, 'dots': true}">
-                    <div>
-                        <div class="team-item p-0">
-                            <a href="demo-business-consulting-team-detail.html" class="text-decoration-none">
-												<span class="image-wrapper">
-													<img src="<?= base_url('themes/porto'); ?>/img/demos/business-consulting/team/team-1.jpg"
-                                                         alt=""
-                                                         class="img-fluid"/>
-												</span>
-                            </a>
-                            <div class="team-infos">
-                                <div class="share">
-                                    <i class="fas fa-share-alt"></i>
-                                    <div class="share-icons bg-color-light">
-                                        <a href="#" class="text-decoration-none" title="Share on Facebook"><i
-                                                    class="fab fa-facebook-f"></i></a>
-                                        <a href="#" class="text-decoration-none" title="Share on Instagram"><i
-                                                    class="fab fa-instagram"></i></a>
-                                        <a href="#" class="text-decoration-none" title="Share on Linkedin"><i
-                                                    class="fab fa-linkedin-in"></i></a>
-                                    </div>
-                                </div>
-                                <a href="demo-business-consulting-team-detail.html" class="text-decoration-none">
-                                    <span class="team-member-name text-color-dark font-weight-semibold text-4">John Doe</span>
-                                    <span class="team-member-desc font-weight-light">CEO</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="team-item p-0">
-                            <a href="demo-business-consulting-team-detail.html" class="text-decoration-none">
-												<span class="image-wrapper">
-													<img src="<?= base_url('themes/porto'); ?>/img/demos/business-consulting/team/team-2.jpg"
-                                                         alt=""
-                                                         class="img-fluid"/>
-												</span>
-                            </a>
-                            <div class="team-infos">
-                                <div class="share">
-                                    <i class="fas fa-share-alt"></i>
-                                    <div class="share-icons bg-color-light">
-                                        <a href="#" class="text-decoration-none" title="Share on Facebook"><i
-                                                    class="fab fa-facebook-f"></i></a>
-                                        <a href="#" class="text-decoration-none" title="Share on Instagram"><i
-                                                    class="fab fa-instagram"></i></a>
-                                        <a href="#" class="text-decoration-none" title="Share on Linkedin"><i
-                                                    class="fab fa-linkedin-in"></i></a>
-                                    </div>
-                                </div>
-                                <a href="demo-business-consulting-team-detail.html" class="text-decoration-none">
-                                    <span class="team-member-name text-color-dark font-weight-semibold text-4">Joyce Doe</span>
-                                    <span class="team-member-desc font-weight-light">Finance Expert</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="team-item p-0">
-                            <a href="demo-business-consulting-team-detail.html" class="text-decoration-none">
-												<span class="image-wrapper">
-													<img src="<?= base_url('themes/porto'); ?>/img/demos/business-consulting/team/team-3.jpg"
-                                                         alt=""
-                                                         class="img-fluid"/>
-												</span>
-                            </a>
-                            <div class="team-infos">
-                                <div class="share">
-                                    <i class="fas fa-share-alt"></i>
-                                    <div class="share-icons bg-color-light">
-                                        <a href="#" class="text-decoration-none" title="Share on Facebook"><i
-                                                    class="fab fa-facebook-f"></i></a>
-                                        <a href="#" class="text-decoration-none" title="Share on Instagram"><i
-                                                    class="fab fa-instagram"></i></a>
-                                        <a href="#" class="text-decoration-none" title="Share on Linkedin"><i
-                                                    class="fab fa-linkedin-in"></i></a>
-                                    </div>
-                                </div>
-                                <a href="demo-business-consulting-team-detail.html" class="text-decoration-none">
-                                    <span class="team-member-name text-color-dark font-weight-semibold text-4">Donald Doe</span>
-                                    <span class="team-member-desc font-weight-light">Manufacturing</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="team-item p-0">
-                            <a href="demo-business-consulting-team-detail.html" class="text-decoration-none">
-												<span class="image-wrapper">
-													<img src="<?= base_url('themes/porto'); ?>/img/demos/business-consulting/team/team-4.jpg"
-                                                         alt=""
-                                                         class="img-fluid"/>
-												</span>
-                            </a>
-                            <div class="team-infos">
-                                <div class="share">
-                                    <i class="fas fa-share-alt"></i>
-                                    <div class="share-icons bg-color-light">
-                                        <a href="#" class="text-decoration-none" title="Share on Facebook"><i
-                                                    class="fab fa-facebook-f"></i></a>
-                                        <a href="#" class="text-decoration-none" title="Share on Instagram"><i
-                                                    class="fab fa-instagram"></i></a>
-                                        <a href="#" class="text-decoration-none" title="Share on Linkedin"><i
-                                                    class="fab fa-linkedin-in"></i></a>
-                                    </div>
-                                </div>
-                                <a href="demo-business-consulting-team-detail.html" class="text-decoration-none">
-                                    <span class="team-member-name text-color-dark font-weight-semibold text-4">Jerry Doe</span>
-                                    <span class="team-member-desc font-weight-light">Project Manager</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="team-item p-0">
-                            <a href="demo-business-consulting-team-detail.html" class="text-decoration-none">
-												<span class="image-wrapper">
-													<img src="<?= base_url('themes/porto'); ?>/img/demos/business-consulting/team/team-5.jpg"
-                                                         alt=""
-                                                         class="img-fluid"/>
-												</span>
-                            </a>
-                            <div class="team-infos">
-                                <div class="share">
-                                    <i class="fas fa-share-alt"></i>
-                                    <div class="share-icons bg-color-light">
-                                        <a href="#" class="text-decoration-none" title="Share on Facebook"><i
-                                                    class="fab fa-facebook-f"></i></a>
-                                        <a href="#" class="text-decoration-none" title="Share on Instagram"><i
-                                                    class="fab fa-instagram"></i></a>
-                                        <a href="#" class="text-decoration-none" title="Share on Linkedin"><i
-                                                    class="fab fa-linkedin-in"></i></a>
-                                    </div>
-                                </div>
-                                <a href="demo-business-consulting-team-detail.html" class="text-decoration-none">
-                                    <span class="team-member-name text-color-dark font-weight-semibold text-4">Tom Doe</span>
-                                    <span class="team-member-desc font-weight-light">Business Development</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row text-center mt-5">
-            <div class="col">
-                <a class="btn btn-outline custom-border-width btn-primary custom-border-radius font-weight-semibold text-uppercase"
-                   href="demo-business-consulting-team.html">View All</a>
             </div>
         </div>
     </div>
@@ -852,24 +194,15 @@
         <div class="row align-items-center">
             <div class="col-md-6 col-lg-7">
                 <div class="looking-for-box">
-                    <h2>- <span class="text-1 custom-secondary-font">Are you looking for a</span><br>
-                        Business plan Consultant?</h2>
-                    <p class="mb-4 mb-md-0">Schedule your company strategy right session now</p>
+                    <h2> Don't have account?</h2>
+                    <p class="mb-4 mb-md-0">Please register with easy step</p>
                 </div>
             </div>
             <div class="col-md-3 d-flex justify-content-md-end mb-4 mb-md-0">
                 <a class="text-decoration-none" href="tel:+00112304567" target="_blank" title="Call Us Now">
 									<span class="custom-call-to-action white-border text-color-light">
-										<span class="action-title">Call Us Now</span>
-										<span class="action-info">+001 1230 4567</span>
-									</span>
-                </a>
-            </div>
-            <div class="col-md-3 col-lg-2">
-                <a class="text-decoration-none" href="mail:mail@example.com" target="_blank" title="Email Us Now">
-									<span class="custom-call-to-action white-border text-color-light">
-										<span class="action-title">Email Us Now</span>
-										<span class="action-info">mail@example.com</span>
+										<!-- <span class="action-title">As Personal ?</span> -->
+                        <span class="action-info"><input type="submit" value="Register Now" class="btn  custom-border-width btn-primary custom-border-radius font-weight-semibold text-uppercase" style="border:solid #fff 2px"></span>
 									</span>
                 </a>
             </div>
@@ -877,56 +210,36 @@
     </div>
 </section>
 
-<section class="custom-section-padding">
+<section class="custom-section-padding" id="simpo">
     <div class="container">
-        <div class="row">
-            <div class="col">
-                <h2 class="font-weight-bold text-color-dark">- Our Blog</h2>
-            </div>
-        </div>
+    
         <div class="row">
             <article class="blog-post col">
                 <div class="row">
                     <div class="col-sm-8 col-lg-5">
-                        <div class="blog-post-image-wrapper">
-                            <img src="<?= base_url('themes/porto'); ?>/img/demos/business-consulting/blog/blog-1.jpg"
-                                 alt class="img-fluid mb-4"/>
-                            <span class="blog-post-date bg-color-primary text-color-light font-weight-bold">
-												20
-												<span class="month-year font-weight-light">
-													Oct-16
-												</span>
-											</span>
+                        <div class="owl-carousel owl-theme nav-inside float-left mr-4 mb-2"  data-plugin-options="{'items': 1, 'margin': 10, 'animateOut': 'fadeOut','autoplay': true}">
+                        
+                            <div>
+                                <img alt="" class="img-fluid rounded" src="https://coe67-surakarta.com/assets/frontend/images/simpo/simpo2.jpeg">
+                            </div>
+                            <div>
+                                <img alt="" class="img-fluid rounded" src="https://coe67-surakarta.com/assets/frontend/images/simpo/simpo3.jpeg">
+                            </div>
                         </div>
                     </div>
                     <div class="col-sm-12 col-lg-7">
-                        <h2> Global Opportunities</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla volutpat ex finibus urna
-                            tincidunt, auctor ullamcorper risus luctus. Nunc et feugiat arcu, in placerat risus.
-                            Phasellus condimentum sapien vi.</p>
+                        <h2> Symposium</h2>
+                        <p>A comprehensive array of sessions have been prepared, of which will hopefully enable us to run a proper Orthopaedic Services in Indonesia. The meeting will also organize Plenary Lecture, Resident Day Lecture and several workshops to finalize the fulfillment. Prominent Orthopaedic Surgeon from Indonesia, South East Asia, Asia Pacific and beyond Asia have been invited to present their lecture.</p>
                         <hr class="solid">
                         <div class="post-infos d-flex">
-											<span class="info posted-by">
-												Posted by:
-												<span class="post-author font-weight-semibold text-color-dark">
-													John Doe
-												</span>
-											</span>
-                            <span class="info comments ml-5">
-												Comments:
-												<span class="comments-number text-color-primary font-weight-semibold">
-													15
-												</span>
-											</span>
-                            <span class="info like ml-5">
-												Like:
-												<span class="like-number font-weight-semibold custom-color-red">
-													38
-												</span>
-											</span>
+                            <span class="info posted-by">
+                                <span class="post-author font-weight-semibold text-color-dark">
+                                    24-27 April 2019, Alila Hotel - Solo
+                                    <br>
+                                    67<sup>th</sup> Continuing Orthopaedic Education
+                                </span>
+                            </span>
                         </div>
-                        <a class="btn btn-outline custom-border-width btn-primary custom-border-radius font-weight-semibold text-uppercase mt-4"
-                           href="demo-business-consulting-blog-detail.html" title="Read More">Read More</a>
                     </div>
                 </div>
             </article>
@@ -934,126 +247,505 @@
     </div>
 </section>
 
-
-<section class="section section-text-light section-background m-0"
-         style="background: url('<?= base_url('themes/porto'); ?>/img/demos/business-consulting/contact/contact-background.jpg'); background-size: cover;">
+<section class="section-secondary custom-section-padding" id="workshop">
     <div class="container">
-        <div class="row justify-content-md-center">
-            <div class="col-lg-6 mb-5 mb-lg-0">
-                <h2 class="font-weight-bold">- Contact Us</h2>
-                <p class="custom-opacity-font">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
-                    volutpat ex finibus urna tincidunt, auctor ullamcorper.</p>
-                <div class="row">
-                    <div class="col-md-6 custom-sm-margin-top">
-                        <h4 class="mb-1">Call Us</h4>
-                        <a href="tel:+1234567890" class="text-decoration-none" target="_blank" title="Call Us">
-											<span class="custom-call-to-action-2 text-color-light text-2 custom-opacity-font">
-												Phone
-												<span class="info text-5">
-													123-456-7890
-												</span>
-											</span>
-                        </a>
-                    </div>
-                    <div class="col-md-6 custom-sm-margin-top">
-                        <h4 class="mb-1">Our Location</h4>
-                        <p class="custom-opacity-font">Porto Business Consulting 123 Porto Blvd, Suite 100 New York,
-                            NY</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6 custom-sm-margin-top">
-                        <h4 class="mb-1">Mail Us</h4>
-                        <a href="mail:mail@example.com" class="text-decoration-none" target="_blank"
-                           title="Mail Us">
-											<span class="custom-call-to-action-2 text-color-light text-2 custom-opacity-font">
-												Email
-												<span class="info text-5">
-													mail@example.com
-												</span>
-											</span>
-                        </a>
-                    </div>
-                    <div class="col-md-6 custom-sm-margin-top">
-                        <h4 class="mb-1">Social Media</h4>
-                        <ul class="social-icons social-icons-clean custom-social-icons-style-1 mt-2 custom-opacity-font">
-                            <li class="social-icons-facebook">
-                                <a href="http://www.facebook.com/" target="_blank" title="Facebook">
-                                    <i class="fab fa-facebook-f"></i>
-                                </a>
-                            </li>
-                            <li class="social-icons-twitter">
-                                <a href="http://www.twitter.com/" target="_blank" title="Twitter">
-                                    <i class="fab fa-twitter"></i>
-                                </a>
-                            </li>
-                            <li class="social-icons-instagram">
-                                <a href="http://www.instagram.com/" target="_blank" title="Instagram">
-                                    <i class="fab fa-instagram"></i>
-                                </a>
-                            </li>
-                            <li class="social-icons-linkedin">
-                                <a href="http://www.linkedin.com/" target="_blank" title="Linkedin">
-                                    <i class="fab fa-linkedin-in"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+        <div class="row">
+            <div class="col">
+                <h2 class="font-weight-bold text-color-dark">Workshops</h2>
             </div>
-            <div class="col-lg-6 custom-sm-margin-top">
-                <h2 class="font-weight-bold">- Write Us</h2>
-                <form id="contactForm" class="contact-form custom-contact-form-style-1"
-                      action="php/contact-form.php" method="POST">
-                    <div class="contact-form-success alert alert-success d-none mt-4" id="contactSuccess">
-                        <strong>Success!</strong> Your message has been sent to us.
-                    </div>
-
-                    <div class="contact-form-error alert alert-danger d-none mt-4" id="contactError">
-                        <strong>Error!</strong> There was an error sending your message.
-                        <span class="mail-error-message text-1 d-block" id="mailErrorMessage"></span>
-                    </div>
-
-                    <input type="hidden" name="subject" value="Contact Message Received"/>
-                    <div class="form-row">
-                        <div class="form-group col">
-                            <div class="custom-input-box">
-                                <i class="icon-user icons text-color-primary"></i>
-                                <input type="text" value="" data-msg-required="Please enter your name."
-                                       maxlength="100" class="form-control" name="name" id="name"
-                                       placeholder="Name*" required>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="owl-carousel show-nav-title custom-dots-style-1 custom-dots-position custom-xs-arrows-style-2 mb-0" data-plugin-options="{'items': 4, 'margin': 20, 'autoHeight': true, 'loop': true, 'nav': false, 'dots': true,'autoplay': true}">
+                    
+                                <div>
+                        <div class="team-item p-0" >
+                            <a href="https://coe67-surakarta.com/frontend/program" class="text-decoration-none">
+                                <span class="image-wrapper" style="height:250px">
+                                    <img src="https://coe67-surakarta.com/assets/frontend/images/workshop/ebe0a1ae9e3ddea620cc324bb82f799f.jpg" alt="" class="img-fluid"
+                                    onerror="this.src='https://coe67-surakarta.com/assets/frontend/images/nopoto.jpg'"                                  />
+                                </span>
+                            </a>
+                            <div class="team-infos" style="height:150px">
+                                <a href="https://coe67-surakarta.com/frontend/program" class="text-decoration-none">
+                                    <span class="team-member-name text-color-dark font-weight-semibold text-4">Workshop Arthroscopy of Hip   </span>
+                                    <span class="team-member-desc font-weight-light">Cadaveric Arthroscopy, Live Surgery = FAI and Labrum repair </span>
+                                </a>
                             </div>
                         </div>
                     </div>
-                    <div class="form-row">
-                        <div class="form-group col">
-                            <div class="custom-input-box">
-                                <i class="icon-envelope icons text-color-primary"></i>
-                                <input type="email" value="" data-msg-required="Please enter your email address."
-                                       data-msg-email="Please enter a valid email address." maxlength="100"
-                                       class="form-control" name="email" id="email" placeholder="Email*" required>
+                                <div>
+                        <div class="team-item p-0" >
+                            <a href="https://coe67-surakarta.com/frontend/program" class="text-decoration-none">
+                                <span class="image-wrapper" style="height:250px">
+                                    <img src="https://coe67-surakarta.com/assets/frontend/images/workshop/154f04f4ade776c868b0e84eb91d6989.jpg" alt="" class="img-fluid"
+                                    onerror="this.src='https://coe67-surakarta.com/assets/frontend/images/nopoto.jpg'"                                  />
+                                </span>
+                            </a>
+                            <div class="team-infos" style="height:150px">
+                                <a href="https://coe67-surakarta.com/frontend/program" class="text-decoration-none">
+                                    <span class="team-member-name text-color-dark font-weight-semibold text-4">Workshop ACL & PCL Reconstruction   </span>
+                                    <span class="team-member-desc font-weight-light">Cadaveric Course & Live Surgery ACL – PCL reconstruction </span>
+                                </a>
                             </div>
                         </div>
                     </div>
-                    <div class="form-row">
-                        <div class="form-group col">
-                            <div class="custom-input-box">
-                                <i class="icon-bubble icons text-color-primary"></i>
-                                <textarea maxlength="5000" data-msg-required="Please enter your message." rows="10"
-                                          class="form-control" name="message" id="message" placeholder="Message*"
-                                          required></textarea>
+                                <div>
+                        <div class="team-item p-0" >
+                            <a href="https://coe67-surakarta.com/frontend/program" class="text-decoration-none">
+                                <span class="image-wrapper" style="height:250px">
+                                    <img src="https://coe67-surakarta.com/assets/frontend/images/workshop/396ed375c55dad798f342aaa1a625949.png" alt="" class="img-fluid"
+                                    onerror="this.src='https://coe67-surakarta.com/assets/frontend/images/nopoto.jpg'"                                  />
+                                </span>
+                            </a>
+                            <div class="team-infos" style="height:150px">
+                                <a href="https://coe67-surakarta.com/frontend/program" class="text-decoration-none">
+                                    <span class="team-member-name text-color-dark font-weight-semibold text-4">Workshop Arthroscopy of  Shoulder, Shoulder Hemiarthroplasty, <br> Total Elbow Arthroplasty   </span>
+                                    <span class="team-member-desc font-weight-light">Cadaveric Course: Arthroscopy of  Shoulder, Shoulder hemiarthroplasty, Total elbow arthroplasty </span>
+                                </a>
                             </div>
                         </div>
                     </div>
-                    <div class="form-row">
-                        <div class="form-group col">
-                            <input type="submit" value="Submit Now"
-                                   class="btn btn-outline custom-border-width btn-primary custom-border-radius font-weight-semibold text-uppercase"
-                                   data-loading-text="Loading...">
+                                <div>
+                        <div class="team-item p-0" >
+                            <a href="https://coe67-surakarta.com/frontend/program" class="text-decoration-none">
+                                <span class="image-wrapper" style="height:250px">
+                                    <img src="https://coe67-surakarta.com/assets/frontend/images/workshop/00fbbc2890ff8a97e9f23094629d1986.jpg" alt="" class="img-fluid"
+                                    onerror="this.src='https://coe67-surakarta.com/assets/frontend/images/nopoto.jpg'"                                  />
+                                </span>
+                            </a>
+                            <div class="team-infos" style="height:150px">
+                                <a href="https://coe67-surakarta.com/frontend/program" class="text-decoration-none">
+                                    <span class="team-member-name text-color-dark font-weight-semibold text-4">Workshop Cadaveric USG & C-ARM <br> Guided Pain Intervention   </span>
+                                    <span class="team-member-desc font-weight-light">Workshop USG Guided & C-ARM Pain Intervention  </span>
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </form>
+                                <div>
+                        <div class="team-item p-0" >
+                            <a href="https://coe67-surakarta.com/frontend/program" class="text-decoration-none">
+                                <span class="image-wrapper" style="height:250px">
+                                    <img src="https://coe67-surakarta.com/assets/frontend/images/workshop/2cd12c8479fd935ea036bdfad3c354bb.jpg" alt="" class="img-fluid"
+                                    onerror="this.src='https://coe67-surakarta.com/assets/frontend/images/nopoto.jpg'"                                  />
+                                </span>
+                            </a>
+                            <div class="team-infos" style="height:150px">
+                                <a href="https://coe67-surakarta.com/frontend/program" class="text-decoration-none">
+                                    <span class="team-member-name text-color-dark font-weight-semibold text-4">Workshop Ilizarov Bone Lengthening   </span>
+                                    <span class="team-member-desc font-weight-light">Cadaveric Course: Ilizarov Bone lengthening </span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                                <div>
+                        <div class="team-item p-0" >
+                            <a href="https://coe67-surakarta.com/frontend/program" class="text-decoration-none">
+                                <span class="image-wrapper" style="height:250px">
+                                    <img src="https://coe67-surakarta.com/assets/frontend/images/workshop" alt="" class="img-fluid"
+                                    onerror="this.src='https://coe67-surakarta.com/assets/frontend/images/nopoto.jpg'"                                  />
+                                </span>
+                            </a>
+                            <div class="team-infos" style="height:150px">
+                                <a href="https://coe67-surakarta.com/frontend/program" class="text-decoration-none">
+                                    <span class="team-member-name text-color-dark font-weight-semibold text-4">Symposium Sport Injury In Primary Healthcare   </span>
+                                    <span class="team-member-desc font-weight-light">Symposium GP Day  </span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                                <div>
+                        <div class="team-item p-0" >
+                            <a href="https://coe67-surakarta.com/frontend/program" class="text-decoration-none">
+                                <span class="image-wrapper" style="height:250px">
+                                    <img src="https://coe67-surakarta.com/assets/frontend/images/workshop" alt="" class="img-fluid"
+                                    onerror="this.src='https://coe67-surakarta.com/assets/frontend/images/nopoto.jpg'"                                  />
+                                </span>
+                            </a>
+                            <div class="team-infos" style="height:150px">
+                                <a href="https://coe67-surakarta.com/frontend/program" class="text-decoration-none">
+                                    <span class="team-member-name text-color-dark font-weight-semibold text-4">Workshop Strapping, Bandaging, Splinting & Brace   </span>
+                                    <span class="team-member-desc font-weight-light">Workshop GP Day </span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                
+                </div>
             </div>
         </div>
     </div>
 </section>
+
+<section class="custom-section-padding" id="package">
+    <div class="container">
+        <div class="row mb-3">
+            <div class="col-lg-12">
+                <h2 class="font-weight-bold text-color-dark">Scientific Events</h2>
+                <div class="accordion without-bg custom-accordion-style-1" id="accordion7">
+                    <div class="card card-default">
+                        <div class="card-header">
+                            <h4 class="card-title m-0">
+                                <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion7" href="#collapse_perdoski" aria-expanded="false">
+                                    Anggota Perdoski <span class="custom-accordion-plus"></span>
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapse_perdoski" class="collapse" aria-expanded="false" style="height: 0px;">
+                            <div class="card-body">
+                                <p>
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Package name</th>
+                                            <th>Early Bird <br>(s/d 31-10-2019)</th>
+                                            <th>Regular<br>(01-11-2019 s/d 06-03-2020)</th>
+                                            <th>On Site<br>(7-15 Maret 2020)</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><a href="#" data-toggle="modal" data-target="#myModal" onclick="paketDetail('64')">Symposium</a></td>
+                                            <td>Rp. 1.500.000,- </td>
+                                            <td>Rp. 2.000.000,-</td>
+                                            <td>Rp. 2.500.000,-</td>
+                                            <td>
+                                            <a class="btn btn-primary btn-sm" href="https://coe67-surakarta.com/frontend/pendaftaran" style="width: 100px;border-radius: 35px !important;">Order</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            <div class="card card-default">
+                <div class="card-header">
+                    <h4 class="card-title m-0">
+                        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion7" href="#collapse_anggotamuda" aria-expanded="false">
+                        Anggota Muda<span class="custom-accordion-plus"></span></a>
+                    </h4>
+                </div>
+                <div id="collapse_anggotamuda" class="collapse" aria-expanded="false" style="height: 0px;">
+                    <div class="card-body">
+                        <p>
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Package name</th>
+                                            <th>Early Bird <br>(s/d 31-10-2019)</th>
+                                            <th>Regular<br>(01-11-2019 s/d 06-03-2020)</th>
+                                            <th>On Site<br>(7-15 Maret 2020)</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><a href="#" data-toggle="modal" data-target="#myModal" onclick="paketDetail('64')">Symposium</a></td>
+                                            <td>Rp. 1.100.000,-</td>
+                                            <td>Rp. 1.250.000,-</td>
+                                            <td>Rp. 1.500.000,-</td>
+                                            <td>
+                                            <a class="btn btn-primary btn-sm" href="https://coe67-surakarta.com/frontend/pendaftaran" style="width: 100px;border-radius: 35px !important;">Order</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><a href="#" data-toggle="modal" data-target="#myModal" onclick="paketDetail('64')">Workshop</a></td>
+                                            <td>Rp. 1.500.000,-</td>
+                                            <td>Rp. 2.000.000,-</td>
+                                            <td>Rp. 2.500.000,-</td>
+                                            <td>
+                                            <a class="btn btn-primary btn-sm mb-2"  href="#" style="background: #f56954;;width: 100px;border-radius: 35px !important">Full</a></td>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card card-default">
+                <div class="card-header">
+                    <h4 class="card-title m-0">
+                        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion7" href="#collapse_spesialis" aria-expanded="false">
+                        Dokter Spesialis<span class="custom-accordion-plus"></span></a>
+                    </h4>
+                </div>
+                <div id="collapse_spesialis" class="collapse" aria-expanded="false" style="height: 0px;">
+                    <div class="card-body">
+                        <p>
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Package name</th>
+                                            <th>Early Bird <br>(s/d 31-10-2019)</th>
+                                            <th>Regular<br>(01-11-2019 s/d 06-03-2020)</th>
+                                            <th>On Site<br>(7-15 Maret 2020)</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><a href="#" data-toggle="modal" data-target="#myModal" onclick="paketDetail('64')">Workshop</a></td>
+                                            <td>Rp. 2.500.000,-</td>
+                                            <td>Rp. 3.000.000,-</td>
+                                            <td>Rp. 3.500.000,-</td>
+                                            <td>
+                                            <a class="btn btn-primary btn-sm mb-2"  href="#" style="background: #f56954;;width: 100px;border-radius: 35px !important">Full</a></td>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card card-default">
+                <div class="card-header">
+                    <h4 class="card-title m-0">
+                        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion7" href="#collapse_spesialisdll" aria-expanded="false">
+                        Dokter Spesialis Lain<span class="custom-accordion-plus"></span></a>
+                    </h4>
+                </div>
+                <div id="collapse_spesialisdll" class="collapse" aria-expanded="false" style="height: 0px;">
+                    <div class="card-body">
+                        <p>
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Package name</th>
+                                            <th>Early Bird <br>(s/d 31-10-2019)</th>
+                                            <th>Regular<br>(01-11-2019 s/d 06-03-2020)</th>
+                                            <th>On Site<br>(7-15 Maret 2020)</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><a href="#" data-toggle="modal" data-target="#myModal" onclick="paketDetail('64')">Symposium</a></td>
+                                            <td>Rp. 1.500.000</td>
+                                            <td>Rp. 2.000.000,-</td>
+                                            <td>Rp. 2.500.000,-</td>
+                                            <td>
+                                            <a class="btn btn-primary btn-sm mb-2"  href="#" style="background: #f56954;;width: 100px;border-radius: 35px !important">Full</a></td>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card card-default">
+                <div class="card-header">
+                    <h4 class="card-title m-0">
+                        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion7" href="#collapse_dokterumum" aria-expanded="false">
+                        Dokter Umum<span class="custom-accordion-plus"></span></a>
+                    </h4>
+                </div>
+                <div id="collapse_dokterumum" class="collapse" aria-expanded="false" style="height: 0px;">
+                    <div class="card-body">
+                        <p>
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Package name</th>
+                                            <th>Early Bird <br>(s/d 31-10-2019)</th>
+                                            <th>Regular<br>(01-11-2019 s/d 06-03-2020)</th>
+                                            <th>On Site<br>(7-15 Maret 2020)</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><a href="#" data-toggle="modal" data-target="#myModal" onclick="paketDetail('64')">Symposium</a></td>
+                                            <td>Rp. 900.000,-</td>
+                                            <td>Rp. 1.000.000,-</td>
+                                            <td>Rp. 1.100.000,-</td>
+                                            <td>
+                                            <a class="btn btn-primary btn-sm mb-2"  href="#" style="background: #f56954;;width: 100px;border-radius: 35px !important">Full</a></td>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card card-default">
+                <div class="card-header">
+                    <h4 class="card-title m-0">
+                        <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion7" href="#collapse_meet" aria-expanded="false">
+                        Meet The Expert Medicolegal Aspect<span class="custom-accordion-plus"></span></a>
+                    </h4>
+                </div>
+                <div id="collapse_meet" class="collapse" aria-expanded="false" style="height: 0px;">
+                    <div class="card-body">
+                        <p>
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Package name</th>
+                                            <th>Early Bird <br>(s/d 31-10-2019)</th>
+                                            <th>Regular<br>(01-11-2019 s/d 06-03-2020)</th>
+                                            <th>On Site<br>(7-15 Maret 2020)</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><a href="#" data-toggle="modal" data-target="#myModal" onclick="paketDetail('64')">Symposium</a></td>
+                                            <td>Rp. 500.000,-</td>
+                                            <td>Rp. 750.000,-</td>
+                                            <td>Rp. 1.000.000,-</td>
+                                            <td>
+                                                <a class="btn btn-primary btn-sm" href="https://coe67-surakarta.com/frontend/pendaftaran" style="width: 100px;border-radius: 35px !important;">Order</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </p>
+                    </div>
+                </div>
+            </div>
+</section>
+
+<section class="section section-text-light section-background m-0" style="background: url('https://coe67-surakarta.com/assets/frontend/img/footer/footer2.jpg'); background-size: cover;">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <h2 class="font-weight-bold">Secretariat IOA Central Java </h2>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <h4 class="mb-1">Call Us</h4>
+                                        <a href="tel:+1234567890" class="text-decoration-none" target="_blank" title="Call Us">
+                                            <span class="custom-call-to-action-2 text-color-light text-2 custom-opacity-font" style="color:#e3a50f !important">
+                                                Mrs Ida: General Secretary
+                                                <span class="info text-5">
+                                                    +628 1329 6904 00
+                                                </span>
+                                            </span>
+                                        </a>
+                                        <a href="tel:+1234567890" class="text-decoration-none" target="_blank" title="Call Us">
+                                            <span class="custom-call-to-action-2 text-color-light text-2 custom-opacity-font" style="color:#e3a50f !important">
+                                                Mr. Sholiqin: Scientifics
+                                                <span class="info text-5">
+                                                    +628 2133 8888 44 
+                                                </span>
+                                            </span>
+                                        </a>
+                                        <a href="tel:+1234567890" class="text-decoration-none" target="_blank" title="Call Us">
+                                            <span class="custom-call-to-action-2 text-color-light text-2 custom-opacity-font" style="color:#e3a50f !important">
+                                                Mrs. Grienda: Sponsorship
+                                                <span class="info text-5">
+                                                    +628 5629 883 65 
+                                                </span>
+                                            </span>
+                                        </a>
+                                        <a href="tel:+1234567890" class="text-decoration-none" target="_blank" title="Call Us">
+                                            <span class="custom-call-to-action-2 text-color-light text-2 custom-opacity-font" style="color:#e3a50f !important">
+                                                Mrs. Kinan: Registration & Accomodation
+                                                <span class="info text-5">
+                                                    +62 858 0126 1651
+                                                </span>
+                                            </span>
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-6 custom-sm-margin-top">
+                                        <h4 class="mb-1">Mail Us</h4>
+                                        <a href="coe67solo@gmail.com " class="text-decoration-none" target="_blank" title="Mail Us">
+                                            <span class="custom-call-to-action-2 text-color-light text-2 custom-opacity-font" style="color:#e3a50f !important">
+                                                Email
+                                                <span class="info text-5">
+                                                    coe67solo@gmail.com 
+                                                </span>
+                                            </span>
+                                        </a>
+                                        <h4 class="mb-1">Our Location</h4>
+                                        <p class="custom-opacity-font"  style="color:#e3a50f !important">dr. Moewardi Regional Public Hospital, Kolonel Soetarto 132 Jebres, Surakarta, 57126 Central Java</p>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 custom-sm-margin-top">
+        
+                                <h2 class="font-weight-bold">Frequently Asked Question</h2>
+                                <div class="owl-carousel owl-theme nav-bottom rounded-nav numbered-dots pl-1 pr-1" data-plugin-options="{'items': 1, 'loop': false, 'dots': true, 'nav': false}">
+                                        <div>
+                                        <div class="custom-step-item">
+                                            <span class="step text-uppercase"  style="color:white">
+                                                Ask
+                                                <span class="step-number text-color-primary">
+                                                    01
+                                                </span>
+                                            </span>
+                                            <div class="step-content">
+                                                <h4 class="mb-3"><strong>Why must we make an account?</strong></h4>
+                                                <p>It is part of terms to make it easier to register as a symposium / workshop participant getting many facilities, including:
+                                                Personal notification pre and during event about COE 67th, 
+                                                Download symposium and workshops material, 
+                                                Facilitating attendance registration during event (via application & QR code scan), 
+                                                Unexpected bonuses later
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="custom-step-item">
+                                            <span class="step text-uppercase"  style="color:white">
+                                                Ask
+                                                <span class="step-number text-color-primary">
+                                                    02
+                                                </span>
+                                            </span>
+                                            <div class="step-content">
+                                                <h4 class="mb-3"><strong>What if the participant cannot get online?</strong></h4>
+                                                <p>All participat registration can only be served online</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="custom-step-item">
+                                            <span class="step text-uppercase"  style="color:white">
+                                                Ask
+                                                <span class="step-number text-color-primary">
+                                                    03
+                                                </span>
+                                            </span>
+                                            <div class="step-content">
+                                                <h4 class="mb-3"><strong>What if there are participants who want to change / edit their registration the paid is confirmed?</strong></h4>
+                                                <p>To change it only can be done by sending letter to the committee with terms and conditions applied. For any changes to hotel bookings are subject to additional fees.
+                                                for more FAQ <a href="https://coe67-surakarta.com/frontend/read/faq">Click here</a> </p>
+                                            </div>
+                                        </div>
+                                    </div>  
+                                </div>
+                 
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                                    
+
+
+                </div>
+            </div>
+        </div>
+    </div>
