@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c2d25f6e402c6db4e08bd922984be34f",
+    "content-hash": "fe176680413383b77e95a0dbcafbdded",
     "packages": [
         {
             "name": "phpoption/phpoption",
@@ -165,6 +165,43 @@
                 "environment"
             ],
             "time": "2019-03-06T09:39:45+00:00"
+        },
+        {
+            "name": "yidas/codeigniter-model",
+            "version": "2.18.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yidas/codeigniter-model.git",
+                "reference": "ae3faf3c58040424e0949796802b4ea6aa7cfe81"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yidas/codeigniter-model/zipball/ae3faf3c58040424e0949796802b4ea6aa7cfe81",
+                "reference": "ae3faf3c58040424e0949796802b4ea6aa7cfe81",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "CodeIgniter 3 ORM Base Model pattern with My_model example",
+            "homepage": "https://github.com/yidas/codeigniter-model",
+            "keywords": [
+                "MY_Model",
+                "base model",
+                "codeigniter",
+                "model"
+            ],
+            "time": "2019-06-10T09:52:26+00:00"
         }
     ],
     "packages-dev": [],
