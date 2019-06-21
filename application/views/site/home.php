@@ -200,7 +200,7 @@
                 </div>
             </div>
             <div class="col-md-3 d-flex justify-content-md-end mb-4 mb-md-0">
-                <a class="text-decoration-none" href="tel:+00112304567" target="_blank" title="Call Us Now">
+                <a class="text-decoration-none" href="<?=base_url("site/register");?>">
 									<span class="custom-call-to-action white-border text-color-light">
 										<!-- <span class="action-title">As Personal ?</span> -->
                         <span class="action-info"><input type="submit" value="Register Now" class="btn  custom-border-width btn-primary custom-border-radius font-weight-semibold text-uppercase" style="border:solid #fff 2px"></span>
@@ -210,6 +210,39 @@
         </div>
     </div>
 </section>
+
+<section class="custom-section-padding" id="simpo">
+    <div class="container">
+    
+        <div class="row">
+            <article class="blog-post col">
+                <div class="row">
+                    <div class="col-sm-8 col-lg-4">
+                        <div class="owl-carousel owl-theme nav-inside float-left mr-4 mb-2" data-plugin-options="{'items': 1, 'margin': 10, 'animateOut': 'fadeOut','autoplay': true}">
+                            <div>
+                                <img alt="" class="img-thumbnail rounded" src="themes/porto/img/huany.png">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-lg-8">
+                        <h2> PRAKATA</h2>
+                        
+                        <hr class="solid">
+                        <div class="post-infos d-flex">
+                            <span class="info posted-by">
+                                <span class="post-author font-weight-semibold text-color-dark">
+                                   <p>A comprehensive array of sessions have been prepared, of which will hopefully enable us to run a proper Orthopaedic Services in Indonesia. The meeting will also organize Plenary Lecture, Resident Day Lecture and several workshops to finalize the fulfillment. Prominent Orthopaedic Surgeon from Indonesia, South East Asia, Asia Pacific and beyond Asia have been invited to present their lecture.</p> <br>
+                                   <p>A comprehensive array of sessions have been prepared, of which will hopefully enable us to run a proper Orthopaedic Services in Indonesia. The meeting will also organize Plenary Lecture, Resident Day Lecture and several workshops to finalize the fulfillment. Prominent Orthopaedic Surgeon from Indonesia, South East Asia, Asia Pacific and beyond Asia have been invited to present their lecture.</p>
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </div>
+</section>
+
                         
 
                 </div>

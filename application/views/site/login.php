@@ -6,7 +6,7 @@
             </div>
             <div class="col-md-4 order-1 order-md-2 align-self-center">
                 <ul class="breadcrumb d-block text-md-right breadcrumb-light">
-                    <li><a href="<?=base_url('site/home');?>">Home</a></li>
+                    <li><a href="<?=base_url('site');?>">Home</a></li>
                     <li class="active">Login</li>
                 </ul>
             </div>

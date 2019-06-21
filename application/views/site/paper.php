@@ -2,12 +2,12 @@
     <div class="container">
         <div class="row mt-3">
             <div class="col-md-8 order-2 order-md-1 align-self-center p-static">
-                <h1>Downloads</h1>
+                <h1>Submit Paper</h1>
             </div>
             <div class="col-md-4 order-1 order-md-2 align-self-center">
                 <ul class="breadcrumb d-block text-md-right breadcrumb-light">
                     <li><a href="<?=base_url('site');?>">Home</a></li>
-                    <li class="active">Downloads</li>
+                    <li class="active">Submit Paper</li>
                 </ul>
             </div>
         </div>
@@ -18,7 +18,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12 col-lg-offset-2">
-                <center><h2>Downloads page here</h2></center>
+                <center><h2>Submit paper page here</h2></center>
             </div>
         </div>
     </div>

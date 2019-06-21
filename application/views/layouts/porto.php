@@ -83,7 +83,7 @@
                                             <nav class="collapse">
                                                 <ul class="nav nav-pills" id="mainNav">
                                                     <li>
-                                                        <a class="nav-link active" href="<?=base_url("site");?>">
+                                                        <a class="nav-link" href="<?=base_url("site");?>">
                                                             Home
                                                         </a>
                                                     </li>
@@ -103,6 +103,11 @@
                                                                     Schedules
                                                                 </a>
                                                             </li>
+                                                            <li>
+                                                                <a class="dropdown-item" href="<?=base_url("site/paper");?>">
+                                                                    Submit Paper
+                                                                </a>
+                                                            </li>
                                                         </ul>
                                                     </li>
                                                     <li>
@@ -112,30 +117,18 @@
                                                     </li>
                                                     <li class="dropdown dropdown-primary">
                                                         <a class="dropdown-toggle nav-link"
-                                                           href="#">
-                                                            Information &nbsp;<i class="fa fa-chevron-circle-down"></i>
+                                                           href="<?=base_url("site/committee");?>">
+                                                            committee
                                                         </a>
-                                                        <ul class="dropdown-menu">
-                                                            <li>
-                                                                <a class="dropdown-item" href="#">
-                                                                    FAQ
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a class="dropdown-item" href="#">
-                                                                    General Rules
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a class="dropdown-item" href="#">
-                                                                    Legal Diclaimer
-                                                                </a>
-                                                            </li>
-                                                        </ul>
                                                     </li>
                                                     <li>
                                                         <a class="nav-link" href="<?=base_url("site/download");?>">
                                                             Downloads
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a class="nav-link" href="<?=base_url("site/contact");?>">
+                                                            contact us
                                                         </a>
                                                     </li>
                                                     <li style="border-left: 1px solid #fff" class="dropdown dropdown-primary">

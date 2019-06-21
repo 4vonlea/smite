@@ -43,4 +43,16 @@ class Site extends CI_Controller {
     public function forget(){
         $this->layout->render('site/forget');
     }
+
+    public function committee(){
+        $this->layout->render('site/committee');
+    }
+
+    public function contact(){
+        $this->layout->render('site/contact');
+    }
+
+    public function paper(){
+        $this->layout->render('site/paper');
+    }
 }
