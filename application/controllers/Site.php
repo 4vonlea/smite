@@ -23,4 +23,24 @@ class Site extends CI_Controller {
     public function simposium(){
         $this->layout->render('site/simposium');
     }
+
+    public function schedules(){
+        $this->layout->render('site/schedules');
+    }
+
+    public function download(){
+        $this->layout->render('site/download');
+    }
+
+    public function login(){
+        $this->layout->render('site/login');
+    }
+
+    public function register(){
+        $this->layout->render('site/register');
+    }
+
+    public function forget(){
+        $this->layout->render('site/forget');
+    }
 }

@@ -71,7 +71,7 @@
                                 <div class="header-row">
                                     <div class="header-logo">
                                         <a href="demo-business-consulting.html">
-                                            <img alt="Porto" width="82" height="40" src="<?=base_url('themes/porto');?>/img/logo-default-slim-dark.png">
+                                            <img alt="Porto" width="82" height="40" src="<?=base_url('site');?>/img/logo-default-slim-dark.png">
                                         </a>
                                     </div>
                                 </div>
@@ -83,7 +83,7 @@
                                             <nav class="collapse">
                                                 <ul class="nav nav-pills" id="mainNav">
                                                     <li>
-                                                        <a class="nav-link active" href="<?=base_url("site/home");?>">
+                                                        <a class="nav-link active" href="<?=base_url("site");?>">
                                                             Home
                                                         </a>
                                                     </li>
@@ -99,8 +99,8 @@
                                                                 </a>
                                                             </li>
                                                             <li>
-                                                                <a class="dropdown-item" href="">
-                                                                    Paper
+                                                                <a class="dropdown-item" href="<?=base_url("site/schedules");?>">
+                                                                    Schedules
                                                                 </a>
                                                             </li>
                                                         </ul>
@@ -134,7 +134,7 @@
                                                         </ul>
                                                     </li>
                                                     <li>
-                                                        <a class="nav-link" href="demo-business-consulting-team.html">
+                                                        <a class="nav-link" href="<?=base_url("site/download");?>">
                                                             Downloads
                                                         </a>
                                                     </li>
@@ -145,18 +145,13 @@
                                                         </a>
                                                         <ul class="dropdown-menu">
                                                             <li>
-                                                                <a class="dropdown-item" href="#">
+                                                                <a class="dropdown-item" href="<?=base_url("site/login");?>">
                                                                     Login
                                                                 </a>
                                                             </li>
                                                             <li>
-                                                                <a class="dropdown-item" href="#">
-                                                                    Personel Register
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a class="dropdown-item" href="#">
-                                                                    Sponsor Register
+                                                                <a class="dropdown-item" href="<?=base_url("site/register");?>">
+                                                                    Register
                                                                 </a>
                                                             </li>
                                                         </ul>
