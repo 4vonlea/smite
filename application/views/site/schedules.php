@@ -22,44 +22,6 @@
         The  schedule may change anytime.
     </div>
 
-    <h3>13/03/2020 - Day 1</h3>
-    <div class="row">
-        <div class="col-md-12">
-            <table class="table table-bordered table-striped">
-                <thead>
-                    <tr>
-                        <th colspan="2" style="width: 100%;">Workshop </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td style="width: 5%;">1</td>
-                        <td>Dry Workshop Wound Healing</td>
-                    </tr>
-                    <tr>
-                        <td style="width: 5%;">2</td>
-                        <td>Wet Workshop Blepharoplasty</td>
-                    </tr>
-                    <tr>
-                        <td style="width: 5%;">3</td>
-                        <td>Wet Workshop Thread Lift & Filler</td>
-                    </tr>
-                    <tr>
-                        <td style="width: 5%;">4</td>
-                        <td>Wet Workshop Laser for Geriatric Rejuvenation</td>
-                    </tr>
-                    <tr>
-                        <td style="width: 5%;">5</td>
-                        <td>Dry Workshop Dermatoscopy</td>
-                    </tr>
-                    <tr>
-                        <th colspan="2" style="width: 100%;">Bakti Sosial </th>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-
     <h3>22/04/2019 - Workshop Knee, Day 1</h3>
     <div class="row">
         <div class="col-md-12">
