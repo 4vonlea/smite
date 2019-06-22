@@ -18,7 +18,11 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12 col-lg-offset-2">
-                <center><h2>Submit paper page here</h2></center>
+               <div class="alert alert-warning alert-dismissable alert-hotel">
+                   <i class="fa fa-info"></i>
+                   <b> Attention: </b>
+                   You must login to access this page
+                </div>
             </div>
         </div>
     </div>
