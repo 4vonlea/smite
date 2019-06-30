@@ -5,6 +5,8 @@
  * @property Layout $layout
  * @property CI_Config $config
  * @property CI_Loader $load
+ * @property CI_Input $input
+ * @property CI_Output $output
  */
 class MY_Controller extends CI_Controller
 {
@@ -42,6 +44,7 @@ class Admin_Controller extends MY_Controller{
 
         $this->layout->setLayout("layouts/argon");
         $this->layout->setBaseView("admin/");
+        $this->load->model('Settings_m');
     }
 
 }

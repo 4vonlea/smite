@@ -146,7 +146,7 @@ class Migration_init extends CI_Migration
     {
         $this->dbforge->add_field([
             'name' => ['type' => 'varchar', 'constraint' => '100'],
-            'value' => ['type' => 'varchar', 'constraint' => '100'],
+            'value' => ['type' => 'text'],
             'created_at' => ['type' => 'datetime'], 'updated_at' => ['type' => 'datetime']])->add_key('name', true)
             ->create_table("settings", true);
     }

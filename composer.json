@@ -7,6 +7,7 @@
     "require": {
         "php": ">=5.6",
         "vlucas/phpdotenv": "^3.3",
-        "yidas/codeigniter-model": "^2.18"
+        "yidas/codeigniter-model": "^2.18",
+        "google/apiclient": "^2.2"
     }
 }

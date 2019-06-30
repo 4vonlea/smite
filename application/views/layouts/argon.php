@@ -28,6 +28,20 @@
     <!-- Argon CSS -->
     <link type="text/css" href="<?= base_url(); ?>themes/argon/css/argon.min.css" rel="stylesheet">
     <script src="<?= base_url('themes/script/vue.js'); ?>"></script>
+    <style>
+        .fade-enter-active, .fade-leave-active {
+            transition: opacity .4s;
+        }
+        .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+            opacity: 0;
+        }
+        .wrapper-datepicker{
+            position: relative;
+            width: 1%;
+            margin-bottom: 0;
+            flex: 1 1 auto;
+        }
+    </style>
 </head>
 
 <body>
@@ -241,8 +255,9 @@
                 </ul>
             </div>
         </nav>
-
-        <?= $content; ?>
+        <div id="app">
+            <?= $content; ?>
+        </div>
 
         <!-- Footer -->
         <div class="container-fluid">
@@ -268,9 +283,9 @@
 <script src="<?= base_url(); ?>themes/argon/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
 <!-- Argon JS -->
-<script src="<?= base_url(); ?>themes/argon/js/argon.min.js"></script>
 <script src="<?= base_url("themes/script/vue-bootstrap4-table.min.js?").time(); ?>"></script>
 <?=$script_js;?>
+<script src="<?= base_url(); ?>themes/argon/js/argon.min.js"></script>
 </body>
 
 </html>
