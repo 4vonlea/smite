@@ -34,6 +34,7 @@ class Event_pricing_m extends MY_Model
             }else {
                 foreach($row['price'] as $j=>$price){
                     $return[] = [
+                        'id'=> isset($price['id'])?$price['id']:null,
                         'name' =>  $row['name'],
                         'condition'=>$price['condition'],
                         'condition_date'=>$row['condition_date'],
@@ -44,5 +45,27 @@ class Event_pricing_m extends MY_Model
             }
         }
         return $return;
+    }
+
+    public function reverseParseForm($datas){
+        $return = [];
+        foreach($datas as $row){
+            if(is_object($row))
+                $row = $row->toArray();
+
+            if(is_array($row)){
+                $conditionDate = explode(":",$row['condition_date']);
+                $return[$row['name']]['name'] = $row['name'];
+                $return[$row['name']]['condition_date'] = $row['condition_date'];
+                $return[$row['name']]['dateFrom'] = (count($conditionDate) > 1?$conditionDate[0]:'');
+                $return[$row['name']]['dateTo'] = (count($conditionDate) > 1?$conditionDate[1]:'');
+                $return[$row['name']]['price'][] = [
+                    'id'=>$row['id'],
+                    'condition'=>$row['condition'],
+                    'price'=>$row['price']
+                ];
+            }
+        }
+        return array_values($return);
     }
 }

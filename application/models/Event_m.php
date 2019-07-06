@@ -11,4 +11,9 @@ class Event_m extends MY_Model
             ['field'=>'kategory','label'=>'Event Category','rules'=>'required'],
         ];
     }
+
+    public function event_pricings(){
+        return $this->hasMany('Event_pricing_m','event_id');
+    }
+
 }

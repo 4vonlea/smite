@@ -1404,7 +1404,6 @@ abstract class CI_DB_query_builder extends CI_DB_driver {
 			$this->_track_aliases($table);
 			$this->from($table);
 		}
-
 		// ORDER BY usage is often problematic here (most notably
 		// on Microsoft SQL Server) and ultimately unnecessary
 		// for selecting COUNT(*) ...

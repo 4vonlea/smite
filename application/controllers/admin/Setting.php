@@ -35,4 +35,8 @@ class Setting extends Admin_Controller
         }
     }
 
+    public function save($setting_name){
+        Settings_m::saveSetting($setting_name,$this->input->post('value'));
+    }
+
 }
