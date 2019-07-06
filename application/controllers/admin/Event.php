@@ -10,6 +10,7 @@ class Event extends Admin_Controller
     {
         $this->load->model('Category_member_m');
         $participantsCategory = Category_member_m::asList(Category_member_m::findAll(), 'id', 'kategory');
+        $pricingDefault = [];
         foreach ($participantsCategory as $cat) {
             $pricingDefault[] = ['condition' => $cat, 'price' => 0];
         }
