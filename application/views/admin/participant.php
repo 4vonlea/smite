@@ -74,12 +74,41 @@
 <div class="container-fluid mt--7">
     <!-- Table -->
     <div class="row">
-        <div class="col">
-            <vue-bootstrap4-table :rows="rows" :columns="columns" :config="config">
-                <template slot="image" slot-scope="props">
-                    <img v-bind:src="props.cell_value" class="img img-thumbnail"/>
-                </template>
-            </vue-bootstrap4-table>
+        <div class="col-xl-12">
+            <div class="card shadow">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-6">
+                            <h3>Participants</h3>
+                        </div>
+                        <div class="col-6 text-right">
+                            <button @click="onAdd" type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Add Event</button>
+                            <button  type="button" class="btn btn-primary"  data-toggle="modal" data-target="#modal-event-category"><i class="fa fa-book"></i> Event Categories List</button>
+                        </div>
+                    </div>
+                </div>
+
+                <datagrid
+                        ref="datagrid"
+                        api-url="<?= base_url('admin/participant/grid'); ?>"
+                        :fields="[{name:'fullname',sortField:'fullname'}, {name:'email',sortField:'email'},{name:'gender',sortField:'gender'},{name:'id',title:'Actions',titleClass:'action-th'}]">
+                        <template slot="id" slot-scope="props">
+                            <div class="table-button-container">
+                                <button @click="editRow(props)" class="btn btn-warning btn-sm">
+                                    <span class="fa fa-pen"></span> Edit
+                                </button>
+                                <button @click="detailRow(props)" class="btn btn-info btn-sm">
+                                    <span class="fa fa-search"></span> Detail
+                                </button>
+                                <button @click="deleteRow(props)" class="btn btn-danger btn-sm">
+                                    <span class="fa fa-trash"></span> Delete
+                                </button>
+                            </div>
+                        </template>
+
+                </datagrid>
+            </div>
+
         </div>
     </div>
 </div>
@@ -90,52 +119,7 @@
     var app = new Vue({
         el: '#app',
         data: {
-            rows: [{
-                "image": "https://placeimg.com/100/120/people",
-                "fullname": "Vladimir Nitzsche",
-                "email": "franecki.anastasia@gmail.com",
-                "status": "Perdoski Members"
-            },
-                {
-                    "image": "https://placeimg.com/100/120/people",
-                    "fullname": "Handoko",
-                    "email": "rlittle@macejkovic.biz",
-                    "status": "General Practicioner"
-                },
-                {
-                    "image": "https://placeimg.com/100/120/people",
-                    "fullname": "Delia Becker",
-                    "email": "delia.becker@cormier.com",
-                    "status": "Spesialis Practicioner"
-                }],
-            columns: [
-                {
-                    label: 'image',
-                    name: 'image',
-                    sort: false
-                },
-                {
-                    label: "Full Name",
-                    name: "fullname",
-                    sort: true,
-                },
-                {
-                    label: "Email",
-                    name: "email",
-                    sort: true,
-                },
-                {
-                    label: "Category Participant",
-                    name: "status",
-                    sort: true,
-                },
-            ],
-            config: {
-                checkbox_rows: true,
-                rows_selectable: true,
-                card_title: "List Participants",
-                show_reset_button: false,
-            }
+
         }
     });
 </script>

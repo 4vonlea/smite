@@ -70,7 +70,7 @@
         </button>
         <!-- Brand -->
         <a class="navbar-brand pt-0" href="./index.html">
-            <img src="<?= base_url(); ?>themes/argon/img/brand/blue.png" class="navbar-brand-img" alt="...">
+            <img src="<?= base_url('themes/uploads/logo.png'); ?>" class="navbar-brand-img" alt="...">
         </a>
         <!-- User -->
         <ul class="nav align-items-center d-md-none">
@@ -173,11 +173,11 @@
                         <i class="ni ni-planet text-blue"></i> Events List
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="<?= base_url('admin/hotel_service'); ?>">
-                        <i class="ni ni-building text-orange"></i> Hotel Services
-                    </a>
-                </li>
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link" href="--><?//= base_url('admin/hotel_service'); ?><!--">-->
+<!--                        <i class="ni ni-building text-orange"></i> Hotel Services-->
+<!--                    </a>-->
+<!--                </li>-->
                 <li class="nav-item">
                     <a class="nav-link" href="<?= base_url('admin/hotel_service'); ?>">
                         <i class="ni ni-chat-round text-blue"></i> Send Message
@@ -185,7 +185,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="<?= base_url('admin/setting'); ?>">
-                        <i class="ni ni-settings text-red"></i> Application Setting
+                        <i class="ni ni-settings text-red"></i> Setting
                     </a>
                 </li>
             </ul>

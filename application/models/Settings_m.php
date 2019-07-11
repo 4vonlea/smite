@@ -5,6 +5,7 @@ class Settings_m extends MY_Model
 {
     protected $primaryKey = 'name';
     protected $table = "settings";
+
     const EVENT_CATEGORY = 'event_category';
 
 
@@ -25,18 +26,31 @@ class Settings_m extends MY_Model
         return [];
     }
 
-    /**
-     * @param $name
-     * @param $value
-     */
-    public static function saveSetting($name,$value){
+    public static function getSetting($name){
         $setting = Settings_m::findOne(['name'=>$name]);
-        if($setting == null) {
-            $setting = new Settings_m();
-            $setting->name = $name;
-        }
+        if($setting)
+            return $setting->value;
+        return "";
+    }
 
-        $setting->value = ($value ?json_encode($value):'{}');
-        $setting->save();
+    /**
+     * @param array|string $name
+     * @param string $value
+     */
+    public static function saveSetting($name,$value = ''){
+        if(is_array($name)){
+            foreach($name as $n=>$v){
+                self::saveSetting($n,$v);
+            }
+        }else {
+            $setting = Settings_m::findOne(['name' => $name]);
+            if ($setting == null) {
+                $setting = new Settings_m();
+                $setting->name = $name;
+            }
+
+            $setting->value = ($value ? json_encode($value) : '{}');
+            $setting->save();
+        }
     }
 }
