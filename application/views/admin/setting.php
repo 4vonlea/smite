@@ -67,13 +67,14 @@
             uploading: false,
             logo_src:"<?= base_url('themes/uploads/logo.png'); ?>",
             form:{
-                preface:'<?=Settings_m::getSetting('preface');?>',
-                site_title:'<?=Settings_m::getSetting('site_title');?>',
+                preface:"<?=Settings_m::getSetting('preface');?>",
+                site_title:"<?=Settings_m::getSetting('site_title');?>",
             }
         },
         methods:{
             onSave(){
                 app.saving = true;
+                console.log(app.form);
                 $.ajax({
                     url: "<?=base_url('admin/setting/save');?>",
                     type: "POST",

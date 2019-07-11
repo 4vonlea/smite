@@ -11,7 +11,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-        <title>Seminar</title>
+        <title><?=Settings_m::getSetting('site_title');?></title>
 
         <meta name="keywords" content="seminar,orthopaedic" />
         <meta name="description" content="Seminar orthopaedic">
@@ -58,6 +58,8 @@
 
         <!-- Head Libs -->
         <script src="<?=$theme_path;?>vendor/modernizr/modernizr.min.js"></script>
+        <script src="<?= base_url('themes/script/vue.js'); ?>"></script>
+
     </head>
     <body>
 
@@ -143,7 +145,7 @@
                                                                 </a>
                                                             </li>
                                                             <li>
-                                                                <a class="dropdown-item" href="<?=base_url("site/register");?>">
+                                                                <a class="dropdown-item" href="<?=base_url("member/register");?>">
                                                                     Register
                                                                 </a>
                                                             </li>
@@ -212,5 +214,7 @@
 
         <!-- Theme Initialization Files -->
         <script src="<?=$theme_path;?>js/theme.init.js"></script>
+        <?= $script_js; ?>
+
     </body>
 </html>

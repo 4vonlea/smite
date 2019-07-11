@@ -35,7 +35,7 @@ class Settings_m extends MY_Model
 
     /**
      * @param array|string $name
-     * @param string $value
+     * @param string|array $value
      */
     public static function saveSetting($name,$value = ''){
         if(is_array($name)){
@@ -49,7 +49,7 @@ class Settings_m extends MY_Model
                 $setting->name = $name;
             }
 
-            $setting->value = ($value ? json_encode($value) : '{}');
+            $setting->value = (is_array($value) ? json_encode($value) : $value);
             $setting->save();
         }
     }
