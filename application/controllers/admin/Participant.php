@@ -4,7 +4,15 @@
 class Participant extends Admin_Controller
 {
     public function index(){
-        $this->layout->render('participant');
+        $this->load->model('Category_member_m');
+        $statusList = $this->Category_member_m->find()->select('*')->get()->result_array();
+        $this->layout->render('participant',['statusList'=>$statusList]);
+    }
+
+    public function add_status(){
+        $this->load->model('Category_member_m');
+        $model = new Category_member_m();
+        $data = $this->input->post('value');
     }
 
     public function grid()

@@ -207,7 +207,7 @@ class CI_DB_pdo_4d_forge extends CI_DB_pdo_forge {
 			{
 				$field['auto_increment'] = ' AUTO_INCREMENT';
 			}
-			elseif (strcasecmp($field['type'], 'UUID') === 0)
+			elseif (strcasecmp($field['type'], 'Uuid') === 0)
 			{
 				$field['auto_increment'] = ' AUTO_GENERATE';
 			}

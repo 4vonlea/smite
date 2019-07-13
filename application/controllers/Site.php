@@ -55,4 +55,6 @@ class Site extends CI_Controller {
     public function paper(){
         $this->layout->render('site/paper');
     }
+
+
 }

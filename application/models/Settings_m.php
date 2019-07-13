@@ -48,7 +48,6 @@ class Settings_m extends MY_Model
                 $setting = new Settings_m();
                 $setting->name = $name;
             }
-
             $setting->value = (is_array($value) ? json_encode($value) : $value);
             $setting->save();
         }

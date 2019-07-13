@@ -73,7 +73,7 @@
                                 <div class="header-row">
                                     <div class="header-logo">
                                         <a href="demo-business-consulting.html">
-                                            <img alt="Porto" width="82" height="40" src="<?=base_url('site');?>/img/logo-default-slim-dark.png">
+                                            <img alt="Porto" width="82" height="40" src="<?=base_url('themes/uploads/logo.png');?>">
                                         </a>
                                     </div>
                                 </div>
@@ -214,6 +214,8 @@
 
         <!-- Theme Initialization Files -->
         <script src="<?=$theme_path;?>js/theme.init.js"></script>
+        <script src="<?= base_url("themes/script/moment.min.js"); ?>"></script>
+
         <?= $script_js; ?>
 
     </body>

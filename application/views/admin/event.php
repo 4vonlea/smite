@@ -283,7 +283,6 @@
         if(typeof date != 'undefined' && date != "")
             date = moment(date);
 
-        console.log(typeof date);
         if (date)
             return date.format('Y-MM-DD');
         return "";

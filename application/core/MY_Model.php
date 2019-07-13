@@ -45,8 +45,11 @@ class MY_Model extends yidas\Model
         return $data;
     }
 
-    public static function asList($object,$id,$value){
+    public static function asList($object,$id,$value ,$placeholder = ''){
         $return = [];
+        if($placeholder != ''){
+            $return[''] = $placeholder;
+        }
         if(is_array($object)){
             foreach($object as $row){
                 $key = is_object($row) ? $row->{$id}: is_array($row) ? $row[$id]:"";

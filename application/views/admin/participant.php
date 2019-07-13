@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var array $statusList
+ */
+?>
 <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
     <div class="container-fluid">
         <div class="header-body">
@@ -82,8 +87,13 @@
                             <h3>Participants</h3>
                         </div>
                         <div class="col-6 text-right">
-                            <button @click="onAdd" type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Add Event</button>
-                            <button  type="button" class="btn btn-primary"  data-toggle="modal" data-target="#modal-event-category"><i class="fa fa-book"></i> Event Categories List</button>
+                            <button @click="onAdd" type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Add
+                                Event
+                            </button>
+                            <button type="button" class="btn btn-primary" data-toggle="modal"
+                                    data-target="#modal-particant-status"><i class="fa fa-book"></i> Participant Status
+                                List
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -92,21 +102,61 @@
                         ref="datagrid"
                         api-url="<?= base_url('admin/participant/grid'); ?>"
                         :fields="[{name:'fullname',sortField:'fullname'}, {name:'email',sortField:'email'},{name:'gender',sortField:'gender'},{name:'id',title:'Actions',titleClass:'action-th'}]">
-                        <template slot="id" slot-scope="props">
-                            <div class="table-button-container">
-                                <button @click="editRow(props)" class="btn btn-warning btn-sm">
-                                    <span class="fa fa-pen"></span> Edit
-                                </button>
-                                <button @click="detailRow(props)" class="btn btn-info btn-sm">
-                                    <span class="fa fa-search"></span> Detail
-                                </button>
-                                <button @click="deleteRow(props)" class="btn btn-danger btn-sm">
-                                    <span class="fa fa-trash"></span> Delete
-                                </button>
-                            </div>
-                        </template>
+                    <template slot="id" slot-scope="props">
+                        <div class="table-button-container">
+                            <button @click="editRow(props)" class="btn btn-warning btn-sm">
+                                <span class="fa fa-pen"></span> Edit
+                            </button>
+                            <button @click="detailRow(props)" class="btn btn-info btn-sm">
+                                <span class="fa fa-search"></span> Detail
+                            </button>
+                            <button @click="deleteRow(props)" class="btn btn-danger btn-sm">
+                                <span class="fa fa-trash"></span> Delete
+                            </button>
+                        </div>
+                    </template>
 
                 </datagrid>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="modal-particant-status">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Event Categories List</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <div class="form-group">
+                    <div class="input-group">
+                        <input v-model="new_status" type="text" class="form-control" @keyup.enter="addStatus"
+                               placeholder="New Participant Status"/>
+                        <div class="input-group-append">
+                            <button type="button" class="btn btn-primary" @click="addStatus"><i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <ul class="list-group">
+                    <li v-for="(cat,index) in statusList"
+                        class="list-group-item d-flex justify-content-between align-items-center">
+                        {{ cat }}
+                        <button @click="removeStatus(index)" class="btn badge badge-primary badge-pill"><i
+                                    class="fa fa-times"></i></button>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
             </div>
 
         </div>
@@ -116,10 +166,45 @@
 <?php $this->layout->begin_script(); ?>
 
 <script>
+    var tempStatus = <?=json_encode($statusList);?>;
+
+    function postStatus(cat) {
+        return $.post('<?=base_url('admin/participant/add_status');?>', {value: cat});
+    }
+
     var app = new Vue({
         el: '#app',
         data: {
+            new_status: '',
+            statusList:<?=json_encode($statusList);?>
+        },
+        methods: {
+            onAdd() {
 
+            },
+            addStatus: function () {
+                if (this.new_event_category != "") {
+                    tempStatus.push(this.new_event_category);
+                    postStatus(tempStatus).done(function () {
+                        app.statusList.push(app.new_event_category);
+                        app.new_event_category = "";
+                    }).fail(function () {
+                        tempStatus.pop();
+                        Swal.fire("Failed", "Failed to save !", "error");
+                    });
+                }
+
+            },
+            removeStatus: function (index) {
+                var value = tempStatus[index];
+                tempStatus.splice(index, 1);
+                postStatus(tempStatus).done(function () {
+                    app.statusList.splice(index, 1);
+                }).fail(function () {
+                    tempStatus.push(value);
+                    Swal.fire("Failed", "Failed to remove !", "error");
+                });
+            },
         }
     });
 </script>
