@@ -16,10 +16,11 @@ class Register extends MY_Controller
             $this->load->model(['Participant_m','User_account_m','Gmail_api']);
 
             $data = $this->input->post();
-            if($this->Participant_m->validate($data) && $this->handlingProof('proof')){
+            $data['id'] = Uuid::v4();
+
+            if($this->Participant_m->validate($data) && $this->handlingProof('proof',$data['id'])){
                 $this->load->library('Uuid');
 
-                $data['id'] = Uuid::v4();
                 $data['username_account'] = $data['email'];
                 $data['verified_by_admin'] = 0;
                 $data['verified_email'] = 0;
@@ -82,11 +83,11 @@ class Register extends MY_Controller
      * @param $name
      * @return boolean
      */
-    protected function handlingProof($name){
+    protected function handlingProof($name,$filename){
         $config['upload_path']          = './application/uploads/proof/';
         $config['allowed_types']        = 'jpg|png|pdf';
         $config['max_size']             = 2048;
-        $config['file_name']        = date('YmdHis');
+        $config['file_name']        = $filename;
 
         $this->load->library('upload', $config);
         return $this->upload->do_upload($name);

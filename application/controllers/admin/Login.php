@@ -41,4 +41,9 @@ class Login extends MY_Controller
         }
         $this->load->view("admin/login",['error'=>$error]);
     }
+
+    public function logout(){
+        $this->session->sess_destroy();
+        redirect(base_url('admin/login'));
+    }
 }

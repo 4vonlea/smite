@@ -134,22 +134,30 @@
                                                         </a>
                                                     </li>
                                                     <li style="border-left: 1px solid #fff" class="dropdown dropdown-primary">
-                                                        <a class="dropdown-toggle nav-link"
-                                                           href="#">
-                                                            Member Area &nbsp;<i class="fa fa-chevron-circle-down"></i>
-                                                        </a>
-                                                        <ul class="dropdown-menu">
-                                                            <li>
-                                                                <a class="dropdown-item" href="<?=base_url("site/login");?>">
-                                                                    Login
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a class="dropdown-item" href="<?=base_url("member/register");?>">
-                                                                    Register
-                                                                </a>
-                                                            </li>
-                                                        </ul>
+                                                        <?php if($this->session->has_userdata('user_session')):?>
+                                                            <a class="dropdown-toggle nav-link"
+                                                               href="<?=base_url('member/area/#/profile');?>/">
+                                                                Member Area
+                                                            </a>
+                                                        <?php else:?>
+                                                            <a class="dropdown-toggle nav-link"
+                                                               href="#">
+                                                                Member Area &nbsp;<i class="fa fa-chevron-circle-down"></i>
+                                                            </a>
+                                                            <ul class="dropdown-menu">
+                                                                <li>
+                                                                    <a class="dropdown-item" href="<?=base_url("site/login");?>">
+                                                                        Login
+                                                                    </a>
+                                                                </li>
+                                                                <li>
+                                                                    <a class="dropdown-item" href="<?=base_url("member/register");?>">
+                                                                        Register
+                                                                    </a>
+                                                                </li>
+                                                            </ul>
+                                                        <?php endif;?>
+
                                                     </li>
                                                 </ul>
                                             </nav>

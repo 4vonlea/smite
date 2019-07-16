@@ -136,9 +136,8 @@
 
 
                     <div class="form-group row">
-                        <label class="col-lg-3 control-label">Sex</label>
+                        <label class="col-lg-3 control-label">Gender</label>
                         <div class="col-lg-5">
-
                             <div class="radio">
                                 <label>
                                     <input type="radio" name="gender" checked value="M"/> Male
@@ -149,8 +148,6 @@
                                     <input type="radio" name="gender" value="F"/> Female
                                 </label>
                             </div>
-
-
                         </div>
                     </div>
 
@@ -164,8 +161,6 @@
                                 {{ validation_error.birthday }}
                             </div>
                         </div>
-
-
                     </div>
 
                 </form>

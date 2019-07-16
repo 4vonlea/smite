@@ -21,4 +21,14 @@ class Participant_m extends MY_Model
             ['field' => 'birthday', 'rules' => 'required'],
         ];
     }
+
+    public function getImageLink(){
+        if($this->image)
+            return base_url("themes/uploads/profile/$this->image");
+        return base_url('themes/uploads/people.jpg');
+    }
+
+    public function status_member(){
+        return $this->hasOne("Category_member_m","id","status");
+    }
 }

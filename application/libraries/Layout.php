@@ -77,4 +77,9 @@ class Layout {
 	public function renderPartial($view,$data = array()){
 		$this->ci->load->view($this->base_view.$view,$data);
 	}
+
+	public function renderAsJavascript($view,$data = array()){
+        $this->ci->output->set_content_type("application/javascript");
+        $this->ci->load->view($this->base_view.$view,$data);
+    }
 }

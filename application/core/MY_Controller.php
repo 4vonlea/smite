@@ -42,6 +42,10 @@ class Admin_Controller extends MY_Controller{
         if($this->user_session_expired())
             redirect(base_url("admin/login"));
 
+        if($this->session->user_session['role'] == '0'){
+            redirect(base_url("member/area"));
+        }
+
         $this->layout->setLayout("layouts/argon");
         $this->layout->setBaseView("admin/");
         $this->load->model('Settings_m');

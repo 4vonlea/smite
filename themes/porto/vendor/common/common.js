@@ -111,13 +111,14 @@ if( !$('html').hasClass('disable-onload-scroll') && window.location.hash ) {
 			var target = window.location.hash,
 				offset = ( $(window).width() < 768 ) ? 180 : 90;
 
-			$('body').addClass('scrolling');
-
-			$('html, body').animate({
-				scrollTop: $(target).offset().top - offset
-			}, 600, 'easeOutQuad', function() {
-				$('body').removeClass('scrolling');
-			});
+            if(!target.includes("/")) {
+                $('body').addClass('scrolling');
+                $('html, body').animate({
+                    scrollTop: $(target).offset().top - offset
+                }, 600, 'easeOutQuad', function () {
+                    $('body').removeClass('scrolling');
+                });
+            }
 
 		}, 1);
 	});

@@ -34,3 +34,6 @@ application/uploads/*
 
 application/uploads/proof/*
 !application/uploads/proof/index.html
+
+themes/uploads/profile/*
+themes/uploads/profile/index.html
