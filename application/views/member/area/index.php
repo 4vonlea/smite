@@ -41,7 +41,7 @@
                             <li class="nav-item"><router-link active-class="active" class="nav-link text-dark" to="/profile">My Profile</router-link></li>
                             <li class="nav-item"><router-link active-class="active" class="nav-link text-dark" to="/paper">Submit Paper</router-link></li>
                             <li class="nav-item"><router-link active-class="active" class="nav-link text-dark" to="/events">Events</router-link></li>
-                            <li class="nav-item"><router-link active-class="active" class="nav-link text-dark" to="/billing">Billing & Invoice</router-link></li>
+                            <li class="nav-item"><router-link active-class="active" class="nav-link text-dark" to="/billing">Billing & Cart</router-link></li>
                             <li class="nav-item"><a class="nav-link text-dark" href="<?= base_url('member/area/logout'); ?>">Logout</a></li>
                         </ul>
                     </aside>
@@ -70,7 +70,7 @@
         const routes = [
             {path: '/', component: PageProfile,meta:{'title':'My Profile'},props:{userParam:userD}},
             {path: '/profile', component: PageProfile,meta:{'title':'My Profile'},props:{userParam:userD}},
-            {path: '/events', component: PageEvents,meta:{'title':'Events'}},
+            {path: '/events', component: PageEvents,meta:{'title':'Events'},props:{userParam:userD}},
             {path: '/paper', component: PagePaper,meta:{'title':'Submit Paper'}},
             {path: '/billing', component: PageBilling,meta:{'title':'Billing & Invoice'}},
         ];
