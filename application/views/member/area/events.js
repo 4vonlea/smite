@@ -58,7 +58,6 @@ export default Vue.component("PageEvents", {
             </div>
         </div>
     `,
-    props: ['userParam'],
     data: function () {
         return {
             loading: false,
@@ -85,7 +84,4 @@ export default Vue.component("PageEvents", {
             ]
         }
     },
-    mounted: function () {
-        this.user = this.userParam;
-    }
 });

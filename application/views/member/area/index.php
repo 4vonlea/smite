@@ -68,9 +68,9 @@
         var userD = <?=json_encode(array_merge($user->toArray(),['status_member'=>$user->status_member->kategory]));?>;
         Vue.use(VueRouter);
         const routes = [
-            {path: '/', component: PageProfile,meta:{'title':'My Profile'},props:{userParam:userD}},
-            {path: '/profile', component: PageProfile,meta:{'title':'My Profile'},props:{userParam:userD}},
-            {path: '/events', component: PageEvents,meta:{'title':'Events'},props:{userParam:userD}},
+            {path: '/', component: PageProfile,meta:{'title':'My Profile'}},
+            {path: '/profile', component: PageProfile,meta:{'title':'My Profile'}},
+            {path: '/events', component: PageEvents,meta:{'title':'Events'}},
             {path: '/paper', component: PagePaper,meta:{'title':'Submit Paper'}},
             {path: '/billing', component: PageBilling,meta:{'title':'Billing & Invoice'}},
         ];
@@ -78,6 +78,15 @@
             //mode: 'history',
             routes // short for `routes: routes`
         });
+
+        Vue.mixin({
+            data:function () {
+                return {
+                    baseUrl:"<?=base_url('member/area');?>/",
+                    user:userD,
+                }
+            }
+        })
 
         var app = new Vue({
             router,

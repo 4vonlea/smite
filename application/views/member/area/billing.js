@@ -1,5 +1,5 @@
-export default Vue.component("PageBilling",{
-    template:`
+export default Vue.component("PageBilling", {
+    template: `
         <div class="col-lg-9">
             <page-loader :loading="loading" :fail="fail"></page-loader>
             <div class="overflow-hidden mb-1">
@@ -38,10 +38,10 @@ export default Vue.component("PageBilling",{
             </table>
         </div>
     `,
-    data:function () {
+    data: function () {
         return {
-            loading:false,
-            fail:false,
+            loading: false,
+            fail: false,
         }
     }
 });

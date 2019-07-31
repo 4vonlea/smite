@@ -3,6 +3,9 @@
 class Layout {
 	public $layout = 'layouts/main';
 
+    /**
+     * @var CI_Controller
+     */
 	protected $ci;
 	protected $menu_active;
     protected $base_view = "";

@@ -35,5 +35,8 @@ application/uploads/*
 application/uploads/proof/*
 !application/uploads/proof/index.html
 
+application/uploads/papers/*
+!application/uploads/papers/index.html
+
 themes/uploads/profile/*
 themes/uploads/profile/index.html

@@ -5,7 +5,7 @@ export default Vue.component('page-loader', {
         <div v-if="loading" class="d-flex align-items-center justify-content-center h-100">
             <div class="text-center">
                 <i class="fa fa-spin fa-spinner fa-5x"></i>
-                <p>Loading your page.....</p>
+                <p>Processing....</p>
 
             </div>
         </div>

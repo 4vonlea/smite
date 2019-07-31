@@ -27,4 +27,8 @@ class User_account_m extends MY_Model
         return false;
     }
 
+    public function findWithBiodata($username){
+        return $this->find()->where('username',$username)->join('members m','m.username_account = username')->get()->row_array();
+    }
+
 }

@@ -48,7 +48,8 @@ class Site extends MY_Controller {
                 $this->load->model("User_account_m");
                 if (User_account_m::verify($username, $password)) {
                     $this->load->library('session');
-                    $user = $this->User_account_m->find()->where('username',$username)->get()->row_array();
+                    $user = $this->User_account_m->findWithBiodata($username);
+                    unset($user['password']);
                     if ($rememberme) {
                         $user['rememberme'] = true;
                         $this->session->set_userdata("rememberme",true);
