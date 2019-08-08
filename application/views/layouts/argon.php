@@ -164,8 +164,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= base_url('admin/participant'); ?>">
-                        <i class="ni ni-single-02 text-orange"></i> Participants
+                    <a class="nav-link" href="<?= base_url('admin/member'); ?>">
+                        <i class="ni ni-single-02 text-orange"></i> Members
                     </a>
                 </li>
                 <li class="nav-item">

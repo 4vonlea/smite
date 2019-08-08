@@ -1,11 +1,13 @@
 <?php
 
 
-class Participant_m extends MY_Model
+class Member_m extends MY_Model
 {
     protected $table = "members";
 
     public $fillable = ['id', 'image', 'email', 'fullname', 'gender', 'phone', 'birthday', 'country', 'region', 'city', 'address', 'username_account', 'status','verified_by_admin', 'verified_email',];
+
+    public static $proofExtension = "jpg|png|pdf";
 
     public function rules()
     {
@@ -31,4 +33,11 @@ class Participant_m extends MY_Model
     public function status_member(){
         return $this->hasOne("Category_member_m","id","status");
     }
+
+    public function gridData($params, $relationship = [])
+	{
+		$data = parent::gridData($params, $relationship);
+		$data['total_unverified'] = $this->find()->where('verified_by_admin',0)->count_all_results();
+		return $data;
+	}
 }

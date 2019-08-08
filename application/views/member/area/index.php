@@ -1,6 +1,6 @@
 <?php
 /**
- * @var Participant_m $user
+ * @var Member_m $user
  */
 ?>
     <div id="app">

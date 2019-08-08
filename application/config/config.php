@@ -521,3 +521,10 @@ $config['rewrite_short_tags'] = FALSE;
 | Array:		array('10.0.1.200', '192.168.5.0/24')
 */
 $config['proxy_ips'] = '';
+if(ENVIRONMENT === 'development') {
+	$config['midtrans'] = [
+		'merchant_id' => 'G988409790',
+		'client_key' => 'SB-Mid-client-xvjGCOR3oMsI2xU-',
+		'server_key' => 'SB-Mid-server-sBfDKSeL1EPEJnqSCf702Fnp'
+	];
+}

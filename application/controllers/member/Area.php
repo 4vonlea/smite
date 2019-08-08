@@ -1,7 +1,7 @@
 <?php
 /**
  * Class Area
- * @property Participant_m $Participant_m
+ * @property Member_m $Member_m
  * @property User_account_m $User_account_m
  */
 
@@ -14,19 +14,19 @@ class Area extends MY_Controller
 
         $this->layout->setLayout("layouts/porto");
         $this->layout->setBaseView('member/area/');
-        $this->load->model(['Participant_m','User_account_m']);
+        $this->load->model(['Member_m','User_account_m']);
 
     }
 
     public function index(){
-        $user = Participant_m::findOne(['username_account'=>$this->session->user_session['username']]);
+        $user = Member_m::findOne(['username_account'=>$this->session->user_session['username']]);
         $this->layout->render('index',['user'=>$user]);
     }
 
     public function save_profile(){
         if($this->input->post()) {
             $post = $this->input->post();
-            $user = Participant_m::findOne(['username_account' => $this->session->user_session['username']]);
+            $user = Member_m::findOne(['username_account' => $this->session->user_session['username']]);
             $user->setAttributes($post);
             $this->output->set_content_type("application/json")
                 ->_display(json_encode(['status' => $user->save()]));
@@ -65,6 +65,15 @@ class Area extends MY_Controller
         }
     }
 
+    public function get_events(){
+		if($this->input->method() !== 'post')
+			show_404("Page not found !");
+		$this->load->model("Event_m");
+		$events = $this->Event_m->eventVueModel();
+		$this->output->set_content_type("application/json")
+			->_display(json_encode(['status'=>true,'events'=>$events]));
+	}
+
     public function get_paper(){
         if($this->input->method() !== 'post')
             show_404("Page not found !");
@@ -99,7 +108,6 @@ class Area extends MY_Controller
         if($this->input->method() !== 'post')
             show_404("Page not found !");
 
-        sleep(5);
         $config['upload_path']          = APPPATH.'uploads/papers/';
         $config['allowed_types']        = 'pdf|doc|docx';
         $config['max_size']             = 5120;
@@ -133,7 +141,7 @@ class Area extends MY_Controller
     }
 
     public function upload_image(){
-        $user = Participant_m::findOne(['username_account'=>$this->session->user_session['username']]);
+        $user = Member_m::findOne(['username_account'=>$this->session->user_session['username']]);
 
         $config['upload_path']          = 'themes/uploads/profile/';
         $config['allowed_types']        = 'jpg|png|pdf';

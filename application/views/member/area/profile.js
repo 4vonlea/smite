@@ -154,8 +154,10 @@ template:`
         saveProfile(){
             var page = this;
             this.loading = true;
+            this.user.birthday = moment(this.user.birthday).format("YYYY-MM-DD");
             $.post(this.baseUrl+"save_profile",this.user,function () {
                 Swal.fire('Success',"Your profile saved successfully",'success');
+                page.editing = false;
             },'JSON').fail(function (xhr) {
                 Swal.fire('Fail',"Failed to save your profile",'error');
             }).always(function () {
@@ -175,7 +177,6 @@ template:`
                 }
             },'JSON').fail(function () {
                 Swal.fire('Fail',"Failed to process !",'error');
-
             }).always(function () {
                 page.processReset = false;
             });
