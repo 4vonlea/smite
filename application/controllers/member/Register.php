@@ -14,12 +14,12 @@ class Register extends MY_Controller
     public function index(){
         if($this->input->post()){
             $this->load->model(['Participant_m','User_account_m','Gmail_api']);
-
+			$this->load->library('Uuid');
             $data = $this->input->post();
             $data['id'] = Uuid::v4();
 
             if($this->Participant_m->validate($data) && $this->handlingProof('proof',$data['id'])){
-                $this->load->library('Uuid');
+
 
                 $data['username_account'] = $data['email'];
                 $data['verified_by_admin'] = 0;

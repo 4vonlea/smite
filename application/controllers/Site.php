@@ -1,94 +1,109 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
  * @property Layout $layout
  */
-class Site extends MY_Controller {
+class Site extends MY_Controller
+{
 
-    public function __construct(){
+    public function __construct()
+    {
         parent::__construct();
         $this->layout->setLayout("layouts/porto");
+        $this->load->model('Event_m', 'EventM');
     }
 
     public function index()
-	{
-		$this->layout->render('site/home');
-	}
+    {
+        $this->layout->render('site/home');
+    }
 
-	public function certificate(){
+    public function certificate()
+    {
         $this->layout->render('site/certificate');
     }
 
-    public function simposium(){
-        $this->layout->render('site/simposium');
+    public function simposium()
+    {
+        $category      = $this->EventM->listcategory();
+        $data['query'] = $category['data'];
+        $this->layout->render('site/simposium', $data);
     }
 
-    public function schedules(){
+    public function schedules()
+    {
         $this->layout->render('site/schedules');
     }
 
-    public function download(){
+    public function download()
+    {
         $this->layout->render('site/download');
     }
 
-    public function login(){
-        if(!$this->user_session_expired())
+    public function login()
+    {
+        if (!$this->user_session_expired()) {
             redirect(base_url("member/area"));
+        }
 
         $this->load->library('form_validation');
         $error = "";
-        if($this->input->post('login')){
+        if ($this->input->post('login')) {
             $this->form_validation->set_rules('username', 'Username', 'required');
             $this->form_validation->set_rules('password', 'Password', 'required');
-            if($this->form_validation->run()) {
-                $username = $this->input->post('username');
-                $password = $this->input->post('password');
+            if ($this->form_validation->run()) {
+                $username   = $this->input->post('username');
+                $password   = $this->input->post('password');
                 $rememberme = $this->input->post('rememberme');
                 $this->load->model("User_account_m");
                 if (User_account_m::verify($username, $password)) {
                     $this->load->library('session');
-                    $user = $this->User_account_m->find()->where('username',$username)->get()->row_array();
+                    $user = $this->User_account_m->find()->where('username', $username)->get()->row_array();
                     if ($rememberme) {
                         $user['rememberme'] = true;
-                        $this->session->set_userdata("rememberme",true);
-                        $this->session->set_userdata('sess_expired', time()+60*60*24*7);
-                    }else{
-                        $this->session->set_userdata('sess_expired', time()+3600);
+                        $this->session->set_userdata("rememberme", true);
+                        $this->session->set_userdata('sess_expired', time() + 60 * 60 * 24 * 7);
+                    } else {
+                        $this->session->set_userdata('sess_expired', time() + 3600);
 
                     }
-                    $this->session->set_userdata('user_session',$user);
+                    $this->session->set_userdata('user_session', $user);
                     redirect(base_url("member/area"));
                 } else {
                     $error = "Email/Password invalid !";
                 }
-            }else{
+            } else {
                 $error = "Username and Password required !";
 
             }
         }
-        $this->layout->render('site/login',['error'=>$error]);
+        $this->layout->render('site/login', ['error' => $error]);
     }
 
-    public function register(){
+    public function register()
+    {
         $this->layout->render('site/register');
     }
 
-    public function forget(){
+    public function forget()
+    {
         $this->layout->render('site/forget');
     }
 
-    public function committee(){
+    public function committee()
+    {
         $this->layout->render('site/committee');
     }
 
-    public function contact(){
+    public function contact()
+    {
         $this->layout->render('site/contact');
     }
 
-    public function paper(){
+    public function paper()
+    {
         $this->layout->render('site/paper');
     }
-
 
 }
