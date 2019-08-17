@@ -18,311 +18,112 @@
     <div class="container">
         <div class="row mb-3">
             <div class="col-lg-12">
+                
                 <h2 class="font-weight-bold text-color-dark">Scientific Events</h2>
+                <?php
+                    $colap = 1;
+                    foreach ($query as $row):
+                ?>
                 <div class="accordion without-bg custom-accordion-style-1" id="accordion7">
-                                        <div class="card card-default">
+                    <div class="card card-default">
                         <div class="card-header">
                             <h4 class="card-title m-0">
-                                <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion7" href="#collapse_1" aria-expanded="false">
-                                    Orthopaedic Specialist / IOA Member                                 <span class="custom-accordion-plus"></span>
+                                <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion7" href="#colap<?php echo $colap;?>" aria-expanded="false">
+                                    <?php echo $row->kategory ?> <span class="custom-accordion-plus"></span>
                                 </a>
                             </h4>
                         </div>
-                        <div id="collapse_1" class="collapse" aria-expanded="false" style="height: 0px;">
+                        <div id="colap<?php echo $colap;?>" class="collapse" aria-expanded="false" style="height: 0px;">
                             <div class="card-body">
                                 <p>
-                                    <div class="table-responsive">
-                                    <table class="table table-bordered table-striped">
-                                    <thead>
-                                        <tr>
-                                                <th>Package name</th>
-                                                                                            <th>Early <br>01/01/2019 s.d 28/02/2019</th>
-                                                                                            <th>Late & Onsite<br>01/03/2019 s.d 27/04/2019</th>
-                                                                                            <th></th>
-                                        </tr>                            
-                                    </thead>
-                                    <tbody>
-                                                                            <tr>
-                                            <td><a href="#" data-toggle="modal" data-target="#myModal" onclick="paketDetail('64')">Symposium COE (Specialist)</a></td>
-                                            <td>Rp. 5.000.000,00</td><td>Rp. 5.500.000,00</td>                                          <td>
-                                            <a class="btn btn-primary btn-sm" href="https://coe67-surakarta.com/frontend/pendaftaran" style="width: 100px;border-radius: 35px !important;">Order</a></td>
-                                        </tr>
-                                                                            <tr>
-                                            <td><a href="#" data-toggle="modal" data-target="#myModal" onclick="paketDetail('62')">Simpo + Hip</a></td>
-                                            <td>Rp. 12.500.000,00</td><td>Rp. 13.000.000,00</td>                                            <td>
-                                            <a class="btn btn-primary btn-sm mb-2"  href="#" style="background: #f56954;;width: 100px;border-radius: 35px !important">Full</a></td>
-                                        </tr>
-                                                                            <tr>
-                                            <td><a href="#" data-toggle="modal" data-target="#myModal" onclick="paketDetail('63')">Simpo + Knee</a></td>
-                                            <td>Rp. 12.500.000,00</td><td>Rp. 13.000.000,00</td>                                            <td>
-                                            <a class="btn btn-primary btn-sm mb-2"  href="#" style="background: #f56954;;width: 100px;border-radius: 35px !important">Full</a></td>
-                                        </tr>
-                                                                            <tr>
-                                            <td><a href="#" data-toggle="modal" data-target="#myModal" onclick="paketDetail('65')">Simpo + Upper Extremity</a></td>
-                                            <td>Rp. 15.000.000,00</td><td>Rp. 15.500.000,00</td>                                            <td>
-                                            <a class="btn btn-primary btn-sm mb-2"  href="#" style="background: #f56954;;width: 100px;border-radius: 35px !important">Full</a></td>
-                                        </tr>
-                                                                            <tr>
-                                            <td><a href="#" data-toggle="modal" data-target="#myModal" onclick="paketDetail('66')">Simpo + Pain Interventation</a></td>
-                                            <td>Rp. 12.500.000,00</td><td>Rp. 13.000.000,00</td>                                            <td>
-                                            <a class="btn btn-primary btn-sm mb-2"  href="#" style="background: #f56954;;width: 100px;border-radius: 35px !important">Full</a></td>
-                                        </tr>
-                                                                            <tr>
-                                            <td><a href="#" data-toggle="modal" data-target="#myModal" onclick="paketDetail('67')">Simpo + IDOC</a></td>
-                                            <td>Rp. 10.000.000,00</td><td>Rp. 10.500.000,00</td>                                            <td>
-                                            <a class="btn btn-primary btn-sm" href="https://coe67-surakarta.com/frontend/pendaftaran" style="width: 100px;border-radius: 35px !important;">Order</a></td>
-                                        </tr>
-                                                                            <tr>
-                                            <td><a href="#" data-toggle="modal" data-target="#myModal" onclick="paketDetail('68')">Simpo + Hip + IDOC (Disc. 1.000k)</a></td>
-                                            <td>Rp. 16.500.000,00</td><td>Rp. 17.000.000,00</td>                                            <td>
-                                            <a class="btn btn-primary btn-sm mb-2"  href="#" style="background: #f56954;;width: 100px;border-radius: 35px !important">Full</a></td>
-                                        </tr>
-                                                                            <tr>
-                                            <td><a href="#" data-toggle="modal" data-target="#myModal" onclick="paketDetail('69')">Simpo + Hip + Pain Interventation (Disc. 1.000k)</a></td>
-                                            <td>Rp. 19.000.000,00</td><td>Rp. 19.500.000,00</td>                                            <td>
-                                            <a class="btn btn-primary btn-sm mb-2"  href="#" style="background: #f56954;;width: 100px;border-radius: 35px !important">Full</a></td>
-                                        </tr>
-                                                                            <tr>
-                                            <td><a href="#" data-toggle="modal" data-target="#myModal" onclick="paketDetail('73')">Simpo + Knee + IDOC (Disc. 1.000k)</a></td>
-                                            <td>Rp. 16.500.000,00</td><td>Rp. 17.000.000,00</td>                                            <td>
-                                            <a class="btn btn-primary btn-sm mb-2"  href="#" style="background: #f56954;;width: 100px;border-radius: 35px !important">Full</a></td>
-                                        </tr>
-                                                                            <tr>
-                                            <td><a href="#" data-toggle="modal" data-target="#myModal" onclick="paketDetail('70')">Simpo + Knee + Pain Interventation (Disc. 1.000k)</a></td>
-                                            <td>Rp. 19.000.000,00</td><td>Rp. 19.500.000,00</td>                                            <td>
-                                            <a class="btn btn-primary btn-sm mb-2"  href="#" style="background: #f56954;;width: 100px;border-radius: 35px !important">Full</a></td>
-                                        </tr>
-                                                                            <tr>
-                                            <td><a href="#" data-toggle="modal" data-target="#myModal" onclick="paketDetail('71')">Simpo +  Upper Extremity + Pain Intervetantion (Disc. 1.000k)</a></td>
-                                            <td>Rp. 21.500.000,00</td><td>Rp. 22.000.000,00</td>                                            <td>
-                                            <a class="btn btn-primary btn-sm mb-2"  href="#" style="background: #f56954;;width: 100px;border-radius: 35px !important">Full</a></td>
-                                        </tr>
-                                                                            <tr>
-                                            <td><a href="#" data-toggle="modal" data-target="#myModal" onclick="paketDetail('72')">Simpo +  Upper Extremity + IDOC (Disc. 1.000k)</a></td>
-                                            <td>Rp. 19.000.000,00</td><td>Rp. 19.500.000,00</td>                                            <td>
-                                            <a class="btn btn-primary btn-sm mb-2"  href="#" style="background: #f56954;;width: 100px;border-radius: 35px !important">Full</a></td>
-                                        </tr>
-                                                                        </tbody>
-                                </table>
-                            </div>
-                        
-                                
+                            <?php
+                                foreach ($row->acara as $row2):
+                            ?>
+                            <table  class="table table-bordered">
+                            <tr>
+                                <td rowspan="2">
+                                    <?php echo $row2->nama_acara ?>
+                                </td>    
+                            
+                            <?php
+                                foreach ($row2->id_acara as $row3):
+                            ?>
+                                <td><?php echo $row3->jenis_harga ?> <br> (<?php echo $row3->waktu_berlaku ?> ) </td>
+                            <?php
+                                endforeach;
+                            ?>
+                            <td rowspan="2" align="center" class="align-middle"><a href="<?= base_url("site/login"); ?>" class="btn btn-success">ORDER</a></td>
+                            </tr>
+                            <tr>
+                            <?php
+                                foreach ($row2->id_acara as $row3):
+                            ?>
+                                <td><?php echo $row3->harga ?></td>
+                            <?php
+                                endforeach;
+                            ?>
+                            </tr>
+                            </table>
+
+                            <?php
+                                endforeach;
+                            ?>
                                 </p>
                             </div>
                         </div>
-                    </div>
-                                    <div class="card card-default">
-                        <div class="card-header">
-                            <h4 class="card-title m-0">
-                                <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion7" href="#collapse_7" aria-expanded="false">
-                                    General Practitioner                                    <span class="custom-accordion-plus"></span>
-                                </a>
-                            </h4>
-                        </div>
-                        <div id="collapse_7" class="collapse" aria-expanded="false" style="height: 0px;">
-                            <div class="card-body">
-                                <p>
-                                    <div class="table-responsive">
-                                    <table class="table table-bordered table-striped">
-                                    <thead>
-                                        <tr>
-                                                <th>Package name</th>
-                                                                                            <th>Early <br>01/01/2019 s.d 28/02/2019</th>
-                                                                                            <th>Late & Onsite<br>01/03/2019 s.d 27/04/2019</th>
-                                                                                            <th></th>
-                                        </tr>                            
-                                    </thead>
-                                    <tbody>
-                                                                            <tr>
-                                            <td><a href="#" data-toggle="modal" data-target="#myModal" onclick="paketDetail('95')">GP Day (Symposium Only)</a></td>
-                                            <td>Rp. 500.000,00</td><td>Rp. 500.000,00</td>                                          <td>
-                                            <a class="btn btn-primary btn-sm mb-2"  href="#" style="background: #f56954;;width: 100px;border-radius: 35px !important">Full</a></td>
-                                        </tr>
-                                                                            <tr>
-                                            <td><a href="#" data-toggle="modal" data-target="#myModal" onclick="paketDetail('96')">Simpo COE + GP Day (Sympo Only)</a></td>
-                                            <td>Rp. 3.000.000,00</td><td>Rp. 3.000.000,00</td>                                          <td>
-                                            <a class="btn btn-primary btn-sm mb-2"  href="#" style="background: #f56954;;width: 100px;border-radius: 35px !important">Full</a></td>
-                                        </tr>
-                                                                            <tr>
-                                            <td><a href="#" data-toggle="modal" data-target="#myModal" onclick="paketDetail('79')">Symposium COE (General Practitioner)</a></td>
-                                            <td>Rp. 2.500.000,00</td><td>Rp. 2.500.000,00</td>                                          <td>
-                                            <a class="btn btn-primary btn-sm" href="https://coe67-surakarta.com/frontend/pendaftaran" style="width: 100px;border-radius: 35px !important;">Order</a></td>
-                                        </tr>
-                                                                        </tbody>
-                                </table>
-                            </div>
-                        
-                                
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                                    <div class="card card-default">
-                        <div class="card-header">
-                            <h4 class="card-title m-0">
-                                <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion7" href="#collapse_8" aria-expanded="false">
-                                    Resident of Orthopaedic                                 <span class="custom-accordion-plus"></span>
-                                </a>
-                            </h4>
-                        </div>
-                        <div id="collapse_8" class="collapse" aria-expanded="false" style="height: 0px;">
-                            <div class="card-body">
-                                <p>
-                                    <div class="table-responsive">
-                                    <table class="table table-bordered table-striped">
-                                    <thead>
-                                        <tr>
-                                                <th>Package name</th>
-                                                                                            <th>Early <br>01/01/2019 s.d 28/02/2019</th>
-                                                                                            <th>Late & Onsite<br>01/03/2019 s.d 27/04/2019</th>
-                                                                                            <th></th>
-                                        </tr>                            
-                                    </thead>
-                                    <tbody>
-                                                                            <tr>
-                                            <td><a href="#" data-toggle="modal" data-target="#myModal" onclick="paketDetail('75')">Symposium (Resident)</a></td>
-                                            <td>Rp. 500.000,00</td><td>Rp. 500.000,00</td>                                          <td>
-                                            <a class="btn btn-primary btn-sm" href="https://coe67-surakarta.com/frontend/pendaftaran" style="width: 100px;border-radius: 35px !important;">Order</a></td>
-                                        </tr>
-                                                                        </tbody>
-                                </table>
-                            </div>
-                        
-                                
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                                    <div class="card card-default">
-                        <div class="card-header">
-                            <h4 class="card-title m-0">
-                                <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion7" href="#collapse_9" aria-expanded="false">
-                                    Overseas Delegates                                  <span class="custom-accordion-plus"></span>
-                                </a>
-                            </h4>
-                        </div>
-                        <div id="collapse_9" class="collapse" aria-expanded="false" style="height: 0px;">
-                            <div class="card-body">
-                                <p>
-                                    <div class="table-responsive">
-                                    <table class="table table-bordered table-striped">
-                                    <thead>
-                                        <tr>
-                                                <th>Package name</th>
-                                                                                            <th>Early <br>01/01/2019 s.d 28/02/2019</th>
-                                                                                            <th>Late & Onsite<br>01/03/2019 s.d 27/04/2019</th>
-                                                                                            <th></th>
-                                        </tr>                            
-                                    </thead>
-                                    <tbody>
-                                                                            <tr>
-                                            <td><a href="#" data-toggle="modal" data-target="#myModal" onclick="paketDetail('76')">Symposium COE (Overseas)</a></td>
-                                            <td>Rp. 1.125.000,00</td><td>Rp. 1.195.000,00</td>                                          <td>
-                                            <a class="btn btn-primary btn-sm" href="https://coe67-surakarta.com/frontend/pendaftaran" style="width: 100px;border-radius: 35px !important;">Order</a></td>
-                                        </tr>
-                                                                        </tbody>
-                                </table>
-                            </div>
-                        
-                                
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                                    <div class="card card-default">
-                        <div class="card-header">
-                            <h4 class="card-title m-0">
-                                <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion7" href="#collapse_10" aria-expanded="false">
-                                    Fresh Graduate Orthopaedic Specialist (Max. 1 Year) and Fellowship Programs                                 <span class="custom-accordion-plus"></span>
-                                </a>
-                            </h4>
-                        </div>
-                        <div id="collapse_10" class="collapse" aria-expanded="false" style="height: 0px;">
-                            <div class="card-body">
-                                <p>
-                                    <div class="table-responsive">
-                                    <table class="table table-bordered table-striped">
-                                    <thead>
-                                        <tr>
-                                                <th>Package name</th>
-                                                                                            <th>Early <br>01/01/2019 s.d 28/02/2019</th>
-                                                                                            <th>Late & Onsite<br>01/03/2019 s.d 27/04/2019</th>
-                                                                                            <th></th>
-                                        </tr>                            
-                                    </thead>
-                                    <tbody>
-                                                                            <tr>
-                                            <td><a href="#" data-toggle="modal" data-target="#myModal" onclick="paketDetail('83')">Symposium COE (Fresh & Fellowship)</a></td>
-                                            <td>Rp. 4.000.000,00</td><td>Rp. 4.000.000,00</td>                                          <td>
-                                            <a class="btn btn-primary btn-sm" href="https://coe67-surakarta.com/frontend/pendaftaran" style="width: 100px;border-radius: 35px !important;">Order</a></td>
-                                        </tr>
-                                                                            <tr>
-                                            <td><a href="#" data-toggle="modal" data-target="#myModal" onclick="paketDetail('84')">Simpo + Hip (Fresh & Fellowship)</a></td>
-                                            <td>Rp. 11.500.000,00</td><td>Rp. 11.500.000,00</td>                                            <td>
-                                            <a class="btn btn-primary btn-sm mb-2"  href="#" style="background: #f56954;;width: 100px;border-radius: 35px !important">Full</a></td>
-                                        </tr>
-                                                                            <tr>
-                                            <td><a href="#" data-toggle="modal" data-target="#myModal" onclick="paketDetail('85')">Simpo + Knee (Fresh & Fellowship)</a></td>
-                                            <td>Rp. 11.500.000,00</td><td>Rp. 11.500.000,00</td>                                            <td>
-                                            <a class="btn btn-primary btn-sm mb-2"  href="#" style="background: #f56954;;width: 100px;border-radius: 35px !important">Full</a></td>
-                                        </tr>
-                                                                            <tr>
-                                            <td><a href="#" data-toggle="modal" data-target="#myModal" onclick="paketDetail('86')">Simpo + Upper Extremity (Fresh & Fellowship)</a></td>
-                                            <td>Rp. 11.500.000,00</td><td>Rp. 11.500.000,00</td>                                            <td>
-                                            <a class="btn btn-primary btn-sm mb-2"  href="#" style="background: #f56954;;width: 100px;border-radius: 35px !important">Full</a></td>
-                                        </tr>
-                                                                            <tr>
-                                            <td><a href="#" data-toggle="modal" data-target="#myModal" onclick="paketDetail('87')">Simpo + Pain Intervension (Fresh & Fellowship)</a></td>
-                                            <td>Rp. 11.500.000,00</td><td>Rp. 11.500.000,00</td>                                            <td>
-                                            <a class="btn btn-primary btn-sm mb-2"  href="#" style="background: #f56954;;width: 100px;border-radius: 35px !important">Full</a></td>
-                                        </tr>
-                                                                            <tr>
-                                            <td><a href="#" data-toggle="modal" data-target="#myModal" onclick="paketDetail('88')">Simpo + IDOC (Fresh & Fellowship)</a></td>
-                                            <td>Rp. 9.000.000,00</td><td>Rp. 9.000.000,00</td>                                          <td>
-                                            <a class="btn btn-primary btn-sm" href="https://coe67-surakarta.com/frontend/pendaftaran" style="width: 100px;border-radius: 35px !important;">Order</a></td>
-                                        </tr>
-                                                                            <tr>
-                                            <td><a href="#" data-toggle="modal" data-target="#myModal" onclick="paketDetail('89')">Simpo + Hip + IDOC (Disc. 1.000k) (Fresh & Fellowship)</a></td>
-                                            <td>Rp. 15.500.000,00</td><td>Rp. 15.500.000,00</td>                                            <td>
-                                            <a class="btn btn-primary btn-sm mb-2"  href="#" style="background: #f56954;;width: 100px;border-radius: 35px !important">Full</a></td>
-                                        </tr>
-                                                                            <tr>
-                                            <td><a href="#" data-toggle="modal" data-target="#myModal" onclick="paketDetail('90')">Simpo + Hip + Pain Interventation (Disc. 1.000k) (Fresh & Fellowship)</a></td>
-                                            <td>Rp. 18.000.000,00</td><td>Rp. 18.000.000,00</td>                                            <td>
-                                            <a class="btn btn-primary btn-sm mb-2"  href="#" style="background: #f56954;;width: 100px;border-radius: 35px !important">Full</a></td>
-                                        </tr>
-                                                                            <tr>
-                                            <td><a href="#" data-toggle="modal" data-target="#myModal" onclick="paketDetail('91')">Simpo + Knee + IDOC (Disc. 1.000k) (Fresh & Fellowship)</a></td>
-                                            <td>Rp. 15.500.000,00</td><td>Rp. 15.500.000,00</td>                                            <td>
-                                            <a class="btn btn-primary btn-sm mb-2"  href="#" style="background: #f56954;;width: 100px;border-radius: 35px !important">Full</a></td>
-                                        </tr>
-                                                                            <tr>
-                                            <td><a href="#" data-toggle="modal" data-target="#myModal" onclick="paketDetail('92')">Simpo + Knee + Pain Interventation (Disc. 1.000k) (Fresh & Fellowship)</a></td>
-                                            <td>Rp. 18.000.000,00</td><td>Rp. 18.000.000,00</td>                                            <td>
-                                            <a class="btn btn-primary btn-sm mb-2"  href="#" style="background: #f56954;;width: 100px;border-radius: 35px !important">Full</a></td>
-                                        </tr>
-                                                                            <tr>
-                                            <td><a href="#" data-toggle="modal" data-target="#myModal" onclick="paketDetail('93')">Simpo +  Upper Extremity + Pain Intervetantion (Disc. 1.000k) (Fresh & Fellowship)</a></td>
-                                            <td>Rp. 20.500.000,00</td><td>Rp. 20.500.000,00</td>                                            <td>
-                                            <a class="btn btn-primary btn-sm mb-2"  href="#" style="background: #f56954;;width: 100px;border-radius: 35px !important">Full</a></td>
-                                        </tr>
-                                                                            <tr>
-                                            <td><a href="#" data-toggle="modal" data-target="#myModal" onclick="paketDetail('94')">Simpo +  Upper Extremity + IDOC (Disc. 1.000k) (Fresh & Fellowship)</a></td>
-                                            <td>Rp. 18.000.000,00</td><td>Rp. 18.000.000,00</td>                                            <td>
-                                            <a class="btn btn-primary btn-sm mb-2"  href="#" style="background: #f56954;;width: 100px;border-radius: 35px !important">Full</a></td>
-                                        </tr>
-                                                                        </tbody>
-                                </table>
-                            </div>
-                        
-                                
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    
+
+                    </div>   
                 </div>
+                <?php
+                    $colap++;
+                    endforeach;
+                ?>
+                <br><br>
+
+                <!-- <h2 class="font-weight-bold text-color-dark">Scientific</h2>
+
+                <table  class="table table-bordered">
+                        <?php
+                            foreach ($query as $row):
+                        ?>
+                        <tr>
+                            <th><?php echo $row->kategory ?></th>
+                        </tr>
+                            <?php
+                                foreach ($row->acara as $row2):
+                            ?>
+                            <?php $rowspan=1; ?>
+                            <tr>
+                                <td rowspan="2">
+                                    <?php echo $row2->nama_acara ?>
+                                </td>    
+                            
+                            <?php
+                                foreach ($row2->id_acara as $row3):
+                            ?>
+                                <td><?php echo $row3->jenis_harga ?> <br> (<?php echo $row3->waktu_berlaku ?> ) </td>
+                            <?php
+                                $rowspan++;
+                                endforeach;
+                            ?>
+                            </tr>
+                            <tr>
+                            <?php
+                                foreach ($row2->id_acara as $row3):
+                            ?>
+                                <td><?php echo $row3->harga ?></td>
+                            <?php
+                                endforeach;
+                            ?>
+                            </tr>
+                            <?php
+                                endforeach;
+                            ?>
+                        <?php
+                            endforeach;
+                        ?>
+                </table> -->
+
             </div>
         </div>
     </div>
