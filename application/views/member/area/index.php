@@ -41,7 +41,7 @@
                             <li class="nav-item"><router-link active-class="active" class="nav-link text-dark" to="/profile">My Profile</router-link></li>
                             <li class="nav-item"><router-link active-class="active" class="nav-link text-dark" to="/paper">Submit Paper</router-link></li>
                             <li class="nav-item"><router-link active-class="active" class="nav-link text-dark" to="/events">Events</router-link></li>
-                            <li class="nav-item"><router-link active-class="active" class="nav-link text-dark" to="/billing">Billing & Cart</router-link></li>
+                            <li class="nav-item"><router-link active-class="active" class="nav-link text-dark" to="/billing">Transaction & Cart</router-link></li>
                             <li class="nav-item"><a class="nav-link text-dark" href="<?= base_url('member/area/logout'); ?>">Logout</a></li>
                         </ul>
                     </aside>

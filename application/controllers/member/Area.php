@@ -19,7 +19,8 @@ class Area extends MY_Controller
     }
 
     public function index(){
-        $user = Member_m::findOne(['username_account'=>$this->session->user_session['username']]);
+		$this->load->model("Transaction_m");
+		$user = Member_m::findOne(['username_account'=>$this->session->user_session['username']]);
         $this->layout->render('index',['user'=>$user]);
     }
 
@@ -69,7 +70,7 @@ class Area extends MY_Controller
 		if($this->input->method() !== 'post')
 			show_404("Page not found !");
 		$this->load->model("Event_m");
-		$events = $this->Event_m->eventVueModel();
+		$events = $this->Event_m->eventVueModel($this->session->user_session['id'],$this->session->user_session['status_name']);
 		$this->output->set_content_type("application/json")
 			->_display(json_encode(['status'=>true,'events'=>$events]));
 	}
@@ -87,6 +88,46 @@ class Area extends MY_Controller
                 ->_display('{"status":0}');
 
     }
+
+    public function add_cart(){
+		if($this->input->method() !== 'post')
+			show_404("Page not found !");
+
+		$response = ['status'=>true];
+		$data = $this->input->post();
+		$this->load->model(["Transaction_m","Transaction_detail_m","Event_m"]);
+		$this->Transaction_m->getDB()->trans_start();
+		$transaction = $this->Transaction_m->findOne(['member_id'=>$this->session->user_session['id'],'checkout'=>0]);
+		if(!$transaction) {
+			$id = $this->Transaction_m->generateInvoiceID();
+			$transaction = new Transaction_m();
+			$transaction->id = $id;
+			$transaction->checkout = 0;
+			$transaction->member_id = $this->session->user_session['id'];
+			$transaction->save();
+			$transaction->id = $id;
+		}
+		$detail = $this->Transaction_detail_m->findOne(['transaction_id'=>$transaction->id,'event_pricing_id'=>$data['id']]);
+		if(!$detail){
+			$detail = new Transaction_detail_m();
+		}
+		if($this->Event_m->validateFollowing($data['id'],$this->session->user_session['status_name'])) {
+			$detail->event_pricing_id = $data['id'];
+			$detail->transaction_id = $transaction->id;
+			$detail->price = $data['price'];
+			$detail->member_id = $this->session->user_session['id'];
+			$detail->product_name = "$data[event_name] ($data[member_status])";
+			$detail->save();
+		}else{
+			$response['status'] = false;
+			$response['message'] = "You are prohibited from following !";
+		}
+		$this->Transaction_m->getDB()->trans_complete();
+
+		$this->output->set_content_type("application/json")
+			->_display(json_encode($response));
+
+	}
 
     public function file($name){
         $filepath = APPPATH."uploads/papers/".$name;

@@ -19,7 +19,7 @@ export default Vue.component("PageEvents", {
 						</div>
 						</div>
 						<div class="col-md-3">
-							<router-link class="btn btn-primary mt-4" to="/billing"><span style="font-size: 12px" class="badge badge-primary">2</span><i class="fa fa-shopping-cart fa-2x"></i> </router-link>
+							<router-link class="btn btn-primary mt-4" to="/billing"><span style="font-size: 12px;border-right: 1px solid" class="badge badge-warning">{{ countAdded }}</span> <i class="fa fa-shopping-cart fa-1x"></i> To Cart </router-link>
 						</div>
 					</div>
 					
@@ -33,8 +33,11 @@ export default Vue.component("PageEvents", {
 										</a>
 									</h4>
 								</div>
-								<div :id="'accordion-'+index" :class="[index==0?'show':'']" class="collapse table-responsive">
-										<table class="table">
+								<div :id="'accordion-'+index" class="collapse show table-responsive">
+										<div class="alert alert-success text-center" v-if="event.followed">
+											<h5>You are following this event</h5>
+										</div>
+										<table v-else class="table">
 											<thead>
 												<tr>
 													<th>Category</th>
@@ -45,9 +48,10 @@ export default Vue.component("PageEvents", {
 												<tr v-for="member in event.memberStatus">
 													<td>{{ member }}</td>
 													<td v-for="pricing in event.pricingName" class="text-center">
-														{{ pricing.pricing[member].price }}<br/>
-														<button v-if="pricing.pricing[member].available"  class="btn btn-sm btn-warning">Add To Cart</button>
+														{{ formatCurrency(pricing.pricing[member].price) }}<br/>
+														<button @click="addToCart(pricing.pricing[member],member,event.name)" v-if="pricing.pricing[member].available && !pricing.pricing[member].added" :disabled="adding"  class="btn btn-sm btn-warning"><i v-if="adding" class="fa fa-spin fa-spinner"></i> Add To Cart</button>
 														<button v-if="!pricing.pricing[member].available" style="cursor:not-allowed;color:#fff;" aria-disabled="true"  disabled class="btn btn-sm btn-danger">Not Available</button>
+														<button v-if="pricing.pricing[member].added" style="cursor:default;color:#fff;" aria-disabled="true"  disabled class="btn btn-sm btn-success">Added</button>
 													</td>
 												</tr>
 											</tbody>
@@ -65,30 +69,8 @@ export default Vue.component("PageEvents", {
 			loading: false,
 			fail: false,
 			user: {},
-			events: [
-				{
-					name: 'Symposium',
-					category:'Scientific',
-					pricingName: [
-						{
-							name: 'Early Bird',
-							title: 'Early Bird <br/> 1 Januari 2019 - 20 Januari 2019',
-							pricing: {'Perdoski Member': {price:'120',available:1}, 'Young Member': {price:130,available:0}, 'General Practitioner': {price:140,available:0}},
-						},
-						{
-							name: 'Regular',
-							title: 'Regular <br/> 1 Januari 2019 - 20 Januari 2019',
-							pricing: {'Perdoski Member': {price:'120',available:1}, 'Young Member': {price:130,available:1}, 'General Practitioner': {price:140,available:0}},
-						},
-						{
-							name: 'OnSite',
-							title: 'OnSite <br/> 1 Januari 2019 - 20 Januari 2019',
-							pricing: {'Perdoski Member': {price:'120',available:1}, 'Young Member': {price:130,available:0}, 'General Practitioner': {price:140,available:1}},
-						}
-					],
-					memberStatus: ['Perdoski Member', 'Young Member', 'General Practitioner'],
-				}
-			]
+			adding:false,
+			events: null,
 		}
 	},
 	created() {
@@ -97,7 +79,39 @@ export default Vue.component("PageEvents", {
 	watch: {
 		'$route': 'fetchEvents'
 	},
+	computed:{
+		countAdded(){
+			var count = 0;
+			for(var event in this.events){
+				for(var pricingName in this.events[event].pricingName){
+					for(var pricing in this.events[event].pricingName[pricingName].pricing ){
+						if(this.events[event].pricingName[pricingName].pricing[pricing].added == 1 && !this.events[event].followed) {
+							count++;
+						}
+					}
+				}
+			}
+			return count;
+		}
+	},
 	methods: {
+		addToCart(event,member,event_name){
+			var page = this;
+			this.adding  = true;
+			event.member_status = member;
+			event.event_name = event_name;
+			$.post(this.baseUrl+"add_cart",event,function (res) {
+				if(res.status) {
+					event.added = 1;
+				}else{
+					Swal.fire('Fail',res.message,'warning');
+				}
+			}).fail(function () {
+				Swal.fire('Fail',"Failed adding to cart !",'error');
+			}).always(function () {
+				page.adding  = false;
+			});
+		},
 		fetchEvents() {
 			var page = this;
 			page.loading = true;
@@ -113,6 +127,9 @@ export default Vue.component("PageEvents", {
 			}).always(function () {
 				page.loading = false;
 			});
+		},
+		formatCurrency(price){
+			return new Intl.NumberFormat("id-ID",{ style: 'currency',currency:"IDR"} ).format(price);
 		}
 	}
 });
