@@ -48,7 +48,8 @@ class Event_m extends MY_Model
 
 	public function eventVueModel($member_id,$userStatus, $filter = [])
 	{
-		$result = $this->setAlias("t")->find()->select("*,t.name as event_name,event_pricing.name as name_pricing,event_pricing.price as price_r,event_pricing.id as id_price,,td.id as followed,checkout")
+		$this->load->model("Transaction_m");
+		$result = $this->setAlias("t")->find()->select("*,t.name as event_name,event_pricing.name as name_pricing,event_pricing.price as price_r,event_pricing.id as id_price,,td.id as followed,checkout,tr.status_payment")
 			->where($filter)
 			->join("event_pricing", "t.id = event_id")
 			->join("transaction_details td","td.event_pricing_id = event_pricing.id AND td.member_id = '$member_id'","left")
@@ -79,7 +80,7 @@ class Event_m extends MY_Model
 				$return[$index] = [
 					'name' => $row['event_name'],
 					'category' => $row['kategory'],
-					'followed' => ($row['checkout'] == 1 && $row['followed'] != null),
+					'followed' => ($row['checkout'] == 1 &&  $row['followed'] != null && $row['status_payment'] == Transaction_m::STATUS_FINISH),
 					'pricingName' => [
 						[
 							'name' => $row['name_pricing'],

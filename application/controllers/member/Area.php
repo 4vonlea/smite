@@ -103,6 +103,7 @@ class Area extends MY_Controller
 			$transaction = new Transaction_m();
 			$transaction->id = $id;
 			$transaction->checkout = 0;
+			$transaction->status_payment = Transaction_m::STATUS_WAITING;
 			$transaction->member_id = $this->session->user_session['id'];
 			$transaction->save();
 			$transaction->id = $id;
@@ -127,6 +128,41 @@ class Area extends MY_Controller
 		$this->output->set_content_type("application/json")
 			->_display(json_encode($response));
 
+	}
+
+
+	public function get_transaction(){
+		if($this->input->method() !== 'post')
+			show_404("Page not found !");
+
+		$this->load->model(["Transaction_m"]);
+		$transactions = $this->Transaction_m->findAll(['member_id'=>$this->session->user_session['id']]);
+		$response = ['status'=>true,'cart'=>null,'transaction'=>null];
+		foreach($transactions as $trans){
+			if($trans->checkout == 0){
+				foreach ($trans->details as $row){
+					$response['cart'][] = $row->toArray();
+				}
+			}else{
+				$detail = [];
+				foreach ($trans->details as $row){
+					$detail[] = $row->toArray();
+				}
+				$response['transaction'][] = array_merge($trans->toArray(),['detail'=>$detail]);
+			}
+		}
+		$this->output->set_content_type("application/json")
+			->_display(json_encode($response));
+	}
+
+	public function delete_item_cart(){
+		if($this->input->method() !== 'post')
+			show_404("Page not found !");
+    	$id = $this->input->post('id');
+		$this->load->model(["Transaction_detail_m"]);
+		$this->Transaction_detail_m->delete($id);
+		$this->output->set_content_type("application/json")
+			->_display('{"status":true}');
 	}
 
     public function file($name){

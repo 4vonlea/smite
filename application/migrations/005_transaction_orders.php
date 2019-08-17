@@ -11,8 +11,9 @@ class Migration_transaction_orders extends CI_Migration
 			'id' => ['type' => 'varchar', 'constraint' => '255'],
 			'member_id' => ['type' => 'varchar', 'constraint' => '100'],
 			'checkout' => ['type' => 'int'],
-			'status_payment' => ['type' => 'varchar','constraint'=>'100'],
-			'message_payment' => ['type' => 'varchar','constraint'=>'255'],
+			'status_payment' => ['type' => 'varchar','constraint'=>'100','null'=>true],
+			'message_payment' => ['type' => 'varchar','constraint'=>'255','null'=>true],
+			'midtrans_data' => ['type' => 'text','null'=>true],
 			'channel' => ['type' => 'varchar','constraint'=>'100'],
 			'paid_at' => ['type' => 'timestamp','default'=>0],
 			'created_at' => ['type' => 'datetime'], 'updated_at' => ['type' => 'datetime']])
@@ -23,7 +24,7 @@ class Migration_transaction_orders extends CI_Migration
 			'member_id' => ['type' => 'varchar', 'constraint' => '100'],
 			'transaction_id' => ['type' => 'varchar', 'constraint' => '255'],
 			'event_pricing_id' => ['type' => 'int', 'constraint' => '11'],
-			'product_name' => ['type' => 'varchar', 'constraint' => '255'],
+			'product_name' => ['type' => 'varchar', 'constraint' => '255','null'=>true],
 			'price' => ['type' => 'varchar','constraint'=>'100'],
 			'created_at' => ['type' => 'datetime'], 'updated_at' => ['type' => 'datetime']])
 			->add_key("id", true)

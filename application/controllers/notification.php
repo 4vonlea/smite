@@ -36,7 +36,7 @@ class Notification extends CI_Controller {
 		$result = json_decode($json_result);
 
 		if($result){
-		$notif = $this->veritrans->status($result->order_id);
+			$notif = $this->veritrans->status($result->order_id);
 		}
 
 		error_log(print_r($result,TRUE));

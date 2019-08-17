@@ -25,7 +25,7 @@ export default Vue.component("PageEvents", {
 					
 					<div class="row">
 						<div class="accordion accordion-quaternary col-md-12">
-							<div  v-for="(event, index) in events" class="card card-default">
+							<div  v-for="(event, index) in events" class="card card-default" v-bind:key="index">
 								<div class="card-header">
 									<h4 class="card-title m-0">
 										<a class="accordion-toggle" data-toggle="collapse" :href="'#accordion-'+index" aria-expanded="true">

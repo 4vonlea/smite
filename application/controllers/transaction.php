@@ -22,7 +22,8 @@ class Transaction extends CI_Controller {
 	public function __construct()
     {
         parent::__construct();
-        $params = array('server_key' => 'your_server_key', 'production' => false);
+        $config = $this->config->item("midtrans");
+        $params = array('server_key' => $config['server_key'], 'production' => false);
 		$this->load->library('veritrans');
 		$this->veritrans->config($params);
 		$this->load->helper('url');
