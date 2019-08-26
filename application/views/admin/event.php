@@ -315,7 +315,7 @@
         },
         methods: {
             addPricing: function () {
-                this.form.model.pricing.push({
+                this.form.model.event_pricing.push({
                     name: "-",
                     condition_date: "",
                     price:<?=json_encode($pricingDefault);?>

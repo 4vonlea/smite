@@ -27,4 +27,10 @@ class User_account_m extends MY_Model
         return false;
     }
 
+    public function findWithBiodata($username){
+        return $this->setAlias("t")->find()->select("username,role,m.*,km.kategory as status_name")
+			->where('username',$username)->join('members m','m.username_account = username')
+			->join("kategory_members km","status = km.id","left")->get()->row_array();
+    }
+
 }

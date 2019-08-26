@@ -4,6 +4,7 @@
 class MY_Model extends yidas\Model
 {
     protected $dateFormat = "datetime";
+    public $fillable = [];
 
     /**
      * @return array
@@ -61,6 +62,9 @@ class MY_Model extends yidas\Model
     }
 
     public function setAttributes($attributes){
+        if(count($this->fillable) > 0)
+            $attributes = array_intersect_key($attributes,array_flip($this->fillable));
+
         foreach($attributes as $name=>$value) {
             $this->{$name} = $value;
         }

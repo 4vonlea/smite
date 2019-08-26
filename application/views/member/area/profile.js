@@ -44,12 +44,12 @@ template:`
                 <div class="col-lg-5">
                     <div class="radio">
                         <label>
-                            <input :disabled="!editing" type="radio" name="gender" checked value="M"/> Male
+                            <input :disabled="!editing" type="radio" name="gender" v-model="user.gender" value="M"/> Male
                         </label>
                     </div>
                     <div class="radio">
                         <label>
-                            <input :disabled="!editing" type="radio" name="gender" value="F"/> Female
+                            <input :disabled="!editing" type="radio" name="gender" v-model="user.gender" value="F"/> Female
                         </label>
                     </div>
                 </div>
@@ -58,6 +58,7 @@ template:`
                 <label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2 required">Birthday</label>
                 <div class="col-lg-9">
                     <vuejs-datepicker :disabled="!editing" input-class="form-control"
+                                    v-model="user.birthday"
                                       wrapper-class="wrapper-datepicker"
                                       name="birthday"></vuejs-datepicker>
                 </div>
@@ -65,7 +66,7 @@ template:`
             <div class="form-group row">
                 <label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2 required">Phone/WA</label>
                 <div class="col-lg-9">
-                    <input :disabled="!editing" type="text" class="form-control" name="phone"/>
+                    <input :disabled="!editing" type="text" v-model="user.phone" class="form-control" name="phone"/>
                 </div>
             </div>
 
@@ -93,7 +94,7 @@ template:`
             <div v-if="editing" class="form-group row">
                 <div class="form-group col-lg-12 text-right">
                     <button @click="[editing = false]"  type="button" class="btn btn-default "> Cancel</button>
-                    <button v-if="editing" type="button" class="btn btn-primary"> Save</button>
+                    <button v-if="editing" @click="saveProfile" type="button" class="btn btn-primary"> Save</button>
                 </div>
             </div>
         </form>
@@ -107,22 +108,27 @@ template:`
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body">
-                        <div class="form-group">
-                            <label>New Password</label>
-                            <input type="password" class="form-control" placeholder="New Password"/>
-                        </div>
-                        <div class="form-group">
-                            <label>Confirm Password</label>
-                            <input type="password" class="form-control" placeholder="Confirm Password"/>
-                        </div>
-                        <div class="form-group">
-                            <label>Old Password</label>
-                            <input type="password" class="form-control" placeholder="Old Password"/>
-                        </div>
+                        <form id="form-reset">
+                            <div class="form-group">
+                                <label>New Password</label>
+                                <input :class="{'is-invalid':reset.new_password}" type="password" class="form-control" name="new_password" placeholder="New Password"/>
+                                <div v-if="reset.new_password" class="invalid-feedback">{{ reset.new_password }}</div>
+                            </div>
+                            <div class="form-group">
+                                <label>Confirm Password</label>
+                                <input :class="{'is-invalid':reset.confirm_password}" type="password" class="form-control" name="confirm_password" placeholder="Confirm Password"/>
+                                <div v-if="reset.confirm_password" class="invalid-feedback">{{ reset.confirm_password }}</div>
+                            </div>
+                            <div class="form-group">
+                                <label>Old Password</label>
+                                <input :class="{'is-invalid':reset.old_password}" type="password" class="form-control" name="old_password" placeholder="Old Password"/>
+                                <div v-if="reset.old_password" class="invalid-feedback">{{ reset.old_password }}</div>
+                            </div>
+                        </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary" >Reset</button>
+                        <button type="button" :disabled="processReset" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" @click="resetPassword" :disabled="processReset" class="btn btn-primary" ><i v-if="processReset" class="fa fa-spin fa-spinner"></i> Reset</button>
                     </div>
                 </div>
         
@@ -134,20 +140,47 @@ template:`
     components:{
         vuejsDatepicker
     },
-    props:['userParam'],
     data:function(){
         return {
             loading:false,
             fail:false,
             user:{},
             editing:false,
+            processReset:false,
+            reset:{},
         }
     },
     methods:{
-
+        saveProfile(){
+            var page = this;
+            this.loading = true;
+            this.user.birthday = moment(this.user.birthday).format("YYYY-MM-DD");
+            $.post(this.baseUrl+"save_profile",this.user,function () {
+                Swal.fire('Success',"Your profile saved successfully",'success');
+                page.editing = false;
+            },'JSON').fail(function (xhr) {
+                Swal.fire('Fail',"Failed to save your profile",'error');
+            }).always(function () {
+                page.loading = false;
+            });
+        },
+        resetPassword(){
+            var page = this;
+            var data = $("#form-reset").serializeArray();
+            page.processReset = true;
+            $.post(this.baseUrl+"reset_password",data,function (res) {
+                if(res.status){
+                    $("#reset-password").modal("hide");
+                    Swal.fire('Success',"Your password reset successfully",'success');
+                }else{
+                    page.reset = res;
+                }
+            },'JSON').fail(function () {
+                Swal.fire('Fail',"Failed to process !",'error');
+            }).always(function () {
+                page.processReset = false;
+            });
+        }
     },
-    mounted:function () {
-        this.user = this.userParam;
-    }
 });
 export default PageProfile;

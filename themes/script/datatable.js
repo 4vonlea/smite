@@ -77,7 +77,7 @@ Vue.component('datagrid', {
                     tableWrapper: '',
                     tableHeaderClass: 'mb-0',
                     tableBodyClass: 'mb-0',
-                    tableClass: 'table table-responsive table-bordered table-stripped table-hover table-grid',
+                    tableClass: 'table table-bordered table-stripped table-hover table-grid',
                     loadingClass: 'loading',
                     ascendingIcon: 'fa fa-chevron-up',
                     descendingIcon: 'fa fa-chevron-down',
@@ -106,7 +106,7 @@ Vue.component('datagrid', {
                         last: '',
                     },
                 }
-            }
+            },
         }
     },
     computed: {
@@ -116,7 +116,7 @@ Vue.component('datagrid', {
             this.getFieldName().forEach(function (i) {
                 if (typeof scopeSlots[i] !== 'undefined')
                     field.push(i);
-            })
+            });
             return field;
         }
     },
@@ -149,6 +149,8 @@ Vue.component('datagrid', {
             // paginationData.prev_page_url = (paginationData.current_page > 1 ? "":null);
             this.$refs.pagination.setPaginationData(paginationData);
             this.$refs.paginationInfo.setPaginationData(paginationData);
+            this.paginationData = paginationData;
+            this.$emit("loaded_data",paginationData);
         },
         onChangePage(page) {
             this.$refs.vuetable.changePage(page)
