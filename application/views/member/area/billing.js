@@ -28,7 +28,7 @@ export default Vue.component("PageBilling", {
 							<tr v-for="item in transaction">
 								<td>{{ formatDate(item.updated_at)}}</td>
 								<td>{{ item.id}}</td>
-								<td>{{ item.status_payment}}</td>
+								<td>{{ item.status_payment.toUpperCase()}}</td>
 								<td>{{ sumPrice(item.detail)}}</td>
 								<td><button class="btn btn-default" @click="detailTransaction(item)">Detail</button></td>
 							</tr>
@@ -36,7 +36,7 @@ export default Vue.component("PageBilling", {
 					</table>
 				</div>
 				<div class="row">
-					<h4>Cart</h4>
+					<h4>Current Cart</h4>
 					<div v-if="!cart" class="col-md-12 alert alert-warning">
 						<p>You have not selected the events to added</p>
 					</div>

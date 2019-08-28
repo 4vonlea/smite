@@ -144,7 +144,7 @@
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Event Categories List</h4>
+                <h4 class="modal-title">Member Status List</h4>
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
 
@@ -252,8 +252,6 @@
 			verifyModel:{},
 			verifying:false,
 			verifyMessage:null,
-			countMember:0,
-			countVerified:0,
 			pagination:{},
 			profileMode:0,
 			profile:{},

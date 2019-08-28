@@ -133,6 +133,14 @@
                                             </div>
                                         </div>
                                         <div class="row" v-for="(cat,index) in eventPrice.price" v-bind:key="index">
+											<div class="col-lg-1">
+												<div class="custom-control custom-checkbox">
+													<span v-if="index==0">
+														<label class="form-control-label" >Show</label><br/>
+													</span>
+													<input type="checkbox" value="1" v-model="cat.show" :disabled="detailMode" />
+												</div>
+											</div>
                                             <div class="col-lg-6">
                                                 <div class="form-group">
                                                     <label class="form-control-label" v-if="index==0" for="input-email">Category
@@ -141,7 +149,7 @@
                                                            class="form-control"/>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-5">
                                                 <div class="form-group">
                                                     <label class="form-control-label" v-if="index==0">Price</label>
                                                     <div class="input-group input-group-alternative">

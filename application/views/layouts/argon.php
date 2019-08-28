@@ -168,19 +168,24 @@
                         <i class="ni ni-single-02 text-orange"></i> Members
                     </a>
                 </li>
+				<li class="nav-item">
+					<a class="nav-link" href="<?= base_url('admin/paper'); ?>">
+						<i class="ni ni-book-bookmark text-orange"></i> Papers
+					</a>
+				</li>
                 <li class="nav-item">
                     <a class="nav-link" href="<?= base_url('admin/event'); ?>">
                         <i class="ni ni-planet text-blue"></i> Events List
                     </a>
                 </li>
-<!--                <li class="nav-item">-->
-<!--                    <a class="nav-link" href="--><?//= base_url('admin/hotel_service'); ?><!--">-->
-<!--                        <i class="ni ni-building text-orange"></i> Hotel Services-->
-<!--                    </a>-->
-<!--                </li>-->
                 <li class="nav-item">
-                    <a class="nav-link" href="<?= base_url('admin/hotel_service'); ?>">
-                        <i class="ni ni-chat-round text-blue"></i> Send Message
+                    <a class="nav-link" href="<?= base_url('admin/transaction'); ?>">
+                        <i class="ni ni-cart text-orange"></i> Transaction
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="<?= base_url('admin/notification'); ?>">
+                        <i class="ni ni-chat-round text-blue"></i> Message & Notification
                     </a>
                 </li>
                 <li class="nav-item">

@@ -48,10 +48,12 @@ export default Vue.component("PageEvents", {
 												<tr v-for="member in event.memberStatus">
 													<td>{{ member }}</td>
 													<td v-for="pricing in event.pricingName" class="text-center">
+														<span v-if="pricing.pricing[member]">
 														{{ formatCurrency(pricing.pricing[member].price) }}<br/>
 														<button @click="addToCart(pricing.pricing[member],member,event.name)" v-if="pricing.pricing[member].available && !pricing.pricing[member].added" :disabled="adding"  class="btn btn-sm btn-warning"><i v-if="adding" class="fa fa-spin fa-spinner"></i> Add To Cart</button>
 														<button v-if="!pricing.pricing[member].available" style="cursor:not-allowed;color:#fff;" aria-disabled="true"  disabled class="btn btn-sm btn-danger">Not Available</button>
 														<button v-if="pricing.pricing[member].added" style="cursor:default;color:#fff;" aria-disabled="true"  disabled class="btn btn-sm btn-success">Added</button>
+														</span>
 													</td>
 												</tr>
 											</tbody>

@@ -48,8 +48,10 @@ class Event_m extends MY_Model
 
 	public function eventVueModel($member_id,$userStatus, $filter = [])
 	{
+		$filter = array_merge($filter,['show'=>'1']);
 		$this->load->model("Transaction_m");
-		$result = $this->setAlias("t")->find()->select("*,t.name as event_name,event_pricing.name as name_pricing,event_pricing.price as price_r,event_pricing.id as id_price,,td.id as followed,checkout,tr.status_payment")
+		$result = $this->setAlias("t")->find()->select("t.name as event_name,event_pricing.name as name_pricing,event_pricing.price as price_r,event_pricing.id as id_price,,td.id as followed,COALESCE(checkout,0) as checkout,tr.status_payment")
+			->select("condition,condition_date,kategory")
 			->where($filter)
 			->join("event_pricing", "t.id = event_id")
 			->join("transaction_details td","td.event_pricing_id = event_pricing.id AND td.member_id = '$member_id'","left")
@@ -74,6 +76,7 @@ class Event_m extends MY_Model
 					$title.= $d1->format($frmt)." - ".$d2->format($frmt);
 				}
 			}
+			$added = ($row['followed'] != null && $row['checkout'] == 0 ? 1:0);
 
 			if ($temp != $row['event_name']) {
 				$index++;
@@ -85,10 +88,10 @@ class Event_m extends MY_Model
 						[
 							'name' => $row['name_pricing'],
 							'title' => $title,
-							'pricing' => [$row['condition'] => ['id'=>$row['id_price'],'price' => $row['price_r'], 'available' =>$avalaible,'added'=>($row['followed'] != null ? 1:0)]]
+							'pricing' => [$row['condition'] => ['id'=>$row['id_price'],'price' => $row['price_r'], 'available' =>$avalaible,'added'=>$added]]
 						]
 					],
-					'memberStatus'=>[$row['condition'] ]
+					'memberStatus'=>[$row['condition']]
 				];
 				$tempPricing = $row['name_pricing'];
 				$pId = 0;
@@ -101,11 +104,12 @@ class Event_m extends MY_Model
 					$return[$index]['pricingName'][$pId] = 	[
 						'name' => $row['name_pricing'],
 						'title' => $title,
-						'pricing' => [$row['condition'] => ['id'=>$row['id_price'],'price' => $row['price_r'], 'available' => $avalaible,'added'=>($row['followed'] != null ? 1:0)]]
+						'pricing' => [$row['condition'] => ['id'=>$row['id_price'],'price' => $row['price_r'], 'available' => $avalaible,'added'=>$added]]
 					];
 					$tempPricing = $row['name_pricing'];
 				}else{
-					$return[$index]['pricingName'][$pId]['pricing'][$row['condition']] = ['id'=>$row['id_price'],'price' => $row['price_r'], 'available' => $avalaible,'added'=>($row['followed'] != null ? 1:0)];
+					if($row['checkout'] == 0)
+						$return[$index]['pricingName'][$pId]['pricing'][$row['condition']] = ['id'=>$row['id_price'],'price' => $row['price_r'], 'available' => $avalaible,'added'=>$added];
 				}
 			}
 

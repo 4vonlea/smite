@@ -14,7 +14,25 @@ class MY_Model extends yidas\Model
         return is_array(parent::getErrors()) ? parent::getErrors() : [];
     }
 
-    public function gridData($params,$relationship = [])
+    private function convertGridSelect($select){
+		$fields = [];
+		foreach($select as $alias=>$f){
+			if(is_numeric($alias)){
+				$fields[] = $f;
+			}else{
+				$fields[] = "$f as $alias";
+			}
+		}
+		return $fields;
+	}
+	/**
+	 * @return array contain paremeter with key (relationships,select,where);
+	 */
+    public function gridConfig(){
+    	return [];
+	}
+
+    public function gridData($params,$gridConfig = [])
     {
         $global_filter = (isset($params['global_filter'])?$params['global_filter']:null);
         $fields = $params['fields'];
@@ -22,23 +40,38 @@ class MY_Model extends yidas\Model
         $limit = $params['per_page'];
         $offset = ($params['page'] - 1)*$limit;
 
-        $builder = $this->find()->limit($limit)->offset($offset);
-        $countBuilder = $this->getBuilder();
+		/**
+		 * @var $builder CI_DB_query_builder
+		 */
+		$countBuilder = clone $this->getBuilder();
+		$builder = $this->setAlias("t")->find()->limit($limit)->offset($offset);
+		$gridConfig = (count($gridConfig) > 0 ? $gridConfig:$this->gridConfig());
+
+		if(isset($gridConfig['select']))
+			$builder->select($this->convertGridSelect($gridConfig['select']));
 
         if(count($sort) > 1)
             $builder->order_by($sort[0],$sort[1]);
 
         if($global_filter){
             foreach($fields as $fname){
+            	$fname = isset($gridConfig['select'][$fname])?$gridConfig['select'][$fname]:$fname;
                 $builder->or_like($fname,$global_filter);
                 $countBuilder->or_like($fname,$global_filter);
             }
         }
 
-        $result =   $builder->get();
+		if(isset($gridConfig['relationships'])){
+			foreach($gridConfig['relationships'] as $alias=>$r){
+				$builder->join("$r[0] as $alias","$r[1]",(isset($r[2])?"$r[2]":"inner"));
+				$countBuilder->join("$r[0] as $alias","$r[1]",(isset($r[2])?"$r[2]":"inner"));
+			}
+		}
 
+
+        $result = $builder->get();
         $data['data'] = $result->result_array();
-        $data['total'] =  $countBuilder->count_all_results($this->tableName());
+		$data['total'] =  $countBuilder->count_all_results($this->tableName());
         $data['per_page'] = $limit;
         $data['current_page'] = $params['page'];
         $data['url'] = current_url();
@@ -70,4 +103,8 @@ class MY_Model extends yidas\Model
         }
     }
 
+}
+
+interface iNotification{
+	public function sendMessage($to,$subject,$message);
 }
