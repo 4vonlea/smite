@@ -7,7 +7,7 @@ class Notification  extends Admin_Controller
 		$this->layout->render("notification");
 	}
 
-	public function message(){
+	public function send_message(){
 		if($this->input->method() != 'post')
 			show_404("Page Not Found !");
 
@@ -25,6 +25,22 @@ class Notification  extends Admin_Controller
 			$to['email'][] = $res->email;
 			$to['wa'][] = $res->phone;
 		}
+		if(in_array("email",$data['via'])){
+			$this->load->model("Gmail_api");
+			foreach($to['email'] as $receiver) {
+				$this->Gmail_api->sendMessage($receiver,$data['subject'],$data['text']);
+			}
+		}
 
+		if(in_array("wa",$data['via'])){
+			$this->load->model("Whatsapp_api");
+			foreach($to['wa'] as $receiver) {
+				$this->Whatsapp_api->sendMessage($receiver,$data['subject'],$data['text']);
+			}
+		}
+		$this->output
+			->set_content_type("application/json")
+			->_display(json_encode(['status'=>true]));
 	}
+
 }

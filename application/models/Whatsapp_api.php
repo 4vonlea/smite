@@ -49,6 +49,9 @@ class Whatsapp_api extends My_model implements iNotification
 
 	public function sendMessage($to, $subject, $message)
 	{
+		if($to[0] === "0"){
+			$to = "62".substr($to,1,strlen($to));
+		}
 		$url = "https://wablas.com/api/send-message";
 		$message = "*".$subject."*\n\n".$message;
 		$result = $this->composeRequest($to,$message,$url);

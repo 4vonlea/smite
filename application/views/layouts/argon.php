@@ -37,7 +37,10 @@
         {
             opacity: 0;
         }
-
+		 .nav-pills .nav-link.active{
+			 color:#fff;
+			 background-color: #172b4d!important;
+		 }
         .wrapper-datepicker {
             position: relative;
             width: 1%;
