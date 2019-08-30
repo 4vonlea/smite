@@ -9,7 +9,7 @@ class Setting extends Admin_Controller
 		$gmail_token = $this->Gmail_api->getToken();
 		$this->layout->render('setting',[
 			'wa_token'=>$this->Whatsapp_api->getToken(),
-			'email_binded'=>(isset($gmail_token) && count() > 0)
+			'email_binded'=>(isset($gmail_token) && count($gmail_token) > 0)
 		]);
     }
 
