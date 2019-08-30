@@ -137,7 +137,7 @@ class Event_m extends MY_Model
         foreach ($a as $data) {
             $data[1];
         }
-        debug($data);
+        // debug($data);
         return $result;
 
         // foreach ($a as $data) {
