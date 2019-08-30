@@ -62,6 +62,15 @@ class Payment extends MY_Controller
 				$tr = $this->Transaction_m->findOne($notif->order_id);
 				$member = $tr->member;
 
+				$domInvoice = new Dompdf();
+				$html = $this->load->view("template/invoice",[
+					'transaction'=>$tr,
+				],true);
+				$domInvoice->loadHtml($html);
+				$domInvoice->render();
+				$invoice = $domInvoice->output();
+				$this->Gmail_api->sendMessageWithAttachment($member->email,"INVOICE","Thank you for participating on events, Below is your invoice",$invoice,"INVOICE.pdf");
+
 				$html = $this->load->view("template/official_payment_proof",[
 					'transaction'=>$tr,
 				],true);
@@ -69,7 +78,7 @@ class Payment extends MY_Controller
 				$dompdf->loadHtml($html);
 				$dompdf->render();
 				$file = $dompdf->output();
-				$this->Gmail_api->sendMessageWithAttachment($member->email,"Official Payment Proof","Thank you for registering and fulfilling your payment, below is offical payment proof",$file);
+				$this->Gmail_api->sendMessageWithAttachment($member->email,"Official Payment Proof","Thank you for registering and fulfilling your payment, below is offical payment proof",$file,"OFFICIAL_PAYMENT_PROOF.pdf");
 			}
 		}
 	}
@@ -77,7 +86,7 @@ class Payment extends MY_Controller
 	public function after_checkout(){
 		$data = $this->input->post();
 		$this->load->model("Transaction_m");
-		$this->Transaction_m->update(['checkout'=>1,'message_payment'=>$data['message_payment']],$data['id']);
+		$this->Transaction_m->update(['checkout'=>1,'message_payment'=>$data['message_payment'],'created_at'=>date("Y-m-d H:i:s")],$data['id']);
 	}
 
 	public function checkout(){

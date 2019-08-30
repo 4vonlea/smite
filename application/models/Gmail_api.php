@@ -101,16 +101,12 @@ class Gmail_api extends MY_Model implements iNotification
         $status = $service->users_messages->send("me", $msg);
     }
 
-	public function sendMessageWithAttachment($to,$subject,$message,$attachment){
+	public function sendMessageWithAttachment($to,$subject,$message,$attachment,$filename){
 		$from = $this->getEmail();
 		$sender = $this->getSender();
 		$boundary = uniqid(rand(), true);
 		$finfo = new finfo(FILEINFO_MIME);
 		$mimeType = $finfo->buffer($attachment);
-		$ext = "";
-		if (strpos($mimeType, 'application/pdf') !== false) {
-			$ext = "pdf";
-		}
 		$service = new Google_Service_Gmail($this->getClient());
 		$strSubject = $subject;
 		$strRawMessage = "From:  $sender<".$from.">\r\n";
@@ -124,7 +120,7 @@ class Gmail_api extends MY_Model implements iNotification
 		$strRawMessage .= $message."\r\n";
 
 		$strRawMessage .= "--{$boundary}\r\n";
-		$strRawMessage .= 'Content-Type: '. $mimeType .'; name="official_receipt_payment.'.$ext.'";' . "\r\n";
+		$strRawMessage .= 'Content-Type: '. $mimeType .'; name="'.$filename.'";' . "\r\n";
 		$strRawMessage .= 'Content-Transfer-Encoding: base64' . "\r\n\r\n";
 		$strRawMessage .= base64_encode($attachment)."\r\n";
 

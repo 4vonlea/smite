@@ -11,13 +11,18 @@ class Dashboard extends Admin_Controller
     }
 
     public function test(){
-		$this->load->model("Gmail_api");
+		$this->load->model("Transaction_m");
 		$tr = $this->Transaction_m->findOne("SANDBOX-G988409790-516");
 		$member = $tr->member;
 
 		$html = $this->load->view("template/invoice",[
 			'transaction'=>$tr,
-		],false);
+		],true);
+		$dompdf = new Dompdf();
+		$dompdf->loadHtml($html);
+		$dompdf->render();
+		$file = $dompdf->stream();
+
 	}
 
     public function data(){

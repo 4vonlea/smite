@@ -42,11 +42,7 @@ $member = $transaction->member;
 			</p>
 			<p style="text-align:right">
 				<span
-					style="font-family:times new roman,times,serif;font-size:12pt;text-align:start;background-color:#ffffff"><?=  date("M d, Y", strtotime($transaction->updated_at));; ?></span>
-			</p>
-			<p style="text-align:left">
-				<span
-					style="font-family:times new roman,times,serif;font-size:12pt;text-align:start;background-color:#ffffff">No: <?= $transaction->id; ?><br/></span>
+					style="font-family:times new roman,times,serif;font-size:12pt;text-align:start;background-color:#ffffff"><?=  date("M d, Y", strtotime($transaction->updated_at)); ?></span>
 			</p>
 			<p style="text-align:left">
 				<span
@@ -84,7 +80,7 @@ $member = $transaction->member;
 					<td><?=$member->status_member->kategory;?></td>
 				</tr>
 				<tr>
-					<th>Events to Followed</th>
+					<th>The Events Followed</th>
 					<td>
 						<ul>
 							<?php
