@@ -6,11 +6,10 @@ class Setting extends Admin_Controller
     public function index()
     {
 		$this->load->model(['Gmail_api',"Whatsapp_api"]);
-		var_dump($this->Gmail_api->getToken());
-		exit;
+		$gmail_token = $this->Gmail_api->getToken();
 		$this->layout->render('setting',[
 			'wa_token'=>$this->Whatsapp_api->getToken(),
-			'email_binded'=>(count($this->Gmail_api->getToken()) > 0)
+			'email_binded'=>(isset($gmail_token) && count() > 0)
 		]);
     }
 
