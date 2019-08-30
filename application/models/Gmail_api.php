@@ -16,7 +16,7 @@ class Gmail_api extends MY_Model implements iNotification
      */
     public function getToken(){
         $token = $this->findOne(['name'=>self::NAME_SETTINGS]);
-        return ($token ? json_decode($token->value,true):null);
+        return ($token ? json_decode($token->value,true):[]);
     }
 
     /**
