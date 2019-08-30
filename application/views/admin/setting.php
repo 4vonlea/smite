@@ -9,6 +9,11 @@
                            href="#tabs-general" role="tab" aria-controls="tabs-icons-text-1"
                            aria-selected="true"><i class="ni ni-world mr-2"></i>General</a>
                     </li>
+					<li class="nav-item">
+						<a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-1-tab" data-toggle="tab"
+						   href="#tabs-certificate" role="tab" aria-controls="tabs-icons-text-1"
+						   aria-selected="true"><i class="ni ni-book-bookmark mr-2"></i>Certificate</a>
+					</li>
                 </ul>
             </div>
         </div>
@@ -52,7 +57,22 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+						<div class="tab-pane fade show" id="tabs-certificate" role="tabpanel">
+							<div class="row">
+								<div class="col">Certificate Template</div>
+							</div>
+							<hr/>
+							<div class="row">
+								<div class="col-md-12">
+									<label>HTML Code</label>
+									<textarea v-model="preview_certificate" class="form-control" cols="5" rows="5"></textarea>
+								</div>
+								<div class="col-md-12 mt-5">
+									<label>Preview</label>
+									<div v-html="preview_certificate"></div>
+								</div>
+							</div>
+						</div>
                 </div>
             </div>
         </div>
@@ -65,6 +85,7 @@
         data:{
             saving:false,
             uploading: false,
+			preview_certificate:"",
             logo_src:'<?= base_url('themes/uploads/logo.png'); ?>',
             form:{
                 preface:<?=json_encode(Settings_m::getSetting('preface'));?>,
