@@ -2,7 +2,7 @@
     <div id="revolutionSlider" class="slider rev_slider manual" data-version="5.4.8">
         <ul>
             <li data-transition="fade">
-                <img src="<?= base_url('themes/porto'); ?>/img/demos/business-consulting/slides/slide-1.jpg"
+                <img src="<?= base_url('themes/porto'); ?>/img/demos/business-consulting/slides/Bukit Langara Loksado.jpg"
                      alt=""
                      data-bgposition="center center"
                      data-bgfit="cover"
@@ -34,7 +34,7 @@
                    data-transform_in="y:[-300%];opacity:0;s:500;">Get Started</a>
             </li>
             <li data-transition="fade">
-                <img src="<?= base_url('themes/porto'); ?>/img/demos/business-consulting/slides/slide-2.jpg"
+                <img src="<?= base_url('themes/porto'); ?>/img/demos/business-consulting/slides/menara_pandang_banjarmasin.jpg"
                      alt=""
                      data-bgposition="center center"
                      data-bgfit="cover"
@@ -220,6 +220,7 @@
                     <div class="col-sm-8 col-lg-4">
                         <div class="owl-carousel owl-theme nav-inside float-left mr-4 mb-2" data-plugin-options="{'items': 1, 'margin': 10, 'animateOut': 'fadeOut','autoplay': true}">
                             <div>
+                            <!-- <br><br><br> -->
                                 <img alt="" class="img-thumbnail rounded" src="themes/porto/img/huany.png">
                             </div>
                         </div>
@@ -231,8 +232,15 @@
                         <div class="post-infos d-flex">
                             <span class="info posted-by">
                                 <span class="post-author font-weight-semibold text-color-dark">
-                                   <p>A comprehensive array of sessions have been prepared, of which will hopefully enable us to run a proper Orthopaedic Services in Indonesia. The meeting will also organize Plenary Lecture, Resident Day Lecture and several workshops to finalize the fulfillment. Prominent Orthopaedic Surgeon from Indonesia, South East Asia, Asia Pacific and beyond Asia have been invited to present their lecture.</p> <br>
-                                   <p>A comprehensive array of sessions have been prepared, of which will hopefully enable us to run a proper Orthopaedic Services in Indonesia. The meeting will also organize Plenary Lecture, Resident Day Lecture and several workshops to finalize the fulfillment. Prominent Orthopaedic Surgeon from Indonesia, South East Asia, Asia Pacific and beyond Asia have been invited to present their lecture.</p>
+                                   <p>Lajunya sumber informasi yang tidak terbendung di era digital dan peningkatan status sosial ekonomi serta pendidikan, membuat masyarakat semakin sadar dan peduli terhadap status kesehatan mereka. Salah satunya adalah kesehatan kulit selaku organ paling luar dan kelamin sebagai organ dalam yang penting. Paradigma ini mendorong masyarakat untuk lebih proaktif memeriksakan diri apabila mengalami masalah pada kesehatan kulit dan kelaminnya.</p> <br>
+                                   <p>Penyakit yang dikonsultasikan pasien pada dokter Spesialis Kulit & Kelamin maupun dokter umum selaku garda terdepan fasilitas kesehatan, bergeser tidak sebatas kosmetik, bahkan hingga penyakit kongenital/herediter pada bayi, dewasa muda, hingga keluhan kulit dan kelamin pada geriatri. Di satu sisi, penanganan dan kewaspadaaan terhadap kelainan sejak dini akan sangat berguna untuk menghindari perburukan penyakit.</p><br>
+                                   <p> Berdasarkan uraian tersebut jelas merupakan tantangan tersendiri bagi dokter layanan primer & dokter spesialis kulit kelamin yang menjadi fasilitator dalam memberikan pelayanan setiap harinya berdasarkan Evidence Based Medicine. PERDOSKI memahami hal tersebut, maka dalam rangka P2KB, diadakan simposium dan workshop dengan tema New Paradigm of Management in Pediatric to Geriatric Dermatology and Venereology: Effective Strategies Related to Diagnosis Prevention and Management .
+                                   </p><br>
+                                   <p> Besar harapan kami agar 2nd East INSDV 2020 yang diselenggarakan di Banjarmasin kali ini  dapat menambah wawasan dan menyegarkan pengetahuan para sejawat dokter spesialis kulit dan kelamin, dokter spesialis lain, dokter umum, serta mahasiswa kedokteran yang berminat guna meningkatkan kualitas pelayanan kesehatan pada masyarakat. Terlebih jika mengingat Kalimantan-Selatan sebagai provinsi dengan jalur hijau yang luas dan sedang dalam perkembangan yang sangat pesat. Dilengkapi dengan destinasi wisata yang khas dan berkembang, tentu menjadi daya Tarik tersendiri. Pun kearifan lokal yang sangat bervariasi baik prosesi adat, budaya, kuliner, & berbagai kerajinan buah tangan tradisional, sehingga Kalimantan-Selatan dapat menjadi salah satu destinasi yang wajib untuk disambangi.
+                                   </p><br>
+                                   <p>Ketua Panitia</p><br>
+                                   <p><b>dr. Huany Wongdjaja, Sp.KK , M.Kes </b></p>
+
                                 </span>
                             </span>
                         </div>
