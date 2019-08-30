@@ -10,6 +10,16 @@ class Dashboard extends Admin_Controller
         $this->layout->render("dashboard");
     }
 
+    public function test(){
+		$this->load->model("Gmail_api");
+		$tr = $this->Transaction_m->findOne("SANDBOX-G988409790-516");
+		$member = $tr->member;
+
+		$html = $this->load->view("template/invoice",[
+			'transaction'=>$tr,
+		],false);
+	}
+
     public function data(){
 		if($this->input->method() != 'post')
 			show_404("Page Not Found !");

@@ -29,9 +29,6 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 /tests/results/
 .env
 
-application/uploads/*
-!application/uploads/index.html
-
 application/uploads/proof/*
 !application/uploads/proof/index.html
 
