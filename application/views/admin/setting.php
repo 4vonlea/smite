@@ -93,8 +93,8 @@
 								<div class="col-3">
 									<label>Email Used For Notification</label>
 								</div>
-								<div class="col-4">
-									<input v-if="email_notif" type="text" readonly v-model="email_notif" class="form-control"/>
+								<div v-if="email_notif_binded" class="col-4">
+									<input  type="text" readonly v-model="email_notif" class="form-control"/>
 								</div>
 								<div class="col-4">
 									<button v-if="email_notif_binded" @click="unbindEmail" class="btn btn-danger">Unbind</button>
