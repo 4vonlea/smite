@@ -59,7 +59,14 @@ class Transaction_m extends MY_Model
 		}
 		return $prefix.str_pad($no,5,"0",STR_PAD_LEFT);
 	}
+	public function detailsWithEvent(){
+		$rs = $this->db->select("t.*,e.name as event_name")
+				->join("event_pricing ep","ep.id = t.event_pricing_id")
+				->join("events e","e.id = ep.event_id")
+				->where("transaction_id",$this->id)->get("transaction_details t");
+		return $rs->result();
 
+	}
 	public function details()
 	{
 		return $this->hasMany('Transaction_detail_m', 'transaction_id');

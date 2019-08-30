@@ -5,8 +5,38 @@ class Setting extends Admin_Controller
 {
     public function index()
     {
-        $this->layout->render('setting');
+		$this->load->model(['Gmail_api',"Whatsapp_api"]);
+
+		$this->layout->render('setting',[
+			'wa_token'=>$this->Whatsapp_api->getToken(),
+			'email_binded'=>(count($this->Gmail_api->getToken()) > 0)
+		]);
     }
+
+    public function unbind_email(){
+		if($this->input->method() != 'post')
+			show_404("Page Not Found !");
+		$this->load->model("Gmail_api");
+		$this->output
+			->set_content_type("application/json")
+			->_display(json_encode([
+				'status'=>$this->Gmail_api->saveToken([]),
+				'email'=>$this->Gmail_api->saveEmailAdmin(""),
+			]));
+
+	}
+
+	public function save_token_wa(){
+		if($this->input->method() != 'post')
+			show_404("Page Not Found !");
+		$this->load->model("Whatsapp_api");
+		$token = $this->input->post("token");
+
+		$this->output
+			->set_content_type("application/json")
+			->_display(json_encode(['status'=>$this->Whatsapp_api->setToken($token)]));
+
+	}
 
     public function token_auth()
     {

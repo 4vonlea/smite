@@ -1,4 +1,7 @@
 <?php
+
+use Dompdf\Dompdf;
+
 /**
  * Class Payment
  * @property Midtrans $midtrans
@@ -54,6 +57,20 @@ class Payment extends MY_Controller
 			}
 			$update['message_payment'] = $notif->status_message;
 			$this->Transaction_m->update($update, $notif->order_id);
+			if($update['status_payment'] == Transaction_m::STATUS_FINISH){
+				$this->load->model("Gmail_api");
+				$tr = $this->Transaction_m->findOne($notif->order_id);
+				$member = $tr->member;
+
+				$html = $this->load->view("template/official_payment_proof",[
+					'transaction'=>$tr,
+				],true);
+				$dompdf = new Dompdf();
+				$dompdf->loadHtml($html);
+				$dompdf->render();
+				$file = $dompdf->output();
+				$this->Gmail_api->sendMessageWithAttachment($member->email,"Official Payment Proof","Thank you for registering and fulfilling your payment, below is offical payment proof",$file);
+			}
 		}
 	}
 

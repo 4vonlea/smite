@@ -1,3 +1,9 @@
+<?php
+/**
+ * @var $wa_token
+ * @var $email_binded
+ */
+?>
 <div class="header bg-info pb-8 pt-5 pt-md-7"></div>
 <div class="container-fluid mt--7">
     <div class="row mb-2">
@@ -13,6 +19,11 @@
 						<a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-1-tab" data-toggle="tab"
 						   href="#tabs-certificate" role="tab" aria-controls="tabs-icons-text-1"
 						   aria-selected="true"><i class="ni ni-book-bookmark mr-2"></i>Certificate</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-1-tab" data-toggle="tab"
+						   href="#tabs-notification" role="tab" aria-controls="tabs-icons-text-1"
+						   aria-selected="true"><i class="ni ni-book-bookmark mr-2"></i>Notification</a>
 					</li>
                 </ul>
             </div>
@@ -73,6 +84,35 @@
 								</div>
 							</div>
 						</div>
+						<div class="tab-pane fade show" id="tabs-notification" role="tabpanel">
+							<div class="row">
+								<div class="col">Notification Setting</div>
+							</div>
+							<hr/>
+							<div class="row">
+								<div class="col-3">
+									<label>Email Used For Notification</label>
+								</div>
+								<div class="col-4">
+									<input v-if="email_notif" type="text" readonly v-model="email_notif" class="form-control"/>
+								</div>
+								<div class="col-4">
+									<button v-if="email_notif_binded" @click="unbindEmail" class="btn btn-danger">Unbind</button>
+									<a v-else  href="<?=base_url("admin/setting/request_auth");?>" class="btn btn-primary">Bind</a>
+								</div>
+							</div>
+							<div class="row mt-3">
+								<div class="col-3">
+									<label>Whatsapp Token (from wablas.com)</label>
+								</div>
+								<div class="col-6">
+									<input type="text" v-model="wa_api_token" class="form-control"/>
+								</div>
+								<div class="col-3">
+									<button @click="saveTokenWa" class="btn btn-primary">Save</button>
+								</div>
+							</div>
+						</div>
                 </div>
             </div>
         </div>
@@ -90,9 +130,38 @@
             form:{
                 preface:<?=json_encode(Settings_m::getSetting('preface'));?>,
                 site_title:'<?=Settings_m::getSetting('site_title');?>',
-            }
+            },
+			email_notif_binded:<?=$email_binded;?>,
+			email_notif:"<?=Settings_m::getSetting(Gmail_api::EMAIL_ADMIN_SETTINGS);?>",
+            wa_api_token:"<?=$wa_token;?>",
         },
         methods:{
+            unbindEmail(){
+                var app = this;
+                $.post("<?=base_url("admin/setting/unbind_email");?>",{},null,'JSON')
+                    .done(function (res) {
+                        if(res.status){
+                            app.email_notif_binded = false;
+                            app.email_notif = null;
+						}
+                    }).fail(function (xhr) {
+                    Swal.fire("Failed","Failed to load data !","error");
+                }).always(function () {
+                    app.$refs.datagrid.loading = false;
+                });
+			},
+			saveTokenWa(){
+                var app = this;
+                $.post("<?=base_url("admin/setting/save_token_wa");?>",{token:app.wa_api_token},null,'JSON')
+                    .done(function (res) {
+                        app.detailModel = res;
+                        $("#modal-detail").modal("show");
+                    }).fail(function (xhr) {
+                    Swal.fire("Failed","Failed to load data !","error");
+                }).always(function () {
+                    app.$refs.datagrid.loading = false;
+                });
+			},
             onSave(){
                 app.saving = true;
                 console.log(app.form);

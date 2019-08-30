@@ -37,8 +37,12 @@ class Gmail_api extends MY_Model implements iNotification
 
     }
 
+	/**
+	 * @param $token
+	 * @return bool
+	 */
     public function saveToken($token){
-        $this->replace([
+        return $this->replace([
             'name'=>self::NAME_SETTINGS,
             'value'=>json_encode($token)
         ]);
@@ -96,4 +100,38 @@ class Gmail_api extends MY_Model implements iNotification
         $msg->setRaw($mime);
         $status = $service->users_messages->send("me", $msg);
     }
+
+	public function sendMessageWithAttachment($to,$subject,$message,$attachment){
+		$from = $this->getEmail();
+		$sender = $this->getSender();
+		$boundary = uniqid(rand(), true);
+		$finfo = new finfo(FILEINFO_MIME);
+		$mimeType = $finfo->buffer($attachment);
+		$ext = "";
+		if (strpos($mimeType, 'application/pdf') !== false) {
+			$ext = "pdf";
+		}
+		$service = new Google_Service_Gmail($this->getClient());
+		$strSubject = $subject;
+		$strRawMessage = "From:  $sender<".$from.">\r\n";
+		$strRawMessage .= "To:  <".$to.">\r\n";
+		$strRawMessage .= 'Subject: =?utf-8?B?' . base64_encode($strSubject) . "?=\r\n";
+		$strRawMessage .= "MIME-Version: 1.0\r\n";
+		$strRawMessage .= 'Content-type: Multipart/Mixed; boundary="' . $boundary . '"' . "\r\n";
+		$strRawMessage .= "\r\n--{$boundary}\r\n";
+		$strRawMessage .= "Content-Type: text/html; charset=utf-8\r\n";
+		$strRawMessage .= 'Content-Transfer-Encoding: quoted-printable' . "\r\n\r\n";
+		$strRawMessage .= $message."\r\n";
+
+		$strRawMessage .= "--{$boundary}\r\n";
+		$strRawMessage .= 'Content-Type: '. $mimeType .'; name="official_receipt_payment.'.$ext.'";' . "\r\n";
+		$strRawMessage .= 'Content-Transfer-Encoding: base64' . "\r\n\r\n";
+		$strRawMessage .= base64_encode($attachment)."\r\n";
+
+		// The message needs to be encoded in Base64URL
+		$mime = rtrim(strtr(base64_encode($strRawMessage), '+/', '-_'), '=');
+		$msg = new Google_Service_Gmail_Message();
+		$msg->setRaw($mime);
+		$status = $service->users_messages->send("me", $msg);
+	}
 }

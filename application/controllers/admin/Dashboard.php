@@ -1,6 +1,8 @@
 <?php
 
 
+use Dompdf\Dompdf;
+
 class Dashboard extends Admin_Controller
 {
 

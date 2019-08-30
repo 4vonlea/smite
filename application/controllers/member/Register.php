@@ -40,7 +40,7 @@ class Register extends MY_Controller
                 $error['status'] = $this->Member_m->getDB()->trans_status();
                 $error['message'] = $this->Member_m->getDB()->error();
                 if($error['status']){
-                    $email_message = $this->load->view('template_email/email_confirmation',['token'=>$token,'name'=>$data['fullname']],true);
+                    $email_message = $this->load->view('template/email_confirmation',['token'=>$token,'name'=>$data['fullname']],true);
                     $this->Gmail_api->sendMessage($data['email'],'Email Confirmation',$email_message);
                 }
             }else{

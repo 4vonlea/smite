@@ -14,8 +14,12 @@ class Whatsapp_api extends My_model implements iNotification
 
 	}
 
+	/**
+	 * @param $token
+	 * @return bool
+	 */
 	public function setToken($token){
-		$this->replace([
+		return $this->replace([
 			'name'=>self::NAME_SETTINGS,
 			'value'=>$token
 		]);
