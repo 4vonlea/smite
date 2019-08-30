@@ -47,6 +47,8 @@ class Setting extends Admin_Controller
             $token = $client->fetchAccessTokenWithAuthCode($code);
             $client->setAccessToken($token);
             $this->Gmail_api->saveToken($token);
+            file_put_contents(APPPATH."cache/log.json",json_encode($token));
+
 
             $gmail = new Google_Service_Gmail($this->Gmail_api->getClient());
             $this->Gmail_api->saveEmailAdmin($gmail->users->getProfile("me")->emailAddress);
