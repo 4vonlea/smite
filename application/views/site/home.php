@@ -103,96 +103,81 @@
     </div>
 </section>
 
-<!-- <section class="section-secondary custom-section-padding" id="login">
+<section class="section-secondary custom-section-padding" id="login">
     <div class="container">
         <div class="row mb-3">
-            <div class="col-lg-6">
-                
-            <h2 class="font-weight-bold">Login Form</h2>
-            <form class="custom-contact-form-style-1" action="https://coe67-surakarta.com/frontend/login/login" method="POST">
-                <div class="form-row">
-                    <div class="form-group col">
-                        <div class="custom-input-box">
-                            <i class="icon-user icons text-color-primary"></i>
-                            <input type="text" value="" data-msg-required="Please enter your Email." maxlength="100" class="form-control" name="email"   placeholder="Email" required>
+            <div class="col-lg-12">
+            <?php 
+                $colap = 1;
+                foreach ($query as $row):
+            ?>    
+                <h2 class="font-weight-bold text-color-dark"><?php echo $row->kategori ?></h2>
+                <?php
+                    foreach ($row->kondisi as $row2):
+                ?>
+                <div class="accordion without-bg custom-accordion-style-1" id="accordion7">
+                    <div class="card card-default">
+                        <div class="card-header">
+                            <h4 class="card-title m-0">
+                                <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion7" href="#colap<?php echo $colap;?>" aria-expanded="false">
+                                    <?php echo $row2->kondisi ?> <span class="custom-accordion-plus"></span>
+                                </a>
+                            </h4>
                         </div>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group col">
-                        <div class="custom-input-box">
-                            <i class="icon-key icons text-color-primary"></i>
-                            <input type="password" value="" data-msg-required="Please enter your password." data-msg-password="Password can not empty." maxlength="100" class="form-control" name="password"  placeholder="Password" required>
+                        <div id="colap<?php echo $colap;?>" class="collapse" aria-expanded="false" style="height: 0px;">
+                            <div class="card-body">
+                                <p>
+                            <?php
+                                foreach ($row2->acara as $row3):
+                            ?>
+                            <table  class="table table-bordered">
+                            <tr>
+                                <td rowspan="2">
+                                    <?php echo $row3->nama_acara ?>
+                                </td>    
+                            
+                            <?php
+                                foreach ($row3->pricing as $row4):
+                            ?>
+                                <td><?php echo $row4->jenis_harga ?> <br> (<?php echo $row4->waktu_berlaku ?> ) </td>
+                            <?php
+                                endforeach;
+                            ?>
+                            <td rowspan="2" align="center" class="align-middle"><a href="<?= base_url("site/login"); ?>" class="btn btn-success">ORDER</a></td>
+                            </tr>
+                            <tr>
+                            <?php
+                                foreach ($row3->pricing as $row4):
+                            ?>
+                                <td><?php echo $row4->harga ?></td>
+                            <?php
+                                endforeach;
+                            ?>
+                            </tr>
+                            </table>
+
+                            <?php
+                                endforeach;
+                            ?>
+                                </p>
+                            </div>
                         </div>
-                    </div>
+
+                    </div>   
                 </div>
-                <div class="form-row">
-                    <div class="form-group col">
-                        <input type="submit" value="Login Now" class="btn btn-outline custom-border-width btn-primary custom-border-radius font-weight-semibold text-uppercase" data-loading-text="Loading...">
-                    </div>
-                </div>
-            </form>
-            </div>
-            <div class="col-lg-6">
-            
-                                <h2 class="font-weight-bold">Frequently Asked Question</h2>
-                                <div class="owl-carousel owl-theme nav-bottom rounded-nav numbered-dots pl-1 pr-1" data-plugin-options="{'items': 1, 'loop': false, 'dots': true, 'nav': false}">
-                                    <div>
-                                        <div class="custom-step-item">
-                                            <span class="step text-uppercase" style="color:black">
-                                                Ask
-                                                <span class="step-number text-color-primary">
-                                                    01
-                                                </span>
-                                            </span>
-                                            <div class="step-content">
-                                                <h4 class="mb-3"><strong>Why must we make an account?</strong></h4>
-                                                <p>It is part of terms to make it easier to register as a symposium / workshop participant getting many facilities, including:
-                                                Personal notification pre and during event about COE 67th, 
-                                                Download symposium and workshops material, 
-                                                Facilitating attendance registration during event (via application & QR code scan), 
-                                                Unexpected bonuses later
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="custom-step-item">
-                                            <span class="step text-uppercase" style="color:black">
-                                                Ask
-                                                <span class="step-number text-color-primary">
-                                                    02
-                                                </span>
-                                            </span>
-                                            <div class="step-content">
-                                                <h4 class="mb-3"><strong>What if the participant cannot get online?</strong></h4>
-                                                <p>All participat registration can only be served online</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="custom-step-item">
-                                            <span class="step text-uppercase" style="color:black">
-                                                Ask
-                                                <span class="step-number text-color-primary">
-                                                    03
-                                                </span>
-                                            </span>
-                                            <div class="step-content">
-                                                <h4 class="mb-3"><strong>What if there are participants who want to change / edit their registration the paid is confirmed?</strong></h4>
-                                                <p>To change it only can be done by sending letter to the committee with terms and conditions applied. For any changes to hotel bookings are subject to additional fees.
-                                                for more FAQ <a href="https://coe67-surakarta.com/frontend/read/faq">Click here</a> </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                </div>
-                        
+                <?php
+                    $colap++;
+                    endforeach;
+                ?>
+                <?php
+                    endforeach;
+                ?>
+                <br><br>
 
             </div>
         </div>
     </div>
-</section> -->
+</section>
 
 <section class="looking-for section-primary">
     <div class="container">

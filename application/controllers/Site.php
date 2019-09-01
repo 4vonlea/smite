@@ -16,7 +16,9 @@ class Site extends MY_Controller
 
     public function index()
     {
-        $this->layout->render('site/home');
+        $category      = $this->EventM->listcategory();
+        $data['query'] = $category['data'];
+        $this->layout->render('site/home', $data);
     }
 
     public function certificate()
