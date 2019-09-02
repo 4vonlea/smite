@@ -62,22 +62,10 @@ class Payment extends MY_Controller
 				$tr = $this->Transaction_m->findOne($notif->order_id);
 				$member = $tr->member;
 
-				$domInvoice = new Dompdf();
-				$html = $this->load->view("template/invoice",[
-					'transaction'=>$tr,
-				],true);
-				$domInvoice->loadHtml($html);
-				$domInvoice->render();
-				$invoice = $domInvoice->output();
+				$invoice = $this->Transaction_m->exportInvoice()->output();
 				$this->Gmail_api->sendMessageWithAttachment($member->email,"INVOICE","Thank you for participating on events, Below is your invoice",$invoice,"INVOICE.pdf");
 
-				$html = $this->load->view("template/official_payment_proof",[
-					'transaction'=>$tr,
-				],true);
-				$dompdf = new Dompdf();
-				$dompdf->loadHtml($html);
-				$dompdf->render();
-				$file = $dompdf->output();
+				$file = $this->Transaction_m->exportPaymentProof()->output();
 				$this->Gmail_api->sendMessageWithAttachment($member->email,"Official Payment Proof","Thank you for registering and fulfilling your payment, below is offical payment proof",$file,"OFFICIAL_PAYMENT_PROOF.pdf");
 			}
 		}

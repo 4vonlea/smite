@@ -155,7 +155,7 @@
             <ul class="navbar-nav mb-md-3">
                 <li class="nav-item">
                     <a class="nav-link"
-                       href="#">
+                       href="<?=base_url("admin/member/register");?>">
                         <i class="ni ni-spaceship text-green"></i> Register On Site
                     </a>
                 </li>

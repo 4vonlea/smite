@@ -1,6 +1,8 @@
 <?php
 
 
+use Dompdf\Dompdf;
+
 class Transaction_m extends MY_Model
 {
 	protected $primaryKey = "id";
@@ -74,5 +76,31 @@ class Transaction_m extends MY_Model
 
 	public function member(){
 		return $this->hasOne("Member_m","id","member_id");
+	}
+
+	/**
+	 * @return Dompdf
+	 */
+	public function exportInvoice(){
+		$domInvoice = new Dompdf();
+		$html = $this->load->view("template/invoice",[
+			'transaction'=>$this,
+		],true);
+		$domInvoice->loadHtml($html);
+		$domInvoice->render();
+		return $domInvoice;
+	}
+
+	/**
+	 * @return Dompdf
+	 */
+	public function exportPaymentProof(){
+		$html = $this->load->view("template/official_payment_proof",[
+			'transaction'=>$this,
+		],true);
+		$dompdf = new Dompdf();
+		$dompdf->loadHtml($html);
+		$dompdf->render();
+		return $dompdf;
 	}
 }

@@ -46,11 +46,84 @@ class Event_m extends MY_Model
 		return $avalaible;
 	}
 
+	public function eventAvailableNow(){
+		$filter = ['show'=>'1'];
+		$this->load->model("Transaction_m");
+		$result = $this->setAlias("t")->find()->select("t.name as event_name,event_pricing.name as name_pricing,event_pricing.price as price_r,event_pricing.id as id_price,")
+			->select("condition,condition_date,kategory")
+			->where($filter)
+			->join("event_pricing", "t.id = event_id")
+			->order_by("t.id,event_pricing.name,event_pricing.condition_date")->get();
+		$return = [];
+		$temp = "";$tempPricing = "";
+		$index = -1;$pId = 0;$frmt = "d M Y";
+		foreach ($result->result_array() as $row) {
+			$avalaible = true;
+			$now = new DateTime();
+			$conditionDate = explode(":",$row['condition_date']);
+			$d1 = DateTime::createFromFormat("Y-m-d", $conditionDate[0]);
+			$d2 = DateTime::createFromFormat("Y-m-d H:i", $conditionDate[1]." 23:59");
+			if($conditionDate[0] == "" && $conditionDate[1] != ""){
+				$avalaible = $avalaible && $d2 >= $now;
+			}elseif($conditionDate[1] == "" && $conditionDate[0] != ""){
+				$avalaible = $avalaible && $d1 <  $now;
+			}else{
+				$avalaible = $avalaible && ($d1 <  $now && $d2 >= $now);
+			}
+			if($temp != $row['event_name'] || $tempPricing != $row['name_pricing']){
+				$title = "$row[name_pricing] <br/>";
+				if($conditionDate[0] == "" && $conditionDate[1] != ""){
+					$title.= " < ".$d2->format($frmt);
+				}elseif($conditionDate[1] == "" && $conditionDate[0] != ""){
+					$title.= " > ".$d1->format($frmt);
+				}else{
+					$title.= $d1->format($frmt)." - ".$d2->format($frmt);
+				}
+			}
+
+			if ($temp != $row['event_name'] && $avalaible) {
+				$index++;
+				$return[$index] = [
+					'name' => $row['event_name'],
+					'category' => $row['kategory'],
+					'pricingName' => [
+						[
+							'name' => $row['name_pricing'],
+							'title' => $title,
+							'pricing' => [$row['condition'] => ['id'=>$row['id_price'],'price' => $row['price_r'], 'available' =>$avalaible]]
+						]
+					],
+					'memberStatus'=>[$row['condition']]
+				];
+				$tempPricing = $row['name_pricing'];
+				$pId = 0;
+				$temp = $row['event_name'];
+			}elseif($avalaible){
+				if(!in_array($row['condition'],$return[$index]['memberStatus']))
+					$return[$index]['memberStatus'][] = $row['condition'];
+				if($tempPricing != $row['name_pricing']){
+					$pId++;
+					$return[$index]['pricingName'][$pId] = 	[
+						'name' => $row['name_pricing'],
+						'title' => $title,
+						'pricing' => [$row['condition'] => ['id'=>$row['id_price'],'price' => $row['price_r'], 'available' => $avalaible]]
+					];
+					$tempPricing = $row['name_pricing'];
+				}else{
+					$return[$index]['pricingName'][$pId]['pricing'][$row['condition']] = ['id'=>$row['id_price'],'price' => $row['price_r'], 'available' => $avalaible];
+				}
+			}
+
+		}
+		return $return;
+
+	}
+
 	public function eventVueModel($member_id,$userStatus, $filter = [])
 	{
 		$filter = array_merge($filter,['show'=>'1']);
 		$this->load->model("Transaction_m");
-		$result = $this->setAlias("t")->find()->select("t.name as event_name,event_pricing.name as name_pricing,event_pricing.price as price_r,event_pricing.id as id_price,,td.id as followed,COALESCE(checkout,0) as checkout,tr.status_payment")
+		$result = $this->setAlias("t")->find()->select("t.name as event_name,event_pricing.name as name_pricing,event_pricing.price as price_r,event_pricing.id as id_price,td.id as followed,COALESCE(checkout,0) as checkout,tr.status_payment")
 			->select("condition,condition_date,kategory")
 			->where($filter)
 			->join("event_pricing", "t.id = event_id")

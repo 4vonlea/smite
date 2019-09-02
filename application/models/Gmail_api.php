@@ -101,12 +101,17 @@ class Gmail_api extends MY_Model implements iNotification
         $status = $service->users_messages->send("me", $msg);
     }
 
-	public function sendMessageWithAttachment($to,$subject,$message,$attachment,$filename){
+	public function sendMessageWithAttachment($to,$subject,$message,$attachment,$fname = ""){
+    	$files = [];
+    	if(!is_array($attachment)){
+    		$files[$fname] = $attachment;
+		}else{
+    		$files = $attachment;
+		}
 		$from = $this->getEmail();
 		$sender = $this->getSender();
-		$boundary = uniqid(rand(), true);
 		$finfo = new finfo(FILEINFO_MIME);
-		$mimeType = $finfo->buffer($attachment);
+		$boundary = uniqid(rand(), true);
 		$service = new Google_Service_Gmail($this->getClient());
 		$strSubject = $subject;
 		$strRawMessage = "From:  $sender<".$from.">\r\n";
@@ -118,11 +123,13 @@ class Gmail_api extends MY_Model implements iNotification
 		$strRawMessage .= "Content-Type: text/html; charset=utf-8\r\n";
 		$strRawMessage .= 'Content-Transfer-Encoding: quoted-printable' . "\r\n\r\n";
 		$strRawMessage .= $message."\r\n";
-
-		$strRawMessage .= "--{$boundary}\r\n";
-		$strRawMessage .= 'Content-Type: '. $mimeType .'; name="'.$filename.'";' . "\r\n";
-		$strRawMessage .= 'Content-Transfer-Encoding: base64' . "\r\n\r\n";
-		$strRawMessage .= base64_encode($attachment)."\r\n";
+		foreach($files as $filename => $attc){
+			$mimeType = $finfo->buffer($attc);
+			$strRawMessage .= "--{$boundary}\r\n";
+			$strRawMessage .= 'Content-Type: ' . $mimeType . '; name="' . $filename . '";' . "\r\n";
+			$strRawMessage .= 'Content-Transfer-Encoding: base64' . "\r\n\r\n";
+			$strRawMessage .= base64_encode($attc) . "\r\n";
+		}
 
 		// The message needs to be encoded in Base64URL
 		$mime = rtrim(strtr(base64_encode($strRawMessage), '+/', '-_'), '=');

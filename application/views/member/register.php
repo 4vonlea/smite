@@ -42,7 +42,7 @@
                 </div>
                 <form id="form-register" ref="form">
                     <div class="form-group row">
-                        <label class="col-lg-3 control-label">Email</label>
+                        <label class="col-lg-3 control-label">Email*</label>
                         <div class="col-lg-5">
                             <input type="text" :class="{'is-invalid': validation_error.email}" class="form-control" name="email"/>
                             <div v-if="validation_error.email" class="invalid-feedback">
@@ -52,7 +52,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-lg-3 control-label">Password</label>
+                        <label class="col-lg-3 control-label">Password*</label>
                         <div class="col-lg-5">
                             <input type="password" :class="{ 'is-invalid':validation_error.password }" class="form-control" name="password"/>
                             <div v-if="validation_error.password" class="invalid-feedback">
@@ -62,7 +62,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-lg-3 control-label">Confirm Password</label>
+                        <label class="col-lg-3 control-label">Confirm Password*</label>
                         <div class="col-lg-5">
                             <input type="password" :class="{ 'is-invalid': validation_error.confirm_password }" class="form-control" name="confirm_password"/>
                             <div v-if="validation_error.confirm_password" class="invalid-feedback">
@@ -73,7 +73,7 @@
                     <hr/>
 
                     <div class="form-group row">
-                        <label class="col-lg-3 control-label">Your Status</label>
+                        <label class="col-lg-3 control-label">Your Status*</label>
                         <div class="col-lg-5">
                             <?= form_dropdown('status', $participantsCategory, '', [':class'=>"{'is-invalid':validation_error.status}", 'class' => 'form-control', 'placeholder' => 'Select your status !']); ?>
                             <div v-if="validation_error.status" class="invalid-feedback" >
@@ -83,7 +83,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-lg-3 control-label">Upload proof of your status</label>
+                        <label class="col-lg-3 control-label">Upload proof of your status*</label>
                         <div class="col-lg-5">
                             <input type="file" name="proof" :class="{'is-invalid':validation_error.proof}" class="form-control-file"/>
                             <div v-if="validation_error.proof" class="invalid-feedback d-block">
@@ -93,8 +93,9 @@
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-lg-3 control-label">Full Name</label>
+                        <label class="col-lg-3 control-label">Full Name*</label>
                         <div class="col-lg-5">
+							<small>*PLEASE FILL YOUR NAME CORRECTLY FOR YOUR CERTIFICATE</small>
                             <input type="text" :class="{'is-invalid':validation_error.fullname}" class="form-control" name="fullname"/>
                             <div v-if="validation_error.fullname" class="invalid-feedback">
                                 {{ validation_error.fullname }}
@@ -104,7 +105,7 @@
 
 
                     <div class="form-group row">
-                        <label class="col-lg-3 control-label">Address</label>
+                        <label class="col-lg-3 control-label">Address*</label>
                         <div class="col-lg-5">
                             <textarea :class="{ 'is-invalid':validation_error.address }" class="form-control" name="address"></textarea>
                             <div class="invalid-feedback">
@@ -114,7 +115,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-lg-3 control-label">City</label>
+                        <label class="col-lg-3 control-label">City*</label>
                         <div class="col-lg-5">
                             <input type="text" :class="{'is-invalid':validation_error.city}" class="form-control" name="city"/>
                             <div v-if="validation_error.city" class="invalid-feedback">
@@ -124,7 +125,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-lg-3 control-label">Phone/WA</label>
+                        <label class="col-lg-3 control-label">Phone/WA*</label>
                         <div class="col-lg-5">
                             <input type="text" :class="{ 'is-invalid':validation_error.phone} " class="form-control" name="phone"/>
                             <div v-if="validation_error.phone" class="invalid-feedback">
@@ -136,7 +137,7 @@
 
 
                     <div class="form-group row">
-                        <label class="col-lg-3 control-label">Gender</label>
+                        <label class="col-lg-3 control-label">Gender*</label>
                         <div class="col-lg-5">
                             <div class="radio">
                                 <label>
@@ -151,17 +152,17 @@
                         </div>
                     </div>
 
-                    <div class="form-group row">
-                        <label class="col-lg-3 control-label">Birthday</label>
-                        <div class="col-lg-5">
-                            <vuejs-datepicker :input-class="[{'is-invalid':validation_error.birthday},'form-control']"
-                                              wrapper-class="wrapper-datepicker"
-                                              name="birthday"></vuejs-datepicker>
-                            <div v-if="validation_error.birthday" class="invalid-feedback d-block">
-                                {{ validation_error.birthday }}
-                            </div>
-                        </div>
-                    </div>
+<!--                    <div class="form-group row">-->
+<!--                        <label class="col-lg-3 control-label">Birthday</label>-->
+<!--                        <div class="col-lg-5">-->
+<!--                            <vuejs-datepicker :input-class="[{'is-invalid':validation_error.birthday},'form-control']"-->
+<!--                                              wrapper-class="wrapper-datepicker"-->
+<!--                                              name="birthday"></vuejs-datepicker>-->
+<!--                            <div v-if="validation_error.birthday" class="invalid-feedback d-block">-->
+<!--                                {{ validation_error.birthday }}-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
 
                 </form>
                 <hr/>
@@ -201,7 +202,8 @@
         methods: {
             register() {
                 var formData = new FormData(this.$refs.form);
-                var birthday = moment(formData.get('birthday')).format("Y-MM-DD");
+                // var birthday = moment(formData.get('birthday')).format("Y-MM-DD");
+                var birthday = moment().format("Y-MM-DD");
                 formData.set("birthday",birthday);
                 this.saving = true;
                 $.ajax({

@@ -4,91 +4,93 @@
  */
 ?>
 <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
-    <div class="container-fluid">
-        <div class="header-body">
-            <!-- Card stats -->
-            <div class="row">
-                <div class="col-xl-6 col-lg-6">
-                    <div class="card card-stats mb-4 mb-xl-0">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col">
-                                    <h5 class="card-title text-uppercase text-muted mb-0">Total Members</h5>
-                                    <span class="h2 font-weight-bold mb-0">{{ pagination.total }}</span>
-                                </div>
-                                <div class="col-auto">
-                                    <div class="icon icon-shape bg-danger text-white rounded-circle shadow">
-                                        <i class="fas fa-chart-bar"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xl-6 col-lg-6">
-                    <div class="card card-stats mb-4 mb-xl-0">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col">
-                                    <h5 class="card-title text-uppercase text-muted mb-0">Unverified Members</h5>
-                                    <span class="h2 font-weight-bold mb-0">{{ pagination.total_unverified }}</span>
-                                </div>
-                                <div class="col-auto">
-                                    <div class="icon icon-shape bg-warning text-white rounded-circle shadow">
-                                        <i class="fas fa-chart-pie"></i>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="container-fluid">
+		<div class="header-body">
+			<!-- Card stats -->
+			<div class="row">
+				<div class="col-xl-6 col-lg-6">
+					<div class="card card-stats mb-4 mb-xl-0">
+						<div class="card-body">
+							<div class="row">
+								<div class="col">
+									<h5 class="card-title text-uppercase text-muted mb-0">Total Members</h5>
+									<span class="h2 font-weight-bold mb-0">{{ pagination.total_members }}</span>
+								</div>
+								<div class="col-auto">
+									<div class="icon icon-shape bg-danger text-white rounded-circle shadow">
+										<i class="fas fa-chart-bar"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xl-6 col-lg-6">
+					<div class="card card-stats mb-4 mb-xl-0">
+						<div class="card-body">
+							<div class="row">
+								<div class="col">
+									<h5 class="card-title text-uppercase text-muted mb-0">Unverified Members</h5>
+									<span class="h2 font-weight-bold mb-0">{{ pagination.total_unverified }}</span>
+								</div>
+								<div class="col-auto">
+									<div class="icon icon-shape bg-warning text-white rounded-circle shadow">
+										<i class="fas fa-chart-pie"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 <!-- Page content -->
 <div class="container-fluid mt--7">
-    <!-- Table -->
-    <div v-if="profileMode==0" class="row">
-        <div class="col-xl-12">
-            <div class="card shadow">
-                <div class="card-header">
-                    <div class="row">
-                        <div class="col-6">
-                            <h3>Members</h3>
-                        </div>
-                        <div class="col-6 text-right">
-                            <button type="button" class="btn btn-primary" data-toggle="modal"
-                                    data-target="#modal-particant-status"><i class="fa fa-book"></i> Member Status
-                                List
-                            </button>
-                        </div>
-                    </div>
-                </div>
+	<!-- Table -->
+	<div v-if="profileMode==0" class="row">
+		<div class="col-xl-12">
+			<div class="card shadow">
+				<div class="card-header">
+					<div class="row">
+						<div class="col-6">
+							<h3>Members</h3>
+						</div>
+						<div class="col-6 text-right">
+							<button type="button" class="btn btn-primary" data-toggle="modal"
+									data-target="#modal-particant-status"><i class="fa fa-book"></i> Member Status
+								List
+							</button>
+						</div>
+					</div>
+				</div>
 
-                <datagrid
-						@loaded_data="loadedGrid"
-                        ref="datagrid"
-                        api-url="<?= base_url('admin/member/grid'); ?>"
-                        :fields="[{name:'fullname',sortField:'fullname'}, {name:'email',sortField:'email'},{name:'gender',sortField:'gender'},{name:'verified_by_admin',sortField:'verified_by_admin',title:'Status Verification'},{name:'id',title:'Actions',titleClass:'action-th'}]">
-                    <template slot="verified_by_admin" slot-scope="prop">
-						<span :class="[(prop.row.verified_by_admin == 1 ?'badge-success':'badge-warning')]" class="badge">{{ (prop.row.verified_by_admin == 1 ?'Verified':'Unverified') }}</span>
+				<datagrid
+					@loaded_data="loadedGrid"
+					ref="datagrid"
+					api-url="<?= base_url('admin/member/grid'); ?>"
+					:fields="[{name:'fullname',sortField:'fullname'}, {name:'email',sortField:'email'},{name:'gender',sortField:'gender'},{name:'verified_by_admin',sortField:'verified_by_admin',title:'Status Verification'},{name:'id',title:'Actions',titleClass:'action-th'}]">
+					<template slot="verified_by_admin" slot-scope="prop">
+						<span :class="[(prop.row.verified_by_admin == 1 ?'badge-success':'badge-warning')]"
+							  class="badge">{{ (prop.row.verified_by_admin == 1 ?'Verified':'Unverified') }}</span>
 					</template>
 					<template slot="id" slot-scope="props">
-                        <div class="table-button-container">
-                            <button v-if="props.row.verified_by_admin == 0" @click="openVerifyModal(props)" class="btn btn-warning btn-sm">
-                                <span class="fa fa-pen"></span> Verify
-                            </button>
+						<div class="table-button-container">
+							<button v-if="props.row.verified_by_admin == 0" @click="openVerifyModal(props)"
+									class="btn btn-warning btn-sm">
+								<span class="fa fa-pen"></span> Verify
+							</button>
 							<button class="btn btn-primary btn-sm" @click="detail(props.row)">
 								<span class="fa fa-zoom"></span> Detail
 							</button>
-                        </div>
-                    </template>
+						</div>
+					</template>
 
-                </datagrid>
-            </div>
-        </div>
-    </div>
+				</datagrid>
+			</div>
+		</div>
+	</div>
 	<div v-else class="row">
 		<div class="col-xl-12">
 			<div class="card shadow">
@@ -100,7 +102,7 @@
 						<th>Status As</th>
 						<td>{{ profile.statusName }}</td>
 						<td rowspan="3" colspan="2">
-							<img class="img img-thumbnail" :src="profile.imageLink" />
+							<img class="img img-thumbnail" :src="profile.imageLink"/>
 						</td>
 					</tr>
 					<tr>
@@ -139,44 +141,44 @@
 </div>
 
 <div class="modal" id="modal-particant-status">
-    <div class="modal-dialog">
-        <div class="modal-content">
+	<div class="modal-dialog">
+		<div class="modal-content">
 
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h4 class="modal-title">Member Status List</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
+			<!-- Modal Header -->
+			<div class="modal-header">
+				<h4 class="modal-title">Member Status List</h4>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
 
-            <!-- Modal body -->
-            <div class="modal-body">
-                <div class="form-group">
-                    <div class="input-group">
-                        <input v-model="new_status" type="text" class="form-control" @keyup.enter="addStatus"
-                               placeholder="New Member Status"/>
-                        <div class="input-group-append">
-                            <button type="button" class="btn btn-primary" @click="addStatus"><i class="fa fa-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <ul class="list-group">
-                    <li v-for="(cat,index) in statusList"
-                        class="list-group-item d-flex justify-content-between align-items-center">
-                        {{ cat.kategory }}
-                        <button @click="removeStatus(index)" class="btn badge badge-primary badge-pill"><i
-                                    class="fa fa-times"></i></button>
-                    </li>
-                </ul>
-            </div>
+			<!-- Modal body -->
+			<div class="modal-body">
+				<div class="form-group">
+					<div class="input-group">
+						<input v-model="new_status" type="text" class="form-control" @keyup.enter="addStatus"
+							   placeholder="New Member Status"/>
+						<div class="input-group-append">
+							<button type="button" class="btn btn-primary" @click="addStatus"><i class="fa fa-plus"></i>
+							</button>
+						</div>
+					</div>
+				</div>
+				<ul class="list-group">
+					<li v-for="(cat,index) in statusList"
+						class="list-group-item d-flex justify-content-between align-items-center">
+						{{ cat.kategory }}
+						<button @click="removeStatus(index)" class="btn badge badge-primary badge-pill"><i
+								class="fa fa-times"></i></button>
+					</li>
+				</ul>
+			</div>
 
-            <!-- Modal footer -->
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-            </div>
+			<!-- Modal footer -->
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
 
-        </div>
-    </div>
+		</div>
+	</div>
 </div>
 
 <div class="modal" id="modal-verification">
@@ -200,17 +202,19 @@
 				</tr>
 				<tr>
 					<th>Proof</th>
-					<td><a :href="verifyModel.proofLink" target="_blank">Click Here To View</a> </td>
+					<td><a :href="verifyModel.proofLink" target="_blank">Click Here To View</a></td>
 				</tr>
 				<tr>
 					<th>Your Response</th>
 					<td>
 						<div class="form-check">
-							<input type="radio" name="response" value="1" class="form-check-input" v-model="verifyModel.response"/>
+							<input type="radio" name="response" value="1" class="form-check-input"
+								   v-model="verifyModel.response"/>
 							<label class="form-check-label">Agree</label>
 						</div>
 						<div class="form-check">
-							<input type="radio" name="response" value="0" class="form-check-input" v-model="verifyModel.response"/>
+							<input type="radio" name="response" value="0" class="form-check-input"
+								   v-model="verifyModel.response"/>
 							<label class="form-check-label">Disagree</label>
 						</div>
 					</td>
@@ -249,57 +253,57 @@
         data: {
             new_status: '',
             statusList:<?=json_encode($statusList);?>,
-			verifyModel:{},
-			verifying:false,
-			verifyMessage:null,
-			pagination:{},
-			profileMode:0,
-			profile:{},
+            verifyModel: {},
+            verifying: false,
+            verifyMessage: null,
+            pagination: {},
+            profileMode: 0,
+            profile: {},
         },
         methods: {
-            detail(profile){
-                $.each(this.statusList,function (i,v) {
-                    if(v.id == profile.status)
+            detail(profile) {
+                $.each(this.statusList, function (i, v) {
+                    if (v.id == profile.status)
                         profile.statusName = v.kategory;
                 });
-                if(profile.image){
+                if (profile.image) {
                     profile.imageLink = `<?=base_url('themes/uploads/profile');?>/${profile.image}`;
-				}else{
+                } else {
                     profile.imageLink = `<?=base_url('themes/uploads/people.jpg');?>`;
-				}
-                profile.birthdayFormatted =  moment(profile.birthday).format('DD MMM YYYY');
+                }
+                profile.birthdayFormatted = moment(profile.birthday).format('DD MMM YYYY');
                 this.profileMode = 1;
                 this.profile = profile;
-			},
-            verify(){
+            },
+            verify() {
                 this.verifying = true;
-				$.post("<?=base_url('admin/member/verify');?>",this.verifyModel,function (res) {
-				    if(res.status) {
+                $.post("<?=base_url('admin/member/verify');?>", this.verifyModel, function (res) {
+                    if (res.status) {
                         $("#modal-verification").modal("hide");
                         Swal.fire("Success", "Member has been verified !", "success");
                         app.$refs.datagrid.refresh();
-                    }else
-				        app.verifyMessage = res.message;
-                },'JSON').fail(function () {
+                    } else
+                        app.verifyMessage = res.message;
+                }, 'JSON').fail(function () {
                     Swal.fire("Failed", "Failed to verify !", "error");
                     $("#modal-verification").modal("hide");
                 }).always(function () {
-					app.verifying = false;
+                    app.verifying = false;
                 });
-			},
+            },
             openVerifyModal(prop) {
                 this.verifyMessage = null;
-                $.each(this.statusList,function (i,v) {
-					if(v.id == prop.row.status)
-					    prop.row.statusSubmitted = v.kategory;
+                $.each(this.statusList, function (i, v) {
+                    if (v.id == prop.row.status)
+                        prop.row.statusSubmitted = v.kategory;
                 });
-				prop.row.proofLink = "<?=base_url('admin/member/get_proof');?>/"+prop.row.id;
-				this.verifyModel = prop.row;
-				$("#modal-verification").modal("show");
+                prop.row.proofLink = "<?=base_url('admin/member/get_proof');?>/" + prop.row.id;
+                this.verifyModel = prop.row;
+                $("#modal-verification").modal("show");
             },
             addStatus: function () {
                 if (this.new_status != "") {
-                    tempStatus.push({"kategory":this.new_status});
+                    tempStatus.push({"kategory": this.new_status});
                     postStatus(tempStatus).done(function (res) {
                         app.statusList = res;
                         app.new_status = "";
@@ -312,16 +316,22 @@
             },
             removeStatus: function (index) {
                 var value = this.statusList[index];
-                $.post("<?=base_url('admin/member/remove_status');?>",{id:value.id},function (res) {
-                    if(res.status)
+                $.post("<?=base_url('admin/member/remove_status');?>", {id: value.id}, function (res) {
+                    if (res.status)
                         app.statusList.splice(index, 1);
-                },'JSON').fail(function () {
+                }, 'JSON').fail(function () {
                     Swal.fire("Failed", "Failed to remove !", "error");
                 });
             },
-			loadedGrid:function (data) {
-				this.pagination = data;
+            loadedGrid: function (data) {
+                this.pagination = data;
             }
+        },
+        mounted() {
+			<?php if(isset($_GET['q'])):?>
+            this.$refs.datagrid.globalFilter = "<?=$_GET['q'];?>";
+            this.$refs.datagrid.doFilter();
+			<?php endif;?>
         }
     });
 </script>

@@ -38,6 +38,7 @@ class Member_m extends MY_Model
 	{
 		$data = parent::gridData($params, $relationship);
 		$data['total_unverified'] = $this->find()->where('verified_by_admin',0)->count_all_results();
+		$data['total_members'] = $this->find()->count_all_results();
 		return $data;
 	}
 }
