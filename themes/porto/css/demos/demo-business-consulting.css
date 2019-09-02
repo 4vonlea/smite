@@ -64,7 +64,8 @@ h2 {
 }
 .custom-position-1 {
 	position: relative;
-	margin-top: -177px;
+	margin-top: -200px;
+	font-size: 12px;
 }
 
 @media (max-width: 991px) {

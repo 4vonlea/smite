@@ -101,11 +101,6 @@
                                                                 </a>
                                                             </li>
                                                             <li>
-                                                                <a class="dropdown-item" href="<?=base_url("site/schedules");?>">
-                                                                    Schedules
-                                                                </a>
-                                                            </li>
-                                                            <li>
                                                                 <a class="dropdown-item" href="<?=base_url("site/paper");?>">
                                                                     Submit Paper
                                                                 </a>

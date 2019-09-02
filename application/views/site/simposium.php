@@ -18,18 +18,20 @@
     <div class="container">
         <div class="row mb-3">
             <div class="col-lg-12">
-                
-                <h2 class="font-weight-bold text-color-dark">Scientific Events</h2>
+            <?php 
+                $colap = 1;
+                foreach ($query as $row):
+            ?>    
+                <h2 class="font-weight-bold text-color-dark"><?php echo $row->kategori ?></h2>
                 <?php
-                    $colap = 1;
-                    foreach ($query as $row):
+                    foreach ($row->kondisi as $row2):
                 ?>
                 <div class="accordion without-bg custom-accordion-style-1" id="accordion7">
                     <div class="card card-default">
                         <div class="card-header">
                             <h4 class="card-title m-0">
                                 <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion7" href="#colap<?php echo $colap;?>" aria-expanded="false">
-                                    <?php echo $row->kategory ?> <span class="custom-accordion-plus"></span>
+                                    <?php echo $row2->kondisi ?> <span class="custom-accordion-plus"></span>
                                 </a>
                             </h4>
                         </div>
@@ -37,18 +39,18 @@
                             <div class="card-body">
                                 <p>
                             <?php
-                                foreach ($row->acara as $row2):
+                                foreach ($row2->acara as $row3):
                             ?>
                             <table  class="table table-bordered">
                             <tr>
                                 <td rowspan="2">
-                                    <?php echo $row2->nama_acara ?>
+                                    <?php echo $row3->nama_acara ?>
                                 </td>    
                             
                             <?php
-                                foreach ($row2->id_acara as $row3):
+                                foreach ($row3->pricing as $row4):
                             ?>
-                                <td><?php echo $row3->jenis_harga ?> <br> (<?php echo $row3->waktu_berlaku ?> ) </td>
+                                <td><?php echo $row4->jenis_harga ?> <br> (<?php echo $row4->waktu_berlaku ?> ) </td>
                             <?php
                                 endforeach;
                             ?>
@@ -56,9 +58,9 @@
                             </tr>
                             <tr>
                             <?php
-                                foreach ($row2->id_acara as $row3):
+                                foreach ($row3->pricing as $row4):
                             ?>
-                                <td><?php echo $row3->harga ?></td>
+                                <td><?php echo $row4->harga ?></td>
                             <?php
                                 endforeach;
                             ?>
@@ -78,51 +80,10 @@
                     $colap++;
                     endforeach;
                 ?>
+                <?php
+                    endforeach;
+                ?>
                 <br><br>
-
-                <!-- <h2 class="font-weight-bold text-color-dark">Scientific</h2>
-
-                <table  class="table table-bordered">
-                        <?php
-                            foreach ($query as $row):
-                        ?>
-                        <tr>
-                            <th><?php echo $row->kategory ?></th>
-                        </tr>
-                            <?php
-                                foreach ($row->acara as $row2):
-                            ?>
-                            <?php $rowspan=1; ?>
-                            <tr>
-                                <td rowspan="2">
-                                    <?php echo $row2->nama_acara ?>
-                                </td>    
-                            
-                            <?php
-                                foreach ($row2->id_acara as $row3):
-                            ?>
-                                <td><?php echo $row3->jenis_harga ?> <br> (<?php echo $row3->waktu_berlaku ?> ) </td>
-                            <?php
-                                $rowspan++;
-                                endforeach;
-                            ?>
-                            </tr>
-                            <tr>
-                            <?php
-                                foreach ($row2->id_acara as $row3):
-                            ?>
-                                <td><?php echo $row3->harga ?></td>
-                            <?php
-                                endforeach;
-                            ?>
-                            </tr>
-                            <?php
-                                endforeach;
-                            ?>
-                        <?php
-                            endforeach;
-                        ?>
-                </table> -->
 
             </div>
         </div>
