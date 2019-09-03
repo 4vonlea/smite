@@ -110,8 +110,12 @@ class Site extends MY_Controller
     }
 
 
-	public function barcode(){
+	public function barcode($code,$tes = ""){
 		include APPPATH."third_party/phpqrcode/qrlib.php";
-		echo QRcode::png("c35e1642-8a29-4d14-82f7-e562b5203214",false,"L",5,5);
+		if($tes == 'show'){
+			echo "<p>$code</p><img src='".base_url('site/barcode/'.$code)."';/>";
+		} else {
+			QRcode::png($code, false, "L", 10, 10);
+		}
 	}
 }

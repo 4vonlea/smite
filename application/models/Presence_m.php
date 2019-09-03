@@ -15,6 +15,7 @@ class Presence_m extends MY_Model
 			->join("event_pricing ep","ep.id = td.event_pricing_id")
 			->join("presence p","p.member_id = t.id AND p.event_id = ep.event_id AND DATE(p.created_at) = DATE(NOW())","left")
 			->where(['ep.event_id'=>$event_id,'tr.status_payment'=>Transaction_m::STATUS_FINISH])
+			->group_by("t.id")
 			->get("members t");
 		return $rs->result_array();
 	}

@@ -32,7 +32,9 @@
 								<td> {{ row.name }}</td>
 								<td>{{ row.number_participant }}</td>
 								<td>
-									<button @click="presencePage(row,$event)" type="button" class="btn btn-primary">Check</button>
+									<button @click="presencePage(row,$event)" type="button" class="btn btn-primary">
+										Check
+									</button>
 									<button type="button" class="btn btn-primary">Download Report</button>
 								</td>
 							</tr>
@@ -59,16 +61,16 @@
 					<div class="table-responsive">
 						<table class="table">
 							<tr>
-								<th>Number of Participant : </th>
+								<th>Number of Participant :</th>
 								<td>{{ pageCheck.numberParticipant }}</td>
-								<th>Number of Presence : </th>
-								<td>{{ pageCheck.presence }}</td>
+								<th>Number of Presence :</th>
+								<td>{{ presence }}</td>
 							</tr>
 							<tr>
 								<th>Device Has Camera :</th>
 								<td id="cam-has-camera" ref="camHasCamera"></td>
 								<th>Result Scan :</th>
-								<td  id="cam-qr-result" ref="camQrResult">None</td>
+								<td>{{ pageCheck.lastResult }}</td>
 							</tr>
 						</table>
 					</div>
@@ -87,32 +89,37 @@
     QrScanner.WORKER_PATH = '<?=base_url("themes/script/qr-scanner-worker.min.js");?>';
 
     var scanner = null;
-
+	var timeOut = null;
     var app = new Vue({
         el: "#app",
         data: {
             modeCheck: false,
-            pageCheck: {presence: 0},
+            pageCheck: {lastResult:"None"},
             report:<?=json_encode($report);?>,
         },
+		computed:{
+			presence(){
+			    var i = 0;
+				$.each(this.pageCheck.data,function (j,r) {
+					if(r.presence_at)
+						i++;
+				});
+			    return i;
+			}
+		},
         methods: {
             back() {
+                app.pageCheck = {lastResult:"None"};
                 if (scanner) {
                     scanner.stop();
                     this.modeCheck = false;
                 }
             },
-            presencePage(row,ev) {
+            presencePage(row, ev) {
                 ev.target.innerHTML = "<i class='fa fa-spin fa-spinner'></i> Loading Data . .";
-                $.post("<?=base_url('admin/presence/get_data');?>",{id:row.id_event},function (res) {
-                    if(res.status){
-                        var presence = 0;
-                        $.each(res.status.data,function (r) {
-							if(r.presence_at)
-							    presence++;
-                        })
-						app.pageCheck.data = res.data;
-						app.pageCheck.presence = presence;
+                $.post("<?=base_url('admin/presence/get_data');?>", {id: row.id_event}, function (res) {
+                    if (res.status) {
+                        app.pageCheck.data = res.data;
                         app.modeCheck = true;
                         app.pageCheck.event = {id: row.id_event, name: row.name};
                         app.pageCheck.numberParticipant = row.number_participant;
@@ -120,43 +127,53 @@
                         Vue.nextTick(function () {
                             const video = app.$refs.qrVideo;
                             const camHasCamera = app.$refs.camHasCamera;
-                            const camQrResult = app.$refs.camQrResult;
 
-                            function setResult(label, result) {
-                                label.textContent = result;
-                                label.style.color = 'teal';
-                                clearTimeout(label.highlightTimeout);
-                                label.highlightTimeout = setTimeout(() => label.style.color = 'inherit', 100);
-                                $.each(app.pageCheck.data,function (r) {
-									if(r.id == result){
-									    var date = new Date();
-                                        Swal.fire({
-                                            title: '<strong>Presence Checked</strong>',
-                                            type: 'success',
-                                            html:
-                                                `<p>Presence of <b>${r.fullname}</b> As <b>${r.status_name}</b></p>` +
-                                                `<p>Checked At ${moment(date).format("DD MMM YYYY, [At] HH:mm:ss")}</p>`,
-                                            showCloseButton: true,
-                                        });
-                                        $.post("<?=base_url('admin/presence/save');?>",{member_id:r.id,event_id:app.pageCheck.event.id,created_at:date.toISOString().slice(0, 19).replace('T', ' ')});
+                            function setResult(result) {
+                                if(app.pageCheck.lastResult != result) {
+                                    var found = false;
+                                    $.each(app.pageCheck.data, function (i,r) {
+                                        if (r.id == result) {
+                                            found = true;
+                                            var date = new Date();
+                                            r.presence_at = date.toISOString().slice(0, 19).replace('T', ' ');
+                                            Swal.fire({
+                                                title: '<strong>Presence Checked</strong>',
+                                                type: 'success',
+                                                html:
+                                                    `<p>Presence of <b>${r.fullname}</b> As <b>${r.status_member}</b></p>` +
+                                                    `<p>Checked At <b>${moment(date).format("DD MMM YYYY, [At] HH:mm:ss")}</b></p>`,
+                                                showCloseButton: true,
+                                            });
+                                            $.post("<?=base_url('admin/presence/save');?>", {
+                                                member_id: r.id,
+                                                event_id: app.pageCheck.event.id,
+                                                created_at: date.toISOString().slice(0, 19).replace('T', ' ')
+                                            });
+                                        }
+                                    });
+                                    if(found == false){
+                                        Swal.fire("Info", "Participant no register on this event !", "info");
                                     }
-                                });
+                                    app.pageCheck.lastResult = result;
+                                    clearTimeout(timeOut);
+                                    timeOut = setTimeout(() => app.pageCheck.lastResult = "None", 5000);
+                                }
                             }
 
 
                             QrScanner.hasCamera().then(hasCamera => camHasCamera.textContent = hasCamera);
-                        	scanner = new QrScanner(video, result => setResult(camQrResult, result));
+                            scanner = new QrScanner(video, result => setResult(result));
                             scanner.start();
                             scanner.setInversionMode("both");
 
                         });
-					}else{
-                        Swal.fire("Failed","Failed to load data !","error");
+                    } else {
+                        Swal.fire("Failed", "Failed to load data !", "error");
                     }
-                },"JSON").always(function () {
+                }, "JSON").always(function () {
                     ev.target.innerHTML = "Check";
                 }).fail(function () {
-                    Swal.fire("Failed","Failed to load data !","error");
+                    Swal.fire("Failed", "Failed to load data !", "error");
                 });
             }
         }
