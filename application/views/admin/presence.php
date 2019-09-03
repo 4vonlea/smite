@@ -74,8 +74,9 @@
 							</tr>
 						</table>
 					</div>
-
-					<video width="100%" muted playsinline id="qr-video" ref="qrVideo"></video>
+					<div class="col-sm-12 text-center">
+						<video width="500px" style="border:solid 3px;" muted playsinline id="qr-video" ref="qrVideo"></video>
+					</div>
 
 				</div>
 			</div>
@@ -152,7 +153,7 @@
                                         }
                                     });
                                     if(found == false){
-                                        Swal.fire("Info", "Participant no register on this event !", "info");
+                                        Swal.fire("Info", "Participant not register on this event !", "info");
                                     }
                                     app.pageCheck.lastResult = result;
                                     clearTimeout(timeOut);
