@@ -2,6 +2,7 @@
 /**
  * @var $wa_token
  * @var $email_binded
+ * @var $event
  */
 ?>
 <div class="header bg-info pb-8 pt-5 pt-md-7"></div>
@@ -11,12 +12,12 @@
             <div class="nav-wrapper">
                 <ul class="nav nav-pills nav-fill flex-column flex-md-row" id="tabs-icons-text" role="tablist">
                     <li class="nav-item">
-                        <a class="nav-link mb-sm-3 mb-md-0 active" id="tabs-icons-text-1-tab" data-toggle="tab"
+                        <a class="nav-link mb-sm-3 mb-md-0 " id="tabs-icons-text-1-tab" data-toggle="tab"
                            href="#tabs-general" role="tab" aria-controls="tabs-icons-text-1"
                            aria-selected="true"><i class="ni ni-world mr-2"></i>General</a>
                     </li>
 					<li class="nav-item">
-						<a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-1-tab" data-toggle="tab"
+						<a class="nav-link mb-sm-3 mb-md-0 active" id="tabs-icons-text-1-tab" data-toggle="tab"
 						   href="#tabs-certificate" role="tab" aria-controls="tabs-icons-text-1"
 						   aria-selected="true"><i class="ni ni-book-bookmark mr-2"></i>Certificate</a>
 					</li>
@@ -34,7 +35,7 @@
             <div class="card shadow">
                 <div class="card-body">
                     <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show active" id="tabs-general" role="tabpanel">
+                        <div class="tab-pane fade show " id="tabs-general" role="tabpanel">
                             <div class="row">
                                 <div class="col">General Setting</div>
                                 <div class="col">
@@ -68,19 +69,73 @@
                                 </div>
                             </div>
                         </div>
-						<div class="tab-pane fade show" id="tabs-certificate" role="tabpanel">
+						<div class="tab-pane fade show active" id="tabs-certificate" role="tabpanel">
 							<div class="row">
 								<div class="col">Certificate Template</div>
 							</div>
 							<hr/>
 							<div class="row">
 								<div class="col-md-12">
-									<label>HTML Code</label>
-									<textarea v-model="preview_certificate" class="form-control" cols="5" rows="5"></textarea>
+									<div class="form-group row">
+										<label class="col-md-3 col-form-label">Template For Events</label>
+										<?php
+											$list = Event_m::asList($event,"id","name");
+											$list[""] = "Select Event";
+											echo form_dropdown("event",$list,"",['class'=>'form-control col-md-3','@change'=>'changeCertEvent','v-model'=>'selectedEvent','id'=>'sel_event']);
+										?>
+										<div class="col-md-6">
+											<div class="custom-file">
+												<input ref="certImage" type="file" @change="changeCertImage" class="custom-file-input" id="customFile">
+												<label class="custom-file-label" for="customFile">{{ cert.fileName }}</label>
+											</div>
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-md-3 col-form-label">Parameter from Member</label>
+										<?= form_dropdown("param",[''=>'Select Parameter','fullname'=>'Full Name','email'=>'Email','gender'=>'Gender'],"",['class'=>'form-control col-md-3','v-model'=>'selectedParam','id'=>'sel_param']); ?>
+										<div class="col-md-6">
+											<button type="button" @click="addPropertyCert" class="btn btn-primary">Add Property</button>
+											<button :disabled="savingCert" type="button" @click="saveCert" class="btn btn-primary">
+												<i v-if="savingCert" class="fa fa-spin fa-spinner"></i>
+												Save Template
+											</button>
+										</div>
+									</div>
+									<div class="form-group row">
+										<div class="col-md-12">
+											<table class="table">
+												<thead>
+													<tr>
+														<th></th>
+														<th>Property Name</th>
+														<th>Width Area</th>
+														<th>Font Weighted</th>
+														<th>Font Size</th>
+														<th>Position X</th>
+														<th>Position Y</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr v-for="prop in cert.property">
+														<td></td>
+														<td>{{ prop.name }}</td>
+														<td><input type="text" v-model="prop.style.width" class="form-control" /></td>
+														<td><input type="text" v-model="prop.style.fontWeight" class="form-control" /></td>
+														<td><input type="text" v-model="prop.style.fontSize" class="form-control" /></td>
+														<td><input type="text" v-model="prop.style.left" class="form-control"/></td>
+														<td><input type="text" v-model="prop.style.top" class="form-control"/></td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+									</div>
+									<div class="form-group">
+										<label>Preview</label>
+									</div>
 								</div>
-								<div class="col-md-12 mt-5">
-									<label>Preview</label>
-									<div v-html="preview_certificate"></div>
+								<div>
+									<img :src="cert.image" />
+									<div style="background-color: grey" v-for="prop in cert.property" :style="prop.style">{{ prop.name }} </div>
 								</div>
 							</div>
 						</div>
@@ -120,10 +175,29 @@
 </div>
 <?php $this->layout->begin_script();?>
 <script>
+    const toBase64 = file => new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+    });
+
+	function defaultCert() {
+		return {
+		    image:"",
+			base64Image:"",
+		    fileName:"Select Image as Template",
+            body:{width:"100%"},
+            property:[]
+        }
+    }
     var app = new Vue({
         'el':'#app',
         data:{
+            selectedEvent:"",
+            selectedParam:"",
             saving:false,
+            savingCert:false,
             uploading: false,
 			preview_certificate:"",
             logo_src:'<?= base_url('themes/uploads/logo.png'); ?>',
@@ -134,8 +208,38 @@
 			email_notif_binded:<?=$email_binded;?>,
 			email_notif:"<?=Settings_m::getSetting(Gmail_api::EMAIL_ADMIN_SETTINGS);?>",
             wa_api_token:"<?=$wa_token;?>",
+			cert : defaultCert()
         },
         methods:{
+            changeCertImage(e){
+                var file = e.target.files[0];
+                this.cert.fileName = file.name;
+                this.cert.image = URL.createObjectURL(file);
+			},
+			changeCertEvent(){
+				this.cert = defaultCert();
+			},
+			addPropertyCert(){
+				this.cert.property.push({"name":this.selectedParam,"style":{"width":"100px","textAlign":"center","fontWeight":"normal","position":"absolute","top":0,"left":0,"fontSize":"12px"}});
+			},
+			saveCert(){
+                toBase64(app.$refs.certImage.files[0]).then(function (result) {
+					app.cert.base64Image = result;
+					app.cert.event = app.selectedEvent;
+                    app.savingCert = true;
+                    $.post("<?=base_url("admin/setting/save_cert");?>",app.cert,null,'JSON')
+						.done(function (res) {
+							if(res.status){
+								Swal.fire("Success","Template Certificate Saved Successfully !","success");
+							}
+						}).fail(function (xhr) {
+						Swal.fire("Failed","Failed to load data !","error");
+					}).always(function () {
+                        app.savingCert = false;
+                    });
+                });
+
+			},
             unbindEmail(){
                 var app = this;
                 $.post("<?=base_url("admin/setting/unbind_email");?>",{},null,'JSON')
@@ -197,6 +301,10 @@
                 });
             },
         }
+    });
+    $(document).ready(function(){
+        $("#sel_event option:last").attr({"disabled":"true","hidden":"true"});
+        $("#sel_param option:first").attr({"disabled":"true","hidden":"true"});
     });
 </script>
 <?php $this->layout->end_script();?>

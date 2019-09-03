@@ -161,7 +161,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link"
-                       href="#">
+                       href="<?=base_url("admin/presence");?>">
                         <i class="ni ni-bullet-list-67 text-green"></i> Presence check
                     </a>
                 </li>

@@ -1,18 +1,52 @@
 <?php
 
 
+use Dompdf\Dompdf;
+
 class Setting extends Admin_Controller
 {
     public function index()
     {
-		$this->load->model(['Gmail_api',"Whatsapp_api"]);
+    	$this->load->helper("form");
+		$this->load->model(['Gmail_api',"Whatsapp_api","Event_m"]);
 		$gmail_token = $this->Gmail_api->getToken();
 		$this->layout->render('setting',[
 			'wa_token'=>$this->Whatsapp_api->getToken(),
-			'email_binded'=>(is_array($gmail_token) && count($gmail_token) > 0) ? 1: 0
+			'email_binded'=>(is_array($gmail_token) && count($gmail_token) > 0) ? 1: 0,
+			"event"=>$this->Event_m->findAll(),
 		]);
     }
 
+    public function test(){
+		$domInvoice = new Dompdf();
+
+		$html = $this->load->view("template/certificate",[
+			'image'=>file_get_contents(APPPATH."uploads/cert_template/1.txt"),
+			'property'=>json_decode(Settings_m::getSetting("config_cert_1"),true),
+			'data'=>['fullname'=>'Muhammad Zaien']
+		],true);
+		$domInvoice->setPaper("a4","landscape");
+		$domInvoice->loadHtml($html);
+		$domInvoice->render();
+		$domInvoice->stream("tes.pdf");
+	}
+
+    public function save_cert(){
+//		$data = $_POST['base64Image'];
+//		list($type, $data) = explode(';', $data);
+//		list(, $data)      = explode(',', $data);
+//		$data = base64_decode($data);
+//		list(,$ext) = explode(".",$this->input->post('fileName'));
+//		file_put_contents(APPPATH."uploads/cert_template/$_POST[event].".$ext, $data);
+		file_put_contents(APPPATH."uploads/cert_template/$_POST[event].txt", $_POST['base64Image']);
+//		Settings_m::saveSetting("config_cert_img_$_POST[event]",  $_POST['base64Image']);
+		Settings_m::saveSetting("config_cert_$_POST[event]", $this->input->post('property'));
+
+		$this->output
+			->set_content_type("application/json")
+			->_display(json_encode(['status'=>true]));
+
+	}
     public function unbind_email(){
 		if($this->input->method() != 'post')
 			show_404("Page Not Found !");

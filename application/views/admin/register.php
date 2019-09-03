@@ -7,7 +7,6 @@
 <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8" xmlns:v-bind="http://www.w3.org/1999/xhtml"
 	 xmlns:v-bind="http://www.w3.org/1999/xhtml"></div>
 <div class="container-fluid mt--7">
-
 	<div class="row">
 		<div class="col-md-12">
 			<div class="card bg-secondary shadow border-0">
@@ -127,7 +126,6 @@
 								<div v-if="validation_error.phone" class="invalid-feedback">
 									{{ validation_error.phone }}
 								</div>
-
 							</div>
 						</div>
 
@@ -144,6 +142,22 @@
 									<label>
 										<input type="radio" name="gender" value="F"/> Female
 									</label>
+								</div>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-lg-3 control-label">Method Payment</label>
+							<div class="col-lg-5">
+								<?= form_dropdown('channel',['CASH'=>'CASH','EDC'=>'EDC'], 'CASH', [':class' => "{'is-invalid':validation_error.status}", 'class' => 'form-control', 'placeholder' => 'Select your status !', 'v-model' => 'channel']); ?>
+							</div>
+						</div>
+						<div v-if="channel == 'EDC'" class="form-group row">
+							<label class="col-lg-3 control-label">Code Reference</label>
+							<div class="col-lg-5">
+								<input type="text" :class="{'is-invalid':validation_error.city}" class="form-control"
+									   name="message_payment"/>
+								<div v-if="validation_error.message_payment" class="invalid-feedback">
+									{{ validation_error.message_payment }}
 								</div>
 							</div>
 						</div>
@@ -201,6 +215,7 @@
             selected: [],
             listStatus:<?=json_encode($participantsCategory);?>,
             status_participant: '',
+			channel:'CASH',
             saving: false,
             validation_error: {},
             events:<?=json_encode($events);?>
@@ -210,7 +225,7 @@
                 var total = 0;
                 var selected = [];
                 this.selected.forEach(function (item) {
-					selected.push(item[0]);
+                    selected.push(item[0]);
                 });
                 var events = this.filteredEvents;
                 Object.keys(events).forEach(function (key) {
@@ -244,7 +259,7 @@
                 var birthday = moment().format("Y-MM-DD");
                 formData.set("birthday", birthday);
                 this.saving = true;
-                app.postRegister = {show:false,url:"",email:""};
+                app.postRegister = {show: false, url: "", email: ""};
                 $.ajax({
                     url: '<?=base_url('admin/member/register');?>',
                     type: 'POST',
@@ -262,7 +277,7 @@
                             title: '<strong>Registered Successfully</strong>',
                             type: 'success',
                             html:
-                                `<p>Participant successfully registered, an email has been sent to "${res.email}" contains Invoice and Payment proof files</p>`+
+                                `<p>Participant successfully registered, an email has been sent to "${res.email}" contains Invoice and Payment proof files</p>` +
                                 `<p>to check member you can  <a href="${res.url}" target="_blank">click here</a></p>`,
                             showCloseButton: true,
                             showCancelButton: true,

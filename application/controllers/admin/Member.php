@@ -139,8 +139,8 @@ class Member extends Admin_Controller
 					'id' => $id_invoice,
 					'member_id' => $data['id'],
 					'checkout' => 1,
-					'message_payment' => 'Paid using register onsite',
-					'channel' => 'DIRECT_ON_SITE',
+					'message_payment' => $data['message_payment'],
+					'channel' => $data['channel'],
 					'status_payment' => Transaction_m::STATUS_FINISH,
 				]);
 				$details = [];

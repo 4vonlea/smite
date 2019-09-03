@@ -68,6 +68,13 @@ class MY_Model extends yidas\Model
 			}
 		}
 
+		if(isset($gridConfig['filter'])){
+			$builder->where($gridConfig['filter']);
+			$countBuilder->where($gridConfig['filter']);
+		}
+
+
+
 
         $result = $builder->get();
         $data['data'] = $result->result_array();

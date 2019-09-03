@@ -3,6 +3,11 @@
 
 use Dompdf\Dompdf;
 
+/**
+ * Class Dashboard
+ * @property Dashboard_m $Dashboard_m
+ */
+
 class Dashboard extends Admin_Controller
 {
 
