@@ -75,7 +75,7 @@
 						</table>
 					</div>
 					<div class="col-sm-12 text-center">
-						<video width="500px" style="border:solid 3px;" muted playsinline id="qr-video" ref="qrVideo"></video>
+						<video style="border:solid 3px;max-width: 500px" muted playsinline id="qr-video" ref="qrVideo"></video>
 					</div>
 
 				</div>
