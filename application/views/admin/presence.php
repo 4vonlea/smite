@@ -35,7 +35,7 @@
 									<button @click="presencePage(row,$event)" type="button" class="btn btn-primary">
 										Check
 									</button>
-									<button type="button" class="btn btn-primary">Download Report</button>
+									<button type="button" @click="downloadReport(row)" class="btn btn-primary">Download Report</button>
 								</td>
 							</tr>
 							</tbody>
@@ -75,7 +75,7 @@
 						</table>
 					</div>
 					<div class="col-sm-12 text-center">
-						<video style="border:solid 3px;max-width: 500px" muted playsinline id="qr-video" ref="qrVideo"></video>
+						<video style="border:solid 3px;max-width: 500px;width: 100%" muted playsinline id="qr-video" ref="qrVideo"></video>
 					</div>
 
 				</div>
@@ -116,6 +116,9 @@
                     this.modeCheck = false;
                 }
             },
+			downloadReport(row){
+                window.open("<?=base_url('admin/presence/report');?>/"+row.id_event);
+			},
             presencePage(row, ev) {
                 ev.target.innerHTML = "<i class='fa fa-spin fa-spinner'></i> Loading Data . .";
                 $.post("<?=base_url('admin/presence/get_data');?>", {id: row.id_event}, function (res) {

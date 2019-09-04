@@ -20,6 +20,18 @@ class Presence extends Admin_Controller
 		$this->Presence_m->insert($this->input->post());
 	}
 
+	public function report($id_event){
+		$this->load->library("Exporter");
+		$this->load->model(["Presence_m","Event_m"]);
+		$event = $this->Event_m->findOne($id_event);
+		$data =  $this->Presence_m->getReportData($id_event);
+		$exporter = new Exporter();
+		$exporter->setData($data);
+		$exporter->setFilename("PRESENCE-$event->name");
+		$exporter->setTitle("Report Presence Event : ".$event->name);
+		$exporter->asExcel();
+	}
+
 	public function get_data(){
 		if($this->input->method() != 'post')
 			show_404("Page Not Found !");
