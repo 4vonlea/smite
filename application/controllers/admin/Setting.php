@@ -21,7 +21,7 @@ class Setting extends Admin_Controller
 		$domInvoice = new Dompdf();
 		$propery = json_decode(Settings_m::getSetting("config_cert_$id"),true);
 		foreach($propery as $field){
-			$data[$field['name']] = "Preview Cert";
+			$data[$field['name']] = "Preview $field[name]";
 		}
 		$html = $this->load->view("template/certificate",[
 			'image'=>file_get_contents(APPPATH."uploads/cert_template/$id.txt"),

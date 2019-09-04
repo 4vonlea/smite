@@ -132,7 +132,7 @@
 												<tr v-for="prop in cert.property">
 													<td></td>
 													<td>{{ prop.name }}</td>
-													<td><input type="number" v-model="prop.style.width"
+													<td><input type="number" v-model="prop.style.width" min="0" max="100" step="0.1"
 															   class="form-control"/></td>
 													<td>
 														<select v-model="prop.style.fontWeight" class="form-control">
@@ -296,16 +296,7 @@
                     this.loading = true;
                     $.post("<?=base_url('admin/setting/get_cert');?>", {id: this.selectedEvent}, function (res) {
                         if (res.status) {
-                            var temp = [];
-                            $.each(res.data.property,function (i,v) {
-                                var t = {name:v.name,style:{}};
-								$.each(v.style,function (j,k) {
-									t.style[j] = String(k).replace("%","").replace("px","");
-                                });
-								temp.push(t);
-                            });
                             app.cert = res.data;
-                            app.cert.property = temp;
                         } else {
                             app.cert = defaultCert();
                         }
