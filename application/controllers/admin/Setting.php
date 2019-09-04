@@ -17,20 +17,42 @@ class Setting extends Admin_Controller
 		]);
     }
 
-    public function test(){
+    public function preview_cert($id){
 		$domInvoice = new Dompdf();
-
+		$propery = json_decode(Settings_m::getSetting("config_cert_$id"),true);
+		foreach($propery as $field){
+			$data[$field['name']] = "Preview Cert";
+		}
 		$html = $this->load->view("template/certificate",[
-			'image'=>file_get_contents(APPPATH."uploads/cert_template/1.txt"),
-			'property'=>json_decode(Settings_m::getSetting("config_cert_1"),true),
-			'data'=>['fullname'=>'Muhammad Zaien']
+			'image'=>file_get_contents(APPPATH."uploads/cert_template/$id.txt"),
+			'property'=>$propery,
+			'data'=>$data
 		],true);
 		$domInvoice->setPaper("a4","landscape");
 		$domInvoice->loadHtml($html);
 		$domInvoice->render();
-		$domInvoice->stream("tes.pdf");
+		$domInvoice->stream('preview_cert.pdf',array('Attachment'=>0));
 	}
 
+	public function get_cert(){
+    	$id = $this->input->post('id');
+    	$config = Settings_m::getSetting("config_cert_$id");
+		if(file_exists(APPPATH."uploads/cert_template/$id.txt")) {
+			$return['fileName'] = "Select Image as Template";
+			$return['body'] = ['width' => '100%'];
+			$return['property'] = json_decode($config, true);
+			$return['image'] = file_get_contents(APPPATH . "uploads/cert_template/$id.txt");
+			$return['base64Image'] = $return['image'];
+			$this->output
+				->set_content_type("application/json")
+				->_display(json_encode(['status'=>true,'data'=>$return]));
+		}else{
+			$this->output
+				->set_content_type("application/json")
+				->_display(json_encode(['status'=>false]));
+
+		}
+	}
     public function save_cert(){
 //		$data = $_POST['base64Image'];
 //		list($type, $data) = explode(';', $data);

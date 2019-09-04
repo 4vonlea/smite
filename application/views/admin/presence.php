@@ -77,7 +77,6 @@
 					<div class="col-sm-12 text-center">
 						<video style="border:solid 3px;max-width: 500px;width: 100%" muted playsinline id="qr-video" ref="qrVideo"></video>
 					</div>
-
 				</div>
 			</div>
 		</div>
