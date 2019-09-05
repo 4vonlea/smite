@@ -24,6 +24,13 @@ class Area extends MY_Controller
         $this->layout->render('index',['user'=>$user]);
     }
 
+	public function card($event_id,$member_id)
+	{
+		$this->load->model('Member_m');
+		$member = $this->Member_m->findOne($member_id);
+		$member->getCard($event_id)->stream("member_card.pdf");
+	}
+
     public function save_profile(){
         if($this->input->post()) {
             $post = $this->input->post();

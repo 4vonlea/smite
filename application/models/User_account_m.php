@@ -13,10 +13,12 @@ class User_account_m extends MY_Model
 
     const ROLE_SUPERADMIN = 1;
     const ROLE_ADMIN = 2;
+    const ROLE_ADMIN_PAPER = 3;
 
     public static $listRole = [
         self::ROLE_SUPERADMIN => 'Superadmin',
         self::ROLE_ADMIN => 'Admin',
+        self::ROLE_ADMIN_PAPER => 'Admin Paper',
     ];
 
     public static function verify($username,$password){

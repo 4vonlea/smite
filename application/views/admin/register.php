@@ -72,16 +72,16 @@
 						<!--							</div>-->
 						<!--						</div>-->
 
-						<div class="form-group row">
-							<label class="col-lg-3 control-label">Upload participant image</label>
-							<div class="col-lg-5">
-								<input type="file" name="image" :class="{'is-invalid':validation_error.proof}"
-									   class="form-control-file"/>
-								<div v-if="validation_error.image" class="invalid-feedback d-block">
-									{{ validation_error.image }}
-								</div>
-							</div>
-						</div>
+<!--						<div class="form-group row">-->
+<!--							<label class="col-lg-3 control-label">Upload participant image</label>-->
+<!--							<div class="col-lg-5">-->
+<!--								<input type="file" name="image" :class="{'is-invalid':validation_error.proof}"-->
+<!--									   class="form-control-file"/>-->
+<!--								<div v-if="validation_error.image" class="invalid-feedback d-block">-->
+<!--									{{ validation_error.image }}-->
+<!--								</div>-->
+<!--							</div>-->
+<!--						</div>-->
 
 						<div class="form-group row">
 							<label class="col-lg-3 control-label">Full Name</label>

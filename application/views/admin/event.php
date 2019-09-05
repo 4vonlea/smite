@@ -59,8 +59,34 @@
                                         </div>
                                     </div>
                                 </div>
+								<div class="row">
+									<div class="col-lg-6">
+										<div class="form-group focused">
+											<label class="form-control-label" for="input-username">Theme</label>
+											<input :disabled="detailMode" type="text" class="form-control form-control-alternative"
+												   v-model="form.model.theme"
+												   placeholder="Theme">
+										</div>
+									</div>
+									<div class="col-lg-6">
+										<div class="form-group focused">
+											<label class="form-control-label" for="input-username">Held On (Date)</label>
+											<input :disabled="detailMode" type="text" class="form-control form-control-alternative"
+												   v-model="form.model.held_on"
+												   placeholder="Example 20 August 2019">
+										</div>
+									</div>
+								</div>
                                 <div class="row">
-                                    <div class="col-lg-12">
+									<div class="col-lg-6">
+										<div class="form-group focused">
+											<label class="form-control-label" for="input-username">Held In (Place)</label>
+											<input :disabled="detailMode" type="text" class="form-control form-control-alternative"
+												   v-model="form.model.held_in"
+												   placeholder="Example RSUD Banjarmasin">
+										</div>
+									</div>
+                                    <div class="col-lg-6">
                                         <div class="form-group focused">
                                             <label class="form-control-label">Description</label>
                                             <textarea :disabled="detailMode" v-model="form.model.description" rows="4"

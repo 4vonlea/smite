@@ -36,6 +36,7 @@ export default Vue.component("PageEvents", {
 								<div :id="'accordion-'+index" class="collapse show table-responsive">
 										<div class="alert alert-success text-center" v-if="event.followed">
 											<h5>You are following this event</h5>
+											<a :href="'<?=base_url('member/area/card');?>/'+event.id+'/'+user.id" target="_blank">Download Member Card</a>
 										</div>
 										<table v-else class="table">
 											<thead>

@@ -81,7 +81,7 @@
 									class="btn btn-warning btn-sm">
 								<span class="fa fa-pen"></span> Verify
 							</button>
-							<button class="btn btn-primary btn-sm" @click="detail(props.row)">
+							<button class="btn btn-primary btn-sm" @click="detail(props.row,$event)">
 								<span class="fa fa-zoom"></span> Detail
 							</button>
 						</div>
@@ -120,8 +120,15 @@
 					<tr>
 						<th>Gender</th>
 						<td>{{ (profile.gender == 'M' ?'Male':'Female') }}</td>
-						<th>Birthday</th>
-						<td>{{ profile.birthdayFormatted }}</td>
+						<th>The Followed Events</th>
+						<td>
+							<ul>
+								<li v-for="ev in profile.event">
+									{{ ev.event_name }} ({{ ev.event_theme }}) |
+									<a :href="'<?=base_url('admin/member/card');?>/'+ev.event_id+'/'+profile.id" target="_blank">Download Member Card</a>
+								</li>
+							</ul>
+						</td>
 					</tr>
 					<tr>
 						<th>City</th>
@@ -261,7 +268,7 @@
             profile: {},
         },
         methods: {
-            detail(profile) {
+            detail(profile,event) {
                 $.each(this.statusList, function (i, v) {
                     if (v.id == profile.status)
                         profile.statusName = v.kategory;
@@ -271,9 +278,18 @@
                 } else {
                     profile.imageLink = `<?=base_url('themes/uploads/people.jpg');?>`;
                 }
-                profile.birthdayFormatted = moment(profile.birthday).format('DD MMM YYYY');
-                this.profileMode = 1;
-                this.profile = profile;
+                event.target.innerHtml = "<i class='fa fa-spin fa-spinner'></i>Loading...";
+
+                $.post("<?=base_url("admin/member/get_event");?>",{id:profile.id},function (res) {
+					profile.event = res;
+                    profile.birthdayFormatted = moment(profile.birthday).format('DD MMM YYYY');
+                    app.profileMode = 1;
+                    app.profile = profile;
+                },"JSON").fail(function () {
+                    Swal.fire("Failed", "Failed to load data !", "error");
+                }).always(function () {
+                    event.target.innerHtml = "Detail";
+                });
             },
             verify() {
                 this.verifying = true;

@@ -129,8 +129,10 @@
 												</tr>
 												</thead>
 												<tbody>
-												<tr v-for="prop in cert.property">
-													<td></td>
+												<tr v-for="(prop,index) in cert.property">
+													<td>
+														<button @click="deleteProp(index)" class="btn btn-sm btn-primary"><i class="fa fa-trash"></i></button>
+													</td>
 													<td>{{ prop.name }}</td>
 													<td><input type="number" v-model="prop.style.width" min="0" max="100" step="0.1"
 															   class="form-control"/></td>
@@ -282,11 +284,13 @@
                         }
                         ret.push(temp);
                     });
-                    console.log(ret);
                     return ret;
                 }
             },
             methods: {
+                deleteProp(index){
+                    this.$delete(this.cert.property, index)
+				},
                 changeCertImage(e) {
                     var file = e.target.files[0];
                     this.cert.fileName = file.name;

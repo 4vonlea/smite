@@ -10,20 +10,12 @@ class Member extends Admin_Controller
 		$this->layout->render('member', ['statusList' => $statusList]);
 	}
 
-	public function test()
+
+	public function card($event_id,$member_id)
 	{
-		$this->load->model(["Category_member_m", "Transaction_m"]);
-		$participantsCategory = Category_member_m::asList(Category_member_m::findAll(), 'id', 'kategory', 'Please Select your status');
-
-		$tr = $this->Transaction_m->findOne("INV-20190902-00001");
-		$data['participantsCategory'] = $participantsCategory;
-		$email_message = $this->load->view('template/success_register_onsite', $data, true);
-		$attc = [
-			'invoice.pdf' => $tr->exportInvoice()->output(),
-			'payment_proof.pdf' => $tr->exportPaymentProof()->output()
-		];
-//		$this->Gmail_api->sendMessageWithAttachment($data['email'], 'Registered On Site Succesfully - Invoice, Payment Proof', $email_message,$attc);
-
+		$this->load->model('Member_m');
+		$member = $this->Member_m->findOne($member_id);
+		$member->getCard($event_id)->stream("member_card.pdf");
 	}
 
 	public function add_status()
@@ -114,15 +106,15 @@ class Member extends Admin_Controller
 			$data['id'] = Uuid::v4();
 			$data['password'] = strtoupper(substr(uniqid(), -5));
 			$data['confirm_password'] = $data['password'];
-			if ($this->Member_m->validate($data) && $this->handlingImage('image', $data['id'])) {
-				$upl = $this->upload->data();
+			if ($this->Member_m->validate($data)){// && $this->handlingImage('image', $data['id'])) {
+//				$upl = $this->upload->data();
 
 				$data['username_account'] = $data['email'];
 				$data['verified_by_admin'] = 1;
 				$data['verified_email'] = 0;
 				$data['region'] = 0;
 				$data['country'] = 0;
-				$data['image'] = $upl['file_name'];
+				$data['image'] = "";// $upl['file_name'];
 
 				$token = uniqid();
 				$this->Member_m->getDB()->trans_start();
@@ -172,7 +164,8 @@ class Member extends Admin_Controller
 				}
 			} else {
 				$error['status'] = false;
-				$error['validation_error'] = array_merge($this->Member_m->getErrors(), ['image' => (isset($this->upload) ? $this->upload->display_errors("", "") : null)]);
+//				$error['validation_error'] = array_merge($this->Member_m->getErrors(), ['image' => (isset($this->upload) ? $this->upload->display_errors("", "") : null)]);
+				$error['validation_error'] = $this->Member_m->getErrors();;
 			}
 			$this->output->set_content_type("application/json")
 				->set_output(json_encode($error));
@@ -199,6 +192,18 @@ class Member extends Admin_Controller
 
 	}
 
+	public function get_event(){
+		if ($this->input->method() != 'post')
+			show_404("Page Not Found !");
+		$this->load->model('Event_m');
+
+		$member_id = $this->input->post('id');
+		$result = $this->Event_m->getParticipant()->where('m.id',$member_id)->get();
+		$this->output
+			->set_content_type("application/json")
+			->_display(json_encode($result->result_array()));
+
+	}
 	/**
 	 * @param $name
 	 * @return boolean
