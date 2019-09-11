@@ -1,9 +1,14 @@
+<?php
+/**
+ * @var $admin_paper
+ */
+?>
 <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
 	<div class="container-fluid">
 		<div class="header-body">
 			<!-- Card stats -->
 			<div class="row">
-				<div class="col-xl-4 col-lg-4">
+				<div class="col-md-3">
 					<div class="card card-stats mb-4 mb-xl-0">
 						<div class="card-body">
 							<div class="row">
@@ -20,7 +25,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-xl-4 col-lg-4">
+				<div class="col-md-3">
 					<div class="card card-stats mb-4 mb-xl-0">
 						<div class="card-body">
 							<div class="row">
@@ -37,7 +42,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-xl-4 col-lg-4">
+				<div class="col-md-3">
 					<div class="card card-stats mb-4 mb-xl-0">
 						<div class="card-body">
 							<div class="row">
@@ -48,6 +53,23 @@
 								<div class="col-auto">
 									<div class="icon icon-shape bg-warning text-white rounded-circle shadow">
 										<i class="fas fa-chart-pie"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="card card-stats mb-4 mb-xl-0">
+						<div class="card-body">
+							<div class="row">
+								<div class="col">
+									<h5 class="card-title text-uppercase text-muted mb-0">No Reviewer</h5>
+									<span class="h2 font-weight-bold mb-0">{{ pagination.total_no_reviewer }}</span>
+								</div>
+								<div class="col-auto">
+									<div class="icon icon-shape bg-danger text-white rounded-circle shadow">
+										<i class="fas fa-chart-bar"></i>
 									</div>
 								</div>
 							</div>
@@ -68,29 +90,74 @@
 					</div>
 				</div>
 			</div>
+			<div class="table-responsive">
 
-			<datagrid
-				@loaded_data="loadedGrid"
-				ref="datagrid"
-				api-url="<?= base_url('admin/paper/grid'); ?>"
-				:fields="[{name:'fullname',sortField:'fullname','title':'Member Name'},{name:'status','sortField':'status'},{name:'t_updated_at',sortField:'t_updated_at',title:'Date'},{name:'t_id','title':'Aksi'}]">
-				<template slot="status" slot-scope="props">
-					{{ status[props.row.status] }}
-				</template>
-				<template slot="t_updated_at" slot-scope="props">
-					{{ formatDate(props.row.t_updated_at) }}
-				</template>
-				<template  slot="t_id" slot-scope="props">
-					<div class="table-button-container">
-						<button @click="detail(props)" class="btn btn-info btn-sm">
-							<span class="fa fa-search"></span> Detail
-						</button>
-						<button v-if="props.row.status == 1" @click="review(props)" class="btn btn-warning btn-sm">
-							<span class="fa fa-edit"></span> review
-						</button>
-					</div>
-				</template>
-			</datagrid>
+				<datagrid
+					@loaded_data="loadedGrid"
+					ref="datagrid"
+					api-url="<?= base_url('admin/paper/grid'); ?>"
+					:fields="[{name:'fullname',sortField:'fullname','title':'Member Name'},{name:'status','sortField':'status'},{name:'reviewer','sortField':'reviewer'},{name:'t_updated_at',sortField:'t_updated_at',title:'Date'},{name:'t_id','title':'Aksi'}]">
+					<template slot="status" slot-scope="props">
+						{{ status[props.row.status] }}
+					</template>
+					<template slot="t_updated_at" slot-scope="props">
+						{{ formatDate(props.row.t_updated_at) }}
+					</template>
+					<template slot="t_id" slot-scope="props">
+						<div class="table-button-container">
+							<button @click="detail(props)" class="btn btn-info btn-sm">
+								<span class="fa fa-search"></span> Detail
+							</button>
+							<button v-if="props.row.status == 1" @click="review(props)" class="btn btn-warning btn-sm">
+								<span class="fa fa-edit"></span> review
+							</button>
+							<button v-if="!props.row.reviewer" @click="setReviewer(props)"
+									class="btn btn-warning btn-sm">
+								<span class="fa fa-user"></span> Set Reviewer
+							</button>
+						</div>
+					</template>
+				</datagrid>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal" id="modal-reviewer">
+	<div class="modal-dialog">
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<h4 class="modal-title">Set Reviewer</h4>
+			</div>
+			<div class="modal-body">
+				<table class="table">
+					<tr>
+						<th style="width: 30%">Author Name</th>
+						<td>{{ reviewModel.author }}</td>
+					</tr>
+					<tr>
+						<th>Title</th>
+						<td>{{ reviewModel.title }}</td>
+					</tr>
+					<tr>
+						<th>Submitted On</th>
+						<td>{{ formatDate(reviewModel.t_updated_at) }}</td>
+					</tr>
+					<tr>
+						<th>Reviewer</th>
+						<td>
+							<select class="form-control" v-model="reviewModel.reviewer">
+								<option disabled hidden value="">Select Reviewer</option>
+								<option v-for="a in admin" :value="a.username">{{ a.username }} | {{ a.name }}</option>
+							</select>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div class="modal-footer text-right">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primar" @click="save">Save</button>
+			</div>
 		</div>
 	</div>
 </div>
@@ -106,43 +173,78 @@
 
 			<!-- Modal body -->
 			<div class="modal-body">
-				<div v-if="validation" class="alert alert-danger" >
+				<div v-if="validation" class="alert alert-danger">
 					<span v-html="validation"></span>
 				</div>
 				<table class="table">
 					<tr>
-						<th style="width: 30%">Author Name</th>
-						<td>{{ reviewModel.author }}</td>
+						<th>Submitted On</th>
+						<td>{{ formatDate(reviewModel.t_updated_at) }}</td>
 					</tr>
+
 					<tr>
 						<th>Title</th>
 						<td>{{ reviewModel.title }}</td>
 					</tr>
 					<tr>
-						<th>Submitted On</th>
-						<td>{{ formatDate(reviewModel.t_updated_at) }}</td>
+						<th>Introduction</th>
+						<td>{{ (reviewModel.introduction) }}</td>
 					</tr>
+					<tr>
+						<th>Aims</th>
+						<td>{{ (reviewModel.aims) }}</td>
+					</tr>
+					<tr>
+						<th>Methods</th>
+						<td>{{ (reviewModel.methods) }}</td>
+					</tr>
+					<tr>
+						<th>Result</th>
+						<td>{{ (reviewModel.result) }}</td>
+					</tr>
+					<tr>
+						<th>Conclusion</th>
+						<td>{{ (reviewModel.conclusion) }}</td>
+					</tr>
+
 					<tr v-if="detailMode == 1">
 						<th>Status</th>
 						<td>{{ status[reviewModel.status] }}</td>
 					</tr>
 					<tr>
 						<th>Link Download</th>
-						<td> <a :href="reviewModel.link" target="_blank" >Click Here !</a></td>
+						<td><a :href="reviewModel.link" target="_blank">Click Here !</a></td>
+					</tr>
+					<tr v-if="reviewModel.co_author">
+						<th>Co-Author</th>
+						<td>
+							<table class="table">
+								<tr>
+									<th>Fullname</th>
+									<th>Email</th>
+									<th>Phone</th>
+									<th>Affiliation</th>
+								</tr>
+								<tr v-for="c in reviewModel.co_author">
+									<td>{{ (c.fullname ?c.fullname:"") }}</td>
+									<td>{{ (c.email ?c.email:"") }}</td>
+									<td>{{ (c.phone ?c.phone:"") }}</td>
+									<td>{{ (c.affiliation ?c.affiliation:"") }}</td>
+								</tr>
+							</table>
+						</td>
 					</tr>
 					<tr v-if="detailMode == 0">
 						<th>Result Of Review</th>
 						<td>
-							<div class="form-check-inline">
-								<label class="form-check-label">
-									<input type="radio" class="form-check-input"  v-model="reviewModel.status" value="0">Return to Author
-								</label>
-							</div>
-							<div class="form-check-inline">
-								<label class="form-check-label">
-									<input type="radio" class="form-check-input" v-model="reviewModel.status" value="2">Accepted
-								</label>
-							</div>
+							<?php foreach(Papers_m::$status as $k=>$v):?>
+								<div class="form-check-inline">
+									<label class="form-check-label">
+										<input type="radio" class="form-check-input" v-model="reviewModel.status" value="<?=$k;?>">
+										<?=$v;?>
+									</label>
+								</div>
+							<?php endforeach; ?>
 						</td>
 					</tr>
 					<tr v-if="detailMode == 0">
@@ -158,7 +260,7 @@
 			<div class="modal-footer">
 				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 				<span v-if="detailMode == 0">
-					<button :disabled="saving" type="button" class="btn btn-primary" @click="save" >
+					<button :disabled="saving" type="button" class="btn btn-primary" @click="save">
 						<i v-if="saving" class="fa fa-spin fa-spinner"></i> Save
 					</button>
 				</span>
@@ -173,48 +275,69 @@
     var app = new Vue({
         el: '#app',
         data: {
-			status:<?=json_encode(Papers_m::$status);?>,
+            status:<?=json_encode(Papers_m::$status);?>,
             pagination: {},
-			reviewModel:{},
-			detailMode:0,
-			saving:false,
-			validation:null,
+            reviewModel: {},
+            detailMode: 0,
+            saving: false,
+            admin:<?=json_encode($admin_paper);?>,
+            validation: null,
         },
         methods: {
             loadedGrid: function (data) {
                 this.pagination = data;
             },
-			detail(row){
+            detail(row) {
                 this.validation = null;
                 this.detailMode = 1;
                 this.reviewModel = row.row;
+                try{
+                    var temp = JSON.parse(row.row.co_author);
+                    this.reviewModel.co_author = temp;
+                }catch (e) {
+                    console.log(e);
+                }
                 this.reviewModel.link = `<?=base_url("admin/paper/file");?>/${row.row.filename}`;
                 $("#modal-review").modal('show');
-			},
-			save(){
+            },
+            save() {
                 app.saving = true;
-                $.post("<?=base_url('admin/paper/save');?>",this.reviewModel,function (res) {
-					if(!res.status){
-						app.validation = res.message;
-					}else{
+                $.post("<?=base_url('admin/paper/save');?>", this.reviewModel, function (res) {
+                    if (!res.status) {
+                        app.validation = res.message;
+                    } else {
                         app.$refs.datagrid.refresh();
                         $("#modal-review").modal('hide');
-                        Swal.fire('Success',"Review has been saved",'success');
+                        $("#modal-reviewer").modal('hide');
+                        Swal.fire('Success', "Review has been saved", 'success');
                     }
-                },"JSON").fail(function () {
-                    Swal.fire('Fail',"Failed to process !",'warning');
+                }, "JSON").fail(function () {
+                    Swal.fire('Fail', "Failed to process !", 'warning');
                 }).always(function () {
-					app.saving = false;
+                    app.saving = false;
                 });
-			},
-			review(row){
+            },
+            setReviewer(row) {
                 this.validation = null;
                 this.detailMode = 0;
-				this.reviewModel = row.row;
-				this.reviewModel.link = `<?=base_url("admin/paper/file");?>/${row.row.filename}`;
-				$("#modal-review").modal('show');
-			},
-            formatDate(date){
+                this.reviewModel = row.row;
+                this.reviewModel.link = `<?=base_url("admin/paper/file");?>/${row.row.filename}`;
+                $("#modal-reviewer").modal('show');
+            },
+            review(row) {
+                this.validation = null;
+                this.detailMode = 0;
+                this.reviewModel = row.row;
+                try{
+                    var temp = JSON.parse(row.row.co_author);
+                    this.reviewModel.co_author = temp;
+                }catch (e) {
+					console.log(e);
+                }
+                this.reviewModel.link = `<?=base_url("admin/paper/file");?>/${row.row.filename}`;
+                $("#modal-review").modal('show');
+            },
+            formatDate(date) {
                 return moment(date).format("DD MMM YYYY, [At] HH:mm:ss");
             },
         }

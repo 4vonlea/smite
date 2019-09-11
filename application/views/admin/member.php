@@ -65,29 +65,30 @@
 						</div>
 					</div>
 				</div>
-
-				<datagrid
-					@loaded_data="loadedGrid"
-					ref="datagrid"
-					api-url="<?= base_url('admin/member/grid'); ?>"
-					:fields="[{name:'fullname',sortField:'fullname'}, {name:'email',sortField:'email'},{name:'gender',sortField:'gender'},{name:'verified_by_admin',sortField:'verified_by_admin',title:'Status Verification'},{name:'id',title:'Actions',titleClass:'action-th'}]">
-					<template slot="verified_by_admin" slot-scope="prop">
+				<div class="table-responsive">
+					<datagrid
+						@loaded_data="loadedGrid"
+						ref="datagrid"
+						api-url="<?= base_url('admin/member/grid'); ?>"
+						:fields="[{name:'fullname',sortField:'fullname'}, {name:'email',sortField:'email'},{name:'gender',sortField:'gender'},{name:'verified_by_admin',sortField:'verified_by_admin',title:'Status Verification'},{name:'id',title:'Actions',titleClass:'action-th'}]">
+						<template slot="verified_by_admin" slot-scope="prop">
 						<span :class="[(prop.row.verified_by_admin == 1 ?'badge-success':'badge-warning')]"
 							  class="badge">{{ (prop.row.verified_by_admin == 1 ?'Verified':'Unverified') }}</span>
-					</template>
-					<template slot="id" slot-scope="props">
-						<div class="table-button-container">
-							<button v-if="props.row.verified_by_admin == 0" @click="openVerifyModal(props)"
-									class="btn btn-warning btn-sm">
-								<span class="fa fa-pen"></span> Verify
-							</button>
-							<button class="btn btn-primary btn-sm" @click="detail(props.row,$event)">
-								<span class="fa fa-zoom"></span> Detail
-							</button>
-						</div>
-					</template>
+						</template>
+						<template slot="id" slot-scope="props">
+							<div class="table-button-container">
+								<button v-if="props.row.verified_by_admin == 0" @click="openVerifyModal(props)"
+										class="btn btn-warning btn-sm">
+									<span class="fa fa-pen"></span> Verify
+								</button>
+								<button class="btn btn-primary btn-sm" @click="detail(props.row,$event)">
+									<span class="fa fa-zoom"></span> Detail
+								</button>
+							</div>
+						</template>
 
-				</datagrid>
+					</datagrid>
+				</div>
 			</div>
 		</div>
 	</div>

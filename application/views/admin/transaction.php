@@ -69,7 +69,7 @@
 					</div>
 				</div>
 			</div>
-
+			<div class="table-responsive">
 			<datagrid
 				@loaded_data="loadedGrid"
 				ref="datagrid"
@@ -86,6 +86,8 @@
 					</div>
 				</template>
 			</datagrid>
+			</div>
+
 		</div>
 	</div>
 </div>

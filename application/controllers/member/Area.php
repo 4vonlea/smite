@@ -87,12 +87,18 @@ class Area extends MY_Controller
             show_404("Page not found !");
         $this->load->model("Papers_m");
         $paper = Papers_m::findOne(['member_id'=>$this->session->user_session['id']]);
-        if($paper)
-            $this->output->set_content_type("application/json")
-                ->_display(json_encode($paper->toArray()));
-        else
-            $this->output->set_content_type("application/json")
-                ->_display('{"status":0}');
+		$response['abstractType'] = Papers_m::$typeAbstract;
+
+        if($paper) {
+			$response = array_merge($response, $paper->toArray());
+			$response['co_author'] = json_decode($response['co_author']);
+			$response['feedback'] = json_decode($response['feedback']);
+		}else {
+			$response['status'] = 0;
+			$response['co_author'] = [];
+		}
+		$this->output->set_content_type("application/json")
+			->_display(json_encode($response));
 
     }
 
@@ -211,6 +217,15 @@ class Area extends MY_Controller
             $paper->filename = $data['file_name'];
             $paper->status = 1;
             $paper->title = $this->input->post('title');
+            $paper->type = $this->input->post('type');
+            $paper->introduction = $this->input->post('introduction');
+            $paper->aims = $this->input->post('aims');
+            $paper->methods = $this->input->post('methods');
+            $paper->result = $this->input->post('result');
+            $paper->result = $this->input->post('result');
+            $paper->conclusion = $this->input->post('conclusion');
+            $paper->reviewer = "";
+            $paper->co_author = json_encode($this->input->post('co_author'));
             $paper->save();
             $response['status'] = true;
             $response['paper'] = $paper->toArray();

@@ -148,10 +148,10 @@
 						<div class="form-group row">
 							<label class="col-lg-3 control-label">Method Payment</label>
 							<div class="col-lg-5">
-								<?= form_dropdown('channel',['CASH'=>'CASH','EDC'=>'EDC'], 'CASH', [':class' => "{'is-invalid':validation_error.status}", 'class' => 'form-control', 'placeholder' => 'Select your status !', 'v-model' => 'channel']); ?>
+								<?= form_dropdown('channel',['CASH'=>'CASH','EDC'=>'EDC','MANUAL TRANSFER'=>'MANUAL TRANSFER'], 'CASH', [':class' => "{'is-invalid':validation_error.status}", 'class' => 'form-control', 'placeholder' => 'Select your status !', 'v-model' => 'channel']); ?>
 							</div>
 						</div>
-						<div v-if="channel == 'EDC'" class="form-group row">
+						<div v-if="channel != 'CASH'" class="form-group row">
 							<label class="col-lg-3 control-label">Code Reference</label>
 							<div class="col-lg-5">
 								<input type="text" :class="{'is-invalid':validation_error.city}" class="form-control"

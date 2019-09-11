@@ -226,7 +226,7 @@
                             </div>
                         </div>
                     </div>
-
+					<div class="table-responsive">
                     <datagrid
                             ref="datagrid"
                             api-url="<?= base_url('admin/event/grid'); ?>"
@@ -246,6 +246,7 @@
                         </template>
 
                     </datagrid>
+					</div>
                 </div>
 
             </div>
@@ -415,7 +416,7 @@
                                 Swal.fire("Failed","Failed to delete !","error");
                         });
                     }
-                })
+                });
 
             },
             formCancel: function () {
