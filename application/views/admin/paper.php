@@ -97,6 +97,11 @@
 					ref="datagrid"
 					api-url="<?= base_url('admin/paper/grid'); ?>"
 					:fields="[{name:'fullname',sortField:'fullname','title':'Member Name'},{name:'status','sortField':'status'},{name:'reviewer','sortField':'reviewer'},{name:'t_updated_at',sortField:'t_updated_at',title:'Date'},{name:'t_id','title':'Aksi'}]">
+					<?php if($this->session->user_session['role'] == User_account_m::ROLE_ADMIN_PAPER):?>
+						<template slot="fullname" slot-scope="props">
+							Hidden
+						</template>
+					<?php endif ;?>
 					<template slot="status" slot-scope="props">
 						{{ status[props.row.status] }}
 					</template>
@@ -111,10 +116,12 @@
 							<button v-if="props.row.status == 1" @click="review(props)" class="btn btn-warning btn-sm">
 								<span class="fa fa-edit"></span> review
 							</button>
+							<?php if($this->session->user_session['role'] != User_account_m::ROLE_ADMIN_PAPER):?>
 							<button v-if="!props.row.reviewer" @click="setReviewer(props)"
 									class="btn btn-warning btn-sm">
 								<span class="fa fa-user"></span> Set Reviewer
 							</button>
+							<?php endif;?>
 						</div>
 					</template>
 				</datagrid>
@@ -234,6 +241,14 @@
 							</table>
 						</td>
 					</tr>
+					<tr v-if="reviewModel.status == 0">
+						<th>Feedback Message</th>
+						<td>{{ reviewModel.message }}</td>
+					</tr>
+					<tr  v-if="reviewModel.status == 0">
+						<th>Link Download Feedback</th>
+						<td><a :href="reviewModel.link_feedback" target="_blank">Click Here !</a></td>
+					</tr>
 					<tr v-if="detailMode == 0">
 						<th>Result Of Review</th>
 						<td>
@@ -251,6 +266,12 @@
 						<th>Message <br/><small>*if returned to author</small></th>
 						<td>
 							<textarea cols="5" rows="5" class="form-control" v-model="reviewModel.message"></textarea>
+						</td>
+					</tr>
+					<tr v-if="detailMode == 0">
+						<th>Feedback File</th>
+						<td>
+							<input type="file" name="feedback" ref="feedbackFile" class="form-control" accept=".doc,.docx,.ods" />
 						</td>
 					</tr>
 				</table>
@@ -272,6 +293,18 @@
 </div>
 <?php $this->layout->begin_script(); ?>
 <script>
+    const toBase64 = file => new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        if (file) {
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+        } else {
+            resolve(null);
+        }
+        reader.onerror = error => reject(error);
+
+    });
+
     var app = new Vue({
         el: '#app',
         data: {
@@ -298,24 +331,32 @@
                     console.log(e);
                 }
                 this.reviewModel.link = `<?=base_url("admin/paper/file");?>/${row.row.filename}`;
+                this.reviewModel.link_feedback = `<?=base_url("admin/paper/file");?>/${row.row.feedback}`;
                 $("#modal-review").modal('show');
             },
             save() {
                 app.saving = true;
-                $.post("<?=base_url('admin/paper/save');?>", this.reviewModel, function (res) {
-                    if (!res.status) {
-                        app.validation = res.message;
-                    } else {
-                        app.$refs.datagrid.refresh();
-                        $("#modal-review").modal('hide');
-                        $("#modal-reviewer").modal('hide');
-                        Swal.fire('Success', "Review has been saved", 'success');
+                toBase64(app.$refs.feedbackFile.files[0]).then(function (result) {
+                    if(result) {
+                        app.reviewModel.feedback_file = result;
+                        app.reviewModel.filename_feedback = app.$refs.feedbackFile.files[0].name;
                     }
-                }, "JSON").fail(function () {
-                    Swal.fire('Fail', "Failed to process !", 'warning');
-                }).always(function () {
-                    app.saving = false;
+                    $.post("<?=base_url('admin/paper/save');?>", app.reviewModel, function (res) {
+                        if (!res.status) {
+                            app.validation = res.message;
+                        } else {
+                            app.$refs.datagrid.refresh();
+                            $("#modal-review").modal('hide');
+                            $("#modal-reviewer").modal('hide');
+                            Swal.fire('Success', "Review has been saved", 'success');
+                        }
+                    }, "JSON").fail(function () {
+                        Swal.fire('Fail', "Failed to process !", 'warning');
+                    }).always(function () {
+                        app.saving = false;
+                    });
                 });
+
             },
             setReviewer(row) {
                 this.validation = null;

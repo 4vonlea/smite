@@ -21,9 +21,13 @@ class Paper extends Admin_Controller
 
 	public function grid()
 	{
-		$this->load->model('Papers_m');
-
-		$grid = $this->Papers_m->gridData($this->input->get());
+		$this->load->model(['User_account_m','Papers_m']);
+		if($this->session->user_session['role'] == User_account_m::ROLE_ADMIN_PAPER) {
+			$gridConfig = $this->Papers_m->gridConfig(['filter' => ['reviewer' => $this->session->user_session['username']]]);
+		}else{
+			$gridConfig = $this->Papers_m->gridConfig();
+		}
+		$grid = $this->Papers_m->gridData($this->input->get(),$gridConfig);
 		$this->output
 			->set_content_type("application/json")
 			->_display(json_encode($grid));
@@ -37,13 +41,25 @@ class Paper extends Admin_Controller
 		$response = [];
 
 		$this->form_validation->set_rules("status", "Status", "required");
-		if (isset($data['status']) && $data['status'] == 0)
+		$model = $this->Papers_m->findOne($data['t_id']);
+		if (isset($data['status']) && $data['status'] == 0 && $model->reviewer != "")
 			$this->form_validation->set_rules("message", "Message", "required");
+
 		if ($this->form_validation->run()) {
-			$model = $this->Papers_m->findOne($data['t_id']);
+			if(isset($_POST['feedback_file']) && isset($_POST['filename_feedback'])) {
+				$dataFile = $_POST['feedback_file'];
+				list(, $dataFile) = explode(',', $dataFile);
+				$dataFile = base64_decode($dataFile);
+				list(, $ext) = explode(".", $this->input->post('filename_feedback'));
+				$filename = "feedback_".date("Ymdhis").".".$ext;
+				file_put_contents(APPPATH . "uploads/papers/$filename", $dataFile);
+				$model->feedback = $filename;
+			}
 			$model->status = $data['status'];
 			$model->reviewer = (isset($data['reviewer']) ? $data['reviewer'] : "");
-			$model->message = (isset($data['message']) ? $data['message'] : "");
+			if(isset($data['message']))
+				$model->message = $data['message'];
+
 			$response['status'] = $model->save();
 		} else {
 			$response['status'] = false;

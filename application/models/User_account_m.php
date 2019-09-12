@@ -34,7 +34,7 @@ class User_account_m extends MY_Model
 		];
 	}
 
-	public function gridConfig()
+	public function gridConfig($options = array())
 	{
 		return [
 			'select'=>['username'=>'t.username','role'=>'role','username_'=>'username'],

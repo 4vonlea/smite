@@ -22,7 +22,7 @@ class Transaction_m extends MY_Model
 	const STATUS_PENDING = "pending";
 	const STATUS_UNFINISH = "unfinish";
 
-	public function gridConfig()
+	public function gridConfig($options = array())
 	{
 		return [
 			'relationships'=>[

@@ -12,13 +12,15 @@ export default Vue.component("PagePaper", {
                 <div v-if="paper.status == 0">
                     <div v-if="paper.message" class="alert alert-info">
                         <h4>Your paper has been reviewed</h4>
-                        <p>{{ paper.message }}, Please revise and reupload</p>
+                        <p>{{ paper.message }} </p>
+						<a v-if="feedbackUrl" :href="feedbackUrl" >Download Feedback File</a>                        
+                        <p size="font-weight:bold">Please revise and reupload</p>
                     </div>
                     <form ref="form" enctype="multipart/form-data">
                     	<div class="form-group row">
                     		<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Type Abstract*</label>
 							<div class="col-lg-9">
-								<select class="form-control" name="type" :class="{'is-invalid':error_upload.type}">
+								<select class="form-control" v-model="paper.type" name="type" :class="{'is-invalid':error_upload.type}">
 									<option v-for="(type,key) in paper.abstractType"  :value="key">{{ type }}</option>
 								</select>
 								<div v-if="error_upload.title" class="invalid-feedback">{{ error_upload.type }}</div>
@@ -27,14 +29,14 @@ export default Vue.component("PagePaper", {
 						<div class="form-group row">
 							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Title*</label>
 							<div class="col-lg-9">
-								<input  :class="{'is-invalid':error_upload.title}" class="form-control" name="title"  type="text" value="">
+								<input  :class="{'is-invalid':error_upload.title}" class="form-control" name="title"  type="text" v-model="paper.title" value="">
 								<div v-if="error_upload.title" class="invalid-feedback">{{ error_upload.title }}</div>
 							</div>
 						</div>
 						<div class="form-group row">
 							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Introduction*</label>
 							<div class="col-lg-9">
-								<textarea  :class="{'is-invalid':error_upload.introduction}"  class="form-control" name="introduction">
+								<textarea  :class="{'is-invalid':error_upload.introduction}" v-model="paper.introduction"  class="form-control" name="introduction">
 								</textarea>
 								<div v-if="error_upload.title" class="invalid-feedback">{{ error_upload.introduction }}</div>
 							</div>
@@ -42,7 +44,7 @@ export default Vue.component("PagePaper", {
 						<div class="form-group row">
 							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Aims*</label>
 							<div class="col-lg-9">
-								<textarea  :class="{'is-invalid':error_upload.aims}"  class="form-control" name="aims">
+								<textarea  :class="{'is-invalid':error_upload.aims}" v-model="paper.aims"  class="form-control" name="aims">
 								</textarea>
 								<div v-if="error_upload.aims" class="invalid-feedback">{{ error_upload.aims }}</div>
 							</div>
@@ -50,7 +52,7 @@ export default Vue.component("PagePaper", {
 						<div class="form-group row">
 							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Methods*</label>
 							<div class="col-lg-9">
-								<textarea  :class="{'is-invalid':error_upload.methods}"  class="form-control" name="methods">
+								<textarea  :class="{'is-invalid':error_upload.methods}" v-model="paper.methods"  class="form-control" name="methods">
 								</textarea>
 								<div v-if="error_upload.methods" class="invalid-feedback">{{ error_upload.methods }}</div>
 							</div>
@@ -58,7 +60,7 @@ export default Vue.component("PagePaper", {
 						<div class="form-group row">
 							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Result*</label>
 							<div class="col-lg-9">
-								<textarea  :class="{'is-invalid':error_upload.result}"  class="form-control" name="result">
+								<textarea  :class="{'is-invalid':error_upload.result}"  v-model="paper.result" class="form-control" name="result">
 								</textarea>
 								<div v-if="error_upload.result" class="invalid-feedback">{{ error_upload.result }}</div>
 							</div>
@@ -66,7 +68,7 @@ export default Vue.component("PagePaper", {
 						<div class="form-group row">
 							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Conclusion*</label>
 							<div class="col-lg-9">
-								<textarea  :class="{'is-invalid':error_upload.conclusion}"  class="form-control" name="conclusion">
+								<textarea  :class="{'is-invalid':error_upload.conclusion}" v-model="paper.conclusion"  class="form-control" name="conclusion">
 								</textarea>
 								<div v-if="error_upload.conclusion" class="invalid-feedback">{{ error_upload.conclusion }}</div>
 							</div>
@@ -128,6 +130,12 @@ export default Vue.component("PagePaper", {
                         <p> Your paper has been accepted, Please register to events.</p>
                     </div>
                 </div>
+                <div v-if="paper.status == 3">
+                    <div class="alert alert-danger">
+                        <h4>Sorry, Your paper has been rejected</h4>
+                        <p> {{ paper.message }}</p>
+                    </div>
+                </div>
             </div>
         </div>
     `,
@@ -159,7 +167,13 @@ export default Vue.component("PagePaper", {
                 return this.baseUrl + "file/" + this.paper.filename;
             }
             return "#";
-        }
+        },
+		feedbackUrl() {
+			if (this.paper.feedback) {
+				return this.baseUrl + "file/" + this.paper.feedback;
+			}
+			return null;
+		}
     },
     methods: {
     	removeAuthor(i){

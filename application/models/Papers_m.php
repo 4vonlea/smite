@@ -31,26 +31,32 @@ class Papers_m extends MY_Model
 		];
 	}
 
-	public function gridConfig()
+	public function gridConfig($option = array())
 	{
-		return [
+		$default =  [
 			'relationships' => [
 				'member' => ['members', 'member.id = member_id']
 			],
-			'select' => ['t_id' => 't.id', 'fullname', 'title', 'status' => 't.status', 't_updated_at' => 't.updated_at', 'author' => 'member.fullname', 'filename', 'reviewer','introduction','aims','methods','conclusion','co_author','result']
+			'select' => ['t_id' => 't.id', 'fullname', 'title', 'status' => 't.status', 't_updated_at' => 't.updated_at', 'author' => 'member.fullname', 'filename', 'reviewer','introduction','aims','methods','conclusion','co_author','result','message','feedback']
 		];
+		$config =  array_merge($default,$option);
+		return $config;
 	}
 
 	public function gridData($params, $gridConfig = [])
 	{
 		$data = parent::gridData($params, $gridConfig);
-		$result = $this->find()->select("SUM(IF(status = 0,1,0)) as stat_0")
+		$db = $this->find()->select("SUM(IF(status = 0,1,0)) as stat_0")
 			->select("SUM(IF(status = 1,1,0)) as stat_1")
-			->select("SUM(IF(status = 2,1,0)) as stat_2")
-			->get()->row_array();
-		$data['total_stat_0'] = $result['stat_0'];
-		$data['total_stat_1'] = $result['stat_1'];
-		$data['total_stat_2'] = $result['stat_2'];
+			->select("SUM(IF(status = 2,1,0)) as stat_2");
+
+		if(isset($gridConfig['filter']))
+			$db->where($gridConfig['filter']);
+
+		$result = $db->get()->row_array();
+		$data['total_stat_0'] = isset($result['stat_0']) ? $result['stat_0']:0;
+		$data['total_stat_1'] = isset($result['stat_0']) ? $result['stat_1']:0;
+		$data['total_stat_2'] = isset($result['stat_0']) ? $result['stat_2']:0;
 		$model = $this->find()->where("reviewer", "")->or_where("reviewer IS NULL", null)->select("count(*) as r")->get();
 		$data['total_no_reviewer'] = $model->row()->r;
 		return $data;

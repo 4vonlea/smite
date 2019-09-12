@@ -30,7 +30,10 @@ class Login extends MY_Controller
 
                     }
                     $this->session->set_userdata('user_session',$user);
-                    redirect(base_url("admin/dashboard"));
+                    if($user['role'] == User_account_m::ROLE_ADMIN_PAPER)
+						redirect(base_url("admin/paper"));
+					else
+						redirect(base_url("admin/dashboard"));
                 } else {
                     $error = "Email/Password invalid !";
                 }

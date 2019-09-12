@@ -92,7 +92,6 @@ class Area extends MY_Controller
         if($paper) {
 			$response = array_merge($response, $paper->toArray());
 			$response['co_author'] = json_decode($response['co_author']);
-			$response['feedback'] = json_decode($response['feedback']);
 		}else {
 			$response['status'] = 0;
 			$response['co_author'] = [];

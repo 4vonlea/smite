@@ -28,7 +28,7 @@ class MY_Model extends yidas\Model
 	/**
 	 * @return array contain paremeter with key (relationships,select,where);
 	 */
-    public function gridConfig(){
+    public function gridConfig($option = array()){
     	return [];
 	}
 
@@ -46,7 +46,6 @@ class MY_Model extends yidas\Model
 		$countBuilder = clone $this->getBuilder();
 		$builder = $this->setAlias("t")->find()->limit($limit)->offset($offset);
 		$gridConfig = (count($gridConfig) > 0 ? $gridConfig:$this->gridConfig());
-
 		if(isset($gridConfig['select']))
 			$builder->select($this->convertGridSelect($gridConfig['select']));
 
