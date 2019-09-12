@@ -82,12 +82,64 @@
 									<span class="fa fa-pen"></span> Verify
 								</button>
 								<button class="btn btn-primary btn-sm" @click="detail(props.row,$event)">
-									<span class="fa fa-zoom"></span> Detail
+									<span class="fa fa-search"></span> Detail
+								</button>
+								<button class="btn btn-primary btn-sm" @click="edit(props)">
+									<span class="fa fa-edit"></span> Edit
 								</button>
 							</div>
 						</template>
-
 					</datagrid>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div v-else-if="profileMode == 3" class="row">
+		<div class="col-xl-12">
+			<div class="card shadow">
+				<div class="card-header">
+					<h3>Profile Member</h3>
+				</div>
+				<div class="card-body">
+					<div class="form-group">
+						<label class="form-check-label">Email</label>
+						<input type="text" class="form-control" readonly v-model="profile.email"/>
+					</div>
+					<div class="form-group">
+						<label class="form-check-label">Fullname</label>
+						<input type="text" class="form-control" v-model="profile.fullname"/>
+					</div>
+					<div class="form-group">
+						<label class="form-check-label">Gender</label>
+						<div class="radio">
+							<label>
+								<input type="radio" name="gender" v-model="profile.gender" value="M"/> Male
+							</label>
+							<label>
+								<input type="radio" name="gender" v-model="profile.gender" value="F"/> Female
+							</label>
+
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="form-check-label">Phone</label>
+						<input type="text" class="form-control" v-model="profile.phone"/>
+					</div>
+					<div class="form-group">
+						<label class="form-check-label">City</label>
+						<input type="text" class="form-control" v-model="profile.city"/>
+					</div>
+					<div class="form-group">
+						<label class="form-check-label">Address</label>
+						<textarea type="text" class="form-control" v-model="profile.address"></textarea>
+					</div>
+				</div>
+				<div class="card-footer text-right">
+					<button @click="saveProfile" class="btn btn-default" :disabled="savingProfile">
+						<i v-if="savingProfile" class="fa fa-spin fa-spinner"></i>
+						Save
+					</button>
+					<button @click="profileMode=0" class="btn btn-default">Close</button>
 				</div>
 			</div>
 		</div>
@@ -101,18 +153,18 @@
 				<table class="table table-bordered">
 					<tr>
 						<th>Status As</th>
-						<td>{{ profile.statusName }}</td>
-						<td rowspan="3" colspan="2">
-							<img class="img img-thumbnail" :src="profile.imageLink"/>
+						<td colspan="2">{{ profile.statusName }}</td>
+						<td rowspan="3">
+							<img class="img img-thumbnail" :src="profile.imageLink" style="max-height: 200px"/>
 						</td>
 					</tr>
 					<tr>
 						<th>Full Name</th>
-						<td>{{ profile.fullname }}</td>
+						<td colspan="2">{{ profile.fullname }}</td>
 					</tr>
 					<tr>
 						<th>Email</th>
-						<td>{{ profile.email }}</td>
+						<td colspan="2">{{ profile.email }}</td>
 					</tr>
 					<tr>
 						<th>Phone/WA</th>
@@ -120,16 +172,8 @@
 					</tr>
 					<tr>
 						<th>Gender</th>
-						<td>{{ (profile.gender == 'M' ?'Male':'Female') }}</td>
-						<th>The Followed Events</th>
-						<td>
-							<ul>
-								<li v-for="ev in profile.event">
-									{{ ev.event_name }} ({{ ev.event_theme }}) |
-									<a :href="'<?=base_url('admin/member/card');?>/'+ev.event_id+'/'+profile.id" target="_blank">Download Member Card</a>
-								</li>
-							</ul>
-						</td>
+						<td colspan="3">{{ (profile.gender == 'M' ?'Male':'Female') }}</td>
+
 					</tr>
 					<tr>
 						<th>City</th>
@@ -139,8 +183,43 @@
 						<th>Address</th>
 						<td colspan="3">{{ profile.address }}</td>
 					</tr>
+					<tr v-if="profile.event">
+						<th>Followed Event</th>
+						<td colspan="3">
+							<table class="table">
+								<tr>
+									<th rowspan="2">Event Name</th>
+									<th colspan="3">Administration</th>
+								</tr>
+								<tr>
+									<th>Name Tag</th>
+									<th>Seminar Kit</th>
+									<th>Taker</th>
+								</tr>
+								<tr v-for="ev in profile.event">
+									<td>
+										{{ ev.event_name }} |
+										<a :href="'<?=base_url('admin/member/card');?>/'+ev.event_id+'/'+profile.id" target="_blank">Download Member Card</a>
+									</td>
+									<td>
+										<input type="checkbox" v-model="ev.checklist.nametag" true-value="true" false-value="false" />
+									</td>
+									<td>
+										<input type="checkbox"  v-model="ev.checklist.seminarkit" true-value="true" false-value="false"/>
+									</td>
+									<td>
+										<input type="text"  v-model="ev.checklist.taker" class="form-control"/>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
 				</table>
 				<div class="card-footer text-right">
+					<button @click="saveChecklist" class="btn btn-default" :disabled="savingCheck">
+						<i v-if="savingCheck" class="fa fa-spin fa-spinner"></i>
+						Save
+					</button>
 					<button @click="profileMode=0" class="btn btn-default">Close</button>
 				</div>
 			</div>
@@ -237,7 +316,7 @@
 				</tr>
 			</table>
 			<div class="modal-footer">
-				<button :disabled="verifying" type="button" class="btn btn-default" data-dismiss="modal"> Close</button>
+				<button :disabled="verifying" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				<button :disabled="verifying" type="button" class="btn btn-primary" @click="verify">
 					<i v-if="verifying" class="fa fa-spin fa-spinner"></i>
 					Confirm
@@ -267,8 +346,46 @@
             pagination: {},
             profileMode: 0,
             profile: {},
+			savingCheck:false,
+			savingProfile:false,
         },
         methods: {
+            saveProfile(){
+                app.savingProfile = true;
+                $.post("<?=base_url("admin/member/save_profile");?>",app.profile,function (res) {
+                    if(res.status)
+	                    Swal.fire("Success", "Profile Saved !", "success");
+                    else
+                        Swal.fire("Failed", "Failed to save data !", "error");
+                },"JSON").fail(function () {
+                    Swal.fire("Failed", "Failed to load data !", "error");
+                }).always(function () {
+                    app.savingProfile = false;
+                });
+			},
+			edit(prop){
+                this.profile = prop.row;
+                this.profileMode = 3;
+			},
+            saveChecklist(){
+                app.savingCheck = true;
+                var data = [];
+                $.each(app.profile.event,function (i,r) {
+                    var t = r.checklist;
+                    data.push({
+                        id:r.td_id,
+                        checklist:t
+                    });
+                });
+
+                $.post("<?=base_url("admin/member/save_check");?>",{transaction:data},function (res) {
+                    Swal.fire("Success", "Checklist saved !", "success");
+                },"JSON").fail(function () {
+                    Swal.fire("Failed", "Failed to load data !", "error");
+                }).always(function () {
+                    app.savingCheck = false;
+                });
+			},
             detail(profile,event) {
                 $.each(this.statusList, function (i, v) {
                     if (v.id == profile.status)

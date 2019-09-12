@@ -192,6 +192,37 @@ class Member extends Admin_Controller
 
 	}
 
+	public function save_profile(){
+		if ($this->input->method() != 'post')
+			show_404("Page Not Found !");
+
+		$this->load->model('Member_m');
+		$data = $this->input->post();
+		$status =  $this->Member_m->update([
+			'fullname'=>$data['fullname'],
+			'gender'=>$data['gender'],
+			'phone'=>$data['phone'],
+			'city'=>$data['city'],
+			'address'=>$data['address'],
+		],['id'=>$data['id']],false);
+		$this->output
+			->set_content_type("application/json")
+			->_display(json_encode(['status'=>$status]));
+	}
+
+	public function save_check(){
+		if ($this->input->method() != 'post')
+			show_404("Page Not Found !");
+		$this->load->model('Transaction_detail_m');
+		$data = $this->input->post('transaction');
+		foreach($data as $row){
+			$this->Transaction_detail_m->update(['checklist'=>json_encode($row['checklist'])],['id'=>$row['id']]);
+		}
+		$this->output
+			->set_content_type("application/json")
+			->_display(json_encode(['status'=>true]));
+	}
+
 	public function get_event(){
 		if ($this->input->method() != 'post')
 			show_404("Page Not Found !");
@@ -199,9 +230,18 @@ class Member extends Admin_Controller
 
 		$member_id = $this->input->post('id');
 		$result = $this->Event_m->getParticipant()->where('m.id',$member_id)->get();
+		$return = [];
+		foreach($result->result_array() as $i=>$row){
+			if($row['checklist'] != "")
+				$row['checklist'] = json_decode($row['checklist'],true);
+			else
+				$row['checklist'] = ['nametag'=>false,'seminarkit'=>false,'taker'=>''];
+			$return[$i] = $row;
+		}
+
 		$this->output
 			->set_content_type("application/json")
-			->_display(json_encode($result->result_array()));
+			->_display(json_encode($return));
 
 	}
 	/**
