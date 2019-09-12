@@ -9,11 +9,12 @@ export default Vue.component("PagePaper", {
                 <div class="overflow-hidden mb-4 pb-3">
                     <p class="mb-0">Wanna participate on paper, please upload your fullpaper.</p>
                 </div>
-                <div v-if="paper.status == 0">
+                <div v-if="paper.status == 0 || paper.status == 3">
                     <div v-if="paper.message" class="alert alert-info">
                         <h4>Your paper has been reviewed</h4>
+                        <p v-if="paper.status == 3">Sorry your paper has been, rejected please provide another paper</p>
                         <p>{{ paper.message }} </p>
-						<a v-if="feedbackUrl" :href="feedbackUrl" >Download Feedback File</a>                        
+						<a v-if="feedbackUrl && paper.status != 3" :href="feedbackUrl" >Download Feedback File</a>                        
                         <p size="font-weight:bold">Please revise and reupload</p>
                     </div>
                     <form ref="form" enctype="multipart/form-data">
@@ -130,12 +131,6 @@ export default Vue.component("PagePaper", {
                         <p> Your paper has been accepted, Please register to events.</p>
                     </div>
                 </div>
-                <div v-if="paper.status == 3">
-                    <div class="alert alert-danger">
-                        <h4>Sorry, Your paper has been rejected</h4>
-                        <p> {{ paper.message }}</p>
-                    </div>
-                </div>
             </div>
         </div>
     `,
@@ -186,7 +181,15 @@ export default Vue.component("PagePaper", {
             var page = this;
             page.loading = true;
             $.post(this.baseUrl + "get_paper", function (res) {
-                page.paper = res;
+            	if(res.status == 3) {
+            		page.paper = {
+   						id:res.id,
+            			status : 3,
+						message:res.message
+					};
+				}else{
+					page.paper = res;
+				}
             }, "JSON").fail(function () {
                 page.fail = true;
             }).always(function () {
