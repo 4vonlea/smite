@@ -133,7 +133,7 @@
 				"text":"",
 			},
 			sendingCert:false,
-			cert_event:"1",
+			cert_event:"",
 			pooling:{title:"",data:[],size:0,success:0,fail:0,processed:0},
 		},
 		methods:{
