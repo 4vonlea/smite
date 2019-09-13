@@ -135,6 +135,6 @@ class Gmail_api extends MY_Model implements iNotification
 		$mime = rtrim(strtr(base64_encode($strRawMessage), '+/', '-_'), '=');
 		$msg = new Google_Service_Gmail_Message();
 		$msg->setRaw($mime);
-		$status = $service->users_messages->send("me", $msg);
+		return $service->users_messages->send("me", $msg);
 	}
 }

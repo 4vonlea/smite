@@ -74,16 +74,47 @@
 							<div class="form-group row">
 								<label class="form-control-label col-md-3 mt-2">Send To Participant of Event</label>
 								<div class="col-md-6">
-									<?=form_dropdown('event',$event,'',['class'=>'form-control']);?>
+									<?=form_dropdown('event',$event,'',['class'=>'form-control','v-model'=>'cert_event','placeholder'=>'TEST']);?>
 								</div>
 								<div class="col-md-3">
-									<button type="button" class="btn btn-primary">Send</button>
+									<button :disabled="sendingCert" type="button" @click="sendCert" class="btn btn-primary">
+										<i v-if="sendingCert" class="fa fa-spin fa-spinner"></i>
+										Send
+									</button>
 								</div>
 							</div>
 							<hr/>
 						</div>
 					</div>
 				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="modal-pooling" data-backdrop="static">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">{{ pooling.title }}</h5>
+			</div>
+			<div class="modal-body">
+				<p style="font-size: 12px">*Please wait until prosess completed, don't reload or switch page</p>
+				<div class="progress" style="height: 30px">
+					<div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" :style="pooling.style" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">{{ pooling.processed }} of {{ pooling.size }}</div>
+				</div>
+				<table class="table">
+					<tr>
+						<th>Success</th>
+						<td>{{ pooling.success }}</td>
+					</tr>
+					<tr>
+						<th>Failed</th>
+						<td>{{ pooling.fail }}</td>
+					</tr>
+				</table>
+			</div>
+			<div class="modal-footer">
+				<button v-if="pooling.data.length == 0" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 			</div>
 		</div>
 	</div>
@@ -100,9 +131,58 @@
 				"to":"",
 				"subject":"",
 				"text":"",
-			}
+			},
+			sendingCert:false,
+			cert_event:"1",
+			pooling:{title:"",data:[],size:0,success:0,fail:0,processed:0},
 		},
 		methods:{
+            poolingStart(){
+                $("#modal-pooling").modal("show");
+                this.pooling.size = app.pooling.data.length;
+                this.pooling.success = 0;
+                this.pooling.fail = 0;
+                this.pooling.processed = 0;
+                this.pooling.style = {"width":"0%"};
+				var proses = function (url,data) {
+					$.post(url,data,null,"JSON").done(function (res) {
+						app.pooling.success++;
+                    }).fail(function (xhr) {
+                        app.pooling.fail++;
+                    }).always(function () {
+                        app.pooling.processed++;
+                        var percent = (app.pooling.processed/app.pooling.size)*100;
+                        app.pooling.style = {"width": percent+"%"};
+                        if(app.pooling.data.length > 0)
+							proses(url,app.pooling.data.pop());
+                    });
+                };
+
+                if(app.pooling.data.length > 0) {
+                    var percent = (app.pooling.processed/app.pooling.size)*100;
+                    app.pooling.style = {"width": percent+"%"};
+                    proses(this.pooling.url, app.pooling.data.pop());
+                }
+			},
+            sendCert(){
+                var url = "<?=base_url('admin/notification/send_cert/preparing');?>";
+                var app = this;
+                app.sendingCert = true;
+                $.post(url,{id:this.cert_event},null,'JSON')
+                    .done(function (res) {
+                        if(res.status) {
+                            app.pooling.title = "Send Certificate";
+                            app.pooling.url = "<?=base_url('admin/notification/send_cert');?>";
+                            app.pooling.data = res.data;
+                            app.poolingStart();
+                        }else
+                            Swal.fire("Failed",res.message,"error");
+                    }).fail(function (xhr) {
+                    Swal.fire("Failed","Failed to load data !","error");
+                }).always(function () {
+                    app.sendingCert = false;
+                });
+			},
             sendMessage(){
                 var url = "<?=base_url('admin/notification/send_message');?>";
                 var app = this;
@@ -111,7 +191,7 @@
                     .done(function (res) {
 						Swal.fire("Success","Message Sent !","success");
                     }).fail(function (xhr) {
-                    Swal.fire("Failed","Failed to load data !","error");
+                    Swal.fire("Failed","Failed to request send certificate !","error");
                 }).always(function () {
                     app.sending = false;
                 });

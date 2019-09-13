@@ -1,6 +1,8 @@
 <?php
 
 
+use Dompdf\Dompdf;
+
 class Event_m extends MY_Model
 {
 	protected $table = "events";
@@ -255,7 +257,6 @@ class Event_m extends MY_Model
 	 */
 	public function getParticipant()
 	{
-
 		$this->load->model("Transaction_m");
 		return $this->setAlias("t")->find()
 			->select("td.id as td_id, td.checklist as checklist,t.id as event_id,t.name as event_name,t.kategory as event_kategory,t.held_on as event_held_on,t.held_in as event_held_in,t.theme as event_theme,m.*,km.kategory as member_status")
@@ -275,6 +276,30 @@ class Event_m extends MY_Model
 		$this->db->group_by('jenis_harga');
 		$result = $this->db->get()->result();
 		return $result;
+	}
+
+	/**
+	 * @param $id
+	 * @param $data
+	 * @return Dompdf
+	 */
+	public function exportCertificate($data,$id = null){
+		if($id == null)
+			$id = $this->id;
+
+		$this->load->model('Settings_m');
+
+		$domInvoice = new Dompdf();
+		$propery = json_decode(Settings_m::getSetting("config_cert_$id"),true);
+		$html = $this->load->view("template/certificate",[
+			'image'=>file_get_contents(APPPATH."uploads/cert_template/$id.txt"),
+			'property'=>$propery,
+			'data'=>$data
+		],true);
+		$domInvoice->setPaper("a4","landscape");
+		$domInvoice->loadHtml($html);
+		$domInvoice->render();
+		return $domInvoice;
 	}
 
 }

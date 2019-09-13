@@ -18,20 +18,12 @@ class Setting extends Admin_Controller
     }
 
     public function preview_cert($id){
-		$domInvoice = new Dompdf();
+    	$this->load->model("Event_m");
 		$propery = json_decode(Settings_m::getSetting("config_cert_$id"),true);
 		foreach($propery as $field){
 			$data[$field['name']] = "Preview $field[name]";
 		}
-		$html = $this->load->view("template/certificate",[
-			'image'=>file_get_contents(APPPATH."uploads/cert_template/$id.txt"),
-			'property'=>$propery,
-			'data'=>$data
-		],true);
-		$domInvoice->setPaper("a4","landscape");
-		$domInvoice->loadHtml($html);
-		$domInvoice->render();
-		$domInvoice->stream('preview_cert.pdf',array('Attachment'=>0));
+		$this->Event_m->exportCertificate($data,$id)->stream('preview_cert.pdf',array('Attachment'=>0));
 	}
 
 	public function get_cert(){
