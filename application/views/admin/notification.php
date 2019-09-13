@@ -1,3 +1,8 @@
+<?php
+/**
+ * @var $event
+ */
+?>
 <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8"></div>
 <div class="container-fluid mt--7">
 	<div class="row mb-2">
@@ -66,7 +71,16 @@
 							</div>
 						</div>
 						<div class="tab-pane fade show" id="tabs-certificate" role="tabpanel">
-
+							<div class="form-group row">
+								<label class="form-control-label col-md-3 mt-2">Send To Participant of Event</label>
+								<div class="col-md-6">
+									<?=form_dropdown('event',$event,'',['class'=>'form-control']);?>
+								</div>
+								<div class="col-md-3">
+									<button type="button" class="btn btn-primary">Send</button>
+								</div>
+							</div>
+							<hr/>
 						</div>
 					</div>
 				</div>

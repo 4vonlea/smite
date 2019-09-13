@@ -440,6 +440,7 @@
                     tempStatus.push({"kategory": this.new_status});
                     postStatus(tempStatus).done(function (res) {
                         app.statusList = res;
+                        tempStatus = JSON.parse(JSON.stringify(res));
                         app.new_status = "";
                     }).fail(function () {
                         tempStatus.pop();

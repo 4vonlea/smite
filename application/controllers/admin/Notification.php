@@ -4,7 +4,13 @@
 class Notification  extends Admin_Controller
 {
 	public function index(){
-		$this->layout->render("notification");
+		$this->load->model("Event_m");
+		$this->load->helper('form_helper');
+		$event = $this->Event_m->find()->get()->result_array();
+		$event = Event_m::asList($event,'id','name');
+		$this->layout->render("notification",[
+			'event'=>$event,
+		]);
 	}
 
 	public function send_message(){
