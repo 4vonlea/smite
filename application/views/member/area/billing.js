@@ -30,7 +30,7 @@ export default Vue.component("PageBilling", {
 								<td>{{ item.id}}</td>
 								<td>{{ item.status_payment.toUpperCase()}}</td>
 								<td>{{ sumPrice(item.detail)}}</td>
-								<td><button class="btn btn-default" @click="detailTransaction(item)">Detail</button></td>
+								<td><button class="btn btn-default" @click="detailTransaction(item,$event)">Detail</button></td>
 							</tr>
 						</tbody>
 					</table>
@@ -73,7 +73,61 @@ export default Vue.component("PageBilling", {
 						</tfoot>
 					</table>
 				</div>
-				
+			</div>
+			<div class="modal" id="modal-detail">
+				<div class="modal-dialog modal-lg">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title">Detail Transaction</h4>
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+						</div>
+						<div class="modal-body table-responsive">
+							<table class="table table-bordered">
+								<tr>
+									<th>Invoice Number</th>
+									<td>{{ detailModel.id }}</td>
+									<th>Invoice Date</th>
+									<td>{{ detailModel.updated_at }}</td>
+								</tr>
+								<tr>
+									<th class="text-center" colspan="4">Billing Information</th>
+								</tr>
+								<tr>
+									<th>Bill To</th>
+									<td colspan="3">{{ user.fullname }}</td>
+								</tr>
+								<tr>
+									<th>Address</th>
+									<td colspan="3">{{ user.address+", "+user.city }}</td>
+								</tr>
+								<tr>
+									<th>Amount</th>
+									<td colspan="3">{{ amount }}</td>
+								</tr>
+								<tr>
+									<th>Status</th>
+									<td colspan="3">{{ detailModel.status_payment.toUpperCase() }}</td>
+								</tr>
+								<tr>
+									<th class="text-center" colspan="4">Details</th>
+								</tr>
+								<tr>
+									<th colspan="2">Event Name</th>
+									<th colspan="2">Price</th>
+								</tr>
+								<tr v-for="dt in detailModel.details">
+									<td colspan="2">{{ dt.product_name }}</td>
+									<td colspan="2">{{ formatCurrency(dt.price) }}</td>
+								</tr>
+							</table>
+						</div>
+						<div class="modal-footer">
+							<a :href="appUrl+'member/area/download/invoice/'+detailModel.id" target="_blank" v-if="detailModel.finish" class="btn btn-primary" >Download Invoice</a>
+							<a :href="appUrl+'member/area/download/proof/'+detailModel.id" target="_blank" v-if="detailModel.finish" class="btn btn-primary" >Download Payment Proof</a>
+							<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>					
+						</div>
+					</div>
+				</div>
 			</div>
         </div>
     `,
@@ -84,6 +138,7 @@ export default Vue.component("PageBilling", {
 			checking_out:false,
 			cart:null,
 			transaction:null,
+			detailModel:{status_payment:""},
         }
     },
 	created() {
@@ -99,6 +154,14 @@ export default Vue.component("PageBilling", {
 				total+=this.cart[i].price;
 			}
 			return total;
+		},
+		amount(){
+			var price = 0;
+			for(var d in this.detailModel.details){
+				if(this.detailModel.details[d])
+					price += this.detailModel.details[d].price;
+			}
+			return this.formatCurrency(price);
 		}
 	},
 	methods: {
@@ -139,8 +202,19 @@ export default Vue.component("PageBilling", {
 				page.checking_out = false;
 			})
 		},
-    	detailTransaction(item){
-
+    	detailTransaction(item,event){
+    		var page = this;
+    		event.target.html ="<i class='fa fa-spin fa-spinner'></i>";
+			var url = page.appUrl+"member/area/detail_transaction";
+			$.post(url,{id:item.id},null,'JSON')
+				.done(function (res) {
+					page.detailModel = res;
+					$("#modal-detail").modal("show");
+				}).fail(function (xhr) {
+				Swal.fire("Failed","Failed to load data !","error");
+			}).always(function () {
+				event.target.html ="Detail";
+			});
 		},
     	unfollow(item){
     		var page = this;

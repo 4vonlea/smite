@@ -104,7 +104,7 @@ $client_key = $config['client_key'];
     Vue.mixin({
         data: function () {
             return {
-                appUrl:"<?=base_url();?>/",
+                appUrl:"<?=base_url();?>",
                 baseUrl: "<?=base_url('member/area');?>/",
                 user: userD,
             }

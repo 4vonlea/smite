@@ -13,10 +13,12 @@ class Transaction extends Admin_Controller
 		$this->load->model('Transaction_m');
 		$this->load->model("Gmail_api");
 		$tr = $this->Transaction_m->findOne(['id'=>$id]);
-		if($type == "proof")
+		if($type == "invoice")
 			$tr->exportInvoice()->stream();
-		else
+		elseif($type == "proof")
 			$tr->exportPaymentProof()->stream();
+		else
+			show_404();
 	}
 	public function grid()
 	{

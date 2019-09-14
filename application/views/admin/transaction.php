@@ -91,7 +91,7 @@
 		</div>
 	</div>
 </div>
-<div class="modal " id="modal-detail">
+<div class="modal" id="modal-detail">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<!-- Modal Header -->
