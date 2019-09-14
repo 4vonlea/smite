@@ -9,6 +9,15 @@ class Transaction extends Admin_Controller
 		$this->layout->render('transaction');
     }
 
+    public function download($type,$id){
+		$this->load->model('Transaction_m');
+		$this->load->model("Gmail_api");
+		$tr = $this->Transaction_m->findOne(['id'=>$id]);
+		if($type == "proof")
+			$tr->exportInvoice()->stream();
+		else
+			$tr->exportPaymentProof()->stream();
+	}
 	public function grid()
 	{
 		$this->load->model('Transaction_m');
