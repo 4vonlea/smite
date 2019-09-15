@@ -2,7 +2,7 @@
     <div id="revolutionSlider" class="slider rev_slider manual" data-version="5.4.8">
         <ul>
             <li data-transition="fade">
-                <img src="<?= base_url('themes/porto'); ?>/img/demos/business-consulting/slides/blackx.jpg"
+                <img src="<?= base_url('themes/porto'); ?>/img/demos/business-consulting/slides/black.jpg"
                      alt=""
                      data-bgposition="center center"
                      data-bgfit="cover"
@@ -139,7 +139,7 @@
                             <?php
                                 foreach ($row3->pricing as $row4):
                             ?>
-                                <td><?php echo $row4->jenis_harga ?> <br> (<?php echo $row4->waktu_berlaku ?> ) </td>
+                                <td><?php echo $row4['jenis_harga'] ?> <br> (<?php echo Site::formatdate($row4['waktu_mulai']) ?> s.d. <?php echo Site::formatdate($row4['waktu_akhir']) ?> ) </td>
                             <?php
                                 endforeach;
                             ?>
@@ -149,7 +149,7 @@
                             <?php
                                 foreach ($row3->pricing as $row4):
                             ?>
-                                <td><?php echo $row4->harga ?></td>
+                                <td><?php echo "Rp. ".number_format($row4['harga'], 2, ',', '.') ?></td>
                             <?php
                                 endforeach;
                             ?>

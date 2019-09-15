@@ -50,7 +50,7 @@
                             <?php
                                 foreach ($row3->pricing as $row4):
                             ?>
-                                <td><?php echo $row4->jenis_harga ?> <br> (<?php echo $row4->waktu_berlaku ?> ) </td>
+                                <td><?php echo $row4['jenis_harga'] ?> <br> (<?php echo Site::formatdate($row4['waktu_mulai']) ?> s.d. <?php echo Site::formatdate($row4['waktu_akhir']) ?> ) </td>
                             <?php
                                 endforeach;
                             ?>
@@ -60,7 +60,7 @@
                             <?php
                                 foreach ($row3->pricing as $row4):
                             ?>
-                                <td><?php echo $row4->harga ?></td>
+                                <td><?php echo "Rp. ".number_format($row4['harga'], 2, ',', '.') ?></td>
                             <?php
                                 endforeach;
                             ?>
