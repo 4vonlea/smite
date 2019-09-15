@@ -91,7 +91,7 @@
 		</div>
 	</div>
 </div>
-<div class="modal " id="modal-detail">
+<div class="modal" id="modal-detail">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<!-- Modal Header -->
@@ -101,7 +101,7 @@
 			</div>
 
 			<!-- Modal body -->
-			<div class="modal-body">
+			<div class="modal-body table-responsive">
 				<table class="table table-bordered">
 					<tr>
 						<th>Invoice Number</th>
@@ -148,6 +148,8 @@
 					<i v-if="verifying" class="fa fa-spin fa-spinner"></i>
 					Verified Payment
 				</button>
+				<a :href="'<?=base_url('admin/transaction/download/invoice');?>/'+detailModel.id" target="_blank" v-if="detailModel.status_payment == '<?=Transaction_m::STATUS_FINISH;?>'" class="btn btn-primary" >Download Invoice</a>
+				<a :href="'<?=base_url('admin/transaction/download/proof');?>/'+detailModel.id" target="_blank" v-if="detailModel.status_payment == '<?=Transaction_m::STATUS_FINISH;?>'" class="btn btn-primary" >Download Payment Proof</a>
 				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 			</div>
 

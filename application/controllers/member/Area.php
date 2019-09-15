@@ -271,4 +271,36 @@ class Area extends MY_Controller
         $this->session->sess_destroy();
         redirect('site');
     }
+
+	public function detail_transaction(){
+		if($this->input->method() != 'post')
+			show_404("Page Not Found !");
+
+		$this->load->model("Transaction_m");
+		$id = $this->input->post('id');
+		$detail = $this->Transaction_m->findOne($id);
+		if($detail){
+			$response = $detail->toArray();
+			$response['member'] = $detail->member->toArray();
+			$response['finish'] = $response['status_payment'] == Transaction_m::STATUS_FINISH;
+			foreach($detail->details as $row){
+				$response['details'][] = $row->toArray();
+			}
+		}
+		$this->output
+			->set_content_type("application/json")
+			->_display(json_encode($response));
+
+	}
+
+	public function download($type,$id){
+		$this->load->model('Transaction_m');
+		$tr = $this->Transaction_m->findOne(['id'=>$id]);
+		if($type == "invoice")
+			$tr->exportInvoice()->stream();
+		elseif($type == "proof")
+			$tr->exportPaymentProof()->stream();
+		else
+			show_404();
+	}
 }

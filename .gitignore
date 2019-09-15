@@ -38,6 +38,8 @@ application/uploads/papers/*
 application/uploads/cert_template/*
 !application/uploads/cert_template/index.html
 
+application/uploads/material/*
+!application/uploads/material/index.html
 
 themes/uploads/profile/*
 themes/uploads/profile/index.html
