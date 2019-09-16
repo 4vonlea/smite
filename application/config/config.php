@@ -527,4 +527,10 @@ if(ENVIRONMENT === 'development') {
 		'client_key' => 'SB-Mid-client-xvjGCOR3oMsI2xU-',
 		'server_key' => 'SB-Mid-server-sBfDKSeL1EPEJnqSCf702Fnp'
 	];
+}elseif(ENVIRONMENT === 'production'){
+	$config['midtrans'] = [
+		'merchant_id' => 'G988409790',
+		'client_key' => 'Mid-client-4KQFkV0WDI7Z7Ngk',
+		'server_key' => 'Mid-server-ba4rXoTmVHr6NfuygerILZiA'
+	];
 }
