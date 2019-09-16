@@ -270,11 +270,12 @@ class Event_m extends MY_Model
 
 	public function get_pricing($id)
 	{
-		$this->db->select('pri.name as jenis_harga, pri.condition_date as waktu_berlaku, pri.price as harga');
+		$this->db->select('pri.name as jenis_harga,condition_date, substring(pri.condition_date,1, 10) as waktu_mulai, substring(pri.condition_date,12, 10) as waktu_akhir, pri.price as harga');
 		$this->db->from('event_pricing pri');
 		$this->db->where('pri.event_id', $id);
 		$this->db->group_by('jenis_harga');
-		$result = $this->db->get()->result();
+		$result = $this->db->get()->result_array();
+
 		return $result;
 	}
 
