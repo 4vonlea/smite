@@ -84,17 +84,27 @@ $role = $this->session->user_session['role'];
 		<!-- User -->
 		<ul class="nav align-items-center d-md-none">
 			<li class="nav-item dropdown">
-				<a class="nav-link pr-0" href="<?= base_url('admin/login/logout'); ?>" role="button"
-				   aria-expanded="false">
+				<a class="nav-link" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					<div class="media align-items-center">
-							<span class="avatar bg-danger avatar-sm bg-primary rounded-circle">
-								<i class="fa fa-sign-out-alt"></i>
-							</span>
-						<div class="media-body ml-2 d-none d-lg-block">
-							<span class="mb-0 text-sm  font-weight-bold">Logout</span>
-						</div>
+					  <span class="avatar avatar-sm rounded-circle">
+						  <i class="fa fa-user"></i>
+					  </span>
 					</div>
 				</a>
+				<div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
+					<div class=" dropdown-header noti-title">
+						<h6 class="text-overflow m-0">Welcome!</h6>
+					</div>
+					<a href="#" class="dropdown-item" data-toggle="modal" data-target="#modal-change-password">
+						<i class="ni ni-support-16"></i>
+						<span>Change Password</span>
+					</a>
+					<div class="dropdown-divider"></div>
+					<a href="<?=base_url('admin/login/logout');?>" class="dropdown-item">
+						<i class="ni ni-user-run"></i>
+						<span>Logout</span>
+					</a>
+				</div>
 			</li>
 		</ul>
 		<!-- Collapse -->
@@ -203,18 +213,31 @@ $role = $this->session->user_session['role'];
 			<!-- User -->
 			<ul class="navbar-nav align-items-center d-none d-md-flex">
 				<li class="nav-item dropdown">
-					<a class="nav-link pr-0" href="<?= base_url('admin/login/logout'); ?>" role="button"
-					   aria-expanded="false">
+					<a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						<div class="media align-items-center">
-							<span class="avatar bg-danger avatar-sm rounded-circle">
-								<i class="fa fa-sign-out-alt"></i>
+							<span class="avatar avatar-sm rounded-circle">
+								<i class="fa fa-user"></i>
 							</span>
 							<div class="media-body ml-2 d-none d-lg-block">
-								<span class="mb-0 text-sm  font-weight-bold">Logout</span>
+								<span class="mb-0 text-sm  font-weight-bold"><?=$this->session->user_session['name'];?></span>
 							</div>
 						</div>
 					</a>
+					<div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
+						<div class=" dropdown-header noti-title">
+							<h6 class="text-overflow m-0">Welcome!</h6>
+						</div>
+						<a href="#" class="dropdown-item" data-toggle="modal" data-target="#modal-change-password">
+							<i class="ni ni-support-16"></i>
+							<span>Change Password</span>
+						</a>
+						<a href="<?=base_url('admin/login/logout');?>" class="dropdown-item">
+							<i class="ni ni-user-run"></i>
+							<span>Logout</span>
+						</a>
+					</div>
 				</li>
+
 			</ul>
 		</div>
 	</nav>
@@ -241,7 +264,39 @@ $role = $this->session->user_session['role'];
 			</div>
 		</footer>
 	</div>
+	<div class="modal fade" id="modal-change-password" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Change Password</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form id="form-change-password">
+						<div class="form-group">
+							<label class="form-control-label">Old Password</label>
+							<input type="password" name="old_password"  class="form-control" />
+						</div>
+						<div class="form-group">
+							<label class="form-control-label">New Password</label>
+							<input type="password" name="new_password" class="form-control" />
+						</div>
+						<div class="form-group">
+							<label class="form-control-label">Confirm Password</label>
+							<input type="password" name="confirm_password" class="form-control" />
+						</div>
+					</form>
 
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+					<button type="button" id="btn-change-password" class="btn btn-primary">Change</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 <!-- Core -->
 <script src="<?= base_url(); ?>themes/argon/vendor/jquery/dist/jquery.min.js"></script>
@@ -255,7 +310,35 @@ $role = $this->session->user_session['role'];
 <script>
     Vue.use(Vuetable);
 </script>
+<script>
+	$(function () {
+	    $("#modal-change-password").on("show.bs.modal",function () {
+            $("#modal-change-password .modal-body").find(".alert").remove();
+            $("#form-change-password").trigger("reset");
+        });
 
+		$("#btn-change-password").click(function () {
+			$(this).attr("disabled",true);
+			$(this).html("<i class='fa fa-spin fa-spinner'></i>");
+            $("#modal-change-password .modal-body").find(".alert").remove();
+			var data = $("#form-change-password").serialize();
+			$.post("<?=base_url('admin/setting/change_password');?>",data,function (res) {
+			    if(res.status){
+			        Swal.fire("Success","New password has been saved !","success")
+				}else if(res.validation){
+					$("#modal-change-password .modal-body").prepend(
+					    $("<div class='alert alert-danger'></div>").html(res.validation)
+					);
+				}
+            },"JSON").always(function () {
+                $("#btn-change-password").html("Change");
+                $("#btn-change-password").removeAttr("disabled");
+            }).fail(function () {
+                Swal.fire("Fail","Failed request to server","error");
+            });
+        });
+    });
+</script>
 <?= $script_js; ?>
 <script src="<?= base_url(); ?>themes/argon/js/argon.min.js"></script>
 </body>

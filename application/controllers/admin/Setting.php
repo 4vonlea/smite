@@ -144,4 +144,33 @@ class Setting extends Admin_Controller
         }
     }
 
+    public function change_password(){
+		if($this->input->method() != 'post')
+			show_404("Page Not Found !");
+		$this->load->model("User_account_m");
+		$username = $this->session->user_session['username'];
+		$data = $this->input->post();
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('old_password', 'Old Password', [
+			'required',
+			['check_old_password',function($value) use ($username){
+				return User_account_m::verify($username,$value);
+			}]
+		]);
+		$this->form_validation->set_message("check_old_password","Old Password Is Wrong !");
+		$this->form_validation->set_rules('new_password', 'New Password', 'required');
+		$this->form_validation->set_rules('confirm_password', 'Confirm Password', 'required|matches[new_password]');
+
+		$user = $this->User_account_m->findOne(['username'=>$username]);
+		if($this->form_validation->run()){
+			$user->password = password_hash($data['new_password'],PASSWORD_DEFAULT);
+			$user->save();
+			$this->output->set_content_type("application/json")
+				->_display(json_encode(['status'=>true]));
+		}else{
+			$this->output->set_content_type("application/json")
+				->_display(json_encode(['status'=>false,'validation'=>$this->form_validation->error_string()]));
+		}
+	}
+
 }
