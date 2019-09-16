@@ -93,6 +93,23 @@ class Payment extends MY_Controller
 				];
 				$total_price += $row->price;
 			}
+			if($total_price == 0){
+				$check = $this->Transaction_m->findOne(['member_id'=>$user['id'],'status_payment'=>Transaction_m::STATUS_FINISH]);
+				if($check){
+					$transaction->status_payment = Transaction_m::STATUS_FINISH;
+					$transaction->channel = "FREE EVENT";
+					$transaction->checkout = 1;
+					$transaction->message_payment = "Participant follow a free event";
+					$transaction->save();
+					$this->output->set_content_type("application/json")
+						->_display(json_encode(['status'=>true,'info'=>true,'message'=>'Thank you for your participation you have been added to follow a free event, No need payment !']));
+					exit;
+				}else{
+					$this->output->set_content_type("application/json")
+						->_display(json_encode(['status'=>false,'message'=>'You need to follow a paid event before follow a free (Rp 0,00) event !']));
+					exit;
+				}
+			}
 			if(count($item_details) == 0){
 				$response['status'] = false;
 				$response['message'] = "No Transaction available to checkout";
