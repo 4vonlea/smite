@@ -521,10 +521,16 @@ $config['rewrite_short_tags'] = FALSE;
 | Array:		array('10.0.1.200', '192.168.5.0/24')
 */
 $config['proxy_ips'] = '';
-if(ENVIRONMENT === 'development') {
+//if(ENVIRONMENT === 'development') {
+//	$config['midtrans'] = [
+//		'merchant_id' => 'G988409790',
+//		'client_key' => 'SB-Mid-client-xvjGCOR3oMsI2xU-',
+//		'server_key' => 'SB-Mid-server-sBfDKSeL1EPEJnqSCf702Fnp'
+//	];
+//}elseif(ENVIRONMENT === 'production'){
 	$config['midtrans'] = [
 		'merchant_id' => 'G988409790',
-		'client_key' => 'SB-Mid-client-xvjGCOR3oMsI2xU-',
-		'server_key' => 'SB-Mid-server-sBfDKSeL1EPEJnqSCf702Fnp'
+		'client_key' => 'Mid-client-4KQFkV0WDI7Z7Ngk',
+		'server_key' => 'Mid-server-ba4rXoTmVHr6NfuygerILZiA'
 	];
-}
+//}

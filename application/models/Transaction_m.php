@@ -64,8 +64,8 @@ class Transaction_m extends MY_Model
 	}
 	public function detailsWithEvent(){
 		$rs = $this->db->select("t.*,e.name as event_name")
-				->join("event_pricing ep","ep.id = t.event_pricing_id")
-				->join("events e","e.id = ep.event_id")
+				->join("event_pricing ep","ep.id = t.event_pricing_id","left")
+				->join("events e","e.id = ep.event_id","left")
 				->where("transaction_id",$this->id)->get("transaction_details t");
 		return $rs->result();
 

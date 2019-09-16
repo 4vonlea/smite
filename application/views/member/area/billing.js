@@ -174,7 +174,10 @@ export default Vue.component("PageBilling", {
 				type:'POST',
 				dataType:"JSON",
 				success:function (res) {
-					if(res.status){
+					if(res.status && res.info) {
+						Swal.fire('Success',res.message,'info');
+						page.fetchTransaction();
+					}else if(res.status){
 						snap.pay(res.token,{
 							onSuccess: function(result){
 								$.post(page.appUrl+"member/payment/after_checkout",{id:res.invoice,message_payment:result.status_message},function () {

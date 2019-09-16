@@ -16,7 +16,7 @@ class Transaction extends Admin_Controller
 		if($type == "invoice")
 			$tr->exportInvoice()->stream();
 		elseif($type == "proof")
-			$tr->exportPaymentProof()->stream();
+			$tr->exportPaymentProof()->stream('preview_cert.pdf',array('Attachment'=>0));
 		else
 			show_404();
 	}
