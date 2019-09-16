@@ -107,20 +107,10 @@
                                                             </li>
                                                         </ul>
                                                     </li>
-                                                    <li>
-                                                        <a class="nav-link" href="<?=base_url("site/certificate");?>">
-                                                            Certificate
-                                                        </a>
-                                                    </li>
                                                     <li class="dropdown dropdown-primary">
                                                         <a class="dropdown-toggle nav-link"
                                                            href="<?=base_url("site/committee");?>">
                                                             committee
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="nav-link" href="<?=base_url("site/download");?>">
-                                                            Downloads
                                                         </a>
                                                     </li>
                                                     <li>

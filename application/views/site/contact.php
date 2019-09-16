@@ -18,39 +18,30 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-lg-12">
-                                <h2 class="font-weight-bold">Secretariat IOA Central Java </h2>
+                                <!-- <h2 class="font-weight-bold">Secretariat IOA Central Java </h2> -->
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <h4 class="mb-1">Call Us</h4>
                                         <a href="" class="text-decoration-none" target="_blank" title="Call Us">
-                                            <span class="custom-call-to-action-2 text-color-light text-2 custom-opacity-font" style="color:#3f7a5e !important">
-                                                Mrs Ida: General Secretary
-                                                <span class="info text-5">
-                                                    +628 1329 6904 00
+                                            <span class="custom-call-to-action-2 text-color-light text-3 custom-opacity-font" style="color:#3f7a5e !important">
+                                                Sekretariat (working hours only)
+                                                <span class="info text-4">
+                                                    +62 812 5406 4731
+                                                </span>
+                                                <span class="info text-4">
+                                                    +62 823 5859 9991 (call only)
+                                                </span>
+                                                <span class="info text-4">
+                                                    +62 821 5904 3555 (WA only)
                                                 </span>
                                             </span>
                                         </a>
+                                        
                                         <a href="" class="text-decoration-none" target="_blank" title="Call Us">
-                                            <span class="custom-call-to-action-2 text-color-light text-2 custom-opacity-font" style="color:#3f7a5e !important">
-                                                Mr. Sholiqin: Scientifics
-                                                <span class="info text-5">
-                                                    +628 2133 8888 44 
-                                                </span>
-                                            </span>
-                                        </a>
-                                        <a href="" class="text-decoration-none" target="_blank" title="Call Us">
-                                            <span class="custom-call-to-action-2 text-color-light text-2 custom-opacity-font" style="color:#3f7a5e !important">
-                                                Mrs. Grienda: Sponsorship
-                                                <span class="info text-5">
-                                                    +628 5629 883 65 
-                                                </span>
-                                            </span>
-                                        </a>
-                                        <a href="" class="text-decoration-none" target="_blank" title="Call Us">
-                                            <span class="custom-call-to-action-2 text-color-light text-2 custom-opacity-font" style="color:#3f7a5e !important">
-                                                Mrs. Kinan: Registration & Accomodation
-                                                <span class="info text-5">
-                                                    +62 858 0126 1651
+                                            <span class="custom-call-to-action-2 text-color-light text-3 custom-opacity-font" style="color:#3f7a5e !important">
+                                                dr. Dita: paper/scientific
+                                                <span class="info text-4">
+                                                    +62 853 9197 1225
                                                 </span>
                                             </span>
                                         </a>
@@ -58,16 +49,25 @@
                                     <div class="col-lg-6 custom-sm-margin-top">
                                         <h4 class="mb-1">Mail Us</h4>
                                         <a href="" class="text-decoration-none" target="_blank" title="Mail Us">
-                                            <span class="custom-call-to-action-2 text-color-light text-2 custom-opacity-font" style="color:#3f7a5e !important">
+                                            <span class="custom-call-to-action-2 text-color-light text-3 custom-opacity-font" style="color:#3f7a5e !important">
                                                 Email
-                                                <span class="info text-5">
-                                                    coe67solo@gmail.com 
+                                                <span class="info text-4">
+                                                    East.insdv2020@gmail.com 
                                                 </span>
                                             </span>
-                                        </a>
+                                            <span class="custom-call-to-action-2 text-color-light text-3 custom-opacity-font" style="color:#3f7a5e !important">
+                                                Instagram
+                                                <span class="info text-4">
+                                                    east.insdv.2020 
+                                                </span>
+                                            </span>
+                                        </a> <br>
                                         <h4 class="mb-1">Our Location</h4>
-                                        <p class="custom-opacity-font"  style="color:#3f7a5e !important">dr. Moewardi Regional Public Hospital, Kolonel Soetarto 132 Jebres, Surakarta, 57126 Central Java</p>
-                                        
+                                        <span class="custom-call-to-action-2 text-color-light text-3 custom-opacity-font" style="color:#3f7a5e !important">Secretariat Addres
+                                        <span class="info text-4">
+                                            Jl. A.Yani KM 2,5 No. 43, Gedung SMF Lantai 6 RSUD Ulin Banjarmasin, Kalimantan Selatan (70233)
+                                        </span>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
