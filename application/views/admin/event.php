@@ -433,7 +433,6 @@
                         Swal.fire("Failed","Failed to save !","error");
                     });
                 }
-
             },
             removeEventCategory:function(index){
                 var value = tempCategory[index];

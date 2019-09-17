@@ -7,6 +7,7 @@ class Settings_m extends MY_Model
     protected $table = "settings";
 
     const EVENT_CATEGORY = 'event_category';
+    const STATUS_COMMITTEE = 'status_committee';
 
 
     /**
@@ -16,7 +17,7 @@ class Settings_m extends MY_Model
     public static function eventCategory($jsonString = true){
         $setting = Settings_m::findOne(['name'=>self::EVENT_CATEGORY]);
         if($jsonString){
-            if($setting)
+            if($setting && $setting->value != "")
                 return $setting->value;
             return '[]';
         }else {
@@ -25,6 +26,23 @@ class Settings_m extends MY_Model
         }
         return [];
     }
+
+	/**
+	 * @param bool $jsonString
+	 * @return array|string
+	 */
+	public static function statusCommitte($jsonString = true){
+		$setting = Settings_m::findOne(['name'=>self::STATUS_COMMITTEE]);
+		if($jsonString){
+			if($setting && $setting->value != "")
+				return $setting->value;
+			return '[]';
+		}else {
+			if ($setting)
+				return (json_decode($setting->value,true));
+		}
+		return [];
+	}
 
     public static function getSetting($name){
         $setting = Settings_m::findOne(['name'=>$name]);

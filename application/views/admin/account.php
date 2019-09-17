@@ -79,7 +79,7 @@
 								<div class="col-lg-5">
 									<select name="role" v-model="form.model.role" class="form-control"  :class="{'is-invalid':form.validation.role}">
 										<option disabled value="">Select Role</option>
-										<option v-for="(name,index) in listRole" :value="index">{{ name }}</option>
+										<option v-for="(name,index) in listRoleFiltered" :value="index">{{ name }}</option>
 									</select>
 									<div v-if="form.validation.role" class="invalid-feedback">
 										{{ form.validation.role }}
@@ -171,6 +171,13 @@
                 model: model()
             },
         },
+		computed:{
+            listRoleFiltered(){
+                return this.listRole.filter(function(u) {
+                    return (u != "<?=User_account_m::$listRole[User_account_m::ROLE_MEMBER];?>");
+                })
+			}
+		},
         methods: {
             resetPass(prop){
                 Swal.fire({
