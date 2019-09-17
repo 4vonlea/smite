@@ -17,41 +17,11 @@
 <section class="custom-section-padding">
     <div class="container">
         <div class="row">
-            <div class="col-lg-3 col-lg-offset-2">
+        <div class="owl-carousel owl-theme nav-inside float-left mr-4 mb-2" data-plugin-options="{'items': 1, 'margin': 10, 'animateOut': 'fadeOut','autoplay': true}">
+            <div>
+                <img alt="" class="" src="<?= base_url('themes/porto'); ?>/img/panitia.jpg">
             </div>
-            <div class="col-lg-7 col-lg-offset-2">
-            <h4>Pengurus</h4>
-<table border="0">
-    <tbody>
-        <tr>
-            <td>Ketua</td>
-            <td>:</td>
-            <td>Dr. M. Nasser, Sp.KK, D.Law</td>
-        </tr>
-        <tr>
-            <td>Sekretaris</td>
-            <td>:</td>
-            <td>Prof.DR.Dr. Endang Sutedja, Sp.KK(K)</td>
-        </tr>
-        <tr>
-            <td>Anggota</td>
-            <td>:</td>
-            <td>Prof.DR.Dr. Tony Djajakusumah, Sp.KK(K)</td>
-        </tr>
-        <tr>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>Dr. Nyoman Wirya Duarsa, Sp.Kk</td>
-        </tr>
-        <tr>
-            <td>&nbsp;</td>
-            <td>&nbsp;</td>
-            <td>Prof. Dr. Hari Sukanto, Sp.KK(K)</td>
-        </tr>
-    </tbody>
-</table>
-</div>
-            
+        </div>
         </div>
     </div>
 </section>

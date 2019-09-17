@@ -35,12 +35,6 @@
                             </div>
                         </div>
 
-                        <div class="form-group row">
-                            <label class="col-lg-2 control-label" id="captchaOperation"></label>
-                            <div class="col-lg-2">
-                                <input type="text" class="form-control" name="captcha" />
-                            </div>
-                        </div>
                         <hr />
                         <div class="form-group row">
                         <label class="col-lg-2 control-label"></label>
