@@ -43,9 +43,12 @@ class Presence_m extends MY_Model
 		$i = 1;
 		foreach($rs->result_array() as $row){
 			$temp = [];
+
 			foreach(explode(";",$row['presence']) as $t){
-				$date = new DateTime($t);
-				$temp[$date->format($formatDate)] = $date->format("H:i:s");
+				if($t != "") {
+					$date = new DateTime($t);
+					$temp[$date->format($formatDate)] = $date->format("H:i:s");
+				}
 			}
 			$rTemp = [];
 			$row = array_merge($row,$temp);

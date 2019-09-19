@@ -28,7 +28,7 @@ class Area extends MY_Controller
 	{
 		$this->load->model('Member_m');
 		$member = $this->Member_m->findOne($member_id);
-		$member->getCard($event_id)->stream("member_card.pdf");
+		$member->getCard($event_id)->stream($member->fullname."-member_card.pdf");
 	}
 
     public function save_profile(){
@@ -152,6 +152,7 @@ class Area extends MY_Controller
 		$response = ['status'=>true,'cart'=>null,'transaction'=>null];
 		foreach($transactions as $trans){
 			if($trans->checkout == 0){
+				$response['current_invoice'] = $trans->id;
 				foreach ($trans->details as $row){
 					$response['cart'][] = $row->toArray();
 				}
@@ -198,7 +199,7 @@ class Area extends MY_Controller
             show_404("Page not found !");
 
         $config['upload_path']          = APPPATH.'uploads/papers/';
-        $config['allowed_types']        = 'pdf|doc|docx';
+        $config['allowed_types']        = 'pdf|doc|docx|ods';
         $config['max_size']             = 5120;
         $config['overwrite']             = true;
         $config['file_name']        = $this->session->user_session['id'];
@@ -226,6 +227,7 @@ class Area extends MY_Controller
             $paper->reviewer = "";
             $paper->co_author = json_encode($this->input->post('co_author'));
             $paper->save();
+            $paper->updated_at = date("Y-m-d H:i:s");
             $response['status'] = true;
             $response['paper'] = $paper->toArray();
         }else{
@@ -294,12 +296,13 @@ class Area extends MY_Controller
 	}
 
 	public function download($type,$id){
-		$this->load->model('Transaction_m');
+		$this->load->model(['Transaction_m','Member_m']);
 		$tr = $this->Transaction_m->findOne(['id'=>$id]);
+		$member = $this->Member_m->findOne(['id'=>$tr->member_id]);
 		if($type == "invoice")
-			$tr->exportInvoice()->stream();
+			$tr->exportInvoice()->stream($member->fullname."-Invoice.pdf");
 		elseif($type == "proof")
-			$tr->exportPaymentProof()->stream();
+			$tr->exportPaymentProof()->stream($member->fullname."-Payment_Proof.pdf");
 		else
 			show_404();
 	}

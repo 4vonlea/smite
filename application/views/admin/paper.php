@@ -144,7 +144,7 @@
 					</tr>
 					<tr>
 						<th>Title</th>
-						<td>{{ reviewModel.title }}</td>
+						<td style="white-space: normal !important;">{{ reviewModel.title }}</td>
 					</tr>
 					<tr>
 						<th>Submitted On</th>

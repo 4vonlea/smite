@@ -85,6 +85,22 @@ class MY_Model extends yidas\Model
         return $data;
     }
 
+	/**
+	 * @param $data
+	 * @param $key_field
+	 * @return array
+	 * @throws Exception
+	 */
+    public static function withKey($data,$key_field){
+    	$return = [];
+    	if(!is_array($data))
+    		throw new Exception("Parameter data is not array");
+    	foreach($data as $row){
+    		$return[$row[$key_field]] = $row;
+		}
+    	return $return;
+	}
+
     public static function asList($object,$id,$value ,$placeholder = ''){
         $return = [];
         if($placeholder != ''){

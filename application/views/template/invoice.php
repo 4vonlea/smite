@@ -50,7 +50,11 @@ setlocale (LC_TIME, 'id_ID');
 									Tanggal
 								</td>
 								<td style="padding:5px!important">
+									<?php if($transaction->checkout == 0):?>
+										: <?= date("d F Y \a\\t H:i:s A"); ?>
+									<?php else : ?>
 									: <?= date("d F Y \a\\t H:i:s A", strtotime($transaction->created_at)); ?>
+									<?php endif; ?>
 								</td>
 							</tr>
 							<tr>

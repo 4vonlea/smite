@@ -82,7 +82,8 @@
                                 <div class="header-row">
                                     <div class="header-nav header-nav-links header-nav-dropdowns-dark header-nav-light-text order-2 order-lg-1">
                                         <div class="header-nav-main header-nav-main-mobile-dark header-nav-main-square header-nav-main-dropdown-no-borders header-nav-main-effect-2 header-nav-main-sub-effect-1">
-                                            <nav class="collapse">
+                                            <?php if(!$this->session->has_userdata('user_session')):?>
+											<nav class="collapse">
                                                 <ul class="nav nav-pills" id="mainNav">
                                                     <li>
                                                         <a class="nav-link" href="<?=base_url("site");?>">
@@ -146,6 +147,7 @@
                                                     </li>
                                                 </ul>
                                             </nav>
+											<?php endif; ?>
                                         </div>
                                         <button class="btn header-btn-collapse-nav" data-toggle="collapse"
                                                 data-target=".header-nav-main nav">

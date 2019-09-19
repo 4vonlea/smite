@@ -38,27 +38,32 @@ export default Vue.component("PageEvents", {
 											<h5>You are following this event</h5>
 											<a :href="'<?=base_url('member/area/card');?>/'+event.id+'/'+user.id" target="_blank">Download Member Card</a>
 										</div>
-										<table v-else class="table">
-											<thead>
-												<tr>
-													<th>Category</th>
-													<th v-for="pricing in event.pricingName" class="text-center"><span v-html="pricing.title"></span></th>
-												</tr>
-											</thead>
-											<tbody>
-												<tr v-for="member in event.memberStatus">
-													<td>{{ member }}</td>
-													<td v-for="pricing in event.pricingName" class="text-center">
-														<span v-if="pricing.pricing[member]">
-														{{ formatCurrency(pricing.pricing[member].price) }}<br/>
-														<button @click="addToCart(pricing.pricing[member],member,event.name)" v-if="pricing.pricing[member].available && !pricing.pricing[member].added" :disabled="adding"  class="btn btn-sm btn-warning"><i v-if="adding" class="fa fa-spin fa-spinner"></i> Add To Cart</button>
-														<button v-if="!pricing.pricing[member].available" style="cursor:not-allowed;color:#fff;" aria-disabled="true"  disabled class="btn btn-sm btn-danger">Not Available</button>
-														<button v-if="pricing.pricing[member].added" style="cursor:default;color:#fff;" aria-disabled="true"  disabled class="btn btn-sm btn-success">Added</button>
-														</span>
-													</td>
-												</tr>
-											</tbody>
-										</table>
+										<div v-else >
+											<div v-if="event.participant >= event.kouta" class="alert alert-warning text-center">
+												<h4>Sorry Kouta for this event is full</h4>
+											</div>
+											<table class="table">
+												<thead>
+													<tr>
+														<th>Category</th>
+														<th v-for="pricing in event.pricingName" class="text-center"><span v-html="pricing.title"></span></th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr v-for="member in event.memberStatus">
+														<td>{{ member }}</td>
+														<td v-for="pricing in event.pricingName" class="text-center">
+															<span v-if="pricing.pricing[member]">
+															{{ formatCurrency(pricing.pricing[member].price) }}<br/>
+															<button @click="addToCart(pricing.pricing[member],member,event.name)" v-if="pricing.pricing[member].available && !pricing.pricing[member].added" :disabled="adding"  class="btn btn-sm btn-warning"><i v-if="adding" class="fa fa-spin fa-spinner"></i> Add To Cart</button>
+															<button v-if="!pricing.pricing[member].available" style="cursor:not-allowed;color:#fff;" aria-disabled="true"  disabled class="btn btn-sm btn-danger">Not Available</button>
+															<button v-if="pricing.pricing[member].added" style="cursor:default;color:#fff;" aria-disabled="true"  disabled class="btn btn-sm btn-success">Added</button>
+															</span>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
 								</div>
 							</div>
 						</div>

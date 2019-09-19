@@ -130,13 +130,22 @@ class Event_m extends MY_Model
 	{
 		$filter = array_merge($filter, ['show' => '1']);
 		$this->load->model("Transaction_m");
-		$result = $this->setAlias("t")->find()->select("t.id as id_event,t.name as event_name,event_pricing.name as name_pricing,event_pricing.price as price_r,event_pricing.id as id_price,td.id as followed,COALESCE(checkout,0) as checkout,tr.status_payment")
+		$result = $this->setAlias("t")->find()->select("t.id as id_event,t.kouta,t.name as event_name,event_pricing.name as name_pricing,event_pricing.price as price_r,event_pricing.id as id_price,td.id as followed,COALESCE(checkout,0) as checkout,tr.status_payment")
 			->select("condition,condition_date,kategory")
 			->where($filter)
 			->join("event_pricing", "t.id = event_id")
 			->join("transaction_details td", "td.event_pricing_id = event_pricing.id AND td.member_id = '$member_id'", "left")
 			->join("transaction tr", "tr.id = td.transaction_id", "left")
 			->order_by("t.id,event_pricing.name,event_pricing.condition_date")->get();
+		$count = $this->setAlias("t")->find()->select("t.id as id_event,t.kouta,SUM(IF(tr.status_payment = '".Transaction_m::STATUS_FINISH."',1,0)) as participant")
+			->join("event_pricing", "t.id = event_id")
+			->join("transaction_details td", "td.event_pricing_id = event_pricing.id", "left")
+			->join("transaction tr", "tr.id = td.transaction_id", "left")
+			->group_by("t.id")->get()->result_array();
+		$koutas = [];
+		foreach($count as $row){
+			$koutas[$row['id_event']] = $row;
+		}
 		$return = [];
 		$temp = "";
 		$tempPricing = "";
@@ -144,7 +153,11 @@ class Event_m extends MY_Model
 		$pId = 0;
 		$frmt = "d M Y";
 		foreach ($result->result_array() as $row) {
-			$avalaible = $this->validateFollowing($row, $userStatus);
+			if($koutas[$row['id_event']]['participant'] < $row['kouta']) {
+				$avalaible = $this->validateFollowing($row, $userStatus);
+			}else{
+				$avalaible = false;
+			}
 			$conditionDate = explode(":", $row['condition_date']);
 			$d1 = DateTime::createFromFormat("Y-m-d", $conditionDate[0]);
 			$d2 = DateTime::createFromFormat("Y-m-d H:i", $conditionDate[1] . " 23:59");
@@ -167,6 +180,8 @@ class Event_m extends MY_Model
 					'id' => $row['id_event'],
 					'name' => $row['event_name'],
 					'category' => $row['kategory'],
+					'kouta' => intval($row['kouta']),
+					'participant' => intval($koutas[$row['id_event']]['participant']),
 					'followed' => ($row['checkout'] == 1 && $row['followed'] != null && $row['status_payment'] == Transaction_m::STATUS_FINISH),
 					'pricingName' => [
 						[

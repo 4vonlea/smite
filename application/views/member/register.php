@@ -1,6 +1,7 @@
 <?php
 /**
  * @var array $participantsCategory
+ * @var array $statusList;
  */
 ?>
 <section class="page-header page-header-modern bg-color-quaternary page-header-md custom-page-header">
@@ -75,17 +76,17 @@
                     <div class="form-group row">
                         <label class="col-lg-3 control-label">Your Status*</label>
                         <div class="col-lg-5">
-                            <?= form_dropdown('status', $participantsCategory, '', [':class'=>"{'is-invalid':validation_error.status}", 'class' => 'form-control', 'placeholder' => 'Select your status !']); ?>
+                            <?= form_dropdown('status', $participantsCategory, '', [':class'=>"{'is-invalid':validation_error.status}",'v-model'=>'status_selected', 'class' => 'form-control', 'placeholder' => 'Select your status !']); ?>
                             <div v-if="validation_error.status" class="invalid-feedback" >
                                 {{ validation_error.status }}
                             </div>
                         </div>
                     </div>
 
-                    <div class="form-group row">
-                        <label class="col-lg-3 control-label">Upload proof of your status*</label>
+                    <div v-if="needVerification" class="form-group row">
+                        <label class="col-lg-3 control-label">Upload proof of your status* <small>(jpg,jpeg,png)</small></label>
                         <div class="col-lg-5">
-                            <input type="file" name="proof" :class="{'is-invalid':validation_error.proof}" class="form-control-file"/>
+                            <input type="file" name="proof" accept=".jpg,.png,.jpeg" :class="{'is-invalid':validation_error.proof}" class="form-control-file"/>
                             <div v-if="validation_error.proof" class="invalid-feedback d-block">
                                 {{ validation_error.proof }}
                             </div>
@@ -195,10 +196,26 @@
             vuejsDatepicker
         },
         data: {
+            statusList:<?=json_encode($statusList);?>,
+            status_selected:"",
             saving:false,
             validation_error:{},
             registered:false,
         },
+		computed:{
+			needVerification(){
+			    var ret = false;
+			    var app = this;
+			    $.each(this.statusList,function (i,v) {
+			        console.log(v);
+					if(v.id == app.status_selected){
+					    ret = v.need_verify == "1";
+					    return false;
+					}
+                });
+				return ret;
+			}
+		},
         methods: {
             register() {
                 var formData = new FormData(this.$refs.form);
