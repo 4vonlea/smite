@@ -12,6 +12,8 @@ class Site extends MY_Controller
         parent::__construct();
         $this->layout->setLayout("layouts/porto");
         $this->load->model('Event_m', 'EventM');
+        $this->load->model('User_account_m', 'AccountM');
+        $this->load->model('Gmail_api');
     }
 
     public function index()
@@ -93,6 +95,25 @@ class Site extends MY_Controller
     {
         $this->layout->render('site/forget');
     }
+    public function forget_reset()
+    {
+        $status_proses = null;
+        $post          = $this->input->post();
+        $username = $post['username'];
+        if ($this->AccountM->selectuser($username) == true) {
+            $data['password'] = rand(10000, 99999);
+            $success = $this->AccountM->update(['password' => password_hash($data['password'], PASSWORD_DEFAULT)], ['username' => $username], false);
+            $email_message = $this->load->view('template/success_forget_password', $data, true);
+            $this->Gmail_api->sendMessage($username, 'Reset password EASDV account', $email_message);
+            $this->session->set_flashdata('message', '<div class="col-lg-7 alert alert-success"><center> please check your email for your new password </center>
+                </div>');
+            redirect('site/forget','refresh');
+        } else {
+            $this->session->set_flashdata('message', '<div class="alert alert-danger"> email ini tidak terdaftar
+                </div>');
+            redirect('site/forget','refresh');
+        }
+    }
 
     public function committee()
     {
@@ -109,17 +130,17 @@ class Site extends MY_Controller
         $this->layout->render('site/paper');
     }
 
+    public function barcode($code, $tes = "")
+    {
+        include APPPATH . "third_party/phpqrcode/qrlib.php";
+        if ($tes == 'show') {
+            echo "<p>$code</p><img src='" . base_url('site/barcode/' . $code) . "';/>";
+        } else {
+            QRcode::png($code, false, "L", 10, 10);
+        }
+    }
 
-	public function barcode($code,$tes = ""){
-		include APPPATH."third_party/phpqrcode/qrlib.php";
-		if($tes == 'show'){
-			echo "<p>$code</p><img src='".base_url('site/barcode/'.$code)."';/>";
-		} else {
-			QRcode::png($code, false, "L", 10, 10);
-		}
-	}
-
-    public static function formatdate($date)
+    public function formatdate($date)
     {
         $str = explode('-', $date);
 

@@ -18,20 +18,21 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12 col-lg-offset-2">
-                    
                         <div class="row">
                             <label class="col-lg-2 control-label"></label>
                             <div class="col-lg-5">
                                 <h2 class="font-weight-bold">Forget Password Form</h2>
                             </div>
                         </div>
-                    <form id="defaultForm" method="post" class="form-horizontal" action="" >
                     
-                        
+                        <?php echo $this->session->flashdata('message');?>
+                         
+                    <form id="defaultForm" method="post" class="form-horizontal" action="<?php echo base_url('site/forget_reset') ?>" >
                         <div class="form-group row">
-                            <label class="col-lg-2 control-label">Email</label>
+                        
+                            <label class="col-lg-2 control-label"><b>Email</b></label>
                             <div class="col-lg-5">
-                                <input type="text" class="form-control" name="email" />
+                                <input type="text" class="form-control" name="username" required="" />
                             </div>
                         </div>
 
@@ -40,7 +41,7 @@
                         <label class="col-lg-2 control-label"></label>
                             <div class="col-lg-5 col-lg-offset-3">
                                 <button type="submit" class="btn btn-outline custom-border-width btn-primary custom-border-radius font-weight-semibold text-uppercase" >Submit</button>
-                                <button type="button" class="btn btn-outline custom-border-width btn-primary custom-border-radius font-weight-semibold text-uppercase" id="resetBtn" style="border-color:red;color:red">Cancel</button>
+                                <a href="<?=base_url('site/login');?>" type="" class="btn btn-outline custom-border-width btn-primary custom-border-radius font-weight-semibold text-uppercase" id="resetBtn" style="border-color:red;color:red">Cancel</a>
                             </div>
                         </div>
                     </form>

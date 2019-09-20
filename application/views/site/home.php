@@ -31,7 +31,7 @@
                    data-y="center" data-voffset="['60','60','60','100']"
                    data-start="1500"
                    style="font-size: 12px; padding: 15px 6px;"
-                   data-transform_in="y:[-300%];opacity:0;s:500;">Login Now</a>
+                   data-transform_in="y:[-300%];opacity:0;s:500;"><b><strong>Login Now</strong></b></a>
             </li>
             <li data-transition="fade">
                 <img src="<?= base_url('themes/porto'); ?>/img/demos/business-consulting/slides/blackv.jpg"
@@ -63,7 +63,7 @@
                    data-y="center" data-voffset="['60','60','60','100']"
                    data-start="1500"
                    style="font-size: 12px; padding: 15px 6px;"
-                   data-transform_in="y:[-300%];opacity:0;s:500;"><b>Login Now</b></a>
+                   data-transform_in="y:[-300%];opacity:0;s:500;"><b><strong>Login Now</strong></b></a>
             </li>
         </ul>
     </div>
@@ -83,11 +83,13 @@
                 <a class="text-decoration-none" href="tel:+00112304567" target="_blank" title="Call Us Now">
 									<span class="custom-call-to-action">
 										<span class="action-title text-color-primary">Call Us Now</span>
-										<span class="action-info text-color-light">+6281333357988</span>
+										<span class="action-info text-color-light">+6281254064731</span>
+                                        <span class="action-info text-color-light">+6282358599991 (call only)</span>
+                                        <span class="action-info text-color-light">+6282159043555 (WA only)</span>
 									</span>
                                     <span class="custom-call-to-action">
                                         <span class="action-title text-color-primary">Email Us Now</span>
-                                        <span class="action-info text-color-light">mail@example.com</span>
+                                        <span class="action-info text-color-light">East.insdv2020@gmail.com</span>
                                     </span>
                 </a>
             </div>

@@ -55,4 +55,17 @@ class User_account_m extends MY_Model
 			->join("kategory_members km","status = km.id","left")->get()->row_array();
     }
 
+    public function selectuser($username)
+    {
+        $this->db->select('username');
+        $this->db->from('user_accounts');
+        $this->db->where('username', $username);
+        $hasil = $this->db->get();
+        if ($hasil->num_rows() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }
