@@ -95,7 +95,17 @@ $theme_path = base_url("themes/porto") . "/";
 														Home
 													</a>
 												</li>
-												<li class="dropdown dropdown-primary">
+												<li>
+													<a class="nav-link" href="<?= base_url("site/simposium"); ?>">
+														Simposium & Workshop
+													</a>
+												</li>
+												<li>
+													<a class="nav-link" href="<?= base_url("site/paper"); ?>">
+														Submit Paper
+													</a>
+												</li>
+												<!-- <li class="dropdown dropdown-primary">
 													<a class="dropdown-toggle nav-link"
 													   href="">
 														Scientific &nbsp;<i class="fa fa-chevron-circle-down"></i>
@@ -114,7 +124,7 @@ $theme_path = base_url("themes/porto") . "/";
 															</a>
 														</li>
 													</ul>
-												</li>
+												</li> -->
 												<li class="dropdown dropdown-primary">
 													<a class="dropdown-toggle nav-link"
 													   href="<?= base_url("site/committee"); ?>">

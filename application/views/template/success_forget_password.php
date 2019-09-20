@@ -29,7 +29,7 @@
 	You've received this email because you have successfully reset your password.
 </p>
 <p>
-    Your new password is <br><?php echo $password; ?><br>
+    Your new password is <b><?php echo $password; ?><b>
 </p>
 </table>
 <p>Stay keep your password secretly</p>

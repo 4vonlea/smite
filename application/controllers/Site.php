@@ -110,7 +110,7 @@ class Site extends MY_Controller
                 </div>');
             redirect('site/forget','refresh');
         } else {
-            $this->session->set_flashdata('message', '<div class="alert alert-danger"> email ini tidak terdaftar
+            $this->session->set_flashdata('message', '<div class="col-lg-7 alert alert-danger"> email ini tidak terdaftar
                 </div>');
             redirect('site/forget','refresh');
         }
