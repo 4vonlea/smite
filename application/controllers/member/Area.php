@@ -82,19 +82,32 @@ class Area extends MY_Controller
 			->_display(json_encode(['status'=>true,'events'=>$events]));
 	}
 
+	public function delete_paper(){
+		if($this->input->method() !== 'post')
+			show_404("Page not found !");
+		$data = $this->input->post();
+		$this->load->model("Papers_m");
+		$status = $this->Papers_m->delete(['id'=>$data['id']]);
+		if(file_exists( APPPATH."uploads/papers/".$data['filename']) && is_file(APPPATH."uploads/papers/".$data['filename']))
+			unlink( APPPATH."uploads/papers/".$data['filename']);
+		if(file_exists( APPPATH."uploads/papers/".$data['feedback']) && is_file(APPPATH."uploads/papers/".$data['feedback']))
+			unlink( APPPATH."uploads/papers/".$data['feedback']);
+
+		$this->output->set_content_type("application/json")
+			->_display(json_encode(['status'=>$status]));
+	}
     public function get_paper(){
         if($this->input->method() !== 'post')
             show_404("Page not found !");
         $this->load->model("Papers_m");
-        $paper = Papers_m::findOne(['member_id'=>$this->session->user_session['id']]);
+        $papers = Papers_m::findAll(['member_id'=>$this->session->user_session['id']]);
 		$response['abstractType'] = Papers_m::$typeAbstract;
-
-        if($paper) {
-			$response = array_merge($response, $paper->toArray());
-			$response['co_author'] = json_decode($response['co_author']);
-		}else {
-			$response['status'] = 0;
-			$response['co_author'] = [];
+		$response['status'] = Papers_m::$status;
+		$response['data'] = [];
+		foreach($papers as $paper){
+			$temp = $paper->toArray();
+			$temp['co_author'] = json_decode($temp['co_author'],true);
+			$response['data'][] = $temp;
 		}
 		$this->output->set_content_type("application/json")
 			->_display(json_encode($response));
@@ -209,7 +222,7 @@ class Area extends MY_Controller
         $upload = $this->upload->do_upload('file');
         $validation = $this->Papers_m->validate($this->input->post());
         if($upload && $validation){
-            $paper = Papers_m::findOne(['member_id'=>$this->session->user_session['id']]);
+            $paper = Papers_m::findOne(['id'=>$this->input->post('id')]);
             if(!$paper)
                 $paper = new Papers_m();
             $data = $this->upload->data();
@@ -225,6 +238,7 @@ class Area extends MY_Controller
             $paper->result = $this->input->post('result');
             $paper->conclusion = $this->input->post('conclusion');
             $paper->reviewer = "";
+            $paper->message = "";
             $paper->co_author = json_encode($this->input->post('co_author'));
             $paper->save();
             $paper->updated_at = date("Y-m-d H:i:s");

@@ -5,7 +5,7 @@ class Papers_m extends MY_Model
 {
 	public static $status = [
 		0 => 'Returned to author',
-		1 => 'Need Review',
+		1 => 'Need/Under Review',
 		2 => 'Accepted',
 		3 => 'Rejected'
 	];
@@ -57,7 +57,9 @@ class Papers_m extends MY_Model
 		$data['total_stat_0'] = isset($result['stat_0']) ? $result['stat_0']:0;
 		$data['total_stat_1'] = isset($result['stat_0']) ? $result['stat_1']:0;
 		$data['total_stat_2'] = isset($result['stat_0']) ? $result['stat_2']:0;
-		$model = $this->find()->where("reviewer", "")->or_where("reviewer IS NULL", null)->select("count(*) as r")->get();
+		$model = $this->find()->group_start()
+			->where("reviewer", "")->or_where("reviewer IS NULL", null)->group_end()
+			->where("status",1)->select("count(*) as r")->get();
 		$data['total_no_reviewer'] = $model->row()->r;
 		return $data;
 	}
