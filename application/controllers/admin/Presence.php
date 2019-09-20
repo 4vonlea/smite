@@ -32,6 +32,22 @@ class Presence extends Admin_Controller
 		$exporter->asExcel();
 	}
 
+	public function get_detail(){
+		if($this->input->method() != 'post')
+			show_404("Page Not Found !");
+		$id_event = $this->input->post('id');
+		$data = [];$column = [];
+		if($id_event) {
+			$this->load->model("Presence_m");
+
+			$data = $this->Presence_m->getReportData($id_event);
+			if(count($data) > 0)
+			$column = array_keys($data[0]);
+		}
+		$this->output
+			->set_content_type("application/json")
+			->_display(json_encode(['status'=>"true",'data'=>$data,'column'=>$column]));
+	}
 	public function get_data(){
 		if($this->input->method() != 'post')
 			show_404("Page Not Found !");

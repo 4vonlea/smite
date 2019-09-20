@@ -87,6 +87,9 @@
 								<button class="btn btn-primary btn-sm" @click="edit(props)">
 									<span class="fa fa-edit"></span> Edit
 								</button>
+								<button class="btn btn-danger btn-sm" @click="deleteMember(props,$event)">
+									<span class="fa fa-trash"></span> Delete
+								</button>
 							</div>
 						</template>
 					</datagrid>
@@ -199,16 +202,19 @@
 								<tr v-for="ev in profile.event">
 									<td>
 										{{ ev.event_name }} |
-										<a :href="'<?=base_url('admin/member/card');?>/'+ev.event_id+'/'+profile.id" target="_blank">Download Member Card</a>
+										<a :href="'<?= base_url('admin/member/card'); ?>/'+ev.event_id+'/'+profile.id"
+										   target="_blank">Download Member Card</a>
 									</td>
 									<td>
-										<input type="checkbox" v-model="ev.checklist.nametag" true-value="true" false-value="false" />
+										<input type="checkbox" v-model="ev.checklist.nametag" true-value="true"
+											   false-value="false"/>
 									</td>
 									<td>
-										<input type="checkbox"  v-model="ev.checklist.seminarkit" true-value="true" false-value="false"/>
+										<input type="checkbox" v-model="ev.checklist.seminarkit" true-value="true"
+											   false-value="false"/>
 									</td>
 									<td>
-										<input type="text"  v-model="ev.checklist.taker" class="form-control"/>
+										<input type="text" v-model="ev.checklist.taker" class="form-control"/>
 									</td>
 								</tr>
 							</table>
@@ -228,7 +234,7 @@
 </div>
 
 <div class="modal" id="modal-particant-status">
-	<div class="modal-dialog">
+	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 
 			<!-- Modal Header -->
@@ -249,14 +255,30 @@
 						</div>
 					</div>
 				</div>
-				<ul class="list-group">
-					<li v-for="(cat,index) in statusList"
-						class="list-group-item d-flex justify-content-between align-items-center">
-						{{ cat.kategory }}
-						<button @click="removeStatus(index)" class="btn badge badge-primary badge-pill"><i
-								class="fa fa-times"></i></button>
-					</li>
-				</ul>
+				<table class="table">
+					<thead>
+					<tr>
+						<th>Need Verification</th>
+						<th>Status Name</th>
+						<th></th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr v-for="(cat,index) in statusList">
+						<td>
+							<input type="checkbox" v-model="cat.need_verify" @click="needVerification(index)"/>
+						</td>
+						<td>
+							{{ cat.kategory }}
+						</td>
+						<td>
+							<button @click="removeStatus(index)" class="btn btn-danger btn-sm"><i
+									class="fa fa-times"></i></button>
+						</td>
+					</tr>
+					</tbody>
+				</table>
+
 			</div>
 
 			<!-- Modal footer -->
@@ -270,7 +292,7 @@
 
 <div class="modal" id="modal-verification">
 	<div class="modal-dialog">
-		<div class="modal-content">
+		<div class="modal-content table-responsive">
 			<div class="modal-header">
 				<h4>Verify Status</h4>
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -289,7 +311,9 @@
 				</tr>
 				<tr>
 					<th>Proof</th>
-					<td><a :href="verifyModel.proofLink" target="_blank">Click Here To View</a></td>
+					<td>
+						<img :src="verifyModel.proofLink" class="img" />
+					</td>
 				</tr>
 				<tr>
 					<th>Your Response</th>
@@ -346,47 +370,76 @@
             pagination: {},
             profileMode: 0,
             profile: {},
-			savingCheck:false,
-			savingProfile:false,
+            savingCheck: false,
+            savingProfile: false,
         },
         methods: {
-            saveProfile(){
+            saveProfile() {
                 app.savingProfile = true;
-                $.post("<?=base_url("admin/member/save_profile");?>",app.profile,function (res) {
-                    if(res.status)
-	                    Swal.fire("Success", "Profile Saved !", "success");
+                $.post("<?=base_url("admin/member/save_profile");?>", app.profile, function (res) {
+                    if (res.status)
+                        Swal.fire("Success", "Profile Saved !", "success");
                     else
                         Swal.fire("Failed", "Failed to save data !", "error");
-                },"JSON").fail(function () {
+                }, "JSON").fail(function () {
                     Swal.fire("Failed", "Failed to load data !", "error");
                 }).always(function () {
                     app.savingProfile = false;
                 });
-			},
-			edit(prop){
+            },
+            deleteMember(prop,event) {
+                var btn = event.currentTarget;
+                Swal.fire({
+                    title: "Are you sure ?",
+                    text: `You will delete "${prop.row.fullname}" From member`,
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.value) {
+                        btn.innerHTML = "<i class='fa fa-spin fa-spinner'></i>";
+                        btn.setAttribute("disabled",true);
+                        $.post("<?=base_url("admin/member/delete");?>", prop.row, function (res) {
+                            if (res.status) {
+                                Swal.fire("Success", "Member deleted successfully", "success");
+                                app.$refs.datagrid.refresh();
+                            }else
+                                Swal.fire("Failed", res.message, "error");
+                        }, "JSON").fail(function () {
+                            Swal.fire("Failed", "Failed to load data !", "error");
+                        }).always(function () {
+                            btn.innerHTML = '<i class="fa fa-trash"></i> Delete';
+                            btn.removeAttribute("disabled");
+                        });
+                    }
+                });
+            },
+            edit(prop) {
                 this.profile = prop.row;
                 this.profileMode = 3;
-			},
-            saveChecklist(){
+            },
+            saveChecklist() {
                 app.savingCheck = true;
                 var data = [];
-                $.each(app.profile.event,function (i,r) {
+                $.each(app.profile.event, function (i, r) {
                     var t = r.checklist;
                     data.push({
-                        id:r.td_id,
-                        checklist:t
+                        id: r.td_id,
+                        checklist: t
                     });
                 });
 
-                $.post("<?=base_url("admin/member/save_check");?>",{transaction:data},function (res) {
+                $.post("<?=base_url("admin/member/save_check");?>", {transaction: data}, function (res) {
                     Swal.fire("Success", "Checklist saved !", "success");
-                },"JSON").fail(function () {
+                }, "JSON").fail(function () {
                     Swal.fire("Failed", "Failed to load data !", "error");
                 }).always(function () {
                     app.savingCheck = false;
                 });
-			},
-            detail(profile,event) {
+            },
+            detail(profile, event) {
                 $.each(this.statusList, function (i, v) {
                     if (v.id == profile.status)
                         profile.statusName = v.kategory;
@@ -398,12 +451,12 @@
                 }
                 event.target.innerHtml = "<i class='fa fa-spin fa-spinner'></i>Loading...";
 
-                $.post("<?=base_url("admin/member/get_event");?>",{id:profile.id},function (res) {
-					profile.event = res;
+                $.post("<?=base_url("admin/member/get_event");?>", {id: profile.id}, function (res) {
+                    profile.event = res;
                     profile.birthdayFormatted = moment(profile.birthday).format('DD MMM YYYY');
                     app.profileMode = 1;
                     app.profile = profile;
-                },"JSON").fail(function () {
+                }, "JSON").fail(function () {
                     Swal.fire("Failed", "Failed to load data !", "error");
                 }).always(function () {
                     event.target.innerHtml = "Detail";
@@ -455,6 +508,16 @@
                     if (res.status)
                         app.statusList.splice(index, 1);
                 }, 'JSON').fail(function () {
+                    Swal.fire("Failed", "Failed to remove !", "error");
+                });
+            },
+            needVerification: function (index) {
+                var value = this.statusList[index];
+                value.need_verify = !value.need_verify;
+                $.post("<?=base_url('admin/member/verification_status');?>", value, function (res) {
+
+                }, 'JSON').fail(function () {
+                    value.need_verify = 0;
                     Swal.fire("Failed", "Failed to remove !", "error");
                 });
             },

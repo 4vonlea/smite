@@ -19,7 +19,7 @@ class User_account_m extends MY_Model
     public static $listRole = [
         self::ROLE_MEMBER => 'Member/Participant',
         self::ROLE_SUPERADMIN => 'Superadmin',
-        self::ROLE_ADMIN => 'Admin',
+//        self::ROLE_ADMIN => 'Admin',
         self::ROLE_ADMIN_PAPER => 'Admin Paper',
     ];
 

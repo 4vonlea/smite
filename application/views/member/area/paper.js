@@ -9,19 +9,53 @@ export default Vue.component("PagePaper", {
                 <div class="overflow-hidden mb-4 pb-3">
                     <p class="mb-0">Wanna participate on paper, please upload your fullpaper.</p>
                 </div>
-                <div v-if="paper.status == 0 || paper.status == 3">
-                    <div v-if="paper.message" class="alert alert-info">
-                        <h4>Your paper has been reviewed</h4>
-                        <p v-if="paper.status == 3">Sorry your paper has been, rejected please provide another paper</p>
-                        <p>{{ paper.message }} </p>
-						<a v-if="feedbackUrl && paper.status != 3" :href="feedbackUrl" >Download Feedback File</a>                        
-                        <p size="font-weight:bold">Please revise and reupload</p>
-                    </div>
+                <div v-if="mode == 0" class="table-responsive">
+                	<table class="table table-bordered">
+                		<thead>
+                			<tr>
+                				<th width="15%">Type</th>
+                				<th width="40%">Title</th>
+                				<th width="15%">Status</th>
+                				<th width="15%">Submitted On</th>
+                				<th width="15%"h>
+									<button @click="mode = 1; form = {co_author:[]};detail=false;error_upload ={};" class="btn btn-primary"><i class="fa fa-plus"></i> Add</button>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr v-if="paper.data.length == 0">
+								<td colspan="5" class="text-center">No Data</td>
+							</tr>
+							<tr v-for="pap in paper.data">
+								<td>{{ pap.type }}</td>
+								<td style="white-space: normal !important;">{{ pap.title }}</td>
+								<td>
+									<span class="badge"  :class="[ pap.status == 2 ?'badge-success': pap.status == 3 ? 'badge-danger':'badge-info' ]">
+										{{ paper.status[pap.status] }}
+									</span>
+								</td>
+								<td>{{ formatDate(pap.created_at) }}</td>
+								<td>
+									<button @click="detailPaper(pap)" class="btn btn-primary"><i class="fa fa-search"></i></button>
+									<button v-if="pap.status == 0 || pap.status == 1" @click="deletePaper(pap,$event)" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+                <div v-if="mode == 1">
                     <form ref="form" enctype="multipart/form-data">
+                    	<input type="hidden" name="id" v-model="form.id" />
+                    	<div v-if="detail" class="form-group row">
+							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Status</label>
+							<div class="col-lg-9">
+								<span class="alert alert-info">{{ paper.status[form.status] }}</span>							
+							</div>
+						</div>
                     	<div class="form-group row">
                     		<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Type Abstract*</label>
 							<div class="col-lg-9">
-								<select class="form-control" v-model="paper.type" name="type" :class="{'is-invalid':error_upload.type}">
+								<select :disabled="detail" class="form-control" v-model="form.type" name="type" :class="{'is-invalid':error_upload.type}">
 									<option v-for="(type,key) in paper.abstractType"  :value="key">{{ type }}</option>
 								</select>
 								<div v-if="error_upload.title" class="invalid-feedback">{{ error_upload.type }}</div>
@@ -30,14 +64,14 @@ export default Vue.component("PagePaper", {
 						<div class="form-group row">
 							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Title*</label>
 							<div class="col-lg-9">
-								<input  :class="{'is-invalid':error_upload.title}" class="form-control" name="title"  type="text" v-model="paper.title" value="">
+								<input :disabled="detail"  :class="{'is-invalid':error_upload.title}" class="form-control" name="title"  type="text" v-model="form.title" value="">
 								<div v-if="error_upload.title" class="invalid-feedback">{{ error_upload.title }}</div>
 							</div>
 						</div>
 						<div class="form-group row">
 							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Introduction*</label>
 							<div class="col-lg-9">
-								<textarea  :class="{'is-invalid':error_upload.introduction}" v-model="paper.introduction"  class="form-control" name="introduction">
+								<textarea :disabled="detail"  :class="{'is-invalid':error_upload.introduction}" v-model="form.introduction"  class="form-control" name="introduction">
 								</textarea>
 								<div v-if="error_upload.title" class="invalid-feedback">{{ error_upload.introduction }}</div>
 							</div>
@@ -45,7 +79,7 @@ export default Vue.component("PagePaper", {
 						<div class="form-group row">
 							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Aims*</label>
 							<div class="col-lg-9">
-								<textarea  :class="{'is-invalid':error_upload.aims}" v-model="paper.aims"  class="form-control" name="aims">
+								<textarea :disabled="detail"  :class="{'is-invalid':error_upload.aims}" v-model="form.aims"  class="form-control" name="aims">
 								</textarea>
 								<div v-if="error_upload.aims" class="invalid-feedback">{{ error_upload.aims }}</div>
 							</div>
@@ -53,7 +87,7 @@ export default Vue.component("PagePaper", {
 						<div class="form-group row">
 							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Methods*</label>
 							<div class="col-lg-9">
-								<textarea  :class="{'is-invalid':error_upload.methods}" v-model="paper.methods"  class="form-control" name="methods">
+								<textarea :disabled="detail"  :class="{'is-invalid':error_upload.methods}" v-model="form.methods"  class="form-control" name="methods">
 								</textarea>
 								<div v-if="error_upload.methods" class="invalid-feedback">{{ error_upload.methods }}</div>
 							</div>
@@ -61,7 +95,7 @@ export default Vue.component("PagePaper", {
 						<div class="form-group row">
 							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Result*</label>
 							<div class="col-lg-9">
-								<textarea  :class="{'is-invalid':error_upload.result}"  v-model="paper.result" class="form-control" name="result">
+								<textarea :disabled="detail"  :class="{'is-invalid':error_upload.result}"  v-model="form.result" class="form-control" name="result">
 								</textarea>
 								<div v-if="error_upload.result" class="invalid-feedback">{{ error_upload.result }}</div>
 							</div>
@@ -69,22 +103,40 @@ export default Vue.component("PagePaper", {
 						<div class="form-group row">
 							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Conclusion*</label>
 							<div class="col-lg-9">
-								<textarea  :class="{'is-invalid':error_upload.conclusion}" v-model="paper.conclusion"  class="form-control" name="conclusion">
+								<textarea :disabled="detail"  :class="{'is-invalid':error_upload.conclusion}" v-model="form.conclusion"  class="form-control" name="conclusion">
 								</textarea>
 								<div v-if="error_upload.conclusion" class="invalid-feedback">{{ error_upload.conclusion }}</div>
 							</div>
 						</div>
-						<div class="form-group row">
+						<div v-if="!detail" class="form-group row">
 							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Upload Paper *<small>(.doc,.docx,.ods)</small></label>
 							<div class="col-lg-9">
 								<input  :class="{'is-invalid':error_upload.file}" ref="file" class="form-control-file" accept=".doc,.docx,.ods"  type="file" value="">
 								<div v-if="error_upload.file" class="invalid-feedback">{{ error_upload.file }}</div>
 							</div>
 						</div>
+						<div v-if="detail" class="form-group row">
+							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Paper Link</label>
+							<div class="col-lg-9">
+								<a :href="paperUrl(form.filename)">Click Here</a>
+							</div>
+						</div>
+						<div v-if="detail && form.status == 0 && form.feedback" class="form-group row">
+							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Feedback File</label>
+							<div class="col-lg-9">
+								<a :href="feedbackUrl(form.feedback)">Click Here</a>
+							</div>
+						</div>
+						<div v-if="detail && form.message" class="form-group row">
+							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Feedback Message</label>
+							<div class="col-lg-9">
+								<span>{{ form.message }}</span>
+							</div>
+						</div>
 						<div class="form-group row">
 							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Co-Author <small>if exist</small></label>
 							<div class="col-lg-9 text-right">
-								<button type="button" class="btn btn-primary" @click="addCoAuthor">Add Co-Author</button>
+								<button v-if="!detail" type="button" class="btn btn-primary" @click="addCoAuthor">Add Co-Author</button>
 							</div>
 							<div class="col-lg-12">
 								<table class="table">
@@ -95,53 +147,40 @@ export default Vue.component("PagePaper", {
 										<th>Phone</th>
 										<th>Affiliation</th>
 									</tr>
-									<tr v-for="(n,index) in paper.co_author">
-										<td><button type="button" @click="removeAuthor(index)" class="btn btn-danger"><i class="fa fa-trash"></i></button></td>
-										<td><input type="text" v-model="n.fullname"  :name="'co_author['+index+'][fullname]'" class="form-control"/> </td>
-										<td><input type="text" v-model="n.email"  :name="'co_author['+index+'][email]'" class="form-control"/> </td>
-										<td><input type="text" v-model="n.phone"  :name="'co_author['+index+'][phone]'" class="form-control"/> </td>
-										<td><input type="text" v-model="n.affiliation" :name="'co_author['+index+'][affiliation]'" class="form-control"/> </td>
+									<tr v-for="(n,index) in form.co_author">
+										<td><button v-if="!detail" type="button" @click="removeAuthor(index)" class="btn btn-danger"><i class="fa fa-trash"></i></button></td>
+										<td><input :disabled="detail" type="text" v-model="n.fullname"  :name="'co_author['+index+'][fullname]'" class="form-control"/> </td>
+										<td><input :disabled="detail" type="text" v-model="n.email"  :name="'co_author['+index+'][email]'" class="form-control"/> </td>
+										<td><input :disabled="detail" type="text" v-model="n.phone"  :name="'co_author['+index+'][phone]'" class="form-control"/> </td>
+										<td><input :disabled="detail" type="text" v-model="n.affiliation" :name="'co_author['+index+'][affiliation]'" class="form-control"/> </td>
 									</tr>
 								</table>
 							</div>
 						</div>
 
 						<div class="form-group text-right">
-							<button :disabled="uploading" type="button" @click="uploadPaper" class="btn btn-primary">
+							<button :disabled="uploading" class="btn btn-primary" @click="mode = 0">Back</button>
+							<button v-if="detail && form.status == 0" :disabled="uploading" class="btn btn-primary" @click="detail = false;">Edit</button>
+							<button v-if="!detail" :disabled="uploading" type="button" @click="uploadPaper" class="btn btn-primary">
 								<i v-if="uploading" class="fa fa-spin fa-spinner"></i> Submit
 							</button>
 						</div>
                     </form>
-
-                </div>
-                <div v-if="paper.status == 1">
-                    <div class="alert alert-info">
-                        <h4>Your paper is under review</h4>
-                        <p>Please return to check your status later.You will be sent a notification when a decision has been made.</p>
-                    </div>
-                    <table class="table">
-                        <tr><th>Title</th><td>{{paper.title}}</td></tr>
-                        <tr><th>File Paper</th><td><a :href="paperUrl">Click here to download !</a> </td></tr>
-                        <tr><th>Submitted On</th><td>{{submitOn}}</td></tr>
-                    </table>
-                </div>
-                <div v-if="paper.status == 2">
-                    <div class="alert alert-success">
-                        <h4>Congratulation. .</h4>
-                        <p> Your paper has been accepted, Please register to events.</p>
-                    </div>
                 </div>
             </div>
         </div>
     `,
     data: function () {
         return {
+        	mode:0,
+			detail:false,
         	typeAbstract:[],
             loading: false,
             fail: false,
             paper: {},
             error_upload: {},
             uploading:false,
+			form:{co_author:[]},
         }
     },
     created() {
@@ -151,51 +190,57 @@ export default Vue.component("PagePaper", {
         '$route': 'fetchData'
     },
     computed: {
-        submitOn() {
-            if (this.paper.updated_at) {
-                return moment(this.paper.updated_at).format("DD MMM YYYY, [At] HH:mm:ss")
-            }
-            return "";
-        },
-        paperUrl() {
-            if (this.paper.filename) {
-                return this.baseUrl + "file/" + this.paper.filename;
-            }
-            return "#";
-        },
-		feedbackUrl() {
-			if (this.paper.feedback) {
-				return this.baseUrl + "file/" + this.paper.feedback;
-			}
-			return null;
-		}
+
+
     },
     methods: {
     	removeAuthor(i){
-    		this.paper.co_author.splice(i,1);
+    		this.form.co_author.splice(i,1);
 		},
 		addCoAuthor(){
-			this.paper.co_author.push({'fullname':'','email':'','phone':'','affilition':''});
+			this.form.co_author.push({'fullname':'','email':'','phone':'','affilition':''});
 		},
         fetchData() {
             var page = this;
             page.loading = true;
             $.post(this.baseUrl + "get_paper", function (res) {
-            	if(res.status == 3) {
-            		page.paper = {
-   						id:res.id,
-            			status : 3,
-						message:res.message
-					};
-				}else{
-					page.paper = res;
-				}
+				page.paper = res;
             }, "JSON").fail(function () {
                 page.fail = true;
             }).always(function () {
                 page.loading = false;
             });
         },
+		deletePaper(paper,event){
+    		var btn = event.currentTarget;
+    		var app = this;
+			Swal.fire({
+				title: "Are you sure ?",
+				text: `You will delete paper with title "${paper.title}"`,
+				type: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Yes, delete it!'
+			}).then((result) => {
+				if (result.value) {
+					btn.innerHTML = "<i class='fa fa-spin fa-spinner'></i>";
+					btn.setAttribute("disabled",true);
+					$.post(this.baseUrl+"delete_paper",paper,function (res) {
+						if(res.status){
+							app.fetchData();
+						}else{
+							Swal.fire('Fail',"Failed to delete !",'error');
+						}
+					}).fail(function () {
+						Swal.fire('Fail',"Failed to delete !",'error');
+					}).always(function () {
+						btn.innerHTML = "<i class='fa fa-trash'></i>";
+						btn.removeAttribute("disabled");
+					});
+				}
+			});
+		},
         uploadPaper() {
             var page = this;
             var fd = new FormData(this.$refs.form);
@@ -211,7 +256,8 @@ export default Vue.component("PagePaper", {
                 dataType: 'JSON',
                 success: function (response) {
                     if (response.status) {
-                        page.paper = response.paper;
+                        page.fetchData();
+						page.mode = 0;
                     } else {
                         page.error_upload = response.message;
                     }
@@ -221,6 +267,27 @@ export default Vue.component("PagePaper", {
             }).fail(function () {
                 Swal.fire('Fail',"Failed to process !",'error');
             });
-        }
+        },
+		detailPaper(row){
+			this.mode = 1;
+			this.form = row;
+			this.detail = true;
+			this.error_upload = {};
+		},
+		formatDate(date) {
+			return moment(date).format("DD MMM YYYY, [At] HH:mm:ss")
+		},
+		paperUrl(filename) {
+			if (filename) {
+				return this.baseUrl + "file/" + filename;
+			}
+			return "#";
+		},
+		feedbackUrl(feedback) {
+			if (feedback) {
+				return this.baseUrl + "file/" + feedback;
+			}
+			return null;
+		}
     }
 });

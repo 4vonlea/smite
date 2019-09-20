@@ -119,4 +119,29 @@ class Event extends Admin_Controller
         }
     }
 
+    public function delete_pricing(){
+    	if(!$this->input->method() == "post")
+    		show_404();
+    	$prices = $this->input->post('price');
+    	$ids = [];
+    	foreach($prices as $row){
+    		$ids[] = $row['id'];
+		}
+		$this->load->model(['Event_pricing_m','Transaction_detail_m']);
+    	$c = $this->Transaction_detail_m->find()->select("count(*) as c")->where_in("event_pricing_id",$ids)->get()->row_array();
+    	if($c['c'] > 0){
+    		$response['status'] = false;
+    		$response['message'] = "Cannot delete this pricing, The Pricing has been added in participant transaction !";
+		}else{
+    		$status = $this->Event_pricing_m->find()->where_in("id",$ids)->delete();
+			$response['status'] = $status;
+    		if($status == false){
+    			$response['message'] = "Failed to delete, error in server !";
+			}
+		}
+
+		$this->output->set_content_type("application/json")
+			->_display(json_encode($response));
+	}
+
 }

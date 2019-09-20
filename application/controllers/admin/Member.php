@@ -7,6 +7,9 @@ class Member extends Admin_Controller
 	{
 		$this->load->model('Category_member_m');
 		$statusList = $this->Category_member_m->find()->select('*')->get()->result_array();
+		foreach($statusList as $i=>$r){
+			$statusList[$i]['need_verify'] = (bool)$r['need_verify'];
+		}
 		$this->layout->render('member', ['statusList' => $statusList]);
 	}
 
@@ -15,7 +18,7 @@ class Member extends Admin_Controller
 	{
 		$this->load->model('Member_m');
 		$member = $this->Member_m->findOne($member_id);
-		$member->getCard($event_id)->stream("member_card.pdf");
+		$member->getCard($event_id)->stream($member->fullname."-member_card.pdf");
 	}
 
 	public function add_status()
@@ -45,6 +48,16 @@ class Member extends Admin_Controller
 		$this->output
 			->set_content_type("application/json")
 			->_display(json_encode(['status' => $status]));
+	}
+
+	public function verification_status()
+	{
+		$this->load->model('Category_member_m');
+		$status = $this->Category_member_m->findOne($this->input->post('id'));
+		$status->need_verify = $this->input->post('need_verify') == "true";
+		$this->output
+			->set_content_type("application/json")
+			->_display(json_encode(['status' => $status->save()]));
 	}
 
 	public function verify()
@@ -157,8 +170,8 @@ class Member extends Admin_Controller
 					$data['participantsCategory'] = $participantsCategory;
 					$email_message = $this->load->view('template/success_register_onsite', $data, true);
 					$attc = [
-						'invoice.pdf' => $tr->exportInvoice()->output(),
-						'payment_proof.pdf' => $tr->exportPaymentProof()->output()
+						$data['fullname'].'-invoice.pdf' => $tr->exportInvoice()->output(),
+						$data['fullname'].'-payment_proof.pdf' => $tr->exportPaymentProof()->output()
 					];
 					$this->Gmail_api->sendMessageWithAttachment($data['email'], 'Registered On Site Succesfully - Invoice, Payment Proof', $email_message, $attc);
 				}
@@ -259,6 +272,35 @@ class Member extends Admin_Controller
 		$this->load->library('upload', $config);
 		return $this->upload->do_upload($name);
 
+	}
+
+	public function delete()
+	{
+		if ($this->input->method() != 'post')
+			show_404("Page Not Found !");
+		$this->load->model(["Member_m","Transaction_m","User_account_m"]);
+		$post = $this->input->post();
+		$check = $this->Transaction_m->find()->select("count(*) as c")->where(['member_id'=>$post['id'],'status_payment'=>Transaction_m::STATUS_FINISH])
+			->get()->row_array();
+		$status = true;$message = "";
+		if($check['c'] > 0){
+			$status = false;
+			$message = "Cannot delete this member, The Member already have a transaction !";
+		}else{
+			$this->Member_m->getDB()->trans_start();
+			$this->Member_m->find()->where(['id'=>$post['id']])->delete();
+			$this->Transaction_m->find()->where(['member_id'=>$post['id']])->delete();
+			$this->User_account_m->find()->where(['username'=>$post['email']])->delete();
+			$this->Member_m->getDB()->trans_complete();
+			$status = $this->Member_m->getDB()->trans_status();
+			if($status == false)
+				$message = "Failed to delete member, error on server !";
+
+		}
+
+		$this->output
+			->set_content_type("application/json")
+			->_display(json_encode(['status' => $status, 'message' => $message]));
 	}
 
 }

@@ -64,8 +64,9 @@ export default Vue.component("PageBilling", {
 							<tr>
 								<td></td>
 								<td></td>
-								<td>
-								<button :disabled="checking_out" @click="checkout" class="btn btn-primary float-right">
+								<td class="text-right">
+								<a :href="appUrl+'member/area/download/invoice/'+current_invoice" target="_blank" class="btn btn-primary" >Download Invoice</a>
+								<button :disabled="checking_out" @click="checkout" class="btn btn-primary">
 									Checkout <i v-if="checking_out" class="fa fa-spin fa-spinner"></i>
 								</button>
 								</td>
@@ -133,6 +134,7 @@ export default Vue.component("PageBilling", {
     `,
     data: function () {
         return {
+        	current_invoice:"",
             loading: false,
             fail: false,
 			checking_out:false,
@@ -151,7 +153,7 @@ export default Vue.component("PageBilling", {
     	totalPrice(){
     		var total = 0;
 			for(var i in this.cart){
-				total+=this.cart[i].price;
+				total+=Number(this.cart[i].price);
 			}
 			return total;
 		},
@@ -246,6 +248,7 @@ export default Vue.component("PageBilling", {
 			page.fail = false;
 			$.post(this.baseUrl + "get_transaction", null, function (res) {
 				if (res.status) {
+					page.current_invoice = res.current_invoice;
 					page.cart = res.cart;
 					page.transaction = res.transaction;
 				} else {

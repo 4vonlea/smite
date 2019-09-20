@@ -79,7 +79,7 @@
 								<div class="col-lg-5">
 									<select name="role" v-model="form.model.role" class="form-control"  :class="{'is-invalid':form.validation.role}">
 										<option disabled value="">Select Role</option>
-										<option v-for="(name,index) in listRole" :value="index">{{ name }}</option>
+										<option v-for="(name,index) in listRole" :hidden="name == '<?=User_account_m::$listRole[User_account_m::ROLE_MEMBER];?>'" :disabled="name == '<?=User_account_m::$listRole[User_account_m::ROLE_MEMBER];?>'" :value="index">{{ name }}</option>
 									</select>
 									<div v-if="form.validation.role" class="invalid-feedback">
 										{{ form.validation.role }}
@@ -126,7 +126,7 @@
 									<button @click="resetPass(props)" class="btn btn-warning btn-sm">
 										<span class="fa fa-pen"></span> Reset Password
 									</button>
-									<button v-if="props.row.role != 0" @click="deleteRow(props)" class="btn btn-danger btn-sm">
+									<button v-if="props.row.role != 0 && props.row.role != <?=User_account_m::ROLE_SUPERADMIN;?>" @click="deleteRow(props)" class="btn btn-danger btn-sm">
 										<span class="fa fa-trash"></span> Delete
 									</button>
 								</div>

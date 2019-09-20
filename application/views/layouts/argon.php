@@ -167,6 +167,11 @@ $role = $this->session->user_session['role'];
 						</a>
 					</li>
 					<li class="nav-item">
+						<a class="nav-link" href="<?= base_url('admin/committee'); ?>">
+							<i class="fa fa-bookmark text-blue"></i> Committees
+						</a>
+					</li>
+					<li class="nav-item">
 						<a class="nav-link" href="<?= base_url('admin/setting'); ?>">
 							<i class="ni ni-settings text-red"></i> Setting
 						</a>

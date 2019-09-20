@@ -31,9 +31,10 @@ class Dashboard_m extends CI_Model
 	public function getParticipant($event_id){
 		$this->load->model("Transaction_m");
 
-		$rs = $this->db->select("t.id AS no_invoice,m.id AS id_member, m.fullname,m.gender,m.phone,m.email,e.name AS event_name")
+		$rs = $this->db->select("t.id AS no_invoice,m.id AS id_member, m.fullname,kt.kategory as status, m.gender,m.phone,m.email,e.name AS event_name,CONCAT('Rp ',FORMAT(td.price,2)) as price")
 			->join("transaction t","t.id = td.transaction_id")
 			->join("members m","m.id = td.member_id ")
+			->join("kategory_members kt","kt.id = m.status ")
 			->join("event_pricing ep","ep.id = td.event_pricing_id")
 			->join("events e","e.id = ep.event_id")
 			->where("event_id",$event_id)->where("status_payment",Transaction_m::STATUS_FINISH)

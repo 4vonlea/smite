@@ -125,8 +125,16 @@
 						<td colspan="3">{{ amount }}</td>
 					</tr>
 					<tr>
+						<th>Channel Payment</th>
+						<td colspan="3">{{ detailModel.channel }}</td>
+					</tr>
+					<tr>
 						<th>Status</th>
 						<td colspan="3">{{ detailModel.status_payment.toUpperCase() }}</td>
+					</tr>
+					<tr>
+						<th>{{ detailModel.channel == 'EDC' || detailModel.channel == 'MANUAL TRANSFER' ? 'Code Reference' : 'Additional Info' }}</th>
+						<td colspan="3">{{ detailModel.message_payment }}</td>
 					</tr>
 					<tr>
 						<th class="text-center" colspan="4">Details</th>

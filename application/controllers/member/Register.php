@@ -12,17 +12,20 @@ class Register extends MY_Controller
     }
 
     public function index(){
+		$this->load->model('Category_member_m');
+
+		$status = $this->Category_member_m->find()->select("id,kategory,need_verify")->get()->result_array();
         if($this->input->post()){
             $this->load->model(['Member_m','User_account_m','Gmail_api']);
 			$this->load->library('Uuid');
 
             $data = $this->input->post();
             $data['id'] = Uuid::v4();
-
-            if($this->Member_m->validate($data) && $this->handlingProof('proof',$data['id'])){
-
+			$status = Category_member_m::withKey($status,"id");
+			$need_verify = ($status[$data['status']]['need_verify'] == "1");
+            if($this->Member_m->validate($data) && $this->handlingProof('proof',$data['id'],$need_verify)){
                 $data['username_account'] = $data['email'];
-                $data['verified_by_admin'] = 0;
+                $data['verified_by_admin'] = !$need_verify;
                 $data['verified_email'] = 0;
                 $data['region'] = 0;
                 $data['country'] = 0;
@@ -53,9 +56,8 @@ class Register extends MY_Controller
         }else{
 
             $this->load->helper("form");
-            $this->load->model('Category_member_m');
-            $participantsCategory = Category_member_m::asList(Category_member_m::findAll(), 'id', 'kategory','Please Select your status');
-            $this->layout->render('member/register',['participantsCategory'=>$participantsCategory]);
+            $participantsCategory = Category_member_m::asList($status, 'id', 'kategory','Please Select your status');
+            $this->layout->render('member/register',['participantsCategory'=>$participantsCategory,'statusList'=>$status]);
 
         }
     }
@@ -83,7 +85,10 @@ class Register extends MY_Controller
      * @param $name
      * @return boolean
      */
-    protected function handlingProof($name,$filename){
+    protected function handlingProof($name,$filename,$need_upload){
+    	if($need_upload == false)
+    		return true;
+
         $config['upload_path']          = './application/uploads/proof/';
         $config['allowed_types']        = Member_m::$proofExtension;
         $config['max_size']             = 2048;

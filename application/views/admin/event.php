@@ -85,11 +85,17 @@
 												   v-model="form.model.held_in"
 												   placeholder="Example RSUD Banjarmasin">
 										</div>
+										<div class="form-group focused">
+											<label class="form-control-label" for="input-username">Kouta</label>
+											<input :disabled="detailMode" type="text" class="form-control form-control-alternative"
+												   v-model="form.model.kouta"
+												   placeholder="">
+										</div>
 									</div>
                                     <div class="col-lg-6">
                                         <div class="form-group focused">
                                             <label class="form-control-label">Description</label>
-                                            <textarea :disabled="detailMode" v-model="form.model.description" rows="4"
+                                            <textarea :disabled="detailMode" v-model="form.model.description" rows="6"
                                                       class="form-control form-control-alternative"></textarea>
                                         </div>
                                     </div>
@@ -102,6 +108,7 @@
                                 <button v-if="!detailMode" type="button" class="btn btn-primary btn-sm" v-on:click="addPricing"><i
                                             class="fa fa-plus"></i> Add Price Category
                                 </button>
+
                             </h6>
                             <div class="pl-lg-4">
                                 <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
@@ -109,7 +116,12 @@
                                         v-bind:key="'m'+index">
                                         <a class="nav-link" v-bind:class="[index == 0 ? 'active':'']"
                                            id="pills-home-tab" data-toggle="pill" v-bind:href="'#pills-'+index"
-                                           role="tab" aria-controls="pills-home" aria-selected="true">{{eventPrice.name}}</a>
+                                           role="tab" aria-controls="pills-home" aria-selected="true">
+											{{eventPrice.name}}
+											<span style="border-left: 1px solid;height: 100%; padding: 0px 5px"></span>
+											<button v-if="!detailMode" type="button" class="btn btn-danger btn-sm fa fa-trash" v-on:click="deletePricing(index,$event)"></button>
+										</a>
+
                                     </li>
                                 </ul>
                                 <div class="tab-content">
@@ -158,37 +170,41 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row" v-for="(cat,index) in eventPrice.price" v-bind:key="index">
-											<div class="col-lg-1">
-												<div class="custom-control custom-checkbox">
-													<span v-if="index==0">
-														<label class="form-control-label" >Show</label><br/>
-													</span>
+										<table class="table">
+											<thead>
+												<tr>
+													<th>Show</th>
+													<th>Category Participant</th>
+													<th>Price</th>
+<!--													<td></td>-->
+												</tr>
+											</thead>
+											<tbody>
+											<tr v-for="(cat,index) in eventPrice.price" v-bind:key="index">
+												<td>
 													<input type="checkbox" value="1" v-model="cat.show" :disabled="detailMode" />
-												</div>
-											</div>
-                                            <div class="col-lg-6">
-                                                <div class="form-group">
-                                                    <label class="form-control-label" v-if="index==0" for="input-email">Category
-                                                        Participants</label>
-                                                    <input :disabled="detailMode" type="text" readonly v-model="cat.condition"
-                                                           class="form-control"/>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-5">
-                                                <div class="form-group">
-                                                    <label class="form-control-label" v-if="index==0">Price</label>
-                                                    <div class="input-group input-group-alternative">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text">IDR</span>
-                                                        </div>
-                                                        <money :disabled="detailMode" v-model="cat.price"
-                                                               v-bind="money"
-                                                               class="form-control"></money>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+												</td>
+												<td>
+													<input :disabled="detailMode" type="text" readonly v-model="cat.condition"
+														   class="form-control"/>
+												</td>
+												<td>
+													<div class="input-group input-group-alternative">
+														<div class="input-group-prepend">
+															<span class="input-group-text">IDR</span>
+														</div>
+														<money :disabled="detailMode" v-model="cat.price"
+															   v-bind="money"
+															   class="form-control"></money>
+													</div>
+												</td>
+<!--												<td>-->
+<!--													<button type="button" @click="removePricing(cat.id,index)" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> </button>-->
+<!--												</td>-->
+											</tr>
+											</tbody>
+
+										</table>
                                     </div>
                                 </div>
 
@@ -433,8 +449,47 @@
                         Swal.fire("Failed","Failed to save !","error");
                     });
                 }
-
             },
+			deletePricing(index,ev){
+                var page = app;
+                var item = page.form.model.event_pricing[index];
+                Swal.fire({
+                    title: "Are you sure ?",
+                    text: `You will delete "${item.name}" From Pricing`,
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if(result.value){
+                        if (item.price.filter(e => e.id).length > 0) {
+                            var url = "<?=base_url('admin/event/delete_pricing');?>";
+                            ev.target.innerHTML = "<i class='fa fa-spin fa-spinner'></i>";
+                            ev.target.setAttribute("disabled",true);
+                            $.post(url,item,null,'JSON')
+                                .done(function (res) {
+                                    if(res.status){
+                                        page.form.model.event_pricing.splice(index,1);
+                            		}else{
+                                        Swal.fire("Failed",res.message,"error");
+                            		}
+                                }).fail(function (xhr) {
+                                Swal.fire("Failed","Failed to load data !","error");
+                            }).always(function () {
+                                ev.target.innerHTML = "";
+                                ev.target.removeAttribute("disabled");
+                            });
+                        }else{
+                            page.form.model.event_pricing.splice(index,1);
+                        }
+
+                    }
+                });
+			},
+			removePricing(id,index){
+				console.log(id);
+			},
             removeEventCategory:function(index){
                 var value = tempCategory[index];
                 tempCategory.splice(index,1);

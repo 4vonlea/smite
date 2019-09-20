@@ -88,7 +88,8 @@ class Site extends MY_Controller
 
     public function register()
     {
-        $this->layout->render('site/register');
+    	redirect("member/register");
+//        $this->layout->render('site/register');
     }
 
     public function forget()

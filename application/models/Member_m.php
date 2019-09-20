@@ -7,7 +7,7 @@ class Member_m extends MY_Model
 
 	public $fillable = ['id', 'image', 'email', 'fullname', 'gender', 'phone', 'birthday', 'country', 'region', 'city', 'address', 'username_account', 'status', 'verified_by_admin', 'verified_email',];
 
-	public static $proofExtension = "jpg|png|pdf";
+	public static $proofExtension = "jpg|png|jpeg";
 
 	public function rules()
 	{

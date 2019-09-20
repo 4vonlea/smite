@@ -72,7 +72,7 @@ $client_key = $config['client_key'];
 </div>
 <?php $this->layout->begin_script(); ?>
 <script type="text/javascript"
-		src="https://app.sandbox.midtrans.com/snap/snap.js"
+		src="https://app.midtrans.com/snap/snap.js"
 		data-client-key="<?=$client_key;?>"></script>
 
 <script src="<?= base_url("themes/script/sweetalert2@8.js"); ?>"></script>

@@ -33,17 +33,16 @@ $bg = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcgAAAJyCAYAAABAGFBkAAAABGd
 			</td>
 		</tr>
 	</table>
-	<div style="margin-top: 8cm">
-		<h2>PESERTA</h2>
-		<h2>
+	<div style="margin-top: 7.5cm">
+		<h2 style="font-size: 40px;margin-bottom: 10px">PESERTA</h2>
+		<h2 style="margin-top: 10px">
 			"<?= $event['name']; ?>"
-			<br/>
 		</h2>
-		<h2>Tema:</h2>
-		<p>"<?= $event['theme']; ?>"</p>
-		<h3><?= $event['held_on']; ?></h3>
-		<h3><?= $event['held_in']; ?></h3>
-		<h1 style="text-transform: uppercase;"><?=$member['fullname'];?></h1>
+		<h2 style="margin-bottom: 0px">Tema:</h2>
+		<p style="margin: 5px">"<?= $event['theme']; ?>"</p>
+		<p style="margin: 5px;font-weight: bold"><?= $event['held_on']; ?></p>
+		<p style="margin: 5px;font-weight: bold"><?= $event['held_in']; ?></p>
+		<h1 style="text-transform: uppercase;font-size:40px;margin-top:10px"><?=$member['fullname'];?></h1>
 	</div>
 </div>
 
