@@ -134,9 +134,17 @@ class Area extends MY_Controller
 			$transaction->id = $id;
 		}
 		$detail = $this->Transaction_detail_m->findOne(['transaction_id'=>$transaction->id,'event_pricing_id'=>$data['id']]);
+		$fee = $this->Transaction_detail_m->findOne(['transaction_id'=>$transaction->id,'event_pricing_id'=>0]);
 		if(!$detail){
 			$detail = new Transaction_detail_m();
 		}
+		$feeAlready = false;
+		if(!$fee){
+			$fee = new Transaction_detail_m();
+		}else{
+			$feeAlready = true;
+		}
+
 		if($this->Event_m->validateFollowing($data['id'],$this->session->user_session['status_name'])) {
 			$detail->event_pricing_id = $data['id'];
 			$detail->transaction_id = $transaction->id;
@@ -144,6 +152,14 @@ class Area extends MY_Controller
 			$detail->member_id = $this->session->user_session['id'];
 			$detail->product_name = "$data[event_name] ($data[member_status])";
 			$detail->save();
+			if($data['price'] > 0 && $feeAlready == false){
+				$fee->event_pricing_id = 0;//$data['id'];
+				$fee->transaction_id = $transaction->id;
+				$fee->price = "6000";//$data['price'];
+				$fee->member_id = $this->session->user_session['id'];
+				$fee->product_name = "Fee Payment Online";
+				$fee->save();
+			}
 		}else{
 			$response['status'] = false;
 			$response['message'] = "You are prohibited from following !";
@@ -187,6 +203,13 @@ class Area extends MY_Controller
     	$id = $this->input->post('id');
 		$this->load->model(["Transaction_detail_m"]);
 		$this->Transaction_detail_m->delete($id);
+		$count = $this->Transaction_detail_m->find()->select("SUM(price) as c")
+			->where('transaction_id',$this->input->post("transaction_id"))
+			->where('event_pricing_id > ',"0")
+			->get()->row_array();
+		if($count['c'] == 0){
+			$this->Transaction_detail_m->delete(['event_pricing_id'=>0,'transaction_id'=>$this->input->post("transaction_id")]);
+		}
 		$this->output->set_content_type("application/json")
 			->_display('{"status":true}');
 	}

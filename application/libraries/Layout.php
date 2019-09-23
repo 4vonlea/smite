@@ -8,6 +8,7 @@ class Layout {
      */
 	protected $ci;
 	protected $menu_active;
+	protected $additional_head;
     protected $base_view = "";
     protected $breadcrumb = "";
     protected $script_js;
@@ -73,6 +74,7 @@ class Layout {
 		$dataLayout['active_menu'] = (isset($dataLayout['active_menu'])) ? $dataLayout['active_menu']: $this->menu_active;
 		$dataLayout['breadcrumb'] = ($this->breadcrumb == ""?str_replace("_"," ",$this->ci->router->class):$this->breadcrumb);
         $dataLayout['script_js'] = $this->script_js;
+        $dataLayout['additional_head'] = $this->additional_head;
 
 		$this->ci->load->view($this->layout,array_merge($dataLayout,array('content'=>$content)));
 	}
@@ -85,4 +87,18 @@ class Layout {
         $this->ci->output->set_content_type("application/javascript");
         $this->ci->load->view($this->base_view.$view,$data);
     }
+
+	/**
+	 * Flag as a start js script
+	 */
+	public function begin_head(){
+		ob_start();
+	}
+
+	/**
+	 * Flag as a end js script
+	 */
+	public function end_head(){
+		$this->additional_head = ob_get_clean();
+	}
 }

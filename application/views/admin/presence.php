@@ -214,7 +214,7 @@
                 app.pageCheck = {lastResult: "None"};
                 if (scanner) {
                     scanner.stop();
-                    this.modeCheck = false;
+                    this.mode = 0;
                 }
             },
             fetchDetail() {
@@ -270,7 +270,7 @@
                 $.post("<?=base_url('admin/presence/get_data');?>", {id: row.id_event}, function (res) {
                     if (res.status) {
                         app.pageCheck.data = res.data;
-                        app.modeCheck = true;
+                        app.mode = 1;
                         app.pageCheck.event = {id: row.id_event, name: row.name};
                         app.pageCheck.numberParticipant = row.number_participant;
 
@@ -309,13 +309,10 @@
                                     timeOut = setTimeout(() => app.pageCheck.lastResult = "None", 5000);
                                 }
                             }
-
-
                             QrScanner.hasCamera().then(hasCamera => camHasCamera.textContent = hasCamera);
                             scanner = new QrScanner(video, result => setResult(result));
                             scanner.start();
                             scanner.setInversionMode("both");
-
                         });
                     } else {
                         Swal.fire("Failed", "Failed to load data !", "error");
