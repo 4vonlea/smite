@@ -28,6 +28,13 @@
                                                 <span class="info text-4">
                                                     +62 812 5406 4731
                                                 </span>
+                                                
+                                            </span>
+                                        </a>
+                                        
+                                        <a href="" class="text-decoration-none" target="_blank" title="Call Us">
+                                            <span class="custom-call-to-action-2 text-color-light text-3 custom-opacity-font" style="color:#3f7a5e !important">
+                                                dr. Dita: paper/scientific
                                                 <span class="info text-4">
                                                     +62 823 5859 9991 (call only)
                                                 </span>
@@ -36,10 +43,9 @@
                                                 </span>
                                             </span>
                                         </a>
-                                        
                                         <a href="" class="text-decoration-none" target="_blank" title="Call Us">
                                             <span class="custom-call-to-action-2 text-color-light text-3 custom-opacity-font" style="color:#3f7a5e !important">
-                                                dr. Dita: paper/scientific
+                                                Yessi: Bakti Sosial
                                                 <span class="info text-4">
                                                     +62 853 9197 1225
                                                 </span>
