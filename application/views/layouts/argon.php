@@ -3,6 +3,7 @@
  * @var $content
  * @var $breadcrumb
  * @var $script_js
+ * @var $additional_head
  */
 $role = $this->session->user_session['role'];
 ?>
@@ -67,6 +68,7 @@ $role = $this->session->user_session['role'];
 			width: 10%;
 		}
 	</style>
+	<?=$additional_head;?>
 </head>
 
 <body>
@@ -193,6 +195,12 @@ $role = $this->session->user_session['role'];
 						<a class="nav-link"
 						   href="<?= base_url("admin/presence"); ?>">
 							<i class="ni ni-bullet-list-67 text-green"></i> Presence check
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link"
+						   href="<?= base_url("admin/administration"); ?>">
+							<i class="fa fa-book text-green"></i> Administration
 						</a>
 					</li>
 				</ul>

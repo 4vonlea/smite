@@ -47,9 +47,9 @@ export default Vue.component("PageBilling", {
 							<th>Pricing</th>
 						</thead>
 						<tbody>
-							<tr v-for="item in cart">
+							<tr v-for="item in cartSort">
 								<td>
-									<a @click="unfollow(item)" href="#billing" title="Remove item" class="fa fa-trash text-danger"></a>
+									<a v-if="item.event_pricing_id != '0'" @click="unfollow(item)" href="#billing" title="Remove item" class="fa fa-trash text-danger"></a>
 								</td>
 								<td>{{ item.product_name}}</td>
 								<td>{{ formatCurrency(item.price) }}</td>
@@ -164,6 +164,11 @@ export default Vue.component("PageBilling", {
 					price += this.detailModel.details[d].price;
 			}
 			return this.formatCurrency(price);
+		},
+		cartSort(){
+    		return this.cart.sort(function (a,b) {
+				return (a.event_pricing_id > b.event_pricing_id) ? -1:1;
+			})
 		}
 	},
 	methods: {

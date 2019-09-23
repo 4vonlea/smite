@@ -64,17 +64,21 @@ class Site extends MY_Controller
                 if (User_account_m::verify($username, $password)) {
                     $this->load->library('session');
                     $user = $this->User_account_m->findWithBiodata($username);
-                    unset($user['password']);
-                    if ($rememberme) {
-                        $user['rememberme'] = true;
-                        $this->session->set_userdata("rememberme", true);
-                        $this->session->set_userdata('sess_expired', time() + 60 * 60 * 24 * 7);
-                    } else {
-                        $this->session->set_userdata('sess_expired', time() + 3600);
+                    if($user['verified_email'] == "0")
+                    	$error = "You cannot login, <br/>Please complete your account activation within link in your email!";
+                    else {
+						unset($user['password']);
+						if ($rememberme) {
+							$user['rememberme'] = true;
+							$this->session->set_userdata("rememberme", true);
+							$this->session->set_userdata('sess_expired', time() + 60 * 60 * 24 * 7);
+						} else {
+							$this->session->set_userdata('sess_expired', time() + 3600);
 
-                    }
-                    $this->session->set_userdata('user_session', $user);
-                    redirect(base_url("member/area"));
+						}
+						$this->session->set_userdata('user_session', $user);
+						redirect(base_url("member/area"));
+					}
                 } else {
                     $error = "Email/Password invalid !";
                 }

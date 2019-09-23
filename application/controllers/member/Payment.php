@@ -55,7 +55,7 @@ class Payment extends MY_Controller
 			else if ($transaction == 'deny') {
 				$update['status_payment'] = Transaction_m::STATUS_UNFINISH;
 			}
-//			$update['message_payment'] = $notif->status_message;
+			$update['checkout'] = 1;//$notif->status_message;
 			$this->Transaction_m->update($update, $notif->order_id);
 			if($update['status_payment'] == Transaction_m::STATUS_FINISH){
 				$this->load->model("Gmail_api");

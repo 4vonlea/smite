@@ -2,6 +2,15 @@
 /**
  * @var $admin_paper
  */
+$this->layout->begin_head();
+?>
+<style>
+	.table th, .table td{
+		white-space: normal !important;
+	}
+</style>
+<?php
+$this->layout->end_head();
 ?>
 <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
 	<div class="container-fluid">
@@ -86,7 +95,7 @@
 			<div class="card-header">
 				<div class="row">
 					<div class="col-6">
-						<h3>Transaction</h3>
+						<h3>Papers</h3>
 					</div>
 				</div>
 			</div>
@@ -113,7 +122,7 @@
 							<button @click="detail(props)" class="btn btn-info btn-sm">
 								<span class="fa fa-search"></span> Detail
 							</button>
-							<button v-if="props.row.status == 1" @click="review(props)" class="btn btn-warning btn-sm">
+							<button @click="review(props)" class="btn btn-warning btn-sm">
 								<span class="fa fa-edit"></span> review
 							</button>
 							<?php if($this->session->user_session['role'] != User_account_m::ROLE_ADMIN_PAPER):?>
@@ -137,14 +146,14 @@
 				<h4 class="modal-title">Set Reviewer</h4>
 			</div>
 			<div class="modal-body">
-				<table class="table">
+				<table class="table" style="white-space: normal !important;">
 					<tr>
 						<th style="width: 30%">Author Name</th>
 						<td>{{ reviewModel.author }}</td>
 					</tr>
 					<tr>
 						<th>Title</th>
-						<td style="white-space: normal !important;">{{ reviewModel.title }}</td>
+						<td >{{ reviewModel.title }}</td>
 					</tr>
 					<tr>
 						<th>Submitted On</th>
@@ -183,7 +192,7 @@
 				<div v-if="validation" class="alert alert-danger">
 					<span v-html="validation"></span>
 				</div>
-				<table class="table">
+				<table class="table" style="white-space: normal !important;">
 					<tr>
 						<th>Submitted On</th>
 						<td>{{ formatDate(reviewModel.t_updated_at) }}</td>
@@ -330,7 +339,7 @@
                 }catch (e) {
                     console.log(e);
                 }
-                this.reviewModel.link = `<?=base_url("admin/paper/file");?>/${row.row.filename}`;
+                this.reviewModel.link = `<?=base_url("admin/paper/file");?>/${row.row.filename}/${row.row.author}`;
                 this.reviewModel.link_feedback = `<?=base_url("admin/paper/file");?>/${row.row.feedback}`;
                 $("#modal-review").modal('show');
             },
