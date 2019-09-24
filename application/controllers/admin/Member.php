@@ -124,7 +124,7 @@ class Member extends Admin_Controller
 
 				$data['username_account'] = $data['email'];
 				$data['verified_by_admin'] = 1;
-				$data['verified_email'] = 0;
+				$data['verified_email'] = 1;
 				$data['region'] = 0;
 				$data['country'] = 0;
 				$data['image'] = "";// $upl['file_name'];

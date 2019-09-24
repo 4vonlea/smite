@@ -96,6 +96,7 @@ class Area extends MY_Controller
 		$this->output->set_content_type("application/json")
 			->_display(json_encode(['status'=>$status]));
 	}
+
     public function get_paper(){
         if($this->input->method() !== 'post')
             show_404("Page not found !");
@@ -342,5 +343,13 @@ class Area extends MY_Controller
 			$tr->exportPaymentProof()->stream($member->fullname."-Payment_Proof.pdf");
 		else
 			show_404();
+	}
+
+	public function count_followed_events(){
+		$this->load->model(['Transaction_m','Member_m']);
+		$c = $this->Member_m->countFollowedEvent($this->session->user_session['id']);
+		$this->output
+			->set_content_type("application/json")
+			->_display(json_encode(['status'=>true,'count'=>$c]));
 	}
 }

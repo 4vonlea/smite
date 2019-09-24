@@ -173,7 +173,7 @@ class Event_m extends MY_Model
 				}
 			}
 			$added = ($row['followed'] != null && $row['checkout'] == 0 ? 1 : 0);
-
+			$waiting_payment = ($row['checkout'] == 1 && !in_array($row['status_payment'],[Transaction_m::STATUS_FINISH,Transaction_m::STATUS_UNFINISH,Transaction_m::STATUS_EXPIRE,Transaction_m::STATUS_DENY]));
 			if ($temp != $row['event_name']) {
 				$index++;
 				$return[$index] = [
@@ -187,7 +187,7 @@ class Event_m extends MY_Model
 						[
 							'name' => $row['name_pricing'],
 							'title' => $title,
-							'pricing' => [$row['condition'] => ['id' => $row['id_price'], 'price' => $row['price_r'], 'available' => $avalaible, 'added' => $added]]
+							'pricing' => [$row['condition'] => ['id' => $row['id_price'], 'price' => $row['price_r'], 'available' => $avalaible, 'added' => $added,'waiting_payment'=>$waiting_payment]]
 						]
 					],
 					'memberStatus' => [$row['condition']]
@@ -196,6 +196,9 @@ class Event_m extends MY_Model
 				$pId = 0;
 				$temp = $row['event_name'];
 			} else {
+				if($return[$index]['followed'] == false && ($row['checkout'] == 1 && $row['followed'] != null && $row['status_payment'] == Transaction_m::STATUS_FINISH)){
+					$return[$index]['followed'] = true;
+				}
 				if (!in_array($row['condition'], $return[$index]['memberStatus']))
 					$return[$index]['memberStatus'][] = $row['condition'];
 				if ($tempPricing != $row['name_pricing']) {
@@ -203,12 +206,12 @@ class Event_m extends MY_Model
 					$return[$index]['pricingName'][$pId] = [
 						'name' => $row['name_pricing'],
 						'title' => $title,
-						'pricing' => [$row['condition'] => ['id' => $row['id_price'], 'price' => $row['price_r'], 'available' => $avalaible, 'added' => $added]]
+						'pricing' => [$row['condition'] => ['id' => $row['id_price'], 'price' => $row['price_r'], 'available' => $avalaible, 'added' => $added,'waiting_payment'=>$waiting_payment]]
 					];
 					$tempPricing = $row['name_pricing'];
 				} else {
-					if ($row['checkout'] == 0)
-						$return[$index]['pricingName'][$pId]['pricing'][$row['condition']] = ['id' => $row['id_price'], 'price' => $row['price_r'], 'available' => $avalaible, 'added' => $added];
+					if ($row['checkout'] == 0 || $waiting_payment)
+					$return[$index]['pricingName'][$pId]['pricing'][$row['condition']] = ['id' => $row['id_price'], 'price' => $row['price_r'], 'available' => $avalaible, 'added' => $added,'waiting_payment'=>$waiting_payment];
 				}
 			}
 

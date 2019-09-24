@@ -30,9 +30,10 @@ export default Vue.component("PagePaper", {
 								<td>{{ pap.type }}</td>
 								<td style="white-space: normal !important;">{{ pap.title }}</td>
 								<td>
-									<span class="badge"  :class="[ pap.status == 2 ?'badge-success': pap.status == 3 ? 'badge-danger':'badge-info' ]">
+									<span style="font-size: 14px" class="badge"  :class="[ pap.status == 2 ?'badge-success': pap.status == 3 ? 'badge-danger':'badge-info' ]">
 										{{ paper.status[pap.status] }}
 									</span>
+									(Presentation on {{ pap.type_presence }})
 								</td>
 								<td>{{ formatDate(pap.created_at) }}</td>
 								<td>

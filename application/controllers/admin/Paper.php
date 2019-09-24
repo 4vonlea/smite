@@ -56,6 +56,7 @@ class Paper extends Admin_Controller
 				$model->feedback = $filename;
 			}
 			$model->status = $data['status'];
+			$model->type_presence = $data['type_presence'];
 			$model->reviewer = (isset($data['reviewer']) ? $data['reviewer'] : "");
 			if(isset($data['message']))
 				$model->message = $data['message'];

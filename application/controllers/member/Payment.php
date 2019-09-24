@@ -74,7 +74,14 @@ class Payment extends MY_Controller
 	public function after_checkout(){
 		$data = $this->input->post();
 		$this->load->model("Transaction_m");
-		$this->Transaction_m->update(['checkout'=>1,'message_payment'=>$data['message_payment'],'created_at'=>date("Y-m-d H:i:s")],$data['id']);
+		$checkout = 1;
+		if($this->input->post('error')){
+			$checkout = 0;
+		}
+
+		if(is_array($data['message_payment']))
+			$message_payment = implode(",",$data['message_payment']);
+		$this->Transaction_m->update(['checkout'=>$checkout,'message_payment'=>$message_payment,'created_at'=>date("Y-m-d H:i:s")],$data['id']);
 	}
 
 	public function checkout(){

@@ -154,7 +154,7 @@
 			<div class="modal-footer">
 				<button v-if="detailModel.status_payment != '<?=Transaction_m::STATUS_FINISH;?>'" @click="verifyPayment" type="button" class="btn btn-primary" :disabled="verifying">
 					<i v-if="verifying" class="fa fa-spin fa-spinner"></i>
-					Verified Payment
+					Verify Payment
 				</button>
 				<a :href="'<?=base_url('admin/transaction/download/invoice');?>/'+detailModel.id" target="_blank" v-if="detailModel.status_payment == '<?=Transaction_m::STATUS_FINISH;?>'" class="btn btn-primary" >Download Invoice</a>
 				<a :href="'<?=base_url('admin/transaction/download/proof');?>/'+detailModel.id" target="_blank" v-if="detailModel.status_payment == '<?=Transaction_m::STATUS_FINISH;?>'" class="btn btn-primary" >Download Payment Proof</a>
@@ -180,7 +180,7 @@
                 var price = 0;
                 for(var d in this.detailModel.details){
                     if(this.detailModel.details[d])
-                        price += this.detailModel.details[d].price;
+                        price += Number(this.detailModel.details[d].price);
 				}
                 return this.formatCurrency(price);
 			}

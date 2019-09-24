@@ -21,6 +21,8 @@ class Transaction_m extends MY_Model
 	const STATUS_WAITING = "waiting";
 	const STATUS_PENDING = "pending";
 	const STATUS_UNFINISH = "unfinish";
+	const STATUS_EXPIRE = "expire";
+	const STATUS_DENY = "deny";
 
 	public function gridConfig($options = array())
 	{

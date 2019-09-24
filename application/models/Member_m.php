@@ -17,8 +17,8 @@ class Member_m extends MY_Model
 			['field' => 'confirm_password', 'rules' => 'required|matches[password]'],
 			['field' => 'status', 'rules' => 'required'],
 			['field' => 'fullname', 'rules' => 'required|max_length[100]'],
-			['field' => 'address', 'rules' => 'required'],
-			['field' => 'city', 'rules' => 'required'],
+//			['field' => 'address', 'rules' => 'required'],
+//			['field' => 'city', 'rules' => 'required'],
 			['field' => 'phone', 'rules' => 'required|numeric'],
 			['field' => 'birthday', 'rules' => 'required'],
 		];
@@ -67,5 +67,22 @@ class Member_m extends MY_Model
 		$dompdf->render();
 		$dompdf->setPaper("A5", "portrait");
 		return $dompdf;
+	}
+
+	/**
+	 * @param null $id
+	 * @return int
+	 */
+	public function countFollowedEvent($id = null){
+		if($id == null)
+			$id = $this->id;
+		$this->load->model("Transaction_m");
+		return $this->setAlias("t")->find()->select("count(*) as ev")
+			->join("transaction tr","tr.member_id = t.id")
+			->join("transaction_details td","td.transaction_id = tr.id")
+			->where("event_pricing_id > 0")
+			->where("t.id",$id)
+			->where("tr.status_payment",Transaction_m::STATUS_FINISH)
+			->get()->row()->ev;
 	}
 }

@@ -161,7 +161,7 @@ export default Vue.component("PageBilling", {
 			var price = 0;
 			for(var d in this.detailModel.details){
 				if(this.detailModel.details[d])
-					price += this.detailModel.details[d].price;
+					price += Number(this.detailModel.details[d].price);
 			}
 			return this.formatCurrency(price);
 		},
@@ -197,7 +197,7 @@ export default Vue.component("PageBilling", {
 								});
 							},
 							onError: function(result){
-								$.post(page.appUrl+"member/payment/after_checkout",{id:res.invoice,message_payment:result.status_message},function () {
+								$.post(page.appUrl+"member/payment/after_checkout",{id:res.invoice,message_payment:result.status_message,error:'error'},function () {
 									page.fetchTransaction();
 								});
 							}
@@ -274,7 +274,7 @@ export default Vue.component("PageBilling", {
 		sumPrice(detail){
     		var total = 0;
     		for(var dt in detail){
-    			total+= detail[dt].price;
+    			total+= Number(detail[dt].price);
 			}
     		return this.formatCurrency(total);
 		}
