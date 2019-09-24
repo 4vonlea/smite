@@ -65,8 +65,23 @@ class Payment extends MY_Controller
 				$invoice = $tr->exportInvoice()->output();
 				$this->Gmail_api->sendMessageWithAttachment($member->email,"INVOICE","Thank you for participating on events, Below is your invoice",$invoice,"INVOICE.pdf");
 
-				$file = $tr->exportPaymentProof()->output();
-				$this->Gmail_api->sendMessageWithAttachment($member->email,"Official Payment Proof","Thank you for registering and fulfilling your payment, below is offical payment proof",$file,"OFFICIAL_PAYMENT_PROOF.pdf");
+				$details = $tr->detailsWithEvent();
+				$file = [];
+				foreach($details as $row){
+					if($row->event_name) {
+						$event = ['name' => $row->event_name,
+							'held_on' => $row->held_on,
+							'held_in' => $row->held_in,
+							'theme' => $row->theme
+						];
+						$file[$row->event_name.".pdf"] = $member->getCard($event)->output();
+					}
+				}
+				$file['Payment Proof'] = $tr->exportPaymentProof()->output();
+				$this->Gmail_api->sendMessageWithAttachment($member->email,"Official Payment Proof And Participant Card","Thank you for registering and fulfilling your payment, below is offical payment proof",$file,"OFFICIAL_PAYMENT_PROOF.pdf");
+
+//				$file = $tr->exportPaymentProof()->output();
+//				$this->Gmail_api->sendMessageWithAttachment($member->email,"Official Payment Proof-And Member Card","Thank you for registering and fulfilling your payment, below is offical payment proof",$file,"OFFICIAL_PAYMENT_PROOF.pdf");
 			}
 		}
 	}
@@ -74,7 +89,14 @@ class Payment extends MY_Controller
 	public function after_checkout(){
 		$data = $this->input->post();
 		$this->load->model("Transaction_m");
-		$this->Transaction_m->update(['checkout'=>1,'message_payment'=>$data['message_payment'],'created_at'=>date("Y-m-d H:i:s")],$data['id']);
+		$checkout = 1;
+		if($this->input->post('error')){
+			$checkout = 0;
+		}
+
+		if(is_array($data['message_payment']))
+			$message_payment = implode(",",$data['message_payment']);
+		$this->Transaction_m->update(['checkout'=>$checkout,'message_payment'=>$message_payment,'created_at'=>date("Y-m-d H:i:s")],$data['id']);
 	}
 
 	public function checkout(){

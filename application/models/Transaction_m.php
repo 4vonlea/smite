@@ -21,6 +21,8 @@ class Transaction_m extends MY_Model
 	const STATUS_WAITING = "waiting";
 	const STATUS_PENDING = "pending";
 	const STATUS_UNFINISH = "unfinish";
+	const STATUS_EXPIRE = "expire";
+	const STATUS_DENY = "deny";
 
 	public function gridConfig($options = array())
 	{
@@ -63,7 +65,7 @@ class Transaction_m extends MY_Model
 		return $prefix.str_pad($no,5,"0",STR_PAD_LEFT);
 	}
 	public function detailsWithEvent(){
-		$rs = $this->db->select("t.*,e.name as event_name")
+		$rs = $this->db->select("t.*,e.name as event_name,e.theme, e.held_on,e.held_in,e.theme")
 				->join("event_pricing ep","ep.id = t.event_pricing_id","left")
 				->join("events e","e.id = ep.event_id","left")
 				->where("transaction_id",$this->id)->get("transaction_details t");

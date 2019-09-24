@@ -121,8 +121,7 @@
 						<div class="form-group row">
 							<label class="col-lg-3 control-label">Phone/WA</label>
 							<div class="col-lg-5">
-								<input type="text" :class="{ 'is-invalid':validation_error.phone} " class="form-control"
-									   name="phone"/>
+								<input type="text" :class="{ 'is-invalid':validation_error.phone} " class="form-control" @keypress="onlyNumber" name="phone"/>
 								<div v-if="validation_error.phone" class="invalid-feedback">
 									{{ validation_error.phone }}
 								</div>
@@ -151,8 +150,8 @@
 								<?= form_dropdown('channel',['CASH'=>'CASH','EDC'=>'EDC','MANUAL TRANSFER'=>'MANUAL TRANSFER'], 'CASH', [':class' => "{'is-invalid':validation_error.status}", 'class' => 'form-control', 'placeholder' => 'Select your status !', 'v-model' => 'channel']); ?>
 							</div>
 						</div>
-						<div v-if="channel != 'CASH'" class="form-group row">
-							<label class="col-lg-3 control-label">Code Reference</label>
+						<div class="form-group row">
+							<label class="col-lg-3 control-label">Code Reference/Message</label>
 							<div class="col-lg-5">
 								<input type="text" :class="{'is-invalid':validation_error.city}" class="form-control"
 									   name="message_payment"/>
@@ -174,7 +173,7 @@
 								<tr v-for="(ev,index) in filteredEvents">
 									<td>
 										<input type="checkbox" v-model="selected" name="transaction[event][]"
-											   :value="[ev.id,ev.price]"/>
+											   :value="[ev.id,ev.price,ev.product_name]"/>
 									</td>
 									<td>{{ index }}</td>
 									<td>{{ formatCurrency(ev.price) }}</td>
@@ -244,6 +243,7 @@
                             Object.keys(item.pricingName[0].pricing).forEach(function (key) {
                                 if (key == status) {
                                     rt[item.name] = item.pricingName[0].pricing[key];
+                                    rt[item.name].product_name = `${item.name} (${status})`;
                                 }
                             })
                         }
@@ -253,6 +253,13 @@
             }
         },
         methods: {
+            onlyNumber ($event) {
+                //console.log($event.keyCode); //keyCodes value
+                let keyCode = ($event.keyCode ? $event.keyCode : $event.which);
+                if ((keyCode < 48 || keyCode > 57) && keyCode !== 46) { // 46 is dot
+                    $event.preventDefault();
+                }
+            },
             register() {
                 var formData = new FormData(this.$refs.form);
                 // var birthday = moment(formData.get('birthday')).format("Y-MM-DD");

@@ -106,7 +106,7 @@
 
 
                     <div class="form-group row">
-                        <label class="col-lg-3 control-label">Address*</label>
+                        <label class="col-lg-3 control-label">Address</label>
                         <div class="col-lg-5">
                             <textarea :class="{ 'is-invalid':validation_error.address }" class="form-control" name="address"></textarea>
                             <div class="invalid-feedback">
@@ -116,7 +116,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-lg-3 control-label">City*</label>
+                        <label class="col-lg-3 control-label">City</label>
                         <div class="col-lg-5">
                             <input type="text" :class="{'is-invalid':validation_error.city}" class="form-control" name="city"/>
                             <div v-if="validation_error.city" class="invalid-feedback">
@@ -128,7 +128,7 @@
                     <div class="form-group row">
                         <label class="col-lg-3 control-label">Phone/WA*</label>
                         <div class="col-lg-5">
-                            <input type="text" :class="{ 'is-invalid':validation_error.phone} " class="form-control" name="phone"/>
+                            <input type="text" :class="{ 'is-invalid':validation_error.phone}" @keypress="onlyNumber" class="form-control" name="phone"/>
                             <div v-if="validation_error.phone" class="invalid-feedback">
                                 {{ validation_error.phone }}
                             </div>
@@ -207,7 +207,6 @@
 			    var ret = false;
 			    var app = this;
 			    $.each(this.statusList,function (i,v) {
-			        console.log(v);
 					if(v.id == app.status_selected){
 					    ret = v.need_verify == "1";
 					    return false;
@@ -217,6 +216,13 @@
 			}
 		},
         methods: {
+            onlyNumber ($event) {
+                //console.log($event.keyCode); //keyCodes value
+                let keyCode = ($event.keyCode ? $event.keyCode : $event.which);
+                if ((keyCode < 48 || keyCode > 57) && keyCode !== 46) { // 46 is dot
+                    $event.preventDefault();
+                }
+            },
             register() {
                 var formData = new FormData(this.$refs.form);
                 // var birthday = moment(formData.get('birthday')).format("Y-MM-DD");

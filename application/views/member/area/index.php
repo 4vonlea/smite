@@ -43,8 +43,7 @@ $client_key = $config['client_key'];
 				<aside class="sidebar mt-2" id="sidebar">
 					<ul class="nav nav-list flex-column mb-5">
 						<li class="nav-item">
-							<router-link active-class="active" class="nav-link text-dark" to="/profile">My Profile
-							</router-link>
+							<router-link active-class="active" class="nav-link text-dark" to="/profile">My Profile</router-link>
 						</li>
 						<li class="nav-item">
 							<router-link active-class="active" class="nav-link text-dark" to="/paper">Submit Paper

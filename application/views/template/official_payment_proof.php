@@ -56,41 +56,47 @@ $member = $transaction->member;
 		<td align="center">
 			<table class="table">
 				<tr>
-					<th>ID INVOICE</th>
-					<td>: <?=$transaction->id;?></td>
+					<th width="170">ID INVOICE</th>
+					<td width="10">:</td>
+					<td><?=$transaction->id;?></td>
 				</tr>
 				<tr>
 					<th>Nama Lengkap</th>
-					<td>: <?=$member->fullname;?></td>
+					<td>:</td>
+					<td><?=$member->fullname;?></td>
 				</tr>
 				<tr>
 					<th>Status</th>
-					<td>: <?=$member->status_member->kategory;?></td>
+					<td>:</td>
+					<td><?=$member->status_member->kategory;?></td>
 				</tr>
 				<tr>
 					<th>Acara yang diikuti</th>
+					<td>:</td>
 					<td>
-						:
+						<ul style="margin: 0px;padding-left:15px">
 							<?php
 							$total = 0;
 							foreach($transaction->detailsWithEvent() as $d){
 								$total += $d->price;
-								echo "$d->product_name</br>";
+								echo "<li>$d->product_name</li>";
 							};
 							?>
-
+						</ul>
 					</td>
 				</tr>
 				<tr>
 					<th>Total Harga</th>
-					<td>: Rp <?= number_format($total,2,",",".");?></td>
+					<td>:</td>
+					<td>Rp <?= number_format($total,2,",",".");?></td>
 				</tr>
 				<tr>
 					<th>
 						Metode Pembayaran
 					</th>
+					<td>:</td>
 					<td>
-						: <?= strtoupper($transaction->channel); ?>
+						<?= strtoupper($transaction->channel); ?>
 					</td>
 				</tr>
 			</table>

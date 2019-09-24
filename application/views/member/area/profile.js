@@ -1,5 +1,5 @@
-var PageProfile = Vue.component("PageProfile",{
-template:`
+var PageProfile = Vue.component("PageProfile", {
+	template: `
 <div class="col-lg-9">
     <page-loader :loading="loading" :fail="fail"></page-loader>
     <div v-if="!loading && !fail">
@@ -21,7 +21,10 @@ template:`
                 </div>
             </div>
         </div>
-        <div v-if="user.verified_by_admin == 0" class="alert alert-info">
+        <div v-if="countFollowed == 0" class="alert alert-info text-center">
+            <h4>You must select an event</h4>
+        </div>
+         <div v-if="user.verified_by_admin == 0" class="alert alert-info">
             <h4>Your status is under review</h4>
             <p>The current administrators need to review and approve your status. Please return to check your status later.
             You will be sent an email when a decision has been made, and <strong>you cannot follow an event before your status accepted</strong></p>
@@ -97,7 +100,13 @@ template:`
                     <button v-if="editing" @click="saveProfile" type="button" class="btn btn-primary"> Save</button>
                 </div>
             </div>
+            
         </form>
+        <div v-if="countFollowed == 0" class="row">
+        	<div class="col-md-12 text-right">    	
+				<router-link active-class="active" class="btn btn-primary" to="/events">Choose your event participation</router-link>            
+			</div>
+		</div>
         <div id="reset-password" class="modal fade" role="dialog">
             <div class="modal-dialog">
         
@@ -131,56 +140,78 @@ template:`
                         <button type="button" @click="resetPassword" :disabled="processReset" class="btn btn-primary" ><i v-if="processReset" class="fa fa-spin fa-spinner"></i> Reset</button>
                     </div>
                 </div>
-        
             </div>
         </div>
     </div>
 </div>
 `,
-    components:{
-        vuejsDatepicker
-    },
-    data:function(){
-        return {
-            loading:false,
-            fail:false,
-            user:{},
-            editing:false,
-            processReset:false,
-            reset:{},
-        }
-    },
-    methods:{
-        saveProfile(){
-            var page = this;
-            this.loading = true;
-            this.user.birthday = moment(this.user.birthday).format("YYYY-MM-DD");
-            $.post(this.baseUrl+"save_profile",this.user,function () {
-                Swal.fire('Success',"Your profile saved successfully",'success');
-                page.editing = false;
-            },'JSON').fail(function (xhr) {
-                Swal.fire('Fail',"Failed to save your profile",'error');
-            }).always(function () {
-                page.loading = false;
-            });
-        },
-        resetPassword(){
-            var page = this;
-            var data = $("#form-reset").serializeArray();
-            page.processReset = true;
-            $.post(this.baseUrl+"reset_password",data,function (res) {
-                if(res.status){
-                    $("#reset-password").modal("hide");
-                    Swal.fire('Success',"Your password reset successfully",'success');
-                }else{
-                    page.reset = res;
-                }
-            },'JSON').fail(function () {
-                Swal.fire('Fail',"Failed to process !",'error');
-            }).always(function () {
-                page.processReset = false;
-            });
-        }
-    },
+	components: {
+		vuejsDatepicker
+	},
+	data: function () {
+		return {
+			loading: false,
+			fail: false,
+			user: {},
+			editing: false,
+			processReset: false,
+			reset: {},
+			countFollowed: 0,
+		}
+	},
+	created() {
+		this.fetchCountFollowed()
+	},
+	watch: {
+		'$route': 'fetchCountFollowed'
+	},
+	methods: {
+		fetchCountFollowed() {
+			var page = this;
+			page.loading = true;
+			page.fail = false;
+			$.post(this.baseUrl + "count_followed_events", null, function (res) {
+				if (res.status) {
+					page.countFollowed = res.count;
+				} else {
+					page.fail = true;
+				}
+			}).fail(function () {
+				page.fail = true;
+			}).always(function () {
+				page.loading = false;
+			});
+		},
+		saveProfile() {
+			var page = this;
+			this.loading = true;
+			this.user.birthday = moment(this.user.birthday).format("YYYY-MM-DD");
+			$.post(this.baseUrl + "save_profile", this.user, function () {
+				Swal.fire('Success', "Your profile saved successfully", 'success');
+				page.editing = false;
+			}, 'JSON').fail(function (xhr) {
+				Swal.fire('Fail', "Failed to save your profile", 'error');
+			}).always(function () {
+				page.loading = false;
+			});
+		},
+		resetPassword() {
+			var page = this;
+			var data = $("#form-reset").serializeArray();
+			page.processReset = true;
+			$.post(this.baseUrl + "reset_password", data, function (res) {
+				if (res.status) {
+					$("#reset-password").modal("hide");
+					Swal.fire('Success', "Your password reset successfully", 'success');
+				} else {
+					page.reset = res;
+				}
+			}, 'JSON').fail(function () {
+				Swal.fire('Fail', "Failed to process !", 'error');
+			}).always(function () {
+				page.processReset = false;
+			});
+		}
+	},
 });
 export default PageProfile;

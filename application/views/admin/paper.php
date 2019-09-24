@@ -283,6 +283,24 @@ $this->layout->end_head();
 							<input type="file" name="feedback" ref="feedbackFile" class="form-control" accept=".doc,.docx,.ods" />
 						</td>
 					</tr>
+					<tr v-if="detailMode == 0">
+						<th>Type Presentation</th>
+						<td>
+							<div class="form-check-inline">
+								<label class="form-check-label">
+									<input  v-model="reviewModel.type_presence"  type="radio" name="type_presence" value="Oral">
+									Oral
+								</label>
+							</div>
+							<div class="form-check-inline">
+
+								<label class="form-check-label">
+									<input  v-model="reviewModel.type_presence" type="radio" name="type_presence" value="Poster">
+									Poster
+								</label>
+							</div>
+						</td>
+					</tr>
 				</table>
 			</div>
 
@@ -311,7 +329,6 @@ $this->layout->end_head();
             resolve(null);
         }
         reader.onerror = error => reject(error);
-
     });
 
     var app = new Vue({
