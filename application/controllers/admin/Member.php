@@ -153,6 +153,7 @@ class Member extends Admin_Controller
 					$t = explode(",", $tr);
 					$details[] = [
 						'member_id' => $data['id'],
+						'product_name' => $t[2],
 						'transaction_id' => $id_invoice,
 						'event_pricing_id' => $t[0],
 						'price' => $t[1],
@@ -173,6 +174,17 @@ class Member extends Admin_Controller
 						$data['fullname'].'-invoice.pdf' => $tr->exportInvoice()->output(),
 						$data['fullname'].'-payment_proof.pdf' => $tr->exportPaymentProof()->output()
 					];
+					$details = $tr->detailsWithEvent();
+					foreach($details as $row){
+						if($row->event_name) {
+							$event = ['name' => $row->event_name,
+								'held_on' => $row->held_on,
+								'held_in' => $row->held_in,
+								'theme' => $row->theme
+							];
+							$attc[$data['fullname']."_".$row->event_name.".pdf"] = $this->Member_m->getCard($event,$data)->output();
+						}
+					}
 					$this->Gmail_api->sendMessageWithAttachment($data['email'], 'Registered On Site Succesfully - Invoice, Payment Proof', $email_message, $attc);
 				}
 			} else {

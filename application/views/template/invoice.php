@@ -19,6 +19,11 @@ $lang['cal_november']	= "November";
 $lang['cal_december']	= "Desember";
 setlocale (LC_TIME, 'id_ID');
 ?>
+<style>
+	.table th,.table td{
+		vertical-align: top;
+	}
+</style>
 <table border="0" cellpadding="0" cellspacing="0" style="width: 660px;margin-right: auto;margin-left: auto">
 	<tbody>
 	<tr>
@@ -39,7 +44,7 @@ setlocale (LC_TIME, 'id_ID');
 				</tr>
 				</tbody>
 			</table>
-			<table border="0" cellpadding="0" cellspacing="0" style="width: 600px;">
+			<table border="0" cellpadding="0" class="table" cellspacing="0" style="width: 600px;vertical-align: top">
 				<tbody>
 				<tr>
 					<td align="center">
@@ -49,11 +54,12 @@ setlocale (LC_TIME, 'id_ID');
 								<td style="padding:5px!important" valign="top" width="170">
 									Tanggal
 								</td>
+								<td width="10">:</td>
 								<td style="padding:5px!important">
 									<?php if($transaction->checkout == 0):?>
-										: <?= date("d F Y \a\\t H:i:s A"); ?>
+										<?= date("d F Y \a\\t H:i:s A"); ?>
 									<?php else : ?>
-									: <?= date("d F Y \a\\t H:i:s A", strtotime($transaction->created_at)); ?>
+									 <?= date("d F Y \a\\t H:i:s A", strtotime($transaction->created_at)); ?>
 									<?php endif; ?>
 								</td>
 							</tr>
@@ -61,24 +67,27 @@ setlocale (LC_TIME, 'id_ID');
 								<td style="padding:5px!important" valign="top" width="170">
 									ID Invoice
 								</td>
+								<td>:</td>
 								<td style="padding:5px!important">
-									: <?= $transaction->id; ?>
+									<?= $transaction->id; ?>
 								</td>
 							</tr>
 							<tr>
 								<td style="padding:5px!important" valign="top" width="170">
 									Nama Lengkap
 								</td>
+								<td>:</td>
 								<td style="padding:5px!important">
-									: <?= $member->fullname; ?>
+									<?= $member->fullname; ?>
 								</td>
 							</tr>
 							<tr>
 								<td style="padding:5px!important" valign="top" width="170">
 									E-mail
 								</td>
+								<td>:</td>
 								<td style="padding:5px!important">
-									: <a href="mailto:<?= $member->email; ?>" rel="noreferrer" target="_blank">
+									<a href="mailto:<?= $member->email; ?>" rel="noreferrer" target="_blank">
 										<?= $member->email; ?>
 									</a>
 								</td>
@@ -87,38 +96,45 @@ setlocale (LC_TIME, 'id_ID');
 								<td style="padding:5px!important" valign="top" width="170">
 									Status
 								</td>
+								<td>:</td>
 								<td style="padding:5px!important">
-									: <?= $member->status_member->kategory; ?>
+									<?= $member->status_member->kategory; ?>
 								</td>
 							</tr>
 							<tr>
 								<td style="padding:5px!important" valign="top" width="170">
 									Acara yang diikuti
 								</td>
-								<td style="padding:5px!important">
-									:<?php
+								<td>:</td>
+								<td style="padding:5px!important;vertical-align: top">
+
+									<ul style="margin:0px;padding-left: 15px">
+									<?php
 									$total = 0;
 									foreach ($transaction->detailsWithEvent() as $d) {
 										$total += $d->price;
-										echo " $d->product_name<br/>";
+										echo "<li>$d->product_name</li>";
 									};
 									?>
+									</ul>
 								</td>
 							</tr>
 							<tr>
 								<td style="padding:5px!important" valign="top" width="170">
 									Total Harga
 								</td>
+								<td>:</td>
 								<td style="padding:5px!important">
-									: Rp <?= number_format($total, 2, ",", "."); ?>
+									Rp <?= number_format($total, 2, ",", "."); ?>
 								</td>
 							</tr>
 							<tr>
 								<td style="padding:5px!important" valign="top" width="170">
 									Metode Pembayaran
 								</td>
+								<td>:</td>
 								<td style="padding:5px!important">
-									: <?= strtoupper($transaction->channel); ?>
+									<?= strtoupper($transaction->channel); ?>
 								</td>
 							</tr>
 							</tbody>

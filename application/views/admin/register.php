@@ -173,7 +173,7 @@
 								<tr v-for="(ev,index) in filteredEvents">
 									<td>
 										<input type="checkbox" v-model="selected" name="transaction[event][]"
-											   :value="[ev.id,ev.price]"/>
+											   :value="[ev.id,ev.price,ev.product_name]"/>
 									</td>
 									<td>{{ index }}</td>
 									<td>{{ formatCurrency(ev.price) }}</td>
@@ -243,6 +243,7 @@
                             Object.keys(item.pricingName[0].pricing).forEach(function (key) {
                                 if (key == status) {
                                     rt[item.name] = item.pricingName[0].pricing[key];
+                                    rt[item.name].product_name = `${item.name} (${status})`;
                                 }
                             })
                         }

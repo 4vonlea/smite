@@ -65,8 +65,23 @@ class Payment extends MY_Controller
 				$invoice = $tr->exportInvoice()->output();
 				$this->Gmail_api->sendMessageWithAttachment($member->email,"INVOICE","Thank you for participating on events, Below is your invoice",$invoice,"INVOICE.pdf");
 
-				$file = $tr->exportPaymentProof()->output();
-				$this->Gmail_api->sendMessageWithAttachment($member->email,"Official Payment Proof","Thank you for registering and fulfilling your payment, below is offical payment proof",$file,"OFFICIAL_PAYMENT_PROOF.pdf");
+				$details = $tr->detailsWithEvent();
+				$file = [];
+				foreach($details as $row){
+					if($row->event_name) {
+						$event = ['name' => $row->event_name,
+							'held_on' => $row->held_on,
+							'held_in' => $row->held_in,
+							'theme' => $row->theme
+						];
+						$file[$row->event_name.".pdf"] = $member->getCard($event)->output();
+					}
+				}
+				$file['Payment Proof'] = $tr->exportPaymentProof()->output();
+				$this->Gmail_api->sendMessageWithAttachment($member->email,"Official Payment Proof And Participant Card","Thank you for registering and fulfilling your payment, below is offical payment proof",$file,"OFFICIAL_PAYMENT_PROOF.pdf");
+
+//				$file = $tr->exportPaymentProof()->output();
+//				$this->Gmail_api->sendMessageWithAttachment($member->email,"Official Payment Proof-And Member Card","Thank you for registering and fulfilling your payment, below is offical payment proof",$file,"OFFICIAL_PAYMENT_PROOF.pdf");
 			}
 		}
 	}

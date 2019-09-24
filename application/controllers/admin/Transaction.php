@@ -67,7 +67,18 @@ class Transaction extends Admin_Controller
 				$member->fullname.'-invoice.pdf' => $detail->exportInvoice()->output(),
 				$member->fullname.'-payment_proof.pdf' => $detail->exportPaymentProof()->output()
 			];
-			$this->Gmail_api->sendMessageWithAttachment($member->email, 'Registered On Site Succesfully - Invoice, Payment Proof', "Thank you for registering and fulfilling your payment, below is your invoice and offical payment proof", $attc);
+			$details = $detail->detailsWithEvent();
+			foreach($details as $row){
+				if($row->event_name) {
+					$event = ['name' => $row->event_name,
+						'held_on' => $row->held_on,
+						'held_in' => $row->held_in,
+						'theme' => $row->theme
+					];
+					$attc[$member->fullname."_".$row->event_name.".pdf"] = $member->getCard($event)->output();
+				}
+			}
+			$this->Gmail_api->sendMessageWithAttachment($member->email, 'Invoice, Payment Proof And Participant Card', "Thank you for registering and fulfilling your payment, below is your invoice and offical payment proof", $attc);
 
 		}
 		$this->output
