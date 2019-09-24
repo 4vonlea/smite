@@ -97,7 +97,7 @@ $theme_path = base_url("themes/porto") . "/";
 												</li>
 												<li>
 													<a class="nav-link" href="<?= base_url("site/simposium"); ?>">
-														Simposium & Workshop
+														Rundown
 													</a>
 												</li>
 												<li>

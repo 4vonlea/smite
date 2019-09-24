@@ -44,11 +44,11 @@ $member = $transaction->member;
 					style="font-family:times new roman,times,serif;font-size:12pt;text-align:start;background-color:#ffffff">
 					Terimakasih atas registrasi dan pembayaran yang dilakukan untuk berpartisipasi dalam acara 2nd East INSDV 2020 pada 13-15 Maret 2020 di Hotel Golden Tulip Galaxy Banjarmasin. Berikut adalah rincian registrasi dan pembayaran:
 					</span>
-				<span
+				<!-- <span
 					style="font-family:times new roman,times,serif;font-size:12pt;text-align:start;background-color:#ffffff">
 					The details of
 					your registration is shown below:
-				</span>
+				</span> -->
 			</p>
 		</td>
 	</tr>

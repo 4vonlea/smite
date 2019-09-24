@@ -105,7 +105,7 @@
     </div>
 </section>
 
-<section class="section-secondary custom-section-padding" id="login">
+<section class="custom-section-padding" id="login">
     <div class="container">
         <div class="row mb-3">
             <div class="col-lg-12">
@@ -184,18 +184,30 @@
 <section class="looking-for section-primary">
     <div class="container">
         <div class="row align-items-center">
-            <div class="col-md-6 col-lg-7">
+            <div class="col-md-2 col-lg-3">
                 <div class="looking-for-box">
                     <h2> Don't have account?</h2>
                     <p class="mb-4 mb-md-0">Please register with easy step</p>
                 </div>
             </div>
-            <div class="col-md-3 d-flex justify-content-md-end mb-4 mb-md-0">
+            <div class="col-md-3 d-flex left-content-md-end mb-4 mb-md-0">
                 <a class="text-decoration-none" href="<?=base_url("site/register");?>">
-									<span class="custom-call-to-action white-border text-color-light">
-										<!-- <span class="action-title">As Personal ?</span> -->
-                        <span class="action-info"><input type="submit" value="Register Now" class="btn  custom-border-width btn-primary custom-border-radius font-weight-semibold text-uppercase" style="border:solid #fff 2px"></span>
-									</span>
+					<span class="custom-call-to-action white-border text-color-light">
+                    <span class="action-info"><input type="submit" value="Register Now" class="btn  custom-border-width btn-primary custom-border-radius font-weight-semibold text-uppercase" style="border:solid #fff 2px"></span>
+					</span>
+                </a>
+            </div>
+            <div class="col-md-3 col-lg-4">
+                <div class="looking-for-box">
+                    <h2>First Announcement</h2>
+                    <p class="mb-4 mb-md-0">More info about nasional symposium & workshop</p>
+                </div>
+            </div>
+            <div class="col-md-2 d-flex justify-content-md-end mb-4 mb-md-0">
+                <a class="text-decoration-none" href="<?= base_url('themes/porto'); ?>/pengumuman/Announcement.pdf" target="_blank">
+                    <span class="custom-call-to-action white-border text-color-light">
+                    <span class="action-info"><input type="submit" value=Download class="btn  custom-border-width btn-primary custom-border-radius font-weight-semibold text-uppercase" style="border:solid #fff 2px"></span>
+                    </span>
                 </a>
             </div>
         </div>
@@ -216,8 +228,7 @@
                         </div>
                     </div>
                     <div class="col-sm-12 col-lg-8">
-                        <h2> PRAKATA</h2>
-                        
+                        <h2> PRAKATA</h2>    
                         <hr class="solid">
                         <div class="post-infos d-flex">
                             <span class="info posted-by">
