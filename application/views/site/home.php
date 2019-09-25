@@ -2,7 +2,7 @@
     <div id="revolutionSlider" class="slider rev_slider manual" data-version="5.4.8">
         <ul>
             <li data-transition="fade">
-                <img src="<?= base_url('themes/porto'); ?>/img/demos/business-consulting/slides/black.jpg"
+                <img src="<?=base_url('themes/porto');?>/img/demos/business-consulting/slides/black.jpg"
                      alt=""
                      data-bgposition="center center"
                      data-bgfit="cover"
@@ -34,7 +34,7 @@
                    data-transform_in="y:[-300%];opacity:0;s:500;"><b><strong>Login Now</strong></b></a>
             </li>
             <li data-transition="fade">
-                <img src="<?= base_url('themes/porto'); ?>/img/demos/business-consulting/slides/blackv.jpg"
+                <img src="<?=base_url('themes/porto');?>/img/demos/business-consulting/slides/blackv.jpg"
                      alt=""
                      data-bgposition="center center"
                      data-bgfit="cover"
@@ -81,101 +81,91 @@
             </div>
             <div class="col-md-3 d-flex justify-content-md-end mb-4 mb-md-0">
                 <a class="text-decoration-none" href="tel:+00112304567" target="_blank" title="Call Us Now">
-									<span class="custom-call-to-action">
-										<span class="action-title text-color-primary">Call Us Now</span>
-										<span class="action-info text-color-light">+6281254064731</span>
+                                    <span class="custom-call-to-action">
+                                        <span class="action-title text-color-primary">Call Us Now</span>
+                                        <span class="action-info text-color-light">+6281254064731</span>
                                         <span class="action-info text-color-light">+6282358599991 (call only)</span>
                                         <span class="action-info text-color-light">+6282159043555 (WA only)</span>
-									</span>
+                                    </span>
                                     <span class="custom-call-to-action">
                                         <span class="action-title text-color-primary">Email Us Now</span>
                                         <span class="action-info text-color-light">East.insdv2020@gmail.com</span>
                                     </span>
                 </a>
             </div>
-            <!-- <div class="col-md-3 col-lg-2">
-                <a class="text-decoration-none" href="mail:mail@example.com" target="_blank" title="Email Us Now">
-									<span class="custom-call-to-action">
-										<span class="action-title text-color-primary">Email Us Now</span>
-										<span class="action-info text-color-light">mail@example.com</span>
-									</span>
-                </a>
-            </div>
-        </div> -->
     </div>
 </section>
 
-<section class="custom-section-padding" id="login">
+<section class="custom-section-padding" id="">
     <div class="container">
         <div class="row mb-3">
             <div class="col-lg-12">
-            <?php 
-                $colap = 1;
-                foreach ($query as $row):
-            ?>    
+            <?php
+$colap = 1;
+foreach ($query as $row):
+?>
                 <h2 class="font-weight-bold text-color-dark"><?php echo $row->kategori ?></h2>
                 <?php
-                    foreach ($row->kondisi as $row2):
-                ?>
+foreach ($row->kondisi as $row2):
+?>
                 <div class="accordion without-bg custom-accordion-style-1" id="accordion7">
                     <div class="card card-default">
                         <div class="card-header">
                             <h4 class="card-title m-0">
-                                <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion7" href="#colap<?php echo $colap;?>" aria-expanded="false">
+                                <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion7" href="#colap<?php echo $colap; ?>" aria-expanded="false">
                                     <?php echo $row2->kondisi ?> <span class="custom-accordion-plus"></span>
                                 </a>
                             </h4>
                         </div>
-                        <div id="colap<?php echo $colap;?>" class="collapse" aria-expanded="false" style="height: 0px;">
+                        <div id="colap<?php echo $colap; ?>" class="collapse" aria-expanded="false" style="height: 0px;">
                             <div class="card-body">
                                 <p>
                             <?php
-                                foreach ($row2->acara as $row3):
-                            ?>
+foreach ($row2->acara as $row3):
+?>
                             <table  class="table table-bordered">
                             <tr>
                                 <td rowspan="2">
                                     <?php echo $row3->nama_acara ?>
-                                </td>    
-                            
+                                </td>
+
                             <?php
-                                foreach ($row3->pricing as $row4):
-                            ?>
+foreach ($row3->pricing as $row4):
+?>
                                 <td><?php echo $row4['jenis_harga'] ?> <br> (<?php echo Site::formatdate($row4['waktu_mulai']) ?> s.d. <?php echo Site::formatdate($row4['waktu_akhir']) ?> ) </td>
                             <?php
-                                endforeach;
-                            ?>
-                            <td rowspan="2" align="center" class="align-middle"><a href="<?= base_url("site/login"); ?>" class="btn btn-success">ORDER</a></td>
+endforeach;
+?>
+                            <td rowspan="2" align="center" class="align-middle"><a href="<?=base_url("site/login");?>" class="btn btn-success">ORDER</a></td>
                             </tr>
                             <tr>
                             <?php
-                                foreach ($row3->pricing as $row4):
-                            ?>
-                                <td><?php echo "Rp. ".number_format($row4['harga'], 2, ',', '.') ?></td>
+foreach ($row3->pricing as $row4):
+?>
+                                <td><?php echo "Rp. " . number_format($row4['harga'], 2, ',', '.') ?></td>
                             <?php
-                                endforeach;
-                            ?>
+endforeach;
+?>
                             </tr>
                             </table>
 
                             <?php
-                                endforeach;
-                            ?>
+endforeach;
+?>
                                 </p>
                             </div>
                         </div>
 
-                    </div>   
+                    </div>
                 </div>
                 <?php
-                    $colap++;
-                    endforeach;
-                ?>
+$colap++;
+endforeach;
+?>
                 <?php
-                    endforeach;
-                ?>
+endforeach;
+?>
                 <br><br>
-
             </div>
         </div>
     </div>
@@ -184,18 +174,7 @@
 <section class="looking-for section-primary">
     <div class="container">
         <div class="row align-items-center">
-            <div class="col-md-2 col-lg-3">
-                <div class="looking-for-box">
-                    <h2> Don't have account?</h2>
-                    <p class="mb-4 mb-md-0">Please register with easy step</p>
-                </div>
-            </div>
-            <div class="col-md-3 d-flex left-content-md-end mb-4 mb-md-0">
-                <a class="text-decoration-none" href="<?=base_url("site/register");?>">
-					<span class="custom-call-to-action white-border text-color-light">
-                    <span class="action-info"><input type="submit" value="Register Now" class="btn  custom-border-width btn-primary custom-border-radius font-weight-semibold text-uppercase" style="border:solid #fff 2px"></span>
-					</span>
-                </a>
+            <div class="col-md-3 col-lg-3">
             </div>
             <div class="col-md-3 col-lg-4">
                 <div class="looking-for-box">
@@ -204,7 +183,7 @@
                 </div>
             </div>
             <div class="col-md-2 d-flex justify-content-md-end mb-4 mb-md-0">
-                <a class="text-decoration-none" href="<?= base_url('themes/porto'); ?>/pengumuman/Announcement.pdf" target="_blank">
+                <a class="text-decoration-none" href="<?=base_url('themes/porto');?>/pengumuman/Announcement.pdf" target="_blank">
                     <span class="custom-call-to-action white-border text-color-light">
                     <span class="action-info"><input type="submit" value=Download class="btn  custom-border-width btn-primary custom-border-radius font-weight-semibold text-uppercase" style="border:solid #fff 2px"></span>
                     </span>
@@ -214,9 +193,35 @@
     </div>
 </section>
 
+<section class="section bg-color-grey-scale-1 section-height-1 border-0 m-0">
+                    <div class="container pb-2">
+                        <div class="row">
+                            <div class="col-lg-7 text-center text-md-left mb-5 mb-lg-0">
+                                <h2 class="text-color-dark font-weight-normal text-6 mb-2"><strong class="font-weight-extra-bold">How to register :</strong></h2>
+                                <ol class="text-color-dark text-4 line-height-5 mb-0">
+                                   <li>Click Register Now, and fill your profile</li>
+                                   <li>Choose your event (and or submit your abstract)</li>
+                                   <li>Pay via our online banking payment</li>
+                                   <li>Download your ID CARD. and See you in Banjarmasin.</li>
+                                </ol>
+                            </div>
+                            <div class="col-lg-5 text-center text-md-left mb-5 mb-lg-0">
+                                <h2 class="mb-4 mb-md-0 mt-3">Don't have account?</h2>
+                                <p class="mb-4 mb-md-0">Please register with easy step</p>
+                                <a class="mb-4 mb-md-0 mt-4" href="<?=base_url("site/register");?>">
+                                <span class="custom-call-to-action black-border text-color-light">
+                                    <span class="action-info"><input type="submit" value="Register Now" class="btn  custom-border-width btn-primary custom-border-radius font-weight-semibold text-uppercase" style="border:solid #fff 2px"></span>
+                                </span>
+                                </a> 
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+
 <section class="custom-section-padding" id="simpo">
     <div class="container">
-    
+
         <div class="row">
             <article class="blog-post col">
                 <div class="row">
@@ -228,7 +233,7 @@
                         </div>
                     </div>
                     <div class="col-sm-12 col-lg-8">
-                        <h2> PRAKATA</h2>    
+                        <h2> PRAKATA</h2>
                         <hr class="solid">
                         <div class="post-infos d-flex">
                             <span class="info posted-by">
@@ -252,7 +257,8 @@
     </div>
 </section>
 
-                        
+
+
 
                 </div>
             </div>
