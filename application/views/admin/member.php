@@ -203,7 +203,7 @@
 									<td>
 										{{ ev.event_name }} |
 										<a :href="'<?= base_url('admin/member/card'); ?>/'+ev.event_id+'/'+profile.id"
-										   target="_blank">Download Member Card</a>
+										   target="_blank">Download Name Tag</a>
 									</td>
 									<td>
 										<input type="checkbox" v-model="ev.checklist.nametag" true-value="true"

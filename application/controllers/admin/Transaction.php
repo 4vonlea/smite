@@ -78,7 +78,7 @@ class Transaction extends Admin_Controller
 					$attc[$member->fullname."_".$row->event_name.".pdf"] = $member->getCard($event)->output();
 				}
 			}
-			$this->Gmail_api->sendMessageWithAttachment($member->email, 'Invoice, Payment Proof And Participant Card', "Thank you for registering and fulfilling your payment, below is your invoice and offical payment proof", $attc);
+			$this->Gmail_api->sendMessageWithAttachment($member->email, 'Invoice, Payment Proof And Name Tag', "Thank you for registering and fulfilling your payment, below is your invoice and offical payment proof", $attc);
 
 		}
 		$this->output

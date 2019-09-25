@@ -42,7 +42,7 @@ class Presence extends Admin_Controller
 
 			$data = $this->Presence_m->getReportData($id_event);
 			if(count($data) > 0)
-			$column = array_keys($data[0]);
+				$column = array_keys($data[0]);
 		}
 		$this->output
 			->set_content_type("application/json")

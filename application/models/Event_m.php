@@ -210,8 +210,8 @@ class Event_m extends MY_Model
 					];
 					$tempPricing = $row['name_pricing'];
 				} else {
-					if ($row['checkout'] == 0 || $waiting_payment)
-					$return[$index]['pricingName'][$pId]['pricing'][$row['condition']] = ['id' => $row['id_price'], 'price' => $row['price_r'], 'available' => $avalaible, 'added' => $added,'waiting_payment'=>$waiting_payment];
+					if ($row['checkout'] == 0 || $waiting_payment || in_array($row['status_payment'],[Transaction_m::STATUS_EXPIRE,Transaction_m::STATUS_DENY]))
+						$return[$index]['pricingName'][$pId]['pricing'][$row['condition']] = ['id' => $row['id_price'], 'price' => $row['price_r'], 'available' => $avalaible, 'added' => $added,'waiting_payment'=>$waiting_payment];
 				}
 			}
 

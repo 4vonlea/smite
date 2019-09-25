@@ -33,6 +33,8 @@ class Setting extends Admin_Controller
 			$return['fileName'] = "Select Image as Template";
 			$return['body'] = ['width' => '100%'];
 			$return['property'] = json_decode($config, true);
+			if($return['property'] == null)
+				$return['property'] = [];
 			$return['image'] = file_get_contents(APPPATH . "uploads/cert_template/$id.txt");
 			$return['base64Image'] = $return['image'];
 			$this->output

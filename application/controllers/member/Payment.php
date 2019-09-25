@@ -54,6 +54,8 @@ class Payment extends MY_Controller
 			}
 			else if ($transaction == 'deny') {
 				$update['status_payment'] = Transaction_m::STATUS_UNFINISH;
+			}else if ($transaction == 'expire') {
+				$update['status_payment'] = Transaction_m::STATUS_EXPIRE;
 			}
 			$update['checkout'] = 1;//$notif->status_message;
 			$this->Transaction_m->update($update, $notif->order_id);
@@ -78,10 +80,10 @@ class Payment extends MY_Controller
 					}
 				}
 				$file['Payment Proof'] = $tr->exportPaymentProof()->output();
-				$this->Gmail_api->sendMessageWithAttachment($member->email,"Official Payment Proof And Participant Card","Thank you for registering and fulfilling your payment, below is offical payment proof",$file,"OFFICIAL_PAYMENT_PROOF.pdf");
+				$this->Gmail_api->sendMessageWithAttachment($member->email,"Official Payment Proof And Name Tag","Thank you for registering and fulfilling your payment, below is offical payment proof",$file,"OFFICIAL_PAYMENT_PROOF.pdf");
 
 //				$file = $tr->exportPaymentProof()->output();
-//				$this->Gmail_api->sendMessageWithAttachment($member->email,"Official Payment Proof-And Member Card","Thank you for registering and fulfilling your payment, below is offical payment proof",$file,"OFFICIAL_PAYMENT_PROOF.pdf");
+//				$this->Gmail_api->sendMessageWithAttachment($member->email,"Official Payment Proof-And Name Tag","Thank you for registering and fulfilling your payment, below is offical payment proof",$file,"OFFICIAL_PAYMENT_PROOF.pdf");
 			}
 		}
 	}

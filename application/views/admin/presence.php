@@ -132,33 +132,63 @@
 							<div class="col-6">
 								<h4>Detail</h4>
 							</div>
-							<div class="col-md-6">
-								<div class="input-group">
-									<input type="text" class="form-control" v-model="detail.filter" placeholder="Type Name To Filter"  aria-describedby="basic-addon2">
-									<div class="input-group-append">
-										<button class="btn btn-primary" @click="detail.filter = ''" type="button">Clear</button>
+						</div>
+
+						<div class="table-responsive">
+							<div class="row mb-2 mt-2">
+								<div class="col form-inline ml-3">
+									<label>
+										Show&nbsp;
+										<select v-model="pageSize" class="form-control form-control-sm">
+											<option v-for="c in perPage" :value="c">{{ c }}</option>
+										</select>&nbsp;Entries
+									</label>
+								</div>
+								<div class="col mr-3">
+									<div class="input-group">
+										<input type="text" v-model="globalFilter" @keyup.enter="doFilter"
+											   placeholder="Type to search !" class="form-control"/>
+										<div class="input-group-append">
+											<button type="button" v-on:click="doFilter" class="btn btn-primary"><i
+													class="fa fa-search"></i> Search
+											</button>
+											<button type="button" v-on:click="resetFilter" class="btn btn-primary"><i
+													class="fa fa-times"></i> Reset
+											</button>
+										</div>
 									</div>
+
 								</div>
 							</div>
-						</div>
-						<div class="table-responsive">
-							<table class="table">
-								<tbody v-if="detail.data.length == 0">
-								<tr>
-									<th class="text-center">No Data</th>
-								</tr>
-								</tbody>
-								<thead>
-								<tr>
-									<th v-for="col in detail.column">{{ col.replace("_"," ").toUpperCase() }}</th>
-								</tr>
-								</thead>
-								<tbody>
-								<tr v-for="row in presenceData">
-									<td v-for="cell in row">{{ cell }}</td>
-								</tr>
-								</tbody>
-							</table>
+							<div style="position: relative">
+								<div v-if="loading" class="bg-color-dark"
+									 style="width: 100%;height: 100%;position: absolute; z-index: 1000;background-color: darkgrey;opacity: .5">
+									<div class="fa fa-spin fa-cog text-primary fa-4x" role="status"
+										 style="position:absolute;opacity:1;top: 45%;left: 45%;">
+										<span class="sr-only">Loading...</span>
+									</div>
+								</div>
+								<vuetable ref="vuetable"
+										  :api-mode="false"
+										  :fields="detail.column"
+										  :data="detail"
+										  :data-total="dataCount"
+										  :data-manager="dataManager"
+										  data-path="data"
+										  pagination-path="pagination"
+										  :per-page="pageSize"
+										  :css="css.table"
+										  @vuetable:pagination-data="onPaginationData">
+								</vuetable>
+								<div class="row mt-3 mb-3">
+									<vuetable-pagination-info ref="paginationInfo"
+															  no-data-template="No Data Available !"
+															  :css="css.info"></vuetable-pagination-info>
+									<vuetable-pagination ref="pagination"
+														 :css="css.pagination"
+														 @vuetable-pagination:change-page="onChangePage"
+									></vuetable-pagination>
+								</div>
 						</div>
 
 					</div>
@@ -171,6 +201,8 @@
 	</transition>
 </div>
 <?php $this->layout->begin_script(); ?>
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js"></script>
+
 <script type="module">
     import QrScanner from "<?=base_url("themes/script/qr-scanner.min.js");?>";
 
@@ -184,7 +216,47 @@
             mode: 0,
             pageCheck: {lastResult: "None"},
             report:<?=json_encode($report);?>,
-            detail: {event: {}, data: {}, column: [],filter:"",summary:{}},
+            detail: {event: {}, data: [], column: [],summary:{}},
+            pageSize: 10,
+            globalFilter: '',
+            perPage: [10, 20, 50, 100],
+            loading: false,
+            dataCount: 0,
+            css: {
+                table: {
+                    tableWrapper: '',
+                    tableHeaderClass: 'mb-0',
+                    tableBodyClass: 'mb-0',
+                    tableClass: 'table table-bordered table-stripped table-hover table-grid',
+                    loadingClass: 'loading',
+                    ascendingIcon: 'fa fa-chevron-up',
+                    descendingIcon: 'fa fa-chevron-down',
+                    ascendingClass: 'sorted-asc',
+                    descendingClass: 'sorted-desc',
+                    sortableIcon: 'fa fa-sort',
+                    detailRowClass: 'vuetable-detail-row',
+                    handleIcon: 'fa fa-bars text-secondary',
+                    renderIcon(classes, options) {
+                        return `<i class="${classes.join(' ')}"></span>`
+                    }
+                },
+                info: {
+                    infoClass: 'pl-4 col'
+                },
+                pagination: {
+                    wrapperClass: 'col pagination',
+                    activeClass: 'active',
+                    disabledClass: 'disabled',
+                    pageClass: 'btn btn-border',
+                    linkClass: 'btn btn-border',
+                    icons: {
+                        first: '',
+                        prev: '',
+                        next: '',
+                        last: '',
+                    },
+                }
+            },
         },
         computed: {
             presence() {
@@ -210,6 +282,41 @@
 			}
         },
         methods: {
+            dataManager(sortOrder, pagination) {
+                let data = this.detail.data;
+                // account for search filter
+                if (this.globalFilter) {
+                    // the text should be case insensitive
+                    let txt = new RegExp(this.globalFilter, 'i')
+
+                    // search on name, email, and nickname
+                    data = _.filter(data, function (item) {
+                        return item.fullname.search(txt) >= 0 || item.status_member.search(txt) >= 0
+                    })
+                }
+                if (sortOrder.length > 0) {
+                    data = _.orderBy(data, sortOrder[0].sortField, sortOrder[0].direction)
+                }
+                pagination = this.$refs.vuetable.makePagination(data.length)
+                return {
+                    pagination: pagination,
+                    data: _.slice(data, pagination.from - 1, pagination.to)
+                }
+            },
+            onPaginationData(paginationData) {
+                this.$refs.pagination.setPaginationData(paginationData);
+                this.$refs.paginationInfo.setPaginationData(paginationData);
+            },
+            onChangePage(page) {
+                this.$refs.vuetable.changePage(page);
+            },
+            doFilter() {
+                Vue.nextTick( () => this.$refs.vuetable.refresh())
+            },
+            resetFilter() {
+                this.globalFilter = "";
+                Vue.nextTick( () => this.$refs.vuetable.refresh())
+            },
             back() {
                 app.pageCheck = {lastResult: "None"};
                 if (scanner) {
@@ -218,6 +325,7 @@
                 }
             },
             fetchDetail() {
+                var app = this;
                 var btn = this.$refs.btnReload;
                 this.detail.filter = "";
                 if(btn) {
@@ -227,6 +335,7 @@
                 $.post("<?=base_url('admin/presence/get_detail');?>", {id: this.detail.event.id_event}, function (res) {
                     app.detail.data = res.data;
                     app.detail.column = res.column;
+                    app.mode = 2;
                     var summary = {};
                     var date = app.dateAbsence;
                     $.each(res.data,function (i,v) {
@@ -245,6 +354,16 @@
 							}
                         });
                     });
+                    app.detail.pagination = {
+                        "total": res.data.length,
+                            "per_page": 10,
+                            "current_page": 1,
+                            "last_page": Math.floor(res.data.length / 10),
+                            "next_page_url": null,
+                            "prev_page_url": null,
+                            "from": 1,
+                            "to": 10,
+                    };
                     app.detail.summary = summary;
                 }).always(function () {
                     if (btn) {
@@ -256,11 +375,8 @@
                 });
             },
             detailPresence(row) {
-                this.mode = 2;
                 this.detail.event = row;
-                Vue.nextTick(function () {
-                    app.fetchDetail();
-                })
+				app.fetchDetail();
             },
             downloadReport(row) {
                 window.open("<?=base_url('admin/presence/report');?>/" + row.id_event);

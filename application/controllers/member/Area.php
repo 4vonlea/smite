@@ -21,6 +21,8 @@ class Area extends MY_Controller
     public function index(){
 		$this->load->model("Transaction_m");
 		$user = Member_m::findOne(['username_account'=>$this->session->user_session['username']]);
+		if(!$user)
+			show_error("Member not found in sistem or not registered yet !",500,"Member not found");
         $this->layout->render('index',['user'=>$user]);
     }
 
@@ -158,7 +160,7 @@ class Area extends MY_Controller
 				$fee->transaction_id = $transaction->id;
 				$fee->price = "6000";//$data['price'];
 				$fee->member_id = $this->session->user_session['id'];
-				$fee->product_name = "Fee Payment Online";
+				$fee->product_name = "Administration Fee";
 				$fee->save();
 			}
 		}else{
