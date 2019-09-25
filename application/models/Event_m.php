@@ -242,7 +242,7 @@ class Event_m extends MY_Model
 				}
 			}
 		}
-		debug($result);
+		// debug($result);
 		return $result;
 
 	}
