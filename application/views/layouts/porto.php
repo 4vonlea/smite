@@ -59,7 +59,11 @@ $theme_path = base_url("themes/porto") . "/";
 
 	<!-- Head Libs -->
 	<script src="<?= $theme_path; ?>vendor/modernizr/modernizr.min.js"></script>
-	<script src="<?= base_url('themes/script/vue.js'); ?>"></script>
+	<?php if(ENVIRONMENT == "production"):?>
+		<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<?php else: ?>
+		<script src="<?= base_url('themes/script/vue.js'); ?>"></script>
+	<?php endif; ?>
 
 </head>
 <body>

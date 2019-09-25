@@ -44,6 +44,7 @@ class MY_Model extends yidas\Model
 		 * @var $builder CI_DB_query_builder
 		 */
 		$countBuilder = clone $this->getBuilder();
+		$countBuilder->select("t.*");
 		$builder = $this->setAlias("t")->find()->limit($limit)->offset($offset);
 		$gridConfig = (count($gridConfig) > 0 ? $gridConfig:$this->gridConfig());
 		if(isset($gridConfig['select']))
@@ -72,12 +73,15 @@ class MY_Model extends yidas\Model
 			$countBuilder->where($gridConfig['filter']);
 		}
 
+		if(isset($gridConfig['group_by'])){
+			$builder->group_by($gridConfig['group_by']);
+			$countBuilder->group_by($gridConfig['group_by']);
 
-
+		}
 
         $result = $builder->get();
         $data['data'] = $result->result_array();
-		$data['total'] =  $countBuilder->count_all_results($this->tableName());
+		$data['total'] =  $countBuilder->count_all_results($this->tableName()." as t");
         $data['per_page'] = $limit;
         $data['current_page'] = $params['page'];
         $data['url'] = current_url();

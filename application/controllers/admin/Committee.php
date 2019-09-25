@@ -14,10 +14,11 @@ class Committee extends Admin_Controller
 	{
 		if ($this->input->method() != 'post')
 			show_404("Page Not Found !");
-		$this->load->model(['Committee_m','Committee_attribute_m']);
+		$this->load->model(['Committee_m','Committee_attributes_m']);
 
 		$post = $this->input->post();
 
+		$this->Committee_m->getDB()->trans_start();
 		if (isset($post['id'])) {
 			$id = $post['id'];
 			$event = $this->Committee_m->findOne($post['id']);
@@ -32,10 +33,20 @@ class Committee extends Admin_Controller
 
 		foreach ($post['attributes'] as $row) {
 			if (isset($post['id'])) {
-				$event = $this->Committee_m->findOne($post['id']);
+				$attr = $this->Committee_attributes_m->findOne($post['id']);
 			} else
-				$event = new Committee_m();
+				$attr = new Committee_attributes_m();
+			$attr->event_id = $row['event'];
+			$attr->status = $row['status'];
+			$attr->committee_id = $id;
+			$attr->save();
 		}
+
+		$this->Committee_m->getDB()->trans_complete();
+		$status = $this->Committee_m->getDB()->trans_status();
+		$this->output
+			->set_content_type("application/json")
+			->_display(json_encode(['status'=>$status]));
 	}
 
 	public function grid()

@@ -39,7 +39,7 @@ class Area extends MY_Controller
             $user = Member_m::findOne(['username_account' => $this->session->user_session['username']]);
             $user->setAttributes($post);
             $this->output->set_content_type("application/json")
-                ->_display(json_encode(['status' => $user->save()]));
+                ->_display(json_encode(['status' => $user->save(false)]));
         }else{
             show_404("Page not found !");
         }

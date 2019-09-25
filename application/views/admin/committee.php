@@ -31,7 +31,10 @@
 					<datagrid
 						ref="datagrid"
 						api-url="<?= base_url('admin/committee/grid'); ?>"
-						:fields="[{name:'fullname',sortField:'fullname'}]">
+						:fields="[{name:'name',sortField:'name'},{name:'status',sortField:'status'}]">
+						<template slot="status" slot-scope="props">
+							
+						</template>
 					</datagrid>
 				</div>
 			</div>

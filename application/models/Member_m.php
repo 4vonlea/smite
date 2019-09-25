@@ -9,10 +9,13 @@ class Member_m extends MY_Model
 
 	public static $proofExtension = "jpg|png|jpeg";
 
-	public function rules()
+	public function rules($insert = false)
 	{
 		return [
-			['field' => 'email', 'rules' => 'required|max_length[100]|valid_email'],
+			[
+				'field' => 'email', 'rules' => 'required|max_length[100]|valid_email|is_unique[members.email]',
+				'errors'=>['is_unique'=>'This email already exist !']
+			],
 			['field' => 'password', 'rules' => 'required|max_length[100]'],
 			['field' => 'confirm_password', 'rules' => 'required|matches[password]'],
 			['field' => 'status', 'rules' => 'required'],

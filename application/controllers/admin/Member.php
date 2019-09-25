@@ -76,7 +76,7 @@ class Member extends Admin_Controller
 				$member->verified_by_admin = 1;
 				$member->status = $post['status'];
 			}
-			$status = $member->save();
+			$status = $member->save(false);
 		} else {
 			$message = "Response has not been set";
 		}
@@ -120,8 +120,6 @@ class Member extends Admin_Controller
 			$data['password'] = strtoupper(substr(uniqid(), -5));
 			$data['confirm_password'] = $data['password'];
 			if ($this->Member_m->validate($data)){// && $this->handlingImage('image', $data['id'])) {
-//				$upl = $this->upload->data();
-
 				$data['username_account'] = $data['email'];
 				$data['verified_by_admin'] = 1;
 				$data['verified_email'] = 1;

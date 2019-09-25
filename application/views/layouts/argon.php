@@ -29,7 +29,11 @@ $role = $this->session->user_session['role'];
 
 	<!-- Argon CSS -->
 	<link type="text/css" href="<?= base_url(); ?>themes/argon/css/argon.min.css" rel="stylesheet">
+	<?php if(ENVIRONMENT == "production"):?>
+	<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+	<?php else: ?>
 	<script src="<?= base_url('themes/script/vue.js'); ?>"></script>
+	<?php endif; ?>
 	<style>
 		.fade-enter-active, .fade-leave-active {
 			transition: opacity .4s;
