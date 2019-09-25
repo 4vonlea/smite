@@ -237,19 +237,19 @@ class Event_m extends MY_Model
 				$result2['data2'][] = $data2;
 				$temp3 = $data2->acara;
 				foreach ($temp3 as $data3) {
-					$data3->pricing = $this->get_pricing($data3->id_acara);
+					$data3->pricing = $this->get_pricing($data3->id_acara, $data3->kond);
 					$result3['data3'][] = $data3;
 				}
 			}
 		}
-		// debug($result);
+		debug($result);
 		return $result;
 
 	}
 
 	public function get_kondisi($id)
 	{
-		$this->db->select('pri.condition as kondisi');
+		$this->db->select('pri.id, pri.condition as kondisi');
 		$this->db->from('event_pricing pri');
 		$this->db->join('events eve', 'eve.id = pri.event_id');
 		$this->db->where('eve.kategory', $id);
@@ -260,7 +260,7 @@ class Event_m extends MY_Model
 
 	public function get_acara($id)
 	{
-		$this->db->select('pri.event_id as id_acara, eve.name as nama_acara');
+		$this->db->select('pri.id, pri.event_id as id_acara, eve.name as nama_acara, pri.condition as kond');
 		$this->db->from('event_pricing pri');
 		$this->db->join('events eve', 'eve.id = pri.event_id');
 		$this->db->where('pri.condition', $id);
@@ -286,12 +286,14 @@ class Event_m extends MY_Model
 			->where("tr.status_payment", Transaction_m::STATUS_FINISH);
 	}
 
-	public function get_pricing($id)
+	public function get_pricing($id, $id2)
 	{
-		$this->db->select('pri.name as jenis_harga,condition_date, substring(pri.condition_date,1, 10) as waktu_mulai, substring(pri.condition_date,12, 10) as waktu_akhir, pri.price as harga');
+		$this->db->select('pri.id, pri.name as jenis_harga,condition_date, substring(pri.condition_date,1, 10) as waktu_mulai, substring(pri.condition_date,12, 10) as waktu_akhir, pri.price as harga');
 		$this->db->from('event_pricing pri');
 		$this->db->where('pri.event_id', $id);
+		$this->db->where('pri.condition', $id2);
 		$this->db->group_by('jenis_harga');
+		$this->db->order_by('pri.id');
 		$result = $this->db->get()->result_array();
 
 		return $result;
