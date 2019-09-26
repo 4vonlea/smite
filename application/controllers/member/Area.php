@@ -266,6 +266,7 @@ class Area extends MY_Controller
             $paper->reviewer = "";
             $paper->message = "";
             $paper->co_author = json_encode($this->input->post('co_author'));
+			$paper->created_at = date("Y-m-d H:i:s");
             $paper->save();
             $paper->updated_at = date("Y-m-d H:i:s");
             $response['status'] = true;

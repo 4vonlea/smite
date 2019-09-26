@@ -20,7 +20,7 @@ class Dashboard_m extends CI_Model
 						JOIN event_pricing ep ON ep.id = td.event_pricing_id
 						WHERE t.status_payment = '".Transaction_m::STATUS_FINISH."'
 						GROUP BY event_id";
-		$rs = $this->db->select("id_event,name,COALESCE(fund_collected,0) as fund_collected,COALESCE(number_participant,0) as number_participant")
+		$rs = $this->db->select("t.id as id_event,name,COALESCE(fund_collected,0) as fund_collected,COALESCE(number_participant,0) as number_participant")
 			->join("( $queryTemp ) as c","c.id_event = t.id","left")
 			->from("events t")->get();
 
@@ -28,10 +28,23 @@ class Dashboard_m extends CI_Model
 		return $return;
 	}
 
+	public function getDataPaper(){
+		$this->load->model("Papers_m");
+		$result = $this->db->select("fullname as nama,title, u.name as reviewer,p.status,type,DATE_FORMAT(p.created_at,'%d %M %Y at %H:%i') as submitted_on,DATE_FORMAT(p.updated_at,'%d %M %Y at %H:%i') as reviewed_on")
+			->from("papers p")
+			->join("members m","m.id = p.member_id")
+			->join("user_accounts u","u.username = p.reviewer","left")
+			->get()->result_array();
+		foreach($result as $i=>$row){
+			$result[$i]['status'] = Papers_m::$status[$row['status']];
+		}
+		return $result;
+	}
+
 	public function getParticipant($event_id){
 		$this->load->model("Transaction_m");
 
-		$rs = $this->db->select("t.id AS no_invoice,m.id AS id_member, m.fullname,kt.kategory as status, m.gender,m.phone,m.email,e.name AS event_name,CONCAT('Rp ',FORMAT(td.price,2)) as price")
+		$rs = $this->db->select("t.id AS no_invoice,m.id AS id_member, m.fullname,kt.kategory as status, m.gender,m.phone,m.email,e.name AS event_name,CONCAT('Rp ',FORMAT(td.price,2)) as price,t.message_payment as additional_info")
 			->join("transaction t","t.id = td.transaction_id")
 			->join("members m","m.id = td.member_id ")
 			->join("kategory_members kt","kt.id = m.status ")

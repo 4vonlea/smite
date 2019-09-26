@@ -18,7 +18,7 @@ class Member extends Admin_Controller
 	{
 		$this->load->model('Member_m');
 		$member = $this->Member_m->findOne($member_id);
-		$member->getCard($event_id)->stream($member->fullname."-member_card.pdf");
+		$member->getCard($event_id)->stream($member->fullname."-nametag.pdf");
 	}
 
 	public function add_status()
@@ -290,7 +290,7 @@ class Member extends Admin_Controller
 			show_404("Page Not Found !");
 		$this->load->model(["Member_m","Transaction_m","User_account_m"]);
 		$post = $this->input->post();
-		$check = $this->Transaction_m->find()->select("count(*) as c")->where(['member_id'=>$post['id'],'status_payment'=>Transaction_m::STATUS_FINISH])
+		$check = $this->Transaction_m->find()->select("count(*) as c")->where(['member_id'=>$post['id']])
 			->get()->row_array();
 		$status = true;$message = "";
 		if($check['c'] > 0){
@@ -300,7 +300,7 @@ class Member extends Admin_Controller
 			$this->Member_m->getDB()->trans_start();
 			$this->Member_m->find()->where(['id'=>$post['id']])->delete();
 			$this->Transaction_m->find()->where(['member_id'=>$post['id']])->delete();
-			$this->User_account_m->find()->where(['username'=>$post['email']])->delete();
+			//$this->User_account_m->find()->where(['username'=>$post['email']])->delete();
 			$this->Member_m->getDB()->trans_complete();
 			$status = $this->Member_m->getDB()->trans_status();
 			if($status == false)

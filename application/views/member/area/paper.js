@@ -33,7 +33,12 @@ export default Vue.component("PagePaper", {
 									<span style="font-size: 14px" class="badge"  :class="[ pap.status == 2 ?'badge-success': pap.status == 3 ? 'badge-danger':'badge-info' ]">
 										{{ paper.status[pap.status] }}
 									</span>
+									<span v-if="pap.status == 2">
 									(Presentation on {{ pap.type_presence }})
+									</span>
+									<span v-if="pap.status == 0">
+									Please Revise Paper <small>(Click Detail then Edit)</small>
+									</span>
 								</td>
 								<td>{{ formatDate(pap.created_at) }}</td>
 								<td>

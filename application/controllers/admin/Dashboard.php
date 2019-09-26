@@ -15,21 +15,6 @@ class Dashboard extends Admin_Controller
         $this->layout->render("dashboard");
     }
 
-    public function test(){
-		$this->load->model("Transaction_m");
-		$tr = $this->Transaction_m->findOne("SANDBOX-G988409790-516");
-		$member = $tr->member;
-
-		$html = $this->load->view("template/invoice",[
-			'transaction'=>$tr,
-		],true);
-		$dompdf = new Dompdf();
-		$dompdf->loadHtml($html);
-		$dompdf->render();
-		$file = $dompdf->stream();
-
-	}
-
     public function data(){
 		if($this->input->method() != 'post')
 			show_404("Page Not Found !");
@@ -45,6 +30,12 @@ class Dashboard extends Admin_Controller
 		$this->load->model("Dashboard_m");
     	$data =  $this->Dashboard_m->getDataMember();
     	$this->export($tipe,"Members Registered on Site",$data);
+	}
+
+	public function download_paper($tipe){
+		$this->load->model("Dashboard_m");
+		$data =  $this->Dashboard_m->getDataPaper();
+		$this->export($tipe,"Members Registered on Site",$data);
 	}
 
 	public function download_participant($event_id,$tipe){

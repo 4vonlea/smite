@@ -170,7 +170,7 @@ class Payment extends MY_Controller
 				$custom_expiry = array(
 					'start_time' => date("Y-m-d H:i:s O", $time),
 					'unit' => 'day',
-					'duration' => 1
+					'duration' => 3
 				);
 
 				$transaction_data = array(

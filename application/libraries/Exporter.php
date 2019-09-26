@@ -154,6 +154,7 @@ class Exporter
 		$dompdf->loadHtml($html);
 		$dompdf->setPaper('A4', 'landscape');
 		$dompdf->render();
+		header('filename:' . $this->getFilename() . '.pdf');
 		$dompdf->stream($this->getFilename() . ".pdf");
 	}
 

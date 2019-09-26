@@ -31,9 +31,17 @@
 					<datagrid
 						ref="datagrid"
 						api-url="<?= base_url('admin/committee/grid'); ?>"
-						:fields="[{name:'name',sortField:'name'},{name:'status',sortField:'status'}]">
+						:fields="[{name:'name',sortField:'name'},{name:'status',sortField:'status','title':'Event Name and Position'},{name:'id',title:'Action'}]">
 						<template slot="status" slot-scope="props">
-							
+							<span v-html="parseStatus(props.row)"></span>
+						</template>
+						<template slot="id" slot-scope="props">
+							<button class="btn btn-primary btn-sm" @click="editCom(props.row)">
+								<span class="fa fa-edit"></span> Edit
+							</button>
+							<button class="btn btn-danger btn-sm" @click="deleteCom(props.row,$event)">
+								<span class="fa fa-trash"></span> Delete
+							</button>
 						</template>
 					</datagrid>
 				</div>
@@ -60,7 +68,7 @@
 								<th>Position</th>
 								<th>
 									<button class="btn btn-primary btn-sm"
-											@click="form.attributes.push({event:'',status:''});"><i
+											@click="addAttributes"><i
 											class="fa fa-plus"></i> Add
 									</button>
 								</th>
@@ -70,7 +78,7 @@
 							<tr>
 								<th colspan="3" v-if="form.attributes.length == 0" class="text-center">No Data</th>
 							</tr>
-							<tr v-for="attr in form.attributes">
+							<tr v-for="(attr,index) in form.attributes">
 								<td>
 									<select class="form-control" v-model="attr.event">
 										<option disabled hidden value="">Select Event</option>
@@ -84,7 +92,7 @@
 									</select>
 								</td>
 								<td>
-									<button class="btn btn-danger"><i class="fa fa-trash"></i></button>
+									<button class="btn btn-danger" @click="deleteAttributes(attr,index,$event)"><i class="fa fa-trash"></i></button>
 								</td>
 							</tr>
 							</tbody>
@@ -163,6 +171,93 @@
             form: {attributes: []},
         },
         methods: {
+            parseStatus(data){
+                if(data.status) {
+                    var group = `<ul class="list-group list-group-flush" >`;
+                    $.each(data.status.split(";"), function (i, v) {
+                        var t = v.split(",");
+                        group += `<li class="list-group-item d-flex justify-content-between align-items-center">
+								${t[2]} as ${t[1]}
+								<a target="_blank" href="<?=base_url('admin/committee/nametag');?>/${t[0]}" class="badge badge-primary badge-pill">Download Name Tag</a>
+							  </li>`;
+                    });
+                    group += `</ul>`;
+                    return group;
+                }
+                return "-";
+			},
+            deleteAttributes(attr,index,evt){
+                var btn = evt.currentTarget;
+                if(!attr.id)
+					this.form.attributes.splice(index,1);
+				else{
+                    btn.innerHTML = "<i class='fa fa-spin fa-spinner'></i>";
+                    btn.setAttribute("disabled",true);
+                    $.post("<?=base_url("admin/committee/delete_attribute");?>", attr, function (res) {
+                        if (res.status) {
+                            Swal.fire("Success", "Position deleted successfully", "success");
+                            app.form.attributes.splice(index,1);
+                        }else
+                            Swal.fire("Failed", res.message, "error");
+                    }, "JSON").fail(function () {
+                        Swal.fire("Failed", "Failed to load data !", "error");
+                    }).always(function () {
+                        btn.innerHTML = '<i class="fa fa-trash"></i>';
+                        btn.removeAttribute("disabled");
+                    });
+				}
+
+			},
+			addAttributes(){
+                this.form.attributes.push({event:'',status:''});
+			},
+			editCom(row){
+                this.form = {
+                    id:row.id,
+					name:row.name,
+					attributes:[]
+				};
+                if(row.status) {
+                    $.each(row.status.split(";"), function (i, v) {
+                        var t = v.split(",");
+                        app.form.attributes.push({
+                            id: t[0],
+                            event: t[3],
+                            status: t[1]
+                        });
+                    });
+                }
+                this.formMode = 1;
+			},
+			deleteCom(row,evt){
+                var btn = evt.currentTarget;
+                Swal.fire({
+                    title: "Are you sure ?",
+                    text: `You will delete "${row.name}" From Committee`,
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.value) {
+                        btn.innerHTML = "<i class='fa fa-spin fa-spinner'></i>";
+                        btn.setAttribute("disabled",true);
+                        $.post("<?=base_url("admin/committee/delete");?>", prop.row, function (res) {
+                            if (res.status) {
+                                Swal.fire("Success", "Member deleted successfully", "success");
+                                app.$refs.datagrid.refresh();
+                            }else
+                                Swal.fire("Failed", res.message, "error");
+                        }, "JSON").fail(function () {
+                            Swal.fire("Failed", "Failed to load data !", "error");
+                        }).always(function () {
+                            btn.innerHTML = '<i class="fa fa-trash"></i> Delete';
+                            btn.removeAttribute("disabled");
+                        });
+                    }
+                });
+			},
             save() {
                 this.saving = true;
                 $.post("<?=base_url('admin/committee/save');?>", this.form, function (res) {

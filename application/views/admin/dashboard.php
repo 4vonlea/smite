@@ -63,10 +63,10 @@
 				<div class="card shadow">
 					<div class="card-header border-0">
 						<div class="row align-items-center">
-							<div class="col">
+							<div class="col-md-3">
 								<h3 class="mb-0">Partipants of Events</h3>
 							</div>
-							<div class="col text-right">
+							<div class="col-md-9 text-right">
 								<div class="dropdown">
 									<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 										Download Summary
@@ -85,6 +85,16 @@
 										<a class="dropdown-item" href="<?=base_url("admin/dashboard/download_member/excel");?>" target="_blank">As Excel</a>
 										<a class="dropdown-item" href="<?=base_url("admin/dashboard/download_member/csv");?>"  target="_blank">As CSV</a>
 										<a class="dropdown-item" href="<?=base_url("admin/dashboard/download_member/pdf");?>"  target="_blank">As PDF</a>
+									</div>
+								</div>
+								<div class="dropdown">
+									<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										Download Participant Papers
+									</button>
+									<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+										<a class="dropdown-item" href="<?=base_url("admin/dashboard/download_paper/excel");?>" target="_blank">As Excel</a>
+										<a class="dropdown-item" href="<?=base_url("admin/dashboard/download_paper/csv");?>"  target="_blank">As CSV</a>
+										<a class="dropdown-item" href="<?=base_url("admin/dashboard/download_paper/pdf");?>"  target="_blank">As PDF</a>
 									</div>
 								</div>
 							</div>

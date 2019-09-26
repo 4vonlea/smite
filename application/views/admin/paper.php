@@ -105,7 +105,7 @@ $this->layout->end_head();
 					@loaded_data="loadedGrid"
 					ref="datagrid"
 					api-url="<?= base_url('admin/paper/grid'); ?>"
-					:fields="[{name:'fullname',sortField:'fullname','title':'Member Name'},{name:'status','sortField':'status'},{name:'reviewer','sortField':'reviewer'},{name:'t_updated_at',sortField:'t_updated_at',title:'Date'},{name:'t_id','title':'Aksi'}]">
+					:fields="[{name:'fullname',sortField:'fullname','title':'Member Name'},{name:'status','sortField':'status'},{name:'reviewer','sortField':'reviewer'},{name:'t_updated_at',sortField:'t_updated_at',title:'Submit On'},{name:'t_id','title':'Aksi'}]">
 					<?php if($this->session->user_session['role'] == User_account_m::ROLE_ADMIN_PAPER):?>
 						<template slot="fullname" slot-scope="props">
 							Hidden
@@ -115,7 +115,7 @@ $this->layout->end_head();
 						{{ status[props.row.status] }}
 					</template>
 					<template slot="t_updated_at" slot-scope="props">
-						{{ formatDate(props.row.t_updated_at) }}
+						{{ formatDate(props.row.t_created_at) }}
 					</template>
 					<template slot="t_id" slot-scope="props">
 						<div class="table-button-container">
