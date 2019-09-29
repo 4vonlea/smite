@@ -30,7 +30,10 @@ export default Vue.component("PageBilling", {
 								<td>{{ item.id}}</td>
 								<td>{{ item.status_payment.toUpperCase()}}</td>
 								<td>{{ sumPrice(item.detail)}}</td>
-								<td><button class="btn btn-default" @click="detailTransaction(item,$event)">Detail</button></td>
+								<td>
+									<button class="btn btn-default" @click="detailTransaction(item,$event)">Detail</button>
+									<button @click="modalProof(item)" v-if="item.status_payment == 'pending'" class="btn btn-default" >Upload Transfer Proof</button>
+								</td>
 							</tr>
 						</tbody>
 					</table>
@@ -73,6 +76,43 @@ export default Vue.component("PageBilling", {
 							</tr>
 						</tfoot>
 					</table>
+				</div>
+			</div>
+			<div class="modal" id="modal-upload-proof">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title">Upload Transfer Proof</h4>
+						</div>
+						<div class="modal-body">
+							<form ref="formUpload">
+								<div class="form-group">
+									<label class="form-control-label">Invoice ID</label>
+									<input name="invoice_id" type="text" :value="upload.id" readonly class="form-control" />
+								</div>
+								<div class="form-group">
+									<label class="form-control-label">Amount (Rp)</label>
+									<input type="text" :value="sumPrice(upload.detail)" readonly class="form-control" />
+								</div>
+								<div class="form-group">
+									<label class="form-control-label">Photo Proof Transfer(png,jpg,jpeg)</label>
+									<div class="custom-file">
+										<input @change="fileChange" name="file_proof" type="file" accept=".png,.jpg,.jpeg" :class="{'is-invalid':upload_validation.invalid}" class="custom-file-input" />									
+										<label ref="labelFile" class="custom-file-label" for="validatedCustomFile">Choose file...</label>
+										<div v-if="upload_validation.invalid" class="invalid-feedback">{{ upload_validation.message_invalid }}</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="form-control-label">Message</label>
+									<textarea name="message" class="form-control">
+									</textarea>
+								</div>
+							</form>
+						</div>
+						<div class="modal-footer text-right">
+							<button @click="uploadProof($event,upload)" type="button" class="btn btn-primary">Upload</button>
+						</div>
+					</div>
 				</div>
 			</div>
 			<div class="modal" id="modal-detail">
@@ -120,6 +160,36 @@ export default Vue.component("PageBilling", {
 									<td colspan="2">{{ dt.product_name }}</td>
 									<td colspan="2">{{ formatCurrency(dt.price) }}</td>
 								</tr>
+								<tr v-if="detailModel.status_payment == 'pending'">
+									<th class="text-center" colspan="4">Info Transfer</th>
+								</tr>
+								<tr v-if="detailModel.status_payment == 'pending'">
+									<td colspan="4">
+										<p>Please transfer <b>{{ amount }}</b> to one of the following bank accounts
+										<br/>Then upload proof of payment (receipts, SMS banking screenshoot, etc) on Transaction History </p>
+										<div class="row">
+											<div class="col-sm-6" v-for="account in detailModel.banks">
+												<div class="card">
+														<h3 class="card-title">{{ account.bank }}</h3>
+														<p class="card-text">
+															<table>
+																<tr>
+																	<th>Account Number</th>
+																	<td>:</td>
+																	<td>{{ account.no_rekening }}</td>
+																</tr>												
+																<tr>
+																	<th>Account Holder</th>
+																	<td>:</td>
+																	<td>{{ account.holder }}</td>
+																</tr>												
+															</table>
+														</p>
+												</div>
+											</div>
+										</div>
+									</td>
+								</tr>
 							</table>
 						</div>
 						<div class="modal-footer">
@@ -130,18 +200,53 @@ export default Vue.component("PageBilling", {
 					</div>
 				</div>
 			</div>
+			<div class="modal" id="modal-manual_payment">
+				<div class="modal-dialog modal-lg">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title">Info Payment</h4>
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+						</div>
+						<div class="modal-body table-responsive">
+							<p>Please transfer <b>{{ formatCurrency(manual_payment.ammount) }}</b> to one of the following bank accounts
+							<br/>Then upload proof of payment (receipts, SMS banking screenshoot, etc) on Transaction History </p>
+							<div class="row">
+								<div class="col-sm-6" v-for="account in manual_payment.banks">
+									<div class="card">
+										<div class="card-body">
+											<h3 class="card-title">{{ account.bank }}</h3>
+											<p class="card-text">
+												<table>
+													<tr><th>Account Number</th><td>:</td><td>{{ account.no_rekening }}</td></tr>												
+													<tr><th>Account Holder</th><td>:</td><td>{{ account.holder }}</td></tr>												
+												</table>
+											</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>					
+						</div>
+					</div>
+				</div>
+			</div>
         </div>
     `,
     data: function () {
         return {
-        	current_invoice:"",
-            loading: false,
-            fail: false,
-			checking_out:false,
-			cart:null,
-			transaction:null,
-			detailModel:{status_payment:""},
-        }
+			current_invoice: "",
+			loading: false,
+			fail: false,
+			checking_out: false,
+			cart: null,
+			transaction: null,
+			detailModel: {status_payment: ""},
+			manual_payment: {"banks":[{'bank': 'BNI', 'no_rekening': "0212", "holder": "Muhammad Zaien"}],"ammount":0},
+			upload:{},
+			upload_validation:{invalid:false,message_invalid:""},
+		}
     },
 	created() {
 		this.fetchTransaction()
@@ -172,6 +277,37 @@ export default Vue.component("PageBilling", {
 		}
 	},
 	methods: {
+    	fileChange(event){
+			this.$refs.labelFile.innerHTML = event.currentTarget.files[0].name;
+		},
+    	uploadProof(evt,upload){
+    		var page = this;
+			var btn = evt.currentTarget;
+			btn.innerHTML = "<i class='fa fa-spin fa-spinner'></i>";
+			$.ajax({
+				url:page.appUrl+"member/area/upload_proof",
+				cache: false,
+				type:'POST',
+				contentType:false,
+				processData:false,
+				dataType:"JSON",
+				data:new FormData(page.$refs.formUpload),
+				success:function (res) {
+					if(res.status == false && res.message){
+						page.upload_validation.invalid = true;
+						page.upload_validation.message_invalid = res.message;
+					}else if(res.status){
+						upload.status_payment = res.data.status_payment;
+						$("#modal-upload-proof").modal("hide");
+
+					}
+				}
+			}).fail(function () {
+
+			}).always(function () {
+				btn.innerHTML = "Upload";
+			});
+		},
     	checkout(){
     		var page =this;
     		page.checking_out = true;
@@ -184,6 +320,11 @@ export default Vue.component("PageBilling", {
 					if(res.status && res.info) {
 						Swal.fire('Success',res.message,'info');
 						page.fetchTransaction();
+					}else if(res.status && res.manual){
+						page.manual_payment.ammount = page.totalPrice;
+						page.manual_payment.banks = res.manual;
+						page.fetchTransaction();
+						$("#modal-manual_payment").modal("show");
 					}else if(res.status){
 						snap.pay(res.token,{
 							onSuccess: function(result){
@@ -211,6 +352,14 @@ export default Vue.component("PageBilling", {
 			}).always(function () {
 				page.checking_out = false;
 			})
+		},
+		modalProof(item){
+    		this.upload = {};
+    		this.upload_validation = {invalid:false,message_invalid:""};
+			this.$refs.formUpload.reset();
+			this.$refs.labelFile.innerHTML = "Choose File ...";
+			this.upload = item;
+			$("#modal-upload-proof").modal("show");
 		},
     	detailTransaction(item,event){
     		var page = this;

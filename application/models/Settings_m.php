@@ -8,6 +8,7 @@ class Settings_m extends MY_Model
 
     const EVENT_CATEGORY = 'event_category';
     const STATUS_COMMITTEE = 'status_committee';
+    const MANUAL_PAYMENT = 'manual_payment';
 
 
     /**

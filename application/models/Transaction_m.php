@@ -15,6 +15,7 @@ class Transaction_m extends MY_Model
 		'deny'=>"Transaction is denied by the bank or Midtrans Fraud Detection System.",
 		"pending"=>"payment transaction has not been processed and is waiting to be completed.",
 		"expire"=>"Transaction has not been completed by the expiry date.",
+		self::STATUS_NEED_VERIFY =>'Payment waiting verification from admin'
 	];
 
 	const STATUS_FINISH = "settlement";
@@ -23,6 +24,7 @@ class Transaction_m extends MY_Model
 	const STATUS_UNFINISH = "unfinish";
 	const STATUS_EXPIRE = "expire";
 	const STATUS_DENY = "deny";
+	const STATUS_NEED_VERIFY = "need_verification";
 
 	public function gridConfig($options = array())
 	{

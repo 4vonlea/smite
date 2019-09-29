@@ -136,6 +136,19 @@
 						<th>{{ detailModel.channel == 'EDC' || detailModel.channel == 'MANUAL TRANSFER' ? 'Code Reference' : 'Additional Info' }}</th>
 						<td colspan="3">{{ detailModel.message_payment }}</td>
 					</tr>
+
+					<tr v-if="detailModel.payment_proof">
+						<th>Transfer Proof</th>
+						<td colspan="3">
+							<img :src="'<?=base_url('admin/transaction/file');?>/'+detailModel.payment_proof" class="img-thumbnail"/>
+						</td>
+					</tr>
+					<tr v-if="detailModel.client_message">
+						<th>Participant Message <br/>(Upload Transfer Proof)</th>
+						<td colspan="3">
+							{{ detailModel.client_message }}
+						</td>
+					</tr>
 					<tr>
 						<th class="text-center" colspan="4">Details</th>
 					</tr>

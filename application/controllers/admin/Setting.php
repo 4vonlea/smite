@@ -10,10 +10,12 @@ class Setting extends Admin_Controller
     	$this->load->helper("form");
 		$this->load->model(['Gmail_api',"Whatsapp_api","Event_m"]);
 		$gmail_token = $this->Gmail_api->getToken();
+		$manual = Settings_m::getSetting(Settings_m::MANUAL_PAYMENT);
 		$this->layout->render('setting',[
 			'wa_token'=>$this->Whatsapp_api->getToken(),
 			'email_binded'=>(is_array($gmail_token) && count($gmail_token) > 0) ? 1: 0,
 			"event"=>$this->Event_m->findAll(),
+			'manual'=>($manual==""?"[]":$manual)
 		]);
     }
 
@@ -73,6 +75,20 @@ class Setting extends Admin_Controller
 				'status'=>$this->Gmail_api->saveToken([]),
 				'email'=>$this->Gmail_api->saveEmailAdmin(""),
 			]));
+
+	}
+
+	public function save_manual(){
+		if($this->input->method() != 'post')
+			show_404("Page Not Found !");
+		$this->load->model("Whatsapp_api");
+		$email = $this->input->post("emailReceive");
+		$banks = $this->input->post("banks");
+		Settings_m::saveSetting(Settings_m::MANUAL_PAYMENT,json_encode($banks));
+		Settings_m::saveSetting("email_receive",$email);
+		$this->output
+			->set_content_type("application/json")
+			->_display(json_encode(['status'=>true]));
 
 	}
 

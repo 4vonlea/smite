@@ -3,6 +3,7 @@
  * @var $wa_token
  * @var $email_binded
  * @var $event
+ * @var $manual
  */
 ?>
 <div class="header bg-info pb-8 pt-5 pt-md-7"></div>
@@ -25,6 +26,11 @@
 						<a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-1-tab" data-toggle="tab"
 						   href="#tabs-notification" role="tab" aria-controls="tabs-icons-text-1"
 						   aria-selected="true"><i class="ni ni-book-bookmark mr-2"></i>Notification</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-1-tab" data-toggle="tab"
+						   href="#tabs-manual_payment" role="tab" aria-controls="tabs-icons-text-1"
+						   aria-selected="true"><i class="fa fa-money-bill mr-2"></i>Manual Payment(Bank Account)</a>
 					</li>
 				</ul>
 			</div>
@@ -131,10 +137,13 @@
 												<tbody>
 												<tr v-for="(prop,index) in cert.property">
 													<td>
-														<button @click="deleteProp(index)" class="btn btn-sm btn-primary"><i class="fa fa-trash"></i></button>
+														<button @click="deleteProp(index)"
+																class="btn btn-sm btn-primary"><i
+																class="fa fa-trash"></i></button>
 													</td>
 													<td>{{ prop.name }}</td>
-													<td><input type="number" v-model="prop.style.width" min="0" max="100" step="0.1"
+													<td><input type="number" v-model="prop.style.width" min="0"
+															   max="100" step="0.1"
 															   class="form-control"/></td>
 													<td>
 														<select v-model="prop.style.fontWeight" class="form-control">
@@ -199,214 +208,282 @@
 								</div>
 							</div>
 						</div>
+						<div class="tab-pane fade show active" id="tabs-manual_payment" role="tabpanel">
+							<div class="row">
+								<div class="col">Manual Payment</div>
+							</div>
+							<hr/>
+							<div class="row">
+								<div class="col-md-12">
+
+									<div class="form-group">
+										<label class="form-control-label">Email To Receive Notification</label>
+										<input type="text" class="form-control" v-model="manualPayment.emailReceive"/>
+									</div>
+									<div class="form-group">
+										<label class="form-control-label">Banks Info</label>
+										<table class="table">
+											<tr>
+												<th>Bank Name</th>
+												<th>Account Number</th>
+												<th>Account Name Holder</th>
+												<th>
+													<button
+														@click="manualPayment.banks.push({bank:'',no_rekening:'',holder:''});"
+														type="btn" class="btn btn-primary"><i class="fa fa-plus"></i>
+													</button>
+												</th>
+											</tr>
+											<tr v-if="manualPayment.banks.length == 0">
+												<td class="text-center" colspan="4">No Data</td>
+											</tr>
+											<tr v-for="(bank,index) in manualPayment.banks">
+												<td>
+													<input type="text" class="form-control" v-model="bank.bank" />
+												</td>
+												<td>
+													<input type="text" class="form-control" v-model="bank.no_rekening" />
+												</td>
+												<td>
+													<input type="text" class="form-control" v-model="bank.holder" />
+												</td>
+												<td>
+													<button @click="manualPayment.banks.splice(index,1)" type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+												</td>
+											</tr>
+										</table>
+									</div>
+									<div class="form-group text-right">
+										<button @click="saveManualPayment" :disabled="savingManual" type="button" class="btn btn-primary">
+											<i :class="[savingManual ? 'fa fa-spin fa-spinner':'fa fa-disk']" ></i> Save
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div v-if="loading" class="modal fade show" id="modal-loading"
-		 style="display: block; padding-right: 16px;background: rgba(0, 0, 0, 0.3)">
-		<div class="modal-dialog modal-sm">
-			<div class="modal-content">
-				<div class="modal-body text-center">
-					<div class="fa fa-spin fa-spinner fa-4x" role="status">
-						<span class="sr-only">Loading...</span>
-					</div>
-					<p>Loading Data . . .. </p>
-
+</div>
+<div v-if="loading" class="modal fade show" id="modal-loading"
+	 style="display: block; padding-right: 16px;background: rgba(0, 0, 0, 0.3)">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			<div class="modal-body text-center">
+				<div class="fa fa-spin fa-spinner fa-4x" role="status">
+					<span class="sr-only">Loading...</span>
 				</div>
+				<p>Loading Data . . .. </p>
 
 			</div>
+
 		</div>
 	</div>
-	<?php $this->layout->begin_script(); ?>
-	<script>
-        const toBase64 = file => new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            if (file) {
-                reader.readAsDataURL(file);
-                reader.onload = () => resolve(reader.result);
-            } else {
-                resolve(null);
-            }
-            reader.onerror = error => reject(error);
-
-        });
-
-        function defaultCert() {
-            return {
-                image: "",
-                base64Image: "",
-                fileName: "Select Image as Template",
-                body: {width: "100%"},
-                property: []
-            }
+</div>
+<?php $this->layout->begin_script(); ?>
+<script>
+	var banks = <?=$manual;?>;
+	var emailReceive = "<?=Settings_m::getSetting("email_receive");?>";
+    const toBase64 = file => new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        if (file) {
+            reader.readAsDataURL(file);
+            reader.onload = () => resolve(reader.result);
+        } else {
+            resolve(null);
         }
+        reader.onerror = error => reject(error);
 
-        var app = new Vue({
-            'el': '#app',
-            data: {
-                loading: false,
-                selectedEvent: "",
-                selectedParam: "",
-                saving: false,
-                savingCert: false,
-                uploading: false,
-                preview_certificate: "",
-                logo_src: '<?= base_url('themes/uploads/logo.png'); ?>',
-                form: {
-                    preface:<?=json_encode(Settings_m::getSetting('preface'));?>,
-                    site_title: '<?=Settings_m::getSetting('site_title');?>',
-                },
-                email_notif_binded:<?=$email_binded;?>,
-                email_notif: "<?=Settings_m::getSetting(Gmail_api::EMAIL_ADMIN_SETTINGS);?>",
-                wa_api_token: "<?=$wa_token;?>",
-                cert: defaultCert()
+    });
+
+    function defaultCert() {
+        return {
+            image: "",
+            base64Image: "",
+            fileName: "Select Image as Template",
+            body: {width: "100%"},
+            property: []
+        }
+    }
+
+    var app = new Vue({
+        'el': '#app',
+        data: {
+            loading: false,
+            selectedEvent: "",
+            selectedParam: "",
+            saving: false,
+            savingCert: false,
+            uploading: false,
+            preview_certificate: "",
+            logo_src: '<?= base_url('themes/uploads/logo.png'); ?>',
+            form: {
+                preface:<?=json_encode(Settings_m::getSetting('preface'));?>,
+                site_title: '<?=Settings_m::getSetting('site_title');?>',
             },
-            computed: {
-                urlPreview() {
-                    return "<?=base_url('admin/setting/preview_cert');?>/" + this.selectedEvent;
-                },
-                certProperty() {
-                    var ret = [];
-                    $.each(this.cert.property, function (i, r) {
-                        var temp = {
-                            "name": r.name,
-                            "style": {
-                                "width": r.style.width + "%",
-                                "textAlign": r.style.textAlign,
-                                "fontWeight": r.style.fontWeight,
-                                "position": "absolute",
-                                "top": r.style.top + "%",
-                                "left": r.style.left + "%",
-                                "fontSize": r.style.fontSize + "px"
-                            }
-                        }
-                        ret.push(temp);
-                    });
-                    return ret;
-                }
+            email_notif_binded:<?=$email_binded;?>,
+            email_notif: "<?=Settings_m::getSetting(Gmail_api::EMAIL_ADMIN_SETTINGS);?>",
+            wa_api_token: "<?=$wa_token;?>",
+            cert: defaultCert(),
+            manualPayment: {emailReceive:emailReceive,banks:banks},
+			savingManual:false,
+        },
+        computed: {
+            urlPreview() {
+                return "<?=base_url('admin/setting/preview_cert');?>/" + this.selectedEvent;
             },
-            methods: {
-                deleteProp(index){
-                    this.$delete(this.cert.property, index)
-				},
-                changeCertImage(e) {
-                    var file = e.target.files[0];
-                    this.cert.fileName = file.name;
-                    this.cert.image = URL.createObjectURL(file);
-                },
-                changeCertEvent() {
-                    this.loading = true;
-                    $.post("<?=base_url('admin/setting/get_cert');?>", {id: this.selectedEvent}, function (res) {
-                        if (res.status) {
-                            app.cert = res.data;
-                        } else {
-                            app.cert = defaultCert();
-                        }
-                    }, 'JSON').always(function () {
-                        app.loading = false;
-                    });
-                },
-                addPropertyCert() {
-                    this.cert.property.push({
-                        "name": this.selectedParam,
+            certProperty() {
+                var ret = [];
+                $.each(this.cert.property, function (i, r) {
+                    var temp = {
+                        "name": r.name,
                         "style": {
-                            "width": 100,
-                            "textAlign": "center",
-                            "fontWeight": "normal",
+                            "width": r.style.width + "%",
+                            "textAlign": r.style.textAlign,
+                            "fontWeight": r.style.fontWeight,
                             "position": "absolute",
-                            "top": 0,
-                            "left": 0,
-                            "fontSize": 12
+                            "top": r.style.top + "%",
+                            "left": r.style.left + "%",
+                            "fontSize": r.style.fontSize + "px"
                         }
-                    });
-                },
-                saveCert() {
-                    toBase64(app.$refs.certImage.files[0]).then(function (result) {
-                        if (result)
-                            app.cert.base64Image = result;
-                        app.cert.event = app.selectedEvent;
-                        app.savingCert = true;
+                    }
+                    ret.push(temp);
+                });
+                return ret;
+            }
+        },
+        methods: {
+            saveManualPayment(){
+                this.savingManual = true;
+                $.post("<?=base_url('admin/setting/save_manual');?>",this.manualPayment, function (res) {
+                    if (res.status) {
+                        Swal.fire("Success", "Setting Manual Payment Saved Successfully !", "success");
+                    }
+                }, 'JSON').always(function () {
+                    app.savingManual = false;
+                });
+            },
+            deleteProp(index) {
+                this.$delete(this.cert.property, index)
+            },
+            changeCertImage(e) {
+                var file = e.target.files[0];
+                this.cert.fileName = file.name;
+                this.cert.image = URL.createObjectURL(file);
+            },
+            changeCertEvent() {
+                this.loading = true;
+                $.post("<?=base_url('admin/setting/get_cert');?>", {id: this.selectedEvent}, function (res) {
+                    if (res.status) {
+                        app.cert = res.data;
+                    } else {
+                        app.cert = defaultCert();
+                    }
+                }, 'JSON').always(function () {
+                    app.loading = false;
+                });
+            },
+            addPropertyCert() {
+                this.cert.property.push({
+                    "name": this.selectedParam,
+                    "style": {
+                        "width": 100,
+                        "textAlign": "center",
+                        "fontWeight": "normal",
+                        "position": "absolute",
+                        "top": 0,
+                        "left": 0,
+                        "fontSize": 12
+                    }
+                });
+            },
+            saveCert() {
+                toBase64(app.$refs.certImage.files[0]).then(function (result) {
+                    if (result)
+                        app.cert.base64Image = result;
+                    app.cert.event = app.selectedEvent;
+                    app.savingCert = true;
 
-                        $.post("<?=base_url("admin/setting/save_cert");?>", app.cert, null, 'JSON')
-                            .done(function (res) {
-                                if (res.status) {
-                                    Swal.fire("Success", "Template Certificate Saved Successfully !", "success");
-                                }
-                            }).fail(function (xhr) {
-                            Swal.fire("Failed", "Failed to save data !", "error");
-                        }).always(function () {
-                            app.savingCert = false;
-                        });
-                    });
-
-                },
-                unbindEmail() {
-                    var app = this;
-                    $.post("<?=base_url("admin/setting/unbind_email");?>", {}, null, 'JSON')
+                    $.post("<?=base_url("admin/setting/save_cert");?>", app.cert, null, 'JSON')
                         .done(function (res) {
                             if (res.status) {
-                                app.email_notif_binded = false;
-                                app.email_notif = null;
+                                Swal.fire("Success", "Template Certificate Saved Successfully !", "success");
                             }
                         }).fail(function (xhr) {
-                        Swal.fire("Failed", "Failed to load data !", "error");
+                        Swal.fire("Failed", "Failed to save data !", "error");
                     }).always(function () {
-                        app.$refs.datagrid.loading = false;
+                        app.savingCert = false;
                     });
-                },
-                saveTokenWa() {
-                    var app = this;
-                    $.post("<?=base_url("admin/setting/save_token_wa");?>", {token: app.wa_api_token}, null, 'JSON')
-                        .done(function (res) {
-                            app.detailModel = res;
-                            $("#modal-detail").modal("show");
-                        }).fail(function (xhr) {
-                        Swal.fire("Failed", "Failed to load data !", "error");
-                    }).always(function () {
-                        app.$refs.datagrid.loading = false;
-                    });
-                },
-                onSave() {
-                    app.saving = true;
-                    console.log(app.form);
-                    $.ajax({
-                        url: "<?=base_url('admin/setting/save');?>",
-                        type: "POST",
-                        data: {settings: app.form},
-                    }).done(function () {
-                        Swal.fire("Success", "Setting has been saved !", "success");
-                    }).fail(function () {
-                        Swal.fire("Failed", "Fail to save setting !", "error");
-                    }).always(function () {
-                        app.saving = false;
-                    });
-                },
-                logoUpload() {
-                    var formData = new FormData();
-                    formData.append("file", this.$refs.file.files[0]);
-                    this.uploading = true;
-                    $.ajax({
-                        url: "<?=base_url('admin/setting/upload_logo');?>",
-                        type: "POST",
-                        data: formData,
-                        contentType: false,
-                        cache: false,
-                        processData: false,
-                    }).done(function () {
-                        app.logo_src = "<?= base_url('themes/uploads/logo.png'); ?>?" + (new Date().getTime());
-                    }).fail(function () {
-                        Swal.fire("Failed", "Fail to change logo !", "error");
-                    }).always(function () {
-                        app.uploading = false;
-                    });
-                },
-            }
-        });
-        $(document).ready(function () {
-            $("#sel_event option:last").attr({"disabled": "true", "hidden": "true"});
-            $("#sel_param option:first").attr({"disabled": "true", "hidden": "true"});
-        });
-	</script>
-	<?php $this->layout->end_script(); ?>
+                });
+
+            },
+            unbindEmail() {
+                var app = this;
+                $.post("<?=base_url("admin/setting/unbind_email");?>", {}, null, 'JSON')
+                    .done(function (res) {
+                        if (res.status) {
+                            app.email_notif_binded = false;
+                            app.email_notif = null;
+                        }
+                    }).fail(function (xhr) {
+                    Swal.fire("Failed", "Failed to load data !", "error");
+                }).always(function () {
+                    app.$refs.datagrid.loading = false;
+                });
+            },
+            saveTokenWa() {
+                var app = this;
+                $.post("<?=base_url("admin/setting/save_token_wa");?>", {token: app.wa_api_token}, null, 'JSON')
+                    .done(function (res) {
+                        app.detailModel = res;
+                        $("#modal-detail").modal("show");
+                    }).fail(function (xhr) {
+                    Swal.fire("Failed", "Failed to load data !", "error");
+                }).always(function () {
+                    app.$refs.datagrid.loading = false;
+                });
+            },
+            onSave() {
+                app.saving = true;
+                console.log(app.form);
+                $.ajax({
+                    url: "<?=base_url('admin/setting/save');?>",
+                    type: "POST",
+                    data: {settings: app.form},
+                }).done(function () {
+                    Swal.fire("Success", "Setting has been saved !", "success");
+                }).fail(function () {
+                    Swal.fire("Failed", "Fail to save setting !", "error");
+                }).always(function () {
+                    app.saving = false;
+                });
+            },
+            logoUpload() {
+                var formData = new FormData();
+                formData.append("file", this.$refs.file.files[0]);
+                this.uploading = true;
+                $.ajax({
+                    url: "<?=base_url('admin/setting/upload_logo');?>",
+                    type: "POST",
+                    data: formData,
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                }).done(function () {
+                    app.logo_src = "<?= base_url('themes/uploads/logo.png'); ?>?" + (new Date().getTime());
+                }).fail(function () {
+                    Swal.fire("Failed", "Fail to change logo !", "error");
+                }).always(function () {
+                    app.uploading = false;
+                });
+            },
+        }
+    });
+    $(document).ready(function () {
+        $("#sel_event option:last").attr({"disabled": "true", "hidden": "true"});
+        $("#sel_param option:first").attr({"disabled": "true", "hidden": "true"});
+    });
+</script>
+<?php $this->layout->end_script(); ?>

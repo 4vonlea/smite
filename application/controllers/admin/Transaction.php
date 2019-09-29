@@ -87,4 +87,22 @@ class Transaction extends Admin_Controller
 
 	}
 
+	public function file($name)
+	{
+		$filepath = APPPATH . "uploads/proof/" . $name;
+		if (file_exists($filepath)) {
+			list(,$ext) = explode(".",$name);
+			header('Content-Description: File Transfer');
+			header('Content-Type: ' . mime_content_type($filepath));
+			header('Content-Disposition: attachment; filename="Paper-' . $name . '.'.$ext.'"');
+			header('Expires: 0');
+			header('Cache-Control: must-revalidate');
+			header('Pragma: public');
+			header('Content-Length: ' . filesize($filepath));
+			flush(); // Flush system output buffer
+			readfile($filepath);
+			exit;
+		}
+	}
+
 }

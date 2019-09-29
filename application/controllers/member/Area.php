@@ -315,6 +315,44 @@ class Area extends MY_Controller
         redirect('site');
     }
 
+	public function upload_proof()
+	{
+		if ($this->input->method() != 'post')
+			show_404("Page Not Found !");
+		$id = $this->input->post("invoice_id");
+		$message = $this->input->post("message");
+		$config['upload_path']          = APPPATH.'uploads/proof/';
+		$config['allowed_types']        = 'jpg|png|jpeg';
+		$config['max_size']             = 2048;
+		$config['overwrite']             = true;
+		$config['file_name']        = $id;
+
+		$this->load->library('upload', $config);
+		if($this->upload->do_upload('file_proof')){
+			$data = $this->upload->data();
+
+			$this->load->model(["Transaction_m","Gmail_api"]);
+			$tran = $this->Transaction_m->findOne($id);
+			$tran->client_message = $message;
+			$tran->payment_proof =  $data['file_name'];
+			$tran->status_payment = Transaction_m::STATUS_NEED_VERIFY;
+			$data['status_payment'] =  Transaction_m::STATUS_NEED_VERIFY;
+			$response['status'] = $tran->save();
+			$response['data'] = $data;
+			if($response['status'] && Settings_m::getSetting("email_receive") != ""){
+				$email_message = "A Participant has upload a transfer proof with invoice id <b>$tran->id</b>";
+				$file[$data['file_name']] = file_get_contents(APPPATH.'uploads/proof/'.$data['file_name']);
+				$this->Gmail_api->sendMessageWithAttachment( Settings_m::getSetting("email_receive") ,'Notification Upload Transfer Proof',$email_message,$file);
+			}
+		}else{
+			$response['status'] = false;
+			$response['message'] = $this->upload->display_errors("","");
+		}
+		$this->output
+			->set_content_type("application/json")
+			->_display(json_encode($response));
+	}
+
 	public function detail_transaction(){
 		if($this->input->method() != 'post')
 			show_404("Page Not Found !");
@@ -330,6 +368,8 @@ class Area extends MY_Controller
 				$response['details'][] = $row->toArray();
 			}
 		}
+		$response['banks'] = json_decode(Settings_m::getSetting(Settings_m::MANUAL_PAYMENT),true);
+
 		$this->output
 			->set_content_type("application/json")
 			->_display(json_encode($response));

@@ -104,97 +104,108 @@ class Payment extends MY_Controller
 	public function checkout(){
 		$this->load->model("Transaction_m");
 		$user = $this->session->user_session;
-		$transaction = $this->Transaction_m->findOne(['member_id'=>$user['id'],'checkout'=>0]);
-		if($transaction) {
-			$total_price = 0;
-			$item_details = [];
-			foreach ($transaction->details as $row) {
-				$item_details[] = [
-					'id' => $row->id,
-					'price' => $row->price,
-					'quantity' => 1,
-					'name' => $row->product_name
-				];
-				$total_price += $row->price;
-			}
-			if($total_price == 0){
-				$check = $this->Transaction_m->findOne(['member_id'=>$user['id'],'status_payment'=>Transaction_m::STATUS_FINISH]);
-				if($check){
-					$transaction->status_payment = Transaction_m::STATUS_FINISH;
-					$transaction->channel = "FREE EVENT";
-					$transaction->checkout = 1;
-					$transaction->message_payment = "Participant follow a free event";
-					$transaction->save();
-					$this->output->set_content_type("application/json")
-						->_display(json_encode(['status'=>true,'info'=>true,'message'=>'Thank you for your participation you have been added to follow a free event, No need payment !']));
-					exit;
-				}else{
-					$this->output->set_content_type("application/json")
-						->_display(json_encode(['status'=>false,'message'=>'You need to follow a paid event before follow a free (Rp 0,00) event !']));
-					exit;
+		if($this->config->item("use_midtrans")) {
+			$transaction = $this->Transaction_m->findOne(['member_id' => $user['id'], 'checkout' => 0]);
+			if ($transaction) {
+				$total_price = 0;
+				$item_details = [];
+				foreach ($transaction->details as $row) {
+					$item_details[] = [
+						'id' => $row->id,
+						'price' => $row->price,
+						'quantity' => 1,
+						'name' => $row->product_name
+					];
+					$total_price += $row->price;
 				}
-			}
-			if(count($item_details) == 0){
+				if ($total_price == 0) {
+					$check = $this->Transaction_m->findOne(['member_id' => $user['id'], 'status_payment' => Transaction_m::STATUS_FINISH]);
+					if ($check) {
+						$transaction->status_payment = Transaction_m::STATUS_FINISH;
+						$transaction->channel = "FREE EVENT";
+						$transaction->checkout = 1;
+						$transaction->message_payment = "Participant follow a free event";
+						$transaction->save();
+						$this->output->set_content_type("application/json")
+							->_display(json_encode(['status' => true, 'info' => true, 'message' => 'Thank you for your participation you have been added to follow a free event, No need payment !']));
+						exit;
+					} else {
+						$this->output->set_content_type("application/json")
+							->_display(json_encode(['status' => false, 'message' => 'You need to follow a paid event before follow a free (Rp 0,00) event !']));
+						exit;
+					}
+				}
+				if (count($item_details) == 0) {
+					$response['status'] = false;
+					$response['message'] = "No Transaction available to checkout";
+				} else {
+					$transaction_details = array(
+						'order_id' => $transaction->id,
+						'gross_amount' => $total_price,
+					);
+
+					$fullname = explode(" ", trim($user['fullname']));
+					$firstname = (isset($fullname[0]) ? $fullname[0] : "");
+					$lastname = (isset($fullname[1]) ? $fullname[1] : "");
+					$billing_address = array(
+						'first_name' => $firstname,
+						'last_name' => $lastname,
+						'address' => $user['address'],
+						'city' => $user['city'],
+//			'postal_code'   => "",
+						'phone' => $user['phone'],
+//			'country_code'  => 'IDN'
+					);
+
+					$customer_details = array(
+						'first_name' => $firstname,
+						'last_name' => $lastname,
+						'email' => $user['email'],
+						'phone' => $user['phone'],
+						'billing_address' => $billing_address,
+					);
+
+					$credit_card['secure'] = true;
+
+					$time = time();
+					$custom_expiry = array(
+						'start_time' => date("Y-m-d H:i:s O", $time),
+						'unit' => 'day',
+						'duration' => 3
+					);
+
+					$transaction_data = array(
+						'transaction_details' => $transaction_details,
+						'item_details' => $item_details,
+						'customer_details' => $customer_details,
+						'credit_card' => $credit_card,
+						'expiry' => $custom_expiry,
+					);
+					try {
+						error_log(json_encode($transaction_data));
+						$snapToken = $this->midtrans->getSnapToken($transaction_data);
+						error_log($snapToken);
+						$response['status'] = true;
+						$response['token'] = $snapToken;
+						$response['invoice'] = $transaction->id;
+					} catch (Exception $ex) {
+						$response['status'] = false;
+						$response['message'] = $ex->getMessage();
+					}
+				}
+			} else {
 				$response['status'] = false;
 				$response['message'] = "No Transaction available to checkout";
-			}else {
-				$transaction_details = array(
-					'order_id' => $transaction->id,
-					'gross_amount' => $total_price,
-				);
-
-				$fullname = explode(" ", trim($user['fullname']));
-				$firstname = (isset($fullname[0]) ? $fullname[0] : "");
-				$lastname = (isset($fullname[1]) ? $fullname[1] : "");
-				$billing_address = array(
-					'first_name' => $firstname,
-					'last_name' => $lastname,
-					'address' => $user['address'],
-					'city' => $user['city'],
-//			'postal_code'   => "",
-					'phone' => $user['phone'],
-//			'country_code'  => 'IDN'
-				);
-
-				$customer_details = array(
-					'first_name' => $firstname,
-					'last_name' => $lastname,
-					'email' => $user['email'],
-					'phone' => $user['phone'],
-					'billing_address' => $billing_address,
-				);
-
-				$credit_card['secure'] = true;
-
-				$time = time();
-				$custom_expiry = array(
-					'start_time' => date("Y-m-d H:i:s O", $time),
-					'unit' => 'day',
-					'duration' => 3
-				);
-
-				$transaction_data = array(
-					'transaction_details' => $transaction_details,
-					'item_details' => $item_details,
-					'customer_details' => $customer_details,
-					'credit_card' => $credit_card,
-					'expiry' => $custom_expiry,
-				);
-				try {
-					error_log(json_encode($transaction_data));
-					$snapToken = $this->midtrans->getSnapToken($transaction_data);
-					error_log($snapToken);
-					$response['status'] = true;
-					$response['token'] = $snapToken;
-					$response['invoice'] = $transaction->id;
-				} catch (Exception $ex) {
-					$response['status'] = false;
-					$response['message'] = $ex->getMessage();
-				}
 			}
 		}else{
-			$response['status'] = false;
-			$response['message'] = "No Transaction available to checkout";
+			$manual_payment = json_decode(Settings_m::getSetting(Settings_m::MANUAL_PAYMENT),true);
+			$transaction = $this->Transaction_m->findOne(['member_id' => $user['id'], 'checkout' => 0]);
+			$transaction->checkout = 1;
+			$transaction->status_payment = Transaction_m::STATUS_PENDING;
+			$transaction->channel = "MANUAL TRANSFER";
+			$transaction->save();
+			$response['status'] = true;
+			$response['manual'] = $manual_payment;
 		}
 		$this->output->set_content_type("application/json")
 			->_display(json_encode($response));
