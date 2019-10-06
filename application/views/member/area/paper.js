@@ -102,6 +102,20 @@ export default Vue.component("PagePaper", {
 								<span class="alert alert-info">{{ paper.status[form.status] }}</span>							
 							</div>
 						</div>
+						<div v-if="detail && form.fullpaper" class="form-group row">
+							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Fullpaper Link</label>
+							<div class="col-lg-9">
+								<a :href="paperUrl(form.fullpaper)">Click Here</a> | 
+								<a href="#" @click.prevent="modalFullpaper(form)">Change Fullpaper or Presentation File</a>
+							</div>
+						</div>
+						<div v-if="detail && form.poster" class="form-group row">
+							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Presentation File Link</label>
+							<div class="col-lg-9">
+								<a :href="paperUrl(form.poster)">Click Here</a> | 
+								<a href="#" @click.prevent="modalFullpaper(form)">Change Fullpaper or Presentation File</a>
+							</div>
+						</div>
                     	<div class="form-group row">
                     		<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Type Abstract*</label>
 							<div class="col-lg-9">
