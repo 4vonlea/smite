@@ -112,7 +112,7 @@ $this->layout->end_head();
 						</template>
 					<?php endif ;?>
 					<template slot="status" slot-scope="props">
-						{{ status[props.row.status] }}
+						{{ status[props.row.status] }} <span class="badge badge-info" v-if="props.row.fullpaper">Fullpaper Exist</span>
 					</template>
 					<template slot="t_updated_at" slot-scope="props">
 						{{ formatDate(props.row.t_created_at) }}
@@ -193,6 +193,14 @@ $this->layout->end_head();
 					<span v-html="validation"></span>
 				</div>
 				<table class="table" style="white-space: normal !important;">
+					<tr v-if="reviewModel.fullpaper">
+						<th>Fullpaper Link</th>
+						<td><a :href="'<?=base_url('admin/paper/file');?>/'+reviewModel.fullpaper+'/'+reviewModel.author+'/Fullpaper'" target="_blank">Click Here !</a></td>
+					</tr>
+					<tr  v-if="reviewModel.poster">
+						<th>Presentation File Link</th>
+						<td><a :href="'<?=base_url('admin/paper/file');?>/'+reviewModel.poster+'/'+reviewModel.author+'/Presentation'" target="_blank">Click Here !</a></td>
+					</tr>
 					<tr>
 						<th>Submitted On</th>
 						<td>{{ formatDate(reviewModel.t_updated_at) }}</td>
@@ -388,7 +396,7 @@ $this->layout->end_head();
                 this.validation = null;
                 this.detailMode = 0;
                 this.reviewModel = row.row;
-                this.reviewModel.link = `<?=base_url("admin/paper/file");?>/${row.row.filename}`;
+                this.reviewModel.link = `<?=base_url("admin/paper/file");?>/${row.row.filename}/${row.row.author}`;
                 $("#modal-reviewer").modal('show');
             },
             review(row) {
@@ -401,7 +409,7 @@ $this->layout->end_head();
                 }catch (e) {
 					console.log(e);
                 }
-                this.reviewModel.link = `<?=base_url("admin/paper/file");?>/${row.row.filename}`;
+                this.reviewModel.link = `<?=base_url("admin/paper/file");?>/${row.row.filename}/${row.row.author}`;
                 $("#modal-review").modal('show');
             },
             formatDate(date) {

@@ -233,6 +233,46 @@ class Area extends MY_Controller
         }
     }
 
+    public function upload_fullpaper(){
+    	$response = [];
+		$this->load->library('upload');
+
+		$configFullpaper = [
+    		'upload_path'=>APPPATH.'uploads/papers/',
+    		'allowed_types'=>'doc|docx|ods',
+			'max_size'=>5120,
+			'file_name'=>'fullpaper_'.date("Ymdhis"),
+		];
+    	$configPresentation = [
+    		'upload_path'=>APPPATH.'uploads/papers/',
+			'allowed_types'=>'jpg|jpeg|png|ppt|pptx',
+			'max_size'=>5120,
+			'file_name'=>'presentation_'.date("Ymdhis"),
+		];
+		$this->upload->initialize($configFullpaper);
+		$statusFullpaper = $this->upload->do_upload('fullpaper');
+		$dataFullpaper = $this->upload->data();
+		$errorFullpaper = $this->upload->display_errors("","");
+		$this->upload->initialize($configPresentation);
+		$statusPresentation = $this->upload->do_upload('presentation');
+		$dataPresentation = $this->upload->data();
+		$errorPresentation = $this->upload->display_errors("","");
+		if($statusFullpaper && $statusPresentation){
+			$this->load->model("Papers_m");
+
+			$paper = $this->Papers_m->findOne($this->input->post("id"));
+			$paper->fullpaper = $dataFullpaper['file_name'];
+			$paper->poster = $dataPresentation['file_name'];
+			$response['status'] = $paper->save(false);
+		}else{
+			$response['status'] = false;
+			$response['message']['fullpaper'] = $errorFullpaper;
+			$response['message']['presentation'] = $errorPresentation;
+		}
+		$this->output->set_content_type("application/json")
+			->_display(json_encode($response));
+	}
+
     public function upload_paper(){
         if($this->input->method() !== 'post')
             show_404("Page not found !");
