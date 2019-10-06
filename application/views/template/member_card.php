@@ -41,7 +41,7 @@ $bg = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcgAAAJyCAYAAABAGFBkAAAABGd
 		</tr>
 	</table>
 	<div style="margin-top: 7.5cm">
-		<h2 style="font-size: 40px;margin-bottom: 10px"><?=(isset($member['status']) ?$member['status']:"PESERTA");?></h2>
+		<h2 style="font-size: 40px;margin-bottom: 10px"><?=(isset($member['status_com']) ?$member['status_com']:"PESERTA");?></h2>
 		<h2 style="margin-top: 10px">
 			"<?= $event['name']; ?>"
 		</h2>
