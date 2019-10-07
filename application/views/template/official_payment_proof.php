@@ -101,15 +101,16 @@ $member = $transaction->member;
 				</tr>
 			</table>
 		</td>
-	</tr>
+	</tr> <br/>
 	<tr style="height:20px">
 		<td style="text-align:left;width:720px;height:20px">
 			<p>
 				Bukti pembayaran (kuitansi) ini merupakan tanda bukti yang sah dan dipergunakan sebagaimana mestinya. Peserta wajib menunjukkan kuitansi ini kepada panitia pada saat registrasi ulang. Terimakasih
-			</p>
-			<p style="text-align:right;font-size: 18px;font-weight: bold">Salam hormat,<br/>
-				Panitia penyelenggara 2nd East INSDV 2020<br/>
-				Divisi Kesekretariatan
+			</p> <br/><br/>
+			<p style="text-align:right;font-size: 18px;font-weight: bold">Salam hormat,<br/> 
+				Ketua Panitia <br/><br/>
+				<img width="200px" height="100px" class="" src="themes/porto/img/ttd.png"> <br/>
+				dr. Huany Wongdjaja, Sp.KK, M.Kes, FINSDV
 			</p>
 		</td>
 	</tr>

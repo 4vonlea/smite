@@ -192,7 +192,7 @@ $role = $this->session->user_session['role'];
 					<li class="nav-item">
 						<a class="nav-link"
 						   href="<?= base_url("admin/member/register"); ?>">
-							<i class="ni ni-spaceship text-green"></i> Register On Site
+							<i class="ni ni-spaceship text-green"></i> Manual Registration
 						</a>
 					</li>
 					<li class="nav-item">
