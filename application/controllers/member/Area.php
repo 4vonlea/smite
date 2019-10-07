@@ -377,9 +377,13 @@ class Area extends MY_Controller
 			$tran->payment_proof =  $data['file_name'];
 			$tran->status_payment = Transaction_m::STATUS_NEED_VERIFY;
 			$data['status_payment'] =  Transaction_m::STATUS_NEED_VERIFY;
+			$mem = $this->Member_m->findOne($tran->member_id);
 			$response['status'] = $tran->save();
 			$response['data'] = $data;
 			if($response['status'] && Settings_m::getSetting("email_receive") != ""){
+				$email_message = "$mem->fullname has upload a transfer proof with invoice id <b>$tran->id</b>";
+				$file[$data['file_name']] = file_get_contents(APPPATH.'uploads/proof/'.$data['file_name']);
+				$this->Gmail_api->sendMessageWithAttachment( Settings_m::getSetting("email_receive") ,'Notification Upload Transfer Proof by $mem->fullname',$email_message,$file);
 				$emails = explode(",",Settings_m::getSetting("email_receive") );
 				$email_message = "A Participant has upload a transfer proof with invoice id <b>$tran->id</b>";
 				$file[$data['file_name']] = file_get_contents(APPPATH . 'uploads/proof/' . $data['file_name']);

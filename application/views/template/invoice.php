@@ -154,9 +154,10 @@ setlocale (LC_TIME, 'id_ID');
 							dan peserta harus melakukan registrasi ulang. Terimakasih
 						</p>
 						<p></p>
-						<p style="text-align:right;font-size: 20px;font-weight: bold">Salam hormat,<br/>
-							Panitia penyelenggara 2nd East INSDV 2020<br/>
-							Divisi Kesekretariatan
+						<p style="text-align:right;font-size: 20px;font-weight: bold">Salam hormat,<br/> 
+						Ketua Panitia <br/><br/>
+							 <img width="200px" height="100px" class="" src="themes/porto/img/ttd.png"> <br/>
+					    dr. Huany Wongdjaja, Sp.KK, M.Kes, FINSDV
 						</p>
 					</td>
 				</tr>
@@ -166,4 +167,3 @@ setlocale (LC_TIME, 'id_ID');
 	</tr>
 	</tbody>
 </table>
-

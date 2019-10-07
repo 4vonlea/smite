@@ -104,6 +104,7 @@ class Transaction_m extends MY_Model
 			'transaction'=>$this,
 		],true);
 		$dompdf = new Dompdf();
+		$dompdf->setPaper('legal', 'potrait');
 		$dompdf->loadHtml($html);
 		$dompdf->render();
 		return $dompdf;
