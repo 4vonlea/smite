@@ -380,9 +380,12 @@ class Area extends MY_Controller
 			$response['status'] = $tran->save();
 			$response['data'] = $data;
 			if($response['status'] && Settings_m::getSetting("email_receive") != ""){
+				$emails = explode(",",Settings_m::getSetting("email_receive") );
 				$email_message = "A Participant has upload a transfer proof with invoice id <b>$tran->id</b>";
-				$file[$data['file_name']] = file_get_contents(APPPATH.'uploads/proof/'.$data['file_name']);
-				$this->Gmail_api->sendMessageWithAttachment( Settings_m::getSetting("email_receive") ,'Notification Upload Transfer Proof',$email_message,$file);
+				$file[$data['file_name']] = file_get_contents(APPPATH . 'uploads/proof/' . $data['file_name']);
+				foreach($emails as $email) {
+					$this->Gmail_api->sendMessageWithAttachment($email, 'Notification Upload Transfer Proof', $email_message, $file);
+				}
 			}
 		}else{
 			$response['status'] = false;
