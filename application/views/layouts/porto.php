@@ -13,9 +13,9 @@ $theme_path = base_url("themes/porto") . "/";
 
 	<title><?= Settings_m::getSetting('site_title'); ?></title>
 
-	<meta name="keywords" content="seminar,orthopaedic"/>
-	<meta name="description" content="Seminar orthopaedic">
-	<meta name="anonym" content="Seminar orthopaedic International in Banjarmasin">
+	<meta name="keywords" content="Seminar Dermatovenereology"/>
+	<meta name="description" content="Seminar Dermatovenereology">
+	<meta name="anonym" content="Seminar Dermatovenereology International in Banjarmasin">
 
 	<!-- Favicon -->
 	<link rel="shortcut icon" href="<?= $theme_path; ?>img/favicon.ico" type="image/x-icon"/>
