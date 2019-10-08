@@ -264,6 +264,7 @@ class Event_m extends MY_Model
 		$this->db->from('event_pricing pri');
 		$this->db->join('events eve', 'eve.id = pri.event_id');
 		$this->db->where('pri.condition', $id);
+		$this->db->where('pri.show', "1");
 		$this->db->group_by('nama_acara');
 		$result = $this->db->get()->result();
 		return $result;
