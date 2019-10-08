@@ -35,7 +35,7 @@ class Dashboard extends Admin_Controller
 	public function download_paper($tipe){
 		$this->load->model("Dashboard_m");
 		$data =  $this->Dashboard_m->getDataPaper();
-		$this->export($tipe,"Members Registered on Site",$data);
+		$this->export($tipe,"Participant of Papers",$data);
 	}
 
 	public function download_participant($event_id,$tipe){
