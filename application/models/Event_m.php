@@ -225,6 +225,7 @@ class Event_m extends MY_Model
 		$this->db->from('events eve');
 		$this->db->join('event_pricing pri', 'eve.id = pri.event_id', 'left');
 		$this->db->group_by('kategori');
+		$this->db->order_by('kategori');
 		$temp = $this->db->get()->result();
 		$result['data'] = array();
 
@@ -260,12 +261,13 @@ class Event_m extends MY_Model
 
 	public function get_acara($id)
 	{
-		$this->db->select('pri.id, pri.event_id as id_acara, eve.name as nama_acara, pri.condition as kond');
+		$this->db->select('pri.id, pri.event_id as id_acara, eve.name as nama_acara, pri.condition as kond, eve.kategory as katego');
 		$this->db->from('event_pricing pri');
 		$this->db->join('events eve', 'eve.id = pri.event_id');
 		$this->db->where('pri.condition', $id);
 		$this->db->where('pri.show', "1");
 		$this->db->group_by('nama_acara');
+		$this->db->order_by('katego');
 		$result = $this->db->get()->result();
 		return $result;
 	}
