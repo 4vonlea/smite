@@ -32,7 +32,7 @@ class Event_pricing_m extends MY_Model
                     $return['condition'][$ind] =  $price['condition'];//(isset($participantsCategory[$price['condition']])?$participantsCategory[$price['condition']]:"1");
                     $return['condition_date'][$ind] =  $row['condition_date'];
                     $return['price'][$ind] =  $price['price'];
-                    $return['show'][$ind] =  ($price['show']=="true"?"1":"0");
+                    $return['show'][$ind] =  ($price['show']=="true" || $price['show'] == "1"?"1":"0");
                     $ind++;
                 }
             }else {
@@ -44,7 +44,7 @@ class Event_pricing_m extends MY_Model
                         'condition_date'=>$row['condition_date'],
                         'price'=> $price['price'],
                         'event_id'=>$id,
-						'show'=>($price['show'] == "true"?"1":"0")
+						'show'=>($price['show'] == "true" || $price['show'] == "1"?"1":"0")
                     ];
                 }
             }

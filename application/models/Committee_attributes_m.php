@@ -26,7 +26,7 @@ class Committee_attributes_m extends My_model
 		$event = $com->event;
 		$html = $this->load->view("template/member_card", ['event' => $event->toArray(), 'member' => [
 			'fullname'=>$com->committee->name,
-			'status'=>$com->status
+			'status_com'=>$com->status
 		]], true);
 		$dompdf = new Dompdf\Dompdf();
 		$dompdf->loadHtml($html);

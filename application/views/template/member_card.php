@@ -41,7 +41,7 @@ $bg = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcgAAAJyCAYAAABAGFBkAAAABGd
 		</tr>
 	</table>
 	<div style="margin-top: 7.5cm">
-		<h2 style="font-size: 40px;margin-bottom: 10px"><?=(isset($member['status']) ?$member['status']:"PESERTA");?></h2>
+		<h2 style="font-size: 40px;margin-bottom: 10px"><?=(isset($member['status_com']) ?$member['status_com']:"PESERTA");?></h2>
 		<h2 style="margin-top: 10px">
 			"<?= $event['name']; ?>"
 		</h2>
@@ -49,7 +49,7 @@ $bg = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAcgAAAJyCAYAAABAGFBkAAAABGd
 		<p style="margin: 5px">"<?= $event['theme']; ?>"</p>
 		<p style="margin: 5px;font-weight: bold"><?= $event['held_on']; ?></p>
 		<p style="margin: 5px;font-weight: bold"><?= $event['held_in']; ?></p>
-		<h1 style="text-transform: uppercase;font-size:40px;margin-top:10px"><?=$member['fullname'];?></h1>
+		<h1 style="font-size:40px;margin-top:10px"><?=$member['fullname'];?></h1>
 	</div>
 </div>
 

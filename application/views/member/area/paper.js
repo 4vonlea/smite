@@ -2,6 +2,47 @@ export default Vue.component("PagePaper", {
     template: `
         <div class="col-lg-9">
             <page-loader :loading="loading" :fail="fail"></page-loader>
+            <div class="modal" data-backdrop="static" id="modal-fullpaper">
+				<div class="modal-dialog">
+					<div class="modal-content">
+					  	<!-- Modal Header -->
+						<div class="modal-header">
+						<h4 class="modal-title">Upload Full Paper</h4>
+						</div>
+						<!-- Modal body -->
+						<div class="modal-body">
+							<form ref="formFullpaper" enctype="multipart/form-data">
+								<input type="hidden" name="id" :value="formFullpaper.id" />
+								<div class="form-group">
+									<label class="font-weight-bold text-dark form-control-label text-2">Paper Title</label>
+									<label>{{ formFullpaper.title}}</label>
+								</div>
+								<div class="form-group">
+									<label class="font-weight-bold text-dark form-control-label text-2">Presentation On {{ formFullpaper.type_presence}}</label>
+								</div>
+								<hr/>
+								<div class="form-group">
+									<label class="font-weight-bold text-dark form-control-label text-2">Fullpaper (doc,docx,ods)</label>
+									<input :class="{'is-invalid':error_fullpaper.fullpaper}" type="file" class="form-control-file" name="fullpaper" accept=".doc,.docx,.ods">
+									<div v-if="error_fullpaper.fullpaper" class="invalid-feedback">{{ error_fullpaper.fullpaper }}</div>
+								</div>
+								<div class="form-group">
+									<label class="font-weight-bold text-dark form-control-label text-2">Presentation File (jpg,png,jpeg,ppt,pptx)</label>
+									<input :class="{'is-invalid':error_fullpaper.presentation}" type="file" class="form-control-file" name="presentation" accept=".jpg,.jpeg,.png,.ppt,.pptx">
+									<div v-if="error_fullpaper.presentation" class="invalid-feedback">{{ error_fullpaper.presentation }}</div>
+								</div>	
+							</form>					  	
+						</div>						
+						<!-- Modal footer -->
+						<div class="modal-footer">
+						<button :disabled="uploadingFullpaper" type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+						<button :disabled="uploadingFullpaper" type="button" @click="uploadFullpaper" class="btn btn-primary" >
+							<i v-if="uploadingFullpaper" class="fa fa-spin fa-spinner"></i> Upload
+						</button>
+						</div>
+					</div>
+				</div>
+			</div>
             <div v-if="!loading && !fail">
                 <div class="overflow-hidden mb-1">
                     <h2 class="font-weight-normal text-7 mb-0"><strong class="font-weight-extra-bold">Submit Paper</strong></h2>
@@ -39,6 +80,9 @@ export default Vue.component("PagePaper", {
 									<span v-if="pap.status == 0">
 									Please Revise Paper <small>(Click Detail then Edit)</small>
 									</span>
+									<span v-if="pap.status == 2 && !pap.fullpaper" style="font-weight: bold">
+										<br/>Please upload your fullpaper <a href="#" @click.prevent="modalFullpaper(pap)">Here</a>
+									</span>
 								</td>
 								<td>{{ formatDate(pap.created_at) }}</td>
 								<td>
@@ -56,6 +100,20 @@ export default Vue.component("PagePaper", {
 							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Status</label>
 							<div class="col-lg-9">
 								<span class="alert alert-info">{{ paper.status[form.status] }}</span>							
+							</div>
+						</div>
+						<div v-if="detail && form.fullpaper" class="form-group row">
+							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Fullpaper Link</label>
+							<div class="col-lg-9">
+								<a :href="paperUrl(form.fullpaper)">Click Here</a> | 
+								<a href="#" @click.prevent="modalFullpaper(form)">Change Fullpaper or Presentation File</a>
+							</div>
+						</div>
+						<div v-if="detail && form.poster" class="form-group row">
+							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Presentation File Link</label>
+							<div class="col-lg-9">
+								<a :href="paperUrl(form.poster)">Click Here</a> | 
+								<a href="#" @click.prevent="modalFullpaper(form)">Change Fullpaper or Presentation File</a>
 							</div>
 						</div>
                     	<div class="form-group row">
@@ -117,7 +175,7 @@ export default Vue.component("PagePaper", {
 						<div v-if="!detail" class="form-group row">
 							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Upload Paper *<small>(.doc,.docx,.ods)</small></label>
 							<div class="col-lg-9">
-								<input  :class="{'is-invalid':error_upload.file}" ref="file" class="form-control-file" accept=".doc,.docx,.ods"  type="file" value="">
+								<input :class="{'is-invalid':error_upload.file}" ref="file" class="form-control-file" accept=".doc,.docx,.ods"  type="file" value="">
 								<div v-if="error_upload.file" class="invalid-feedback">{{ error_upload.file }}</div>
 							</div>
 						</div>
@@ -187,6 +245,9 @@ export default Vue.component("PagePaper", {
             error_upload: {},
             uploading:false,
 			form:{co_author:[]},
+			formFullpaper:{},
+			uploadingFullpaper:false,
+			error_fullpaper:{},
         }
     },
     created() {
@@ -200,6 +261,38 @@ export default Vue.component("PagePaper", {
 
     },
     methods: {
+    	uploadFullpaper(){
+			var page = this;
+			var fd = new FormData(this.$refs.formFullpaper);
+			page.uploadingFullpaper = true;
+			$.ajax({
+				url: this.baseUrl + "upload_fullpaper",
+				type: 'post',
+				data: fd,
+				contentType: false,
+				processData: false,
+				dataType: 'JSON',
+				success: function (response) {
+					if (response.status) {
+						$("#modal-fullpaper").modal("hide");
+						Swal.fire('Success',"Fullpaper uploaded successfully !",'success');
+						page.fetchData();
+					} else {
+						page.error_fullpaper = response.message;
+					}
+				},
+			}).always(function () {
+				page.uploadingFullpaper = false;
+			}).fail(function () {
+				Swal.fire('Fail',"Failed to process !",'error');
+			});
+		},
+    	modalFullpaper(paper){
+			this.$refs.formFullpaper.reset();
+    		this.formFullpaper = paper;
+    		this.error_fullpaper = {};
+			$("#modal-fullpaper").modal("show");
+		},
     	removeAuthor(i){
     		this.form.co_author.splice(i,1);
 		},

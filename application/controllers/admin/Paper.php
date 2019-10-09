@@ -72,14 +72,14 @@ class Paper extends Admin_Controller
 			->_display(json_encode($response));
 	}
 
-	public function file($name,$member)
+	public function file($name,$member,$type = "Paper")
 	{
 		$filepath = APPPATH . "uploads/papers/" . $name;
 		if (file_exists($filepath)) {
 			list(,$ext) = explode(".",$name);
 			header('Content-Description: File Transfer');
 			header('Content-Type: ' . mime_content_type($filepath));
-			header('Content-Disposition: attachment; filename="Paper-' . $member . '.'.$ext.'"');
+			header('Content-Disposition: attachment; filename="'.$type.'-' . $member . '.'.$ext.'"');
 			header('Expires: 0');
 			header('Cache-Control: must-revalidate');
 			header('Pragma: public');
