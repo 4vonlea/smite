@@ -234,7 +234,7 @@ class Event_m extends MY_Model
 			$result['data'][] = $data;
 			$temp2 = $data->kondisi;
 			foreach ($temp2 as $data2) {
-				$data2->acara = $this->get_acara($data2->kondisi);
+				$data2->acara = $this->get_acara($data2->kondisi, $data2->kategor);
 				$result2['data2'][] = $data2;
 				$temp3 = $data2->acara;
 				foreach ($temp3 as $data3) {
@@ -250,21 +250,23 @@ class Event_m extends MY_Model
 
 	public function get_kondisi($id)
 	{
-		$this->db->select('pri.id, pri.condition as kondisi');
+		$this->db->select('pri.id, pri.condition as kondisi, eve.kategory as kategor');
 		$this->db->from('event_pricing pri');
 		$this->db->join('events eve', 'eve.id = pri.event_id');
 		$this->db->where('eve.kategory', $id);
+		$this->db->where('pri.show', '1');
 		$this->db->group_by('pri.condition');
 		$result = $this->db->get()->result();
 		return $result;
 	}
 
-	public function get_acara($id)
+	public function get_acara($id, $id2)
 	{
 		$this->db->select('pri.id, pri.event_id as id_acara, eve.name as nama_acara, pri.condition as kond, eve.kategory as katego');
 		$this->db->from('event_pricing pri');
 		$this->db->join('events eve', 'eve.id = pri.event_id');
 		$this->db->where('pri.condition', $id);
+		$this->db->where('eve.kategory', $id2);
 		$this->db->where('pri.show', "1");
 		$this->db->group_by('nama_acara');
 		$this->db->order_by('katego');
