@@ -171,6 +171,58 @@
         </div>
     </section>
 
+    <section class="looking-for section-secondary">
+        <div class="container pb-2">
+            <div class="row">
+                <div class="col-md-12 col-lg-6">
+                    <h2>Login Here</h2>
+                    <form class="custom-contact-form-style-1" method="POST">
+                        <div class="form-row">
+                            <div class="form-group col">
+                                <div class="custom-input-box">
+                                    <i class="icon-user icons text-color-primary"></i>
+                                    <input type="text" value="" data-msg-required="Please enter your Email."
+                                    maxlength="100" class="form-control" name="username" placeholder="Email"
+                                    required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col">
+                                <div class="custom-input-box">
+                                    <i class="icon-key icons text-color-primary"></i>
+                                    <input type="password" value="" data-msg-required="Please enter your password."
+                                    data-msg-password="Password can not empty." maxlength="100"
+                                    class="form-control" name="password" placeholder="Password" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col">
+                                <input type="submit" value="Login Now" name="login"
+                                class="btn btn-outline custom-border-width btn-primary custom-border-radius font-weight-semibold text-uppercase"
+                                data-loading-text="Loading...">
+                            </div>
+                            <div class="form-group col">
+                                <label class="form-check-label">
+                                    <input type="checkbox" name="rememberme" class="form-check-input"/>
+                                    Remember Me
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-md-12 col-lg-6">
+                    <br>
+                    <div class="alert alert-success mb-5 mb-md-0 mt-5">
+                        Forget Password ? <a href="<?= base_url("site/forget"); ?>">Click Here</a> <br/>
+                        Don't have an account yet ? <a href="<?= base_url("member/register"); ?>">Click Here</a><br/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="looking-for section-primary">
         <div class="container">
             <div class="row align-items-center">
@@ -214,14 +266,14 @@
              </div>
              <div class="col-lg-5 text-center text-md-left mb-5 mb-lg-0">
                 <h2 class="text-color-dark font-weight-normal text-6 mb-2"><strong class="font-weight-extra-bold">Ketentuan paket promo :</strong></h2>
-                    <ol class="text-color-dark text-4 line-height-5 mb-0">
-                     <li>Promo bersifat terbatas dan dapat habis sewaktu-waktu. Siapa cepat dia dapat</li>
-                     <li>Untuk dapat menggunakan diskon promo, silakan piliih item-item workshop yang punya diskon promo lalu pilih item diskon nya di menu event setelah login.</li>
-                     <li>Pastikan nominal sudah bener setelah diskon. Pilih check out dan lakukan pembayaran</li>
-                 </ol> 
-            </div>
-        </div>
-    </div>
+                <ol class="text-color-dark text-4 line-height-5 mb-0">
+                 <li>Promo bersifat terbatas dan dapat habis sewaktu-waktu. Siapa cepat dia dapat</li>
+                 <li>Untuk dapat menggunakan diskon promo, silakan piliih item-item workshop yang punya diskon promo lalu pilih item diskon nya di menu event setelah login.</li>
+                 <li>Pastikan nominal sudah bener setelah diskon. Pilih check out dan lakukan pembayaran</li>
+             </ol> 
+         </div>
+     </div>
+ </div>
 </section>
 
 
