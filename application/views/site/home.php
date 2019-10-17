@@ -176,7 +176,7 @@
             <div class="row">
                 <div class="col-md-12 col-lg-6">
                     <h2>Login Here</h2>
-                    <form class="custom-contact-form-style-1" method="POST">
+                    <form class="custom-contact-form-style-1" method="POST" action="<?= base_url('site/login'); ?>">
                         <div class="form-row">
                             <div class="form-group col">
                                 <div class="custom-input-box">
