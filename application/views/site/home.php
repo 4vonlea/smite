@@ -176,7 +176,7 @@
             <div class="row">
                 <div class="col-md-12 col-lg-6">
                     <h2>Login Here</h2>
-                    <form class="custom-contact-form-style-1" method="POST">
+                    <form class="custom-contact-form-style-1" method="POST" action="<?= base_url('site/login'); ?>">
                         <div class="form-row">
                             <div class="form-group col">
                                 <div class="custom-input-box">
@@ -226,8 +226,8 @@
     <section class="looking-for section-primary">
         <div class="container">
             <div class="row align-items-center">
-                <div class="col-md-3 col-lg-6">
-                    <h2 class="mb-4 mb-md-0 mt-3">Don't have account?</h2>
+                <div class="col-md-3 col-lg-3">
+                    <h2 class="mb-4 mb-md-0">Don't have account?</h2>
                     <p class="mb-4 mb-md-0">Please register with easy step</p>
                     <a class="mb-4 mb-md-0 mt-4" href="<?=base_url("site/register");?>">
                         <span class="custom-call-to-action black-border text-color-light">
@@ -237,17 +237,33 @@
                 </div>
                 <div class="col-md-3 col-lg-4">
                     <div class="looking-for-box">
-                        <h2>First Announcement</h2>
+                        <h2>Second Announcement</h2>
                         <p class="mb-4 mb-md-0">More info about nasional symposium & workshop</p>
-                    </div>
-                </div>
-                <div class="col-md-2 d-flex justify-content-md-end mb-4 mb-md-0">
-                    <a class="text-decoration-none" href="<?=base_url('themes/porto');?>/pengumuman/Announcement.pdf" target="_blank">
+                        <a class="text-decoration-none" href="<?=base_url('themes/porto');?>/pengumuman/second_Announcement.pdf" target="_blank">
                         <span class="custom-call-to-action white-border text-color-light">
                             <span class="action-info"><input type="submit" value=Download class="btn  custom-border-width btn-primary custom-border-radius font-weight-semibold text-uppercase" style="border:solid #fff 2px"></span>
                         </span>
                     </a>
+                    </div>
                 </div>
+                <div class="col-md-3 col-lg-5">
+                    <div class="looking-for-box">
+                        <h2>Ketentuan & Pedoman Ilmiah</h2>
+                        <p class="mb-4 mb-md-0">Check detail</p>
+                        <a class="text-decoration-none" href="<?=base_url('themes/porto');?>/pengumuman/pedoman.rtf" target="_blank">
+                        <span class="custom-call-to-action white-border text-color-light">
+                            <span class="action-info"><input type="submit" value=Download class="btn  custom-border-width btn-primary custom-border-radius font-weight-semibold text-uppercase" style="border:solid #fff 2px"></span>
+                        </span>
+                    </a>
+                    </div>
+                </div>
+               <!--  <div class="col-md-2 d-flex justify-content-md-end mb-4 mb-md-0">
+                    <a class="text-decoration-none" href="<?=base_url('themes/porto');?>/pengumuman/second_Announcement.pdf" target="_blank">
+                        <span class="custom-call-to-action white-border text-color-light">
+                            <span class="action-info"><input type="submit" value=Download class="btn  custom-border-width btn-primary custom-border-radius font-weight-semibold text-uppercase" style="border:solid #fff 2px"></span>
+                        </span>
+                    </a>
+                </div> -->
             </div>
         </div>
     </section>

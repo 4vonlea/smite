@@ -33,8 +33,8 @@
                                     <div class="custom-input-box">
                                         <i class="icon-user icons text-color-primary"></i>
                                         <input type="text" value="" data-msg-required="Please enter your Email."
-                                               maxlength="100" class="form-control" name="username" placeholder="Email"
-                                               required>
+                                        maxlength="100" class="form-control" name="username" placeholder="Email"
+                                        required>
                                     </div>
                                 </div>
                             </div>
@@ -43,16 +43,16 @@
                                     <div class="custom-input-box">
                                         <i class="icon-key icons text-color-primary"></i>
                                         <input type="password" value="" data-msg-required="Please enter your password."
-                                               data-msg-password="Password can not empty." maxlength="100"
-                                               class="form-control" name="password" placeholder="Password" required>
+                                        data-msg-password="Password can not empty." maxlength="100"
+                                        class="form-control" name="password" placeholder="Password" required>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col">
                                     <input type="submit" value="Login Now" name="login"
-                                           class="btn btn-outline custom-border-width btn-primary custom-border-radius font-weight-semibold text-uppercase"
-                                           data-loading-text="Loading...">
+                                    class="btn btn-outline custom-border-width btn-primary custom-border-radius font-weight-semibold text-uppercase"
+                                    data-loading-text="Loading...">
                                 </div>
                                 <div class="form-group col">
                                     <label class="form-check-label">

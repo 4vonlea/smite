@@ -12,74 +12,78 @@ class Register extends MY_Controller
     }
 
     public function index(){
-		$this->load->model('Category_member_m');
+      $this->load->model('Category_member_m');
+      $this->load->model('Univ_m');
 
-		$status = $this->Category_member_m->find()->select("id,kategory,need_verify")->get()->result_array();
-        if($this->input->post()){
-            $this->load->model(['Member_m','User_account_m','Gmail_api']);
-			$this->load->library('Uuid');
+      $status = $this->Category_member_m->find()->select("id,kategory,need_verify")->get()->result_array();
+      $univ = $this->Univ_m->find()->select("univ_id, univ_nama")->get()->result_array();
+      if($this->input->post()){
+        $this->load->model(['Member_m','User_account_m','Gmail_api']);
+        $this->load->library('Uuid');
 
-            $data = $this->input->post();
-            $data['id'] = Uuid::v4();
-			$status = Category_member_m::withKey($status,"id");
-			$need_verify = ($status[$data['status']]['need_verify'] == "1");
-            if($this->Member_m->validate($data) && $this->handlingProof('proof',$data['id'],$need_verify)){
-                $data['username_account'] = $data['email'];
-                $data['verified_by_admin'] = !$need_verify;
-                $data['verified_email'] = 0;
-                $data['region'] = 0;
-                $data['country'] = 0;
+        $data = $this->input->post();
+        $data['id'] = Uuid::v4();
+        $univ = Univ_m::withKey($univ,"univ_id");
+        $status = Category_member_m::withKey($status,"id");
+        $need_verify = ($status[$data['status']]['need_verify'] == "1");
+        if($this->Member_m->validate($data) && $this->handlingProof('proof',$data['id'],$need_verify)){
+            $data['username_account'] = $data['email'];
+            $data['verified_by_admin'] = !$need_verify;
+            $data['verified_email'] = 0;
+            $data['region'] = 0;
+            $data['country'] = 0;
 
-                $token = uniqid();
-                $this->Member_m->getDB()->trans_start();
-                $this->Member_m->insert(array_intersect_key($data,array_flip($this->Member_m->fillable)),false);
-                $this->User_account_m->insert([
-                    'username'=>$data['email'],
-                    'password'=>password_hash($data['password'],PASSWORD_DEFAULT),
-                    'role'=>0,
-                    'token_reset'=>"verifyemail_".$token
-                ],false);
-                $this->Member_m->getDB()->trans_complete();
-                $error['status'] = $this->Member_m->getDB()->trans_status();
-                $error['message'] = $this->Member_m->getDB()->error();
-                if($error['status']){
-                    $email_message = $this->load->view('template/email_confirmation',['token'=>$token,'name'=>$data['fullname']],true);
-                    $this->Gmail_api->sendMessage($data['email'],'Email Confirmation',$email_message);
-                }
-            }else{
-                $error['status'] = false;
-                $error['validation_error'] = array_merge($this->Member_m->getErrors(),['proof'=>(isset($this->upload)?$this->upload->display_errors("",""):null)]);
+            $token = uniqid();
+            $this->Member_m->getDB()->trans_start();
+            $this->Member_m->insert(array_intersect_key($data,array_flip($this->Member_m->fillable)),false);
+            $this->User_account_m->insert([
+                'username'=>$data['email'],
+                'password'=>password_hash($data['password'],PASSWORD_DEFAULT),
+                'role'=>0,
+                'token_reset'=>"verifyemail_".$token
+            ],false);
+            $this->Member_m->getDB()->trans_complete();
+            $error['status'] = $this->Member_m->getDB()->trans_status();
+            $error['message'] = $this->Member_m->getDB()->error();
+            if($error['status']){
+                $email_message = $this->load->view('template/email_confirmation',['token'=>$token,'name'=>$data['fullname']],true);
+                $this->Gmail_api->sendMessage($data['email'],'Email Confirmation',$email_message);
             }
-            $this->output->set_content_type("application/json")
-                ->set_output(json_encode($error));
-
         }else{
+            $error['status'] = false;
+            $error['validation_error'] = array_merge($this->Member_m->getErrors(),['proof'=>(isset($this->upload)?$this->upload->display_errors("",""):null)]);
+        }
+        $this->output->set_content_type("application/json")
+        ->set_output(json_encode($error));
 
-            $this->load->helper("form");
-            $participantsCategory = Category_member_m::asList($status, 'id', 'kategory','Please Select your status');
-            $this->layout->render('member/register',['participantsCategory'=>$participantsCategory,'statusList'=>$status]);
+    }else{
 
+        $this->load->helper("form");
+        $participantsCategory = Category_member_m::asList($status, 'id', 'kategory','Please Select your status');
+        $participantsUniv = Univ_m::asList($univ, 'univ_id', 'univ_nama','Please Select your institution');
+        $this->layout->render('member/register',['participantsCategory'=>$participantsCategory, 'statusList'=>$status, 'participantsUniv'=>$participantsUniv, 'univlist'=>$univ]);
+
+    }
+}
+
+public function confirm_email(){
+    $title = "Token Invalid/Expired";
+    $message = "Token Confirmation is invalid or has been used. Check your token/link on your email";
+
+    if($this->input->get('token')){
+        $token = $this->input->get('token');
+        $this->load->model(['User_account_m', 'Member_m']);
+        $result =  $this->User_account_m->findOne(['token_reset'=>'verifyemail_'.$token]);
+        if($result) {
+            $this->Member_m->update(['verified_email'=>'1'],['username_account'=>$result->username],false);
+            $result->token_reset = "";
+            $result->save();
+            $title = "Email Confirmed";
+            $message = "Your email has been confirmed,  Follow this link to login " . anchor(base_url('site/login'), 'Click Here');
         }
     }
-
-    public function confirm_email(){
-        $title = "Token Invalid/Expired";
-        $message = "Token Confirmation is invalid or has been used. Check your token/link on your email";
-
-        if($this->input->get('token')){
-            $token = $this->input->get('token');
-            $this->load->model(['User_account_m', 'Member_m']);
-            $result =  $this->User_account_m->findOne(['token_reset'=>'verifyemail_'.$token]);
-            if($result) {
-                $this->Member_m->update(['verified_email'=>'1'],['username_account'=>$result->username],false);
-                $result->token_reset = "";
-                $result->save();
-                $title = "Email Confirmed";
-                $message = "Your email has been confirmed,  Follow this link to login " . anchor(base_url('site/login'), 'Click Here');
-            }
-        }
-        $this->layout->render('member/notif',['message'=>$message,'title'=>$title]);
-    }
+    $this->layout->render('member/notif',['message'=>$message,'title'=>$title]);
+}
 
     /**
      * @param $name
