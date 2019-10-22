@@ -41,6 +41,43 @@ class Dashboard_m extends CI_Model
 		return $result;
 	}
 
+	public function getMemberEvent(){
+		$this->load->model("Member_m");
+		$this->load->model("Transaction_m");
+		$result = $this->db->select("m.id as member_id, fullname as nama, e.name as Acara")
+			->from("members m")
+			->join("transaction t","m.id = t.member_id", "left")
+			->join("transaction_details td","t.id = td.transaction_id", "left")
+			->join("event_pricing ep", "ep.id = td.event_pricing_id")
+			->join("events e", "e.id = ep.event_id")
+			->where("t.status_payment", "SETTLEMENT")
+			->order_by("m.id")
+		    ->get()->result_array();
+		
+		// $result['data'] = array();
+		// foreach ($result as $data) {
+		// 	$data['event'] = $this->get_event($data['member_id']);
+		// 	$temp['data'][] = $data;
+		// }  
+		//debug($result);
+		return $result;
+	}
+
+	public function get_event($id) {
+		$this->load->model("Member_m");
+		$this->load->model("Transaction_m");
+		$result = $this->db->select("e.name as Acara")
+			->from("members m")
+			->join("transaction t","m.id = t.member_id", "left")
+			->join("transaction_details td","t.id = td.transaction_id", "left")
+			->join("event_pricing ep", "ep.id = td.event_pricing_id")
+			->join("events e", "e.id = ep.event_id")
+			->where("m.id", $id)
+			->where("t.status_payment", "SETTLEMENT")
+			->get()->result_array();
+		return $result;
+	}
+
 	public function getParticipant($event_id){
 		$this->load->model("Transaction_m");
 

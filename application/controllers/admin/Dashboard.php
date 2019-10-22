@@ -38,6 +38,12 @@ class Dashboard extends Admin_Controller
 		$this->export($tipe,"Participant of Papers",$data);
 	}
 
+	public function download_member_event($tipe){
+		$this->load->model("Dashboard_m");
+		$data =  $this->Dashboard_m->getMemberEvent();
+		$this->export($tipe,"Event of Member",$data);
+	}
+
 	public function download_participant($event_id,$tipe){
 		$this->load->model("Dashboard_m");
 		$data =  $this->Dashboard_m->getParticipant($event_id);
