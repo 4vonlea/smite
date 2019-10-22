@@ -2,6 +2,8 @@
 /**
  * @var array $participantsCategory
  * @var array $statusList;
+ * @var array $participantsUniv
+ * @var array $univList;
  */
 ?>
 <section class="page-header page-header-modern bg-color-quaternary page-header-md custom-page-header">
@@ -126,6 +128,16 @@
                     </div>
 
                     <div class="form-group row">
+                        <label class="col-lg-3 control-label">Your Institution*</label>
+                        <div class="col-lg-5">
+                            <?= form_dropdown('univ', $participantsUniv, '', [':class'=>"{'is-invalid':validation_error.univ}",'v-model'=>'univ_selected', 'class' => 'form-control', 'placeholder' => 'Select your institution !']); ?>
+                            <div v-if="validation_error.univ" class="invalid-feedback" >
+                                {{ validation_error.univ }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
                         <label class="col-lg-3 control-label">Phone/WA*</label>
                         <div class="col-lg-5">
                             <input type="text" :class="{ 'is-invalid':validation_error.phone}" @keypress="onlyNumber" class="form-control" name="phone"/>
@@ -198,6 +210,8 @@
         data: {
             statusList:<?=json_encode($statusList);?>,
             status_selected:"",
+            univList:<?=json_encode($statusList);?>,
+            univ_selected:"",
             saving:false,
             validation_error:{},
             registered:false,

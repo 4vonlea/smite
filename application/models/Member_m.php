@@ -5,7 +5,7 @@ class Member_m extends MY_Model
 {
 	protected $table = "members";
 
-	public $fillable = ['id', 'image', 'email', 'fullname', 'gender', 'phone', 'birthday', 'country', 'region', 'city', 'address', 'username_account', 'status', 'verified_by_admin', 'verified_email',];
+	public $fillable = ['id', 'image', 'email', 'fullname', 'gender', 'phone', 'birthday', 'country', 'region', 'city', 'univ', 'address', 'username_account', 'status', 'verified_by_admin', 'verified_email'];
 
 	public static $proofExtension = "jpg|png|jpeg";
 
@@ -22,6 +22,7 @@ class Member_m extends MY_Model
 			['field' => 'fullname', 'rules' => 'required|max_length[100]'],
 //			['field' => 'address', 'rules' => 'required'],
 //			['field' => 'city', 'rules' => 'required'],
+			['field' => 'univ', 'rules' => 'required'],
 			['field' => 'phone', 'rules' => 'required|numeric'],
 			['field' => 'birthday', 'rules' => 'required'],
 		];
