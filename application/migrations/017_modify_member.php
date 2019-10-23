@@ -24,7 +24,7 @@ class Migration_modify_member extends CI_Migration
 				'constraint' => '255'
 			]
 			,]);
-		$this->dbforge->add_key('id', true);
+		$this->dbforge->add_key('univ_id', true);
 		$this->dbforge->create_table("univ", true);
 
 	}
