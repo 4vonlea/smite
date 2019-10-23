@@ -2,6 +2,7 @@
 /**
  * @var $participantsCategory
  * @var array $events
+ * @var array $univDl
  */
 ?>
 <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8" xmlns:v-bind="http://www.w3.org/1999/xhtml"
@@ -127,7 +128,15 @@
 								</div>
 							</div>
 						</div>
-
+						<div class="form-group row">
+							<label class="col-lg-3 control-label">Institution</label>
+							<div class="col-lg-5">
+								<?= form_dropdown("univ",$univDl,"",[':class'=>"{ 'is-invalid':validation_error.univ}","class"=>'form-control']);?>
+								<div v-if="validation_error.phone" class="invalid-feedback">
+									{{ validation_error.univ }}
+								</div>
+							</div>
+						</div>
 
 						<div class="form-group row">
 							<label class="col-lg-3 control-label">Gender</label>

@@ -90,7 +90,10 @@ var PageProfile = Vue.component("PageProfile", {
             <div class="form-group row">
                 <label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Institution</label>
                 <div class="col-lg-9">
-                    <input :disabled="!editing" class="form-control" type="text" v-model="user.univ" placeholder="Univ">
+                	<select :disabled="!editing" class="form-control" v-model="user.univ">
+                		<option hidden>Select Your Institution</option>
+                		<option v-for="univ in univ_list" :value="univ.univ_id">{{ univ.univ_nama }}</option>
+					</select>
                 </div>
             </div>
 
@@ -164,6 +167,7 @@ var PageProfile = Vue.component("PageProfile", {
 			processReset: false,
 			reset: {},
 			countFollowed: 0,
+			univ_list:[],
 		}
 	},
 	created() {
@@ -180,6 +184,7 @@ var PageProfile = Vue.component("PageProfile", {
 			$.post(this.baseUrl + "count_followed_events", null, function (res) {
 				if (res.status) {
 					page.countFollowed = res.count;
+					page.univ_list = res.univ;
 				} else {
 					page.fail = true;
 				}

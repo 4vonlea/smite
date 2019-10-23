@@ -358,7 +358,7 @@
                         "total": res.data.length,
                             "per_page": 10,
                             "current_page": 1,
-                            "last_page": Math.floor(res.data.length / 10),
+                            "last_page": Math.ceil(res.data.length / 10),
                             "next_page_url": null,
                             "prev_page_url": null,
                             "from": 1,

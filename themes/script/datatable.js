@@ -144,7 +144,7 @@ Vue.component('datagrid', {
         onPaginationData(paginationData) {
             paginationData.from = (paginationData.current_page-1)*paginationData.per_page+1;
             paginationData.to = (paginationData.current_page-1)*paginationData.per_page+paginationData.data.length;
-            paginationData.last_page = Math.floor(paginationData.total/paginationData.per_page);
+            paginationData.last_page = Math.ceil(paginationData.total/paginationData.per_page);
             // paginationData.next_page_url = (paginationData.current_page < paginationData.last_page ? "" :null);
             // paginationData.prev_page_url = (paginationData.current_page > 1 ? "":null);
             this.$refs.pagination.setPaginationData(paginationData);

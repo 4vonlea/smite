@@ -1,6 +1,7 @@
 <?php
 /**
  * @var array $statusList
+ * @var array $univDl
  */
 ?>
 <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
@@ -135,6 +136,10 @@
 					<div class="form-group">
 						<label class="form-check-label">Address</label>
 						<textarea type="text" class="form-control" v-model="profile.address"></textarea>
+					</div>
+					<div class="form-group">
+						<label class="form-check-label">Institution</label>
+						<?= form_dropdown("univ",$univDl,"",['v-model'=>'profile.univ','class'=>'form-control']);?>
 					</div>
 				</div>
 				<div class="card-footer text-right">

@@ -5,12 +5,16 @@ class Member extends Admin_Controller
 {
 	public function index()
 	{
-		$this->load->model('Category_member_m');
+		$this->load->model(['Category_member_m','Univ_m']);
+		$this->load->helper("form");
 		$statusList = $this->Category_member_m->find()->select('*')->get()->result_array();
 		foreach($statusList as $i=>$r){
 			$statusList[$i]['need_verify'] = (bool)$r['need_verify'];
 		}
-		$this->layout->render('member', ['statusList' => $statusList]);
+		$univList = $this->Univ_m->find()->order_by("univ_nama")->get();
+		$univDl = Univ_m::asList($univList->result_array(),"univ_id","univ_nama");
+
+		$this->layout->render('member', ['statusList' => $statusList,'univDl'=>$univDl]);
 	}
 
 
@@ -109,7 +113,7 @@ class Member extends Admin_Controller
 
 	public function register()
 	{
-		$this->load->model(["Category_member_m", "Event_m"]);
+		$this->load->model(["Category_member_m", "Event_m","Univ_m"]);
 		$participantsCategory = Category_member_m::asList(Category_member_m::findAll(), 'id', 'kategory', 'Please Select your status');
 		if ($this->input->post()) {
 			$this->load->model(['Member_m', 'User_account_m', 'Gmail_api', 'Transaction_m', 'Transaction_detail_m']);
@@ -197,9 +201,12 @@ class Member extends Admin_Controller
 			$this->load->model(["Category_member_m", "Event_m"]);
 			$this->load->helper("form");
 			$events = $this->Event_m->eventAvailableNow();
+			$univList = $this->Univ_m->find()->order_by("univ_nama")->get();
+			$univDl = Univ_m::asList($univList->result_array(),"univ_id","univ_nama");
 			$this->layout->render("register", [
 				'participantsCategory' => $participantsCategory,
 				'events' => $events,
+				'univDl'=>$univDl
 			]);
 		}
 	}
@@ -227,6 +234,7 @@ class Member extends Admin_Controller
 			'phone'=>$data['phone'],
 			'city'=>$data['city'],
 			'address'=>$data['address'],
+			'univ'=>$data['univ'],
 		],['id'=>$data['id']],false);
 		$this->output
 			->set_content_type("application/json")
