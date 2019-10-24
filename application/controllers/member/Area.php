@@ -433,10 +433,11 @@ class Area extends MY_Controller
 	}
 
 	public function count_followed_events(){
-		$this->load->model(['Transaction_m','Member_m']);
+		$this->load->model(['Transaction_m','Member_m','Univ_m']);
 		$c = $this->Member_m->countFollowedEvent($this->session->user_session['id']);
+		$univ = $this->Univ_m->find()->order_by("univ_nama")->get();
 		$this->output
 			->set_content_type("application/json")
-			->_display(json_encode(['status'=>true,'count'=>$c]));
+			->_display(json_encode(['status'=>true,'count'=>$c,'univ'=>$univ->result_array()]));
 	}
 }
