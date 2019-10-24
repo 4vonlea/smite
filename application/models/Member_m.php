@@ -28,6 +28,16 @@ class Member_m extends MY_Model
 		];
 	}
 
+	public function gridConfig($option = array())
+	{
+		return [
+			'relationships' => [
+				'institution' => ['univ', 'institution.univ_id = univ', 'left'],
+			]
+		];
+	}
+
+
 	public function getImageLink()
 	{
 		if ($this->image)
@@ -53,6 +63,8 @@ class Member_m extends MY_Model
 	 * @param array $member
 	 * @return \Dompdf\Dompdf
 	 */
+
+
 	public function getCard($event, $member = array())
 	{
 		require_once APPPATH . "third_party/phpqrcode/qrlib.php";

@@ -1,6 +1,7 @@
 <?php
 /**
  * @var array $statusList
+ * @var array $univDl
  */
 ?>
 <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
@@ -136,6 +137,10 @@
 						<label class="form-check-label">Address</label>
 						<textarea type="text" class="form-control" v-model="profile.address"></textarea>
 					</div>
+					<div class="form-group">
+						<label class="form-check-label">Institution</label>
+						<?= form_dropdown("univ",$univDl,"",['v-model'=>'profile.univ','class'=>'form-control']);?>
+					</div>
 				</div>
 				<div class="card-footer text-right">
 					<button @click="saveProfile" class="btn btn-default" :disabled="savingProfile">
@@ -181,6 +186,10 @@
 					<tr>
 						<th>City</th>
 						<td colspan="3">{{ profile.city }}</td>
+					</tr>
+					<tr>
+						<th>Instutution</th>
+						<td colspan="3">{{ profile.univ_nama }}</td>
 					</tr>
 					<tr>
 						<th>Address</th>
@@ -439,7 +448,7 @@
                     app.savingCheck = false;
                 });
             },
-            detail(profile, event) {
+            detail(profile, event, institution) {
                 $.each(this.statusList, function (i, v) {
                     if (v.id == profile.status)
                         profile.statusName = v.kategory;
