@@ -20,7 +20,7 @@
                 data-x="['left','left','left','left']" data-hoffset="['30','30','30','30']"
                 data-y="center" data-voffset="['-42','-42','-42','2']"
                 data-start="800"
-                data-transform_in="y:[-300%];opacity:0;s:500;" style="font-size: 30px;">East Indonesian Society of Dermatology and Venerology
+                data-transform_in="y:[-300%];opacity:0;s:500;" style="font-size: 30px;">East Indonesian Society of Dermatology and Venereology
             </div>
 
             <a href="<?=base_url("site/login");?>"
@@ -52,7 +52,7 @@
             data-x="['left','left','left','left']" data-hoffset="['30','30','30','30']"
             data-y="center" data-voffset="['-42','-42','-42','2']"
             data-start="800"
-            data-transform_in="y:[-300%];opacity:0;s:500;" style="font-size: 30px;">East Indonesian Society of Dermatology and Venerology
+            data-transform_in="y:[-300%];opacity:0;s:500;" style="font-size: 30px;">East Indonesian Society of Dermatology and Venereology
         </div>
 
         <a href="<?=base_url("site/login");?>"
@@ -74,7 +74,7 @@
         <div class="row align-items-center">
             <div class="col-md-6 col-lg-8">
                 <div class="looking-for-box">
-                    <h2><span class="text-1 custom-secondary-font">New Paradigm of Management in Pediatric to Geriatic Dermatology & Vereology</span><br>
+                    <h2><span class="text-1 custom-secondary-font">New Paradigm of Management in Pediatric to Geriatic Dermatology & Venereology</span><br>
                     Effective Strategies Related to Diagnosis Prevention and Management</h2>
                     <p>March 13-15 2020, Golden Tulip Banjarmasin</p>
                 </div>
