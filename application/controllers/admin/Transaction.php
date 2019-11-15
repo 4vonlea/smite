@@ -51,6 +51,19 @@ class Transaction extends Admin_Controller
 
 	}
 
+	public function expire(){
+		if($this->input->method() != 'post')
+			show_404("Page Not Found !");
+		$this->load->model(["Transaction_m","Member_m","Gmail_api"]);
+		$id = $this->input->post('id');
+		$detail = $this->Transaction_m->findOne($id);
+		$detail->status_payment = Transaction_m::STATUS_EXPIRE;
+		$status = $detail->save();
+		$this->output
+			->set_content_type("application/json")
+			->_display(json_encode(['status'=>$status]));
+	}
+
 	public function verify(){
 		if($this->input->method() != 'post')
 			show_404("Page Not Found !");

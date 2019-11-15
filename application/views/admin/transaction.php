@@ -165,7 +165,11 @@
 
 			<!-- Modal footer -->
 			<div class="modal-footer">
-				<button v-if="detailModel.status_payment != '<?=Transaction_m::STATUS_FINISH;?>'" @click="verifyPayment" type="button" class="btn btn-primary" :disabled="verifying">
+				<button v-if="detailModel.status_payment == '<?=Transaction_m::STATUS_PENDING;?>'" @click="expirePayment" type="button" class="btn btn-primary" :disabled="expiring">
+					<i v-if="verifying" class="fa fa-spin fa-spinner"></i>
+					Expire Payment
+				</button>
+				<button v-if="detailModel.status_payment == '<?=Transaction_m::STATUS_NEED_VERIFY;?>'" @click="verifyPayment" type="button" class="btn btn-primary" :disabled="verifying">
 					<i v-if="verifying" class="fa fa-spin fa-spinner"></i>
 					Verify Payment
 				</button>
@@ -187,6 +191,7 @@
             detailModel: {member:{},details:[],status_payment:""},
             pagination: {},
             verifying:false,
+			expiring:false,
         },
 		computed:{
             amount(){
@@ -202,6 +207,25 @@
             loadedGrid: function (data) {
                 this.pagination = data;
             },
+			expirePayment(){
+				var url = "<?=base_url('admin/transaction/expire');?>";
+				var app = this;
+				app.expiring = true;
+				$.post(url,this.detailModel,null,'JSON')
+					.done(function (res) {
+						if(res.status){
+						    app.$refs.datagrid.refresh();
+							app.detailModel.status_payment = "<?=Transaction_m::STATUS_EXPIRE;?>";
+							Swal.fire("Success","The payment has been declared expired !","success");
+						}else{
+							Swal.fire("Failed","Failed to expire transaction","error");
+						}
+					}).fail(function (xhr) {
+					Swal.fire("Failed","Failed to load data !","error");
+				}).always(function () {
+					app.expiring = false;
+				});
+			},
 			verifyPayment(){
                 var url = "<?=base_url('admin/transaction/verify');?>";
                 var app = this;
