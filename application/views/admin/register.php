@@ -73,17 +73,6 @@
 						<!--							</div>-->
 						<!--						</div>-->
 
-<!--						<div class="form-group row">-->
-<!--							<label class="col-lg-3 control-label">Upload participant image</label>-->
-<!--							<div class="col-lg-5">-->
-<!--								<input type="file" name="image" :class="{'is-invalid':validation_error.proof}"-->
-<!--									   class="form-control-file"/>-->
-<!--								<div v-if="validation_error.image" class="invalid-feedback d-block">-->
-<!--									{{ validation_error.image }}-->
-<!--								</div>-->
-<!--							</div>-->
-<!--						</div>-->
-
 						<div class="form-group row">
 							<label class="col-lg-3 control-label">Full Name</label>
 							<div class="col-lg-5">
@@ -122,7 +111,8 @@
 						<div class="form-group row">
 							<label class="col-lg-3 control-label">Phone/WA</label>
 							<div class="col-lg-5">
-								<input type="text" :class="{ 'is-invalid':validation_error.phone} " class="form-control" @keypress="onlyNumber" name="phone"/>
+								<input type="text" :class="{ 'is-invalid':validation_error.phone} " class="form-control"
+									   @keypress="onlyNumber" name="phone"/>
 								<div v-if="validation_error.phone" class="invalid-feedback">
 									{{ validation_error.phone }}
 								</div>
@@ -131,7 +121,7 @@
 						<div class="form-group row">
 							<label class="col-lg-3 control-label">Institution</label>
 							<div class="col-lg-5">
-								<?= form_dropdown("univ",$univDl,"",[':class'=>"{ 'is-invalid':validation_error.univ}","class"=>'form-control']);?>
+								<?= form_dropdown("univ", $univDl, "", [':class' => "{ 'is-invalid':validation_error.univ}", "class" => 'form-control']); ?>
 								<div v-if="validation_error.phone" class="invalid-feedback">
 									{{ validation_error.univ }}
 								</div>
@@ -156,7 +146,17 @@
 						<div class="form-group row">
 							<label class="col-lg-3 control-label">Method Payment</label>
 							<div class="col-lg-5">
-								<?= form_dropdown('channel',['CASH'=>'CASH','EDC'=>'EDC','MANUAL TRANSFER'=>'MANUAL TRANSFER'], 'CASH', [':class' => "{'is-invalid':validation_error.status}", 'class' => 'form-control', 'placeholder' => 'Select your status !', 'v-model' => 'channel']); ?>
+								<?= form_dropdown('channel', ['CASH' => 'CASH', 'EDC' => 'EDC', 'MANUAL TRANSFER' => 'MANUAL TRANSFER'], 'CASH', [':class' => "{'is-invalid':validation_error.status}", 'class' => 'form-control', 'placeholder' => 'Select your status !', 'v-model' => 'channel']); ?>
+							</div>
+						</div>
+						<div v-if="channel =='MANUAL TRANSFER'" class="form-group row">
+							<label class="col-lg-3 control-label">Upload Payment Proof <small>jpg,png,jpeg</small></label>
+							<div class="col-lg-5">
+								<input type="file" name="proof" :class="{'is-invalid':validation_error.proof}"
+									   class="form-control-file"/>
+								<div v-if="validation_error.proof" class="invalid-feedback d-block">
+									{{ validation_error.proof }}
+								</div>
 							</div>
 						</div>
 						<div class="form-group row">
@@ -223,7 +223,7 @@
             selected: [],
             listStatus:<?=json_encode($participantsCategory);?>,
             status_participant: '',
-			channel:'CASH',
+            channel: 'CASH',
             saving: false,
             validation_error: {},
             events:<?=json_encode($events);?>
@@ -262,7 +262,7 @@
             }
         },
         methods: {
-            onlyNumber ($event) {
+            onlyNumber($event) {
                 //console.log($event.keyCode); //keyCodes value
                 let keyCode = ($event.keyCode ? $event.keyCode : $event.which);
                 if ((keyCode < 48 || keyCode > 57) && keyCode !== 46) { // 46 is dot

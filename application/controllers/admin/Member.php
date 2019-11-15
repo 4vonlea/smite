@@ -120,10 +120,29 @@ class Member extends Admin_Controller
 			$this->load->library('Uuid');
 
 			$data = $this->input->post();
+			$id_invoice = $this->Transaction_m->generateInvoiceId();
 			$data['id'] = Uuid::v4();
 			$data['password'] = strtoupper(substr(uniqid(), -5));
 			$data['confirm_password'] = $data['password'];
-			if ($this->Member_m->validate($data)){// && $this->handlingImage('image', $data['id'])) {
+
+			$uploadStatus = true;
+			if(is_uploaded_file($_FILES['proof']['tmp_name'])) {
+				$config['upload_path'] = APPPATH . 'uploads/proof/';
+				$config['allowed_types'] = 'jpg|png|jpeg';
+				$config['max_size'] = 2048;
+				$config['overwrite'] = true;
+				$config['file_name'] = $id_invoice;
+
+				$this->load->library('upload', $config);
+				if ($this->upload->do_upload('proof')) {
+					$dataUpload = $this->upload->data();
+					$data['payment_proof'] = $dataUpload['file_name'];
+				} else {
+					$uploadStatus = false;
+				}
+			}
+
+			if ($this->Member_m->validate($data) && $uploadStatus){// && $this->handlingImage('image', $data['id'])) {
 				$data['username_account'] = $data['email'];
 				$data['verified_by_admin'] = 1;
 				$data['verified_email'] = 1;
@@ -141,7 +160,6 @@ class Member extends Admin_Controller
 					'role' => 0,
 					'token_reset' => "verifyemail_" . $token
 				], false);
-				$id_invoice = $this->Transaction_m->generateInvoiceId();
 				$this->Transaction_m->insert([
 					'id' => $id_invoice,
 					'member_id' => $data['id'],
@@ -149,6 +167,7 @@ class Member extends Admin_Controller
 					'message_payment' => $data['message_payment'],
 					'channel' => $data['channel'],
 					'status_payment' => Transaction_m::STATUS_FINISH,
+					'payment_proof' => $data['payment_proof']
 				]);
 				$details = [];
 				foreach ($data['transaction']['event'] as $tr) {
@@ -191,8 +210,8 @@ class Member extends Admin_Controller
 				}
 			} else {
 				$error['status'] = false;
-//				$error['validation_error'] = array_merge($this->Member_m->getErrors(), ['image' => (isset($this->upload) ? $this->upload->display_errors("", "") : null)]);
-				$error['validation_error'] = $this->Member_m->getErrors();;
+				$error['validation_error'] = array_merge($this->Member_m->getErrors(), ['proof' => ($uploadStatus == false ? $this->upload->display_errors("", "") : null)]);
+//				$error['validation_error'] = $this->Member_m->getErrors();;
 			}
 			$this->output->set_content_type("application/json")
 				->set_output(json_encode($error));
