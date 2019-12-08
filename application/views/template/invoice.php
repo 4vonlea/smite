@@ -24,11 +24,11 @@ setlocale (LC_TIME, 'id_ID');
 		vertical-align: top;
 	}
 </style>
-<table border="0" cellpadding="0" cellspacing="0" style="width: 660px;margin-right: auto;margin-left: auto">
+<table border="0" cellpadding="0" cellspacing="0" style="width: 700px;margin-right: auto;margin-left: auto">
 	<tbody>
 	<tr>
 		<td height="30" style="text-align:center">
-			<img style="width: 660px" src="<?= $header_image; ?>" tabindex="0" width="660"/>
+			<img style="width: 660px" src="<?= $header_image; ?>" tabindex="0" width="700"/>
 		</td>
 	</tr>
 	<tr>
@@ -44,7 +44,7 @@ setlocale (LC_TIME, 'id_ID');
 				</tr>
 				</tbody>
 			</table>
-			<table border="0" cellpadding="0" class="table" cellspacing="0" style="width: 600px;vertical-align: top">
+			<table border="0" cellpadding="0" class="table" cellspacing="0" style="width: 660px;vertical-align: top">
 				<tbody>
 				<tr>
 					<td align="center">
@@ -113,7 +113,7 @@ setlocale (LC_TIME, 'id_ID');
 									$total = 0;
 									foreach ($transaction->detailsWithEvent() as $d) {
 										$total += $d->price;
-										echo "<li>$d->product_name</li>";
+										echo "<li>$d->product_name : Rp".number_format($d->price, 2, ",", ".")."</li>";
 									};
 									?>
 									</ul>

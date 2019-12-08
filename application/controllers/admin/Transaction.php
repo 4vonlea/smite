@@ -14,9 +14,9 @@ class Transaction extends Admin_Controller
 		$tr = $this->Transaction_m->findOne(['id'=>$id]);
 		$member = $this->Member_m->findOne(['id'=>$tr->member_id]);
 		if($type == "invoice")
-			$tr->exportInvoice()->stream($member->fullname."-Invoice.pdf");
+			$tr->exportInvoice()->stream($member->fullname."-Invoice.pdf", array("Attachment" => false));
 		elseif($type == "proof")
-			$tr->exportPaymentProof()->stream($member->fullname."-Payment_Proof.pdf");
+			$tr->exportPaymentProof()->stream($member->fullname."-Payment_Proof.pdf", array("Attachment" => false));
 		else
 			show_404();
 	}

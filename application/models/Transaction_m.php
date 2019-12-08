@@ -88,6 +88,7 @@ class Transaction_m extends MY_Model
 	 */
 	public function exportInvoice(){
 		$domInvoice = new Dompdf();
+		$domInvoice->setPaper('legal');
 		$html = $this->load->view("template/invoice",[
 			'transaction'=>$this,
 		],true);
