@@ -68,7 +68,9 @@ export default Vue.component("PagePaper", {
 								<td colspan="5" class="text-center">No Data</td>
 							</tr>
 							<tr v-for="pap in paper.data">
-								<td>{{ pap.type }}</td>
+								<td>
+									{{ pap.type }}
+								</td>
 								<td style="white-space: normal !important;">{{ pap.title }}</td>
 								<td>
 									<span style="font-size: 14px" class="badge"  :class="[ pap.status == 2 ?'badge-success': pap.status == 3 ? 'badge-danger':'badge-info' ]">
@@ -76,6 +78,9 @@ export default Vue.component("PagePaper", {
 									</span>
 									<span v-if="pap.status == 0">
 									Please Revise Paper <small>(Click Detail then Edit)</small>
+									</span>
+									<span v-if="pap.status == 2">
+										<br/><small>(Presentation on {{ pap.type_presence }})</small>
 									</span>
 									<span v-if="pap.status == 2">
 										<span v-if="!pap.fullpaper" style="font-weight: bold">
