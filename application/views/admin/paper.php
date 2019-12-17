@@ -112,7 +112,9 @@ $this->layout->end_head();
 						</template>
 					<?php endif ;?>
 					<template slot="status" slot-scope="props">
-						{{ status[props.row.status] }} <span class="badge badge-info" v-if="props.row.fullpaper">Fullpaper Exist</span>
+						{{ status[props.row.status] }}<br/>
+						<span class="badge badge-info" v-if="props.row.fullpaper">Fullpaper Exist</span>
+						<span class="badge badge-info" v-if="props.row.poster">Presentation/Poster Exist</span>
 					</template>
 					<template slot="t_updated_at" slot-scope="props">
 						{{ formatDate(props.row.t_created_at) }}
@@ -198,7 +200,7 @@ $this->layout->end_head();
 						<td><a :href="'<?=base_url('admin/paper/file');?>/'+reviewModel.fullpaper+'/'+reviewModel.author+'/Fullpaper'" target="_blank">Click Here !</a></td>
 					</tr>
 					<tr  v-if="reviewModel.poster">
-						<th>Presentation File Link</th>
+						<th>Presentation/Poster Link</th>
 						<td><a :href="'<?=base_url('admin/paper/file');?>/'+reviewModel.poster+'/'+reviewModel.author+'/Presentation'" target="_blank">Click Here !</a></td>
 					</tr>
 					<tr>
@@ -236,7 +238,7 @@ $this->layout->end_head();
 						<td>{{ status[reviewModel.status] }}</td>
 					</tr>
 					<tr>
-						<th>Link Download</th>
+						<th>Abstract Link</th>
 						<td><a :href="reviewModel.link" target="_blank">Click Here !</a></td>
 					</tr>
 					<tr v-if="detailMode == 1">

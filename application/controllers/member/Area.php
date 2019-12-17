@@ -264,12 +264,17 @@ class Area extends MY_Controller
 		$statusPresentation = $this->upload->do_upload('presentation');
 		$dataPresentation = $this->upload->data();
 		$errorPresentation = $this->upload->display_errors("","");
-		if($statusFullpaper && $statusPresentation){
+		if($statusFullpaper || $statusPresentation){
 			$this->load->model("Papers_m");
-
 			$paper = $this->Papers_m->findOne($this->input->post("id"));
-			$paper->fullpaper = $dataFullpaper['file_name'];
-			$paper->poster = $dataPresentation['file_name'];
+			if($statusFullpaper) {
+				$paper->fullpaper = $dataFullpaper['file_name'];
+				$response['data']['fullpaper'] = $paper->fullpaper;
+			}
+			if($statusPresentation) {
+				$paper->poster = $dataPresentation['file_name'];
+				$response['data']['poster'] = $paper->poster;
+			}
 			$response['status'] = $paper->save(false);
 		}else{
 			$response['status'] = false;

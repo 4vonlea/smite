@@ -27,7 +27,7 @@ export default Vue.component("PagePaper", {
 									<div v-if="error_fullpaper.fullpaper" class="invalid-feedback">{{ error_fullpaper.fullpaper }}</div>
 								</div>
 								<div class="form-group">
-									<label class="font-weight-bold text-dark form-control-label text-2">Presentation File (jpg,png,jpeg,ppt,pptx)</label>
+									<label class="font-weight-bold text-dark form-control-label text-2">Presentation/Poster File (jpg,png,jpeg,ppt,pptx)</label>
 									<input :class="{'is-invalid':error_fullpaper.presentation}" type="file" class="form-control-file" name="presentation" accept=".jpg,.jpeg,.png,.ppt,.pptx">
 									<div v-if="error_fullpaper.presentation" class="invalid-feedback">{{ error_fullpaper.presentation }}</div>
 								</div>	
@@ -74,14 +74,16 @@ export default Vue.component("PagePaper", {
 									<span style="font-size: 14px" class="badge"  :class="[ pap.status == 2 ?'badge-success': pap.status == 3 ? 'badge-danger':'badge-info' ]">
 										{{ paper.status[pap.status] }}
 									</span>
-									<span v-if="pap.status == 2">
-									(Presentation on {{ pap.type_presence }})
-									</span>
 									<span v-if="pap.status == 0">
 									Please Revise Paper <small>(Click Detail then Edit)</small>
 									</span>
-									<span v-if="pap.status == 2 && !pap.fullpaper" style="font-weight: bold">
-										<br/>Please upload your fullpaper <a href="#" @click.prevent="modalFullpaper(pap)">Here</a>
+									<span v-if="pap.status == 2">
+										<span v-if="!pap.fullpaper" style="font-weight: bold">
+											<br/>Please upload your fullpaper <a href="#" @click.prevent="modalFullpaper(pap)">Here</a>
+										</span>
+										<hr/>
+										<i class="fa" :class="[pap.fullpaper?'fa-check':'fa-times']"></i> Fullpaper<br/>
+										<i class="fa" :class="[pap.poster?'fa-check':'fa-times']"></i> {{ pap.type_presence }} File<br/>
 									</span>
 								</td>
 								<td>{{ formatDate(pap.created_at) }}</td>
@@ -92,6 +94,7 @@ export default Vue.component("PagePaper", {
 							</tr>
 						</tbody>
 					</table>
+					<p class="mb-0">*<span class="font-weight-bold">(Accepted paper only)</span> you can change/reupload your fullpaper or presentation/poster file, on detail page (icon loop)</p>
 				</div>
                 <div v-if="mode == 1">
                     <form ref="form" enctype="multipart/form-data">
@@ -102,18 +105,18 @@ export default Vue.component("PagePaper", {
 								<span class="alert alert-info">{{ paper.status[form.status] }}</span>							
 							</div>
 						</div>
-						<div v-if="detail && form.fullpaper" class="form-group row">
+						<div v-if="detail && form.status == 2" class="form-group row">
 							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Fullpaper Link</label>
 							<div class="col-lg-9">
-								<a :href="paperUrl(form.fullpaper)">Click Here</a> | 
-								<a href="#" @click.prevent="modalFullpaper(form)">Change Fullpaper or Presentation File</a>
+								<span v-if="form.fullpaper" ><a :href="paperUrl(form.fullpaper)">Click Here</a> | </span>
+								<a href="#" @click.prevent="modalFullpaper(form)">Change/Upload Fullpaper or Presentation File</a>
 							</div>
 						</div>
-						<div v-if="detail && form.poster" class="form-group row">
-							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Presentation File Link</label>
+						<div v-if="detail && form.status == 2" class="form-group row">
+							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Presentation/Poster Link</label>
 							<div class="col-lg-9">
-								<a :href="paperUrl(form.poster)">Click Here</a> | 
-								<a href="#" @click.prevent="modalFullpaper(form)">Change Fullpaper or Presentation File</a>
+								<span v-if="form.poster"><a  :href="paperUrl(form.poster)">Click Here</a> | </span>
+								<a href="#" @click.prevent="modalFullpaper(form)">Change/Upload Fullpaper or Presentation File</a>
 							</div>
 						</div>
                     	<div class="form-group row">
@@ -195,14 +198,14 @@ export default Vue.component("PagePaper", {
 <!--							</div>-->
 <!--						</div>-->
 						<div v-if="!detail" class="form-group row">
-							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Upload Paper *<small>(.doc,.docx,.ods)</small></label>
+							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Upload Abstract*<small>(.doc,.docx,.ods)</small></label>
 							<div class="col-lg-9">
 								<input :class="{'is-invalid':error_upload.file}" ref="file" class="form-control-file" accept=".doc,.docx,.ods"  type="file" value="">
 								<div v-if="error_upload.file" class="invalid-feedback">{{ error_upload.file }}</div>
 							</div>
 						</div>
 						<div v-if="detail" class="form-group row">
-							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Paper Link</label>
+							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Abstract Link</label>
 							<div class="col-lg-9">
 								<a :href="paperUrl(form.filename)">Click Here</a>
 							</div>
@@ -277,10 +280,6 @@ export default Vue.component("PagePaper", {
     watch: {
         '$route': 'fetchData'
     },
-    computed: {
-
-
-    },
     methods: {
     	uploadFullpaper(){
 			var page = this;
@@ -296,7 +295,11 @@ export default Vue.component("PagePaper", {
 				success: function (response) {
 					if (response.status) {
 						$("#modal-fullpaper").modal("hide");
-						Swal.fire('Success',"Fullpaper uploaded successfully !",'success');
+						Swal.fire('Success',"Fullpaper or Presentation/Poster File uploaded successfully !",'success');
+						if(response.data.fullpaper)
+							page.formFullpaper.fullpaper = response.data.fullpaper;
+						if(response.data.poster)
+							page.formFullpaper.poster = response.data.poster;
 						page.fetchData();
 					} else {
 						page.error_fullpaper = response.message;
