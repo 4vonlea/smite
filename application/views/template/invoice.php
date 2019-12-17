@@ -113,7 +113,7 @@ setlocale (LC_TIME, 'id_ID');
 									$total = 0;
 									foreach ($transaction->detailsWithEvent() as $d) {
 										$total += $d->price;
-										echo "<li>$d->product_name : Rp".number_format($d->price, 2, ",", ".")."</li>";
+										echo "<li>$d->product_name : <br/>Rp ".number_format($d->price, 2, ",", ".")."</li>";
 									};
 									?>
 									</ul>

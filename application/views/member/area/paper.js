@@ -59,7 +59,7 @@ export default Vue.component("PagePaper", {
                 				<th width="15%">Status</th>
                 				<th width="15%">Submitted On</th>
                 				<th width="15%"h>
-									<button @click="mode = 1; form = {co_author:[]};detail=false;error_upload ={};" class="btn btn-primary"><i class="fa fa-plus"></i> Add</button>
+									<button @click="mode = 1; form = {co_author:[],type:'Free Paper',type_presence:'',methods:''};detail=false;error_upload ={};" class="btn btn-primary"><i class="fa fa-plus"></i> Add</button>
 								</th>
 							</tr>
 						</thead>
@@ -117,12 +117,23 @@ export default Vue.component("PagePaper", {
 							</div>
 						</div>
                     	<div class="form-group row">
-                    		<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Type Abstract*</label>
+                    		<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Type of Abstract*</label>
 							<div class="col-lg-9">
 								<select :disabled="detail" class="form-control" v-model="form.type" name="type" :class="{'is-invalid':error_upload.type}">
 									<option v-for="(type,key) in paper.abstractType"  :value="key">{{ type }}</option>
 								</select>
-								<div v-if="error_upload.title" class="invalid-feedback">{{ error_upload.type }}</div>
+								<div v-if="error_upload.type" class="invalid-feedback">{{ error_upload.type }}</div>
+							</div>
+						</div>
+						<div class="form-group row">
+                    		<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Type of Study*</label>
+							<div class="col-lg-9">
+								<select :disabled="detail" class="form-control" v-model="form.methods" name="methods" :class="{'is-invalid':error_upload.methods}">
+									<option disabled value="">Please Select</option>
+									<option v-for="(type,key) in paper.typeStudy"  :value="key">{{ type }}</option>
+								</select>
+								<input :disabled="form.methods != 'Other' || detail" placeholder="If type of study other than above list, Please describe here"  :class="[{'is-invalid':error_upload.methods}, form.methods != 'Other' ? 'd-none':'']" class="form-control mt-1" name="type_study_other"  type="text" v-model="form.type_study_other" value="">
+								<div v-if="error_upload.methods" class="invalid-feedback">{{ error_upload.methods }}</div>
 							</div>
 						</div>
 						<div class="form-group row">
@@ -133,7 +144,7 @@ export default Vue.component("PagePaper", {
 							</div>
 						</div>
 						<div class="form-group row">
-							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Introduction*</label>
+							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Abstract*</label>
 							<div class="col-lg-9">
 								<textarea :disabled="detail"  :class="{'is-invalid':error_upload.introduction}" v-model="form.introduction"  class="form-control" name="introduction">
 								</textarea>
@@ -141,37 +152,48 @@ export default Vue.component("PagePaper", {
 							</div>
 						</div>
 						<div class="form-group row">
-							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Aims*</label>
+                    		<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Mode Of Presentation*</label>
 							<div class="col-lg-9">
-								<textarea :disabled="detail"  :class="{'is-invalid':error_upload.aims}" v-model="form.aims"  class="form-control" name="aims">
-								</textarea>
-								<div v-if="error_upload.aims" class="invalid-feedback">{{ error_upload.aims }}</div>
+								<select :disabled="detail" class="form-control" v-model="form.type_presence" name="type_presence" :class="{'is-invalid':error_upload.type_presence}">
+									<option disabled value="">Please Select</option>
+									<option value="Oral">Oral</option>
+									<option value="Poster">Poster</option>
+								</select>
+								<div v-if="error_upload.type_presence" class="invalid-feedback">{{ error_upload.type_presence }}</div>
 							</div>
 						</div>
-						<div class="form-group row">
-							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Methods*</label>
-							<div class="col-lg-9">
-								<textarea :disabled="detail"  :class="{'is-invalid':error_upload.methods}" v-model="form.methods"  class="form-control" name="methods">
-								</textarea>
-								<div v-if="error_upload.methods" class="invalid-feedback">{{ error_upload.methods }}</div>
-							</div>
-						</div>
-						<div class="form-group row">
-							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Result*</label>
-							<div class="col-lg-9">
-								<textarea :disabled="detail"  :class="{'is-invalid':error_upload.result}"  v-model="form.result" class="form-control" name="result">
-								</textarea>
-								<div v-if="error_upload.result" class="invalid-feedback">{{ error_upload.result }}</div>
-							</div>
-						</div>
-						<div class="form-group row">
-							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Conclusion*</label>
-							<div class="col-lg-9">
-								<textarea :disabled="detail"  :class="{'is-invalid':error_upload.conclusion}" v-model="form.conclusion"  class="form-control" name="conclusion">
-								</textarea>
-								<div v-if="error_upload.conclusion" class="invalid-feedback">{{ error_upload.conclusion }}</div>
-							</div>
-						</div>
+<!--						<div class="form-group row">-->
+<!--							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Aims*</label>-->
+<!--							<div class="col-lg-9">-->
+<!--								<textarea :disabled="detail"  :class="{'is-invalid':error_upload.aims}" v-model="form.aims"  class="form-control" name="aims">-->
+<!--								</textarea>-->
+<!--								<div v-if="error_upload.aims" class="invalid-feedback">{{ error_upload.aims }}</div>-->
+<!--							</div>-->
+<!--						</div>-->
+<!--						<div class="form-group row">-->
+<!--							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Methods*</label>-->
+<!--							<div class="col-lg-9">-->
+<!--								<textarea :disabled="detail"  :class="{'is-invalid':error_upload.methods}" v-model="form.methods"  class="form-control" name="methods">-->
+<!--								</textarea>-->
+<!--								<div v-if="error_upload.methods" class="invalid-feedback">{{ error_upload.methods }}</div>-->
+<!--							</div>-->
+<!--						</div>-->
+<!--						<div class="form-group row">-->
+<!--							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Result*</label>-->
+<!--							<div class="col-lg-9">-->
+<!--								<textarea :disabled="detail"  :class="{'is-invalid':error_upload.result}"  v-model="form.result" class="form-control" name="result">-->
+<!--								</textarea>-->
+<!--								<div v-if="error_upload.result" class="invalid-feedback">{{ error_upload.result }}</div>-->
+<!--							</div>-->
+<!--						</div>-->
+<!--						<div class="form-group row">-->
+<!--							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Conclusion*</label>-->
+<!--							<div class="col-lg-9">-->
+<!--								<textarea :disabled="detail"  :class="{'is-invalid':error_upload.conclusion}" v-model="form.conclusion"  class="form-control" name="conclusion">-->
+<!--								</textarea>-->
+<!--								<div v-if="error_upload.conclusion" class="invalid-feedback">{{ error_upload.conclusion }}</div>-->
+<!--							</div>-->
+<!--						</div>-->
 						<div v-if="!detail" class="form-group row">
 							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Upload Paper *<small>(.doc,.docx,.ods)</small></label>
 							<div class="col-lg-9">
@@ -238,13 +260,12 @@ export default Vue.component("PagePaper", {
         return {
         	mode:0,
 			detail:false,
-        	typeAbstract:[],
             loading: false,
             fail: false,
             paper: {},
             error_upload: {},
             uploading:false,
-			form:{co_author:[]},
+			form:{co_author:[],type:'Free Paper'},
 			formFullpaper:{},
 			uploadingFullpaper:false,
 			error_fullpaper:{},

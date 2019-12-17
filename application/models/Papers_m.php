@@ -1,5 +1,10 @@
 <?php
-
+/**
+ * Class Papers_m
+ *
+ * Introduction as Abstract
+ * Methods as type_study
+ */
 
 class Papers_m extends MY_Model
 {
@@ -11,9 +16,16 @@ class Papers_m extends MY_Model
 	];
 
 	public static $typeAbstract = [
-		'Final Paper' => 'Final Paper',
+//		'Final Paper' => 'Final Paper',
 		'Free Paper' => 'Free Paper',
-		'Poster' => 'Poster',
+//		'Poster' => 'Poster',
+	];
+
+	public static $typeStudy = [
+		'Case Report' => 'Case Report',
+		'Review Article'=>'Review Article',
+		'Original Research'=>'Original Research',
+		'Other' =>'Other',
 	];
 
 	protected $table = "papers";
@@ -23,11 +35,12 @@ class Papers_m extends MY_Model
 		return [
 			['field' => 'title', 'label' => 'Title', 'rules' => 'required|max_length[255]'],
 			['field' => 'type', 'label' => 'Type Abstract', 'rules' => 'required|max_length[255]'],
-			['field' => 'introduction', 'label' => 'Introduction', 'rules' => 'required'],
-			['field' => 'aims', 'label' => 'aims', 'rules' => 'required'],
-			['field' => 'methods', 'label' => 'methods', 'rules' => 'required'],
-			['field' => 'result', 'label' => 'result', 'rules' => 'required'],
-			['field' => 'conclusion', 'label' => 'conclusion', 'rules' => 'required'],
+			['field' => 'introduction', 'label' => 'Abstract', 'rules' => 'required'],
+//			['field' => 'aims', 'label' => 'aims', 'rules' => 'required'],
+			['field' => 'methods', 'label' => 'Type Of Study', 'rules' => 'required'],
+//			['field' => 'result', 'label' => 'result', 'rules' => 'required'],
+//			['field' => 'conclusion', 'label' => 'conclusion', 'rules' => 'required'],
+			['field' => 'type_presence', 'label' => 'Mode Of Presentation', 'rules' => 'required'],
 		];
 	}
 

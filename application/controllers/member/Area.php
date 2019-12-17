@@ -106,10 +106,17 @@ class Area extends MY_Controller
         $papers = Papers_m::findAll(['member_id'=>$this->session->user_session['id']]);
 		$response['abstractType'] = Papers_m::$typeAbstract;
 		$response['status'] = Papers_m::$status;
+		$response['typeStudy'] = Papers_m::$typeStudy;
 		$response['data'] = [];
 		foreach($papers as $paper){
 			$temp = $paper->toArray();
+			$methods = explode(":",$temp['methods']);
+			if(count($methods) > 1){
+				$temp['methods'] = $methods[0];
+				$temp['type_study_other'] = trim($methods[1]);
+			}
 			$temp['co_author'] = json_decode($temp['co_author'],true);
+
 			$response['data'][] = $temp;
 		}
 		$this->output->set_content_type("application/json")
@@ -298,11 +305,14 @@ class Area extends MY_Controller
             $paper->title = $this->input->post('title');
             $paper->type = $this->input->post('type');
             $paper->introduction = $this->input->post('introduction');
-            $paper->aims = $this->input->post('aims');
             $paper->methods = $this->input->post('methods');
-            $paper->result = $this->input->post('result');
-            $paper->result = $this->input->post('result');
-            $paper->conclusion = $this->input->post('conclusion');
+            if($this->input->post("type_study_other")){
+            	$paper->methods = $paper->methods.": ".$this->input->post("type_study_other");
+			}
+//            $paper->result = $this->input->post('result');
+//            $paper->aims = $this->input->post('aims');
+//            $paper->conclusion = $this->input->post('conclusion');
+            $paper->type_presence = $this->input->post('type_presence');
             $paper->reviewer = "";
             $paper->message = "";
             $paper->co_author = json_encode($this->input->post('co_author'));

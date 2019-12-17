@@ -211,25 +211,25 @@ $this->layout->end_head();
 						<td>{{ reviewModel.title }}</td>
 					</tr>
 					<tr>
-						<th>Introduction</th>
+						<th>Abstract</th>
 						<td>{{ (reviewModel.introduction) }}</td>
 					</tr>
-					<tr>
-						<th>Aims</th>
-						<td>{{ (reviewModel.aims) }}</td>
-					</tr>
-					<tr>
-						<th>Methods</th>
-						<td>{{ (reviewModel.methods) }}</td>
-					</tr>
-					<tr>
-						<th>Result</th>
-						<td>{{ (reviewModel.result) }}</td>
-					</tr>
-					<tr>
-						<th>Conclusion</th>
-						<td>{{ (reviewModel.conclusion) }}</td>
-					</tr>
+<!--					<tr>-->
+<!--						<th>Aims</th>-->
+<!--						<td>{{ (reviewModel.aims) }}</td>-->
+<!--					</tr>-->
+<!--					<tr>-->
+<!--						<th>Methods</th>-->
+<!--						<td>{{ (reviewModel.methods) }}</td>-->
+<!--					</tr>-->
+<!--					<tr>-->
+<!--						<th>Result</th>-->
+<!--						<td>{{ (reviewModel.result) }}</td>-->
+<!--					</tr>-->
+<!--					<tr>-->
+<!--						<th>Conclusion</th>-->
+<!--						<td>{{ (reviewModel.conclusion) }}</td>-->
+<!--					</tr>-->
 
 					<tr v-if="detailMode == 1">
 						<th>Status</th>
@@ -238,6 +238,10 @@ $this->layout->end_head();
 					<tr>
 						<th>Link Download</th>
 						<td><a :href="reviewModel.link" target="_blank">Click Here !</a></td>
+					</tr>
+					<tr v-if="detailMode == 1">
+						<th>Type Presentation</th>
+						<td>{{ reviewModel.type_presence }}</td>
 					</tr>
 					<tr v-if="reviewModel.co_author">
 						<th>Co-Author</th>
@@ -301,7 +305,6 @@ $this->layout->end_head();
 								</label>
 							</div>
 							<div class="form-check-inline">
-
 								<label class="form-check-label">
 									<input  v-model="reviewModel.type_presence" type="radio" name="type_presence" value="Poster">
 									Poster

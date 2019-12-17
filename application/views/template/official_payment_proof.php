@@ -79,7 +79,7 @@ $member = $transaction->member;
 							$total = 0;
 							foreach($transaction->detailsWithEvent() as $d){
 								$total += $d->price;
-								echo "<li>$d->product_name</li>";
+								echo "<li>$d->product_name :  <br/>Rp ".number_format($d->price, 2, ",", ".")."</li>";
 							};
 							?>
 						</ul>
