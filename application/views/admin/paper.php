@@ -113,8 +113,9 @@ $this->layout->end_head();
 					<?php endif ;?>
 					<template slot="status" slot-scope="props">
 						{{ status[props.row.status] }}<br/>
-						<span class="badge badge-info" v-if="props.row.fullpaper">Fullpaper Exist</span>
-						<span class="badge badge-info" v-if="props.row.poster">Presentation/Poster Exist</span>
+						<a class="badge badge-info" :href="'<?=base_url('admin/paper/file');?>/'+props.row.filename+'/'+props.row.m_id+'/Abstract'"  target="_blank" v-if="props.row.filename">Abstract</a>
+						<a class="badge badge-info" :href="'<?=base_url('admin/paper/file');?>/'+props.row.fullpaper+'/'+props.row.m_id+'/Fullpaper'"  target="_blank" v-if="props.row.fullpaper">Fullpaper</a>
+						<a class="badge badge-info" :href="'<?=base_url('admin/paper/file');?>/'+props.row.poster+'/'+props.row.m_id+'/Presentation'"  target="_blank" v-if="props.row.poster">Presentation/Poster</a>
 					</template>
 					<template slot="t_updated_at" slot-scope="props">
 						{{ formatDate(props.row.t_created_at) }}
@@ -197,11 +198,11 @@ $this->layout->end_head();
 				<table class="table" style="white-space: normal !important;">
 					<tr v-if="reviewModel.fullpaper">
 						<th>Fullpaper Link</th>
-						<td><a :href="'<?=base_url('admin/paper/file');?>/'+reviewModel.fullpaper+'/'+reviewModel.author+'/Fullpaper'" target="_blank">Click Here !</a></td>
+						<td><a :href="'<?=base_url('admin/paper/file');?>/'+reviewModel.fullpaper+'/'+reviewModel.m_id+'/Fullpaper'" target="_blank">Click Here !</a></td>
 					</tr>
 					<tr  v-if="reviewModel.poster">
 						<th>Presentation/Poster Link</th>
-						<td><a :href="'<?=base_url('admin/paper/file');?>/'+reviewModel.poster+'/'+reviewModel.author+'/Presentation'" target="_blank">Click Here !</a></td>
+						<td><a :href="'<?=base_url('admin/paper/file');?>/'+reviewModel.poster+'/'+reviewModel.m_id+'/Presentation'" target="_blank">Click Here !</a></td>
 					</tr>
 					<tr>
 						<th>Submitted On</th>
@@ -214,7 +215,7 @@ $this->layout->end_head();
 					</tr>
 					<tr>
 						<th>Abstract</th>
-						<td>{{ (reviewModel.introduction) }}</td>
+						<td style="white-space: pre-wrap !important;">{{ (reviewModel.introduction) }}</td>
 					</tr>
 <!--					<tr>-->
 <!--						<th>Aims</th>-->
@@ -242,7 +243,7 @@ $this->layout->end_head();
 						<td><a :href="reviewModel.link" target="_blank">Click Here !</a></td>
 					</tr>
 					<tr v-if="detailMode == 1">
-						<th>Type Presentation</th>
+						<th>Mode Of Presentation</th>
 						<td>{{ reviewModel.type_presence }}</td>
 					</tr>
 					<tr v-if="reviewModel.co_author">
@@ -369,7 +370,7 @@ $this->layout->end_head();
                 }catch (e) {
                     console.log(e);
                 }
-                this.reviewModel.link = `<?=base_url("admin/paper/file");?>/${row.row.filename}/${row.row.author}`;
+                this.reviewModel.link = `<?=base_url("admin/paper/file");?>/${row.row.filename}/${row.row.m_id}`;
                 this.reviewModel.link_feedback = `<?=base_url("admin/paper/file");?>/${row.row.feedback}`;
                 $("#modal-review").modal('show');
             },
@@ -401,7 +402,7 @@ $this->layout->end_head();
                 this.validation = null;
                 this.detailMode = 0;
                 this.reviewModel = row.row;
-                this.reviewModel.link = `<?=base_url("admin/paper/file");?>/${row.row.filename}/${row.row.author}`;
+                this.reviewModel.link = `<?=base_url("admin/paper/file");?>/${row.row.filename}/${row.row.m_id}`;
                 $("#modal-reviewer").modal('show');
             },
             review(row) {
@@ -414,7 +415,7 @@ $this->layout->end_head();
                 }catch (e) {
 					console.log(e);
                 }
-                this.reviewModel.link = `<?=base_url("admin/paper/file");?>/${row.row.filename}/${row.row.author}`;
+                this.reviewModel.link = `<?=base_url("admin/paper/file");?>/${row.row.filename}/${row.row.m_id}`;
                 $("#modal-review").modal('show');
             },
             formatDate(date) {
