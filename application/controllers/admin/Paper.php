@@ -60,8 +60,10 @@ class Paper extends Admin_Controller
 			$model->reviewer = (isset($data['reviewer']) ? $data['reviewer'] : "");
 			if(isset($data['message']))
 				$model->message = $data['message'];
-
 			$response['status'] = $model->save();
+			if($response['status'] == false){
+				$response['message'] = $model->errorsString();
+			}
 		} else {
 			$response['status'] = false;
 			$response['message'] = $this->form_validation->error_string();
@@ -72,14 +74,16 @@ class Paper extends Admin_Controller
 			->_display(json_encode($response));
 	}
 
-	public function file($name,$member,$type = "Paper")
+	public function file($name,$member_id,$type = "Abstract")
 	{
 		$filepath = APPPATH . "uploads/papers/" . $name;
+		$this->load->model("Member_m");
+		$member = $this->Member_m->findOne($member_id);
 		if (file_exists($filepath)) {
 			list(,$ext) = explode(".",$name);
 			header('Content-Description: File Transfer');
 			header('Content-Type: ' . mime_content_type($filepath));
-			header('Content-Disposition: attachment; filename="'.$type.'-' . $member . '.'.$ext.'"');
+			header('Content-Disposition: attachment; filename="'.$type.'-' . $member->fullname . '.'.$ext.'"');
 			header('Expires: 0');
 			header('Cache-Control: must-revalidate');
 			header('Pragma: public');
@@ -87,6 +91,8 @@ class Paper extends Admin_Controller
 			flush(); // Flush system output buffer
 			readfile($filepath);
 			exit;
+		}else{
+			show_404('File not found on server !');
 		}
 	}
 }

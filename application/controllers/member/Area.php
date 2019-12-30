@@ -7,24 +7,24 @@
 
 class Area extends MY_Controller
 {
-    public function __construct(){
-        parent::__construct();
-        if($this->user_session_expired())
-            redirect(base_url("site/login"));
+	public function __construct(){
+		parent::__construct();
+		if($this->user_session_expired())
+			redirect(base_url("site/login"));
 
-        $this->layout->setLayout("layouts/porto");
-        $this->layout->setBaseView('member/area/');
-        $this->load->model(['Member_m','User_account_m']);
+		$this->layout->setLayout("layouts/porto");
+		$this->layout->setBaseView('member/area/');
+		$this->load->model(['Member_m','User_account_m']);
 
-    }
+	}
 
-    public function index(){
+	public function index(){
 		$this->load->model("Transaction_m");
 		$user = Member_m::findOne(['username_account'=>$this->session->user_session['username']]);
 		if(!$user)
 			show_error("Member not found in sistem or not registered yet !",500,"Member not found");
-        $this->layout->render('index',['user'=>$user]);
-    }
+		$this->layout->render('index',['user'=>$user]);
+	}
 
 	public function card($event_id,$member_id)
 	{
@@ -33,49 +33,49 @@ class Area extends MY_Controller
 		$member->getCard($event_id)->stream($member->fullname."-member_card.pdf");
 	}
 
-    public function save_profile(){
-        if($this->input->post()) {
-            $post = $this->input->post();
-            $user = Member_m::findOne(['username_account' => $this->session->user_session['username']]);
-            $user->setAttributes($post);
-            $this->output->set_content_type("application/json")
-                ->_display(json_encode(['status' => $user->save(false)]));
-        }else{
-            show_404("Page not found !");
-        }
-    }
+	public function save_profile(){
+		if($this->input->post()) {
+			$post = $this->input->post();
+			$user = Member_m::findOne(['username_account' => $this->session->user_session['username']]);
+			$user->setAttributes($post);
+			$this->output->set_content_type("application/json")
+				->_display(json_encode(['status' => $user->save(false)]));
+		}else{
+			show_404("Page not found !");
+		}
+	}
 
-    public function reset_password(){
-        if($this->input->post()){
-            $this->load->model('User_account_m');
-            $this->load->library('form_validation');
+	public function reset_password(){
+		if($this->input->post()){
+			$this->load->model('User_account_m');
+			$this->load->library('form_validation');
 
-            $this->form_validation->set_rules("confirm_password","Confirm Password","required|matches[new_password]")
-                ->set_rules("new_password","New Password","required")
-                ->set_rules("old_password","Old Password",[
-                    'required',
-                    ['verify_old',function($old_password){
-                        return User_account_m::verify($this->session->user_session['username'],$old_password);
-                    }]
-                ])->set_message("verify_old","Old Password Wrong !");
+			$this->form_validation->set_rules("confirm_password","Confirm Password","required|matches[new_password]")
+				->set_rules("new_password","New Password","required")
+				->set_rules("old_password","Old Password",[
+					'required',
+					['verify_old',function($old_password){
+						return User_account_m::verify($this->session->user_session['username'],$old_password);
+					}]
+				])->set_message("verify_old","Old Password Wrong !");
 
-            if($this->form_validation->run()){
-                $account = User_account_m::findOne(['username'=>$this->session->user_session['username']]);
-                $account->password = password_hash($this->input->post('new_password'),PASSWORD_DEFAULT);
-                $this->output->set_content_type("application/json")
-                    ->_display(json_encode(['status'=>$account->save()]));
+			if($this->form_validation->run()){
+				$account = User_account_m::findOne(['username'=>$this->session->user_session['username']]);
+				$account->password = password_hash($this->input->post('new_password'),PASSWORD_DEFAULT);
+				$this->output->set_content_type("application/json")
+					->_display(json_encode(['status'=>$account->save()]));
 
-            }else{
-                $this->output->set_content_type("application/json")
-                    ->_display(json_encode($this->form_validation->error_array()));
+			}else{
+				$this->output->set_content_type("application/json")
+					->_display(json_encode($this->form_validation->error_array()));
 
-            }
-        }else{
-            show_404("Page not found !");
-        }
-    }
+			}
+		}else{
+			show_404("Page not found !");
+		}
+	}
 
-    public function get_events(){
+	public function get_events(){
 		if($this->input->method() !== 'post')
 			show_404("Page not found !");
 		$this->load->model("Event_m");
@@ -99,11 +99,11 @@ class Area extends MY_Controller
 			->_display(json_encode(['status'=>$status]));
 	}
 
-    public function get_paper(){
-        if($this->input->method() !== 'post')
-            show_404("Page not found !");
-        $this->load->model("Papers_m");
-        $papers = Papers_m::findAll(['member_id'=>$this->session->user_session['id']]);
+	public function get_paper(){
+		if($this->input->method() !== 'post')
+			show_404("Page not found !");
+		$this->load->model("Papers_m");
+		$papers = Papers_m::findAll(['member_id'=>$this->session->user_session['id']]);
 		$response['abstractType'] = Papers_m::$typeAbstract;
 		$response['status'] = Papers_m::$status;
 		$response['typeStudy'] = Papers_m::$typeStudy;
@@ -122,9 +122,9 @@ class Area extends MY_Controller
 		$this->output->set_content_type("application/json")
 			->_display(json_encode($response));
 
-    }
+	}
 
-    public function add_cart(){
+	public function add_cart(){
 		if($this->input->method() !== 'post')
 			show_404("Page not found !");
 
@@ -210,7 +210,7 @@ class Area extends MY_Controller
 	public function delete_item_cart(){
 		if($this->input->method() !== 'post')
 			show_404("Page not found !");
-    	$id = $this->input->post('id');
+		$id = $this->input->post('id');
 		$this->load->model(["Transaction_detail_m"]);
 		$this->Transaction_detail_m->delete($id);
 		$count = $this->Transaction_detail_m->find()->select("SUM(price) as c")
@@ -224,34 +224,34 @@ class Area extends MY_Controller
 			->_display('{"status":true}');
 	}
 
-    public function file($name){
-        $filepath = APPPATH."uploads/papers/".$name;
-        if(file_exists($filepath)) {
-            header('Content-Description: File Transfer');
-            header('Content-Type: '.mime_content_type($filepath));
-            header('Content-Disposition: attachment; filename="'.$name.'"');
-            header('Expires: 0');
-            header('Cache-Control: must-revalidate');
-            header('Pragma: public');
-            header('Content-Length: ' . filesize($filepath));
-            flush(); // Flush system output buffer
-            readfile($filepath);
-            exit;
-        }
-    }
+	public function file($name){
+		$filepath = APPPATH."uploads/papers/".$name;
+		if(file_exists($filepath)) {
+			header('Content-Description: File Transfer');
+			header('Content-Type: '.mime_content_type($filepath));
+			header('Content-Disposition: attachment; filename="'.$name.'"');
+			header('Expires: 0');
+			header('Cache-Control: must-revalidate');
+			header('Pragma: public');
+			header('Content-Length: ' . filesize($filepath));
+			flush(); // Flush system output buffer
+			readfile($filepath);
+			exit;
+		}
+	}
 
-    public function upload_fullpaper(){
-    	$response = [];
+	public function upload_fullpaper(){
+		$response = [];
 		$this->load->library('upload');
 
 		$configFullpaper = [
-    		'upload_path'=>APPPATH.'uploads/papers/',
-    		'allowed_types'=>'doc|docx|ods',
+			'upload_path'=>APPPATH.'uploads/papers/',
+			'allowed_types'=>'doc|docx|ods',
 			'max_size'=>5120,
 			'file_name'=>'fullpaper_'.date("Ymdhis"),
 		];
-    	$configPresentation = [
-    		'upload_path'=>APPPATH.'uploads/papers/',
+		$configPresentation = [
+			'upload_path'=>APPPATH.'uploads/papers/',
 			'allowed_types'=>'jpg|jpeg|png|ppt|pptx',
 			'max_size'=>5120,
 			'file_name'=>'presentation_'.date("Ymdhis"),
@@ -285,90 +285,90 @@ class Area extends MY_Controller
 			->_display(json_encode($response));
 	}
 
-    public function upload_paper(){
-        if($this->input->method() !== 'post')
-            show_404("Page not found !");
+	public function upload_paper(){
+		if($this->input->method() !== 'post')
+			show_404("Page not found !");
 
-        $config['upload_path']          = APPPATH.'uploads/papers/';
-        $config['allowed_types']        = 'pdf|doc|docx|ods';
-        $config['max_size']             = 5120;
-        $config['overwrite']             = true;
-        $config['file_name']        = $this->session->user_session['id'];
+		$config['upload_path']          = APPPATH.'uploads/papers/';
+		$config['allowed_types']        = 'pdf|doc|docx|ods';
+		$config['max_size']             = 5120;
+		$config['overwrite']             = true;
+		$config['file_name']        = 'abstract'.date("Ymdhis");//$this->session->user_session['id'];
 
-        $this->load->library('upload', $config);
-        $this->load->model("Papers_m");
-        $upload = $this->upload->do_upload('file');
-        $validation = $this->Papers_m->validate($this->input->post());
-        if($upload && $validation){
-            $paper = Papers_m::findOne(['id'=>$this->input->post('id')]);
-            if(!$paper)
-                $paper = new Papers_m();
-            $data = $this->upload->data();
-            $paper->member_id = $this->session->user_session['id'];
-            $paper->filename = $data['file_name'];
-            $paper->status = 1;
-            $paper->title = $this->input->post('title');
-            $paper->type = $this->input->post('type');
-            $paper->introduction = $this->input->post('introduction');
-            $paper->methods = $this->input->post('methods');
-            if($this->input->post("type_study_other")){
-            	$paper->methods = $paper->methods.": ".$this->input->post("type_study_other");
+		$this->load->library('upload', $config);
+		$this->load->model("Papers_m");
+		$upload = $this->upload->do_upload('file');
+		$validation = $this->Papers_m->validate($this->input->post());
+		if($upload && $validation){
+			$paper = Papers_m::findOne(['id'=>$this->input->post('id')]);
+			if(!$paper)
+				$paper = new Papers_m();
+			$data = $this->upload->data();
+			$paper->member_id = $this->session->user_session['id'];
+			$paper->filename = $data['file_name'];
+			$paper->status = 1;
+			$paper->title = $this->input->post('title');
+			$paper->type = $this->input->post('type');
+			$paper->introduction = $this->input->post('introduction');
+			$paper->methods = $this->input->post('methods');
+			if($this->input->post("type_study_other")){
+				$paper->methods = $paper->methods.": ".$this->input->post("type_study_other");
 			}
 //            $paper->result = $this->input->post('result');
 //            $paper->aims = $this->input->post('aims');
 //            $paper->conclusion = $this->input->post('conclusion');
-            $paper->type_presence = $this->input->post('type_presence');
-            $paper->reviewer = "";
-            $paper->message = "";
-            $paper->co_author = json_encode($this->input->post('co_author'));
+			$paper->type_presence = $this->input->post('type_presence');
+			$paper->reviewer = "";
+			$paper->message = "";
+			$paper->co_author = json_encode($this->input->post('co_author'));
 			$paper->created_at = date("Y-m-d H:i:s");
-            $paper->save();
-            $paper->updated_at = date("Y-m-d H:i:s");
-            $response['status'] = true;
-            $response['paper'] = $paper->toArray();
-        }else{
-            $response['status'] = false;
-            $response['message'] = array_merge($this->Papers_m->getErrors(),['file'=>$this->upload->display_errors("","")]);
-        }
+			$paper->save();
+			$paper->updated_at = date("Y-m-d H:i:s");
+			$response['status'] = true;
+			$response['paper'] = $paper->toArray();
+		}else{
+			$response['status'] = false;
+			$response['message'] = array_merge($this->Papers_m->getErrors(),['file'=>$this->upload->display_errors("","")]);
+		}
 
-        $this->output->set_content_type("application/json")
-            ->_display(json_encode($response));
+		$this->output->set_content_type("application/json")
+			->_display(json_encode($response));
 
-    }
+	}
 
-    public function upload_image(){
-        $user = Member_m::findOne(['username_account'=>$this->session->user_session['username']]);
+	public function upload_image(){
+		$user = Member_m::findOne(['username_account'=>$this->session->user_session['username']]);
 
-        $config['upload_path']          = 'themes/uploads/profile/';
-        $config['allowed_types']        = 'jpg|png|pdf';
-        $config['max_size']             = 2048;
-        $config['overwrite']             = true;
-        $config['file_name']        = $user->id;
+		$config['upload_path']          = 'themes/uploads/profile/';
+		$config['allowed_types']        = 'jpg|png|pdf';
+		$config['max_size']             = 2048;
+		$config['overwrite']             = true;
+		$config['file_name']        = $user->id;
 
-        $this->load->library('upload', $config);
-        if($this->upload->do_upload('file')){
-            $data = $this->upload->data();
-            $user->image = $data['file_name'];
-            $user->save();
-            $response['status'] = true;
-            $response['link'] = base_url("themes/uploads/profile/$data[file_name]");
-        }else{
-            $response['status'] = false;
-            $response['message'] = $this->upload->display_errors("","");
-        }
+		$this->load->library('upload', $config);
+		if($this->upload->do_upload('file')){
+			$data = $this->upload->data();
+			$user->image = $data['file_name'];
+			$user->save();
+			$response['status'] = true;
+			$response['link'] = base_url("themes/uploads/profile/$data[file_name]");
+		}else{
+			$response['status'] = false;
+			$response['message'] = $this->upload->display_errors("","");
+		}
 
-        $this->output->set_content_type("application/json")
-            ->_display(json_encode($response));
-    }
+		$this->output->set_content_type("application/json")
+			->_display(json_encode($response));
+	}
 
-    public function page($name){
-        $this->layout->renderAsJavascript($name.'.js');
-    }
+	public function page($name){
+		$this->layout->renderAsJavascript($name.'.js');
+	}
 
-    public function logout(){
-        $this->session->sess_destroy();
-        redirect('site');
-    }
+	public function logout(){
+		$this->session->sess_destroy();
+		redirect('site');
+	}
 
 	public function upload_proof()
 	{

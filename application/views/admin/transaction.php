@@ -173,7 +173,7 @@
 					<i v-if="verifying" class="fa fa-spin fa-spinner"></i>
 					Verify Payment
 				</button>
-				<a :href="'<?=base_url('admin/transaction/download/invoice');?>/'+detailModel.id" target="_blank" v-if="detailModel.status_payment == '<?=Transaction_m::STATUS_FINISH;?>'" class="btn btn-primary" >Download Invoice</a>
+				<a :href="'<?=base_url('admin/transaction/download/invoice');?>/'+detailModel.id" target="_blank" class="btn btn-primary" >Download Invoice</a>
 				<a :href="'<?=base_url('admin/transaction/download/proof');?>/'+detailModel.id" target="_blank" v-if="detailModel.status_payment == '<?=Transaction_m::STATUS_FINISH;?>'" class="btn btn-primary" >Download Payment Proof</a>
 				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 			</div>

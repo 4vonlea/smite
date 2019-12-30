@@ -50,7 +50,7 @@ class Papers_m extends MY_Model
 			'relationships' => [
 				'member' => ['members', 'member.id = member_id']
 			],
-			'select' => ['t_id' => 't.id', 'fullname', 'title', 'status' => 't.status', 't_created_at' => 't.created_at', 'author' => 'member.fullname', 'filename', 'reviewer','introduction','aims','methods','conclusion','co_author','result','message','feedback','type_presence','fullpaper','poster']
+			'select' => ['t_id' => 't.id', 'fullname', 'title', 'status' => 't.status', 't_created_at' => 't.created_at','m_id'=>'member.id', 'author' => 'member.fullname', 'filename', 'reviewer','introduction','aims','methods','conclusion','co_author','result','message','feedback','type_presence','fullpaper','poster']
 		];
 		$config =  array_merge($default,$option);
 		return $config;
