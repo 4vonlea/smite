@@ -66,8 +66,7 @@ export default Vue.component("PageBilling", {
 							</tr>
 							<tr>
 								<td></td>
-								<td></td>
-								<td class="text-right">
+								<td class="text-right" colspan="2">
 								<a :href="appUrl+'member/area/download/invoice/'+current_invoice" target="_blank" class="btn btn-primary" >Download Invoice</a>
 								<button :disabled="checking_out" @click="checkout" class="btn btn-primary">
 									Checkout <i v-if="checking_out" class="fa fa-spin fa-spinner"></i>
@@ -193,7 +192,7 @@ export default Vue.component("PageBilling", {
 							</table>
 						</div>
 						<div class="modal-footer">
-							<a :href="appUrl+'member/area/download/invoice/'+detailModel.id" target="_blank" v-if="detailModel.finish" class="btn btn-primary" >Download Invoice</a>
+							<a :href="appUrl+'member/area/download/invoice/'+detailModel.id" target="_blank" class="btn btn-primary" >Download Invoice</a>
 							<a :href="appUrl+'member/area/download/proof/'+detailModel.id" target="_blank" v-if="detailModel.finish" class="btn btn-primary" >Download Payment Proof</a>
 							<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>					
 						</div>

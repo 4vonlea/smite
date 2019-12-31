@@ -68,7 +68,7 @@ class Register extends MY_Controller
 
 public function confirm_email(){
     $title = "Token Invalid/Expired";
-    $message = "Token Confirmation is invalid or has been used. Check your token/link on your email";
+    $message = "Invalid link !";
 
     if($this->input->get('token')){
         $token = $this->input->get('token');
@@ -80,7 +80,9 @@ public function confirm_email(){
             $result->save();
             $title = "Email Confirmed";
             $message = "Your email has been confirmed,  Follow this link to login " . anchor(base_url('site/login'), 'Click Here');
-        }
+        }else{
+        	$message = "This link has been used to verify email";
+		}
     }
     $this->layout->render('member/notif',['message'=>$message,'title'=>$title]);
 }

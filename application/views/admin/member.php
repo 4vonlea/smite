@@ -71,10 +71,13 @@
 						@loaded_data="loadedGrid"
 						ref="datagrid"
 						api-url="<?= base_url('admin/member/grid'); ?>"
-						:fields="[{name:'fullname',sortField:'fullname'}, {name:'email',sortField:'email'},{name:'gender',sortField:'gender'},{name:'verified_by_admin',sortField:'verified_by_admin',title:'Status Verification'},{name:'id',title:'Actions',titleClass:'action-th'}]">
+						:fields="[{name:'fullname',sortField:'fullname'}, {name:'email',sortField:'email'},{name:'verified_by_admin',sortField:'verified_by_admin',title:'Verification'},{name:'created_at',title:'Registered At',sortField:'created_at'},{name:'id',title:'Actions',titleClass:'action-th'}]">
 						<template slot="verified_by_admin" slot-scope="prop">
 						<span :class="[(prop.row.verified_by_admin == 1 ?'badge-success':'badge-warning')]"
 							  class="badge">{{ (prop.row.verified_by_admin == 1 ?'Verified':'Unverified') }}</span>
+						</template>
+						<template slot="created_at" slot-scope="prop">
+							{{ formatDate(prop.row.created_at) }}
 						</template>
 						<template slot="id" slot-scope="props">
 							<div class="table-button-container">
@@ -383,6 +386,9 @@
             savingProfile: false,
         },
         methods: {
+			formatDate(date) {
+				return moment(date).format("DD MMM YYYY, [At] HH:mm:ss");
+			},
             saveProfile() {
                 app.savingProfile = true;
                 $.post("<?=base_url("admin/member/save_profile");?>", app.profile, function (res) {

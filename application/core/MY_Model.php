@@ -14,6 +14,24 @@ class MY_Model extends yidas\Model
         return is_array(parent::getErrors()) ? parent::getErrors() : [];
     }
 
+    public function errorsString($prefix = '',$suffix = ''){
+		if (count($this->getErrors()) === 0)
+		{
+			return '';
+		}
+		// Generate the error string
+		$str = '';
+		foreach ($this->getErrors() as $val)
+		{
+			if ($val !== '')
+			{
+				$str .= $prefix.$val.$suffix."\n";
+			}
+		}
+
+		return $str;
+	}
+
     private function convertGridSelect($select){
 		$fields = [];
 		foreach($select as $alias=>$f){
