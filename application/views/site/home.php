@@ -2,7 +2,7 @@
     <div id="revolutionSlider" class="slider rev_slider manual" data-version="5.4.8">
         <ul>
             <li data-transition="fade">
-                <img src="<?=base_url('themes/porto');?>/img/demos/business-consulting/slides/black.jpg"
+                <img src="<?=base_url('themes/porto');?>/img/demos/business-consulting/slides/Landscape.JPG"
                 alt=""
                 data-bgposition="center center"
                 data-bgfit="cover"
@@ -10,7 +10,7 @@
                 data-bgparallax="1"
                 class="rev-slidebg">
 
-                <h1 class="tp-caption custom-secondary-font font-weight-bold text-color-light"
+               <!--  <h1 class="tp-caption custom-secondary-font font-weight-bold text-color-light"
                 data-x="['left','left','left','left']" data-hoffset="['30','30','30','30']"
                 data-y="center" data-voffset="['-80','-80','-80','-40']"
                 data-start="800"
@@ -22,8 +22,8 @@
                 data-start="800"
                 data-transform_in="y:[-300%];opacity:0;s:500;" style="font-size: 30px;">East Indonesian Society of Dermatology and Venereology
             </div>
-
-            <a href="<?=base_url("site/login");?>"
+ -->
+            <!-- <a href="<?=base_url("site/login");?>"
              class="btn btn-primary tp-caption text-uppercase text-color-light custom-border-radius"
              data-hash
              data-hash-offset="85"
@@ -31,10 +31,10 @@
              data-y="center" data-voffset="['60','60','60','100']"
              data-start="1500"
              style="font-size: 12px; padding: 15px 6px;"
-             data-transform_in="y:[-300%];opacity:0;s:500;"><b><strong>Login Now</strong></b></a>
+             data-transform_in="y:[-300%];opacity:0;s:500;"><b><strong>Login Now</strong></b></a> -->
          </li>
          <li data-transition="fade">
-            <img src="<?=base_url('themes/porto');?>/img/demos/business-consulting/slides/blackv.jpg"
+            <img src="<?=base_url('themes/porto');?>/img/demos/business-consulting/slides/Landscape.JPG"
             alt=""
             data-bgposition="center center"
             data-bgfit="cover"
@@ -42,7 +42,7 @@
             data-bgparallax="1"
             class="rev-slidebg">
 
-            <h1 class="tp-caption custom-secondary-font font-weight-bold text-color-light"
+          <!--   <h1 class="tp-caption custom-secondary-font font-weight-bold text-color-light"
             data-x="['left','left','left','left']" data-hoffset="['30','30','30','30']"
             data-y="center" data-voffset="['-80','-80','-80','-40']"
             data-start="800"
@@ -63,7 +63,7 @@
          data-y="center" data-voffset="['60','60','60','100']"
          data-start="1500"
          style="font-size: 12px; padding: 15px 6px;"
-         data-transform_in="y:[-300%];opacity:0;s:500;"><b><strong>Login Now</strong></b></a>
+         data-transform_in="y:[-300%];opacity:0;s:500;"><b><strong>Login Now</strong></b></a> -->
      </li>
  </ul>
 </div>
@@ -74,22 +74,22 @@
         <div class="row align-items-center">
             <div class="col-md-6 col-lg-8">
                 <div class="looking-for-box">
-                    <h2><span class="text-1 custom-secondary-font">New Paradigm of Management in Pediatric to Geriatic Dermatology & Venereology</span><br>
+                   <!--  <h2><span class="text-1 custom-secondary-font">New Paradigm of Management in Pediatric to Geriatic Dermatology & Venereology</span><br>
                     Effective Strategies Related to Diagnosis Prevention and Management</h2>
-                    <p>March 13-15 2020, Golden Tulip Banjarmasin</p>
+                    <p>March 13-15 2020, Golden Tulip Banjarmasin</p> -->
                 </div>
             </div>
             <div class="col-md-3 d-flex justify-content-md-end mb-4 mb-md-0">
-                <a class="text-decoration-none" href="tel:+00112304567" target="_blank" title="Call Us Now">
+                <a class="text-decoration-none" href="" target="_blank" title="Call Us Now">
                     <span class="custom-call-to-action">
-                        <span class="action-title text-color-primary">Call Us Now</span>
-                        <span class="action-info text-color-light">+6281254064731</span>
-                        <span class="action-info text-color-light">+6282358599991 (call only)</span>
-                        <span class="action-info text-color-light">+6282159043555 (WA only)</span>
+                        <span class="action-title text-color-primary">.</span>
+                        <span class="action-info text-color-light">.</span>
+                        <span class="action-info text-color-light">.</span>
+                        <span class="action-info text-color-light">.</span>
                     </span>
-                    <span class="custom-call-to-action">
-                        <span class="action-title text-color-primary">Email Us Now</span>
-                        <span class="action-info text-color-light">East.insdv2020@gmail.com</span>
+                    <span class="">
+                        <span class="action-title text-color-primary">.</span>
+                        <span class="action-info text-color-light">.</span>
                     </span>
                 </a>
             </div>
