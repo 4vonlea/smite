@@ -33,6 +33,28 @@ class MY_Controller extends CI_Controller
         }
         return true;
     }
+
+
+	public static function formatdate($date)
+	{
+		$str = explode('-', $date);
+
+		$bulan = array(
+			'01' => 'Jan',
+			'02' => 'Feb',
+			'03' => 'Mar',
+			'04' => 'Apr',
+			'05' => 'May',
+			'06' => 'Jun',
+			'07' => 'Jul',
+			'08' => 'Aug',
+			'09' => 'Sep',
+			'10' => 'Oct',
+			'11' => 'Nov',
+			'12' => 'Dec',
+		);
+		return $str['2'] . " " . $bulan[$str[1]] . " " . $str[0];
+	}
 }
 
 

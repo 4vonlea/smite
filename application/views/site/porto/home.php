@@ -302,7 +302,7 @@
                     <div class="col-sm-8 col-lg-4">
                         <div class="owl-carousel owl-theme nav-inside float-left mr-4 mb-2" data-plugin-options="{'items': 1, 'margin': 10, 'animateOut': 'fadeOut','autoplay': true}">
                             <div>
-                                <img alt="" class="img-thumbnail rounded" src="themes/porto/img/huany.png">
+                                <img alt="" class="img-thumbnail rounded" src="../../../../themes/porto/img/huany.png">
                             </div>
                         </div>
                     </div>

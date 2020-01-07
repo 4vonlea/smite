@@ -7,10 +7,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Site extends MY_Controller
 {
 
+	private $theme;
     public function __construct()
     {
         parent::__construct();
-        $this->layout->setLayout("layouts/porto");
+        $this->theme = $this->config->item("theme");
+        $this->layout->setLayout("layouts/$this->theme");
         $this->load->model('Event_m', 'EventM');
         $this->load->model('User_account_m', 'AccountM');
         $this->load->model('Gmail_api');
@@ -20,29 +22,29 @@ class Site extends MY_Controller
     {
         $category      = $this->EventM->listcategory();
         $data['query'] = $category['data'];
-        $this->layout->render('site/home', $data);
+        $this->layout->render('site/'.$this->theme.'/home', $data);
     }
 
     public function certificate()
     {
-        $this->layout->render('site/certificate');
+        $this->layout->render('site/'.$this->theme.'/certificate');
     }
 
     public function simposium()
     {
         $category      = $this->EventM->listcategory();
         $data['query'] = $category['data'];
-        $this->layout->render('site/simposium', $data);
+        $this->layout->render('site/'.$this->theme.'/simposium', $data);
     }
 
     public function schedules()
     {
-        $this->layout->render('site/schedules');
+        $this->layout->render('site/'.$this->theme.'/schedules');
     }
 
     public function download()
     {
-        $this->layout->render('site/download');
+        $this->layout->render('site/'.$this->theme.'/download');
     }
 
     public function login()
@@ -87,19 +89,19 @@ class Site extends MY_Controller
 
             }
         }
-        $this->layout->render('site/login', ['error' => $error]);
+        $this->layout->render('site/'.$this->theme.'/login', ['error' => $error]);
     }
 
     public function register()
     {
     	redirect("member/register");
-//        $this->layout->render('site/register');
     }
 
     public function forget()
     {
-        $this->layout->render('site/forget');
+        $this->layout->render('site/'.$this->theme.'/forget');
     }
+    
     public function forget_reset()
     {
         $status_proses = null;
@@ -112,57 +114,27 @@ class Site extends MY_Controller
             $this->Gmail_api->sendMessage($username, 'Reset password EASDV account', $email_message);
             $this->session->set_flashdata('message', '<div class="col-lg-7 alert alert-success"><center> please check your email for your new password </center>
                 </div>');
-            redirect('site/forget','refresh');
+            redirect('site/'.$this->theme.'/forget','refresh');
         } else {
             $this->session->set_flashdata('message', '<div class="col-lg-7 alert alert-danger"> email ini tidak terdaftar
                 </div>');
-            redirect('site/forget','refresh');
+            redirect('site/'.$this->theme.'/forget','refresh');
         }
     }
 
     public function committee()
     {
-        $this->layout->render('site/committee');
+        $this->layout->render('site/'.$this->theme.'/committee');
     }
 
     public function contact()
     {
-        $this->layout->render('site/contact');
+        $this->layout->render('site/'.$this->theme.'/contact');
     }
 
     public function paper()
     {
-        $this->layout->render('site/paper');
+        $this->layout->render('site/'.$this->theme.'/paper');
     }
 
-    public function barcode($code, $tes = "")
-    {
-        include APPPATH . "third_party/phpqrcode/qrlib.php";
-        if ($tes == 'show') {
-            echo "<p>$code</p><img src='" . base_url('site/barcode/' . $code) . "';/>";
-        } else {
-            QRcode::png($code, false, "L", 10, 10);
-        }
-    }
-
-    public function formatdate($date)
-    {
-        $str = explode('-', $date);
-
-        $bulan = array(
-            '01' => 'Jan',
-            '02' => 'Feb',
-            '03' => 'Mar',
-            '04' => 'Apr',
-            '05' => 'May',
-            '06' => 'Jun',
-            '07' => 'Jul',
-            '08' => 'Aug',
-            '09' => 'Sep',
-            '10' => 'Oct',
-            '11' => 'Nov',
-            '12' => 'Dec',
-        );
-        return $str['2'] . " " . $bulan[$str[1]] . " " . $str[0];
-    }
 }
