@@ -232,13 +232,8 @@ $theme_path = base_url("themes/kingster") . "/";
 					<div class="kingster-navigation kingster-item-pdlr clearfix ">
 						<div class="kingster-main-menu" id="kingster-main-menu">
 							<ul id="menu-main-navigation-1" class="sf-menu">
-								<li class="menu-item menu-item-home menu-item-has-children kingster-normal-menu"><a href="index.html" class="sf-with-ul-pre">Home</a>
-									<ul class="sub-menu">
-										<li class="menu-item menu-item-home" data-size="60"><a href="index.html">Homepage 1</a></li>
-										<li class="menu-item" data-size="60"><a href="homepage-2.html">Homepage 2</a></li>
-									</ul>
-								</li>
-								<li class="menu-item   menu-item-has-children kingster-normal-menu"><a href="#" class="sf-with-ul-pre">Pages</a>
+								<li class="menu-item menu-item-home kingster-normal-menu"><a href="index.html" class="sf-with-ul-pre">Home</a></li>
+								<li class="menu-item menu-item-has-children kingster-normal-menu"><a href="#" class="sf-with-ul-pre">Pages</a>
 									<ul class="sub-menu">
 										<li class="menu-item" data-size="60"><a href="about-us.html">About KU</a></li>
 										<li class="menu-item menu-item-has-children" data-size="60"><a href="blog-full-right-sidebar-with-frame.html" class="sf-with-ul-pre">Blog</a>
@@ -342,9 +337,6 @@ $theme_path = base_url("themes/kingster") . "/";
 													<li class="menu-item"><a href="introduction-to-financial-accounting.html">Single Course</a></li>
 												</ul>
 											</li>
-											<li class="menu-item" data-size="15">
-												<div class="kingster-mega-menu-section-content"><img src="upload/mega-menu-logo.png" id="img_983a_0" alt="" /> <span id="span_983a_0">Academic offerings include 95 majors, 86 minors, and more than 100 in-major specializations</span></div>
-											</li>
 										</ul>
 									</div>
 								</li>
@@ -359,14 +351,6 @@ $theme_path = base_url("themes/kingster") . "/";
 										<li class="menu-item" data-size="60"><a href="event-calendar.html">Event Calendar</a></li>
 									</ul>
 								</li>
-								<li class="menu-item menu-item-has-children kingster-normal-menu"><a href="#" class="sf-with-ul-pre">Courses</a>
-									<ul class="sub-menu">
-										<li class="menu-item" data-size="60"><a href="course-list-1.html">Course List 1</a></li>
-										<li class="menu-item" data-size="60"><a href="course-list-2.html">Course List 2</a></li>
-									</ul>
-								</li>
-								<li class="menu-item kingster-normal-menu"><a href="athletics.html">Athletics</a></li>
-								<li class="menu-item kingster-normal-menu"><a href="university-life.html">University Life</a></li>
 							</ul>
 							<div class="kingster-navigation-slide-bar" id="kingster-navigation-slide-bar"></div>
 						</div>

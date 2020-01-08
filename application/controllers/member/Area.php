@@ -7,13 +7,14 @@
 
 class Area extends MY_Controller
 {
+	private $theme;
 	public function __construct(){
 		parent::__construct();
 		if($this->user_session_expired())
 			redirect(base_url("site/login"));
-
-		$this->layout->setLayout("layouts/porto");
-		$this->layout->setBaseView('member/area/');
+		$this->theme = $this->config->item("theme");
+		$this->layout->setLayout("layouts/$this->theme");
+		$this->layout->setBaseView('member/'.$this->theme.'/area/');
 		$this->load->model(['Member_m','User_account_m']);
 
 	}
