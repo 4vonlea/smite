@@ -60,14 +60,11 @@ class Register extends MY_Controller
 			}
 			$this->output->set_content_type("application/json")
 				->set_output(json_encode($error));
-
 		} else {
-
 			$this->load->helper("form");
 			$participantsCategory = Category_member_m::asList($status, 'id', 'kategory', 'Please Select your status');
 			$participantsUniv = Univ_m::asList($univ, 'univ_id', 'univ_nama', 'Please Select your institution');
 			$this->layout->render('member/' . $this->theme . '/register', ['participantsCategory' => $participantsCategory, 'statusList' => $status, 'participantsUniv' => $participantsUniv, 'univlist' => $univ]);
-
 		}
 	}
 

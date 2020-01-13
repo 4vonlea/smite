@@ -80,6 +80,7 @@ $client_key = $config['client_key'];
 <script src="<?= base_url("themes/script/vuejs-datepicker.min.js"); ?>"></script>
 
 <script type="module">
+	var $ = jQuery.noConflict();
     import progressPage from "<?= base_url("themes/script/progressPage.js"); ?>";
     import PageProfile from "<?= base_url("member/area/page/profile"); ?>";
     import PageEvents from "<?= base_url("member/area/page/events"); ?>";

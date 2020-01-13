@@ -20,6 +20,10 @@ $theme_path = base_url("themes/kingster") . "/";
 
 	<link href="https://fonts.googleapis.com/css?family=Playfair+Display:700%2C400" rel="stylesheet" property="stylesheet" type="text/css" media="all">
 	<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Poppins%3A100%2C100italic%2C200%2C200italic%2C300%2C300italic%2Cregular%2Citalic%2C500%2C500italic%2C600%2C600italic%2C700%2C700italic%2C800%2C800italic%2C900%2C900italic%7CABeeZee%3Aregular%2Citalic&amp;subset=latin%2Clatin-ext%2Cdevanagari&amp;ver=5.0.3' type='text/css' media='all' />
+
+	<script type='text/javascript' src='<?=base_url('themes/script/jquery/dist/jquery.min.js');?>'></script>
+	<script type='text/javascript' src='<?=$theme_path;?>js/jquery/jquery-migrate.min.js'></script>
+
 	<?php if (ENVIRONMENT == "production"): ?>
 		<script src="https://cdn.jsdelivr.net/npm/vue"></script>
 	<?php else: ?>
@@ -482,9 +486,6 @@ $theme_path = base_url("themes/kingster") . "/";
 	</div>
 </div>
 
-
-<script type='text/javascript' src='<?=$theme_path;?>js/jquery/jquery.js'></script>
-<script type='text/javascript' src='<?=$theme_path;?>js/jquery/jquery-migrate.min.js'></script>
 <script type='text/javascript' src='<?=$theme_path;?>plugins/goodlayers-core/plugins/combine/script.js'></script>
 <script type='text/javascript'>
 	var gdlr_core_pbf = {
