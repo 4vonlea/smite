@@ -30,7 +30,7 @@
 	<div class="gdlr-core-page-builder-body">
 		<div class="gdlr-core-pbf-sidebar-wrapper " style="margin: 0px 0px 30px 0px;">
 			<div class="gdlr-core-pbf-sidebar-container gdlr-core-line-height-0 clearfix gdlr-core-js gdlr-core-container">
-				<div class="gdlr-core-pbf-sidebar-content  gdlr-core-column-40 gdlr-core-pbf-sidebar-padding gdlr-core-line-height gdlr-core-column-extend-left" style="padding: 35px 0px 20px 0px;">
+				<div class="gdlr-core-pbf-sidebar-content  gdlr-core-column-60 gdlr-core-pbf-sidebar-padding gdlr-core-line-height gdlr-core-column-extend-left" style="padding: 35px 0px 20px 0px;">
 					<div class="gdlr-core-pbf-sidebar-content-inner">
 						<div class="gdlr-core-pbf-element">
 							<div class="gdlr-core-title-item gdlr-core-item-pdb clearfix  gdlr-core-left-align gdlr-core-title-item-caption-top gdlr-core-item-pdlr">
@@ -220,7 +220,7 @@
 
 					</div>
 				</div>
-				<div class="gdlr-core-pbf-sidebar-right gdlr-core-column-extend-right  kingster-sidebar-area gdlr-core-column-20 gdlr-core-pbf-sidebar-padding  gdlr-core-line-height" style="padding: 35px 0px 30px 0px;">
+				<!-- <div class="gdlr-core-pbf-sidebar-right gdlr-core-column-extend-right  kingster-sidebar-area gdlr-core-column-20 gdlr-core-pbf-sidebar-padding  gdlr-core-line-height" style="padding: 35px 0px 30px 0px;">
 					<div class="gdlr-core-sidebar-item gdlr-core-item-pdlr">
 						<div id="text-23" class="widget widget_text kingster-widget">
 							<div class="textwidget">
@@ -228,8 +228,8 @@
 									<div class="gdlr-core-widget-box-shortcode-content">
 										</p>
 										<h3 style="font-size: 20px; color: #fff; margin-bottom: 25px;">Department Contact Info</h3>
-										<p><span style="color: #3db166; font-size: 16px; font-weight: 600;">School Of Law</span>
-											<br /> <span style="font-size: 15px;"><br /> 1810 Campus Way NE<br /> Bothell, WA 98011-8246</span></p>
+										<p><span style="color: #3db166; font-size: 16px; font-weight: 600;">Departement of Neurology</span>
+											<br /> <span style="font-size: 15px;"><br /> pinperdossi2020banjarmasin@gmail.com<br /> 0821 5490 0203</span></p>
 										<p><span style="font-size: 15px;">+1-2345-5432-45<br /> bsba@kuuniver.edu<br /> </span></p>
 										<p><span style="font-size: 16px; color: #3db166;">Mon &#8211; Fri 9:00A.M. &#8211; 5:00P.M.</span></p> <span class="gdlr-core-space-shortcode" style="margin-top: 40px ;"></span>
 										<h3 style="font-size: 20px; color: #fff; margin-bottom: 15px;">Social Info</h3>
@@ -240,7 +240,7 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				</div> -->
 			</div>
 		</div>
 	</div>

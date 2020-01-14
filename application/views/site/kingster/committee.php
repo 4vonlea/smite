@@ -1,27 +1,39 @@
-<section class="page-header page-header-modern bg-color-quaternary page-header-md custom-page-header">
-    <div class="container">
-        <div class="row mt-3">
-            <div class="col-md-8 order-2 order-md-1 align-self-center p-static">
-                <h1>Committee</h1>
-            </div>
-            <div class="col-md-4 order-1 order-md-2 align-self-center">
-                <ul class="breadcrumb d-block text-md-right breadcrumb-light">
-                    <li><a href="<?=base_url('site');?>">Home</a></li>
-                    <li class="active">Committee</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-</section>
+<div class="kingster-breadcrumbs">
+    <div class="kingster-breadcrumbs-container kingster-container">
+        <div class="kingster-breadcrumbs-item kingster-item-pdlr"> <span property="itemListElement" typeof="ListItem"><a property="item" typeof="WebPage" title="Go to Home." href="<?=base_url();?>" class="home"><span property="name">Home</span></a>
+            <meta property="position" content="1">
+        </span>&gt;<span property="itemListElement" typeof="ListItem"><span property="name">Committee</span>
+        <meta property="position" content="2">
+    </span>
+</div>
+</div>
+</div>
 
-<section class="custom-section-padding">
-    <div class="container">
-        <div class="row">
-        <div class="owl-carousel owl-theme nav-inside float-left mr-4 mb-2" data-plugin-options="{'items': 1, 'margin': 10, 'animateOut': 'fadeOut','autoplay': true}">
-            <div>
-                <img alt="" class="" src="<?= base_url('themes/porto'); ?>/img/panitia.jpg">
+<div class="gdlr-core-pbf-column gdlr-core-column-60 gdlr-core-column-first">
+    <div class="gdlr-core-pbf-column-content-margin gdlr-core-js " id="div_1dd7_45" data-sync-height="height-2">
+        <div class="gdlr-core-pbf-column-content clearfix gdlr-core-js  gdlr-core-sync-height-content">
+            <div class="gdlr-core-pbf-element">
+                <div class="gdlr-core-blog-item gdlr-core-item-pdb clearfix  gdlr-core-style-blog-widget">
+                    <div class="gdlr-core-block-item-title-wrap  gdlr-core-left-align gdlr-core-item-mglr" id="div_1dd7_46">
+                        <div class="gdlr-core-block-item-title-inner clearfix">
+                            <h3 class="gdlr-core-block-item-title" id="h3_1dd7_10">Coommittee</h3>
+                            <div class="gdlr-core-block-item-title-divider" id="div_1dd7_47"></div>
+                        </div>
+                    </div>
+                    <div class="gdlr-core-blog-item-holder gdlr-core-js-2 clearfix" data-layout="fitrows">
+                        <div class="gdlr-core-item-list-wrap gdlr-core-column-10">
+                            <div class="gdlr-core-item-list-inner gdlr-core-item-mglr">
+                                <div class="gdlr-core-blog-grid ">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="gdlr-core-item-list-wrap gdlr-core-column-45">
+                            <img src="<?=base_url('themes/kingster');?>/img/committee.jpg">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        </div>
     </div>
-</section>
+</div>
