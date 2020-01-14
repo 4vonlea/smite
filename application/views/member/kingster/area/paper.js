@@ -1,6 +1,6 @@
 export default Vue.component("PagePaper", {
     template: `
-        <div class="col-lg-9">
+        <div class="col-lg-12">
             <page-loader :loading="loading" :fail="fail"></page-loader>
             <div class="modal" data-backdrop="static" id="modal-fullpaper">
 				<div class="modal-dialog">

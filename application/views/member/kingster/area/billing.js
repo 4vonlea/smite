@@ -1,6 +1,6 @@
 export default Vue.component("PageBilling", {
     template: `
-        <div class="col-lg-9">
+        <div class="col-lg-12">
             <page-loader :loading="loading" :fail="fail"></page-loader>
             <div v-if="!loading">
             	<div class="overflow-hidden mb-1">
@@ -31,8 +31,8 @@ export default Vue.component("PageBilling", {
 								<td>{{ item.status_payment.toUpperCase()}}</td>
 								<td>{{ sumPrice(item.detail)}}</td>
 								<td>
-									<button class="btn btn-default" @click="detailTransaction(item,$event)">Detail</button>
-									<button @click="modalProof(item)" v-if="item.status_payment == 'pending'" class="btn btn-default" >Upload Transfer Proof</button>
+									<button class="btn btn-info" @click="detailTransaction(item,$event)">Detail</button>
+									<button @click="modalProof(item)" v-if="item.status_payment == 'pending'" class="btn btn-info" >Upload Transfer Proof</button>
 								</td>
 							</tr>
 						</tbody>
@@ -67,7 +67,7 @@ export default Vue.component("PageBilling", {
 							<tr>
 								<td></td>
 								<td class="text-right" colspan="2">
-								<a :href="appUrl+'member/area/download/invoice/'+current_invoice" target="_blank" class="btn btn-primary" >Download Invoice</a>
+								<a style="color: white" :href="appUrl+'member/area/download/invoice/'+current_invoice" target="_blank" class="btn btn-primary" >Download Invoice</a>
 								<button :disabled="checking_out" @click="checkout" class="btn btn-primary">
 									Checkout <i v-if="checking_out" class="fa fa-spin fa-spinner"></i>
 								</button>

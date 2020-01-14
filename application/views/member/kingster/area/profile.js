@@ -1,6 +1,6 @@
 var PageProfile = Vue.component("PageProfile", {
 	template: `
-<div class="col-lg-9">
+<div class="col-lg-12">
     <page-loader :loading="loading" :fail="fail"></page-loader>
     <div v-if="!loading && !fail">
         <div class="row">
@@ -10,10 +10,10 @@ var PageProfile = Vue.component("PageProfile", {
                 </div>
             </div>
             <div class="col-md-5 text-right">
-                <button @click="[editing = !editing]" class="btn btn-default">
+                <button @click="[editing = !editing]" class="btn btn-info">
                       <i class="fa fa-edit"></i> {{ editing ? 'Cancel Edit':'Edit Profile' }}
                 </button>
-                <button data-toggle="modal" data-target="#reset-password" class="btn btn-default"><i class="fa fa-key"></i> Change Password</button>
+                <button data-toggle="modal" data-target="#reset-password" class="btn btn-info"><i class="fa fa-key"></i> Change Password</button>
             </div>
             <div class="col-md-12">
                 <div class="overflow-hidden mb-4 pb-3">
@@ -106,7 +106,7 @@ var PageProfile = Vue.component("PageProfile", {
 
             <div v-if="editing" class="form-group row">
                 <div class="form-group col-lg-12 text-right">
-                    <button @click="[editing = false]"  type="button" class="btn btn-default "> Cancel</button>
+                    <button @click="[editing = false]"  type="button" class="btn btn-info "> Cancel</button>
                     <button v-if="editing" @click="saveProfile" type="button" class="btn btn-primary"> Save</button>
                 </div>
             </div>
@@ -146,7 +146,7 @@ var PageProfile = Vue.component("PageProfile", {
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" :disabled="processReset" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" :disabled="processReset" class="btn btn-info" data-dismiss="modal">Close</button>
                         <button type="button" @click="resetPassword" :disabled="processReset" class="btn btn-primary" ><i v-if="processReset" class="fa fa-spin fa-spinner"></i> Reset</button>
                     </div>
                 </div>

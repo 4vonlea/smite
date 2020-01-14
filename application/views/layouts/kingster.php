@@ -31,6 +31,7 @@ $theme_path = base_url("themes/kingster") . "/";
 	<?php else: ?>
 		<script src="<?= base_url('themes/script/vue.js'); ?>"></script>
 	<?php endif; ?>
+	<?= $additional_head;?>
 </head>
 
 <body class="home page-template-default page page-id-2039 gdlr-core-body woocommerce-no-js tribe-no-js kingster-body kingster-body-front kingster-full  kingster-with-sticky-navigation  kingster-blockquote-style-1 gdlr-core-link-to-lightbox">
