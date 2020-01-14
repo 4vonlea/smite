@@ -381,11 +381,11 @@ $theme_path = base_url("themes/kingster") . "/";
 		</header>
 		<!--End Desktop Navigation-->
 
-		<div class="kingster-page-wrapper" id="kingster-page-wrapper">
-			<div class="gdlr-core-page-builder-body">
+<!--		<div class="kingster-page-wrapper" id="kingster-page-wrapper">-->
+<!--			<div class="gdlr-core-page-builder-body">-->
 				<?= $content; ?>
-			</div>
-		</div>
+<!--			</div>-->
+<!--		</div>-->
 
 
 		<footer>

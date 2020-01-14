@@ -17,6 +17,12 @@
 						<div class="gdlr-core-pbf-element">
 							<div class="gdlr-core-title-item gdlr-core-item-pdb clearfix  gdlr-core-center-align gdlr-core-title-item-caption-bottom gdlr-core-item-pdlr" style="padding-bottom: 60px ;">
 								<div class="gdlr-core-title-item-title-wrap clearfix">
+								<div class="gdlr-core-pbf-element">
+									<div class="gdlr-core-title-item gdlr-core-item-pdb clearfix  gdlr-core-left-align gdlr-core-title-item-caption-top gdlr-core-item-pdlr">
+										<div class="gdlr-core-title-item-title-wrap clearfix">
+											<h3 class="gdlr-core-title-item-title gdlr-core-skin-title " style="font-size: 27px ;font-weight: 600 ;letter-spacing: 0px ;text-transform: none ;">Register As Member</h3></div>
+									</div>
+								</div>
 								<div id="app">
 									<div class="row">
 										<div v-if="registered" class="col-lg-12 col-lg-offset-2">
@@ -182,7 +188,7 @@
 														Register
 													</button>
 													<button type="button"
-															class="btn btn-outline custom-border-width btn-primary custom-border-radius font-weight-semibold text-uppercase"
+															class="btn btn-outline custom-border-width btn-default custom-border-radius font-weight-semibold text-uppercase"
 															id="resetBtn" style="border-color:red;color:red">Cancel
 													</button>
 												</div>

@@ -30,7 +30,7 @@ class Register extends MY_Controller
 			$data['id'] = Uuid::v4();
 			$univ = Univ_m::withKey($univ, "univ_id");
 			$status = Category_member_m::withKey($status, "id");
-			$need_verify = ($status[$data['status']]['need_verify'] == "1");
+			$need_verify = (isset($status[$data['status']]) && $status[$data['status']]['need_verify'] == "1");
 			if ($this->Member_m->validate($data) && $this->handlingProof('proof', $data['id'], $need_verify)) {
 				$data['username_account'] = $data['email'];
 				$data['verified_by_admin'] = !$need_verify;
