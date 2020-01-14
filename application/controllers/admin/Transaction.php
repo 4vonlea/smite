@@ -16,7 +16,7 @@ class Transaction extends Admin_Controller
 		if($type == "invoice")
 			$tr->exportInvoice()->stream($member->fullname."-Invoice.pdf", array("Attachment" => false));
 		elseif($type == "proof")
-			$tr->exportPaymentProof()->stream($member->fullname."-Payment_Proof.pdf", array("Attachment" => false));
+			$tr->exportPaymentProof()->stream($member->fullname."-Bukti_Registrasi.pdf", array("Attachment" => false));
 		else
 			show_404();
 	}
@@ -78,7 +78,7 @@ class Transaction extends Admin_Controller
 			$member = $this->Member_m->findOne(['id'=>$detail->member_id]);
 			$attc = [
 				$member->fullname.'-invoice.pdf' => $detail->exportInvoice()->output(),
-				$member->fullname.'-payment_proof.pdf' => $detail->exportPaymentProof()->output()
+				$member->fullname.'-bukti_registrasi.pdf' => $detail->exportPaymentProof()->output()
 			];
 			$details = $detail->detailsWithEvent();
 			foreach($details as $row){
@@ -91,7 +91,7 @@ class Transaction extends Admin_Controller
 					$attc[$member->fullname."_".$row->event_name.".pdf"] = $member->getCard($event)->output();
 				}
 			}
-			$this->Gmail_api->sendMessageWithAttachment($member->email, 'Invoice, Payment Proof And Name Tag', "Thank you for registering and fulfilling your payment, below is your invoice and offical payment proof", $attc);
+			$this->Gmail_api->sendMessageWithAttachment($member->email, 'Invoice, Bukti Registrasi And Name Tag', "Thank you for registering and fulfilling your payment, below is your invoice and offical Bukti Registrasi", $attc);
 
 		}
 		$this->output

@@ -443,7 +443,7 @@ class Area extends MY_Controller
 		if($type == "invoice")
 			$tr->exportInvoice()->stream($member->fullname."-Invoice.pdf");
 		elseif($type == "proof")
-			$tr->exportPaymentProof()->stream($member->fullname."-Payment_Proof.pdf");
+			$tr->exportPaymentProof()->stream($member->fullname."-Bukti_Registrasi.pdf");
 		else
 			show_404();
 	}

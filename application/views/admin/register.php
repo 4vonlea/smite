@@ -150,7 +150,7 @@
 							</div>
 						</div>
 						<div v-if="channel =='MANUAL TRANSFER'" class="form-group row">
-							<label class="col-lg-3 control-label">Upload Payment Proof <small>jpg,png,jpeg</small></label>
+							<label class="col-lg-3 control-label">Upload Bukti Registrasi <small>jpg,png,jpeg</small></label>
 							<div class="col-lg-5">
 								<input type="file" name="proof" :class="{'is-invalid':validation_error.proof}"
 									   class="form-control-file"/>
@@ -293,7 +293,7 @@
                             title: '<strong>Registered Successfully</strong>',
                             type: 'success',
                             html:
-                                `<p>Participant successfully registered, an email has been sent to "${res.email}" contains Invoice and Payment proof files</p>` +
+                                `<p>Participant successfully registered, an email has been sent to "${res.email}" contains Invoice and Bukti Registrasi files</p>` +
                                 `<p>to check member you can  <a href="${res.url}" target="_blank">click here</a></p>`,
                             showCloseButton: true,
                             showCancelButton: true,

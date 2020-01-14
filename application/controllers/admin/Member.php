@@ -193,7 +193,7 @@ class Member extends Admin_Controller
 					$email_message = $this->load->view('template/success_register_onsite', $data, true);
 					$attc = [
 						$data['fullname'].'-invoice.pdf' => $tr->exportInvoice()->output(),
-						$data['fullname'].'-payment_proof.pdf' => $tr->exportPaymentProof()->output()
+						$data['fullname'].'-bukti_registrasi.pdf' => $tr->exportPaymentProof()->output()
 					];
 					$details = $tr->detailsWithEvent();
 					foreach($details as $row){
@@ -206,7 +206,7 @@ class Member extends Admin_Controller
 							$attc[$data['fullname']."_".$row->event_name.".pdf"] = $this->Member_m->getCard($event,$data)->output();
 						}
 					}
-					$this->Gmail_api->sendMessageWithAttachment($data['email'], 'Registered On Site Succesfully - Invoice, Payment Proof', $email_message, $attc);
+					$this->Gmail_api->sendMessageWithAttachment($data['email'], 'Registered On Site Succesfully - Invoice, Bukti Registrasi', $email_message, $attc);
 				}
 			} else {
 				$error['status'] = false;

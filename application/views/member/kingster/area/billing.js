@@ -193,7 +193,7 @@ export default Vue.component("PageBilling", {
 						</div>
 						<div class="modal-footer">
 							<a :href="appUrl+'member/area/download/invoice/'+detailModel.id" target="_blank" class="btn btn-primary" >Download Invoice</a>
-							<a :href="appUrl+'member/area/download/proof/'+detailModel.id" target="_blank" v-if="detailModel.finish" class="btn btn-primary" >Download Payment Proof</a>
+							<a :href="appUrl+'member/area/download/proof/'+detailModel.id" target="_blank" v-if="detailModel.finish" class="btn btn-primary" >Download Bukti Registrasi</a>
 							<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>					
 						</div>
 					</div>

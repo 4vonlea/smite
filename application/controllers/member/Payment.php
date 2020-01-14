@@ -79,11 +79,11 @@ class Payment extends MY_Controller
 						$file[$row->event_name.".pdf"] = $member->getCard($event)->output();
 					}
 				}
-				$file['Payment Proof'] = $tr->exportPaymentProof()->output();
-				$this->Gmail_api->sendMessageWithAttachment($member->email,"Official Payment Proof And Name Tag","Thank you for registering and fulfilling your payment, below is offical payment proof",$file,"OFFICIAL_PAYMENT_PROOF.pdf");
+				$file['Bukti Registrasi'] = $tr->exportPaymentProof()->output();
+				$this->Gmail_api->sendMessageWithAttachment($member->email,"Official Bukti Registrasi And Name Tag","Thank you for registering and fulfilling your payment, below is offical Bukti Registrasi",$file,"OFFICIAL_BUKTI_REGISTRASI.pdf");
 
 //				$file = $tr->exportPaymentProof()->output();
-//				$this->Gmail_api->sendMessageWithAttachment($member->email,"Official Payment Proof-And Name Tag","Thank you for registering and fulfilling your payment, below is offical payment proof",$file,"OFFICIAL_PAYMENT_PROOF.pdf");
+//				$this->Gmail_api->sendMessageWithAttachment($member->email,"Official Bukti Registrasi-And Name Tag","Thank you for registering and fulfilling your payment, below is offical Bukti Registrasi",$file,"OFFICIAL_PAYMENT_PROOF.pdf");
 			}
 		}
 	}

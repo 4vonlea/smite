@@ -58,4 +58,4 @@
 			<td><?=$address?></td>
 		</tr>
 </table>
-<p>And below is your invoice and payment proof</p>
+<p>And below is your invoice and Bukti Registrasi</p>
