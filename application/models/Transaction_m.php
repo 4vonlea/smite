@@ -92,6 +92,11 @@ class Transaction_m extends MY_Model
 		$html = $this->load->view("template/invoice",[
 			'transaction'=>$this,
 		],true);
+
+		$option = new \Dompdf\Options();
+		$option->setIsRemoteEnabled(true);
+		$domInvoice->setOptions($option);
+
 		$domInvoice->loadHtml($html);
 		$domInvoice->render();
 		return $domInvoice;
@@ -105,6 +110,9 @@ class Transaction_m extends MY_Model
 			'transaction'=>$this,
 		],true);
 		$dompdf = new Dompdf();
+		$option = new \Dompdf\Options();
+		$option->setIsRemoteEnabled(true);
+		$dompdf->setOptions($option);
 		$dompdf->setPaper('legal', 'potrait');
 		$dompdf->loadHtml($html);
 		$dompdf->render();

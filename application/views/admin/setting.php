@@ -54,7 +54,9 @@
 							<hr>
 							<div class="row">
 								<div class="col-md-2">
-									<label>Site Logo</label>
+									<label>Site Logo
+									</label>
+
 									<div class="card">
 										<img class="card-img-top" :src="logo_src" alt="Card image cap"/>
 										<div class="card-body text-center">
@@ -66,6 +68,7 @@
 												Change
 											</button>
 										</div>
+										<small>*max width 1024px</small>
 									</div>
 								</div>
 								<div class="col-md-9">
@@ -473,8 +476,13 @@
                     processData: false,
                 }).done(function () {
                     app.logo_src = "<?= base_url('themes/uploads/logo.png'); ?>?" + (new Date().getTime());
-                }).fail(function () {
-                    Swal.fire("Failed", "Fail to change logo !", "error");
+                }).fail(function (xhr) {
+					console.log(xhr);
+					if(xhr.responseJSON.error){
+						Swal.fire("Failed", xhr.responseJSON.error, "error");
+					}else {
+						Swal.fire("Failed", "Fail to change logo !", "error");
+					}
                 }).always(function () {
                     app.uploading = false;
                 });
