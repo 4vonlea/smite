@@ -16,7 +16,7 @@
                 <div class="gdlr-core-blog-item gdlr-core-item-pdb clearfix  gdlr-core-style-blog-widget">
                     <div class="gdlr-core-block-item-title-wrap  gdlr-core-left-align gdlr-core-item-mglr" id="div_1dd7_46">
                         <div class="gdlr-core-block-item-title-inner clearfix">
-                            <h3 class="gdlr-core-block-item-title" id="h3_1dd7_10">Call for Paper</h3>
+                            <h3 class="gdlr-core-block-item-title" id="h3_1dd7_10">Call for Abstract</h3>
                             <div class="gdlr-core-block-item-title-divider" id="div_1dd7_47"></div>
                         </div>
                     </div>
