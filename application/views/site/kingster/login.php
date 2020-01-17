@@ -2,7 +2,7 @@
 	<div class="container">
 		<div class="row mt-3">
 			<div class="col-md-8 order-2 order-md-1 align-self-center text-center p-static">
-				<h1>Login</h1>
+				<h3>Login</h3>
 			</div>
 		</div>
 	</div>
