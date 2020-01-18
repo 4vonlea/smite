@@ -129,9 +129,7 @@
 					<div class="gdlr-core-pbf-column gdlr-core-column-30 gdlr-core-column-second">
 						<div class="gdlr-core-pbf-column-content-margin gdlr-core-js " id="div_1dd7_14" data-sync-height="height-1">
 							<div class="">
-								<video width="600" controls>
-									<source src="<?=base_url('themes/kingster');?>/img/videoper.mp4" type="video/mp4">
-									</video>
+								<img src="<?=base_url('themes/kingster');?>/img/acara.jpg">
 								</div>
 							</div>
 						</div>
@@ -154,7 +152,7 @@
 								<div class="gdlr-core-blog-item gdlr-core-item-pdb clearfix  gdlr-core-style-blog-widget">
 									<div class="gdlr-core-block-item-title-wrap  gdlr-core-left-align gdlr-core-item-mglr" id="div_1dd7_46">
 										<div class="gdlr-core-block-item-title-inner clearfix">
-											<h3 class="gdlr-core-block-item-title" id="h3_1dd7_10">Events</h3>
+											<h3 class="gdlr-core-block-item-title" id="h3_1dd7_10">Events Pricing</h3>
 											<div class="gdlr-core-block-item-title-divider" id="div_1dd7_47"></div>
 										</div>
 									</div>
@@ -180,6 +178,7 @@
 																foreach ($row->kondisi as $row2):
 																	?>
 																	<div class="gdlr-core-accordion-item-content">
+																		<p><?php echo $row2->kondisi ?></p>
 																		<?php
 																		foreach ($row2->acara as $row3):
 																			?>
@@ -228,6 +227,7 @@
 													?>
 												</div>
 											</div>
+											<iframe width="420" height="345" src="https://www.youtube.com/embed/B54Lcn7tyws"></iframe>
 										</div>
 									</div>
 								</div>
