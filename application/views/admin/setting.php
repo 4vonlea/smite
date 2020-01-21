@@ -211,7 +211,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="tab-pane fade show active" id="tabs-manual_payment" role="tabpanel">
+						<div class="tab-pane fade show" id="tabs-manual_payment" role="tabpanel">
 							<div class="row">
 								<div class="col">Manual Payment</div>
 							</div>

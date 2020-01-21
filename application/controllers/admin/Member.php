@@ -203,7 +203,8 @@ class Member extends Admin_Controller
 								'held_in' => $row->held_in,
 								'theme' => $row->theme
 							];
-							$attc[$data['fullname']."_".$row->event_name.".pdf"] = $this->Member_m->getCard($event,$data)->output();
+							if(env('send_card_member','1') == '1')
+								$attc[$data['fullname']."_".$row->event_name.".pdf"] = $this->Member_m->getCard($event,$data)->output();
 						}
 					}
 					$this->Gmail_api->sendMessageWithAttachment($data['email'], 'Registered On Site Succesfully - Invoice, Bukti Registrasi', $email_message, $attc);

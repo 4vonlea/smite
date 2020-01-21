@@ -20,6 +20,7 @@ class Transaction extends Admin_Controller
 		else
 			show_404();
 	}
+
 	public function grid()
 	{
 		$this->load->model('Transaction_m');
@@ -88,7 +89,8 @@ class Transaction extends Admin_Controller
 						'held_in' => $row->held_in,
 						'theme' => $row->theme
 					];
-					$attc[$member->fullname."_".$row->event_name.".pdf"] = $member->getCard($event)->output();
+					if(env('send_card_member','1') == '1')
+						$attc[$member->fullname."_".$row->event_name.".pdf"] = $member->getCard($event)->output();
 				}
 			}
 			$this->Gmail_api->sendMessageWithAttachment($member->email, 'Invoice, Bukti Registrasi And Name Tag', "Thank you for registering and fulfilling your payment, below is your invoice and offical Bukti Registrasi", $attc);
