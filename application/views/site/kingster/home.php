@@ -136,7 +136,6 @@
 						<div class="gdlr-core-pbf-column-content clearfix gdlr-core-js  gdlr-core-sync-height-content"></div>
 					</div>
 				</div>
-
 			</div>
 		</div>
 	</div>
@@ -182,7 +181,9 @@
 																		<?php
 																		foreach ($row2->acara as $row3):
 																			?>
-																			<table class="table table-bordered">
+																			<div>
+                                                                            <div class="table-responsive">
+																			<table class="table table-striped table-bordered" style="width: 1150px;">
 																				<tr>
 																					<td rowspan="2">
 																						<?php echo $row3->nama_acara ?>
@@ -212,6 +213,8 @@
 																					?>
 																				</tr>
 																			</table>
+																		</div>
+																	</div>
 																			<?php
 																		endforeach;
 																		?>
@@ -226,7 +229,20 @@
 													?>
 												</div>
 											</div>
-											<iframe width="420" height="345" src="https://www.youtube.com/embed/B54Lcn7tyws"></iframe>
+											<div class="gdlr-core-blog-item-holder gdlr-core-js-2 clearfix" data-layout="fitrows">
+										<div class="gdlr-core-item-list-wrap gdlr-core-column-10">
+											<div class="gdlr-core-item-list-inner gdlr-core-item-mglr">
+												<div class="gdlr-core-blog-grid ">
+
+												</div>
+											</div>
+										</div>
+										<div class="gdlr-core-item-list-wrap gdlr-core-column-45">
+											<iframe width="350" height="275" src="https://www.youtube.com/embed/B54Lcn7tyws"></iframe>
+										</div>
+									</div>
+
+											
 										</div>
 									</div>
 								</div>
@@ -236,6 +252,7 @@
 				</div>
 			</div>
 		</div>
+	</div>
 	</div>
 
 	<div class="gdlr-core-pbf-wrapper " id="div_1dd7_44">
