@@ -96,7 +96,7 @@
 												<li>Click Register Now, and fill your profile</li>
 												<li>Choose your event (and or submit your abstract)</li>
 												<li>Pay via our online banking payment</li>
-												<li>Download your ID CARD. and See you in Banjarmasin.</li>
+												<li>Download your registration proof. and See you in Banjarmasin.</li>
 											</ol>
 
 										</div>
@@ -164,7 +164,7 @@
 												</div>
 											</div>
 										</div>
-										<div class="gdlr-core-item-list-wrap gdlr-core-column-45">
+										<div class="gdlr-core-item-list-wrap">
 											<div class="gdlr-core-pbf-element">
 												<div class="gdlr-core-accordion-item gdlr-core-item-pdlr gdlr-core-item-pdb  gdlr-core-accordion-style-background-title-icon gdlr-core-left-align gdlr-core-icon-pos-right">
 													<?php
@@ -178,7 +178,7 @@
 																foreach ($row->kondisi as $row2):
 																	?>
 																	<div class="gdlr-core-accordion-item-content">
-																		<p><?php echo $row2->kondisi ?></p>
+																		<ul><li><?php echo $row2->kondisi ?></li></ul>
 																		<?php
 																		foreach ($row2->acara as $row3):
 																			?>
@@ -212,7 +212,6 @@
 																					?>
 																				</tr>
 																			</table>
-
 																			<?php
 																		endforeach;
 																		?>
@@ -275,7 +274,7 @@
 
 			</div>
 		</div>
-	</div>
+	</div>										
 
 </div>
 
