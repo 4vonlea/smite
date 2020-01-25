@@ -8,11 +8,13 @@
 
 class Papers_m extends MY_Model
 {
+	const ACCEPTED = 2;
+	const REJECTED = 3;
 	public static $status = [
 		0 => 'Returned to author',
 		1 => 'Need/Under Review',
-		2 => 'Accepted',
-		3 => 'Rejected'
+		self::ACCEPTED => 'Accepted',
+		self::REJECTED => 'Rejected'
 	];
 
 	public static $typeAbstract = [
@@ -48,12 +50,20 @@ class Papers_m extends MY_Model
 	{
 		$default =  [
 			'relationships' => [
-				'member' => ['members', 'member.id = member_id']
+				'member' => ['members', 'member.id = member_id'],
+				'st'=>['settings','st.name = "format_id_paper"',"left"]
 			],
-			'select' => ['t_id' => 't.id', 'fullname', 'title', 'status' => 't.status', 't_created_at' => 't.created_at','m_id'=>'member.id', 'author' => 'member.fullname', 'filename', 'reviewer','introduction','aims','methods','conclusion','co_author','result','message','feedback','type_presence','fullpaper','poster']
+			'select' => ['id_paper'=>'CONCAT(st.value,LPAD(t.id,3,0))','t_id' => 't.id', 'fullname', 'title', 'status' => 't.status', 't_created_at' => 't.created_at','m_id'=>'member.id', 'author' => 'member.fullname', 'filename', 'reviewer','introduction','aims','methods','conclusion','co_author','result','message','feedback','type_presence','fullpaper','poster']
 		];
 		$config =  array_merge($default,$option);
 		return $config;
+	}
+
+	public function getIdPaper($id=null){
+		if(isset($this->id) && $id == null){
+			$id = $this->id;
+		}
+		return Settings_m::getSetting('format_id_paper').str_pad($id,3,0,STR_PAD_LEFT);
 	}
 
 	public function gridData($params, $gridConfig = [])
@@ -75,5 +85,30 @@ class Papers_m extends MY_Model
 			->where("status",1)->select("count(*) as r")->get();
 		$data['total_no_reviewer'] = $model->row()->r;
 		return $data;
+	}
+
+	/**
+	 * @return Dompdf
+	 */
+	public function exportNotifPdf(){
+		$template = ($this->status== Papers_m::ACCEPTED ? 'template/paper_accepted':'template/paper_rejected');
+
+		$domInvoice = new Dompdf\Dompdf();
+		$domInvoice->setPaper('legal');
+
+		$html = $this->load->view($template,['paper'=>$this,'member'=>$this->member],true);
+
+		$option = new \Dompdf\Options();
+		$option->setIsRemoteEnabled(true);
+		$domInvoice->setOptions($option);
+
+		$domInvoice->loadHtml($html);
+		$domInvoice->render();
+		return $domInvoice;
+	}
+
+	public function member()
+	{
+		return $this->hasOne('Member_m', 'id', 'member_id');
 	}
 }

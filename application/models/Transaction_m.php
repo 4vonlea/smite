@@ -33,7 +33,7 @@ class Transaction_m extends MY_Model
 				'member'=>['members','member.id = member_id']
 			],
 			'select'=>['invoice'=>'t.id','t_id'=>'t.id','fullname','status_payment','t_updated_at'=>'t.updated_at'],
-			'filter'=>['checkout'=>'1'],
+//			'filter'=>['checkout'=>'1'],
 		];
 	}
 
@@ -42,8 +42,10 @@ class Transaction_m extends MY_Model
 		$data = parent::gridData($params, $relationship);
 		$result = $this->find()->select("SUM(IF(status_payment = '".self::STATUS_FINISH."',1,0)) as finish")
 		->select("SUM(IF(status_payment = 'capture' OR status_payment = 'pending' OR status_payment = 'waiting',1,0)) as pending")
+		->select("SUM(IF(status_payment = 'waiting',1,0)) as waiting")
 		->select("SUM(IF(status_payment = 'cancel' OR status_payment = 'deny' OR status_payment = 'expire',1,0)) as unfinish")
 			->get()->row_array();
+		$data['total_waiting'] = $result['waiting'];
 		$data['total_finish'] = $result['finish'];
 		$data['total_unfinish'] = $result['unfinish'];
 		$data['total_pending'] = $result['pending'];
