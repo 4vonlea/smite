@@ -69,7 +69,7 @@ class Paper extends Admin_Controller
 					$message = "<p>Dear Participant</p>
 					<p>Thank you for submitting your abstract to 2nd EAST INSDV 2020. Please download your abstract result annoucement here.</p>
 					<p>Best regards.<br/>
-					Committee of 2nd EAST INSDV 2020 - Banjarmasin</p>";
+					Committee of ".Settings_m::getSetting('site_title')."</p>";
 					$this->Gmail_api->sendMessageWithAttachment("muhammad.zaien17@gmail.com","Result Of Paper Review",$message,['Result Or Review'=>$model->exportNotifPdf()->output()]);
 
 				}

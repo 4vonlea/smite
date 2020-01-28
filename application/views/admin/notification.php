@@ -39,10 +39,10 @@
 									<input v-model="message.target" id="customRadio1" class="custom-control-input" name="target" value="all" type="radio">
 									<label class="custom-control-label" for="customRadio1">Send to All</label>
 								</div>
-<!--								<div class="custom-control custom-radio custom-control-inline">-->
-<!--									<input v-model="message.target" id="customRadio2" class="custom-control-input" name="target" value="specific" type="radio">-->
-<!--									<label class="custom-control-label" for="customRadio2">Send To Specific Contact</label>-->
-<!--								</div>-->
+								<div class="custom-control custom-radio custom-control-inline">
+									<input v-model="message.target" id="customRadio2" class="custom-control-input" name="target" value="event_selected" type="radio">
+									<label class="custom-control-label" for="customRadio2">Send to specific event participants</label>
+								</div>
 								<div class="custom-control custom-checkbox custom-control-inline">
 									<input v-model="message.via" type="checkbox" class="custom-control-input" id="customCheck1" name="via" value="email">
 									<label class="custom-control-label" for="customCheck1">Using Email</label>
@@ -55,6 +55,10 @@
 							<div v-if="message.target != 'all'" class="form-group">
 								<label>To</label>
 								<input type="text" v-model="message.to" class="form-control" name="to" />
+							</div>
+							<div v-if="message.target == 'event_selected'" class="form-group">
+								<label>To Participant Event</label>
+								<?=form_dropdown('event_notif',$event,'',['class'=>'form-control','v-model'=>'event_notif']);?>
 							</div>
 							<div class="form-group">
 								<label>Subject</label>
@@ -225,6 +229,7 @@
 				"text":"",
 			},
 			sendingCert:false,
+			event_notif:"",
 			cert_event:"",
 			pooling:{title:"",data:[],size:0,success:0,fail:0,processed:0},
 			files:[],

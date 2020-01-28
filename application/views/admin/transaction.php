@@ -197,6 +197,7 @@
 				</button>
 				<a :href="'<?=base_url('admin/transaction/download/invoice');?>/'+detailModel.id" target="_blank" class="btn btn-primary" >Download Invoice</a>
 				<a :href="'<?=base_url('admin/transaction/download/proof');?>/'+detailModel.id" target="_blank" v-if="detailModel.status_payment == '<?=Transaction_m::STATUS_FINISH;?>'" class="btn btn-primary" >Download Bukti Registrasi</a>
+				<button :disabled="sendingProof" v-on:click="resendPaymentProof(detailModel)" v-if="detailModel.status_payment == '<?=Transaction_m::STATUS_FINISH;?>'" class="btn btn-primary" ><i v-if="sendingProof" class="fa fa-spin fa-spinner"></i> Resend Bukti Registrasi</button>
 				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 			</div>
 
@@ -214,6 +215,7 @@
             pagination: {},
             verifying:false,
 			expiring:false,
+			sendingProof:false,
         },
 		computed:{
             amount(){
@@ -226,6 +228,21 @@
 			}
 		},
         methods: {
+        	resendPaymentProof(data){
+        		this.sendingProof = true;
+				$.post("<?=base_url('admin/transaction/resend/proof');?>/"+data.id,null,'JSON')
+					.done(function (res) {
+						if(res.status){
+							Swal.fire("Success","Bukti Registrasi berhasil dikirim ulang !","success");
+						}else{
+							Swal.fire("Failed","Gagal mengirim ulang bukti registrasi","error");
+						}
+					}).fail(function (xhr) {
+					Swal.fire("Failed","Failed to process request !","error");
+				}).always(function () {
+					app.sendingProof = false;
+				});
+			},
             loadedGrid: function (data) {
                 this.pagination = data;
             },

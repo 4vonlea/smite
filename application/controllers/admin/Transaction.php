@@ -9,6 +9,27 @@ class Transaction extends Admin_Controller
 		$this->layout->render('transaction');
     }
 
+    public function resend($type,$id){
+		$this->load->model(['Transaction_m','Member_m','Gmail_api']);
+		$tr = $this->Transaction_m->findOne(['id'=>$id]);
+		$member = $this->Member_m->findOne(['id'=>$tr->member_id]);
+		if($type == "invoice") {
+			$filename = $member->fullname."-Invoice.pdf";
+			$file = $tr->exportInvoice();
+		}elseif($type == "proof") {
+			$filename = $member->fullname."-Bukti_Registrasi.pdf";
+			$file = $tr->exportPaymentProof();
+		}
+		$message = "<p>Dear Participant</p>
+					<p>Thank you for participating in the event. Please download your 'Registration Proof' here.</p>
+					<p>Best regards.<br/>
+					Committee of ".Settings_m::getSetting('site_title')."</p>";
+		$result = $this->Gmail_api->sendMessageWithAttachment($member->email, 'Kirim Ulang : Bukti Registrasi', $message,[$filename=>$file->output()]);
+		$this->output
+			->set_content_type("application/json")
+			->_display(json_encode(['status'=>$result]));
+	}
+
     public function download($type,$id){
 		$this->load->model(['Transaction_m','Member_m']);
 		$tr = $this->Transaction_m->findOne(['id'=>$id]);

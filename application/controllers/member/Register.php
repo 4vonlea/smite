@@ -40,6 +40,10 @@ class Register extends MY_Controller
 
 				$token = uniqid();
 				$this->Member_m->getDB()->trans_start();
+				if($data['univ'] == Univ_m::UNIV_OTHER){
+					$this->Univ_m->insert(['univ_nama'=>strtoupper($data['other_institution'])]);
+					$data['univ'] = $this->Univ_m->last_insert_id;
+				}
 				$this->Member_m->insert(array_intersect_key($data, array_flip($this->Member_m->fillable)), false);
 				$this->User_account_m->insert([
 					'username' => $data['email'],
@@ -52,7 +56,7 @@ class Register extends MY_Controller
 				$error['message'] = $this->Member_m->getDB()->error();
 				if ($error['status']) {
 					$email_message = $this->load->view('template/email_confirmation', ['token' => $token, 'name' => $data['fullname']], true);
-					$this->Gmail_api->sendMessage($data['email'], 'Email Confirmation', $email_message);
+//					$this->Gmail_api->sendMessage($data['email'], 'Email Confirmation', $email_message);
 				}
 			} else {
 				$error['status'] = false;
