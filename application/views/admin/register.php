@@ -121,13 +121,22 @@
 						<div class="form-group row">
 							<label class="col-lg-3 control-label">Institution</label>
 							<div class="col-lg-5">
-								<?= form_dropdown("univ", $univDl, "", [':class' => "{ 'is-invalid':validation_error.univ}", "class" => 'form-control']); ?>
+								<?= form_dropdown("univ", $univDl, "", [':class' => "{ 'is-invalid':validation_error.univ}", "class" => 'form-control','v-model'=>'selectedInstitution']); ?>
 								<div v-if="validation_error.phone" class="invalid-feedback">
 									{{ validation_error.univ }}
 								</div>
 							</div>
 						</div>
-
+						<div  v-if="selectedInstitution == <?=Univ_m::UNIV_OTHER;?>" class="form-group row">
+							<label class="col-lg-3 control-label">Other Institution</label>
+							<div class="col-lg-5">
+								<input type="text" :class="{ 'is-invalid':validation_error.other_institution} " class="form-control"
+									   name="other_institution"/>
+								<div v-if="validation_error.phone" class="invalid-feedback">
+									{{ validation_error.other_institution }}
+								</div>
+							</div>
+						</div>
 						<div class="form-group row">
 							<label class="col-lg-3 control-label">Gender</label>
 							<div class="col-lg-5">
@@ -221,6 +230,7 @@
         el: "#app",
         data: {
             selected: [],
+			selectedInstitution:"",
             listStatus:<?=json_encode($participantsCategory);?>,
             status_participant: '',
             channel: 'CASH',

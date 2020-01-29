@@ -18,6 +18,7 @@ $lang['cal_october']	= "Oktober";
 $lang['cal_november']	= "November";
 $lang['cal_december']	= "Desember";
 setlocale (LC_TIME, 'id_ID');
+$payment = Settings_m::manualPayment(false);
 ?>
 <style>
 	.table th,.table td{
@@ -46,6 +47,21 @@ setlocale (LC_TIME, 'id_ID');
 			</table>
 			<table border="0" cellpadding="0" class="table" cellspacing="0" style="width: 660px;vertical-align: top">
 				<tbody>
+				<tr>
+					<td>
+						<p>Berikut kami kirimkan tagihan pembayaran sebagai bentuk keterangan resmi. Mohon segera melunasi pembayaran ini melalui <br/>
+							<?php if(count($payment) == 1) :?>
+								Bank <?=$payment[0]['bank'];?> No <?=$payment[0]['no_rekening'];?> a.n <?=$payment[0]['holder'];?>
+							<?php elseif(count($payment) > 1):?>
+						<ul>
+							<?php foreach ($payment as $list):?>
+								<li>Bank <?=$list['bank'];?> No <?=$list['no_rekening'];?> a.n <?=$list['holder'];?></li>
+							<?php endforeach;?>
+						</ul>
+						<?php endif;?>
+						</p>
+					</td>
+				</tr>
 				<tr>
 					<td align="center">
 						<table border="0" cellpadding="5" cellspacing="0" width="100%">

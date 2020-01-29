@@ -162,7 +162,6 @@
 															<div v-if="validation_error.phone" class="invalid-feedback">
 																{{ validation_error.other_institution }}
 															</div>
-
 														</div>
 													</div>
 

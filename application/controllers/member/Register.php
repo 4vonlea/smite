@@ -21,7 +21,7 @@ class Register extends MY_Controller
 		$this->load->model('Univ_m');
 
 		$status = $this->Category_member_m->find()->select("id,kategory,need_verify")->get()->result_array();
-		$univ = $this->Univ_m->find()->select("univ_id, univ_nama")->get()->result_array();
+		$univ = $this->Univ_m->find()->select("univ_id, univ_nama")->order_by('univ_id')->get()->result_array();
 		if ($this->input->post()) {
 			$this->load->model(['Member_m', 'User_account_m', 'Gmail_api']);
 			$this->load->library('Uuid');
@@ -56,7 +56,7 @@ class Register extends MY_Controller
 				$error['message'] = $this->Member_m->getDB()->error();
 				if ($error['status']) {
 					$email_message = $this->load->view('template/email_confirmation', ['token' => $token, 'name' => $data['fullname']], true);
-//					$this->Gmail_api->sendMessage($data['email'], 'Email Confirmation', $email_message);
+					$this->Gmail_api->sendMessage($data['email'], 'Email Confirmation', $email_message);
 				}
 			} else {
 				$error['status'] = false;

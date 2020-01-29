@@ -11,6 +11,23 @@ class Settings_m extends MY_Model
     const MANUAL_PAYMENT = 'manual_payment';
 
 
+	/**
+	 * @param bool $jsonString
+	 * @return array|string
+	 */
+	public static function manualPayment($jsonString = true){
+		$setting = Settings_m::findOne(['name'=>self::MANUAL_PAYMENT]);
+		if($jsonString){
+			if($setting && $setting->value != "")
+				return $setting->value;
+			return '[]';
+		}else {
+			if ($setting)
+				return (json_decode($setting->value,true));
+		}
+		return [];
+	}
+
     /**
      * @param bool $jsonString
      * @return array|string

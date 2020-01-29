@@ -26,7 +26,7 @@ class Member_m extends MY_Model
 			['field' => 'phone', 'rules' => 'required|numeric'],
 			['field' => 'birthday', 'rules' => 'required'],
 		];
-		if(isset($_POST['univ']) && $_POST['univ'] == 999){
+		if(isset($_POST['univ']) && $_POST['univ'] == Univ_m::UNIV_OTHER){
 			$rules[] = ['field' => 'other_institution','label'=>'Other Institution','rules' => 'required'];
 		}
 		return $rules;
