@@ -97,7 +97,12 @@
 												<li>Choose your event (and or submit your abstract)</li>
 												<li>Pay via our online banking payment</li>
 												<li>Download your registration proof. and See you in Banjarmasin.</li>
-											</ol>
+											</ol> 
+											<br>
+											<ul class="text-color-dark text-4 line-height-5 mb-0">
+												<li><i>1 account 1 email per per user</i></li>
+												<li><i>E-certificate will be delivered to registered email</i></li>
+											</ul>
 
 										</div>
 									</div>
