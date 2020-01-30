@@ -105,6 +105,12 @@ export default Vue.component("PagePaper", {
                     <form ref="form" enctype="multipart/form-data">
                     	<input type="hidden" name="id" v-model="form.id" />
                     	<div v-if="detail" class="form-group row">
+							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">ID Paper</label>
+							<div class="col-lg-9">
+								<label>{{ form.id_paper }}</label>							
+							</div>
+						</div>
+                    	<div v-if="detail" class="form-group row">
 							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Status</label>
 							<div class="col-lg-9">
 								<span class="alert alert-info">{{ paper.status[form.status] }}</span>							

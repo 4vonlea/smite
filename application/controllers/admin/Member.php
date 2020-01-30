@@ -126,7 +126,7 @@ class Member extends Admin_Controller
 			$data['confirm_password'] = $data['password'];
 
 			$uploadStatus = true;
-			if(is_uploaded_file($_FILES['proof']['tmp_name'])) {
+			if(isset($_FILES['proof']) && is_uploaded_file($_FILES['proof']['tmp_name'])) {
 				$config['upload_path'] = APPPATH . 'uploads/proof/';
 				$config['allowed_types'] = 'jpg|png|jpeg';
 				$config['max_size'] = 2048;
@@ -152,6 +152,10 @@ class Member extends Admin_Controller
 
 				$token = uniqid();
 				$this->Member_m->getDB()->trans_start();
+				if($data['univ'] == Univ_m::UNIV_OTHER){
+					$this->Univ_m->insert(['univ_nama'=>strtoupper($data['other_institution'])]);
+					$data['univ'] = $this->Univ_m->last_insert_id;
+				}
 
 				$this->Member_m->insert(array_intersect_key($data, array_flip($this->Member_m->fillable)), false);
 				$this->User_account_m->insert([
@@ -203,7 +207,8 @@ class Member extends Admin_Controller
 								'held_in' => $row->held_in,
 								'theme' => $row->theme
 							];
-							$attc[$data['fullname']."_".$row->event_name.".pdf"] = $this->Member_m->getCard($event,$data)->output();
+							if(env('send_card_member','1') == '1')
+								$attc[$data['fullname']."_".$row->event_name.".pdf"] = $this->Member_m->getCard($event,$data)->output();
 						}
 					}
 					$this->Gmail_api->sendMessageWithAttachment($data['email'], 'Registered On Site Succesfully - Invoice, Bukti Registrasi', $email_message, $attc);
@@ -220,7 +225,7 @@ class Member extends Admin_Controller
 			$this->load->model(["Category_member_m", "Event_m"]);
 			$this->load->helper("form");
 			$events = $this->Event_m->eventAvailableNow();
-			$univList = $this->Univ_m->find()->order_by("univ_nama")->get();
+			$univList = $this->Univ_m->find()->order_by("univ_id,univ_nama")->get();
 			$univDl = Univ_m::asList($univList->result_array(),"univ_id","univ_nama");
 			$this->layout->render("register", [
 				'participantsCategory' => $participantsCategory,

@@ -110,7 +110,7 @@ $member = $transaction->member;
 			<p style="text-align:right;font-size: 18px;font-weight: bold">Salam hormat,<br/> 
 				Ketua Panitia <br/><br/>
 				<img width="200px" height="100px" class="" src="themes/porto/img/ttd.png"> <br/>
-				dr. Huany Wongdjaja, Sp.KK, M.Kes, FINSDV
+				<?=Settings_m::getSetting('ketua_panitia');?>
 			</p>
 		</td>
 	</tr>

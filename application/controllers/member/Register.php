@@ -21,7 +21,7 @@ class Register extends MY_Controller
 		$this->load->model('Univ_m');
 
 		$status = $this->Category_member_m->find()->select("id,kategory,need_verify")->get()->result_array();
-		$univ = $this->Univ_m->find()->select("univ_id, univ_nama")->get()->result_array();
+		$univ = $this->Univ_m->find()->select("univ_id, univ_nama")->order_by('univ_id')->get()->result_array();
 		if ($this->input->post()) {
 			$this->load->model(['Member_m', 'User_account_m', 'Gmail_api']);
 			$this->load->library('Uuid');
@@ -40,6 +40,10 @@ class Register extends MY_Controller
 
 				$token = uniqid();
 				$this->Member_m->getDB()->trans_start();
+				if($data['univ'] == Univ_m::UNIV_OTHER){
+					$this->Univ_m->insert(['univ_nama'=>strtoupper($data['other_institution'])]);
+					$data['univ'] = $this->Univ_m->last_insert_id;
+				}
 				$this->Member_m->insert(array_intersect_key($data, array_flip($this->Member_m->fillable)), false);
 				$this->User_account_m->insert([
 					'username' => $data['email'],

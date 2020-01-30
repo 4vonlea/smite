@@ -17,6 +17,10 @@ class Administration extends Admin_Controller
 		$id = $this->input->post("id");
 		$this->load->model("Event_m");
 		$data = $this->Event_m->getParticipant()->where('t.id',$id)->get()->result_array();
+		foreach($data as $i=>$row){
+			$data[$i]['editable'] = false;
+			$data[$i]['saving'] = false;
+		}
 		$this->output->set_content_type("application/json")
 			->_display(json_encode(['status' => true, 'data' => $data]));
 	}

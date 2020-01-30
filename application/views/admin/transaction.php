@@ -1,9 +1,14 @@
+<?php $this->layout->begin_head();?>
+<style>
+	.card{min-height: 115px}
+</style>
+<?php $this->layout->end_head();?>
 <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
 	<div class="container-fluid">
 		<div class="header-body">
 			<!-- Card stats -->
 			<div class="row">
-				<div class="col-xl-4 col-lg-4">
+				<div class="col-xl-3 col-lg-3">
 					<div class="card card-stats mb-4 mb-xl-0">
 						<div class="card-body">
 							<div class="row">
@@ -20,7 +25,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-xl-4 col-lg-4">
+				<div class="col-xl-3 col-lg-3">
 					<div class="card card-stats mb-4 mb-xl-0">
 						<div class="card-body">
 							<div class="row">
@@ -37,7 +42,24 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-xl-4 col-lg-4">
+				<div class="col-xl-3 col-lg-3">
+					<div class="card card-stats mb-4 mb-xl-0">
+						<div class="card-body">
+							<div class="row">
+								<div class="col">
+									<h5 class="card-title text-uppercase text-muted mb-0">Waiting Checkout</h5>
+									<span class="h2 font-weight-bold mb-0">{{ pagination.total_waiting }}</span>
+								</div>
+								<div class="col-auto">
+									<div class="icon icon-shape bg-warning text-white rounded-circle shadow">
+										<i class="fas fa-chart-pie"></i>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xl-3 col-lg-3">
 					<div class="card card-stats mb-4 mb-xl-0">
 						<div class="card-body">
 							<div class="row">
@@ -175,6 +197,7 @@
 				</button>
 				<a :href="'<?=base_url('admin/transaction/download/invoice');?>/'+detailModel.id" target="_blank" class="btn btn-primary" >Download Invoice</a>
 				<a :href="'<?=base_url('admin/transaction/download/proof');?>/'+detailModel.id" target="_blank" v-if="detailModel.status_payment == '<?=Transaction_m::STATUS_FINISH;?>'" class="btn btn-primary" >Download Bukti Registrasi</a>
+				<button :disabled="sendingProof" v-on:click="resendPaymentProof(detailModel)" v-if="detailModel.status_payment == '<?=Transaction_m::STATUS_FINISH;?>'" class="btn btn-primary" ><i v-if="sendingProof" class="fa fa-spin fa-spinner"></i> Resend Bukti Registrasi</button>
 				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 			</div>
 
@@ -192,6 +215,7 @@
             pagination: {},
             verifying:false,
 			expiring:false,
+			sendingProof:false,
         },
 		computed:{
             amount(){
@@ -204,6 +228,21 @@
 			}
 		},
         methods: {
+        	resendPaymentProof(data){
+        		this.sendingProof = true;
+				$.post("<?=base_url('admin/transaction/resend/proof');?>/"+data.id,null,'JSON')
+					.done(function (res) {
+						if(res.status){
+							Swal.fire("Success","Bukti Registrasi berhasil dikirim ulang !","success");
+						}else{
+							Swal.fire("Failed","Gagal mengirim ulang bukti registrasi","error");
+						}
+					}).fail(function (xhr) {
+					Swal.fire("Failed","Failed to process request !","error");
+				}).always(function () {
+					app.sendingProof = false;
+				});
+			},
             loadedGrid: function (data) {
                 this.pagination = data;
             },

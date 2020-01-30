@@ -63,6 +63,17 @@ class Paper extends Admin_Controller
 			$response['status'] = $model->save();
 			if($response['status'] == false){
 				$response['message'] = $model->errorsString();
+			}else{
+				if($data['status'] == Papers_m::ACCEPTED || $data['status'] == Papers_m::REJECTED ){
+					$this->load->model("Gmail_api");
+					$message = "<p>Dear Participant</p>
+					<p>Thank you for submitting your abstract to 2nd EAST INSDV 2020. Please download your abstract result annoucement here.</p>
+					<p>Best regards.<br/>
+					Committee of ".Settings_m::getSetting('site_title')."</p>";
+					$this->Gmail_api->sendMessageWithAttachment("muhammad.zaien17@gmail.com","Result Of Paper Review",$message,['Result Or Review'=>$model->exportNotifPdf()->output()]);
+
+				}
+
 			}
 		} else {
 			$response['status'] = false;
@@ -74,16 +85,17 @@ class Paper extends Admin_Controller
 			->_display(json_encode($response));
 	}
 
-	public function file($name,$member_id,$type = "Abstract")
+	public function file($name,$id,$type = "Abstract")
 	{
 		$filepath = APPPATH . "uploads/papers/" . $name;
-		$this->load->model("Member_m");
-		$member = $this->Member_m->findOne($member_id);
+		$this->load->model("Papers_m");
+		$paper = $this->Papers_m->findOne($id);
 		if (file_exists($filepath)) {
 			list(,$ext) = explode(".",$name);
+			$member = $paper->member;
 			header('Content-Description: File Transfer');
 			header('Content-Type: ' . mime_content_type($filepath));
-			header('Content-Disposition: attachment; filename="'.$type.'-' . $member->fullname . '.'.$ext.'"');
+			header('Content-Disposition: attachment; filename="'.$type.'-'.$paper->getIdPaper().'-'. $member->fullname . '.'.$ext.'"');
 			header('Expires: 0');
 			header('Cache-Control: must-revalidate');
 			header('Pragma: public');

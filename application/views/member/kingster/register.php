@@ -155,6 +155,16 @@
 														</div>
 													</div>
 
+													<div v-if="univ_selected == <?=Univ_m::UNIV_OTHER;?>" class="form-group row">
+														<label class="col-lg-3 control-label">Other Institution</label>
+														<div class="col-lg-5">
+															<input type="text" :class="{ 'is-invalid':validation_error.other_institution}"  class="form-control" name="other_institution"/>
+															<div v-if="validation_error.phone" class="invalid-feedback">
+																{{ validation_error.other_institution }}
+															</div>
+														</div>
+													</div>
+
 													<div class="form-group row">
 														<label class="col-lg-3 control-label">Phone/WA*</label>
 														<div class="col-lg-5">

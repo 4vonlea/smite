@@ -11,7 +11,7 @@ class Member_m extends MY_Model
 
 	public function rules($insert = false)
 	{
-		return [
+		$rules = [
 			[
 				'field' => 'email', 'rules' => 'required|max_length[100]|valid_email|is_unique[members.email]',
 				'errors'=>['is_unique'=>'This email already exist !']
@@ -26,6 +26,10 @@ class Member_m extends MY_Model
 			['field' => 'phone', 'rules' => 'required|numeric'],
 			['field' => 'birthday', 'rules' => 'required'],
 		];
+		if(isset($_POST['univ']) && $_POST['univ'] == Univ_m::UNIV_OTHER){
+			$rules[] = ['field' => 'other_institution','label'=>'Other Institution','rules' => 'required'];
+		}
+		return $rules;
 	}
 
 	public function gridConfig($option = array())

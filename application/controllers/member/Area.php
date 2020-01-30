@@ -109,8 +109,10 @@ class Area extends MY_Controller
 		$response['status'] = Papers_m::$status;
 		$response['typeStudy'] = Papers_m::$typeStudy;
 		$response['data'] = [];
+		$formatId = Settings_m::getSetting("format_id_paper");
 		foreach($papers as $paper){
 			$temp = $paper->toArray();
+			$temp['id_paper'] = $formatId.str_pad($temp['id'],3,0,STR_PAD_LEFT);
 			$methods = explode(":",$temp['methods']);
 			if(count($methods) > 1){
 				$temp['methods'] = $methods[0];

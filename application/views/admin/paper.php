@@ -105,7 +105,7 @@ $this->layout->end_head();
 					@loaded_data="loadedGrid"
 					ref="datagrid"
 					api-url="<?= base_url('admin/paper/grid'); ?>"
-					:fields="[{name:'id',sortField:'id','title':'ID Paper'},{name:'fullname',sortField:'fullname','title':'Member Name'},{name:'status','sortField':'status'},{name:'reviewer','sortField':'reviewer'},{name:'t_updated_at',sortField:'t_updated_at',title:'Submit On'},{name:'t_id','title':'Aksi'}]">
+					:fields="[{name:'id_paper',sortField:'id_paper','title':'ID Paper'},{name:'fullname',sortField:'fullname','title':'Member Name'},{name:'status','sortField':'status'},{name:'reviewer','sortField':'reviewer'},{name:'t_updated_at',sortField:'t_updated_at',title:'Submit On'},{name:'t_id','title':'Aksi'}]">
 					<?php if($this->session->user_session['role'] == User_account_m::ROLE_ADMIN_PAPER):?>
 						<template slot="fullname" slot-scope="props">
 							Hidden
@@ -113,9 +113,9 @@ $this->layout->end_head();
 					<?php endif ;?>
 					<template slot="status" slot-scope="props">
 						{{ status[props.row.status] }}<br/>
-						<a class="badge badge-info" :href="'<?=base_url('admin/paper/file');?>/'+props.row.filename+'/'+props.row.m_id+'/Abstract'"  target="_blank" v-if="props.row.filename">Abstract</a>
-						<a class="badge badge-info" :href="'<?=base_url('admin/paper/file');?>/'+props.row.fullpaper+'/'+props.row.m_id+'/Fullpaper'"  target="_blank" v-if="props.row.fullpaper">Fullpaper</a>
-						<a class="badge badge-info" :href="'<?=base_url('admin/paper/file');?>/'+props.row.poster+'/'+props.row.m_id+'/Presentation'"  target="_blank" v-if="props.row.poster">Presentation/Poster</a>
+						<a class="badge badge-info" :href="'<?=base_url('admin/paper/file');?>/'+props.row.filename+'/'+props.row.t_id+'/Abstract'"  target="_blank" v-if="props.row.filename">Abstract</a>
+						<a class="badge badge-info" :href="'<?=base_url('admin/paper/file');?>/'+props.row.fullpaper+'/'+props.row.t_id+'/Fullpaper'"  target="_blank" v-if="props.row.fullpaper">Fullpaper</a>
+						<a class="badge badge-info" :href="'<?=base_url('admin/paper/file');?>/'+props.row.poster+'/'+props.row.t_id+'/Presentation'"  target="_blank" v-if="props.row.poster">Presentation/Poster</a>
 					</template>
 					<template slot="t_updated_at" slot-scope="props">
 						{{ formatDate(props.row.t_created_at) }}
@@ -150,6 +150,10 @@ $this->layout->end_head();
 			</div>
 			<div class="modal-body">
 				<table class="table" style="white-space: normal !important;">
+					<tr>
+						<th>ID Paper</th>
+						<td>{{ reviewModel.id_paper }}</td>
+					</tr>
 					<tr>
 						<th style="width: 30%">Author Name</th>
 						<td>{{ reviewModel.author }}</td>
@@ -196,6 +200,10 @@ $this->layout->end_head();
 					<span v-html="validation"></span>
 				</div>
 				<table class="table" style="white-space: normal !important;">
+					<tr>
+						<th>ID Paper</th>
+						<td>{{ reviewModel.id_paper }}</td>
+					</tr>
 					<tr v-if="reviewModel.fullpaper">
 						<th>Fullpaper Link</th>
 						<td><a :href="'<?=base_url('admin/paper/file');?>/'+reviewModel.fullpaper+'/'+reviewModel.m_id+'/Fullpaper'" target="_blank">Click Here !</a></td>

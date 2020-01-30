@@ -82,6 +82,30 @@
 									</div>
 								</div>
 							</div>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label>Text on Registration Proof</label>
+										<textarea class="form-control" v-model="form.text_payment_proof"></textarea>
+									</div>
+									<div class="form-group">
+										<label>Format ID Paper</label>
+										<div class="input-group">
+											<input type="text" class="form-control" v-model="form.format_id_paper"/>
+											<div class="input-group-append">
+												<span class="input-group-text">[INDEX]</span>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label>Chairman of the committee</label>
+										<input type="text" class="form-control" v-model="form.ketua_panitia"/>
+
+									</div>
+								</div>
+							</div>
 						</div>
 						<div class="tab-pane fade show" id="tabs-certificate" role="tabpanel">
 							<div class="row">
@@ -211,7 +235,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="tab-pane fade show active" id="tabs-manual_payment" role="tabpanel">
+						<div class="tab-pane fade show" id="tabs-manual_payment" role="tabpanel">
 							<div class="row">
 								<div class="col">Manual Payment</div>
 							</div>
@@ -325,6 +349,9 @@
             form: {
                 preface:<?=json_encode(Settings_m::getSetting('preface'));?>,
                 site_title: '<?=Settings_m::getSetting('site_title');?>',
+				text_payment_proof:'<?=Settings_m::getSetting('text_payment_proof');?>',
+				format_id_paper:'<?=Settings_m::getSetting('format_id_paper');?>',
+				ketua_panitia:'<?=Settings_m::getSetting('ketua_panitia');?>',
             },
             email_notif_binded:<?=$email_binded;?>,
             email_notif: "<?=Settings_m::getSetting(Gmail_api::EMAIL_ADMIN_SETTINGS);?>",

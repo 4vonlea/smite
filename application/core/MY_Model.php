@@ -72,12 +72,16 @@ class MY_Model extends yidas\Model
             $builder->order_by($sort[0],$sort[1]);
 
         if($global_filter){
+        	$builder->group_start();
+        	$countBuilder->group_start();
             foreach($fields as $fname){
             	$fname = isset($gridConfig['select'][$fname])?$gridConfig['select'][$fname]:$fname;
                 $builder->or_like($fname,$global_filter);
                 $countBuilder->or_like($fname,$global_filter);
             }
-        }
+			$builder->group_end();
+			$countBuilder->group_end();
+		}
 
 		if(isset($gridConfig['relationships'])){
 			foreach($gridConfig['relationships'] as $alias=>$r){
