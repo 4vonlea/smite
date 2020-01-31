@@ -267,7 +267,7 @@
 													</div>
 												</div>
 												<div class="gdlr-core-item-list-wrap gdlr-core-column-45">
-													<iframe width="350" height="275" src="https://www.youtube.com/embed/B54Lcn7tyws"></iframe>
+													<iframe width="350" height="275" src="https://www.youtube.com/embed/-uouoY1eM8M"></iframe>
 												</div>
 											</div>
 

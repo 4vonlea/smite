@@ -19,8 +19,7 @@
         <div class="row mb-3">
             <div class="col-lg-12">
             <div class="owl-carousel owl-theme nav-inside float-left mr-4 mb-2" data-plugin-options="{'items': 1, 'margin': 10, 'animateOut': 'fadeOut','autoplay': true}">
-            <!-- <img alt="" class="" src="<?= base_url('themes/porto'); ?>/img/jadwal.jpg"> -->
-             <iframe src="<?= base_url('themes/porto'); ?>/img/jadwalpdf.pdf" width="100%" height="500px"></iframe>
+            <img alt="" class="" src="<?= base_url('themes/porto'); ?>/img/jadwal.jpg">
             </div>
             </div>
         </div>
