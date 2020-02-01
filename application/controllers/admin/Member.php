@@ -111,6 +111,25 @@ class Member extends Admin_Controller
 
 	}
 
+	public function send_certificate(){
+		if($this->input->post()) {
+			$this->load->model(["Gmail_api", "Event_m"]);
+			$id = $this->input->post("id");
+			$member = $this->input->post();
+			if(file_exists(APPPATH."uploads/cert_template/$id.txt")) {
+				$cert = $this->Event_m->exportCertificate($member, $id)->output();
+				$status = $this->Gmail_api->sendMessageWithAttachment("muhammad.zaien17@gmail.com", "Certificate of Event", "Thank you for your participation <br/> Below is your certificate of '" . $member['event_name']."'", $cert, "CERTIFICATE.pdf");
+				$this->output
+					->set_content_type("application/json")
+					->_display(json_encode(['status' => true]));
+			}else{
+				$this->output
+					->set_content_type("application/json")
+					->_display(json_encode(['status' => false,'message'=>'Template Certificate is not found ! please set on Setting']));
+			}
+		}
+	}
+
 	public function register()
 	{
 		$this->load->model(["Category_member_m", "Event_m","Univ_m"]);

@@ -8,9 +8,10 @@ class Notification extends Admin_Controller
 		$this->load->model("Event_m");
 		$this->load->helper('form_helper');
 		$event = $this->Event_m->find()->get()->result_array();
-		$event = Event_m::asList($event, 'id', 'name', "Select Event");
+		$eventList['paper'] = 'Paper Participant';
+		$eventList = array_merge($eventList,Event_m::asList($event, 'id', 'name'));
 		$this->layout->render("notification", [
-			'event' => $event,
+			'event' => $eventList,
 		]);
 	}
 
@@ -40,7 +41,7 @@ class Notification extends Admin_Controller
 				'name' => $member['event_name']
 			];
 			$cert = $this->Event_m->exportCertificate($member, $event['id'])->output();
-			$status = $this->Gmail_api->sendMessageWithAttachment($member['email'], "Certificate of Event", "Thank you for your participation <br/> Below is your certiface of " . $event['name'], $cert, "CERTIFICATE.pdf");
+			$status = $this->Gmail_api->sendMessageWithAttachment($member['email'], "Certificate of Event", "Thank you for your participation <br/> Below is your certificate of '" . $event['name']."'", $cert, "CERTIFICATE.pdf");
 			$this->output
 				->set_content_type("application/json")
 				->_display(json_encode(['status' => true, 'log' => $status]));
@@ -187,11 +188,26 @@ class Notification extends Admin_Controller
 				$to['email'][] = $row->email;
 				$to['wa'][] = $row->phone;
 			}
-		} else {
+		} elseif($data['target'] == 'event_selected') {
+			if($data['to'] == 'paper'){
+				$this->load->model("Papers_m");
+				$res = $this->Papers_m->getParticipant()->distinct("m.id")->get();
+			}else {
+				$this->load->model("Event_m");
+				$res = $this->Event_m->getParticipant()->where("t.id", $data['to'])->get();
+			}
+			foreach ($res->result() as $row) {
+				$to['email'][] = $row->email;
+				$to['wa'][] = $row->phone;
+			}
+			var_dump($to);exit;
+
+		}elseif($data['target'] == 'member') {
 			$res = $this->Member_m->findOne($data['to']);
 			$to['email'][] = $res->email;
 			$to['wa'][] = $res->phone;
 		}
+
 		if (in_array("email", $data['via'])) {
 			$this->load->model("Gmail_api");
 			foreach ($to['email'] as $receiver) {

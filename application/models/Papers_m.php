@@ -107,6 +107,13 @@ class Papers_m extends MY_Model
 		return $domInvoice;
 	}
 
+	public function getParticipant(){
+		return $this->setAlias("t")->find()
+			->join("members m", "m.id = t.member_id")
+			->select("m.*");
+
+	}
+
 	public function member()
 	{
 		return $this->hasOne('Member_m', 'id', 'member_id');
