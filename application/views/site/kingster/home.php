@@ -97,22 +97,51 @@
 												<li>Choose your event (and or submit your abstract)</li>
 												<li>Pay via our online banking payment</li>
 												<li>Download your registration proof. and See you in Banjarmasin.</li>
-											</ol>
+											</ol> 
+											<br>
+											<ul class="text-color-dark text-4 line-height-5 mb-0">
+												<li><i>1 account 1 email per user</i></li>
+												<li><i>E-certificate will be delivered to registered email</i></li>
+											</ul>
 
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-
-
 					</div>
 				</div>
 			</div>
 		</div>
 
+		<div class="gdlr-core-pbf-wrapper "  id="gdlr-core-wrapper-3">
+			<div class="gdlr-core-pbf-background-wrap"></div>
+			<div class="gdlr-core-pbf-wrapper-content gdlr-core-js ">
+				<div class="gdlr-core-pbf-wrapper-container clearfix gdlr-core-container-custom" id="div_1dd7_81">
+
+					<div class="gdlr-core-pbf-column gdlr-core-column-60">
+						<div class="gdlr-core-pbf-column-content-margin gdlr-core-js " id="div_1dd7_85" data-sync-height="height-column" data-sync-height-center>
+							<div class="gdlr-core-pbf-background-wrap" id="div_1dd7_86"></div>
+							<div class="gdlr-core-pbf-column-content clearfix gdlr-core-js  gdlr-core-sync-height-content">
+								<div class="gdlr-core-pbf-element">
+									<div class="gdlr-core-title-item gdlr-core-item-pdb clearfix  gdlr-core-center-align gdlr-core-title-item-caption-bottom gdlr-core-item-pdlr" id="div_1dd7_87">
+										<div class="gdlr-core-title-item-title-wrap clearfix">
+											<h1 class="gdlr-core-title-item-title gdlr-core-skin-title " id="h3_1dd7_29">First Announcement</h1>
+										</div>
+										<span class="gdlr-core-title-item-caption gdlr-core-info-font gdlr-core-skin-caption" id="span_1dd7_6">More info about nasional symposium & workshop</span>
+										<a class="" href="<?=base_url('themes/kingster');?>/pengumuman/pengumumanpertama.pdf" target="_blank" id="a_1dd7_0"><span class="gdlr-core-content"><strong>Download Here</strong></span></a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
 		
-		<div class="gdlr-core-pbf-wrapper "  id="gdlr-core-wrapper-2">
+		<!-- <div class="gdlr-core-pbf-wrapper "  id="gdlr-core-wrapper-2">
 			<div class="gdlr-core-pbf-background-wrap">
 				<div class="gdlr-core-pbf-background gdlr-core-parallax gdlr-core-js" id="div_1dd7_13" data-parallax-speed="0.8"></div>
 			</div>
@@ -138,7 +167,7 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 
 	<div class="gdlr-core-pbf-wrapper " id="div_1dd7_44">
 		<div class="gdlr-core-pbf-background-wrap"></div>
@@ -182,39 +211,39 @@
 																		foreach ($row2->acara as $row3):
 																			?>
 																			<div>
-                                                                            <div class="table-responsive">
-																			<table class="table table-striped table-bordered" style="width: 1150px;">
-																				<tr>
-																					<td rowspan="2">
-																						<?php echo $row3->nama_acara ?>
-																					</td>
+																				<div class="table-responsive">
+																					<table class="table table-striped table-bordered" style="width: 1150px;">
+																						<tr>
+																							<td rowspan="2">
+																								<?php echo $row3->nama_acara ?>
+																							</td>
 
-																					<?php
-																					foreach ($row3->pricing as $row4):
-																						?>
-																						<td><?php echo $row4['jenis_harga'] ?> <br>
-																							(<?php echo Site::formatdate($row4['waktu_mulai']) ?>
-																							s.d. <?php echo Site::formatdate($row4['waktu_akhir']) ?> )
-																						</td>
-																						<?php
-																					endforeach;
-																					?>
-																					<td rowspan="2" align="center" class="align-middle"><a
-																						href="<?= base_url("site/login"); ?>" class="btn btn-success">ORDER</a>
-																					</td>
-																				</tr>
-																				<tr>
-																					<?php
-																					foreach ($row3->pricing as $row4):
-																						?>
-																						<td><?php echo "Rp. " . number_format($row4['harga'], 2, ',', '.') ?></td>
-																						<?php
-																					endforeach;
-																					?>
-																				</tr>
-																			</table>
-																		</div>
-																	</div>
+																							<?php
+																							foreach ($row3->pricing as $row4):
+																								?>
+																								<td><?php echo $row4['jenis_harga'] ?> <br>
+																									(<?php echo Site::formatdate($row4['waktu_mulai']) ?>
+																									s.d. <?php echo Site::formatdate($row4['waktu_akhir']) ?> )
+																								</td>
+																								<?php
+																							endforeach;
+																							?>
+																							<td rowspan="2" align="center" class="align-middle"><a
+																								href="<?= base_url("site/login"); ?>" class="btn btn-success">ORDER</a>
+																							</td>
+																						</tr>
+																						<tr>
+																							<?php
+																							foreach ($row3->pricing as $row4):
+																								?>
+																								<td><?php echo "Rp. " . number_format($row4['harga'], 2, ',', '.') ?></td>
+																								<?php
+																							endforeach;
+																							?>
+																						</tr>
+																					</table>
+																				</div>
+																			</div>
 																			<?php
 																		endforeach;
 																		?>
@@ -230,17 +259,17 @@
 												</div>
 											</div>
 											<div class="gdlr-core-blog-item-holder gdlr-core-js-2 clearfix" data-layout="fitrows">
-										<div class="gdlr-core-item-list-wrap gdlr-core-column-10">
-											<div class="gdlr-core-item-list-inner gdlr-core-item-mglr">
-												<div class="gdlr-core-blog-grid ">
+												<div class="gdlr-core-item-list-wrap gdlr-core-column-10">
+													<div class="gdlr-core-item-list-inner gdlr-core-item-mglr">
+														<div class="gdlr-core-blog-grid ">
 
+														</div>
+													</div>
+												</div>
+												<div class="gdlr-core-item-list-wrap gdlr-core-column-45">
+													<iframe width="350" height="275" src="https://www.youtube.com/embed/-uouoY1eM8M"></iframe>
 												</div>
 											</div>
-										</div>
-										<div class="gdlr-core-item-list-wrap gdlr-core-column-45">
-											<iframe width="350" height="275" src="https://www.youtube.com/embed/B54Lcn7tyws"></iframe>
-										</div>
-									</div>
 
 											
 										</div>
@@ -253,45 +282,45 @@
 			</div>
 		</div>
 	</div>
-	</div>
+</div>
 
-	<div class="gdlr-core-pbf-wrapper " id="div_1dd7_44">
-		<div class="gdlr-core-pbf-background-wrap"></div>
-		<div class="gdlr-core-pbf-wrapper-content gdlr-core-js ">
-			<div class="gdlr-core-pbf-wrapper-container clearfix gdlr-core-container">
+<div class="gdlr-core-pbf-wrapper " id="div_1dd7_44">
+	<div class="gdlr-core-pbf-background-wrap"></div>
+	<div class="gdlr-core-pbf-wrapper-content gdlr-core-js ">
+		<div class="gdlr-core-pbf-wrapper-container clearfix gdlr-core-container">
 
-				<div class="gdlr-core-pbf-column gdlr-core-column-60 gdlr-core-column-first">
-					<div class="gdlr-core-pbf-column-content-margin gdlr-core-js " id="div_1dd7_45" data-sync-height="height-2">
-						<div class="gdlr-core-pbf-column-content clearfix gdlr-core-js  gdlr-core-sync-height-content">
-							<div class="gdlr-core-pbf-element">
-								<div class="gdlr-core-blog-item gdlr-core-item-pdb clearfix  gdlr-core-style-blog-widget">
-									<div class="gdlr-core-block-item-title-wrap  gdlr-core-left-align gdlr-core-item-mglr" id="div_1dd7_46">
-										<div class="gdlr-core-block-item-title-inner clearfix">
-											<h3 class="gdlr-core-block-item-title" id="h3_1dd7_10">Welcoming Remark</h3>
-											<div class="gdlr-core-block-item-title-divider" id="div_1dd7_47"></div>
-										</div>
+			<div class="gdlr-core-pbf-column gdlr-core-column-60 gdlr-core-column-first">
+				<div class="gdlr-core-pbf-column-content-margin gdlr-core-js " id="div_1dd7_45" data-sync-height="height-2">
+					<div class="gdlr-core-pbf-column-content clearfix gdlr-core-js  gdlr-core-sync-height-content">
+						<div class="gdlr-core-pbf-element">
+							<div class="gdlr-core-blog-item gdlr-core-item-pdb clearfix  gdlr-core-style-blog-widget">
+								<div class="gdlr-core-block-item-title-wrap  gdlr-core-left-align gdlr-core-item-mglr" id="div_1dd7_46">
+									<div class="gdlr-core-block-item-title-inner clearfix">
+										<h3 class="gdlr-core-block-item-title" id="h3_1dd7_10">Welcoming Remark</h3>
+										<div class="gdlr-core-block-item-title-divider" id="div_1dd7_47"></div>
 									</div>
-									<div class="gdlr-core-blog-item-holder gdlr-core-js-2 clearfix" data-layout="fitrows">
-										<div class="gdlr-core-item-list-wrap gdlr-core-column-10">
-											<div class="gdlr-core-item-list-inner gdlr-core-item-mglr">
-												<div class="gdlr-core-blog-grid ">
+								</div>
+								<div class="gdlr-core-blog-item-holder gdlr-core-js-2 clearfix" data-layout="fitrows">
+									<div class="gdlr-core-item-list-wrap gdlr-core-column-10">
+										<div class="gdlr-core-item-list-inner gdlr-core-item-mglr">
+											<div class="gdlr-core-blog-grid ">
 
-												</div>
 											</div>
 										</div>
-										<div class="gdlr-core-item-list-wrap gdlr-core-column-45">
-											<img src="<?=base_url('themes/kingster');?>/img/prakata.jpg">
-										</div>
+									</div>
+									<div class="gdlr-core-item-list-wrap gdlr-core-column-45">
+										<img src="<?=base_url('themes/kingster');?>/img/prakata.jpg">
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-
 			</div>
+
 		</div>
-	</div>										
+	</div>
+</div>										
 
 </div>
 

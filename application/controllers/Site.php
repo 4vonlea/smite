@@ -114,11 +114,11 @@ class Site extends MY_Controller
             $this->Gmail_api->sendMessage($username, 'Reset password EASDV account', $email_message);
             $this->session->set_flashdata('message', '<div class="col-lg-7 alert alert-success"><center> please check your email for your new password </center>
                 </div>');
-            redirect('site/'.$this->theme.'/forget','refresh');
+            redirect('site/forget','refresh');
         } else {
             $this->session->set_flashdata('message', '<div class="col-lg-7 alert alert-danger"> email ini tidak terdaftar
                 </div>');
-            redirect('site/'.$this->theme.'/forget','refresh');
+            redirect('site/forget','refresh');
         }
     }
 
