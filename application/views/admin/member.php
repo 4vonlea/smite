@@ -215,7 +215,7 @@
 									<td>
 										{{ ev.event_name }} |
 										<a :href="'<?= base_url('admin/member/card'); ?>/'+ev.event_id+'/'+profile.id"
-										   target="_blank">Download Name Tag</a>
+										   target="_blank">Download Name Tag</a> <button :disabled="sendingCertificate" v-on:click="sendCertificate(ev)" class="btn btn-primary btn-sm"><i v-if="sendingCertificate" class="fa fa-spin fa-spinner"></i>Send Certificate</button>
 									</td>
 									<td>
 										<input type="checkbox" v-model="ev.checklist.nametag" true-value="true"
@@ -384,10 +384,32 @@
             profile: {},
             savingCheck: false,
             savingProfile: false,
+			sendingCertificate:false,
         },
         methods: {
 			formatDate(date) {
 				return moment(date).format("DD MMM YYYY, [At] HH:mm:ss");
+			},
+			sendCertificate(event){
+				app.sendingCertificate = true;
+				var data = {
+					fullname:event.fullname,
+					email:event.email,
+					gender:event.gender,
+					status_member:event.member_status,
+					id:event.event_id,
+					event_name:event.event_name
+				}
+				$.post("<?=base_url("admin/member/send_certificate");?>", data, function (res) {
+					if (res.status)
+						Swal.fire("Success", "Certificate sended !", "success");
+					else
+						Swal.fire("Failed", res.message, "error");
+				}, "JSON").fail(function () {
+					Swal.fire("Failed", "Failed to process request !", "error");
+				}).always(function () {
+					app.sendingCertificate = false;
+				});
 			},
             saveProfile() {
                 app.savingProfile = true;

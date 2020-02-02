@@ -85,7 +85,7 @@ $role = $this->session->user_session['role'];
 		</button>
 		<!-- Brand -->
 		<a class="navbar-brand pt-0" href="#">
-			<img src="<?= base_url('themes/uploads/logo.png'); ?>" class="navbar-brand-img" alt="...">
+			<img src="<?= base_url('themes/uploads/smite.png'); ?>" class="navbar-brand-img" alt="...">
 		</a>
 		<!-- User -->
 		<ul class="nav align-items-center d-md-none">

@@ -1,8 +1,13 @@
 <?php
 /**
  * @var $event
+ * @var $memberList
  */
+$this->layout->begin_head();
 ?>
+<link href="<?= base_url(); ?>themes/script/chosen/chosen.css" rel="stylesheet">
+
+<?php $this->layout->end_head();?>
 <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8"></div>
 <div class="container-fluid mt--7">
 	<div class="row mb-2">
@@ -37,11 +42,15 @@
 							<div class="form-group">
 								<div class="custom-control custom-radio custom-control-inline">
 									<input v-model="message.target" id="customRadio1" class="custom-control-input" name="target" value="all" type="radio">
-									<label class="custom-control-label" for="customRadio1">Send to All</label>
+									<label class="custom-control-label" for="customRadio1">Send to All Member</label>
 								</div>
 								<div class="custom-control custom-radio custom-control-inline">
-									<input v-model="message.target" id="customRadio2" class="custom-control-input" name="target" value="event_selected" type="radio">
-									<label class="custom-control-label" for="customRadio2">Send to specific event participants</label>
+									<input v-model="message.target" id="customRadio2" class="custom-control-input" name="target" value="member" type="radio">
+									<label class="custom-control-label" for="customRadio2">Send to Specific Member</label>
+								</div>
+								<div class="custom-control custom-radio custom-control-inline">
+									<input v-model="message.target" id="customRadio3" class="custom-control-input" name="target" value="event_selected" type="radio">
+									<label class="custom-control-label" for="customRadio3">Send to specific event participants</label>
 								</div>
 								<div class="custom-control custom-checkbox custom-control-inline">
 									<input v-model="message.via" type="checkbox" class="custom-control-input" id="customCheck1" name="via" value="email">
@@ -52,13 +61,14 @@
 									<label class="custom-control-label" for="customCheck2">Using WA</label>
 								</div>
 							</div>
-							<div v-if="message.target != 'all'" class="form-group">
+							<div v-if="message.target == 'member'" class="form-group">
 								<label>To</label>
-								<input type="text" v-model="message.to" class="form-control" name="to" />
+								<vue-chosen v-model="message.to" :options="listMember" placeholder="Select Member"></vue-chosen>
 							</div>
 							<div v-if="message.target == 'event_selected'" class="form-group">
 								<label>To Participant Event</label>
-								<?=form_dropdown('event_notif',$event,'',['class'=>'form-control','v-model'=>'event_notif']);?>
+								<vue-chosen v-model="message.to" :options="eventList" placeholder="Select Event"></vue-chosen>
+								<?php unset($event['paper']);?>
 							</div>
 							<div class="form-group">
 								<label>Subject</label>
@@ -215,8 +225,10 @@
 </div>
 <?php $this->layout->begin_script(); ?>
 <script src="<?=base_url("themes/script/vue-upload-component.js");?>"></script>
+<script src="<?=base_url("themes/script/chosen/chosen.jquery.min.js");?>"></script>
+<script src="<?=base_url("themes/script/chosen/vue-chosen.js");?>"></script>
 <script>
-    Vue.component('file-upload', VueUploadComponent);
+	Vue.component('file-upload', VueUploadComponent);
 	var app = new Vue({
         el: '#app',
 		data:{
@@ -233,6 +245,8 @@
 			cert_event:"",
 			pooling:{title:"",data:[],size:0,success:0,fail:0,processed:0},
 			files:[],
+			listMember:<?=json_encode($memberList);?>,
+			eventList:<?=json_encode($event);?>,
 			sendingMaterial:false,
 			material_event:"",
 			material:[],
@@ -418,7 +432,7 @@
                     .done(function (res) {
 						Swal.fire("Success","Message Sent !","success");
                     }).fail(function (xhr) {
-                    Swal.fire("Failed","Failed to request send certificate !","error");
+                    Swal.fire("Failed","Failed to request send message !","error");
                 }).always(function () {
                     app.sending = false;
                 });
