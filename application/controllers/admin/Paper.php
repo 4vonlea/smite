@@ -70,8 +70,8 @@ class Paper extends Admin_Controller
 					<p>Thank you for submitting your abstract to 2nd EAST INSDV 2020. Please download your abstract result annoucement here.</p>
 					<p>Best regards.<br/>
 					Committee of ".Settings_m::getSetting('site_title')."</p>";
-					$this->Gmail_api->sendMessageWithAttachment("muhammad.zaien17@gmail.com","Result Of Paper Review",$message,['Result Or Review'=>$model->exportNotifPdf()->output()]);
-
+					$member = $model->member;
+					$this->Gmail_api->sendMessageWithAttachment($member->email,"Result Of Paper Review",$message,['Result Or Review'=>$model->exportNotifPdf()->output()]);
 				}
 
 			}
