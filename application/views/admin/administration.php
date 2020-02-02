@@ -310,6 +310,9 @@ $this->layout->begin_head();
 									"to": 10,
 								}
 							};
+							Vue.nextTick(function () {
+								app.$refs.vuetable.refresh();
+							})
 						}
 					}).fail(function () {
 

@@ -31,7 +31,7 @@
 					<datagrid
 						ref="datagrid"
 						api-url="<?= base_url('admin/committee/grid'); ?>"
-						:fields="[{name:'name',sortField:'name'},{name:'status',sortField:'status','title':'Event Name and Position'},{name:'id',title:'Action'}]">
+						:fields="[{name:'t_name',sortField:'t_name'},{name:'status',sortField:'status','title':'Event Name and Position'},{name:'t_id',title:'Action'}]">
 						<template slot="status" slot-scope="props">
 							<span v-html="parseStatus(props.row)"></span>
 						</template>
