@@ -5,13 +5,14 @@ class Notification extends Admin_Controller
 {
 	public function index()
 	{
-		$this->load->model("Event_m");
+		$this->load->model(["Event_m","Member_m"]);
 		$this->load->helper('form_helper');
-		$event = $this->Event_m->find()->get()->result_array();
-		$eventList['paper'] = 'Paper Participant';
-		$eventList = array_merge($eventList,Event_m::asList($event, 'id', 'name'));
+		$eventList = $this->Event_m->find()->select("id,name as label")->get()->result_array();
+		$eventList[] = ['id'=>'Paper','label'=>'Paper Participant'];
+		$memberList = $this->Member_m->find()->select("id,CONCAT(fullname,' (',email,')') as label")->get()->result_array();
 		$this->layout->render("notification", [
 			'event' => $eventList,
+			'memberList' => $memberList,
 		]);
 	}
 
@@ -200,8 +201,6 @@ class Notification extends Admin_Controller
 				$to['email'][] = $row->email;
 				$to['wa'][] = $row->phone;
 			}
-			var_dump($to);exit;
-
 		}elseif($data['target'] == 'member') {
 			$res = $this->Member_m->findOne($data['to']);
 			$to['email'][] = $res->email;

@@ -1,8 +1,13 @@
 <?php
 /**
  * @var $event
+ * @var $memberList
  */
+$this->layout->begin_head();
 ?>
+<link href="<?= base_url(); ?>themes/script/chosen/chosen.css" rel="stylesheet">
+
+<?php $this->layout->end_head();?>
 <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8"></div>
 <div class="container-fluid mt--7">
 	<div class="row mb-2">
@@ -58,11 +63,11 @@
 							</div>
 							<div v-if="message.target == 'member'" class="form-group">
 								<label>To</label>
-								<input type="text" v-model="message.to" class="form-control" name="to" />
+								<vue-chosen v-model="message.to" :options="listMember" placeholder="Select Member"></vue-chosen>
 							</div>
 							<div v-if="message.target == 'event_selected'" class="form-group">
 								<label>To Participant Event</label>
-								<?=form_dropdown('to',$event,'',['class'=>'form-control','v-model'=>'message.to']);?>
+								<vue-chosen v-model="message.to" :options="eventList" placeholder="Select Event"></vue-chosen>
 								<?php unset($event['paper']);?>
 							</div>
 							<div class="form-group">
@@ -220,8 +225,10 @@
 </div>
 <?php $this->layout->begin_script(); ?>
 <script src="<?=base_url("themes/script/vue-upload-component.js");?>"></script>
+<script src="<?=base_url("themes/script/chosen/chosen.jquery.min.js");?>"></script>
+<script src="<?=base_url("themes/script/chosen/vue-chosen.js");?>"></script>
 <script>
-    Vue.component('file-upload', VueUploadComponent);
+	Vue.component('file-upload', VueUploadComponent);
 	var app = new Vue({
         el: '#app',
 		data:{
@@ -238,6 +245,8 @@
 			cert_event:"",
 			pooling:{title:"",data:[],size:0,success:0,fail:0,processed:0},
 			files:[],
+			listMember:<?=json_encode($memberList);?>,
+			eventList:<?=json_encode($event);?>,
 			sendingMaterial:false,
 			material_event:"",
 			material:[],
