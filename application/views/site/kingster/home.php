@@ -77,7 +77,7 @@
 											<div class="gdlr-core-column-service-content-wrapper">
 												<div class="gdlr-core-column-service-title-wrap">
 													<h3 class="gdlr-core-column-service-title gdlr-core-skin-title" id="h3_1dd7_0">Don't have account??</h3>
-													<div class="gdlr-core-column-service-caption gdlr-core-info-font gdlr-core-skin-caption" id="div_1dd7_3"><a href="<?= base_url("member/register"); ?>">Register here</a></div>
+													<div class="gdlr-core-column-service-caption gdlr-core-info-font gdlr-core-skin-caption" id="div_1dd7_3"><a href="<?= base_url("member/register"); ?>">Register Now</a></div>
 												</div>
 											</div>
 										</div>
@@ -119,7 +119,26 @@
 			<div class="gdlr-core-pbf-wrapper-content gdlr-core-js ">
 				<div class="gdlr-core-pbf-wrapper-container clearfix gdlr-core-container-custom" id="div_1dd7_81">
 
-					<div class="gdlr-core-pbf-column gdlr-core-column-60">
+                    <div class="gdlr-core-pbf-column gdlr-core-column-10">
+                    	<div class="gdlr-core-pbf-column-content-margin gdlr-core-js " id="" data-sync-height="height-column" data-sync-height-center>
+							<div class="gdlr-core-pbf-background-wrap" id=""></div>
+							<div class="gdlr-core-pbf-column-content clearfix gdlr-core-js  gdlr-core-sync-height-content">
+								<div class="gdlr-core-pbf-element">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="gdlr-core-pbf-column gdlr-core-column-20">
+						<div class="gdlr-core-pbf-column-content-margin gdlr-core-js " id="" data-sync-height="height-column" data-sync-height-center>
+							<div class="gdlr-core-pbf-background-wrap" id="div_1dd7_86"></div>
+							<div class="gdlr-core-pbf-column-content clearfix gdlr-core-js  gdlr-core-sync-height-content">
+								<div class="gdlr-core-pbf-element">
+									<img src="<?=base_url('themes/kingster');?>/img/first.jpg">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="gdlr-core-pbf-column gdlr-core-column-20">
 						<div class="gdlr-core-pbf-column-content-margin gdlr-core-js " id="div_1dd7_85" data-sync-height="height-column" data-sync-height-center>
 							<div class="gdlr-core-pbf-background-wrap" id="div_1dd7_86"></div>
 							<div class="gdlr-core-pbf-column-content clearfix gdlr-core-js  gdlr-core-sync-height-content">
@@ -128,7 +147,7 @@
 										<div class="gdlr-core-title-item-title-wrap clearfix">
 											<h1 class="gdlr-core-title-item-title gdlr-core-skin-title " id="h3_1dd7_29">First Announcement</h1>
 										</div>
-										<span class="gdlr-core-title-item-caption gdlr-core-info-font gdlr-core-skin-caption" id="span_1dd7_6">More info about nasional symposium & workshop</span>
+										<span class="gdlr-core-title-item-caption gdlr-core-info-font gdlr-core-skin-caption" id="span_1dd7_6">More info about national symposium & workshop</span>
 										<a class="" href="<?=base_url('themes/kingster');?>/pengumuman/pengumumanpertama.pdf" target="_blank" id="a_1dd7_0"><span class="gdlr-core-content"><strong>Download Here</strong></span></a>
 									</div>
 								</div>
