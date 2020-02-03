@@ -111,7 +111,7 @@ class Transaction extends Admin_Controller
 						'theme' => $row->theme
 					];
 					if(env('send_card_member','1') == '1')
-						$attc[$member->fullname."_".$row->event_name.".pdf"] = $member->getCard($event)->output();
+						$attc[$member->fullname."_".$row->event_name.".pdf"] = $member->getCard($row->event_id)->output();
 				}
 			}
 			$this->Gmail_api->sendMessageWithAttachment($member->email, 'Invoice, Bukti Registrasi And Name Tag', "Thank you for registering and fulfilling your payment, below is your invoice and offical Bukti Registrasi", $attc);
