@@ -58,13 +58,61 @@ class Setting extends Admin_Controller
 //		file_put_contents(APPPATH."uploads/cert_template/$_POST[event].".$ext, $data);
 		file_put_contents(APPPATH."uploads/cert_template/$_POST[event].txt", $_POST['base64Image']);
 //		Settings_m::saveSetting("config_cert_img_$_POST[event]",  $_POST['base64Image']);
-		Settings_m::saveSetting("config_cert_$_POST[event]", $this->input->post('property'));
+
+		$property =  $this->input->post('property');
+		if(!$property)
+			$property = [];
+		Settings_m::saveSetting("config_cert_$_POST[event]", $property);
 
 		$this->output
 			->set_content_type("application/json")
 			->_display(json_encode(['status'=>true]));
 
 	}
+
+
+	public function preview_nametag($id){
+		$this->load->model("Member_m");
+		$propery = json_decode(Settings_m::getSetting("config_nametag_$id"),true);
+		foreach($propery as $field){
+			$data[$field['name']] = "Preview $field[name]";
+		}
+		$this->Member_m->getCard($id,$data)->stream('preview_nametag.pdf',array('Attachment'=>0));
+	}
+
+	public function get_nametag(){
+		$id = $this->input->post('id');
+		$config = Settings_m::getSetting("config_nametag_$id");
+		if(file_exists(APPPATH."uploads/nametag_template/$id.txt")) {
+			$return['fileName'] = "Select Image as Template";
+			$return['body'] = ['width' => '100%'];
+			$return['property'] = json_decode($config, true);
+			if($return['property'] == null)
+				$return['property'] = [];
+			$return['image'] = file_get_contents(APPPATH . "uploads/nametag_template/$id.txt");
+			$return['base64Image'] = $return['image'];
+			$this->output
+				->set_content_type("application/json")
+				->_display(json_encode(['status'=>true,'data'=>$return]));
+		}else{
+			$this->output
+				->set_content_type("application/json")
+				->_display(json_encode(['status'=>false]));
+
+		}
+	}
+	public function save_nametag(){
+		file_put_contents(APPPATH."uploads/nametag_template/$_POST[event].txt", $_POST['base64Image']);
+		$property =  $this->input->post('property');
+		if(!$property)
+			$property = [];
+		Settings_m::saveSetting("config_nametag_$_POST[event]",$property);
+		$this->output
+			->set_content_type("application/json")
+			->_display(json_encode(['status'=>true]));
+
+	}
+
     public function unbind_email(){
 		if($this->input->method() != 'post')
 			show_404("Page Not Found !");

@@ -66,26 +66,28 @@ class Member_m extends MY_Model
 	 * @param array $member
 	 * @return \Dompdf\Dompdf
 	 */
-
-
-	public function getCard($event, $member = array())
+	public function getCard($event_id, $member = array())
 	{
 		require_once APPPATH . "third_party/phpqrcode/qrlib.php";
 
-		if (count($member) == 0) {
+		$this->load->model('Settings_m');
+		if(count($member) == 0){
 			$member = $this->toArray();
+			$status = $this->status_member;
+			$member['status_member'] = $status->kategory;
 		}
-		if (!is_array($event)) {
-			$this->load->model("Event_m");
-			$event = $this->Event_m->findOne($event)->toArray();
-		}
-
-		$html = $this->load->view("template/member_card", ['event' => $event, 'member' => $member], true);
-		$dompdf = new Dompdf\Dompdf();
-		$dompdf->loadHtml($html);
-		$dompdf->render();
-		$dompdf->setPaper("A5", "portrait");
-		return $dompdf;
+		$member['qr'] = $member['id'].";".$event_id;
+		$domInvoice = new Dompdf\Dompdf();
+		$propery = json_decode(Settings_m::getSetting("config_nametag_$event_id"),true);
+		$html = $this->load->view("template/nametag",[
+			'image'=>file_get_contents(APPPATH."uploads/nametag_template/$event_id.txt"),
+			'property'=>$propery,
+			'data'=>$member
+		],true);
+		$domInvoice->setPaper("A5","portrait");
+		$domInvoice->loadHtml($html);
+		$domInvoice->render();
+		return $domInvoice;
 	}
 
 	/**

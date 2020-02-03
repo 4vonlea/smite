@@ -30,10 +30,25 @@ $this->layout->begin_head();
 							<h3>Administration</h3>
 						</div>
 						<div class="col-6 text-right">
-							<select class="form-control" v-model="selectedEvent" @change="fetchData">
-								<option disabled hidden value="">Select Event First</option>
-								<option v-for="(event,key) in eventList" :value="key"> {{ event }}</option>
-							</select>
+							<div class="row">
+								<div class="col-7">
+									<select class="form-control" v-model="selectedEvent" @change="fetchData">
+										<option disabled hidden value="">Select Event First</option>
+										<option v-for="(event,key) in eventList" :value="key"> {{ event }}</option>
+									</select>
+								</div>
+								<div class="col-5">
+									<div class="btn-group" role="group">
+										<button :disabled="!selectedEvent" id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											Download All
+										</button>
+										<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+											<a target="_blank" class="dropdown-item" :href="'<?=base_url('admin/administration/download_all/certificate');?>/'+selectedEvent">Certificate</a>
+											<a target="_blank" class="dropdown-item" :href="'<?=base_url('admin/administration/download_all/nametag');?>/'+selectedEvent">Name Tag</a>
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -107,6 +122,17 @@ $this->layout->begin_head();
 								<input type="text" class="form-control" v-model="props.rowData.checklist.taker"
 									   @change="changeChecklist(props.rowData)">
 							</template>
+							<template slot="event_id" slot-scope="props">
+								<div class="btn-group" role="group">
+									<button id="btnGroupDrop2" type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										Download
+									</button>
+									<div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
+										<a target="_blank" class="dropdown-item" :href="'<?=base_url('admin/administration/certificate');?>/'+props.rowData.event_id+'/'+props.rowData.id">Certificate</a>
+										<a target="_blank" class="dropdown-item" :href="'<?=base_url('admin/administration/card');?>/'+props.rowData.event_id+'/'+props.rowData.id">Name Tag</a>
+									</div>
+								</div>
+							</template>
 						</vuetable>
 						<div class="row mt-3 mb-3">
 							<vuetable-pagination-info ref="paginationInfo"
@@ -139,7 +165,7 @@ $this->layout->begin_head();
 			fields: [{name: 'fullname', sortField: 'fullname'}, {
 				name: 'name_tag',
 				title: "Name Tag"
-			}, {name: 'seminar_kit', title: "Seminar Kit"}, {name: 'taker', title: "Taker"},],
+			}, {name: 'seminar_kit', title: "Seminar Kit"}, {name: 'taker', title: "Taker"},{name:'event_id',title:'Action'}],
 			eventList: <?=json_encode($event);?>,
 			selectedEvent: "",
 			backupName:{},
