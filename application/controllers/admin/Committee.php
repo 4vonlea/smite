@@ -51,8 +51,10 @@ class Committee extends Admin_Controller
 
 	public function delete()
 	{
+
 		if ($this->input->method() != 'post')
 			show_404("Page Not Found !");
+		$message = "";
 		$this->load->model(["Committee_m", "Committee_attributes_m"]);
 		$post = $this->input->post();
 

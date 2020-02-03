@@ -31,11 +31,11 @@
 					<datagrid
 						ref="datagrid"
 						api-url="<?= base_url('admin/committee/grid'); ?>"
-						:fields="[{name:'t_name',sortField:'t_name'},{name:'status',sortField:'status','title':'Event Name and Position'},{name:'t_id',title:'Action'}]">
+						:fields="[{name:'t_name',title:'Name',sortField:'t_name'},{name:'status',sortField:'status','title':'Event Name and Position'},{name:'t_id',title:'Action'}]">
 						<template slot="status" slot-scope="props">
 							<span v-html="parseStatus(props.row)"></span>
 						</template>
-						<template slot="id" slot-scope="props">
+						<template slot="t_id" slot-scope="props">
 							<button class="btn btn-primary btn-sm" @click="editCom(props.row)">
 								<span class="fa fa-edit"></span> Edit
 							</button>
@@ -213,8 +213,8 @@
 			},
 			editCom(row){
                 this.form = {
-                    id:row.id,
-					name:row.name,
+                    id:row.t_id,
+					name:row.t_name,
 					attributes:[]
 				};
                 if(row.status) {
@@ -233,7 +233,7 @@
                 var btn = evt.currentTarget;
                 Swal.fire({
                     title: "Are you sure ?",
-                    text: `You will delete "${row.name}" From Committee`,
+                    text: `You will delete "${row.t_name}" From Committee`,
                     type: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
@@ -243,7 +243,7 @@
                     if (result.value) {
                         btn.innerHTML = "<i class='fa fa-spin fa-spinner'></i>";
                         btn.setAttribute("disabled",true);
-                        $.post("<?=base_url("admin/committee/delete");?>", prop.row, function (res) {
+                        $.post("<?=base_url("admin/committee/delete");?>", {id:row.t_id}, function (res) {
                             if (res.status) {
                                 Swal.fire("Success", "Member deleted successfully", "success");
                                 app.$refs.datagrid.refresh();
