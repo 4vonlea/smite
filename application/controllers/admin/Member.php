@@ -287,6 +287,7 @@ class Member extends Admin_Controller
 			'city'=>$data['city'],
 			'address'=>$data['address'],
 			'univ'=>$data['univ'],
+			'sponsor'=>$data['sponsor'],
 		],['id'=>$data['id']],false);
 		$this->output
 			->set_content_type("application/json")
