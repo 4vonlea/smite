@@ -49,6 +49,7 @@ $payment = Settings_m::manualPayment(false);
 				<tbody>
 				<tr>
 					<td>
+						<p>Yth. <?= $member->fullname; ?></p>
 						<p>Berikut kami kirimkan tagihan pembayaran sebagai bentuk keterangan resmi. Mohon segera melunasi pembayaran ini melalui <br/>
 							<?php if(count($payment) == 1) :?>
 								Bank <?=$payment[0]['bank'];?> No <?=$payment[0]['no_rekening'];?> a.n <?=$payment[0]['holder'];?>
@@ -90,7 +91,7 @@ $payment = Settings_m::manualPayment(false);
 							</tr>
 							<tr>
 								<td style="padding:5px!important" valign="top" width="170">
-									Nama Lengkap
+									Nama Peserta
 								</td>
 								<td>:</td>
 								<td style="padding:5px!important">
@@ -115,6 +116,15 @@ $payment = Settings_m::manualPayment(false);
 								<td>:</td>
 								<td style="padding:5px!important">
 									<?= $member->status_member->kategory; ?>
+								</td>
+							</tr>
+							<tr>
+								<td style="padding:5px!important" valign="top" width="170">
+									Sponsor
+								</td>
+								<td>:</td>
+								<td style="padding:5px!important">
+									<?= $member->sponsor; ?>
 								</td>
 							</tr>
 							<tr>

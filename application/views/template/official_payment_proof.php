@@ -37,7 +37,7 @@ $member = $transaction->member;
 			</p>
 			<p style="text-align:left">
 				<span
-					style="font-family:times new roman,times,serif;font-size:12pt;text-align:start;background-color:#ffffff"><?= $member->fullname; ?></span>
+					style="font-family:times new roman,times,serif;font-size:12pt;text-align:start;background-color:#ffffff">Yth. <?= $member->fullname; ?></span>
 			</p>
 			<p style="text-align:left">
 				<span
@@ -61,7 +61,7 @@ $member = $transaction->member;
 					<td><?=$transaction->id;?></td>
 				</tr>
 				<tr>
-					<th>Nama Lengkap</th>
+					<th>Nama Peserta</th>
 					<td>:</td>
 					<td><?=$member->fullname;?></td>
 				</tr>
@@ -69,6 +69,11 @@ $member = $transaction->member;
 					<th>Status</th>
 					<td>:</td>
 					<td><?=$member->status_member->kategory;?></td>
+				</tr>
+				<tr>
+					<th>Sponsor</th>
+					<td>:</td>
+					<td><?=$member->sponsor;?></td>
 				</tr>
 				<tr>
 					<th>Acara yang diikuti</th>
