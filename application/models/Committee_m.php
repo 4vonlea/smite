@@ -8,7 +8,7 @@ class Committee_m extends My_model
 	public function gridConfig($option = array())
 	{
 		return [
-			'select'=>['t.id','t.name',"GROUP_CONCAT(CONCAT(attr.id,',',attr.status,',',event.name,',',event.id) SEPARATOR ';') as status"],
+			'select'=>['t_id'=>'t.id','t_name'=>'t.name',"GROUP_CONCAT(CONCAT(attr.id,',',attr.status,',',event.name,',',event.id) SEPARATOR ';') as status"],
 			'relationships' => [
 				'attr' => ['committee_attribute', 'committee_id = t.id','left'],
 				'event' => ['events', 'event_id = event.id','left']

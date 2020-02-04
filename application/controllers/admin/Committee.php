@@ -51,8 +51,10 @@ class Committee extends Admin_Controller
 
 	public function delete()
 	{
+
 		if ($this->input->method() != 'post')
 			show_404("Page Not Found !");
+		$message = "";
 		$this->load->model(["Committee_m", "Committee_attributes_m"]);
 		$post = $this->input->post();
 
@@ -72,7 +74,11 @@ class Committee extends Admin_Controller
 	public function nametag($id){
 		$this->load->model('Committee_attributes_m');
 		$com = $this->Committee_attributes_m->findOne($id);
-		$com->getCard()->stream($com->committee->name."-nametag.pdf");
+		try {
+			$com->getCard()->stream($com->committee->name . "-nametag.pdf");
+		}catch (ErrorException $ex){
+			show_error($ex->getMessage());
+		}
 	}
 
 	public function delete_attribute(){

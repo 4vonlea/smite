@@ -129,10 +129,10 @@ $this->layout->end_head();
 								<span class="fa fa-edit"></span> review
 							</button>
 							<?php if($this->session->user_session['role'] != User_account_m::ROLE_ADMIN_PAPER):?>
-							<button v-if="!props.row.reviewer" @click="setReviewer(props)"
-									class="btn btn-warning btn-sm">
-								<span class="fa fa-user"></span> Set Reviewer
-							</button>
+								<button v-if="!props.row.reviewer" @click="setReviewer(props)"
+										class="btn btn-warning btn-sm">
+									<span class="fa fa-user"></span> Set Reviewer
+								</button>
 							<?php endif;?>
 						</div>
 					</template>
@@ -206,11 +206,11 @@ $this->layout->end_head();
 					</tr>
 					<tr v-if="reviewModel.fullpaper">
 						<th>Fullpaper Link</th>
-						<td><a :href="'<?=base_url('admin/paper/file');?>/'+reviewModel.fullpaper+'/'+reviewModel.m_id+'/Fullpaper'" target="_blank">Click Here !</a></td>
+						<td><a :href="'<?=base_url('admin/paper/file');?>/'+reviewModel.fullpaper+'/'+reviewModel.t_id+'/Fullpaper'" target="_blank">Click Here !</a></td>
 					</tr>
 					<tr  v-if="reviewModel.poster">
 						<th>Presentation/Poster Link</th>
-						<td><a :href="'<?=base_url('admin/paper/file');?>/'+reviewModel.poster+'/'+reviewModel.m_id+'/Presentation'" target="_blank">Click Here !</a></td>
+						<td><a :href="'<?=base_url('admin/paper/file');?>/'+reviewModel.poster+'/'+reviewModel.t_id+'/Presentation'" target="_blank">Click Here !</a></td>
 					</tr>
 					<tr>
 						<th>Submitted On</th>
@@ -225,22 +225,22 @@ $this->layout->end_head();
 						<th>Abstract</th>
 						<td style="white-space: pre-wrap !important;">{{ (reviewModel.introduction) }}</td>
 					</tr>
-<!--					<tr>-->
-<!--						<th>Aims</th>-->
-<!--						<td>{{ (reviewModel.aims) }}</td>-->
-<!--					</tr>-->
-<!--					<tr>-->
-<!--						<th>Methods</th>-->
-<!--						<td>{{ (reviewModel.methods) }}</td>-->
-<!--					</tr>-->
-<!--					<tr>-->
-<!--						<th>Result</th>-->
-<!--						<td>{{ (reviewModel.result) }}</td>-->
-<!--					</tr>-->
-<!--					<tr>-->
-<!--						<th>Conclusion</th>-->
-<!--						<td>{{ (reviewModel.conclusion) }}</td>-->
-<!--					</tr>-->
+					<!--					<tr>-->
+					<!--						<th>Aims</th>-->
+					<!--						<td>{{ (reviewModel.aims) }}</td>-->
+					<!--					</tr>-->
+					<!--					<tr>-->
+					<!--						<th>Methods</th>-->
+					<!--						<td>{{ (reviewModel.methods) }}</td>-->
+					<!--					</tr>-->
+					<!--					<tr>-->
+					<!--						<th>Result</th>-->
+					<!--						<td>{{ (reviewModel.result) }}</td>-->
+					<!--					</tr>-->
+					<!--					<tr>-->
+					<!--						<th>Conclusion</th>-->
+					<!--						<td>{{ (reviewModel.conclusion) }}</td>-->
+					<!--					</tr>-->
 
 					<tr v-if="detailMode == 1">
 						<th>Status</th>
@@ -342,95 +342,95 @@ $this->layout->end_head();
 </div>
 <?php $this->layout->begin_script(); ?>
 <script>
-    const toBase64 = file => new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        if (file) {
-            reader.readAsDataURL(file);
-            reader.onload = () => resolve(reader.result);
-        } else {
-            resolve(null);
-        }
-        reader.onerror = error => reject(error);
-    });
+	const toBase64 = file => new Promise((resolve, reject) => {
+		const reader = new FileReader();
+		if (file) {
+			reader.readAsDataURL(file);
+			reader.onload = () => resolve(reader.result);
+		} else {
+			resolve(null);
+		}
+		reader.onerror = error => reject(error);
+	});
 
-    var app = new Vue({
-        el: '#app',
-        data: {
-            status:<?=json_encode(Papers_m::$status);?>,
-            pagination: {},
-            reviewModel: {},
-            detailMode: 0,
-            saving: false,
-            admin:<?=json_encode($admin_paper);?>,
-            validation: null,
-        },
-        methods: {
-            loadedGrid: function (data) {
-                this.pagination = data;
-            },
-            detail(row) {
-                this.validation = null;
-                this.detailMode = 1;
-                this.reviewModel = row.row;
-                try{
-                    var temp = JSON.parse(row.row.co_author);
-                    this.reviewModel.co_author = temp;
-                }catch (e) {
-                    console.log(e);
-                }
-                this.reviewModel.link = `<?=base_url("admin/paper/file");?>/${row.row.filename}/${row.row.m_id}`;
-                this.reviewModel.link_feedback = `<?=base_url("admin/paper/file");?>/${row.row.feedback}`;
-                $("#modal-review").modal('show');
-            },
-            save() {
-                app.saving = true;
-                toBase64(app.$refs.feedbackFile.files[0]).then(function (result) {
-                    if(result) {
-                        app.reviewModel.feedback_file = result;
-                        app.reviewModel.filename_feedback = app.$refs.feedbackFile.files[0].name;
-                    }
-                    $.post("<?=base_url('admin/paper/save');?>", app.reviewModel, function (res) {
-                        if (!res.status) {
-                            app.validation = res.message;
-                        } else {
-                            app.$refs.datagrid.refresh();
-                            $("#modal-review").modal('hide');
-                            $("#modal-reviewer").modal('hide');
-                            Swal.fire('Success', "Review has been saved", 'success');
-                        }
-                    }, "JSON").fail(function () {
-                        Swal.fire('Fail', "Failed to process !", 'warning');
-                    }).always(function () {
-                        app.saving = false;
-                    });
-                });
-
-            },
-            setReviewer(row) {
-                this.validation = null;
-                this.detailMode = 0;
-                this.reviewModel = row.row;
-                this.reviewModel.link = `<?=base_url("admin/paper/file");?>/${row.row.filename}/${row.row.m_id}`;
-                $("#modal-reviewer").modal('show');
-            },
-            review(row) {
-                this.validation = null;
-                this.detailMode = 0;
-                this.reviewModel = row.row;
-                try{
-                    var temp = JSON.parse(row.row.co_author);
-                    this.reviewModel.co_author = temp;
-                }catch (e) {
+	var app = new Vue({
+		el: '#app',
+		data: {
+			status:<?=json_encode(Papers_m::$status);?>,
+			pagination: {},
+			reviewModel: {},
+			detailMode: 0,
+			saving: false,
+			admin:<?=json_encode($admin_paper);?>,
+			validation: null,
+		},
+		methods: {
+			loadedGrid: function (data) {
+				this.pagination = data;
+			},
+			detail(row) {
+				this.validation = null;
+				this.detailMode = 1;
+				this.reviewModel = row.row;
+				try{
+					var temp = JSON.parse(row.row.co_author);
+					this.reviewModel.co_author = temp;
+				}catch (e) {
 					console.log(e);
-                }
-                this.reviewModel.link = `<?=base_url("admin/paper/file");?>/${row.row.filename}/${row.row.m_id}`;
-                $("#modal-review").modal('show');
-            },
-            formatDate(date) {
-                return moment(date).format("DD MMM YYYY, [At] HH:mm:ss");
-            },
-        }
-    });
+				}
+				this.reviewModel.link = `<?=base_url("admin/paper/file");?>/${row.row.filename}/${row.row.t_id}`;
+				this.reviewModel.link_feedback = `<?=base_url("admin/paper/file");?>/${row.row.feedback}/${row.row.t_id}/feedback`;
+				$("#modal-review").modal('show');
+			},
+			save() {
+				app.saving = true;
+				toBase64(app.$refs.feedbackFile.files[0]).then(function (result) {
+					if(result) {
+						app.reviewModel.feedback_file = result;
+						app.reviewModel.filename_feedback = app.$refs.feedbackFile.files[0].name;
+					}
+					$.post("<?=base_url('admin/paper/save');?>", app.reviewModel, function (res) {
+						if (!res.status) {
+							app.validation = res.message;
+						} else {
+							app.$refs.datagrid.refresh();
+							$("#modal-review").modal('hide');
+							$("#modal-reviewer").modal('hide');
+							Swal.fire('Success', "Review has been saved", 'success');
+						}
+					}, "JSON").fail(function () {
+						Swal.fire('Fail', "Failed to process !", 'warning');
+					}).always(function () {
+						app.saving = false;
+					});
+				});
+
+			},
+			setReviewer(row) {
+				this.validation = null;
+				this.detailMode = 0;
+				this.reviewModel = row.row;
+				this.reviewModel.link = `<?=base_url("admin/paper/file");?>/${row.row.filename}/${row.row.t_id}`;
+				$("#modal-reviewer").modal('show');
+			},
+			review(row) {
+				this.validation = null;
+				this.detailMode = 0;
+				this.reviewModel = row.row;
+				try{
+					var temp = JSON.parse(row.row.co_author);
+					this.reviewModel.co_author = temp;
+				}catch (e) {
+					console.log(e);
+				}
+				this.reviewModel.link = `<?=base_url("admin/paper/file");?>/${row.row.filename}/${row.row.t_id}`;
+				$("#modal-review").modal('show');
+			},
+			formatDate(date) {
+				return moment(date).format("DD MMM YYYY, [At] HH:mm:ss");
+			},
+		}
+	});
 </script>
 
 <?php $this->layout->end_script(); ?>
