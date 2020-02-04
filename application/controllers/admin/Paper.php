@@ -71,7 +71,7 @@ class Paper extends Admin_Controller
 					<p>Best regards.<br/>
 					Committee of ".Settings_m::getSetting('site_title')."</p>";
 					$member = $model->member;
-					$this->Gmail_api->sendMessageWithAttachment($member->email,"Result Of Paper Review",$message,['Result Or Review'=>$model->exportNotifPdf()->output()]);
+					$this->Gmail_api->sendMessageWithAttachment($member->email,"Result Of Paper Review",$message,['Abstract Announcement'=>$model->exportNotifPdf()->output()]);
 				}
 
 			}
