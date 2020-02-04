@@ -22,7 +22,11 @@ class Member extends Admin_Controller
 	{
 		$this->load->model('Member_m');
 		$member = $this->Member_m->findOne($member_id);
-		$member->getCard($event_id)->stream($member->fullname."-nametag.pdf");
+		try{
+			$member->getCard($event_id)->stream($member->fullname."-nametag.pdf");
+		}catch (ErrorException $ex){
+			show_error($ex->getMessage());
+		}
 	}
 
 	public function add_status()
@@ -226,8 +230,13 @@ class Member extends Admin_Controller
 								'held_in' => $row->held_in,
 								'theme' => $row->theme
 							];
-							if(env('send_card_member','1') == '1')
-								$attc[$data['fullname']."_".$row->event_name.".pdf"] = $this->Member_m->getCard($event,$data)->output();
+							if(env('send_card_member','1') == '1') {
+								try {
+									$attc[$data['fullname'] . "_" . $row->event_name . ".pdf"] = $this->Member_m->getCard($event, $data)->output();
+								}catch (ErrorException $ex){
+								log_message("error",$ex->getMessage());
+								}
+							}
 						}
 					}
 					$this->Gmail_api->sendMessageWithAttachment($data['email'], 'Registered On Site Succesfully - Invoice, Bukti Registrasi', $email_message, $attc);

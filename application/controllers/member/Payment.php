@@ -76,8 +76,13 @@ class Payment extends MY_Controller
 							'held_in' => $row->held_in,
 							'theme' => $row->theme
 						];
-						if(env('send_card_member','1') == '1')
-							$file[$row->event_name.".pdf"] = $member->getCard($row->event_id)->output();
+						if(env('send_card_member','1') == '1') {
+							try {
+								$file[$row->event_name . ".pdf"] = $member->getCard($row->event_id)->output();
+							}catch (ErrorException $ex){
+								log_message("error",$ex->getMessage());
+							}
+						}
 					}
 				}
 				$file['Bukti Registrasi'] = $tr->exportPaymentProof()->output();

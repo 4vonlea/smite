@@ -74,6 +74,7 @@ class Setting extends Admin_Controller
 	public function preview_nametag($id){
 		$this->load->model("Member_m");
 		$propery = json_decode(Settings_m::getSetting("config_nametag_$id"),true);
+		$data = ['qr'=>'','fullname'=>'','status_member'=>''];
 		foreach($propery as $field){
 			$data[$field['name']] = "Preview $field[name]";
 		}

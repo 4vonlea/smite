@@ -10,6 +10,7 @@
         "yidas/codeigniter-model": "^2.18",
         "google/apiclient": "^2.2",
         "dompdf/dompdf": "^0.8.3",
-        "phpoffice/phpspreadsheet": "^1.9"
+        "phpoffice/phpspreadsheet": "^1.9",
+        "setasign/fpdi": "^2.2"
     }
 }

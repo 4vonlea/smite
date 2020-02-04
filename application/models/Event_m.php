@@ -314,18 +314,21 @@ class Event_m extends MY_Model
 			$id = $this->id;
 
 		$this->load->model('Settings_m');
-
-		$domInvoice = new Dompdf();
-		$propery = json_decode(Settings_m::getSetting("config_cert_$id"),true);
-		$html = $this->load->view("template/certificate",[
-			'image'=>file_get_contents(APPPATH."uploads/cert_template/$id.txt"),
-			'property'=>$propery,
-			'data'=>$data
-		],true);
-		$domInvoice->setPaper("a4","landscape");
-		$domInvoice->loadHtml($html);
-		$domInvoice->render();
-		return $domInvoice;
+		if(file_exists(APPPATH."uploads/cert_template/$id.txt")) {
+			$domInvoice = new Dompdf();
+			$propery = json_decode(Settings_m::getSetting("config_cert_$id"), true);
+			$html = $this->load->view("template/certificate", [
+				'image' => file_get_contents(APPPATH . "uploads/cert_template/$id.txt"),
+				'property' => $propery,
+				'data' => $data
+			], true);
+			$domInvoice->setPaper("a4", "landscape");
+			$domInvoice->loadHtml($html);
+			$domInvoice->render();
+			return $domInvoice;
+		}else{
+			throw new ErrorException("Template of Certificate not found !");
+		}
 	}
 
 }

@@ -8,7 +8,7 @@
 $qr = "";
 if (isset($data['qr'])) {
 	ob_start();
-	QRCode::png($data['qr']);
+	QRCode::png($data['qr'],false,QR_ECLEVEL_L,4,2);
 	$qr = base64_encode(ob_get_clean());
 }
 header('Content-Type: text/html');
@@ -20,7 +20,7 @@ header('Content-Type: text/html');
 		margin: 0;
 	}
 </style>
-<img src="<?= $image; ?>" style="width: 100%;position: absolute;top:-1.3%"/>
+<img src="<?= $image; ?>" style="width: 100%;position: absolute;top:-1%"/>
 <?php foreach ($property as $i=>$row): ?>
 
 	<div

@@ -69,25 +69,36 @@ class Member_m extends MY_Model
 	public function getCard($event_id, $member = array())
 	{
 		require_once APPPATH . "third_party/phpqrcode/qrlib.php";
+		if(file_exists(APPPATH."uploads/nametag_template/$event_id.txt")) {
+			$this->load->model('Settings_m');
+			if (count($member) == 0) {
+				$member = $this->toArray();
+				$status = $this->status_member;
+				$member['status_member'] = $status->kategory;
+			}
+			if(!isset($member['qr']))
+				$member['qr'] = $member['id'] . ";" . $event_id;
 
-		$this->load->model('Settings_m');
-		if(count($member) == 0){
-			$member = $this->toArray();
-			$status = $this->status_member;
-			$member['status_member'] = $status->kategory;
+			$diff = array_diff(['qr','fullname','status_member'],array_keys($member));
+			if(count($diff) == 0) {
+				$domInvoice = new Dompdf\Dompdf();
+				$propery = json_decode(Settings_m::getSetting("config_nametag_$event_id"), true);
+				$html = $this->load->view("template/nametag", [
+					'image' => file_get_contents(APPPATH . "uploads/nametag_template/$event_id.txt"),
+					'property' => $propery,
+					'data' => $member
+				], true);
+				$domInvoice->setPaper("A5", "portrait");
+				$domInvoice->loadHtml($html);
+				$domInvoice->render();
+				return $domInvoice;
+			}else{
+				throw new ErrorException("Parameter ".implode(",",$diff)." not found !");
+
+			}
+		}else{
+			throw new ErrorException("Template of nametag not found !");
 		}
-		$member['qr'] = $member['id'].";".$event_id;
-		$domInvoice = new Dompdf\Dompdf();
-		$propery = json_decode(Settings_m::getSetting("config_nametag_$event_id"),true);
-		$html = $this->load->view("template/nametag",[
-			'image'=>file_get_contents(APPPATH."uploads/nametag_template/$event_id.txt"),
-			'property'=>$propery,
-			'data'=>$member
-		],true);
-		$domInvoice->setPaper("A5","portrait");
-		$domInvoice->loadHtml($html);
-		$domInvoice->render();
-		return $domInvoice;
 	}
 
 	/**
