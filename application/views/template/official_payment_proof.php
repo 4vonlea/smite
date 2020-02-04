@@ -37,7 +37,7 @@ $member = $transaction->member;
 			</p>
 			<p style="text-align:left">
 				<span
-					style="font-family:times new roman,times,serif;font-size:12pt;text-align:start;background-color:#ffffff">Yth. <?= $member->fullname; ?></span>
+					style="font-family:times new roman,times,serif;font-size:12pt;text-align:start;background-color:#ffffff">Yth. <?= $member->sponsor; ?></span>
 			</p>
 			<p style="text-align:left">
 				<span

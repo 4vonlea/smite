@@ -49,7 +49,7 @@ $payment = Settings_m::manualPayment(false);
 				<tbody>
 				<tr>
 					<td>
-						<p>Yth. <?= $member->fullname; ?></p>
+						<p>Yth. <?= $member->sponsor; ?></p>
 						<p>Berikut kami kirimkan tagihan pembayaran sebagai bentuk keterangan resmi. Mohon segera melunasi pembayaran ini melalui <br/>
 							<?php if(count($payment) == 1) :?>
 								Bank <?=$payment[0]['bank'];?> No <?=$payment[0]['no_rekening'];?> a.n <?=$payment[0]['holder'];?>
