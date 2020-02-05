@@ -82,7 +82,7 @@ class Administration extends Admin_Controller
 	public function certificate($event_id, $member_id)
 	{
 		$this->load->model(["Member_m", "Event_m"]);
-		$member = $this->Member_m->setAlias('t')->find()->join('kategory_members kt', 'kt.id = t.id ')
+		$member = $this->Member_m->setAlias('t')->find()->join('kategory_members kt', 'kt.id = t.status ')
 			->select('fullname,email,kt.kategory as status_member')->where("t.id", $member_id)->get()->row_array();
 		if (file_exists(APPPATH . "uploads/cert_template/$event_id.txt")) {
 			$this->Event_m->exportCertificate($member, $event_id)->stream("Certificate.pdf", array("Attachment" => false));

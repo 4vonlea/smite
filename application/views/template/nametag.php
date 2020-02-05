@@ -16,21 +16,23 @@ header('Content-Type: text/html');
 ?>
 <style>
 	@page{
-		size: 14.1 cm 21 cm;
+		size: 10 cm 14 cm;
 		margin: 0;
 	}
 </style>
-<img src="<?= $image; ?>" style="width: 100%;position: absolute;top:-1%"/>
+<body style="width: 10cm;height: 14cm">
+<img src="<?= $image; ?>" style="height:100%;width:100%;object-fit:cover;position: absolute;"/>
 <?php foreach ($property as $i=>$row): ?>
 
 	<div
 		style="text-align:center;font-size:<?= $row['style']['fontSize']; ?>px ;font-weight:<?= $row['style']['fontWeight']; ?>;position: absolute;z-index: <?=$i;?>;width:<?= $row['style']['width']; ?>%;top:<?= $row['style']['top']; ?>%;left: <?= $row['style']['left']; ?>%">
 			<?php if($row['name'] == 'qr'):?>
 				<img
-					style="height:<?= $row['style']['fontSize']; ?>%;width:<?= $row['style']['fontSize']; ?>%;position: relative" src="data:image/png;base64,<?= $qr; ?>"/>
+					style="width:<?= $row['style']['fontSize']; ?>%;position: relative" src="data:image/png;base64,<?= $qr; ?>"/>
 			<?php else: ?>
 				<?= $data[$row['name']]; ?>
 			<?php endif;?>
 
 	</div>
 <?php endforeach; ?>
+</body>

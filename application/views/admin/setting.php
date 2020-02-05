@@ -216,7 +216,7 @@
 							<div class="row">
 								<div class="col-md-12">
 									<p>
-										*Recomended image dimension is (530 x 800) px or Aspect ratio Is 5.3 x 8
+										*Recomended image dimension is (380 x 530) px or ratio near it
 									</p>
 									<div class="form-group row">
 										<label class="col-md-3 col-form-label">Template For Events</label>
@@ -297,7 +297,7 @@
 										<label>Preview</label>
 									</div>
 								</div>
-								<div style="position: relative;border: 1px dotted;height: 800px;width: 530px;margin: auto">
+								<div style="position: relative;border: 1px dotted;height: 530px;width: 380px;margin: auto">
 									<img :src="nametag.image" style="width: 100%"/>
 									<div style="background:rgba(0,0,0,0.3)" v-for="prop in nametagProperty" :style="prop.style">
 										<span v-if="prop.name != 'qr'">{{ prop.name }}</span>
