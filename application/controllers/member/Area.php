@@ -254,13 +254,13 @@ class Area extends MY_Controller
 		$configFullpaper = [
 			'upload_path'=>APPPATH.'uploads/papers/',
 			'allowed_types'=>'doc|docx|ods',
-			'max_size'=>5120,
+			'max_size'=>10240,
 			'file_name'=>'fullpaper_'.date("Ymdhis"),
 		];
 		$configPresentation = [
 			'upload_path'=>APPPATH.'uploads/papers/',
 			'allowed_types'=>'jpg|jpeg|png|ppt|pptx',
-			'max_size'=>5120,
+			'max_size'=>10240,
 			'file_name'=>'presentation_'.date("Ymdhis"),
 		];
 		$this->upload->initialize($configFullpaper);
