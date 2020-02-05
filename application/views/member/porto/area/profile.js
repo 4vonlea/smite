@@ -104,6 +104,13 @@ var PageProfile = Vue.component("PageProfile", {
                 </div>
             </div>
 
+            <div class="form-group row">
+                <label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2 required">Sponsor</label>
+                <div class="col-lg-9">
+                    <input :disabled="!editing" class="form-control" required="" type="text" v-model="user.sponsor">
+                </div>
+            </div>
+
             <div v-if="editing" class="form-group row">
                 <div class="form-group col-lg-12 text-right">
                     <button @click="[editing = false]"  type="button" class="btn btn-default "> Cancel</button>

@@ -193,6 +193,16 @@
 														</div>
 													</div>
 
+													<div class="form-group row">
+														<label class="col-lg-3 control-label">Sponsor</label>
+														<div class="col-lg-5">
+															<input type="text" :class="{'is-invalid':validation_error.sponsor}" class="form-control" name="sponsor"/>
+															<div v-if="validation_error.sponsor" class="invalid-feedback">
+																{{ validation_error.sponsor }}
+															</div>
+														</div>
+													</div>
+
 													<!--                    <div class="form-group row">-->
 													<!--                        <label class="col-lg-3 control-label">Birthday</label>-->
 													<!--                        <div class="col-lg-5">-->
