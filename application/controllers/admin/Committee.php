@@ -2,6 +2,14 @@
 
 class Committee extends Admin_Controller
 {
+	protected $accessRule = [
+		'index'=>'view',
+		'save'=>'insert',
+		'delete'=>'delete',
+		'nametag'=>'view',
+		'delete_attribute'=>'delete',
+		'grid'=>'view',
+	];
 
 	public function index()
 	{

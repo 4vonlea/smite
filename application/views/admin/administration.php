@@ -237,8 +237,11 @@ $this->layout->begin_head();
 				$.post("<?=base_url('admin/member/save_profile');?>", member, function (res) {
 					row.editable = false;
 					Swal.fire("Success", "Name has been saved!", "success");
-				}).fail(function () {
-					Swal.fire("Failed", "Failed to save name !", "error");
+				}).fail(function (xhr) {
+					var message =  xhr.getResponseHeader("Message");
+					if(!message)
+						message = 'Server fail to response !';
+					Swal.fire('Fail', message, 'error');
 				}).always(function () {
 					event.target.innerHTML = "Save";
 					event.target.removeAttribute("disabled");
@@ -255,6 +258,7 @@ $this->layout->begin_head();
 				let data = this.localData.data
 				// account for search filter
 				if (this.globalFilter) {
+					console.log("MASUK");
 					// the text should be case insensitive
 					let txt = new RegExp(this.globalFilter, 'i')
 
@@ -340,8 +344,11 @@ $this->layout->begin_head();
 								app.$refs.vuetable.refresh();
 							})
 						}
-					}).fail(function () {
-
+					}).fail(function (xhr) {
+						var message =  xhr.getResponseHeader("Message");
+						if(!message)
+							message = 'Server fail to response !';
+						Swal.fire('Fail', message, 'error');
 					}).always(function () {
 						app.loading = false;
 					});

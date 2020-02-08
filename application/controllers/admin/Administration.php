@@ -7,6 +7,14 @@
 
 class Administration extends Admin_Controller
 {
+	protected $accessRule = [
+		'index'=>'view',
+		'download_all'=>'view',
+		'certificate'=>'view',
+		'card'=>'view',
+		'get_participant'=>'view',
+	];
+
 	public function index()
 	{
 		$this->load->model(['Event_m']);

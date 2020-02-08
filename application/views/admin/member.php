@@ -413,8 +413,11 @@
 						Swal.fire("Success", "Certificate sended !", "success");
 					else
 						Swal.fire("Failed", res.message, "error");
-				}, "JSON").fail(function () {
-					Swal.fire("Failed", "Failed to process request !", "error");
+				}, "JSON").fail(function (xhr) {
+					var message =  xhr.getResponseHeader("Message");
+					if(!message)
+						message = 'Server fail to response !';
+					Swal.fire('Fail', message, 'error');
 				}).always(function () {
 					app.sendingCertificate = false;
 				});
@@ -426,8 +429,11 @@
                         Swal.fire("Success", "Profile Saved !", "success");
                     else
                         Swal.fire("Failed", "Failed to save data !", "error");
-                }, "JSON").fail(function () {
-                    Swal.fire("Failed", "Failed to load data !", "error");
+                }, "JSON").fail(function (xhr) {
+					var message =  xhr.getResponseHeader("Message");
+					if(!message)
+						message = 'Server fail to response !';
+					Swal.fire('Fail', message, 'error');
                 }).always(function () {
                     app.savingProfile = false;
                 });
@@ -452,8 +458,11 @@
                                 app.$refs.datagrid.refresh();
                             }else
                                 Swal.fire("Failed", res.message, "error");
-                        }, "JSON").fail(function () {
-                            Swal.fire("Failed", "Failed to load data !", "error");
+                        }, "JSON").fail(function (xhr) {
+							var message =  xhr.getResponseHeader("Message");
+							if(!message)
+								message = 'Server fail to response !';
+							Swal.fire('Fail', message, 'error');
                         }).always(function () {
                             btn.innerHTML = '<i class="fa fa-trash"></i> Delete';
                             btn.removeAttribute("disabled");
@@ -478,8 +487,11 @@
 
                 $.post("<?=base_url("admin/member/save_check");?>", {transaction: data}, function (res) {
                     Swal.fire("Success", "Checklist saved !", "success");
-                }, "JSON").fail(function () {
-                    Swal.fire("Failed", "Failed to load data !", "error");
+                }, "JSON").fail(function (xhr) {
+					var message =  xhr.getResponseHeader("Message");
+					if(!message)
+						message = 'Server fail to response !';
+					Swal.fire('Fail', message, 'error');
                 }).always(function () {
                     app.savingCheck = false;
                 });
@@ -501,8 +513,11 @@
                     profile.birthdayFormatted = moment(profile.birthday).format('DD MMM YYYY');
                     app.profileMode = 1;
                     app.profile = profile;
-                }, "JSON").fail(function () {
-                    Swal.fire("Failed", "Failed to load data !", "error");
+                }, "JSON").fail(function (xhr) {
+					var message =  xhr.getResponseHeader("Message");
+					if(!message)
+						message = 'Server fail to response !';
+					Swal.fire('Fail', message, 'error');
                 }).always(function () {
                     event.target.innerHtml = "Detail";
                 });
@@ -516,8 +531,11 @@
                         app.$refs.datagrid.refresh();
                     } else
                         app.verifyMessage = res.message;
-                }, 'JSON').fail(function () {
-                    Swal.fire("Failed", "Failed to verify !", "error");
+                }, 'JSON').fail(function (xhr) {
+					var message =  xhr.getResponseHeader("Message");
+					if(!message)
+						message = 'Server fail to response !';
+					Swal.fire('Fail', message, 'error');
                     $("#modal-verification").modal("hide");
                 }).always(function () {
                     app.verifying = false;
@@ -540,9 +558,12 @@
                         app.statusList = res;
                         tempStatus = JSON.parse(JSON.stringify(res));
                         app.new_status = "";
-                    }).fail(function () {
+                    }).fail(function (xhr) {
                         tempStatus.pop();
-                        Swal.fire("Failed", "Failed to save !", "error");
+						var message =  xhr.getResponseHeader("Message");
+						if(!message)
+							message = 'Server fail to response !';
+						Swal.fire('Fail', message, 'error');
                     });
                 }
 
@@ -552,8 +573,11 @@
                 $.post("<?=base_url('admin/member/remove_status');?>", {id: value.id}, function (res) {
                     if (res.status)
                         app.statusList.splice(index, 1);
-                }, 'JSON').fail(function () {
-                    Swal.fire("Failed", "Failed to remove !", "error");
+                }, 'JSON').fail(function (xhr) {
+					var message =  xhr.getResponseHeader("Message");
+					if(!message)
+						message = 'Server fail to response !';
+					Swal.fire('Fail', message, 'error');
                 });
             },
             needVerification: function (index) {
@@ -561,9 +585,12 @@
                 value.need_verify = !value.need_verify;
                 $.post("<?=base_url('admin/member/verification_status');?>", value, function (res) {
 
-                }, 'JSON').fail(function () {
+                }, 'JSON').fail(function (xhr) {
                     value.need_verify = 0;
-                    Swal.fire("Failed", "Failed to remove !", "error");
+					var message =  xhr.getResponseHeader("Message");
+					if(!message)
+						message = 'Server fail to response !';
+					Swal.fire('Fail', message, 'error');
                 });
             },
             loadedGrid: function (data) {

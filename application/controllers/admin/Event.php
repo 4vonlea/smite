@@ -6,6 +6,14 @@
  */
 class Event extends Admin_Controller
 {
+	protected $accessRule = [
+		'index'=>'view',
+		'grid'=>'view',
+		'delete'=>'delete',
+		'detail'=>'view',
+		'save'=>'insert',
+		'delete_pricing'=>'delete',
+	];
     public function index()
     {
         $this->load->model('Category_member_m');

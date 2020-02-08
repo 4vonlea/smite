@@ -5,6 +5,23 @@ use Dompdf\Dompdf;
 
 class Setting extends Admin_Controller
 {
+	protected $accessRule =[
+		"index" => "view",
+		"preview_cert" => "view",
+		"get_cert" => "view",
+		"save_cert" => "update",
+		"preview_nametag" => "view",
+		"get_nametag" => "view",
+		"save_nametag" => "update",
+		"unbind_email" => "update",
+		"save_manual" => "update",
+		"save_token_wa" => "update",
+		"token_auth" => "update",
+		"request_auth" => "update",
+		"upload_logo" => "update",
+		"save" => "update",
+	];
+
     public function index()
     {
     	$this->load->helper("form");

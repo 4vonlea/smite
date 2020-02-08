@@ -213,8 +213,11 @@
                     }else{
                         Swal.fire('Fail',"Failed to fetch data !",'warning');
 					}
-                },"JSON").fail(function () {
-                    Swal.fire('Fail',"Failed to fetch data !",'warning');
+                },"JSON").fail(function (xhr) {
+					var message =  xhr.getResponseHeader("Message");
+					if(!message)
+						message = 'Server fail to response !';
+					Swal.fire('Fail', message, 'error');
                 }).always(function () {
                     app.fetching = false;
                 });

@@ -77,7 +77,7 @@ class Member_m extends MY_Model
 				$member['status_member'] = $status->kategory;
 			}
 			if(!isset($member['qr']))
-				$member['qr'] = $member['id'] . ";" . $event_id;
+				$member['qr'] = "card;".$member['id'] . ";" . $event_id;
 
 			$diff = array_diff(['qr','fullname','status_member'],array_keys($member));
 			if(count($diff) == 0) {

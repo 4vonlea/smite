@@ -7,6 +7,13 @@
  */
 class Presence extends Admin_Controller
 {
+	protected $accessRule = [
+		'index'=>'view',
+		'save'=>'insert',
+		'report'=>'view',
+		'get_data'=>'view',
+		'get_detail'=>'view',
+	];
 	public function index(){
 		$this->load->model("Dashboard_m");
 		$report = $this->Dashboard_m->getData();

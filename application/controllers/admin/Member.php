@@ -3,6 +3,24 @@
 
 class Member extends Admin_Controller
 {
+	protected $accessRule = [
+		'index'=>'view',
+		'card'=>'view',
+		'add_status'=>'insert',
+		'remove_status'=>'delete',
+		'verification_status'=>'update',
+		'verify'=>'update',
+		'get_proof'=>'view',
+		'send_certificate'=>'view',
+		'register'=>'insert',
+		'grid'=>'view',
+		'save_profile'=>'insert',
+		'save_check'=>'update',
+		'get_event'=>'view',
+		'handlingImage'=>'insert',
+		'delete'=>'delete',
+	];
+
 	public function index()
 	{
 		$this->load->model(['Category_member_m','Univ_m']);

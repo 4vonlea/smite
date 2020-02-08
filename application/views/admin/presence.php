@@ -370,8 +370,11 @@
                         btn.innerHTML = "Reload Data";
                         btn.removeAttribute("disabled");
                     }
-                }).fail(function () {
-                    Swal.fire("Failed", "Failed to load data !", "error");
+                }).fail(function (xhr) {
+					var message =  xhr.getResponseHeader("Message");
+					if(!message)
+						message = 'Server fail to response !';
+					Swal.fire('Fail', message, 'error');
                 });
             },
             detailPresence(row) {
@@ -435,8 +438,11 @@
                     }
                 }, "JSON").always(function () {
                     ev.target.innerHTML = "Check";
-                }).fail(function () {
-                    Swal.fire("Failed", "Failed to load data !", "error");
+                }).fail(function (xhr) {
+					var message =  xhr.getResponseHeader("Message");
+					if(!message)
+						message = 'Server fail to response !';
+					Swal.fire('Fail', message, 'error');
                 });
             }
         }

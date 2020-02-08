@@ -371,7 +371,10 @@ $this->layout->begin_head();
                         }else
                             Swal.fire("Failed",res.message,"error");
                     }).fail(function (xhr) {
-                    Swal.fire("Failed","Failed to load data !","error");
+					var message =  xhr.getResponseHeader("Message");
+					if(!message)
+						message = 'Server fail to response !';
+					Swal.fire('Fail', message, 'error');
                 }).always(function () {
                     app.sendingMaterial = false;
                 });
@@ -419,7 +422,10 @@ $this->layout->begin_head();
                         }else
                             Swal.fire("Failed",res.message,"error");
                     }).fail(function (xhr) {
-                    Swal.fire("Failed","Failed to load data !","error");
+					var message =  xhr.getResponseHeader("Message");
+					if(!message)
+						message = 'Server fail to response !';
+					Swal.fire('Fail', message, 'error');
                 }).always(function () {
                     app.sendingCert = false;
                 });
@@ -432,7 +438,10 @@ $this->layout->begin_head();
                     .done(function (res) {
 						Swal.fire("Success","Message Sent !","success");
                     }).fail(function (xhr) {
-                    Swal.fire("Failed","Failed to request send message !","error");
+					var message =  xhr.getResponseHeader("Message");
+					if(!message)
+						message = 'Server fail to response !';
+					Swal.fire('Fail', message, 'error');
                 }).always(function () {
                     app.sending = false;
                 });

@@ -389,7 +389,10 @@
                         app.form.model = res;
                         app.detailMode = true;
                     }).fail(function (xhr) {
-                    Swal.fire("Failed","Failed to load data !","error");
+					var message =  xhr.getResponseHeader("Message");
+					if(!message)
+						message = 'Server fail to response !';
+					Swal.fire('Fail', message, 'error');
                 }).always(function () {
                     app.$refs.datagrid.loading = false;
 
@@ -406,7 +409,10 @@
                         app.form.show = true;
                         app.form.model = res;
                     }).fail(function (xhr) {
-                    Swal.fire("Failed","Failed to load data !","error");
+					var message =  xhr.getResponseHeader("Message");
+					if(!message)
+						message = 'Server fail to response !';
+					Swal.fire('Fail', message, 'error');
                 }).always(function () {
                     app.$refs.datagrid.loading = false;
 
@@ -429,7 +435,10 @@
                             .done(function () {
                                 app.$refs.datagrid.refresh();
                             }).fail(function (xhr) {
-                                Swal.fire("Failed","Failed to delete !","error");
+							var message =  xhr.getResponseHeader("Message");
+							if(!message)
+								message = 'Server fail to response !';
+							Swal.fire('Fail', message, 'error');
                         });
                     }
                 });
@@ -444,9 +453,12 @@
                     postCategory(tempCategory).done(function () {
                         app.eventCategory.push(app.new_event_category);
                         app.new_event_category = "";
-                    }).fail(function () {
+                    }).fail(function (xhr) {
                         tempCategory.pop();
-                        Swal.fire("Failed","Failed to save !","error");
+						var message =  xhr.getResponseHeader("Message");
+						if(!message)
+							message = 'Server fail to response !';
+						Swal.fire('Fail', message, 'error');
                     });
                 }
             },
@@ -475,7 +487,10 @@
                                         Swal.fire("Failed",res.message,"error");
                             		}
                                 }).fail(function (xhr) {
-                                Swal.fire("Failed","Failed to load data !","error");
+								var message =  xhr.getResponseHeader("Message");
+								if(!message)
+									message = 'Server fail to response !';
+								Swal.fire('Fail', message, 'error');
                             }).always(function () {
                                 ev.target.innerHTML = "";
                                 ev.target.removeAttribute("disabled");
@@ -495,9 +510,12 @@
                 tempCategory.splice(index,1);
                 postCategory(tempCategory).done(function () {
                     app.eventCategory.splice(index,1);
-                }).fail(function () {
+                }).fail(function (xhr) {
                     tempCategory.push(value);
-                    Swal.fire("Failed","Failed to remove !","error");
+					var message =  xhr.getResponseHeader("Message");
+					if(!message)
+						message = 'Server fail to response !';
+					Swal.fire('Fail', message, 'error');
                 });
             },
             save: function () {
@@ -513,6 +531,10 @@
                         app.form.show = false;
                     }).fail(function (xhr) {
                     app.error = xhr.responseJSON;
+					var message =  xhr.getResponseHeader("Message");
+					if(message) {
+						Swal.fire('Fail', message, 'error');
+					}
                 }).always(function () {
                     app.form.saving = false;
                 });

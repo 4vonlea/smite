@@ -110,6 +110,7 @@
 							</div>
 							<div class="col-6 text-right">
 								<button @click="onAdd" type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Add User</button>
+								<a href="<?=base_url('admin/account/access');?>" class="btn btn-primary"><i class="fa fa-edit"></i> Manage Access</a>
 							</div>
 						</div>
 					</div>
@@ -154,9 +155,6 @@
 			role:"",
         }
     }
-
-
-
     var app = new Vue({
         el: '#app',
         data: {
@@ -191,7 +189,10 @@
                                 else
                                     Swal.fire("Failed","Failed to reset !","error");
                             }).fail(function (xhr) {
-                           		 Swal.fire("Failed","Failed to delete !","error");
+							var message =  xhr.getResponseHeader("Message");
+							if(!message)
+								message = 'Server fail to response !';
+							Swal.fire('Fail', message, 'error');
                         });
                     }
                 });
@@ -215,7 +216,10 @@
                                 else
                                     Swal.fire("Failed","Failed to delete !","error");
                             }).fail(function (xhr) {
-                            Swal.fire("Failed","Failed to delete !","error");
+							var message =  xhr.getResponseHeader("Message");
+							if(!message)
+								message = 'Server fail to response !';
+							Swal.fire('Fail', message, 'error');
                         });
                     }
                 });
@@ -245,8 +249,12 @@
                     }).fail(function (xhr) {
                         if(xhr.responseJSON)
 		                    app.form.validation = xhr.responseJSON.validation;
-                        else
-                            Swal.fire("Failed","Server failed to response !","error");
+                        else{
+							var message =  xhr.getResponseHeader("Message");
+							if(!message)
+								message = 'Server fail to response !';
+							Swal.fire('Fail', message, 'error');
+						}
                 }).always(function () {
                     app.form.saving = false;
                 });

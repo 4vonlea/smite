@@ -398,8 +398,11 @@ $this->layout->end_head();
 							$("#modal-reviewer").modal('hide');
 							Swal.fire('Success', "Review has been saved", 'success');
 						}
-					}, "JSON").fail(function () {
-						Swal.fire('Fail', "Failed to process !", 'warning');
+					}, "JSON").fail(function (xhr) {
+						var message =  xhr.getResponseHeader("Message");
+						if(!message)
+							message = 'Server fail to response !';
+						Swal.fire('Fail', message, 'error');
 					}).always(function () {
 						app.saving = false;
 					});

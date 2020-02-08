@@ -15,12 +15,16 @@ class User_account_m extends MY_Model
     const ROLE_SUPERADMIN = 1;
     const ROLE_ADMIN = 2;
     const ROLE_ADMIN_PAPER = 3;
+    const ROLE_OPERATOR = 4;
+    const ROLE_MANAGER = 5;
 
     public static $listRole = [
         self::ROLE_MEMBER => 'Member/Participant',
         self::ROLE_SUPERADMIN => 'Superadmin',
 //        self::ROLE_ADMIN => 'Admin',
         self::ROLE_ADMIN_PAPER => 'Admin Paper',
+        self::ROLE_OPERATOR => 'Operator',
+        self::ROLE_MANAGER => 'Manager',
     ];
 
     public function rules()
