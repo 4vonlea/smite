@@ -12,10 +12,20 @@
 			<div class="card shadow">
 				<div class="card-header">
 					<div class="row">
-						<div class="col-6">
+						<div class="col-3">
 							<h3>Committees</h3>
 						</div>
-						<div class="col-6 text-right">
+						<div class="col-9 text-right">
+							<div class="dropdown">
+								<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									Download Committtee
+								</button>
+								<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+									<a class="dropdown-item" href="<?=base_url("admin/committee/download_committee/excel");?>" target="_blank">As Excel</a>
+									<a class="dropdown-item" href="<?=base_url("admin/committee/download_committee/csv");?>"  target="_blank">As CSV</a>
+									<a class="dropdown-item" href="<?=base_url("admin/committee/download_committee/pdf");?>"  target="_blank">As PDF</a>
+								</div>
+							</div>
 							<button type="button" class="btn btn-primary" data-toggle="modal"
 									data-target="#modal-committees-status"><i class="fa fa-book"></i> Committees
 								Position List

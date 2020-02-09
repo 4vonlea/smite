@@ -1,5 +1,7 @@
 <?php
 
+use Dompdf\Dompdf;
+
 class Committee extends Admin_Controller
 {
 
@@ -105,5 +107,32 @@ class Committee extends Admin_Controller
 			->set_content_type("application/json")
 			->_display(json_encode($grid));
 
+	}
+
+	public function download_committee($tipe){
+		$this->load->model("Committee_m");
+    	$data =  $this->Committee_m->getDataCommittee();
+    	$this->export($tipe,"Committee of Events",$data);
+	}
+
+	public function export($tipe = null,$title = null,$data = null){
+    	if($this->input->post('tipe'))
+    		$tipe = $this->input->post('tipe');
+		if($this->input->post('data'))
+			$data = $this->input->post('data');
+		if($this->input->post('title'))
+			$title = $this->input->post('title');
+
+		$this->load->library('Exporter');
+		$exporter = new Exporter();
+		$exporter->setData($data);
+		$exporter->setTitle($title);
+		if($tipe == 'excel'){
+			$exporter->asExcel();
+		}elseif($tipe == "pdf"){
+			$exporter->asPDF();
+		}elseif($tipe == "csv"){
+			$exporter->asCSV();
+		}
 	}
 }

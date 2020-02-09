@@ -16,4 +16,15 @@ class Committee_m extends My_model
 			'group_by'=>'t.id',
 		];
 	}
+
+	public function getDataCommittee(){
+		$result = $this->db->select("e.name as Event, c.name as nama, ca.status")
+			->from("committee_attribute ca")
+			->join("committee c","ca.committee_id = c.id ")
+			->join("events e", "e.id = ca.event_id")
+			->order_by("e.id")
+		    ->get()->result_array();
+
+		return $result;
+	}
 }
