@@ -135,7 +135,7 @@ $role = $this->session->user_session['role'];
 			</div>
 
 			<!-- Navigation -->
-			<?php if (in_array($role, ['1', '2'])): ?>
+			<?php if (in_array($role, ['1', '2','4','5'])): ?>
 				<ul class="navbar-nav">
 					<li class="nav-item">
 						<a class="nav-link" href="<?= base_url('admin/dashboard'); ?>">
@@ -167,11 +167,13 @@ $role = $this->session->user_session['role'];
 							<i class="ni ni-chat-round text-blue"></i> Message & Notification
 						</a>
 					</li>
+					<?php if($role == '1'):?>
 					<li class="nav-item">
 						<a class="nav-link" href="<?= base_url('admin/account'); ?>">
 							<i class="ni ni-circle-08 text-blue"></i> User Account
 						</a>
 					</li>
+					<?php endif;?>
 					<li class="nav-item">
 						<a class="nav-link" href="<?= base_url('admin/committee'); ?>">
 							<i class="fa fa-bookmark text-blue"></i> Committees
