@@ -16,7 +16,7 @@ class Area extends MY_Controller
 		$this->layout->setLayout("layouts/$this->theme");
 		$this->layout->setBaseView('member/'.$this->theme.'/area/');
 		$this->load->model(['Member_m','User_account_m']);
-		if($this->session->user_session['role'] == User_account_m::ROLE_SUPERADMIN){
+		if($this->session->user_session['role'] != User_account_m::ROLE_MEMBER){
 			redirect(base_url('admin/dashboard'));
 		}
 
