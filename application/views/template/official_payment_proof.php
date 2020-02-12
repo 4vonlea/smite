@@ -4,6 +4,11 @@
  */
 $header_image = base_url('themes/uploads/header_kop.jpg');
 $member = $transaction->member;
+
+ob_start();
+QRCode::png("payment_proof;".$transaction->id,false,QR_ECLEVEL_L,4,2);
+$qr = base64_encode(ob_get_clean());
+header('Content-Type: text/html');
 ?>
 <style>
 	.table{
@@ -112,11 +117,20 @@ $member = $transaction->member;
 			<p>
 				Bukti pembayaran (kuitansi) ini merupakan tanda bukti yang sah dan dipergunakan sebagaimana mestinya. Peserta wajib menunjukkan kuitansi ini kepada panitia pada saat registrasi ulang. Terimakasih
 			</p> <br/><br/>
-			<p style="text-align:right;font-size: 18px;font-weight: bold">Salam hormat,<br/> 
-				Ketua Panitia <br/><br/>
-				<img width="200px" height="100px" class="" src="themes/porto/img/ttd.png"> <br/>
-				<?=Settings_m::getSetting('ketua_panitia');?>
-			</p>
+		</td>
+	</tr>
+	<tr >
+		<td >
+			<div style="bottom: 80px;left:0px;position: absolute">
+				<img style="margin: auto" src="data:image/png;base64,<?= $qr; ?>"/>
+			</div>
+			<div style="float: right;width: 70%;height: 100%;">
+				<p style="text-align:right;font-size: 18px;font-weight: bold">Salam hormat,<br/>
+					Ketua Panitia <br/><br/>
+					<img width="200px" height="100px" class="" src="themes/porto/img/ttd.png"> <br/>
+					<?=Settings_m::getSetting('ketua_panitia');?>
+				</p>
+			</div>
 		</td>
 	</tr>
 </table>

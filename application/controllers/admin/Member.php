@@ -14,7 +14,7 @@ class Member extends Admin_Controller
 		'send_certificate'=>'view',
 		'register'=>'insert',
 		'grid'=>'view',
-		'save_profile'=>'insert',
+		'save_profile'=>'update',
 		'save_check'=>'update',
 		'get_event'=>'view',
 		'handlingImage'=>'insert',

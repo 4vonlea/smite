@@ -108,6 +108,7 @@ class Transaction_m extends MY_Model
 	 * @return Dompdf
 	 */
 	public function exportPaymentProof(){
+		require_once APPPATH . "third_party/phpqrcode/qrlib.php";
 		$html = $this->load->view("template/official_payment_proof",[
 			'transaction'=>$this,
 		],true);
