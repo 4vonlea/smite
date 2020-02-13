@@ -254,13 +254,13 @@ class Area extends MY_Controller
 		$configFullpaper = [
 			'upload_path'=>APPPATH.'uploads/papers/',
 			'allowed_types'=>'doc|docx|ods',
-			'max_size'=>10240,
+			'max_size'=>20240,
 			'file_name'=>'fullpaper_'.date("Ymdhis"),
 		];
 		$configPresentation = [
 			'upload_path'=>APPPATH.'uploads/papers/',
 			'allowed_types'=>'jpg|jpeg|png|ppt|pptx',
-			'max_size'=>10240,
+			'max_size'=>20240,
 			'file_name'=>'presentation_'.date("Ymdhis"),
 		];
 		$this->upload->initialize($configFullpaper);
@@ -298,7 +298,7 @@ class Area extends MY_Controller
 
 		$config['upload_path']          = APPPATH.'uploads/papers/';
 		$config['allowed_types']        = 'pdf|doc|docx|ods';
-		$config['max_size']             = 5120;
+		$config['max_size']             = 20120;
 		$config['overwrite']             = true;
 		$config['file_name']        = 'abstract'.date("Ymdhis");//$this->session->user_session['id'];
 
