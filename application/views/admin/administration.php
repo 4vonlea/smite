@@ -32,14 +32,14 @@ $this->layout->begin_head();
 						<div class="col-6 text-right">
 							<div class="row">
 								<div class="col-7">
-									<select class="form-control" v-model="selectedEvent" @change="fetchData">
+									<select class="form-control" v-model="selectedEvent" @change="fetchData(true)">
 										<option disabled hidden value="">Select Event First</option>
 										<option v-for="(event,key) in eventList" :value="key"> {{ event }}</option>
 									</select>
 								</div>
 								<div class="col-5">
 									<div class="btn-group" role="group">
-										<button :disabled="!selectedEvent" id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										<button :disabled="!selectedEvent || selectedEvent <= 0" id="btnGroupDrop1" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 											Download All
 										</button>
 										<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
@@ -61,6 +61,8 @@ $this->layout->begin_head();
 									<option v-for="c in perPage" :value="c">{{ c }}</option>
 								</select>&nbsp;Entries
 							</label>
+							&nbsp;
+							<label v-if="isScan" class="badge badge-info">Result Of Scanning QR-Code</label>
 						</div>
 						<div class="col mr-3">
 							<div class="input-group">
@@ -73,9 +75,12 @@ $this->layout->begin_head();
 									<button type="button" v-on:click="resetFilter" class="btn btn-primary"><i
 											class="fa fa-times"></i> Reset
 									</button>
+
+									<button type="button" v-on:click="openScanner" class="btn btn-primary"><i
+											class="fa fa-barcode"></i> Scan
+									</button>
 								</div>
 							</div>
-
 						</div>
 					</div>
 					<div style="position: relative">
@@ -111,12 +116,12 @@ $this->layout->begin_head();
 								</div>
 							</template>
 							<template slot="name_tag" slot-scope="props">
-								<input type="checkbox" v-model="props.rowData.checklist.nametag"
-									   @change="changeChecklist(props.rowData)"/>
+								<input type="checkbox" v-model="props.rowData.checklist.nametag" class="ttip"
+									   @change="changeChecklist(props.rowData)" :data-original-title="'Event Name : '+props.rowData.event_name"/>
 							</template>
 							<template slot="seminar_kit" slot-scope="props">
-								<input type="checkbox" v-model="props.rowData.checklist.seminarkit"
-									   @change="changeChecklist(props.rowData)"/>
+								<input type="checkbox" v-model="props.rowData.checklist.seminarkit" class="ttip"
+									   @change="changeChecklist(props.rowData)"  :data-original-title="'Event Name : '+props.rowData.event_name"/>
 							</template>
 							<template slot="taker" slot-scope="props">
 								<input type="text" class="form-control" v-model="props.rowData.checklist.taker"
@@ -150,11 +155,41 @@ $this->layout->begin_head();
 		</div>
 	</div>
 </div>
+<div class="modal" id="modal-scanner">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+
+			<!-- Modal Header -->
+			<div class="modal-header">
+				<h4 class="modal-title">Scan Nametag or Registration Proof</h4>
+			</div>
+
+			<!-- Modal body -->
+			<div class="modal-body">
+				<div class="col-sm-12 text-center">
+					<video style="border:solid 3px;height: 100%;width: 100%" muted playsinline id="qr-video"
+						   ref="qrVideo"></video>
+				</div>
+			</div>
+
+			<!-- Modal footer -->
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" v-on:click="closeScanner">Close</button>
+			</div>
+
+		</div>
+	</div>
+</div>
 <!-- Table -->
 
 <?php $this->layout->begin_script(); ?>
 <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js"></script>
-<script>
+<script type="module">
+	import QrScanner from "<?=base_url("themes/script/qr-scanner.min.js");?>";
+
+	QrScanner.WORKER_PATH = '<?=base_url("themes/script/qr-scanner-worker.min.js");?>';
+	var scanner = null;
+
 	var app = new Vue({
 		el: '#app',
 		components: {
@@ -162,6 +197,8 @@ $this->layout->begin_head();
 			'vuetable-pagination-info': Vuetable.VuetablePaginationInfo
 		},
 		data: {
+			isScan:false,
+			resultScan:[],
 			fields: [{name: 'fullname', sortField: 'fullname'}, {
 				name: 'name_tag',
 				title: "Name Tag"
@@ -219,6 +256,30 @@ $this->layout->begin_head();
 				this.backupName[row.id] = row.fullname;
 				row.editable = true;
 			},
+			openScanner(){
+				const video = app.$refs.qrVideo;
+				var temp = "";
+				function setResult(rs) {
+					if(temp != rs) {
+						temp = rs;
+						app.resultScan = rs.split(";");
+						app.isScan = true;
+						console.log(rs);
+						app.fetchData(false);
+						app.closeScanner();
+					}
+				}
+				scanner = new QrScanner(video, result => setResult(result));
+				scanner.start();
+				scanner.setInversionMode("both");
+				$("#modal-scanner").modal("show");
+			},
+			closeScanner() {
+				if (scanner) {
+					scanner.stop();
+				}
+				$("#modal-scanner").modal("hide");
+			},
 			saveName(row, event) {
 				if(row.saving)
 					return false;
@@ -258,7 +319,6 @@ $this->layout->begin_head();
 				let data = this.localData.data
 				// account for search filter
 				if (this.globalFilter) {
-					console.log("MASUK");
 					// the text should be case insensitive
 					let txt = new RegExp(this.globalFilter, 'i')
 
@@ -298,6 +358,10 @@ $this->layout->begin_head();
 			},
 			resetFilter() {
 				this.globalFilter = "";
+				if(this.isScan){
+					this.isScan = false;
+					this.localData = {data: [], pagination: {}};
+				}
 				Vue.nextTick(() => this.$refs.vuetable.refresh())
 			},
 			changeChecklist(row) {
@@ -308,11 +372,25 @@ $this->layout->begin_head();
 					}]
 				});
 			},
-			fetchData() {
-				if (this.selectedEvent != "") {
+			fetchData(fromEventChange) {
+				if(fromEventChange)
+					this.isScan = false;
+
+				if (this.selectedEvent != "" || this.isScan) {
 					var app = this;
 					this.loading = true;
-					$.post("<?=base_url('admin/administration/get_participant');?>", {id: this.selectedEvent}, function (res) {
+					var param = {};
+					if(app.isScan && app.resultScan.length > 0){
+						if(app.resultScan[0] == "card"){
+							param.member_id = app.resultScan[1];
+							param.event_id = app.resultScan[2];
+						}else{
+							param.transaction_id = app.resultScan[1];
+						}
+					}else{
+						param.id = this.selectedEvent;
+					}
+					$.post("<?=base_url('admin/administration/get_participant');?>", param, function (res) {
 						if (res.status) {
 							$.each(res.data, function (i, v) {
 								if (!v.checklist)
@@ -342,6 +420,7 @@ $this->layout->begin_head();
 							};
 							Vue.nextTick(function () {
 								app.$refs.vuetable.refresh();
+								$(".ttip").tooltip({placement:'bottom'});
 							})
 						}
 					}).fail(function (xhr) {

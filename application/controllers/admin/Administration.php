@@ -116,8 +116,23 @@ class Administration extends Admin_Controller
 		if ($this->input->method() != "post")
 			show_404();
 		$id = $this->input->post("id");
+		$event_id = $this->input->post("event_id");
+		$member_id = $this->input->post("member_id");
+		$transaction = $this->input->post("transaction_id");
+
 		$this->load->model("Event_m");
-		$data = $this->Event_m->getParticipant()->where('t.id', $id)->get()->result_array();
+		$builder = $this->Event_m->getParticipant();
+
+		if(isset($id))
+			$builder->where('t.id', $id);
+		if(isset($event_id))
+			$builder->where('t.id', $event_id);
+		if(isset($member_id))
+			$builder->where('m.id', $member_id);
+		if(isset($transaction))
+			$builder->where('tr.id', $transaction);
+
+		$data = $builder->get()->result_array();
 		foreach ($data as $i => $row) {
 			$data[$i]['editable'] = false;
 			$data[$i]['saving'] = false;
