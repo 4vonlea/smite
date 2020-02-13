@@ -235,6 +235,7 @@ class Area extends MY_Controller
 	}
 
 	public function file($name){
+		$name = basename($name);
 		$filepath = APPPATH."uploads/papers/".$name;
 		if(file_exists($filepath)) {
 			header('Content-Description: File Transfer');
