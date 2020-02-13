@@ -3,7 +3,12 @@
 
 class Paper extends Admin_Controller
 {
-
+	protected $accessRule = [
+		'index'=>'view',
+		'grid'=>'view',
+		'save'=>'insert',
+		'file'=>'view',
+	];
 	public function index()
 	{
 		$this->load->model(["Papers_m", "User_account_m"]);

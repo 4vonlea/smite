@@ -209,8 +209,11 @@
                             app.form.attributes.splice(index,1);
                         }else
                             Swal.fire("Failed", res.message, "error");
-                    }, "JSON").fail(function () {
-                        Swal.fire("Failed", "Failed to load data !", "error");
+                    }, "JSON").fail(function (xhr) {
+						var message =  xhr.getResponseHeader("Message");
+						if(!message)
+							message = 'Server fail to response !';
+						Swal.fire('Fail', message, 'error');
                     }).always(function () {
                         btn.innerHTML = '<i class="fa fa-trash"></i>';
                         btn.removeAttribute("disabled");
@@ -259,8 +262,11 @@
                                 app.$refs.datagrid.refresh();
                             }else
                                 Swal.fire("Failed", res.message, "error");
-                        }, "JSON").fail(function () {
-                            Swal.fire("Failed", "Failed to load data !", "error");
+                        }, "JSON").fail(function (xhr) {
+							var message =  xhr.getResponseHeader("Message");
+							if(!message)
+								message = 'Server fail to response !';
+							Swal.fire('Fail', message, 'error');
                         }).always(function () {
                             btn.innerHTML = '<i class="fa fa-trash"></i> Delete';
                             btn.removeAttribute("disabled");
@@ -279,8 +285,11 @@
 					}
                 }, "JSON").always(function () {
                     app.saving = false;
-                }).fail(function () {
-                    Swal.fire("Failed", "Failed to save !", "error");
+                }).fail(function (xhr) {
+					var message =  xhr.getResponseHeader("Message");
+					if(!message)
+						message = 'Server fail to response !';
+					Swal.fire('Fail', message, 'error');
                 });
             },
             addPositionCommittee: function () {
@@ -289,9 +298,12 @@
                     postCategory(tempPosition).done(function () {
                         app.committeePosition.push(app.new_status_committee);
                         app.new_status_committee = "";
-                    }).fail(function () {
+                    }).fail(function (xhr) {
                         tempPosition.pop();
-                        Swal.fire("Failed", "Failed to save !", "error");
+						var message =  xhr.getResponseHeader("Message");
+						if(!message)
+							message = 'Server fail to response !';
+						Swal.fire('Fail', message, 'error');
                     });
                 }
             },
@@ -300,9 +312,12 @@
                 tempPosition.splice(index, 1);
                 postCategory(tempPosition).done(function () {
                     app.committeePosition.splice(index, 1);
-                }).fail(function () {
+                }).fail(function (xhr) {
                     tempPosition.push(value);
-                    Swal.fire("Failed", "Failed to remove !", "error");
+					var message =  xhr.getResponseHeader("Message");
+					if(!message)
+						message = 'Server fail to response !';
+					Swal.fire('Fail', message, 'error');
                 });
             },
         },

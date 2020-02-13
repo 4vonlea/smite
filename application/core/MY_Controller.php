@@ -57,8 +57,15 @@ class MY_Controller extends CI_Controller
 	}
 }
 
+/**
+ * Class Admin_Controller
+ * @property Access_control $Access_control
+ */
+class Admin_Controller extends MY_Controller {
+	protected $accessRule = [];
+	protected $roleID;
+	protected $roleName;
 
-class Admin_Controller extends MY_Controller{
     public function __construct(){
         parent::__construct();
 
@@ -68,10 +75,21 @@ class Admin_Controller extends MY_Controller{
         if($this->session->user_session['role'] == '0'){
             redirect(base_url("member/area"));
         }
+		$this->load->model(['Settings_m','Access_control','User_account_m']);
+
+        $this->roleID = $this->session->user_session['role'];
+        $this->roleName = User_account_m::$listRole[$this->roleID];
 
         $this->layout->setLayout("layouts/argon");
         $this->layout->setBaseView("admin/");
-        $this->load->model('Settings_m');
+
+        if($this->getAccessRule($this->router->method) !== true && $this->Access_control->isAllowed($this->roleName,$this->router->class,$this->getAccessRule($this->router->method)) === false){
+        	header("Message: You are prohibited from accessing this page");
+        	show_error("You are prohibited from accessing this page",403,'Forbidden Access');
+		}
     }
 
+    protected function getAccessRule($method){
+    	return (isset($this->accessRule[$method]) ? $this->accessRule[$method]:true);
+	}
 }

@@ -16,6 +16,9 @@ class Area extends MY_Controller
 		$this->layout->setLayout("layouts/$this->theme");
 		$this->layout->setBaseView('member/'.$this->theme.'/area/');
 		$this->load->model(['Member_m','User_account_m']);
+		if($this->session->user_session['role'] != User_account_m::ROLE_MEMBER){
+			redirect(base_url('admin/dashboard'));
+		}
 
 	}
 
@@ -232,6 +235,7 @@ class Area extends MY_Controller
 	}
 
 	public function file($name){
+		$name = basename($name);
 		$filepath = APPPATH."uploads/papers/".$name;
 		if(file_exists($filepath)) {
 			header('Content-Description: File Transfer');
@@ -254,13 +258,13 @@ class Area extends MY_Controller
 		$configFullpaper = [
 			'upload_path'=>APPPATH.'uploads/papers/',
 			'allowed_types'=>'doc|docx|ods',
-			'max_size'=>20240,
+			'max_size'=>20480,
 			'file_name'=>'fullpaper_'.date("Ymdhis"),
 		];
 		$configPresentation = [
 			'upload_path'=>APPPATH.'uploads/papers/',
 			'allowed_types'=>'jpg|jpeg|png|ppt|pptx',
-			'max_size'=>20240,
+			'max_size'=>20480,
 			'file_name'=>'presentation_'.date("Ymdhis"),
 		];
 		$this->upload->initialize($configFullpaper);
@@ -298,7 +302,7 @@ class Area extends MY_Controller
 
 		$config['upload_path']          = APPPATH.'uploads/papers/';
 		$config['allowed_types']        = 'pdf|doc|docx|ods';
-		$config['max_size']             = 20120;
+		$config['max_size']             = 20480;
 		$config['overwrite']             = true;
 		$config['file_name']        = 'abstract'.date("Ymdhis");//$this->session->user_session['id'];
 

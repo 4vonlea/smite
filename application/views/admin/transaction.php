@@ -238,7 +238,10 @@
 							Swal.fire("Failed","Gagal mengirim ulang bukti registrasi","error");
 						}
 					}).fail(function (xhr) {
-					Swal.fire("Failed","Failed to process request !","error");
+					var message =  xhr.getResponseHeader("Message");
+					if(!message)
+						message = 'Server fail to response !';
+					Swal.fire('Fail', message, 'error');
 				}).always(function () {
 					app.sendingProof = false;
 				});
@@ -260,7 +263,10 @@
 							Swal.fire("Failed","Failed to expire transaction","error");
 						}
 					}).fail(function (xhr) {
-					Swal.fire("Failed","Failed to load data !","error");
+					var message =  xhr.getResponseHeader("Message");
+					if(!message)
+						message = 'Server fail to response !';
+					Swal.fire('Fail', message, 'error');
 				}).always(function () {
 					app.expiring = false;
 				});
@@ -278,7 +284,10 @@
                             Swal.fire("Failed","Failed to verify transaction","error");
                         }
                     }).fail(function (xhr) {
-                    Swal.fire("Failed","Failed to load data !","error");
+					var message =  xhr.getResponseHeader("Message");
+					if(!message)
+						message = 'Server fail to response !';
+					Swal.fire('Fail', message, 'error');
                 }).always(function () {
                     app.verifying = false;
                 });
@@ -291,7 +300,10 @@
                         app.detailModel = res;
                         $("#modal-detail").modal("show");
                     }).fail(function (xhr) {
-                    Swal.fire("Failed","Failed to load data !","error");
+					var message =  xhr.getResponseHeader("Message");
+					if(!message)
+						message = 'Server fail to response !';
+					Swal.fire('Fail', message, 'error');
                 }).always(function () {
                     app.$refs.datagrid.loading = false;
                 });

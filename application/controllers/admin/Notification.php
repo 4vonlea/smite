@@ -3,6 +3,16 @@
 
 class Notification extends Admin_Controller
 {
+	protected $accessRule = [
+		'index'=>'view',
+		'send_cert'=>'insert',
+		'send_material'=>'insert',
+		'get_file_material'=>'view',
+		'remove_material'=>'delete',
+		'get_material'=>'view',
+		'material_upload'=>'insert',
+		'send_message'=>'insert',
+	];
 	public function index()
 	{
 		$this->load->model(["Event_m","Member_m"]);

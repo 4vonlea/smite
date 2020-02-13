@@ -120,7 +120,9 @@
 							<tr>
 								<th scope="col">Event Name</th>
 								<th scope="col">Numbers of Participant</th>
+								<?php if($this->session->user_session['role'] == User_account_m::ROLE_SUPERADMIN):?>
 								<th scope="col">Fund Collected</th>
+								<?php endif ;?>
 								<th scoprt="col"></th>
 							</tr>
 							</thead>
@@ -128,7 +130,9 @@
 							<tr v-for="p in report.participants_event">
 								<th>{{ p.name }}</th>
 								<td>{{ p.number_participant }}</td>
+								<?php if($this->session->user_session['role'] == User_account_m::ROLE_SUPERADMIN):?>
 								<td>{{ formatCurrency(p.fund_collected) }}</td>
+								<?php endif;?>
 								<td>
 									<button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 										Download Participants
@@ -213,8 +217,11 @@
                     }else{
                         Swal.fire('Fail',"Failed to fetch data !",'warning');
 					}
-                },"JSON").fail(function () {
-                    Swal.fire('Fail',"Failed to fetch data !",'warning');
+                },"JSON").fail(function (xhr) {
+					var message =  xhr.getResponseHeader("Message");
+					if(!message)
+						message = 'Server fail to response !';
+					Swal.fire('Fail', message, 'error');
                 }).always(function () {
                     app.fetching = false;
                 });

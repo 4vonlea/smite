@@ -324,7 +324,10 @@
                         $('#form-register').trigger('reset');
                     }
                 }).fail(function (res) {
-                    Swal.fire('Fail', 'Server fail to response !', 'error');
+                	var message =  xhr.getResponseHeader("Message");
+                	if(!message)
+                		message = 'Server fail to response !';
+                    Swal.fire('Fail', message, 'error');
                 }).always(function (res) {
                     app.saving = false;
                 });

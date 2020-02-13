@@ -75,6 +75,10 @@ class Migration_init extends CI_Migration
             'address' => [
                 'type' => 'text',
             ],
+			'city' => [
+				'type' => 'sponsor',
+				'constraint' => '50',
+			],
             'username_account' => [
                 'type' => 'varchar',
                 'constraint' => '100'

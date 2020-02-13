@@ -3,6 +3,16 @@
 
 class Transaction extends Admin_Controller
 {
+	protected $accessRule = [
+		'index'=>'view',
+		'resend'=>'insert',
+		'download'=>'view',
+		'grid'=>'view',
+		'detail'=>'view',
+		'expire'=>'update',
+		'verify'=>'update',
+		'file'=>'view',
+	];
 
     public function index(){
 		$this->load->model("Transaction_m");

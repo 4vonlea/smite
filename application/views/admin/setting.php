@@ -616,7 +616,10 @@
                                 Swal.fire("Success", "Template Certificate Saved Successfully !", "success");
                             }
                         }).fail(function (xhr) {
-                        Swal.fire("Failed", "Failed to save data !", "error");
+						var message =  xhr.getResponseHeader("Message");
+						if(!message)
+							message = 'Server fail to response !';
+						Swal.fire('Fail', message, 'error');
                     }).always(function () {
                         app.savingCert = false;
                     });
@@ -636,7 +639,10 @@
 								Swal.fire("Success", "Template Nametag Saved Successfully !", "success");
 							}
 						}).fail(function (xhr) {
-						Swal.fire("Failed", "Failed to save data !", "error");
+						var message =  xhr.getResponseHeader("Message");
+						if(!message)
+							message = 'Server fail to response !';
+						Swal.fire('Fail', message, 'error');
 					}).always(function () {
 						app.savingNametag = false;
 					});
@@ -652,7 +658,10 @@
                             app.email_notif = null;
                         }
                     }).fail(function (xhr) {
-                    Swal.fire("Failed", "Failed to load data !", "error");
+					var message =  xhr.getResponseHeader("Message");
+					if(!message)
+						message = 'Server fail to response !';
+					Swal.fire('Fail', message, 'error');
                 }).always(function () {
                     app.$refs.datagrid.loading = false;
                 });
@@ -664,7 +673,10 @@
                         app.detailModel = res;
                         $("#modal-detail").modal("show");
                     }).fail(function (xhr) {
-                    Swal.fire("Failed", "Failed to load data !", "error");
+					var message =  xhr.getResponseHeader("Message");
+					if(!message)
+						message = 'Server fail to response !';
+					Swal.fire('Fail', message, 'error');
                 }).always(function () {
                     app.$refs.datagrid.loading = false;
                 });
@@ -678,8 +690,11 @@
                     data: {settings: app.form},
                 }).done(function () {
                     Swal.fire("Success", "Setting has been saved !", "success");
-                }).fail(function () {
-                    Swal.fire("Failed", "Fail to save setting !", "error");
+                }).fail(function (xhr) {
+					var message =  xhr.getResponseHeader("Message");
+					if(!message)
+						message = 'Server fail to response !';
+					Swal.fire('Fail', message, 'error');
                 }).always(function () {
                     app.saving = false;
                 });
@@ -702,7 +717,10 @@
 					if(xhr.responseJSON.error){
 						Swal.fire("Failed", xhr.responseJSON.error, "error");
 					}else {
-						Swal.fire("Failed", "Fail to change logo !", "error");
+						var message =  xhr.getResponseHeader("Message");
+						if(!message)
+							message = 'Server fail to response !';
+						Swal.fire('Fail', message, 'error');
 					}
                 }).always(function () {
                     app.uploading = false;
