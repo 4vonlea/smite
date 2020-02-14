@@ -16,11 +16,11 @@ header('Content-Type: text/html');
 ?>
 <style>
 	@page{
-		size: 10 cm 14 cm;
+		size: 9.5 cm 13.5 cm;
 		margin: 0;
 	}
 </style>
-<body style="width: 10cm;height: 14cm">
+<body style="width: 9.5cm;height: 13.5cm">
 <img src="<?= $image; ?>" style="height:100%;width:100%;object-fit:cover;position: absolute;"/>
 <?php foreach ($property as $i=>$row): ?>
 

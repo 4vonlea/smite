@@ -94,9 +94,9 @@ export default Vue.component("PageBilling", {
 									<input type="text" :value="sumPrice(upload.detail)" readonly class="form-control" />
 								</div>
 								<div class="form-group">
-									<label class="form-control-label">Photo Proof Transfer(png,jpg,jpeg)</label>
+									<label class="form-control-label">Proof Transfer(png,jpg,jpeg,pdf)</label>
 									<div class="custom-file">
-										<input @change="fileChange" name="file_proof" type="file" accept=".png,.jpg,.jpeg" :class="{'is-invalid':upload_validation.invalid}" class="custom-file-input" />									
+										<input @change="fileChange" name="file_proof" type="file" accept=".png,.jpg,.jpeg,.pdf" :class="{'is-invalid':upload_validation.invalid}" class="custom-file-input" />									
 										<label ref="labelFile" class="custom-file-label" for="validatedCustomFile">Choose file...</label>
 										<div v-if="upload_validation.invalid" class="invalid-feedback">{{ upload_validation.message_invalid }}</div>
 									</div>

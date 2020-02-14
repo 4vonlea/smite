@@ -388,7 +388,7 @@ class Area extends MY_Controller
 		$id = $this->input->post("invoice_id");
 		$message = $this->input->post("message");
 		$config['upload_path']          = APPPATH.'uploads/proof/';
-		$config['allowed_types']        = 'jpg|png|jpeg';
+		$config['allowed_types']        = 'jpg|png|jpeg|pdf';
 		$config['max_size']             = 2048;
 		$config['overwrite']             = true;
 		$config['file_name']        = $id;

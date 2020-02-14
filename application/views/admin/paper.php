@@ -164,7 +164,7 @@ $this->layout->end_head();
 					</tr>
 					<tr>
 						<th>Submitted On</th>
-						<td>{{ formatDate(reviewModel.t_updated_at) }}</td>
+						<td>{{ formatDate(reviewModel.t_created_at) }}</td>
 					</tr>
 					<tr>
 						<th>Reviewer</th>
@@ -214,7 +214,7 @@ $this->layout->end_head();
 					</tr>
 					<tr>
 						<th>Submitted On</th>
-						<td>{{ formatDate(reviewModel.t_updated_at) }}</td>
+						<td>{{ formatDate(reviewModel.t_created_at) }}</td>
 					</tr>
 
 					<tr>
