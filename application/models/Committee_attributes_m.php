@@ -36,9 +36,10 @@ class Committee_attributes_m extends My_model
 			$member = [
 				'fullname'=>$com->committee->name,
 				'status_member'=>$com->status,
-				'qr'=>$com->id
+				'qr'=>$com->id,
+				'event_name'=>$event->name,
 			];
-			$diff = array_diff(['qr','fullname','status_member'],array_keys($member));
+			$diff = array_diff(['qr','fullname','status_member','event_name'],array_keys($member));
 			if(count($diff) == 0) {
 				$domInvoice = new Dompdf\Dompdf();
 				$propery = json_decode(Settings_m::getSetting("config_nametag_$event_id"), true);

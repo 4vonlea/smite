@@ -137,7 +137,7 @@
 									</div>
 									<div class="form-group row">
 										<label class="col-md-3 col-form-label">Parameter from Member</label>
-										<?= form_dropdown("param", ['' => 'Select Parameter', 'fullname' => 'Full Name', 'email' => 'Email', 'gender' => 'Gender', 'status_member' => 'Status Of Member'], "", ['class' => 'form-control col-md-3', 'v-model' => 'selectedParam', 'id' => 'sel_param']); ?>
+										<?= form_dropdown("param", ['' => 'Select Parameter', 'fullname' => 'Full Name', 'email' => 'Email', 'gender' => 'Gender', 'status_member' => 'Status Of Member','event_name'=>'Event Name',], "", ['class' => 'form-control col-md-3', 'v-model' => 'selectedParam', 'id' => 'sel_param']); ?>
 										<div class="col-md-6">
 											<button type="button" @click="addPropertyCert" class="btn btn-primary">Add
 												Property
@@ -234,7 +234,7 @@
 									</div>
 									<div class="form-group row">
 										<label class="col-md-3 col-form-label">Parameter from Member</label>
-										<?= form_dropdown("param", ['' => 'Select Parameter','qr'=>'QR Code','fullname' => 'Full Name', 'status_member' => 'Status Of Member'], "", ['class' => 'form-control col-md-3', 'v-model' => 'selectedParamNametag', 'id' => 'sel_param_nametag']); ?>
+										<?= form_dropdown("param", ['' => 'Select Parameter','qr'=>'QR Code','fullname' => 'Full Name', 'status_member' => 'Status Of Member','event_name'=>'Event Name'], "", ['class' => 'form-control col-md-3', 'v-model' => 'selectedParamNametag', 'id' => 'sel_param_nametag']); ?>
 										<div class="col-md-6">
 											<button type="button" @click="addPropertyNametag" class="btn btn-primary">Add
 												Property

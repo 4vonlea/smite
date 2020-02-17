@@ -315,6 +315,7 @@ class Event_m extends MY_Model
 
 		$this->load->model('Settings_m');
 		if(file_exists(APPPATH."uploads/cert_template/$id.txt")) {
+			$data['event_name'] = $this->name;
 			$domInvoice = new Dompdf();
 			$propery = json_decode(Settings_m::getSetting("config_cert_$id"), true);
 			$html = $this->load->view("template/certificate", [
