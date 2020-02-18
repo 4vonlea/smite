@@ -398,7 +398,11 @@
                             const camHasCamera = app.$refs.camHasCamera;
 
                             function setResult(result) {
+                            	var rs = result.split(";");
+                            	if(rs.length > 1)
+                            		result = rs[1];
                                 if (app.pageCheck.lastResult != result) {
+
                                     var found = false;
                                     $.each(app.pageCheck.data, function (i, r) {
                                         if (r.id == result) {
