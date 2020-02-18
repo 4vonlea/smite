@@ -51,6 +51,7 @@ class Notification extends Admin_Controller
 				'id' => $member['event_id'],
 				'name' => $member['event_name']
 			];
+			$member['status_member'] = "Peserta";
 			$cert = $this->Event_m->exportCertificate($member, $event['id'])->output();
 			$status = $this->Gmail_api->sendMessageWithAttachment($member['email'], "Certificate of Event", "Thank you for your participation <br/> Below is your certificate of '" . $event['name']."'", $cert, "CERTIFICATE.pdf");
 			$this->output

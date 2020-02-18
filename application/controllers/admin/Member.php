@@ -139,6 +139,7 @@ class Member extends Admin_Controller
 			$id = $this->input->post("id");
 			$member = $this->input->post();
 			if(file_exists(APPPATH."uploads/cert_template/$id.txt")) {
+				$member['status_member'] = "Peserta";
 				$cert = $this->Event_m->exportCertificate($member, $id)->output();
 				$status = $this->Gmail_api->sendMessageWithAttachment("muhammad.zaien17@gmail.com", "Certificate of Event", "Thank you for your participation <br/> Below is your certificate of '" . $member['event_name']."'", $cert, "CERTIFICATE.pdf");
 				$this->output

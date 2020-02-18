@@ -69,7 +69,7 @@
 								<th>Number of Participant :</th>
 								<td>{{ pageCheck.numberParticipant }}</td>
 								<th>Number of Presence :</th>
-								<td>{{ presence }}</td>
+								<td>{{ pageCheck.presence }}</td>
 							</tr>
 							<tr>
 								<th>Device Has Camera :</th>
@@ -392,7 +392,7 @@
                         app.mode = 1;
                         app.pageCheck.event = {id: row.id_event, name: row.name};
                         app.pageCheck.numberParticipant = row.number_participant;
-
+						app.pageCheck.presence = app.presence;
                         Vue.nextTick(function () {
                             const video = app.$refs.qrVideo;
                             const camHasCamera = app.$refs.camHasCamera;
@@ -408,7 +408,9 @@
                                         if (r.id == result) {
                                             found = true;
                                             var date = new Date();
-                                            r.presence_at = date.toISOString().slice(0, 19).replace('T', ' ');
+                                            if(!r.presence_at)
+                                            	app.pageCheck.presence++;
+											r.presence_at = date.toISOString().slice(0, 19).replace('T', ' ');
                                             Swal.fire({
                                                 title: '<strong>Presence Checked</strong>',
                                                 type: 'success',
@@ -426,7 +428,9 @@
                                     });
                                     if (found == false) {
                                         Swal.fire("Info", "Participant not register on this event !", "info");
-                                    }
+                                    }else{
+                                    	app.$forceUpdate();
+									}
                                     app.pageCheck.lastResult = result;
                                     clearTimeout(timeOut);
                                     timeOut = setTimeout(() => app.pageCheck.lastResult = "None", 5000);
