@@ -310,12 +310,18 @@ class Event_m extends MY_Model
 	 * @return Dompdf
 	 */
 	public function exportCertificate($data,$id = null){
-		if($id == null)
+		if($id == null) {
 			$id = $this->id;
+			$event_name = $this->name;
+		}else {
+			$rs = $this->findOne($id);
+			$event_name = $rs->name;
+		}
 
 		$this->load->model('Settings_m');
 		if(file_exists(APPPATH."uploads/cert_template/$id.txt")) {
-			$data['event_name'] = $this->name;
+
+			$data['event_name'] = $event_name;
 			$domInvoice = new Dompdf();
 			$propery = json_decode(Settings_m::getSetting("config_cert_$id"), true);
 			$html = $this->load->view("template/certificate", [

@@ -16,6 +16,7 @@ class Presence extends Admin_Controller
 	];
 	public function index(){
 		$this->load->model("Dashboard_m");
+		$this->load->helper("form");
 		$report = $this->Dashboard_m->getData();
 		$this->layout->render("presence",['report'=>$report]);
 	}

@@ -58,8 +58,12 @@
 							<div class="col-6">
 								<h3>Presence Check Event : {{ pageCheck.event.name }} </h3>
 							</div>
-							<div class="col-6 text-right">
-								<button type="button" class="btn btn-primary" @click="back">Back</button>
+							<div class="col-6 text-right ">
+								<div class="form-inline" style="justify-content: end">
+									<label class="label">Mode Scanner : </label>&nbsp;
+									<?=form_dropdown('mode',['1'=>'On Web Scanner','2'=>'QR Scanner Device'],'1',['v-model'=>'checkMode','class'=>'form-control','@change'=>'switchMode']);?>
+									&nbsp;<button type="button" class="btn btn-primary" @click="back">Back</button>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -208,6 +212,41 @@
 
     QrScanner.WORKER_PATH = '<?=base_url("themes/script/qr-scanner-worker.min.js");?>';
 
+	var BarcodeScanerEvents = function() {
+		this.initialize.apply(this, arguments);
+	};
+
+	BarcodeScanerEvents.prototype = {
+		initialize : function() {
+			$(document).on({
+				keyup : $.proxy(this._keyup, this)
+			});
+		},
+		_timeoutHandler : 0,
+		_inputString : '',
+		_keyup : function(e) {
+			console.log(e);
+			if (this._timeoutHandler) {
+				clearTimeout(this._timeoutHandler);
+			}
+			this._inputString += String.fromCharCode(e.which);
+
+			this._timeoutHandler = setTimeout($.proxy(function() {
+				if (this._inputString.length <= 3) {
+					this._inputString = '';
+					return;
+				}
+
+				$(document).trigger('onbarcodescaned', this._inputString);
+
+				this._inputString = '';
+
+			}, this), 20);
+		}
+	};
+
+	BarcodeScanerEvents.initialize;
+
     var scanner = null;
     var timeOut = null;
     var app = new Vue({
@@ -215,6 +254,7 @@
         data: {
             mode: 0,
             pageCheck: {lastResult: "None"},
+			checkMode:2,
             report:<?=json_encode($report);?>,
             detail: {event: {}, data: [], column: [],summary:{}},
             pageSize: 10,
@@ -319,11 +359,9 @@
             },
             back() {
                 app.pageCheck = {lastResult: "None"};
-                if (scanner) {
-                    scanner.stop();
-                    this.mode = 0;
-                }
-            },
+               	app.closeWebScanner();
+				this.mode = 0;
+			},
             fetchDetail() {
                 var app = this;
                 var btn = this.$refs.btnReload;
@@ -377,6 +415,84 @@
 					Swal.fire('Fail', message, 'error');
                 });
             },
+			switchMode(){
+				if(this.checkMode == 1){
+					this.closeDeviceListener();
+					this.openWebScanner();
+				}else if(this.checkMode == 2){
+					this.closeWebScanner();
+					this.openDeviceListener();
+				}
+			},
+			openDeviceListener(){
+				$(document).on( "onbarcodescaned", function(inputString) {
+					console.log(inputString);
+				});
+            	// var UPC = '';
+				// document.addEventListener("keydown", function(e) {
+				// 	const textInput = e.key || String.fromCharCode(e.keyCode);
+				// 	UPC = UPC+textInput;
+				// 	console.log(UPC);
+				// });
+			},
+			closeDeviceListener(){
+				$(document).off( "onbarcodescaned");
+			},
+			closeWebScanner(){
+				if (scanner) {
+					scanner.stop();
+					scanner = null;
+				}
+			},
+			openWebScanner(){
+				const video = app.$refs.qrVideo;
+				const camHasCamera = app.$refs.camHasCamera;
+
+				function setResult(result) {
+					var rs = result.split(";");
+					if(rs.length > 1)
+						result = rs[1];
+					if (app.pageCheck.lastResult != result) {
+
+						var found = false;
+						$.each(app.pageCheck.data, function (i, r) {
+							if (r.id == result) {
+								found = true;
+								var date = new Date();
+								if(!r.presence_at)
+									app.pageCheck.presence++;
+								r.presence_at = date.toISOString().slice(0, 19).replace('T', ' ');
+								Swal.fire({
+									title: '<strong>Presence Checked</strong>',
+									type: 'success',
+									html:
+										`<p>Presence of <b>${r.fullname}</b> As <b>${r.status_member}</b></p>` +
+										`<p>Checked At <b>${moment(date).format("DD MMM YYYY, [At] HH:mm:ss")}</b></p>`,
+									showCloseButton: true,
+								});
+								$.post("<?=base_url('admin/presence/save');?>", {
+									member_id: r.id,
+									event_id: app.pageCheck.event.id,
+									created_at: date.toISOString().slice(0, 19).replace('T', ' ')
+								});
+							}
+						});
+						if (found == false) {
+							Swal.fire("Info", "Participant not register on this event !", "info");
+						}else{
+							app.$forceUpdate();
+						}
+						app.pageCheck.lastResult = result;
+						clearTimeout(timeOut);
+						timeOut = setTimeout(() => app.pageCheck.lastResult = "None", 5000);
+					}
+				}
+				QrScanner.hasCamera().then(hasCamera => camHasCamera.textContent = hasCamera);
+				if(!scanner)
+					scanner = new QrScanner(video, result => setResult(result));
+				scanner.start();
+				scanner.setInversionMode("both");
+			},
             detailPresence(row) {
                 this.detail.event = row;
 				app.fetchDetail();
@@ -394,52 +510,7 @@
                         app.pageCheck.numberParticipant = row.number_participant;
 						app.pageCheck.presence = app.presence;
                         Vue.nextTick(function () {
-                            const video = app.$refs.qrVideo;
-                            const camHasCamera = app.$refs.camHasCamera;
-
-                            function setResult(result) {
-                            	var rs = result.split(";");
-                            	if(rs.length > 1)
-                            		result = rs[1];
-                                if (app.pageCheck.lastResult != result) {
-
-                                    var found = false;
-                                    $.each(app.pageCheck.data, function (i, r) {
-                                        if (r.id == result) {
-                                            found = true;
-                                            var date = new Date();
-                                            if(!r.presence_at)
-                                            	app.pageCheck.presence++;
-											r.presence_at = date.toISOString().slice(0, 19).replace('T', ' ');
-                                            Swal.fire({
-                                                title: '<strong>Presence Checked</strong>',
-                                                type: 'success',
-                                                html:
-                                                    `<p>Presence of <b>${r.fullname}</b> As <b>${r.status_member}</b></p>` +
-                                                    `<p>Checked At <b>${moment(date).format("DD MMM YYYY, [At] HH:mm:ss")}</b></p>`,
-                                                showCloseButton: true,
-                                            });
-                                            $.post("<?=base_url('admin/presence/save');?>", {
-                                                member_id: r.id,
-                                                event_id: app.pageCheck.event.id,
-                                                created_at: date.toISOString().slice(0, 19).replace('T', ' ')
-                                            });
-                                        }
-                                    });
-                                    if (found == false) {
-                                        Swal.fire("Info", "Participant not register on this event !", "info");
-                                    }else{
-                                    	app.$forceUpdate();
-									}
-                                    app.pageCheck.lastResult = result;
-                                    clearTimeout(timeOut);
-                                    timeOut = setTimeout(() => app.pageCheck.lastResult = "None", 5000);
-                                }
-                            }
-                            QrScanner.hasCamera().then(hasCamera => camHasCamera.textContent = hasCamera);
-                            scanner = new QrScanner(video, result => setResult(result));
-                            scanner.start();
-                            scanner.setInversionMode("both");
+                        	app.switchMode();
                         });
                     } else {
                         Swal.fire("Failed", "Failed to load data !", "error");
