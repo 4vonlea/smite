@@ -91,6 +91,16 @@ class Committee extends Admin_Controller
 		}
 	}
 
+	public function certificate($id){
+		$this->load->model('Committee_attributes_m');
+		$com = $this->Committee_attributes_m->findOne($id);
+		try {
+			$com->exportCertificate()->stream($com->committee->name . "-Certificate.pdf");
+		}catch (ErrorException $ex){
+			show_error($ex->getMessage());
+		}
+	}
+
 	public function delete_attribute(){
 		if ($this->input->method() != 'post')
 			show_404("Page Not Found !");

@@ -84,7 +84,14 @@
 						</table>
 					</div>
 					<div class="col-sm-12 text-center">
-						<video style="border:solid 3px;max-width: 500px;width: 100%" muted playsinline id="qr-video"
+						<div  v-show="checkMode == 2" >
+							<input ref="inputScan" v-on:focus="isFocusToScan = true" v-on:focusout="isFocusToScan = false" @keyup.enter="doSearchScan" v-model="inputScanValue" type="text" class="form-control is-valid" :class="[isFocusToScan ? 'is-valid':'is-invalid']" placeholder="Focus On Here" />
+							<h2 class="h1" :class="[isFocusToScan ? 'valid-feedback':'invalid-feedback']">
+								<span v-if="isFocusToScan">On Focus, You Can Scan</span>
+								<span v-else>Please put cursor on input text above and click until border color is green</span>
+							</h2>
+						</div>
+						<video v-show="checkMode == 1" style="border:solid 3px;max-width: 500px;width: 100%" muted playsinline id="qr-video"
 							   ref="qrVideo"></video>
 					</div>
 				</div>
@@ -212,47 +219,14 @@
 
     QrScanner.WORKER_PATH = '<?=base_url("themes/script/qr-scanner-worker.min.js");?>';
 
-	var BarcodeScanerEvents = function() {
-		this.initialize.apply(this, arguments);
-	};
-
-	BarcodeScanerEvents.prototype = {
-		initialize : function() {
-			$(document).on({
-				keyup : $.proxy(this._keyup, this)
-			});
-		},
-		_timeoutHandler : 0,
-		_inputString : '',
-		_keyup : function(e) {
-			console.log(e);
-			if (this._timeoutHandler) {
-				clearTimeout(this._timeoutHandler);
-			}
-			this._inputString += String.fromCharCode(e.which);
-
-			this._timeoutHandler = setTimeout($.proxy(function() {
-				if (this._inputString.length <= 3) {
-					this._inputString = '';
-					return;
-				}
-
-				$(document).trigger('onbarcodescaned', this._inputString);
-
-				this._inputString = '';
-
-			}, this), 20);
-		}
-	};
-
-	BarcodeScanerEvents.initialize;
-
     var scanner = null;
     var timeOut = null;
     var app = new Vue({
         el: "#app",
         data: {
             mode: 0,
+			inputScanValue:"",
+			isFocusToScan:true,
             pageCheck: {lastResult: "None"},
 			checkMode:2,
             report:<?=json_encode($report);?>,
@@ -417,26 +391,50 @@
             },
 			switchMode(){
 				if(this.checkMode == 1){
-					this.closeDeviceListener();
 					this.openWebScanner();
 				}else if(this.checkMode == 2){
 					this.closeWebScanner();
 					this.openDeviceListener();
 				}
 			},
-			openDeviceListener(){
-				$(document).on( "onbarcodescaned", function(inputString) {
-					console.log(inputString);
+			doSearchScan(){
+				var rs = this.inputScanValue.split(";");
+				var result = "";
+				if(rs.length > 1)
+					result = rs[1];
+				var found = false;
+				$.each(app.pageCheck.data, function (i, r) {
+					if (r.id == result) {
+						found = true;
+						var date = new Date();
+						if(!r.presence_at)
+							app.pageCheck.presence++;
+						r.presence_at = date.toISOString().slice(0, 19).replace('T', ' ');
+						Swal.fire({
+							title: '<strong>Presence Checked</strong>',
+							type: 'success',
+							html:
+								`<p>Presence of <b>${r.fullname}</b> As <b>${r.status_member}</b></p>` +
+								`<p>Checked At <b>${moment(date).format("DD MMM YYYY, [At] HH:mm:ss")}</b></p>`,
+							showCloseButton: true,
+						});
+						$.post("<?=base_url('admin/presence/save');?>", {
+							member_id: r.id,
+							event_id: app.pageCheck.event.id,
+							created_at: date.toISOString().slice(0, 19).replace('T', ' ')
+						});
+					}
 				});
-            	// var UPC = '';
-				// document.addEventListener("keydown", function(e) {
-				// 	const textInput = e.key || String.fromCharCode(e.keyCode);
-				// 	UPC = UPC+textInput;
-				// 	console.log(UPC);
-				// });
+				if (found == false) {
+					Swal.fire("Info", "Participant not register on this event !", "info");
+				}else{
+					app.$forceUpdate();
+				}
+				this.inputScanValue = "";
+
 			},
-			closeDeviceListener(){
-				$(document).off( "onbarcodescaned");
+			openDeviceListener(){
+				Vue.nextTick( ()  => this.$refs.inputScan.focus());
 			},
 			closeWebScanner(){
 				if (scanner) {
