@@ -77,7 +77,7 @@ $this->layout->begin_head();
 									</button>
 
 									<button type="button" v-on:click="openScanner" class="btn btn-primary"><i
-											class="fa fa-barcode"></i> Scan
+											class="fa fa-barcode"></i> Scan On Web
 									</button>
 								</div>
 							</div>
