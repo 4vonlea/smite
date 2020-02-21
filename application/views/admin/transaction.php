@@ -162,7 +162,7 @@
 					<tr v-if="detailModel.payment_proof">
 						<th>Transfer Proof</th>
 						<td colspan="3">
-							<img :src="'<?=base_url('admin/transaction/file');?>/'+detailModel.payment_proof" class="img-thumbnail"/>
+							<a target="_blank" :href="'<?=base_url('admin/transaction/file');?>/'+detailModel.payment_proof">Click Here To View</a>
 						</td>
 					</tr>
 					<tr v-if="detailModel.client_message">

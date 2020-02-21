@@ -85,7 +85,17 @@ class Committee extends Admin_Controller
 		$this->load->model('Committee_attributes_m');
 		$com = $this->Committee_attributes_m->findOne($id);
 		try {
-			$com->getCard()->stream($com->committee->name . "-nametag.pdf");
+			$com->getCard()->stream($com->committee->name . "-nametag.pdf", array("Attachment" => false));
+		}catch (ErrorException $ex){
+			show_error($ex->getMessage());
+		}
+	}
+
+	public function certificate($id){
+		$this->load->model('Committee_attributes_m');
+		$com = $this->Committee_attributes_m->findOne($id);
+		try {
+			$com->exportCertificate()->stream($com->committee->name . "-Certificate.pdf", array("Attachment" => false));
 		}catch (ErrorException $ex){
 			show_error($ex->getMessage());
 		}

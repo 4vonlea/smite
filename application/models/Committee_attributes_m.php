@@ -17,6 +17,36 @@ class Committee_attributes_m extends My_model
 		return $this->hasOne("Event_m", "id", "event_id");
 	}
 
+	public function exportCertificate($id = null){
+		$com = $this;
+		if ($id) {
+			$com = $this->findOne($id);
+		}
+		$event = $com->event;
+		$this->load->model('Settings_m');
+		$member = [
+			'fullname'=>$com->committee->name,
+			'status_member'=>$com->status,
+			'event_name'=>$event->name,
+		];
+		if(file_exists(APPPATH."uploads/cert_template/$event->id.txt")) {
+
+			$domInvoice = new Dompdf\Dompdf();
+			$propery = json_decode(Settings_m::getSetting("config_cert_$event->id"), true);
+			$html = $this->load->view("template/certificate", [
+				'image' => file_get_contents(APPPATH . "uploads/cert_template/$event->id.txt"),
+				'property' => $propery,
+				'data' => $member
+			], true);
+			$domInvoice->setPaper("a4", "landscape");
+			$domInvoice->loadHtml($html);
+			$domInvoice->render();
+			return $domInvoice;
+		}else{
+			throw new ErrorException("Template of Certificate not found !");
+		}
+	}
+
 	/**
 	 * @param $event
 	 * @param array $member
@@ -36,9 +66,10 @@ class Committee_attributes_m extends My_model
 			$member = [
 				'fullname'=>$com->committee->name,
 				'status_member'=>$com->status,
-				'qr'=>$com->id
+				'qr'=>$com->id,
+				'event_name'=>$event->name,
 			];
-			$diff = array_diff(['qr','fullname','status_member'],array_keys($member));
+			$diff = array_diff(['qr','fullname','status_member','event_name'],array_keys($member));
 			if(count($diff) == 0) {
 				$domInvoice = new Dompdf\Dompdf();
 				$propery = json_decode(Settings_m::getSetting("config_nametag_$event_id"), true);

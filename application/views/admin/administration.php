@@ -77,7 +77,7 @@ $this->layout->begin_head();
 									</button>
 
 									<button type="button" v-on:click="openScanner" class="btn btn-primary"><i
-											class="fa fa-barcode"></i> Scan
+											class="fa fa-barcode"></i> Scan On Web
 									</button>
 								</div>
 							</div>
@@ -264,7 +264,6 @@ $this->layout->begin_head();
 						temp = rs;
 						app.resultScan = rs.split(";");
 						app.isScan = true;
-						console.log(rs);
 						app.fetchData(false);
 						app.closeScanner();
 					}
@@ -354,7 +353,14 @@ $this->layout->begin_head();
 				this.$refs.vuetable.changePage(page);
 			},
 			doFilter() {
-				Vue.nextTick(() => this.$refs.vuetable.refresh())
+				var check = this.globalFilter.split(";");
+				if(check.length > 1){
+					app.resultScan = check;
+					app.isScan = true;
+					app.fetchData(false);
+				}else {
+					Vue.nextTick(() => this.$refs.vuetable.refresh())
+				}
 			},
 			resetFilter() {
 				this.globalFilter = "";
@@ -418,6 +424,9 @@ $this->layout->begin_head();
 									"to": 10,
 								}
 							};
+							if(app.isScan){
+								app.globalFilter = "";
+							}
 							Vue.nextTick(function () {
 								app.$refs.vuetable.refresh();
 								$(".ttip").tooltip({placement:'bottom'});

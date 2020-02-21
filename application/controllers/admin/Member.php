@@ -41,7 +41,7 @@ class Member extends Admin_Controller
 		$this->load->model('Member_m');
 		$member = $this->Member_m->findOne($member_id);
 		try{
-			$member->getCard($event_id)->stream($member->fullname."-nametag.pdf");
+			$member->getCard($event_id)->stream($member->fullname."-nametag.pdf", array("Attachment" => false));
 		}catch (ErrorException $ex){
 			show_error($ex->getMessage());
 		}
@@ -139,6 +139,7 @@ class Member extends Admin_Controller
 			$id = $this->input->post("id");
 			$member = $this->input->post();
 			if(file_exists(APPPATH."uploads/cert_template/$id.txt")) {
+				$member['status_member'] = "Peserta";
 				$cert = $this->Event_m->exportCertificate($member, $id)->output();
 				$status = $this->Gmail_api->sendMessageWithAttachment("muhammad.zaien17@gmail.com", "Certificate of Event", "Thank you for your participation <br/> Below is your certificate of '" . $member['event_name']."'", $cert, "CERTIFICATE.pdf");
 				$this->output
@@ -169,7 +170,7 @@ class Member extends Admin_Controller
 			$uploadStatus = true;
 			if(isset($_FILES['proof']) && is_uploaded_file($_FILES['proof']['tmp_name'])) {
 				$config['upload_path'] = APPPATH . 'uploads/proof/';
-				$config['allowed_types'] = 'jpg|png|jpeg';
+				$config['allowed_types'] = 'jpg|png|jpeg|pdf';
 				$config['max_size'] = 2048;
 				$config['overwrite'] = true;
 				$config['file_name'] = $id_invoice;

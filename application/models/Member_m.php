@@ -70,7 +70,7 @@ class Member_m extends MY_Model
 	{
 		require_once APPPATH . "third_party/phpqrcode/qrlib.php";
 		if(file_exists(APPPATH."uploads/nametag_template/$event_id.txt")) {
-			$this->load->model('Settings_m');
+			$this->load->model(['Settings_m','Event_m']);
 			if (count($member) == 0) {
 				$member = $this->toArray();
 				$status = $this->status_member;
@@ -79,7 +79,11 @@ class Member_m extends MY_Model
 			if(!isset($member['qr']))
 				$member['qr'] = "card;".$member['id'] . ";" . $event_id;
 
-			$diff = array_diff(['qr','fullname','status_member'],array_keys($member));
+			$event = $this->Event_m->findOne($event_id);
+			$member['event_name'] = $event->name;
+			$member['status_member'] = "Peserta";
+
+			$diff = array_diff(['qr','fullname','status_member','event_name'],array_keys($member));
 			if(count($diff) == 0) {
 				$domInvoice = new Dompdf\Dompdf();
 				$propery = json_decode(Settings_m::getSetting("config_nametag_$event_id"), true);

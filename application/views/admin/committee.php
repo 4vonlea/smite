@@ -188,7 +188,10 @@
                         var t = v.split(",");
                         group += `<li class="list-group-item d-flex justify-content-between align-items-center">
 								${t[2]} as ${t[1]}
-								<a target="_blank" href="<?=base_url('admin/committee/nametag');?>/${t[0]}" class="badge badge-primary badge-pill">Download Name Tag</a>
+								<div>
+									<a target="_blank" href="<?=base_url('admin/committee/nametag');?>/${t[0]}" class="badge badge-primary badge-pill pull-right">Download Name Tag</a>
+									<a target="_blank" href="<?=base_url('admin/committee/certificate');?>/${t[0]}" class="badge badge-primary badge-pill pull-right">Download Certificate</a>
+								</div>
 							  </li>`;
                     });
                     group += `</ul>`;

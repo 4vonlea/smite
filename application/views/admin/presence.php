@@ -58,8 +58,12 @@
 							<div class="col-6">
 								<h3>Presence Check Event : {{ pageCheck.event.name }} </h3>
 							</div>
-							<div class="col-6 text-right">
-								<button type="button" class="btn btn-primary" @click="back">Back</button>
+							<div class="col-6 text-right ">
+								<div class="form-inline" style="justify-content: end">
+									<label class="label">Mode Scanner : </label>&nbsp;
+									<?=form_dropdown('mode',['1'=>'On Web Scanner','2'=>'QR Scanner Device'],'1',['v-model'=>'checkMode','class'=>'form-control','@change'=>'switchMode']);?>
+									&nbsp;<button type="button" class="btn btn-primary" @click="back">Back</button>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -69,7 +73,7 @@
 								<th>Number of Participant :</th>
 								<td>{{ pageCheck.numberParticipant }}</td>
 								<th>Number of Presence :</th>
-								<td>{{ presence }}</td>
+								<td>{{ pageCheck.presence }}</td>
 							</tr>
 							<tr>
 								<th>Device Has Camera :</th>
@@ -80,7 +84,14 @@
 						</table>
 					</div>
 					<div class="col-sm-12 text-center">
-						<video style="border:solid 3px;max-width: 500px;width: 100%" muted playsinline id="qr-video"
+						<div  v-show="checkMode == 2" >
+							<input ref="inputScan" v-on:focus="isFocusToScan = true" v-on:focusout="isFocusToScan = false" @keyup.enter="doSearchScan" v-model="inputScanValue" type="text" class="form-control is-valid" :class="[isFocusToScan ? 'is-valid':'is-invalid']" placeholder="Focus On Here" />
+							<h2 class="h1" :class="[isFocusToScan ? 'valid-feedback':'invalid-feedback']">
+								<span v-if="isFocusToScan">On Focus, You Can Scan</span>
+								<span v-else>Please put cursor on input text above and click until border color is green</span>
+							</h2>
+						</div>
+						<video v-show="checkMode == 1" style="border:solid 3px;max-width: 500px;width: 100%" muted playsinline id="qr-video"
 							   ref="qrVideo"></video>
 					</div>
 				</div>
@@ -214,7 +225,10 @@
         el: "#app",
         data: {
             mode: 0,
+			inputScanValue:"",
+			isFocusToScan:true,
             pageCheck: {lastResult: "None"},
+			checkMode:2,
             report:<?=json_encode($report);?>,
             detail: {event: {}, data: [], column: [],summary:{}},
             pageSize: 10,
@@ -319,11 +333,9 @@
             },
             back() {
                 app.pageCheck = {lastResult: "None"};
-                if (scanner) {
-                    scanner.stop();
-                    this.mode = 0;
-                }
-            },
+               	app.closeWebScanner();
+				this.mode = 0;
+			},
             fetchDetail() {
                 var app = this;
                 var btn = this.$refs.btnReload;
@@ -377,6 +389,108 @@
 					Swal.fire('Fail', message, 'error');
                 });
             },
+			switchMode(){
+				if(this.checkMode == 1){
+					this.openWebScanner();
+				}else if(this.checkMode == 2){
+					this.closeWebScanner();
+					this.openDeviceListener();
+				}
+			},
+			doSearchScan(){
+				var rs = this.inputScanValue.split(";");
+				var result = "";
+				if(rs.length > 1)
+					result = rs[1];
+				var found = false;
+				$.each(app.pageCheck.data, function (i, r) {
+					if (r.id == result) {
+						found = true;
+						var date = new Date();
+						if(!r.presence_at)
+							app.pageCheck.presence++;
+						r.presence_at = date.toISOString().slice(0, 19).replace('T', ' ');
+						Swal.fire({
+							title: '<strong>Presence Checked</strong>',
+							type: 'success',
+							html:
+								`<p>Presence of <b>${r.fullname}</b> As <b>${r.status_member}</b></p>` +
+								`<p>Checked At <b>${moment(date).format("DD MMM YYYY, [At] HH:mm:ss")}</b></p>`,
+							showCloseButton: true,
+						});
+						$.post("<?=base_url('admin/presence/save');?>", {
+							member_id: r.id,
+							event_id: app.pageCheck.event.id,
+							created_at: date.toISOString().slice(0, 19).replace('T', ' ')
+						});
+					}
+				});
+				if (found == false) {
+					Swal.fire("Info", "Participant not register on this event !", "info");
+				}else{
+					app.$forceUpdate();
+				}
+				this.inputScanValue = "";
+
+			},
+			openDeviceListener(){
+				Vue.nextTick( ()  => this.$refs.inputScan.focus());
+			},
+			closeWebScanner(){
+				if (scanner) {
+					scanner.stop();
+					scanner = null;
+				}
+			},
+			openWebScanner(){
+				const video = app.$refs.qrVideo;
+				const camHasCamera = app.$refs.camHasCamera;
+
+				function setResult(result) {
+					var rs = result.split(";");
+					if(rs.length > 1)
+						result = rs[1];
+					if (app.pageCheck.lastResult != result) {
+
+						var found = false;
+						$.each(app.pageCheck.data, function (i, r) {
+							if (r.id == result) {
+								found = true;
+								var date = new Date();
+								if(!r.presence_at)
+									app.pageCheck.presence++;
+								r.presence_at = date.toISOString().slice(0, 19).replace('T', ' ');
+								Swal.fire({
+									title: '<strong>Presence Checked</strong>',
+									type: 'success',
+									html:
+										`<p>Presence of <b>${r.fullname}</b> As <b>${r.status_member}</b></p>` +
+										`<p>Checked At <b>${moment(date).format("DD MMM YYYY, [At] HH:mm:ss")}</b></p>`,
+									showCloseButton: true,
+								});
+								$.post("<?=base_url('admin/presence/save');?>", {
+									member_id: r.id,
+									event_id: app.pageCheck.event.id,
+									created_at: date.toISOString().slice(0, 19).replace('T', ' ')
+								});
+							}
+						});
+						if (found == false) {
+							Swal.fire("Info", "Participant not register on this event !", "info");
+						}else{
+							app.$forceUpdate();
+						}
+						app.pageCheck.lastResult = result;
+						clearTimeout(timeOut);
+						timeOut = setTimeout(() => app.pageCheck.lastResult = "None", 5000);
+					}
+				}
+				QrScanner.hasCamera().then(hasCamera => camHasCamera.textContent = hasCamera);
+				if(!scanner)
+					scanner = new QrScanner(video, result => setResult(result));
+				scanner.start();
+				scanner.setInversionMode("both");
+			},
             detailPresence(row) {
                 this.detail.event = row;
 				app.fetchDetail();
@@ -392,46 +506,9 @@
                         app.mode = 1;
                         app.pageCheck.event = {id: row.id_event, name: row.name};
                         app.pageCheck.numberParticipant = row.number_participant;
-
+						app.pageCheck.presence = app.presence;
                         Vue.nextTick(function () {
-                            const video = app.$refs.qrVideo;
-                            const camHasCamera = app.$refs.camHasCamera;
-
-                            function setResult(result) {
-                                if (app.pageCheck.lastResult != result) {
-                                    var found = false;
-                                    $.each(app.pageCheck.data, function (i, r) {
-                                        if (r.id == result) {
-                                            found = true;
-                                            var date = new Date();
-                                            r.presence_at = date.toISOString().slice(0, 19).replace('T', ' ');
-                                            Swal.fire({
-                                                title: '<strong>Presence Checked</strong>',
-                                                type: 'success',
-                                                html:
-                                                    `<p>Presence of <b>${r.fullname}</b> As <b>${r.status_member}</b></p>` +
-                                                    `<p>Checked At <b>${moment(date).format("DD MMM YYYY, [At] HH:mm:ss")}</b></p>`,
-                                                showCloseButton: true,
-                                            });
-                                            $.post("<?=base_url('admin/presence/save');?>", {
-                                                member_id: r.id,
-                                                event_id: app.pageCheck.event.id,
-                                                created_at: date.toISOString().slice(0, 19).replace('T', ' ')
-                                            });
-                                        }
-                                    });
-                                    if (found == false) {
-                                        Swal.fire("Info", "Participant not register on this event !", "info");
-                                    }
-                                    app.pageCheck.lastResult = result;
-                                    clearTimeout(timeOut);
-                                    timeOut = setTimeout(() => app.pageCheck.lastResult = "None", 5000);
-                                }
-                            }
-                            QrScanner.hasCamera().then(hasCamera => camHasCamera.textContent = hasCamera);
-                            scanner = new QrScanner(video, result => setResult(result));
-                            scanner.start();
-                            scanner.setInversionMode("both");
+                        	app.switchMode();
                         });
                     } else {
                         Swal.fire("Failed", "Failed to load data !", "error");

@@ -44,6 +44,7 @@ class Administration extends Admin_Controller
 					'id' => $row['m_id'],
 				];
 				if ($type == 'certificate') {
+					$member['status_member'] = "Peserta";
 					$dom = $this->Event_m->exportCertificate($member, $event_id);
 				} elseif ($type == 'nametag') {
 					$dom = $this->Member_m->getCard($event_id, $member);
@@ -93,6 +94,7 @@ class Administration extends Admin_Controller
 		$member = $this->Member_m->setAlias('t')->find()->join('kategory_members kt', 'kt.id = t.status ')
 			->select('fullname,email,kt.kategory as status_member')->where("t.id", $member_id)->get()->row_array();
 		if (file_exists(APPPATH . "uploads/cert_template/$event_id.txt")) {
+			$member['status_member'] = "Peserta";
 			$this->Event_m->exportCertificate($member, $event_id)->stream("Certificate.pdf", array("Attachment" => false));
 		} else {
 			show_error("Template Certificate is not found ! please set on Setting");
