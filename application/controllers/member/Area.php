@@ -35,7 +35,7 @@ class Area extends MY_Controller
 		$this->load->model('Member_m');
 		$member = $this->Member_m->findOne($member_id);
 		try{
-			$member->getCard($event_id)->stream($member->fullname."-member_card.pdf");
+			$member->getCard($event_id)->stream($member->fullname."-member_card.pdf", array("Attachment" => false));
 		}catch (ErrorException $ex){
 			show_error($ex->getMessage());
 		}

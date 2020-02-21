@@ -41,7 +41,7 @@ class Member extends Admin_Controller
 		$this->load->model('Member_m');
 		$member = $this->Member_m->findOne($member_id);
 		try{
-			$member->getCard($event_id)->stream($member->fullname."-nametag.pdf");
+			$member->getCard($event_id)->stream($member->fullname."-nametag.pdf", array("Attachment" => false));
 		}catch (ErrorException $ex){
 			show_error($ex->getMessage());
 		}
@@ -170,7 +170,7 @@ class Member extends Admin_Controller
 			$uploadStatus = true;
 			if(isset($_FILES['proof']) && is_uploaded_file($_FILES['proof']['tmp_name'])) {
 				$config['upload_path'] = APPPATH . 'uploads/proof/';
-				$config['allowed_types'] = 'jpg|png|jpeg';
+				$config['allowed_types'] = 'jpg|png|jpeg|pdf';
 				$config['max_size'] = 2048;
 				$config['overwrite'] = true;
 				$config['file_name'] = $id_invoice;
