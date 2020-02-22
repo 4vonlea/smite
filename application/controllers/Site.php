@@ -112,7 +112,7 @@ class Site extends MY_Controller
             $success = $this->AccountM->update(['password' => password_hash($data['password'], PASSWORD_DEFAULT)], ['username' => $username], false);
             $email_message = $this->load->view('template/success_forget_password', $data, true);
             $this->Gmail_api->sendMessage($username, 'Reset password '.Settings_m::getSetting('site_title').' account', $email_message);
-            $this->session->set_flashdata('message', '<div class="col-lg-7 alert alert-success"><center> please check your email for your new password </center>
+           	$this->session->set_flashdata('message', '<div class="col-lg-7 alert alert-success"><center> please check your email for your new password </center>
                 </div>');
             redirect('site/forget','refresh');
         } else {
