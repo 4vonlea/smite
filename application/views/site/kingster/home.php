@@ -39,7 +39,7 @@
 								<div class="gdlr-core-pbf-column-content clearfix gdlr-core-js ">
 									<div class="gdlr-core-pbf-element">
 										<div class="gdlr-core-column-service-item gdlr-core-item-pdb  gdlr-core-left-align gdlr-core-column-service-icon-left gdlr-core-with-caption gdlr-core-item-pdlr" id="div_1dd7_2">
-											<div class="gdlr-core-column-service-media gdlr-core-media-image"><img src="upload/icon-1.png" alt="" width="40" height="40" title="icon-1" /></div>
+											<div class="gdlr-core-column-service-media gdlr-core-media-image"><img src="<?=base_url('themes/kingster');?>/upload/icon-1.png" alt="" width="40" height="40" title="icon-1" /></div>
 											<h3>Login Here</h3>
 											<form class="custom-contact-form-style-1" method="POST" action="<?= base_url('site/login'); ?>">
 												<div class="form-row">
@@ -460,7 +460,7 @@
 	} /*]]>*/
 </script>
 
-<script type='text/javascript' src='plugins/goodlayers-core/plugins/combine/script.js'></script>
+<script type='text/javascript' src='<?=base_url('themes/kingster');?>/plugins/goodlayers-core/plugins/combine/script.js'></script>
 <script type='text/javascript'>
 	var gdlr_core_pbf = {
 		"admin": "",
@@ -471,17 +471,17 @@
 		"ajax_url": "https:\/\/demo.goodlayers.com\/kingster\/wp-admin\/admin-ajax.php"
 	};
 </script>
-<script type='text/javascript' src='plugins/goodlayers-core/include/js/page-builder.js'></script>
+<script type='text/javascript' src='<?=base_url('themes/kingster');?>/plugins/goodlayers-core/include/js/page-builder.js'></script>
 
 
 
-<script type='text/javascript' src='js/jquery/ui/effect.min.js'></script>
+<script type='text/javascript' src='<?=base_url('themes/kingster');?>/js/jquery/ui/effect.min.js'></script>
 <script type='text/javascript'>
 	var kingster_script_core = {
 		"home_url": "https:\/\/demo.goodlayers.com\/kingster\/"
 	};
 </script>
-<script type='text/javascript' src='js/plugins.min.js'></script>
+<script type='text/javascript' src='<?=base_url('themes/kingster');?>/js/plugins.min.js'></script>
 <script>
 	/*<![CDATA[*/
 	var htmlDiv = document.getElementById("rs-plugin-settings-inline-css");

@@ -99,6 +99,7 @@ class Gmail_api extends MY_Model implements iNotification
         $msg = new Google_Service_Gmail_Message();
         $msg->setRaw($mime);
         $status = $service->users_messages->send("me", $msg);
+        log_message("error",print_r($status,true));
     }
 
 	public function sendMessageWithAttachment($to,$subject,$message,$attachment,$fname = ""){
@@ -135,6 +136,8 @@ class Gmail_api extends MY_Model implements iNotification
 		$mime = rtrim(strtr(base64_encode($strRawMessage), '+/', '-_'), '=');
 		$msg = new Google_Service_Gmail_Message();
 		$msg->setRaw($mime);
-		return $service->users_messages->send("me", $msg);
+		$status = $service->users_messages->send("me", $msg);
+		log_message("error",print_r($status,true));
+		return $status;
 	}
 }
