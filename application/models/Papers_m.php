@@ -91,7 +91,7 @@ class Papers_m extends MY_Model
 	 * @return Dompdf
 	 */
 	public function exportNotifPdf(){
-		$template = ($this->status== Papers_m::ACCEPTED ? 'template/paper_accepted':'template/paper_rejected');
+		$template = ($this->status == Papers_m::ACCEPTED ? 'template/paper_accepted':'template/paper_rejected');
 
 		$domInvoice = new Dompdf\Dompdf();
 		$domInvoice->setPaper('legal');

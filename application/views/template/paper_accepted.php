@@ -33,13 +33,13 @@ $header_image = base_url('themes/uploads/header_kop.jpg');
 	</tr>
 	<tr>
 		<td class="text-center">
-			<h4 style="font-size: 14pt">Abstract Submission Announcement – 2nd EAST INSDV 2020</h4>
+			<h4 style="font-size: 14pt">Abstract Submission Announcement – <?=Settings_m::getSetting('site_title');?></h4>
 		</td>
 	</tr>
 	<tr>
 		<td>
 			<p>Dear <?= $member->fullname; ?></p>
-			<p>Thank you for submitting your abstract to 2nd EAST INSDV 2020 - Banjarmasin. Hereby we informed you that
+			<p>Thank you for submitting your abstract to <?=Settings_m::getSetting('site_title');?>. Hereby we informed you that
 				your abstract:</p>
 			<table>
 				<tr>
