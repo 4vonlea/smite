@@ -14,7 +14,7 @@ class Transaction_m extends MY_Model
 		'settlement'=>"Funds from the transaction has moved from customer to merchant's account.",
 		'deny'=>"Transaction is denied by the bank or Midtrans Fraud Detection System.",
 		"pending"=>"payment transaction has not been processed and is waiting to be completed.",
-		"expire"=>"Transaction has not been completed by the expiry date.",
+		"expired"=>"Transaction has not been completed by the expiry date.",
 		self::STATUS_NEED_VERIFY =>'Payment waiting verification from admin'
 	];
 
@@ -22,7 +22,7 @@ class Transaction_m extends MY_Model
 	const STATUS_WAITING = "waiting";
 	const STATUS_PENDING = "pending";
 	const STATUS_UNFINISH = "unfinish";
-	const STATUS_EXPIRE = "expire";
+	const STATUS_EXPIRE = "expired";
 	const STATUS_DENY = "deny";
 	const STATUS_NEED_VERIFY = "need_verification";
 

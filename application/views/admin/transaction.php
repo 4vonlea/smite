@@ -13,7 +13,7 @@
 						<div class="card-body">
 							<div class="row">
 								<div class="col">
-									<h5 class="card-title text-uppercase text-muted mb-0">Finish Transaction</h5>
+									<h5 class="card-title text-uppercase text-muted mb-0">Settlement Transaction</h5>
 									<span class="h2 font-weight-bold mb-0">{{ pagination.total_finish }}</span>
 								</div>
 								<div class="col-auto">
@@ -64,7 +64,7 @@
 						<div class="card-body">
 							<div class="row">
 								<div class="col">
-									<h5 class="card-title text-uppercase text-muted mb-0">Unfinish Transaction</h5>
+									<h5 class="card-title text-uppercase text-muted mb-0">Expired Transaction</h5>
 									<span class="h2 font-weight-bold mb-0">{{ pagination.total_unfinish }}</span>
 								</div>
 								<div class="col-auto">

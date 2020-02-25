@@ -54,7 +54,7 @@ class Payment extends MY_Controller
 			}
 			else if ($transaction == 'deny') {
 				$update['status_payment'] = Transaction_m::STATUS_UNFINISH;
-			}else if ($transaction == 'expire') {
+			}else if ($transaction == 'expired') {
 				$update['status_payment'] = Transaction_m::STATUS_EXPIRE;
 			}
 			$update['checkout'] = 1;//$notif->status_message;

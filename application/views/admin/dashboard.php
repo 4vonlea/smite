@@ -120,6 +120,8 @@
 							<tr>
 								<th scope="col">Event Name</th>
 								<th scope="col">Numbers of Participant</th>
+								<th scope="col">Qouta</th>
+								<th scope="col">Remaining Quota</th>
 								<?php if($this->session->user_session['role'] == User_account_m::ROLE_SUPERADMIN):?>
 								<th scope="col">Fund Collected</th>
 								<?php endif ;?>
@@ -128,8 +130,10 @@
 							</thead>
 							<tbody>
 							<tr v-for="p in report.participants_event">
-								<th>{{ p.name }}</th>
+								<th width="30%" style="white-space: normal">{{ p.name }}</th>
 								<td>{{ p.number_participant }}</td>
+								<td>{{ p.kouta }}</td>
+								<td>{{ p.kouta-p.number_participant }}</td>
 								<?php if($this->session->user_session['role'] == User_account_m::ROLE_SUPERADMIN):?>
 								<td>{{ formatCurrency(p.fund_collected) }}</td>
 								<?php endif;?>
@@ -148,7 +152,11 @@
 							<tfoot class="thead-light">
 								<th>Total</th>
 								<th>{{ total.number }}</th>
+								<th>-</th>
+								<th>-</th>
+								<?php if($this->session->user_session['role'] == User_account_m::ROLE_SUPERADMIN):?>
 								<th>{{ formatCurrency(total.fund) }}</th>
+								<?php endif;?>
 								<th></th>
 							</tfoot>
 						</table>
