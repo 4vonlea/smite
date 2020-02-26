@@ -12,7 +12,7 @@ $this->layout->begin_head();
 <?php
 $this->layout->end_head();
 ?>
-<div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
+<div class="header bg-info pb-8 pt-5 pt-md-8">
 	<div class="container-fluid">
 		<div class="header-body">
 			<!-- Card stats -->

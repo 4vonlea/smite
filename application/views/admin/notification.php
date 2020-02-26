@@ -8,7 +8,7 @@ $this->layout->begin_head();
 <link href="<?= base_url(); ?>themes/script/chosen/chosen.css" rel="stylesheet">
 
 <?php $this->layout->end_head();?>
-<div class="header bg-gradient-primary pb-8 pt-5 pt-md-8"></div>
+<div class="header bg-info pb-8 pt-5 pt-md-8"></div>
 <div class="container-fluid mt--7">
 	<div class="row mb-2">
 		<div class="col">
@@ -234,9 +234,9 @@ $this->layout->begin_head();
 		data:{
             sending:false,
             message:{
-                "target":"all",
+                "target":"<?=isset($send_to_person)?"member":"all";?>",
 				"via":['wa','email'],
-				"to":"",
+				"to":"<?=$send_to_person;?>",
 				"subject":"",
 				"text":"",
 			},

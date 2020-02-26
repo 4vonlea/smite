@@ -4,7 +4,7 @@
  * @var array $univDl
  */
 ?>
-<div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
+<div class="header bg-info pb-8 pt-5 pt-md-8">
 	<div class="container-fluid">
 		<div class="header-body">
 			<!-- Card stats -->
@@ -94,6 +94,9 @@
 								<button class="btn btn-danger btn-sm" @click="deleteMember(props,$event)">
 									<span class="fa fa-trash"></span> Delete
 								</button>
+								<a class="btn btn-primary btn-sm" :href="'<?=base_url('admin/notification/index');?>/'+props.row.id" target="_blank">
+									<span class="fa fa-envelope"></span> Email
+								</a>
 							</div>
 						</template>
 					</datagrid>

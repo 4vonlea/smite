@@ -13,7 +13,7 @@ class Notification extends Admin_Controller
 		'material_upload'=>'insert',
 		'send_message'=>'insert',
 	];
-	public function index()
+	public function index($send_to_person = null)
 	{
 		$this->load->model(["Event_m","Member_m"]);
 		$this->load->helper('form_helper');
@@ -23,6 +23,7 @@ class Notification extends Admin_Controller
 		$this->layout->render("notification", [
 			'event' => $eventList,
 			'memberList' => $memberList,
+			'send_to_person'=>$send_to_person,
 		]);
 	}
 
