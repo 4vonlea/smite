@@ -89,7 +89,7 @@ $this->layout->begin_head();
 
 								<label class="form-control-label col-md-3 mt-2">Send To Participant of Event</label>
 								<div class="col-md-6">
-									<?=form_dropdown('event',$event,'',['class'=>'form-control','v-model'=>'cert_event','placeholder'=>'TEST']);?>
+									<?=form_dropdown('event',Event_m::asList($event,'id','label'),'',['class'=>'form-control','v-model'=>'cert_event','placeholder'=>'']);?>
 								</div>
 								<div class="col-md-3">
 									<button :disabled="sendingCert" type="button" @click="sendCert" class="btn btn-primary">
@@ -108,7 +108,7 @@ $this->layout->begin_head();
 
 								<label class="form-control-label col-md-3 mt-2">Event Name</label>
 								<div class="col-md-6">
-									<?=form_dropdown('event',$event,'',['class'=>'form-control','v-model'=>'material_event','@change'=>'changeEventMaterial']);?>
+									<?=form_dropdown('event',Event_m::asList($event,'id','label'),'',['class'=>'form-control','v-model'=>'material_event','@change'=>'changeEventMaterial']);?>
 								</div>
 								<div class="col-md-3">
 									<button :disabled="sendingMaterial" type="button" @click="sendMaterial" class="btn btn-primary">

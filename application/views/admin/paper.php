@@ -130,7 +130,7 @@ $this->layout->end_head();
 					@loaded_data="loadedGrid"
 					ref="datagrid"
 					api-url="<?= base_url('admin/paper/grid'); ?>"
-					:fields="[{name:'id_paper',sortField:'id_paper','title':'ID Paper'},{name:'fullname',sortField:'fullname','title':'Member Name'},{name:'status','sortField':'status'},{name:'reviewer','sortField':'reviewer'},{name:'t_created_at',sortField:'t_created_at',title:'Submit On'},{name:'t_id','title':'Aksi'}]">
+					:fields="[{name:'id_paper',sortField:'id_paper','title':'ID Paper'},{name:'fullname',sortField:'fullname','title':'Member Name'},{name:'status','sortField':'status'},{name:'type_presence','sortField':'type_presence','title':'Presentation'},{name:'reviewer','sortField':'reviewer'},{name:'t_created_at',sortField:'t_created_at',title:'Submit On'},{name:'t_id','title':'Aksi'}]">
 					<?php if($this->session->user_session['role'] == User_account_m::ROLE_ADMIN_PAPER):?>
 						<template slot="fullname" slot-scope="props">
 							Hidden

@@ -25,7 +25,7 @@ class Administration extends Admin_Controller
 
 	public function download_all($type,$event_id){
 		set_time_limit(0);
-		ini_set("memory_limit","500M");
+		ini_set("memory_limit","1024M");
 		$this->load->model( ["Event_m","Member_m"]);
 		$this->load->helper("file");
 
@@ -79,7 +79,7 @@ class Administration extends Admin_Controller
 		rmdir($folderTemp);
 		header('Content-Description: File Transfer');
 		header('Content-Type: ' . mime_content_type($pdfFile));
-		header('Content-Disposition: attachment; filename="all_'.$type.'_'.$participant[0]['event_name'].'"');
+		header('Content-Disposition: inline; filename="all_'.$type.'_'.$participant[0]['event_name'].'.pdf"');
 		header('Expires: 0');
 		header('Cache-Control: must-revalidate');
 		header('Pragma: public');
