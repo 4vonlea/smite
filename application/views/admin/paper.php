@@ -17,41 +17,77 @@ $this->layout->end_head();
 		<div class="header-body">
 			<!-- Card stats -->
 			<div class="row">
-				<div class="col-md-3">
-					<div class="card card-stats mb-4 mb-xl-0">
-						<div class="card-body">
-							<div class="row">
-								<div class="col">
-									<h5 class="card-title text-uppercase text-muted mb-0">Returned to Author</h5>
-									<span class="h2 font-weight-bold mb-0">{{ pagination.total_stat_0 }}</span>
+				<div class="col-md-8 row">
+					<div class="col-md-6">
+						<div class="card card-stats mb-4 mb-xl-0">
+							<div class="card-body">
+								<div class="row">
+									<div class="col">
+										<h5 class="card-title text-uppercase text-muted mb-0">Returned to Author</h5>
+										<span class="h2 font-weight-bold mb-0">{{ pagination.total_stat_0 }}</span>
+									</div>
+									<div class="col-auto">
+										<div class="icon icon-shape bg-danger text-white rounded-circle shadow">
+											<i class="fa fa-reply"></i>
+										</div>
+									</div>
 								</div>
-								<div class="col-auto">
-									<div class="icon icon-shape bg-danger text-white rounded-circle shadow">
-										<i class="fas fa-chart-bar"></i>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="card card-stats mb-4 mb-xl-0">
+							<div class="card-body">
+								<div class="row">
+									<div class="col">
+										<h5 class="card-title text-uppercase text-muted mb-0">Waiting for Reviewing</h5>
+										<span class="h2 font-weight-bold mb-0">{{ pagination.total_stat_1 }}</span>
+									</div>
+									<div class="col-auto">
+										<div class="icon icon-shape bg-warning text-white rounded-circle shadow">
+											<i class="fa fa-clock"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6 mt-1">
+						<div class="card card-stats mb-4 mb-xl-0">
+							<div class="card-body">
+								<div class="row">
+									<div class="col">
+										<h5 class="card-title text-uppercase text-muted mb-0">Rejected</h5>
+										<span class="h2 font-weight-bold mb-0">{{ pagination.total_stat_3 }}</span>
+									</div>
+									<div class="col-auto">
+										<div class="icon icon-shape bg-danger text-white rounded-circle shadow">
+											<i class="fa fa-minus"></i>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-6 mt-1">
+						<div class="card card-stats mb-4 mb-xl-0">
+							<div class="card-body">
+								<div class="row">
+									<div class="col">
+										<h5 class="card-title text-uppercase text-muted mb-0">No Reviewer</h5>
+										<span class="h2 font-weight-bold mb-0">{{ pagination.total_no_reviewer }}</span>
+									</div>
+									<div class="col-auto">
+										<div class="icon icon-shape bg-danger text-white rounded-circle shadow">
+											<i class="fa fa-user-times"></i>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div class="col-md-3">
-					<div class="card card-stats mb-4 mb-xl-0">
-						<div class="card-body">
-							<div class="row">
-								<div class="col">
-									<h5 class="card-title text-uppercase text-muted mb-0">Need Review</h5>
-									<span class="h2 font-weight-bold mb-0">{{ pagination.total_stat_1 }}</span>
-								</div>
-								<div class="col-auto">
-									<div class="icon icon-shape bg-warning text-white rounded-circle shadow">
-										<i class="fas fa-chart-pie"></i>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3">
+				<div class="col-md-4">
 					<div class="card card-stats mb-4 mb-xl-0">
 						<div class="card-body">
 							<div class="row">
@@ -61,25 +97,14 @@ $this->layout->end_head();
 								</div>
 								<div class="col-auto">
 									<div class="icon icon-shape bg-warning text-white rounded-circle shadow">
-										<i class="fas fa-chart-pie"></i>
+										<i class="fa fa-check"></i>
 									</div>
 								</div>
 							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3">
-					<div class="card card-stats mb-4 mb-xl-0">
-						<div class="card-body">
+							<hr style="margin: 19px 0px"/>
 							<div class="row">
-								<div class="col">
-									<h5 class="card-title text-uppercase text-muted mb-0">No Reviewer</h5>
-									<span class="h2 font-weight-bold mb-0">{{ pagination.total_no_reviewer }}</span>
-								</div>
-								<div class="col-auto">
-									<div class="icon icon-shape bg-danger text-white rounded-circle shadow">
-										<i class="fas fa-chart-bar"></i>
-									</div>
+								<div class="col-6" v-for="(total,type) in pagination.presentation_accepted">
+									<small class="text-success mr-2">{{ type }}: {{ total }}</small>
 								</div>
 							</div>
 						</div>
@@ -309,18 +334,14 @@ $this->layout->end_head();
 					<tr v-if="detailMode == 0">
 						<th>Type Presentation</th>
 						<td>
+							<?php foreach(Papers_m::$typePresentation as $i=>$val):?>
 							<div class="form-check-inline">
 								<label class="form-check-label">
-									<input  v-model="reviewModel.type_presence"  type="radio" name="type_presence" value="Oral">
-									Oral
+									<input  v-model="reviewModel.type_presence"  type="radio" name="type_presence" value="<?=$i;?>">
+									<?=$val;?>
 								</label>
 							</div>
-							<div class="form-check-inline">
-								<label class="form-check-label">
-									<input  v-model="reviewModel.type_presence" type="radio" name="type_presence" value="Poster">
-									Poster
-								</label>
-							</div>
+							<?php endforeach;?>
 						</td>
 					</tr>
 				</table>

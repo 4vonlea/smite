@@ -115,6 +115,7 @@ class Area extends MY_Controller
 		$response['abstractType'] = Papers_m::$typeAbstract;
 		$response['status'] = Papers_m::$status;
 		$response['typeStudy'] = Papers_m::$typeStudy;
+		$response['typePresention'] = Papers_m::$typePresentation;
 		$response['data'] = [];
 		$formatId = Settings_m::getSetting("format_id_paper");
 		foreach($papers as $paper){

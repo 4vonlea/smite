@@ -170,8 +170,7 @@ export default Vue.component("PagePaper", {
 							<div class="col-lg-9">
 								<select :disabled="detail" class="form-control" v-model="form.type_presence" name="type_presence" :class="{'is-invalid':error_upload.type_presence}">
 									<option disabled value="">Please Select</option>
-									<option value="Oral">Oral</option>
-									<option value="Poster">Poster</option>
+									<option v-for="(type,key) in paper.typePresention"  :value="key">{{ type }}</option>
 								</select>
 								<div v-if="error_upload.type_presence" class="invalid-feedback">{{ error_upload.type_presence }}</div>
 							</div>

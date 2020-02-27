@@ -10,11 +10,18 @@ class Papers_m extends MY_Model
 {
 	const ACCEPTED = 2;
 	const REJECTED = 3;
+
 	public static $status = [
 		0 => 'Returned to author',
-		1 => 'Need/Under Review',
+		1 => 'Waiting/Under Review',
 		self::ACCEPTED => 'Accepted',
 		self::REJECTED => 'Rejected'
+	];
+
+	public static $typePresentation = [
+		'Oral'=>'Oral',
+		'Moderated Poster'=>'Moderated Poster',
+		'Viewed Poster'=>'Viewed Poster'
 	];
 
 	public static $typeAbstract = [
@@ -71,19 +78,32 @@ class Papers_m extends MY_Model
 		$data = parent::gridData($params, $gridConfig);
 		$db = $this->find()->select("SUM(IF(status = 0,1,0)) as stat_0")
 			->select("SUM(IF(status = 1,1,0)) as stat_1")
-			->select("SUM(IF(status = 2,1,0)) as stat_2");
+			->select("SUM(IF(status = 2,1,0)) as stat_2")
+			->select("SUM(IF(status = 3,1,0)) as stat_3");
+
 
 		if(isset($gridConfig['filter']))
 			$db->where($gridConfig['filter']);
 
 		$result = $db->get()->row_array();
 		$data['total_stat_0'] = isset($result['stat_0']) ? $result['stat_0']:0;
-		$data['total_stat_1'] = isset($result['stat_0']) ? $result['stat_1']:0;
-		$data['total_stat_2'] = isset($result['stat_0']) ? $result['stat_2']:0;
+		$data['total_stat_1'] = isset($result['stat_1']) ? $result['stat_1']:0;
+		$data['total_stat_2'] = isset($result['stat_2']) ? $result['stat_2']:0;
+		$data['total_stat_3'] = isset($result['stat_3']) ? $result['stat_3']:0;
+
 		$model = $this->find()->group_start()
 			->where("reviewer", "")->or_where("reviewer IS NULL", null)->group_end()
 			->where("status",1)->select("count(*) as r")->get();
 		$data['total_no_reviewer'] = $model->row()->r;
+
+		$model = $this->find()->where("status",self::ACCEPTED)->group_by('type_presence')->select("type_presence,count(id) as total")->get();
+		foreach(self::$typePresentation as $row){
+			$data['presentation_accepted'][$row] = 0;
+		}
+		foreach ($model->result_array() as $row) {
+			$data['presentation_accepted'][$row['type_presence']] = $row['total'];
+		}
+
 		return $data;
 	}
 
