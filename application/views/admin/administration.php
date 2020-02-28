@@ -286,6 +286,7 @@ $this->layout->begin_head();
 				var maxRetry = 5;
 
 				if(step == 0){
+					this.pooling.title = "Processing Download All "+type;
 					this.pooling.timeCreate = "";
 					this.pooling.dataSize = 0;
 					this.pooling.processed = 0;
@@ -339,8 +340,11 @@ $this->layout->begin_head();
 						}
 					}).fail(function (xhr) {
 						if(app.pooling.retry >= maxRetry){
+							var message = xhr.getResponseHeader("Message");
+							if (!message)
+								message = 'Server fail to response !';
 							$("#modal-pooling").modal("hide");
-							Swal.fire("Failed", "Server Failed to process!", "error");
+							Swal.fire('Fail', message, 'error');
 						}else {
 							app.pooling.retry++;
 							app.downloadAll(type, step, participant);

@@ -18,6 +18,29 @@ class News extends Admin_Controller
 			->_display(json_encode($grid));
 	}
 
+	public function save()
+	{
+		if ($this->input->method() != 'post')
+			show_404("Page Not Found !");
+		$this->load->model('News_m');
+
+		$post = $this->input->post();
+
+		if (isset($post['id'])) {
+			$id = $post['id'];
+			$event = $this->News_m->findOne($post['id']);
+		} else
+			$event = new News_m();
+
+		$event->setAttributes($post);
+
+		$event->author = $this->session->user_session['username'];
+		$status = $event->save();
+		$this->output
+			->set_content_type("application/json")
+			->_display(json_encode(['status' => $status,'data'=>$event->toArray()]));
+	}
+
 	public function delete()
 	{
 

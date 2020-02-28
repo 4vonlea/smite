@@ -16,7 +16,7 @@
 							<h3>News</h3>
 						</div>
 						<div class="col-9 text-right">
-							<button class="btn btn-primary" @click="formMode = 1;form = {};"><i
+							<button class="btn btn-primary" @click="addNews"><i
 									class="fa fa-plus"></i>
 								Add News
 							</button>
@@ -32,10 +32,10 @@
 							<span>{{ props.row.is_show == 1 ? 'Yes':'No'}}</span>
 						</template>
 						<template slot="id" slot-scope="props">
-							<button class="btn btn-primary btn-sm" @click="editCom(props.row)">
+							<button class="btn btn-primary btn-sm" @click="editNews(props.row)">
 								<span class="fa fa-edit"></span> Edit
 							</button>
-							<button class="btn btn-danger btn-sm" @click="deleteCom(props.row,$event)">
+							<button class="btn btn-danger btn-sm" @click="deleteNews(props.row,$event)">
 								<span class="fa fa-trash"></span> Delete
 							</button>
 						</template>
@@ -67,9 +67,14 @@
 						</div>
 						<div class="col-md-2">
 							<div class="form-group">
-								<button class="btn btn-primary btn-block"><i class="fa fa-save"></i> Save</button>
+								<label>Is Show On ?</label>
+								<select class="form-control mb-2" v-model="form.is_show">
+									<option value="1">Show</option>
+									<option value="0">Hide</option>
+								</select>
+								<hr/>
+								<button @click="save($event)" class="btn btn-primary btn-block"><i class="fa fa-save"></i> Save</button>
 								<button @click="formMode=0"  class="btn btn-default btn-block"><i class="fa fa-reply"></i> Back</button>
-								<p>Writer : {{ form.author }}</p>
 							</div>
 						</div>
 					</div>
@@ -103,10 +108,38 @@
 			form:{},
 		},
 		methods: {
-			editCom(row) {
-
+			addNews(){
+				this.formMode = 1;
+				this.form = {};
+				tinymce.get("content_area").setContent("");
 			},
-			deleteCom(row, evt) {
+			editNews(row) {
+				this.form = row;
+				this.formMode = 1;
+				tinymce.get("content_area").setContent(this.form.content);
+			},
+			save(evt){
+				var btn = evt.currentTarget;
+				btn.innerHTML = "<i class='fa fa-spin fa-spinner'></i>";
+				btn.setAttribute("disabled", true);
+				this.form.content = tinymce.get("content_area").getContent();
+				$.post("<?=base_url("admin/news/save");?>", this.form, function (res) {
+					if (res.status) {
+						app.form = res.data;
+						Swal.fire("Success", "News saved successfully", "success");
+					} else
+						Swal.fire("Failed", res.message, "error");
+				}, "JSON").fail(function (xhr) {
+					var message = xhr.getResponseHeader("Message");
+					if (!message)
+						message = 'Server fail to response !';
+					Swal.fire('Fail', message, 'error');
+				}).always(function () {
+					btn.innerHTML = '<i class="fa fa-save"></i> Save';
+					btn.removeAttribute("disabled");
+				});
+			},
+			deleteNews(row, evt) {
 				var btn = evt.currentTarget;
 				Swal.fire({
 					title: "Are you sure ?",
