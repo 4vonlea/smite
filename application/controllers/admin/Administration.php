@@ -23,69 +23,95 @@ class Administration extends Admin_Controller
 		]);
 	}
 
-	public function download_all($type,$event_id){
+	public function download_all($file = null){
 		set_time_limit(0);
 		ini_set("memory_limit","1024M");
-		$this->load->model( ["Event_m","Member_m"]);
-		$this->load->helper("file");
+		if($file == null) {
+			$this->load->model(["Event_m", "Member_m"]);
+			$this->load->helper("file");
+			$action = $this->input->post("action");
+			$type = $this->input->post("type");
+			$event_id = $this->input->post("event_id");
+			switch ($action) {
+				case "retrieval":
+					$rs = $this->Event_m->getParticipant()->where("t.id", $event_id)->select("m.id as m_id,km.kategory as status_member")->get();
+					$participant = $rs->result_array();
 
-		$rs = $this->Event_m->getParticipant()->where("t.id",$event_id)->select("m.id as m_id,km.kategory as status_member")->get();
-		$participant = $rs->result_array();
+					$timeCreate = time();
+					$folderTemp = APPPATH . "uploads/tmp/$timeCreate";
+					mkdir($folderTemp);
+					$this->output->set_content_type("application/json")
+						->_display(json_encode(['status' => true, 'data' => $participant, 'timeCreate' => $timeCreate]));
+					break;
+				case "processing":
+					try {
+						$participant = $this->input->post("participant");
+						$timeCreate = $this->input->post("timeCreate");
+						$folderTemp = APPPATH . "uploads/tmp/$timeCreate";
+						foreach ($participant as $row) {
+							$member = [
+								'fullname' => $row['fullname'],
+								'email' => $row['email'],
+								'status_member' => $row['status_member'],
+								'id' => $row['m_id'],
+							];
+							if ($type == 'certificate') {
+								$member['status_member'] = "Peserta";
+								$dom = $this->Event_m->exportCertificate($member, $event_id);
+							} elseif ($type == 'nametag') {
+								$dom = $this->Member_m->getCard($event_id, $member);
+							}
+							file_put_contents($folderTemp . "/$row[id].pdf", $dom->output());
+						}
+						$this->output->set_content_type("application/json")
+							->_display(json_encode(['status' => true,'processed'=>count($participant)]));
+					} catch (ErrorException $ex) {
+						$this->output->set_content_type("application/json")
+							->_display(json_encode(['status' => false, 'message' => $ex->getMessage()]));
+					}
+					break;
+				case "compilation";
+					$timeCreate = $this->input->post("timeCreate");
+					$folderTemp = APPPATH . "uploads/tmp/$timeCreate";
+					$pdfFile = APPPATH . "uploads/tmp/" . $timeCreate . ".pdf";
 
-		$timeCreate = time();
-		$folderTemp = APPPATH . "uploads/tmp/$timeCreate";
-		mkdir($folderTemp);
-		try {
-			foreach ($participant as $row) {
-				$member = [
-					'fullname' => $row['fullname'],
-					'email' => $row['email'],
-					'status_member' => $row['status_member'],
-					'id' => $row['m_id'],
-				];
-				if ($type == 'certificate') {
-					$member['status_member'] = "Peserta";
-					$dom = $this->Event_m->exportCertificate($member, $event_id);
-				} elseif ($type == 'nametag') {
-					$dom = $this->Member_m->getCard($event_id, $member);
-				}
-				file_put_contents($folderTemp . "/$row[id].pdf", $dom->output());
+					require(APPPATH . 'third_party/fpdf/fpdf.php');
+					$pdf = new setasign\Fpdi\Fpdi();
+
+					foreach (glob($folderTemp . "/*.pdf") as $file) {
+						$size = $pdf->setSourceFile($file);
+						for ($i = 1; $i <= $size; $i++) {
+							$tpl = $pdf->importPage($i);
+							$orientation = $pdf->getTemplateSize($tpl);
+							if ($orientation['width'] > $orientation['height']) {
+								$pdf->AddPage('L', array($orientation['width'], $orientation['height']));
+							} else {
+								$pdf->AddPage('P', array($orientation['width'], $orientation['height']));
+							}
+							$pdf->useTemplate($tpl);
+						}
+					}
+					$pdf->Output('F', $pdfFile);
+					delete_files($folderTemp, true);
+					rmdir($folderTemp);
+					$this->output->set_content_type("application/json")
+						->_display(json_encode(['status' => true,'url'=>base_url('admin/administration/download_all/'.$timeCreate)]));
+					break;
 			}
-		}catch (ErrorException $ex){
-			show_error($ex->getMessage());
-		}
-		//Merge File
-		$pdfFile = APPPATH . "uploads/tmp/" . $timeCreate . ".pdf";
-
-		require(APPPATH . 'third_party/fpdf/fpdf.php');
-
-		$pdf = new setasign\Fpdi\Fpdi();
-
-		foreach (glob($folderTemp . "/*.pdf") as $file) {
-			$size = $pdf->setSourceFile($file);
-			for($i=1;$i<=$size;$i++) {
-				$tpl = $pdf->importPage($i);
-				$orientation = $pdf->getTemplateSize($tpl);
-				if ($orientation['width'] > $orientation['height']) {
-					$pdf->AddPage('L', array($orientation['width'], $orientation['height']));
-				} else {
-					$pdf->AddPage('P', array($orientation['width'], $orientation['height']));
-				}
-				$pdf->useTemplate($tpl);
+		}else{
+			$pdfFile = APPPATH . "uploads/tmp/" . $file . ".pdf";
+			if(file_exists($pdfFile)){
+				header('Content-Description: File Transfer');
+				header('Content-Type: ' . mime_content_type($pdfFile));
+				header('Content-Disposition: inline; filename="'.$file.'.pdf"');
+				header('Expires: 0');
+				header('Cache-Control: must-revalidate');
+				header('Pragma: public');
+				header('Content-Length: ' . filesize($pdfFile));
+				flush(); // Flush system output buffer
+				readfile($pdfFile);
 			}
 		}
-		$pdf->Output('F', $pdfFile);
-		delete_files($folderTemp, true);
-		rmdir($folderTemp);
-		header('Content-Description: File Transfer');
-		header('Content-Type: ' . mime_content_type($pdfFile));
-		header('Content-Disposition: inline; filename="all_'.$type.'_'.$participant[0]['event_name'].'.pdf"');
-		header('Expires: 0');
-		header('Cache-Control: must-revalidate');
-		header('Pragma: public');
-		header('Content-Length: ' . filesize($pdfFile));
-		flush(); // Flush system output buffer
-		readfile($pdfFile);
 	}
 
 	public function certificate($event_id, $member_id)

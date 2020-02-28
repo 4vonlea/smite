@@ -32,7 +32,7 @@ class Transaction_m extends MY_Model
 			'relationships'=>[
 				'member'=>['members','member.id = member_id']
 			],
-			'select'=>['invoice'=>'t.id','t_id'=>'t.id','fullname','status_payment','t_updated_at'=>'t.updated_at'],
+			'select'=>['invoice'=>'t.id','t_id'=>'t.id','fullname','status_payment','t_updated_at'=>'t.updated_at','m_id'=>'member.id'],
 //			'filter'=>['checkout'=>'1'],
 		];
 	}

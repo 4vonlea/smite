@@ -43,8 +43,8 @@ $this->layout->begin_head();
 											Download All
 										</button>
 										<div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-											<a target="_blank" class="dropdown-item" :href="'<?=base_url('admin/administration/download_all/certificate');?>/'+selectedEvent">Certificate</a>
-											<a target="_blank" class="dropdown-item" :href="'<?=base_url('admin/administration/download_all/nametag');?>/'+selectedEvent">Name Tag</a>
+											<button class="dropdown-item"  @click="downloadAll('certificate',0,[])">Certificate</button>
+											<button class="dropdown-item" @click="downloadAll('nametag',0,[])">Name Tag</button>
 										</div>
 									</div>
 								</div>
@@ -180,8 +180,35 @@ $this->layout->begin_head();
 		</div>
 	</div>
 </div>
-<!-- Table -->
-
+<div class="modal fade" id="modal-pooling" data-backdrop="static">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">{{ pooling.title }}</h5>
+			</div>
+			<div class="modal-body">
+				<p style="font-size: 12px">*Please wait until prosess completed, don't reload or switch page</p>
+				<div class="progress" style="height: 30px">
+					<div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">{{ pooling.currentActionLabel.toUpperCase() }}</div>
+				</div>
+				<table class="table">
+					<tr>
+						<th>Current Action</th>
+						<td>{{ pooling.currentActionLabel.toUpperCase() }}</td>
+					</tr>
+					<tr>
+						<th>Total Data</th>
+						<td>{{ pooling.dataSize }}</td>
+					</tr>
+					<tr>
+						<th>Processed</th>
+						<td>{{ pooling.totalProcessed }}</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
 <?php $this->layout->begin_script(); ?>
 <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js"></script>
 <script type="module">
@@ -199,6 +226,7 @@ $this->layout->begin_head();
 		data: {
 			isScan:false,
 			resultScan:[],
+			pooling:{data:[],steps:['retrieval','processing','compilation','finishing'],currentActionLabel:"",timeCreate:"",dataSize:0,totalProcessed:0,retry:0},
 			fields: [{name: 'fullname', sortField: 'fullname'}, {
 				name: 'name_tag',
 				title: "Name Tag"
@@ -252,6 +280,74 @@ $this->layout->begin_head();
 			this.fetchData();
 		},
 		methods: {
+			downloadAll(type,step,participant){
+				$("#modal-pooling").modal("show");
+				var prosecessingSize = 10;
+				var maxRetry = 5;
+
+				if(step == 0){
+					this.pooling.timeCreate = "";
+					this.pooling.dataSize = 0;
+					this.pooling.processed = 0;
+					this.pooling.retry = 0;
+					this.pooling.data = [];
+				}
+
+				var param = {
+					type:type,
+					event_id:this.selectedEvent,
+					action:this.pooling.steps[step],
+					timeCreate:this.pooling.timeCreate,
+					participant:participant,
+				};
+
+				this.pooling.currentActionLabel = param.action;
+
+				if(param.action == 'finishing'){
+					window.open(this.pooling.url,"_blank");
+					$("#modal-pooling").modal("hide");
+				}else{
+					$.post("<?=base_url('admin/administration/download_all');?>",param,function (response) {
+						if(response.status){
+							if(step == 0) {
+								step++;
+								app.pooling.data = response.data;
+								app.pooling.timeCreate = response.timeCreate;
+								app.pooling.dataSize = response.data.length;
+								participant = app.pooling.data.splice(0,prosecessingSize);
+							}else if(step == 1 ){
+								app.pooling.totalProcessed += response.processed;
+								if(app.pooling.totalProcessed >= app.pooling.dataSize){
+									step++;
+								}else{
+									participant = app.pooling.data.splice(0,prosecessingSize);
+								}
+							}else if(step == 2){
+								app.pooling.url = response.url;
+								step++;
+							}
+							app.downloadAll(type,step,participant);
+						}else{
+							if(app.pooling.retry >= maxRetry){
+								$("#modal-pooling").modal("hide");
+								Swal.fire("Failed",response.message, "error");
+
+							}else {
+								app.pooling.retry++;
+								app.downloadAll(type, step, participant);
+							}
+						}
+					}).fail(function (xhr) {
+						if(app.pooling.retry >= maxRetry){
+							$("#modal-pooling").modal("hide");
+							Swal.fire("Failed", "Server Failed to process!", "error");
+						}else {
+							app.pooling.retry++;
+							app.downloadAll(type, step, participant);
+						}
+					});
+				}
+			},
 			editName(row) {
 				this.backupName[row.id] = row.fullname;
 				row.editable = true;

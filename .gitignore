@@ -42,6 +42,9 @@ application/uploads/cert_template/*
 application/uploads/nametag_template/*
 !application/uploads/nametag_template/index.html
 
+application/uploads/tmp/*
+!application/uploads/tmp/index.html
+
 
 application/uploads/material/*
 !application/uploads/material/index.html

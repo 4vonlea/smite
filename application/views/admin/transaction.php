@@ -105,6 +105,9 @@
 						<button @click="detail(props)" class="btn btn-info btn-sm">
 							<span class="fa fa-search"></span> Detail
 						</button>
+						<a class="btn btn-primary btn-sm" :href="'<?=base_url('admin/notification/index');?>/'+props.row.m_id" target="_blank">
+							<span class="fa fa-envelope"></span> Email
+						</a>
 					</div>
 				</template>
 			</datagrid>
