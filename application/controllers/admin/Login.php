@@ -4,8 +4,16 @@
 class Login extends MY_Controller
 {
     public function index(){
-        if(!$this->user_session_expired())
-            redirect(base_url("admin/dashboard"));
+		$this->load->model("User_account_m");
+		if(!$this->user_session_expired()) {
+			$user = $this->session->user_session;
+			if($user['role'] == User_account_m::ROLE_ADMIN_PAPER)
+				redirect(base_url("admin/paper"));
+			elseif($user['role'] == User_account_m::ROLE_OPERATOR)
+				redirect(base_url("admin/administration"));
+			else
+				redirect(base_url("admin/dashboard"));
+		}
 
 
         $this->load->library('form_validation');
@@ -17,7 +25,6 @@ class Login extends MY_Controller
                 $username = $this->input->post('username');
                 $password = $this->input->post('password');
                 $rememberme = $this->input->post('rememberme');
-                $this->load->model("User_account_m");
                 if (User_account_m::verify($username, $password)) {
                     $this->load->library('session');
                     $user = $this->User_account_m->find()->where('username',$username)->get()->row_array();
@@ -32,6 +39,8 @@ class Login extends MY_Controller
                     $this->session->set_userdata('user_session',$user);
                     if($user['role'] == User_account_m::ROLE_ADMIN_PAPER)
 						redirect(base_url("admin/paper"));
+					elseif($user['role'] == User_account_m::ROLE_OPERATOR)
+						redirect(base_url("admin/administration"));
 					else
 						redirect(base_url("admin/dashboard"));
                 } else {

@@ -135,13 +135,15 @@ $role = $this->session->user_session['role'];
 			</div>
 
 			<!-- Navigation -->
-			<?php if (in_array($role, ['1', '2','4','5'])): ?>
+			<?php if (in_array($role, ['1','2','4','5'])): ?>
 				<ul class="navbar-nav">
+					<?php if(!in_array($role,['4'])):?>
 					<li class="nav-item">
 						<a class="nav-link" href="<?= base_url('admin/dashboard'); ?>">
 							<i class="ni ni-tv-2 text-primary"></i> Dashboard
 						</a>
 					</li>
+					<?php endif;?>
 					<li class="nav-item">
 						<a class="nav-link" href="<?= base_url('admin/member'); ?>">
 							<i class="ni ni-single-02 text-orange"></i> Members

@@ -11,6 +11,14 @@ use Dompdf\Dompdf;
 class Dashboard extends Admin_Controller
 {
 
+	protected $accessRule = [
+		'index'=>'view',
+		'data'=>'view',
+		'download_member'=>'view',
+		'download_paper'=>'view',
+		'download_participant'=>'view',
+		'export'=>'view',
+	];
     public function index(){
         $this->layout->render("dashboard");
     }
