@@ -127,6 +127,7 @@
 					if (res.status) {
 						app.form = res.data;
 						Swal.fire("Success", "News saved successfully", "success");
+						app.$refs.datagrid.refresh();
 					} else
 						Swal.fire("Failed", res.message, "error");
 				}, "JSON").fail(function (xhr) {

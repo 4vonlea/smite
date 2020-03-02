@@ -4,6 +4,13 @@
 class News extends Admin_Controller
 {
 
+	protected $accessRule = [
+		'index'=>'view',
+		'save'=>'insert',
+		'delete'=>'delete',
+		'grid'=>'view',
+	];
+
 	public function index()
 	{
 		$this->layout->render("news");
