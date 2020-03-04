@@ -436,7 +436,13 @@ $this->layout->begin_head();
                 app.sending = true;
                 $.post(url,this.message,null,'JSON')
                     .done(function (res) {
-						Swal.fire("Success","Message Sent !","success");
+                    	if(res.type != "member" && res.data){
+    						app.pooling.title = "Send Mass Notification";
+    						app.pooling.url = "<?=base_url('admin/notification/send_message');?>";
+    						app.pooling.data = res.data;
+    						app.poolingStart();
+						}else
+							Swal.fire("Success","Message Sent !","success");
                     }).fail(function (xhr) {
 					var message =  xhr.getResponseHeader("Message");
 					if(!message)
