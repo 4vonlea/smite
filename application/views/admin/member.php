@@ -72,6 +72,10 @@
 						ref="datagrid"
 						api-url="<?= base_url('admin/member/grid'); ?>"
 						:fields="[{name:'fullname',sortField:'fullname'}, {name:'email',sortField:'email'},{name:'verified_by_admin',sortField:'verified_by_admin',title:'Verification'},{name:'created_at',title:'Registered At',sortField:'created_at'},{name:'id',title:'Actions',titleClass:'action-th'}]">
+						<template slot="email" slot-scope="prop">
+							{{ prop.row.email }}
+						<span v-if="prop.row.verified_email == 0" class="badge badge-warning">Unverified</span>
+						</template>
 						<template slot="verified_by_admin" slot-scope="prop">
 						<span :class="[(prop.row.verified_by_admin == 1 ?'badge-success':'badge-warning')]"
 							  class="badge">{{ (prop.row.verified_by_admin == 1 ?'Verified':'Unverified') }}</span>
