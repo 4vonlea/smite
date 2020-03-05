@@ -312,6 +312,35 @@
  </div>
 </section>
 
+<section class="section bg-color-white-scale-1 section-height-1 border-0 m-0">
+    <div class="container pb-2">
+        <div class="row">
+            <div class="col-lg-12 text-center text-md-left mb-5 mb-lg-0">
+                <h3 class="mb-1 mt-3"><strong><center>News & Updates</center></strong></h3>
+                <a class="gdlr-core-block-item-read-more" href="<?php echo base_url('site/all_news') ?>" target="_self" id="a_1dd7_5"><center>Read All News</center></a>
+                <div class="divider">
+                    <i class="fas fa-star"></i>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <?php
+                foreach ($query2 as $key):
+            ?>
+            <div class="col-lg-4 text-center text-md-left mb-5 mb-lg-0">
+                <h6 class="text-color-dark font-weight-normal text-6 mb-2" style="font-size: 11px"><strong class="font-weight-extra-bold"><?php echo $key->title ?></strong></h6>
+                <p style="font-size:9px" >
+                    <?php echo character_limiter($key->content, 100) ?>
+                </p>
+                <p><a href="<?php echo base_url('site/readnews/'.$key->id) ?>" style="font-size: 11px" class="btn btn-success">read more</a></p>
+            </div>
+            <?php 
+                endforeach; 
+            ?>
+     </div>
+ </div>
+</section>
+
 
 <section class="custom-section-padding" id="simpo">
     <div class="container">
