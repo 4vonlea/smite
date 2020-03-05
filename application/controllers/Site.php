@@ -12,8 +12,10 @@ class Site extends MY_Controller
     {
         parent::__construct();
         $this->theme = $this->config->item("theme");
+        $this->load->helper('text');
         $this->layout->setLayout("layouts/$this->theme");
         $this->load->model('Event_m', 'EventM');
+        $this->load->model('News_m', 'NewsM');
         $this->load->model('User_account_m', 'AccountM');
         $this->load->model('Gmail_api');
     }
@@ -22,7 +24,9 @@ class Site extends MY_Controller
     {
         $category      = $this->EventM->listcategory();
         $data['query'] = $category['data'];
-        $this->layout->render('site/'.$this->theme.'/home', $data);
+        $news          = $this->NewsM->listnews();
+        $data['query2'] = $news;
+        $this->layout->render('site/'.$this->theme.'/home',$data);
     }
 
     public function certificate()
@@ -143,6 +147,18 @@ class Site extends MY_Controller
     public function paper()
     {
         $this->layout->render('site/'.$this->theme.'/paper');
+    }
+
+    public function readnews($id)
+    {
+        $news = $this->NewsM->read_news($id);
+        $this->layout->render('site/'.$this->theme.'/readnews', array('news' => $news));
+    }
+
+    public function all_news()
+    {
+        $allnews = $this->NewsM->allnews();
+        $this->layout->render('site/'.$this->theme.'/all_news', array('allnews' => $allnews));
     }
 
 }

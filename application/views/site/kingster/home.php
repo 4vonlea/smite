@@ -217,8 +217,8 @@
 											<div class="gdlr-core-pbf-element">
 												<div class="gdlr-core-accordion-item gdlr-core-item-pdlr gdlr-core-item-pdb  gdlr-core-accordion-style-background-title-icon gdlr-core-left-align gdlr-core-icon-pos-right">
 													<?php
-													foreach ($query as $row):
-														?>
+													    foreach ($query as $row):
+												    ?>
 														<div class="gdlr-core-accordion-item-tab clearfix">
 															<div class="gdlr-core-accordion-item-icon gdlr-core-js gdlr-core-skin-icon "></div>
 															<div class="gdlr-core-accordion-item-content-wrapper">
@@ -279,16 +279,41 @@
 													?>
 												</div>
 											</div>
-											<div class="gdlr-core-blog-item-holder gdlr-core-js-2 clearfix" data-layout="fitrows">
-												<div class="gdlr-core-item-list-wrap gdlr-core-column-10">
-													<div class="gdlr-core-item-list-inner gdlr-core-item-mglr">
-														<div class="gdlr-core-blog-grid ">
 
+											<div class="gdlr-core-blog-item-holder gdlr-core-js-2 clearfix" data-layout="fitrows">
+												<div class="gdlr-core-item-list-wrap gdlr-core-column-30">
+													<div class="gdlr-core-block-item-title-wrap  gdlr-core-left-align gdlr-core-item-mglr" id="div_1dd7_46">
+														<div class="gdlr-core-block-item-title-inner clearfix">
+															<h3 class="gdlr-core-block-item-title" id="h3_1dd7_10">News & Updates</h3>
+															<div class="gdlr-core-block-item-title-divider" id="div_1dd7_47"></div>
+														</div>
+														<a class="gdlr-core-block-item-read-more" href="<?php echo base_url('site/all_news') ?>" target="_self" id="a_1dd7_5">Read All News</a>
+													</div>
+													<div class="gdlr-core-item-list-wrap">
+														<div class="gdlr-core-item-list gdlr-core-blog-widget gdlr-core-item-mglr clearfix gdlr-core-style-small"> 
+														<?php
+													        foreach ($query2 as $key):
+												        ?>  
+															<div class="gdlr-core-blog-widget-content">
+																<!-- <div class="gdlr-core-blog-info-wrapper gdlr-core-skin-divider"> -->
+																	<span class="gdlr-core-blog-title gdlr-core-skin-title" id="h3_1dd7_12">
+																		<p><?php echo $key->title ?></p>
+																	</span>
+																<!-- </div> -->
+																<p style="font-size:11px" >
+																	<?php echo character_limiter($key->content, 100) ?>
+																</p>
+																<p><a href="<?php echo base_url('site/readnews/'.$key->id) ?>" style="font-size: 11px" class="btn btn-success">read more</a></p>
+															</div>
+														<?php
+													        endforeach;
+														?>	
 														</div>
 													</div>
 												</div>
-												<div class="gdlr-core-item-list-wrap gdlr-core-column-45">
-													<iframe width="350" height="275" src="https://www.youtube.com/embed/-uouoY1eM8M"></iframe>
+
+												<div class="gdlr-core-item-list-wrap gdlr-core-column-30">
+                                                    <iframe width="350" height="275" src="https://www.youtube.com/embed/-uouoY1eM8M"></iframe>
 												</div>
 											</div>
 
