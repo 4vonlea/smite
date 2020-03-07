@@ -25,6 +25,7 @@
                             <p style="font-size:11px" >
                                 <?php echo $key->content ?>
                             </p>
+                            <hr>
                         </div>
                         <?php
                     endforeach;
