@@ -123,6 +123,10 @@ $this->layout->begin_head();
 								<input type="checkbox" v-model="props.rowData.checklist.seminarkit" class="ttip"
 									   @change="changeChecklist(props.rowData)"  :data-original-title="'Event Name : '+props.rowData.event_name"/>
 							</template>
+							<template slot="certificate" slot-scope="props">
+								<input type="checkbox" v-model="props.rowData.checklist.certificate" class="ttip"
+									   @change="changeChecklist(props.rowData)"  :data-original-title="'Event Name : '+props.rowData.event_name"/>
+							</template>
 							<template slot="taker" slot-scope="props">
 								<input type="text" class="form-control" v-model="props.rowData.checklist.taker"
 									   @change="changeChecklist(props.rowData)">
@@ -230,7 +234,7 @@ $this->layout->begin_head();
 			fields: [{name: 'fullname', sortField: 'fullname'}, {
 				name: 'name_tag',
 				title: "Name Tag"
-			}, {name: 'seminar_kit', title: "Seminar Kit"}, {name: 'taker', title: "Taker"},{name:'event_id',title:'Action'}],
+			}, {name: 'seminar_kit', title: "Seminar Kit"},{name:'certificate',title:'Certificate'},{name: 'taker', title: "Taker"},{name:'event_id',title:'Action'}],
 			eventList: <?=json_encode($event);?>,
 			selectedEvent: "",
 			backupName:{},
@@ -506,8 +510,9 @@ $this->layout->begin_head();
 										v.checklist = JSON.parse(v.checklist);
 										v.checklist.nametag = (v.checklist.nametag == "true");
 										v.checklist.seminarkit = (v.checklist.seminarkit == "true");
+										v.checklist.certificate = (v.checklist.certificate == "true");
 									} catch (e) {
-										v.checklist = {nametag: false, seminarkit: false, taker: ""};
+										v.checklist = {nametag: false, seminarkit: false,certificate:false, taker: ""};
 									}
 								}
 							});
