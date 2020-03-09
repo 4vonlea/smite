@@ -32,6 +32,7 @@
                                 <?php echo character_limiter($key->content, 300) ?>
                             </p>
                             <p><a href="<?php echo base_url('site/readnews/'.$key->id) ?>" style="font-size: 11px" class="btn btn-success">read more</a></p>
+                            <hr>
                         </div>
                         <?php
                     endforeach;

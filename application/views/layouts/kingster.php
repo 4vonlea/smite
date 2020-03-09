@@ -138,7 +138,7 @@ $theme_path = base_url("themes/kingster") . "/";
 					<div class="kingster-footer-column kingster-item-pdlr kingster-column-60">
 						<div id="text-2" class="widget widget_text kingster-widget">
 							<div class="textwidget">
-								<p><img src="<?=base_url('themes/kingster');?>/upload/footer-logo.png" alt="" />
+								<p>
 									<br /> <span class="gdlr-core-space-shortcode" id="span_983a_1"></span>
 									<br /> Departement of Neurology
 									<br />  Medical Faculty of Lambung Mangkurat University

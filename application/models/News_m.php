@@ -11,7 +11,7 @@ class News_m extends MY_Model
 		$this->db->select('id, content, title, is_show');
 		$this->db->from('news');
 		$this->db->where('is_show', '1');
-		$this->db->limit(2);
+		$this->db->limit(3);
 		$this->db->order_by('id', 'DESC');
 		$result = $this->db->get()->result();
 		return $result;
