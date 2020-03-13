@@ -52,19 +52,25 @@ class MY_Model extends yidas\Model
 
     public function gridData($params,$gridConfig = [])
     {
-        $global_filter = (isset($params['global_filter'])?$params['global_filter']:null);
-        $fields = $params['fields'];
+		$gridConfig = (count($gridConfig) > 0 ? $gridConfig:$this->gridConfig());
+		$global_filter = (isset($params['global_filter'])?$params['global_filter']:null);
         $sort = explode("|",$params['sort']);
         $limit = $params['per_page'];
         $offset = ($params['page'] - 1)*$limit;
+        if(isset($gridConfig['include_search_field']))
+        	$fields = array_merge($gridConfig['include_search_field'],$params['fields']);
+        else
+        	$fields = $params['fields'];
 
+        if(isset($gridConfig['disable_search_field'])){
+        	$fields = array_diff($fields,$gridConfig['disable_search_field']);
+		}
 		/**
 		 * @var $builder CI_DB_query_builder
 		 */
 		$countBuilder = clone $this->getBuilder();
 		$countBuilder->select("t.*");
 		$builder = $this->setAlias("t")->find()->limit($limit)->offset($offset);
-		$gridConfig = (count($gridConfig) > 0 ? $gridConfig:$this->gridConfig());
 		if(isset($gridConfig['select']))
 			$builder->select($this->convertGridSelect($gridConfig['select']));
 
