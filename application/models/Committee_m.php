@@ -13,6 +13,7 @@ class Committee_m extends My_model
 				'attr' => ['committee_attribute', 'committee_id = t.id','left'],
 				'event' => ['events', 'event_id = event.id','left']
 			],
+			'search_operator'=>['a_id'=>'='],
 			'include_search_field'=>['a_id'],
 			'disable_search_field'=>['t_id'],
 			'group_by'=>'t.id',

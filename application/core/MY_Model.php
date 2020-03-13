@@ -81,9 +81,24 @@ class MY_Model extends yidas\Model
         	$builder->group_start();
         	$countBuilder->group_start();
             foreach($fields as $fname){
+            	$aliasName = $fname;
             	$fname = isset($gridConfig['select'][$fname])?$gridConfig['select'][$fname]:$fname;
-                $builder->or_like($fname,$global_filter);
-                $countBuilder->or_like($fname,$global_filter);
+            	if(isset($gridConfig['search_operator'][$aliasName])){
+            		$operator = $gridConfig['search_operator'][$aliasName];
+            		switch ($operator){
+						case "=":
+							$builder->or_where($fname, $global_filter);
+							$countBuilder->or_where($fname, $global_filter);
+							break;
+						default:
+							$builder->or_like($fname, $global_filter);
+							$countBuilder->or_like($fname, $global_filter);
+							break;
+					}
+				}else {
+					$builder->or_like($fname, $global_filter);
+					$countBuilder->or_like($fname, $global_filter);
+				}
             }
 			$builder->group_end();
 			$countBuilder->group_end();
