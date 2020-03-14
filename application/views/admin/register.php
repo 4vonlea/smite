@@ -323,7 +323,7 @@
                         });
                         $('#form-register').trigger('reset');
                     }
-                }).fail(function (res) {
+                }).fail(function (xhr) {
                 	var message =  xhr.getResponseHeader("Message");
                 	if(!message)
                 		message = 'Server fail to response !';
