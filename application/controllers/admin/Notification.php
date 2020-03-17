@@ -202,14 +202,13 @@ class Notification extends Admin_Controller
 		if ($data['target'] == "all") {
 			$res = $this->Member_m->find()->get();
 		} elseif ($data['target'] == 'event_selected') {
-			if ($data['to'] == 'paper') {
+			if ($data['to'] == 'Paper') {
 				$this->load->model("Papers_m");
 				$res = $this->Papers_m->getParticipant()->distinct("m.id")->get();
 			} else {
 				$this->load->model("Event_m");
 				$res = $this->Event_m->getParticipant()->where("t.id", $data['to'])->get();
 			}
-
 		} elseif ($data['target'] == 'member') {
 			$res = $this->Member_m->findOne($data['to']);
 			$to['email'][] = $res->email;

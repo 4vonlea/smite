@@ -162,6 +162,11 @@ Vue.component('datagrid', {
             this.loading = false;
         },
         doFilter () {
+        	var split = this.globalFilter.split(";");
+        	console.log(split.length,this.globalFilter);
+        	if(split.length > 1){
+        		this.globalFilter = split[1];
+			}
             this.paramsQuery = {
                 'global_filter': this.globalFilter,
                 'fields':this.getFieldName(),

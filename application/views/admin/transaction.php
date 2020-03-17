@@ -194,7 +194,7 @@
 					<i v-if="verifying" class="fa fa-spin fa-spinner"></i>
 					Expire Payment
 				</button>
-				<button v-if="detailModel.status_payment == '<?=Transaction_m::STATUS_NEED_VERIFY;?>'" @click="verifyPayment" type="button" class="btn btn-primary" :disabled="verifying">
+				<button v-if="detailModel.status_payment != '<?=Transaction_m::STATUS_EXPIRE;?>' && detailModel.status_payment != '<?=Transaction_m::STATUS_FINISH;?>'" @click="verifyPayment" type="button" class="btn btn-primary" :disabled="verifying">
 					<i v-if="verifying" class="fa fa-spin fa-spinner"></i>
 					Verify Payment
 				</button>

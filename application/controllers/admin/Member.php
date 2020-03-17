@@ -141,7 +141,7 @@ class Member extends Admin_Controller
 			if(file_exists(APPPATH."uploads/cert_template/$id.txt")) {
 				$member['status_member'] = "Peserta";
 				$cert = $this->Event_m->exportCertificate($member, $id)->output();
-				$status = $this->Gmail_api->sendMessageWithAttachment("muhammad.zaien17@gmail.com", "Certificate of Event", "Thank you for your participation <br/> Below is your certificate of '" . $member['event_name']."'", $cert, "CERTIFICATE.pdf");
+				$status = $this->Gmail_api->sendMessageWithAttachment($member['email'], "Certificate of Event", "Thank you for your participation <br/> Below is your certificate of '" . $member['event_name']."'", $cert, "CERTIFICATE.pdf");
 				$this->output
 					->set_content_type("application/json")
 					->_display(json_encode(['status' => true]));
@@ -168,6 +168,7 @@ class Member extends Admin_Controller
 			$data['confirm_password'] = $data['password'];
 
 			$uploadStatus = true;
+			$data['payment_proof'] = "-";
 			if(isset($_FILES['proof']) && is_uploaded_file($_FILES['proof']['tmp_name'])) {
 				$config['upload_path'] = APPPATH . 'uploads/proof/';
 				$config['allowed_types'] = 'jpg|png|jpeg|pdf';
@@ -251,7 +252,7 @@ class Member extends Admin_Controller
 							];
 							if(env('send_card_member','1') == '1') {
 								try {
-									$attc[$data['fullname'] . "_" . $row->event_name . ".pdf"] = $this->Member_m->getCard($event, $data)->output();
+									$attc[$data['fullname'] . "_" . $row->event_name . ".pdf"] = $this->Member_m->getCard($row->event_id, $data)->output();
 								}catch (ErrorException $ex){
 								log_message("error",$ex->getMessage());
 								}

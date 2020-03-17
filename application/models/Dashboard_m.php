@@ -15,19 +15,23 @@ class Dashboard_m extends CI_Model
 		$queryTemp = "SELECT 
 							event_id AS id_event,
 							COUNT(event_id) as number_participant,
-							SUM(td.price) AS fund_collected FROM transaction_details td
+							SUM(td.price) AS fund_collected,
+							SUM(IF(JSON_EXTRACT(checklist, '$.nametag') = 'true',1,0)) as nametag,
+							SUM(IF(JSON_EXTRACT(checklist, '$.seminarkit') = 'true',1,0)) as seminarkit,
+							SUM(IF(JSON_EXTRACT(checklist, '$.certificate') = 'true',1,0)) as certificate
+							FROM transaction_details td
 						JOIN transaction t ON t.id = td.transaction_id
 						JOIN event_pricing ep ON ep.id = td.event_pricing_id
 						WHERE t.status_payment = '" . Transaction_m::STATUS_FINISH . "'
 						GROUP BY event_id";
 
 		if ($this->session->user_session['role'] == User_account_m::ROLE_SUPERADMIN) {
-			$rs = $this->db->select("t.id as id_event,t.kouta,name,COALESCE(fund_collected,0) as fund_collected,COALESCE(number_participant,0) as number_participant")
+			$rs = $this->db->select("t.id as id_event,t.kouta,name,COALESCE(fund_collected,0) as fund_collected,COALESCE(number_participant,0) as number_participant,nametag,seminarkit,certificate")
 				->join("( $queryTemp ) as c", "c.id_event = t.id", "left")
 				->from("events t")->get();
 
 		} else {
-			$rs = $this->db->select("t.id as id_event,t.kouta,name,COALESCE(number_participant,0) as number_participant")
+			$rs = $this->db->select("t.id as id_event,t.kouta,name,COALESCE(number_participant,0) as number_participant,nametag,seminarkit,certificate")
 				->join("( $queryTemp ) as c", "c.id_event = t.id", "left")
 				->from("events t")->get();
 
@@ -94,6 +98,9 @@ class Dashboard_m extends CI_Model
 		$this->load->model("Transaction_m");
 
 		$rs = $this->db->select("t.id AS no_invoice,m.id AS id_member, m.fullname,kt.kategory as status, m.gender,m.phone,m.email,m.city,e.name AS event_name,CONCAT('Rp ',FORMAT(td.price,2)) as price,t.channel as method_payment,t.message_payment as additional_info")
+			->select("IF(JSON_EXTRACT(checklist, '$.nametag') = 'true','Yes','No') as take_nametag,
+							IF(JSON_EXTRACT(checklist, '$.seminarkit') = 'true','Yes','No') as take_seminarkit,
+							IF(JSON_EXTRACT(checklist, '$.certificate') = 'true','Yes','No') as take_certificate")
 			->join("transaction t", "t.id = td.transaction_id")
 			->join("members m", "m.id = td.member_id ")
 			->join("kategory_members kt", "kt.id = m.status ")

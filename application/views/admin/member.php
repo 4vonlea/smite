@@ -224,11 +224,12 @@
 								<tr>
 									<th>Name Tag</th>
 									<th>Seminar Kit</th>
+									<th>Certificate</th>
 									<th>Taker</th>
 								</tr>
 								<tr v-for="ev in profile.event">
 									<td>
-										{{ ev.event_name }} |
+										{{ ev.event_name }} <br/>
 										<a :href="'<?= base_url('admin/member/card'); ?>/'+ev.event_id+'/'+profile.id"
 										   target="_blank">Download Name Tag</a> <button :disabled="sendingCertificate" v-on:click="sendCertificate(ev)" class="btn btn-primary btn-sm"><i v-if="sendingCertificate" class="fa fa-spin fa-spinner"></i>Send Certificate</button>
 									</td>
@@ -238,6 +239,10 @@
 									</td>
 									<td>
 										<input type="checkbox" v-model="ev.checklist.seminarkit" true-value="true"
+											   false-value="false"/>
+									</td>
+									<td>
+										<input type="checkbox" v-model="ev.checklist.certificate" true-value="true"
 											   false-value="false"/>
 									</td>
 									<td>
