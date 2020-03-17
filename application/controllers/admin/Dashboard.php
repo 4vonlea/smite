@@ -67,6 +67,9 @@ class Dashboard extends Admin_Controller
 		if($this->input->post('title'))
 			$title = $this->input->post('title');
 
+		set_time_limit(0);
+		ini_set('memory_limit', '2048M');
+		
 		$this->load->library('Exporter');
 		$exporter = new Exporter();
 		$exporter->setData($data);
