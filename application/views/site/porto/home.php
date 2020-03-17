@@ -328,7 +328,7 @@
                 foreach ($query2 as $key):
             ?>
             <div class="col-lg-4 text-center text-md-left mb-5 mb-lg-0">
-                <h6 class="text-color-dark font-weight-normal text-6 mb-2" style="font-size: 11px"><strong class="font-weight-extra-bold"><?php echo $key->title ?></strong></h6>
+                <h6 class="text-color-dark font-weight-normal text-6 line-height-2"><strong class="font-weight-extra-bold"><?php echo $key->title ?></strong></h6>
                 <p style="font-size:9px" >
                     <?php echo character_limiter($key->content, 100) ?>
                 </p>
