@@ -6,7 +6,7 @@
  * @property CI_Config $config
  * @property CI_Loader $load
  * @property CI_Input $input
- * @property CI_Output $output
+ * @property CI_Output $out
  */
 class MY_Controller extends CI_Controller
 {
