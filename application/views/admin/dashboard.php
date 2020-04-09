@@ -68,7 +68,7 @@
 							</div> -->
 							<div class="col-md-12 text-center">
 								<div class="dropdown">
-									<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<button class="btn btn-primary dropdown-toggle mt-2" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 										Download Summary
 									</button>
 									<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -78,7 +78,7 @@
 									</div>
 								</div>
 								<div class="dropdown">
-									<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<button class="btn btn-primary dropdown-toggle mt-2" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 										Download Members
 									</button>
 									<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -88,7 +88,7 @@
 									</div>
 								</div>
 								<div class="dropdown">
-									<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<button class="btn btn-primary dropdown-toggle mt-2" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 										Download Participant Papers
 									</button>
 									<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -98,7 +98,7 @@
 									</div>
 								</div>
 								<div class="dropdown">
-									<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<button class="btn btn-primary dropdown-toggle mt-2" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 										Download Members Event
 									</button>
 									<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -108,7 +108,7 @@
 									</div>
 								</div>
 								<div class="dropdown">
-									<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<button class="btn btn-primary dropdown-toggle mt-2" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 										Download Transaksi
 									</button>
 									<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
