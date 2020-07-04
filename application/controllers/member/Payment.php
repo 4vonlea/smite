@@ -254,7 +254,7 @@ class Payment extends MY_Controller
 
 	public function confirmation_espay($invoice_id)
 	{
-		redirect(basename('member/area#/billing'));
+		redirect(base_url('member/area#/billing'));
 	}
 	public function settlement_espay()
 	{

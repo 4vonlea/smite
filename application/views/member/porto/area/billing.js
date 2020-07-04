@@ -68,8 +68,11 @@ export default Vue.component("PageBilling", {
 								<td></td>
 								<td class="text-right" colspan="2">
 								<a :href="appUrl+'member/area/download/invoice/'+current_invoice" target="_blank" class="btn btn-primary" >Download Invoice</a>
-								<button :disabled="checking_out" @click="checkoutEspay" class="btn btn-primary">
+								<button :disabled="checking_out" @click="checkout" class="btn btn-primary">
 									Checkout <i v-if="checking_out" class="fa fa-spin fa-spinner"></i>
+								</button>
+								<button data-toggle="modal" data-target="#modal-select-payment" class="btn btn-primary">
+									Select Payment Method
 								</button>
 								</td>
 							</tr>
@@ -199,9 +202,20 @@ export default Vue.component("PageBilling", {
 					</div>
 				</div>
 			</div>
-			<iframe id="sgoplus-iframe">
-
-			</iframe>
+			<div class="modal" id="modal-select-payment">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title">Select Payment Method</h4>
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+						</div>
+						<div class="modal-body">
+						<iframe id="sgoplus-iframe" style="width:100%"></iframe>
+						</div>
+					</div>
+				</div>
+			</div>
+			
 			<div class="modal" id="modal-manual_payment">
 				<div class="modal-dialog modal-lg">
 					<div class="modal-content">
@@ -310,18 +324,6 @@ export default Vue.component("PageBilling", {
 				btn.innerHTML = "Upload";
 			});
 		},
-		checkoutEspay(){
-			var invoiceID = this.current_invoice;
-			var page = this;
-			var data = {
-                key: "8cb8124bc7882f85b0c2af7e449a1a46 ",
-                paymentId: invoiceID,
-                backUrl: page.appUrl+`member/payment/confirmation_espay/${invoiceID}`,
-            },
-            sgoPlusIframe = document.getElementById("sgoplus-iframe");
-            if (sgoPlusIframe !== null) sgoPlusIframe.src = SGOSignature.getIframeURL(data);
-            SGOSignature.receiveForm();
-		},
     	checkout(){
     		var page =this;
     		page.checking_out = true;
@@ -419,6 +421,16 @@ export default Vue.component("PageBilling", {
 					page.current_invoice = res.current_invoice;
 					page.cart = res.cart;
 					page.transaction = res.transaction;
+					var invoiceID = this.current_invoice;
+					var data = {
+						key: "8cb8124bc7882f85b0c2af7e449a1a46 ",
+						paymentId: res.current_invoice,
+						backUrl: page.appUrl+`member/payment/confirmation_espay/${res.current_invoice}`,
+					},
+					sgoPlusIframe = document.getElementById("sgoplus-iframe");
+					if (sgoPlusIframe !== null) 
+						sgoPlusIframe.src = SGOSignature.getIframeURL(data);
+					SGOSignature.receiveForm();
 				} else {
 					page.fail = true;
 				}
