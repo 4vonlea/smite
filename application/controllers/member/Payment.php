@@ -10,7 +10,7 @@ class Payment extends MY_Controller
 {
 	public function __construct(){
 		parent::__construct();
-		if($this->user_session_expired() && $this->router->method != "notification")
+		if($this->user_session_expired() && in_array($this->router->method,['checkout','after_checkout']))
 			redirect(base_url("site/login"));
 
 		$config = $this->config->item("midtrans");
@@ -218,4 +218,49 @@ class Payment extends MY_Controller
 	}
 
 
+	//Method Untuk Espay
+	public function inquiry_espay(){
+		$error_code = 0;
+		$error_message = "";
+		$ccy = "IDR";
+		$description = "";
+		$date = date("d/m/y H:i:s");
+		$amount = 0;
+
+		$order_id = $this->input->post("order_id");
+		$this->load->model("Transaction_m");
+		$trx = $this->Transaction_m->findOne(['id'=>$order_id]);
+
+		foreach($trx->detailsWithEvent() as $row){
+			$amount += $row->price;
+			$description .= $row->product_name."\n";
+		}
+
+		echo implode(";",[$error_code,$error_message,$order_id,$amount,$ccy,$description,$date]);
+	}
+
+	public function notification_espay()
+	{
+		$this->load->model("Transaction_m");
+		$success_flag = "0";
+		$error_message = "";
+		$order_id = $this->input->post("order_id");
+		$reconcile_id = "SC$order_id";
+		$reconcile_datetime = date("d/m/y H:i:s");
+		$message_payment = json_encode($this->input->post());
+		$this->Transaction_m->update(['checkout'=>1,'message_payment'=>$message_payment,'status_payment'=>Transaction_m::STATUS_NEED_VERIFY],$order_id);
+		echo implode(",",[$success_flag,$error_message,$reconcile_id ,$order_id,$reconcile_datetime]);
+	}
+
+	public function confirmation_espay($invoice_id)
+	{
+		redirect(basename('member/area#/billing'));
+	}
+	public function settlement_espay()
+	{
+	}
+
+	protected function request(){
+		
+	}
 }

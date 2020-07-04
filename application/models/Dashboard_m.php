@@ -120,7 +120,7 @@ class Dashboard_m extends CI_Model
 					SELECT ep.event_id,td.member_id
 					FROM
 					transaction_details td
-					JOIN TRANSACTION t ON t.id = td.transaction_id
+					JOIN transaction t ON t.id = td.transaction_id
 					JOIN event_pricing ep ON ep.id = td.event_pricing_id
 					WHERE t.status_payment = "' . Transaction_m::STATUS_FINISH . '") AS t ON t.member_id =m.id
 					LEFT JOIN papers p ON p.member_id = m.id 

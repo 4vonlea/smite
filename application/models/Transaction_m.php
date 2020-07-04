@@ -68,6 +68,13 @@ class Transaction_m extends MY_Model
 		}
 		return $prefix.str_pad($no,5,"0",STR_PAD_LEFT);
 	}
+
+	public function getTotalAmount($invoiceId){
+		return $this->db->select_sum("price")
+		->from($this->table)->join("transaction_details",'transaction_id = transaction.id')
+		->where('transaction.id',$invoiceId)
+		->get();
+	}
 	public function detailsWithEvent(){
 		$rs = $this->db->select("t.*,e.id as event_id,e.name as event_name,e.theme, e.held_on,e.held_in,e.theme")
 				->join("event_pricing ep","ep.id = t.event_pricing_id","left")

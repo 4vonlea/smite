@@ -68,7 +68,7 @@ export default Vue.component("PageBilling", {
 								<td></td>
 								<td class="text-right" colspan="2">
 								<a :href="appUrl+'member/area/download/invoice/'+current_invoice" target="_blank" class="btn btn-primary" >Download Invoice</a>
-								<button :disabled="checking_out" @click="checkout" class="btn btn-primary">
+								<button :disabled="checking_out" @click="checkoutEspay" class="btn btn-primary">
 									Checkout <i v-if="checking_out" class="fa fa-spin fa-spinner"></i>
 								</button>
 								</td>
@@ -199,6 +199,9 @@ export default Vue.component("PageBilling", {
 					</div>
 				</div>
 			</div>
+			<iframe id="sgoplus-iframe">
+
+			</iframe>
 			<div class="modal" id="modal-manual_payment">
 				<div class="modal-dialog modal-lg">
 					<div class="modal-content">
@@ -306,6 +309,18 @@ export default Vue.component("PageBilling", {
 			}).always(function () {
 				btn.innerHTML = "Upload";
 			});
+		},
+		checkoutEspay(){
+			var invoiceID = this.current_invoice;
+			var page = this;
+			var data = {
+                key: "8cb8124bc7882f85b0c2af7e449a1a46 ",
+                paymentId: invoiceID,
+                backUrl: page.appUrl+`member/payment/confirmation_espay/${invoiceID}`,
+            },
+            sgoPlusIframe = document.getElementById("sgoplus-iframe");
+            if (sgoPlusIframe !== null) sgoPlusIframe.src = SGOSignature.getIframeURL(data);
+            SGOSignature.receiveForm();
 		},
     	checkout(){
     		var page =this;

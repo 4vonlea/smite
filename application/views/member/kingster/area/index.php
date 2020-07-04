@@ -108,6 +108,8 @@ $client_key = $config['client_key'];
 <script type="text/javascript"
 		src="https://app.midtrans.com/snap/snap.js"
 		data-client-key="<?= $client_key; ?>"></script>
+		https://sandbox-kit.espay.id/public/signature/js 
+<script src="https://sandbox-kit.espay.id/public/signature/js"></script>
 
 <script src="<?= base_url("themes/script/sweetalert2@8.js"); ?>"></script>
 
