@@ -55,6 +55,21 @@ class Dashboard_m extends CI_Model
 		return $result;
 	}
 
+	public function getTransaksi()
+	{
+		$this->load->model("Member_m");
+		$this->load->model("Transaction_m");
+		$result = $this->db->select("t.id as no_invoice, m.id as member_id, m.fullname as nama, e.name as acara, td.product_name, ep.name, td.price as harga, t.updated_at as waktu_transaksi, t.status_payment as status_pembayaran, t.message_payment as ket ")
+			->from("transaction t")
+			->join("members m", "m.id = t.member_id")
+			->join("transaction_details td", "t.id = td.transaction_id", "left")
+			->join("event_pricing ep", "ep.id = td.event_pricing_id", "left")
+			->join("events e", "e.id = ep.event_id")
+			->order_by("t.id, m.id")
+			->get()->result_array();
+		return $result;
+	}
+
 	public function getMemberEvent()
 	{
 		$this->load->model("Member_m");
@@ -68,13 +83,6 @@ class Dashboard_m extends CI_Model
 			->where("t.status_payment", "SETTLEMENT")
 			->order_by("m.id")
 			->get()->result_array();
-
-		// $result['data'] = array();
-		// foreach ($result as $data) {
-		// 	$data['event'] = $this->get_event($data['member_id']);
-		// 	$temp['data'][] = $data;
-		// }  
-		//debug($result);
 		return $result;
 	}
 
