@@ -155,8 +155,8 @@ class MY_Model extends yidas\Model
         }
         if(is_array($object)){
             foreach($object as $row){
-                $key = is_object($row) ? $row->{$id}: is_array($row) ? $row[$id]:"";
-                $val = is_object($row) ? $row->{$value}: is_array($row) ? $row[$value]:"";
+                $key = is_object($row) ? $row->{$id}: (is_array($row) ? $row[$id]:"");
+                $val = is_object($row) ? $row->{$value}: (is_array($row) ? $row[$value]:"");
                 $return[$key] = $val;
             }
         }
