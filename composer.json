@@ -5,12 +5,13 @@
         ]
     },
     "require": {
-        "php": "7.3",
+        "php": "^7.3",
         "vlucas/phpdotenv": "^3.3",
         "yidas/codeigniter-model": "^2.18",
         "google/apiclient": "^2.2",
         "dompdf/dompdf": "^0.8.3",
         "phpoffice/phpspreadsheet": "^1.9",
-        "setasign/fpdi": "^2.2"
+        "setasign/fpdi": "^2.2",
+        "phpmailer/phpmailer": "^6.1"
     }
 }

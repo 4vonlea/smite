@@ -70,13 +70,13 @@ class Paper extends Admin_Controller
 				$response['message'] = $model->errorsString();
 			}else{
 				if($data['status'] == Papers_m::ACCEPTED || $data['status'] == Papers_m::REJECTED ){
-					$this->load->model("Gmail_api");
+					$this->load->model("Notification_m");
 					$message = "<p>Dear Participant</p>
 					<p>Thank you for submitting your abstract to ".Settings_m::getSetting('site_title').". Please download your abstract result annoucement here.</p>
 					<p>Best regards.<br/>
 					Committee of ".Settings_m::getSetting('site_title')."</p>";
 					$member = $model->member;
-					$this->Gmail_api->sendMessageWithAttachment($member->email,"Result Of Paper Review",$message,['Abstract Announcement'=>$model->exportNotifPdf()->output()]);
+					$this->Notification_m->sendMessageWithAttachment($member->email,"Result Of Paper Review",$message,['Abstract Announcement'=>$model->exportNotifPdf()->output()]);
 				}
 
 			}

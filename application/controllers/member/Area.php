@@ -398,7 +398,7 @@ class Area extends MY_Controller
 		if($this->upload->do_upload('file_proof')){
 			$data = $this->upload->data();
 
-			$this->load->model(["Transaction_m","Gmail_api"]);
+			$this->load->model(["Transaction_m","Notification_m"]);
 			$tran = $this->Transaction_m->findOne($id);
 			$tran->client_message = $message;
 			$tran->payment_proof =  $data['file_name'];
@@ -412,7 +412,7 @@ class Area extends MY_Controller
 				$file[$data['file_name']] = file_get_contents(APPPATH.'uploads/proof/'.$data['file_name']);
 				$emails = explode(",",Settings_m::getSetting("email_receive") );
 				foreach($emails as $email) {
-					$this->Gmail_api->sendMessageWithAttachment($email, 'Notification Upload Transfer Proof', $email_message, $file);
+					$this->Notification_m->sendMessageWithAttachment($email, 'Notification Upload Transfer Proof', $email_message, $file);
 				}
 			}
 		}else{

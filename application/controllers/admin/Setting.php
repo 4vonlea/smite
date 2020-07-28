@@ -25,11 +25,11 @@ class Setting extends Admin_Controller
     public function index()
     {
     	$this->load->helper("form");
-		$this->load->model(['Gmail_api',"Whatsapp_api","Event_m"]);
-		$gmail_token = $this->Gmail_api->getToken();
+		$this->load->model(['Notification_m',"Event_m"]);
+		$gmail_token = $this->Notification_m->getValue(Notification_m::SETTING_GMAIL_TOKEN,true);
 		$manual = Settings_m::getSetting(Settings_m::MANUAL_PAYMENT);
 		$this->layout->render('setting',[
-			'wa_token'=>$this->Whatsapp_api->getToken(),
+			'wa_token'=>$this->Notification_m->getValue(Notification_m::SETTING_WA_TOKEN),
 			'email_binded'=>(is_array($gmail_token) && count($gmail_token) > 0) ? 1: 0,
 			"event"=>$this->Event_m->findAll(),
 			'manual'=>($manual==""?"[]":$manual)
@@ -116,7 +116,6 @@ class Setting extends Admin_Controller
 			$this->output
 				->set_content_type("application/json")
 				->_display(json_encode(['status'=>false]));
-
 		}
 	}
 	public function save_nametag(){
@@ -134,12 +133,12 @@ class Setting extends Admin_Controller
     public function unbind_email(){
 		if($this->input->method() != 'post')
 			show_404("Page Not Found !");
-		$this->load->model("Gmail_api");
+		$this->load->model("Notification_m");
 		$this->output
 			->set_content_type("application/json")
 			->_display(json_encode([
-				'status'=>$this->Gmail_api->saveToken([]),
-				'email'=>$this->Gmail_api->saveEmailAdmin(""),
+				'status'=>$this->Notification_m->setValue(Notification_m::SETTING_GMAIL_TOKEN,""),
+				'email'=>$this->Notification_m->setValue(Notification_m::SETTING_GMAIL_ADMIN,""),
 			]));
 
 	}
@@ -157,33 +156,49 @@ class Setting extends Admin_Controller
 			->_display(json_encode(['status'=>true]));
 
 	}
+	public function save_mailer(){
+		if($this->input->method() != 'post')
+			show_404("Page Not Found !");
+
+		$this->load->model("Notification_m");
+		$type = $this->input->post("type");
+		$mailer = $this->input->post("mailer");
+		$status = $this->Notification_m->setValue(Notification_m::SETTING_MAILER,json_encode($mailer)) &&
+					$this->Notification_m->setDefaultMailer($type);
+
+		$this->output
+			->set_content_type("application/json")
+			->_display(json_encode(['status'=>$status]));
+
+	}
 
 	public function save_token_wa(){
 		if($this->input->method() != 'post')
 			show_404("Page Not Found !");
-		$this->load->model("Whatsapp_api");
+		$this->load->model("Notification_m");
 		$token = $this->input->post("token");
 
 		$this->output
 			->set_content_type("application/json")
-			->_display(json_encode(['status'=>$this->Whatsapp_api->setToken($token)]));
+			->_display(json_encode(['status'=>$this->Notification_m->setValue(Notification_m::SETTING_WA_TOKEN,$token)]));
 
 	}
 
     public function token_auth()
     {
-        $this->load->model('Gmail_api');
+		$this->load->model("Notification_m");
+        $this->load->library('Gmail_api');
         $code = $this->input->get('code');
-        $client = $this->Gmail_api->getClient();
+        $client = $this->gmail_api->getClient();
         try {
             $token = $client->fetchAccessTokenWithAuthCode($code);
             $client->setAccessToken($token);
-            $this->Gmail_api->saveToken($token);
+            $this->Notification_m->setValue(Notification_m::SETTING_GMAIL_TOKEN,json_encode($token));
             file_put_contents(APPPATH."cache/log.json",json_encode($token));
 
 
-            $gmail = new Google_Service_Gmail($this->Gmail_api->getClient());
-            $this->Gmail_api->saveEmailAdmin($gmail->users->getProfile("me")->emailAddress);
+            $gmail = new Google_Service_Gmail($this->gmail_api->getClient());
+            $this->Notification_m->setValue(Notification_m::SETTING_GMAIL_ADMIN,($gmail->users->getProfile("me")->emailAddress));
 
             $this->session->set_flashdata("flash", ['type' => true, 'message' => 'Email successfully binded']);
             redirect(base_url("admin/setting"));
@@ -194,8 +209,8 @@ class Setting extends Admin_Controller
 
     public function request_auth()
     {
-        $this->load->model('Gmail_api');
-        $client = $this->Gmail_api->getClient();
+        $this->load->library('Gmail_api');
+        $client = $this->gmail_api->getClient();
         if ($client->isAccessTokenExpired()) {
             $authUrl = $client->createAuthUrl();
             redirect($authUrl);

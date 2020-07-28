@@ -388,7 +388,11 @@ $this->layout->begin_head();
                 this.pooling.style = {"width":"0%"};
 				var proses = function (url,data) {
 					$.post(url,data,null,"JSON").done(function (res) {
-						app.pooling.success++;
+						if(res.status){
+							app.pooling.success++;
+						}else{
+							app.pooling.fail++;
+						}
                     }).fail(function (xhr) {
                         app.pooling.fail++;
                     }).always(function () {

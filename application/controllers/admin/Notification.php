@@ -47,7 +47,7 @@ class Notification extends Admin_Controller
 					->_display(json_encode(['status' => false, 'message' => "Template of certificate is not found !"]));
 			}
 		} else {
-			$this->load->model("Gmail_api");
+			$this->load->model("Notification_m");
 			$member = $this->input->post();
 			$event = [
 				'id' => $member['event_id'],
@@ -55,7 +55,7 @@ class Notification extends Admin_Controller
 			];
 			$member['status_member'] = "Peserta";
 			$cert = $this->Event_m->exportCertificate($member, $event['id'])->output();
-			$status = $this->Gmail_api->sendMessageWithAttachment($member['email'], "Certificate of Event", "Thank you for your participation <br/> Below is your certificate of '" . $event['name'] . "'", $cert, "CERTIFICATE.pdf");
+			$status = $this->Notification_m->sendMessageWithAttachment($member['email'], "Certificate of Event", "Thank you for your participation <br/> Below is your certificate of '" . $event['name'] . "'", $cert, "CERTIFICATE.pdf");
 			$this->output
 				->set_content_type("application/json")
 				->_display(json_encode(['status' => true, 'log' => $status]));
@@ -84,7 +84,7 @@ class Notification extends Admin_Controller
 					->_display(json_encode(['status' => true, 'data' => $result->result_array()]));
 			}
 		} else {
-			$this->load->model("Gmail_api");
+			$this->load->model("Notification_m");
 			$member = $this->input->post();
 			$event = [
 				'id' => $member['event_id'],
@@ -95,7 +95,7 @@ class Notification extends Admin_Controller
 			foreach ($material as $name => $file) {
 				$material_file[$name] = file_get_contents(APPPATH . "uploads/material/" . $file['name']);
 			}
-			$status = $this->Gmail_api->sendMessageWithAttachment($member['email'], "Material of Event", "Thank you for your participation <br/> Below is your material of " . $event['name'], $material_file);
+			$status = $this->Notification_m->sendMessageWithAttachment($member['email'], "Material of Event", "Thank you for your participation <br/> Below is your material of " . $event['name'], $material_file);
 			$this->output
 				->set_content_type("application/json")
 				->_display(json_encode(['status' => true, 'log' => $status]));
@@ -216,20 +216,25 @@ class Notification extends Admin_Controller
 		} elseif ($data['target'] == "pooling") {
 			$to = $this->input->post("to");
 		}
-		if ($type == "member" || $type == "pooling") {
-			if (in_array("email", $data['via'])) {
-				$this->load->model("Gmail_api");
-				foreach ($to['email'] as $receiver) {
-					$this->Gmail_api->sendMessage($receiver, $data['subject'], $data['text']);
-				}
-			}
+		$status = true;
 
-			if (in_array("wa", $data['via'])) {
-				$this->load->model("Whatsapp_api");
-				foreach ($to['wa'] as $receiver) {
-					$this->Whatsapp_api->sendMessage($receiver, $data['subject'], $data['text']);
+		if ($type == "member" || $type == "pooling") {
+			$this->load->model("Notification_m");
+			$responseEmail['status'] = true;
+			if (in_array("email", $data['via'])) {
+				$this->Notification_m->setType(Notification_m::TYPE_EMAIL);
+				foreach ($to['email'] as $receiver) {
+					$responseEmail = $this->Notification_m->sendMessage($receiver, $data['subject'], $data['text']);
 				}
 			}
+			$responseWa['status'] = true;
+			if (in_array("wa", $data['via'])) {
+				$this->Notification_m->setType(Notification_m::TYPE_WA);
+				foreach ($to['wa'] as $receiver) {
+					$responseWa =$this->Notification_m->sendMessage($receiver, $data['subject'], $data['text']);
+				}
+			}
+			$status = ($responseEmail['status'] && $responseWa['status']);
 		} elseif (isset($res)) {
 			foreach ($res->result() as $row) {
 				$to[] = ['to' => ['email' => [$row->email], 'wa' => [$row->phone]], 'subject' => $data['subject'], 'text' => $data['text'], 'via' => $data['via'],'target'=>'pooling'];
@@ -237,7 +242,7 @@ class Notification extends Admin_Controller
 		}
 		$this->output
 			->set_content_type("application/json")
-			->_display(json_encode(['status' => true, 'type' => $type, 'data' => $to]));
+			->_display(json_encode(['status' => $status, 'type' => $type, 'data' => $to]));
 	}
 
 }

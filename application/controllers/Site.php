@@ -17,7 +17,7 @@ class Site extends MY_Controller
         $this->load->model('Event_m', 'EventM');
         $this->load->model('News_m', 'NewsM');
         $this->load->model('User_account_m', 'AccountM');
-        $this->load->model('Gmail_api');
+        $this->load->model('Notification_m');
     }
 
     public function index()
@@ -123,7 +123,7 @@ class Site extends MY_Controller
             $data['password'] = rand(10000, 99999);
             $success = $this->AccountM->update(['password' => password_hash($data['password'], PASSWORD_DEFAULT)], ['username' => $username], false);
             $email_message = $this->load->view('template/success_forget_password', $data, true);
-            $this->Gmail_api->sendMessage($username, 'Reset password '.Settings_m::getSetting('site_title').' account', $email_message);
+            $this->Notification_m->sendMessage($username, 'Reset password '.Settings_m::getSetting('site_title').' account', $email_message);
            	$this->session->set_flashdata('message', '<div class="col-lg-7 alert alert-success"><center> please check your email for your new password </center>
                 </div>');
             redirect('site/forget','refresh');

@@ -1,59 +1,46 @@
 <?php
-
-
-class Gmail_api extends MY_Model implements iNotification
+class Gmail_api implements iNotification
 {
     protected $primaryKey = "name";
     protected $table = "settings";
     protected $client = null;
 
-    const SENDER = 'site_title';
     const NAME_SETTINGS = "gmail_api";
     const EMAIL_ADMIN_SETTINGS = "email_admin";
+
+    protected $sender;
+    protected $token;
+    protected $email;
+
+    public function __construct($params = [])
+    {
+        $this->sender = (isset($params['sender']) ? $params['sender']:'');
+        $this->token = (isset($params['token']) ? $params['token']:'');
+        $this->email = (isset($params['email']) ? $params['email']:'');
+    }
 
     /**
      * @return array|null
      */
     public function getToken(){
-        $token = $this->findOne(['name'=>self::NAME_SETTINGS]);
-        return ($token ? json_decode($token->value,true):[]);
+        
+        return $this->token;
     }
 
     /**
      * @return string
      */
     public function getEmail(){
-        $email = $this->findOne(['name'=>self::EMAIL_ADMIN_SETTINGS]);
-        return ($email ? $email->value:'');
-
+        return $this->email;
     }
 
     /**
      * @return string
      */
     public function getSender(){
-        $email = $this->findOne(['name'=>self::SENDER]);
-        return ($email ? $email->value:'');
-
+        return $this->sender;
     }
 
-	/**
-	 * @param $token
-	 * @return bool
-	 */
-    public function saveToken($token){
-        return $this->replace([
-            'name'=>self::NAME_SETTINGS,
-            'value'=>json_encode($token)
-        ]);
-    }
-
-    public function saveEmailAdmin($email){
-        $this->replace([
-            'name'=>self::EMAIL_ADMIN_SETTINGS,
-            'value'=>$email
-        ]);
-    }
 
     /**
      * @return Google_Client
@@ -98,10 +85,18 @@ class Gmail_api extends MY_Model implements iNotification
         $strRawMessage .= $message."\r\n";
         // The message needs to be encoded in Base64URL
         $mime = rtrim(strtr(base64_encode($strRawMessage), '+/', '-_'), '=');
-        $msg = new Google_Service_Gmail_Message();
-        $msg->setRaw($mime);
-        $status = $service->users_messages->send("me", $msg);
-        log_message("error",print_r($status,true));
+        try{
+            $msg = new Google_Service_Gmail_Message();
+            $msg->setRaw($mime);
+            $status = $service->users_messages->send("me", $msg);
+            $response['status'] = $status;
+        }catch(Exception $e){
+            $response['status'] = false;
+            $response['code'] = $e->getCode();
+            $response['message'] = $e->getMessage();
+
+        }
+        return $response;
     }
 
 	public function sendMessageWithAttachment($to,$subject,$message,$attachment,$fname = ""){
@@ -140,7 +135,6 @@ class Gmail_api extends MY_Model implements iNotification
 		$msg = new Google_Service_Gmail_Message();
 		$msg->setRaw($mime);
 		$status = $service->users_messages->send("me", $msg);
-		log_message("error",print_r($status,true));
 		return $status;
 	}
 }

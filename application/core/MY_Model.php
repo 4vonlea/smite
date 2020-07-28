@@ -176,4 +176,5 @@ class MY_Model extends yidas\Model
 
 interface iNotification{
 	public function sendMessage($to,$subject,$message);
+	public function sendMessageWithAttachment($to,$subject,$message,$attachment,$fname = "");
 }

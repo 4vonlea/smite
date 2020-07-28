@@ -1,7 +1,7 @@
 <?php
 
 
-class Whatsapp_api extends My_model implements iNotification
+class Whatsapp_api implements iNotification
 {
 	protected $primaryKey = "name";
 	protected $table = "settings";
@@ -11,7 +11,6 @@ class Whatsapp_api extends My_model implements iNotification
 	public function getToken(){
 		$token = $this->findOne(['name'=>self::NAME_SETTINGS]);
 		return ($token ? $token->value:null);
-
 	}
 
 	/**
@@ -61,4 +60,8 @@ class Whatsapp_api extends My_model implements iNotification
 		$result = $this->composeRequest($to,$message,$url);
 		return $result['status'];
 	}
+
+    public function sendMessageWithAttachment($to,$subject,$message,$attachment,$fname = ""){
+
+    }
 }

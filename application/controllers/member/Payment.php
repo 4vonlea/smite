@@ -60,12 +60,12 @@ class Payment extends MY_Controller
 			$update['checkout'] = 1;//$notif->status_message;
 			$this->Transaction_m->update($update, $notif->order_id);
 			if($update['status_payment'] == Transaction_m::STATUS_FINISH){
-				$this->load->model("Gmail_api");
+				$this->load->model("Notification_m");
 				$tr = $this->Transaction_m->findOne($notif->order_id);
 				$member = $tr->member;
 
 				$invoice = $tr->exportInvoice()->output();
-				$this->Gmail_api->sendMessageWithAttachment($member->email,"INVOICE","Thank you for participating on events, Below is your invoice",$invoice,"INVOICE.pdf");
+				$this->Notification_m->sendMessageWithAttachment($member->email,"INVOICE","Thank you for participating on events, Below is your invoice",$invoice,"INVOICE.pdf");
 
 				$details = $tr->detailsWithEvent();
 				$file = [];
@@ -86,10 +86,10 @@ class Payment extends MY_Controller
 					}
 				}
 				$file['Bukti Registrasi'] = $tr->exportPaymentProof()->output();
-				$this->Gmail_api->sendMessageWithAttachment($member->email,"Official Bukti Registrasi And Name Tag","Thank you for registering and fulfilling your payment, below is offical Bukti Registrasi",$file,"OFFICIAL_BUKTI_REGISTRASI.pdf");
+				$this->Notification_m->sendMessageWithAttachment($member->email,"Official Bukti Registrasi And Name Tag","Thank you for registering and fulfilling your payment, below is offical Bukti Registrasi",$file,"OFFICIAL_BUKTI_REGISTRASI.pdf");
 
 //				$file = $tr->exportPaymentProof()->output();
-//				$this->Gmail_api->sendMessageWithAttachment($member->email,"Official Bukti Registrasi-And Name Tag","Thank you for registering and fulfilling your payment, below is offical Bukti Registrasi",$file,"OFFICIAL_PAYMENT_PROOF.pdf");
+//				$this->Notification_m->sendMessageWithAttachment($member->email,"Official Bukti Registrasi-And Name Tag","Thank you for registering and fulfilling your payment, below is offical Bukti Registrasi",$file,"OFFICIAL_PAYMENT_PROOF.pdf");
 			}
 		}
 	}

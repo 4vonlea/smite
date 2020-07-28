@@ -135,16 +135,16 @@ class Member extends Admin_Controller
 
 	public function send_certificate(){
 		if($this->input->post()) {
-			$this->load->model(["Gmail_api", "Event_m"]);
+			$this->load->model(["Notification_m", "Event_m"]);
 			$id = $this->input->post("id");
 			$member = $this->input->post();
 			if(file_exists(APPPATH."uploads/cert_template/$id.txt")) {
 				$member['status_member'] = "Peserta";
 				$cert = $this->Event_m->exportCertificate($member, $id)->output();
-				$status = $this->Gmail_api->sendMessageWithAttachment($member['email'], "Certificate of Event", "Thank you for your participation <br/> Below is your certificate of '" . $member['event_name']."'", $cert, "CERTIFICATE.pdf");
+				$status = $this->Notification_m->sendMessageWithAttachment($member['email'], "Certificate of Event", "Thank you for your participation <br/> Below is your certificate of '" . $member['event_name']."'", $cert, "CERTIFICATE.pdf");
 				$this->output
 					->set_content_type("application/json")
-					->_display(json_encode(['status' => true]));
+					->_display(json_encode($status));
 			}else{
 				$this->output
 					->set_content_type("application/json")
@@ -158,7 +158,7 @@ class Member extends Admin_Controller
 		$this->load->model(["Category_member_m", "Event_m","Univ_m"]);
 		$participantsCategory = Category_member_m::asList(Category_member_m::findAll(), 'id', 'kategory', 'Please Select your status');
 		if ($this->input->post()) {
-			$this->load->model(['Member_m', 'User_account_m', 'Gmail_api', 'Transaction_m', 'Transaction_detail_m']);
+			$this->load->model(['Member_m', 'User_account_m', 'Notification_m', 'Transaction_m', 'Transaction_detail_m']);
 			$this->load->library('Uuid');
 
 			$data = $this->input->post();
@@ -259,7 +259,7 @@ class Member extends Admin_Controller
 							}
 						}
 					}
-					$this->Gmail_api->sendMessageWithAttachment($data['email'], 'Registered On Site Succesfully - Invoice, Bukti Registrasi', $email_message, $attc);
+					$this->Notification_m->sendMessageWithAttachment($data['email'], 'Registered On Site Succesfully - Invoice, Bukti Registrasi', $email_message, $attc);
 				}
 			} else {
 				$error['status'] = false;

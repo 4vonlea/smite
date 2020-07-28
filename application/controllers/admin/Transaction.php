@@ -20,7 +20,7 @@ class Transaction extends Admin_Controller
     }
 
     public function resend($type,$id){
-		$this->load->model(['Transaction_m','Member_m','Gmail_api']);
+		$this->load->model(['Transaction_m','Member_m','Notification_m']);
 		$tr = $this->Transaction_m->findOne(['id'=>$id]);
 		$member = $this->Member_m->findOne(['id'=>$tr->member_id]);
 		if($type == "invoice") {
@@ -34,7 +34,7 @@ class Transaction extends Admin_Controller
 					<p>Thank you for participating in the event. Please download your 'Registration Proof' here.</p>
 					<p>Best regards.<br/>
 					Committee of ".Settings_m::getSetting('site_title')."</p>";
-		$result = $this->Gmail_api->sendMessageWithAttachment($member->email, 'Kirim Ulang : Bukti Registrasi', $message,[$filename=>$file->output()]);
+		$result = $this->Notification_m->sendMessageWithAttachment($member->email, 'Kirim Ulang : Bukti Registrasi', $message,[$filename=>$file->output()]);
 		$this->output
 			->set_content_type("application/json")
 			->_display(json_encode(['status'=>$result]));
@@ -86,7 +86,7 @@ class Transaction extends Admin_Controller
 	public function expire(){
 		if($this->input->method() != 'post')
 			show_404("Page Not Found !");
-		$this->load->model(["Transaction_m","Member_m","Gmail_api"]);
+		$this->load->model(["Transaction_m","Member_m","Notification_m"]);
 		$id = $this->input->post('id');
 		$detail = $this->Transaction_m->findOne($id);
 		$detail->status_payment = Transaction_m::STATUS_EXPIRE;
@@ -100,7 +100,7 @@ class Transaction extends Admin_Controller
 		if($this->input->method() != 'post')
 			show_404("Page Not Found !");
 
-		$this->load->model(["Transaction_m","Member_m","Gmail_api"]);
+		$this->load->model(["Transaction_m","Member_m","Notification_m"]);
 		$id = $this->input->post('id');
 		$detail = $this->Transaction_m->findOne($id);
 		$detail->status_payment = Transaction_m::STATUS_FINISH;
@@ -129,7 +129,7 @@ class Transaction extends Admin_Controller
 					}
 				}
 			}
-			$this->Gmail_api->sendMessageWithAttachment($member->email, 'Invoice, Bukti Registrasi And Name Tag', "Thank you for registering and fulfilling your payment, below is your invoice and offical Bukti Registrasi", $attc);
+			$this->Notification_m->sendMessageWithAttachment($member->email, 'Invoice, Bukti Registrasi And Name Tag', "Thank you for registering and fulfilling your payment, below is your invoice and offical Bukti Registrasi", $attc);
 
 		}
 		$this->output
