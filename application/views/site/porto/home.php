@@ -31,7 +31,7 @@
              data-y="center" data-voffset="['60','60','60','100']"
              data-start="1500"
              style="font-size: 12px; padding: 15px 6px;"
-             data-transform_in="y:[-300%];opacity:0;s:500;"><b><strong>Login Now</strong></b></a> -->
+             data-transform_in="y:[-300%];opacity:0;s:500;"><b><strong>Login Now</strong></b></a>
          </li>
          <li data-transition="fade">
             <img src="<?=base_url('themes/porto');?>/img/demos/business-consulting/slides/blackv.JPG"

@@ -12,6 +12,13 @@ class Migration_modify_member extends CI_Migration
 		if ($this->db->field_exists("univ", "members") == false) {
 			$this->dbforge->add_column("members", [
 				'univ' => ['type' => 'int'],
+				
+			]);
+			$this->dbforge->add_column("members", [
+				'sponsor' => [
+					'type' => 'varchar',
+					'constraint' => '50'
+				],				
 			]);
 		}
 		$this->dbforge->add_field([
