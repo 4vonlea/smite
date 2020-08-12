@@ -368,7 +368,7 @@
                                  <p> Besar harapan kami agar 2nd East INSDV 2020 yang diselenggarakan di Banjarmasin kali ini  dapat menambah wawasan dan menyegarkan pengetahuan para sejawat dokter spesialis kulit dan kelamin, dokter spesialis lain, dokter umum, serta mahasiswa kedokteran yang berminat guna meningkatkan kualitas pelayanan kesehatan pada masyarakat. Terlebih jika mengingat Kalimantan-Selatan sebagai provinsi dengan jalur hijau yang luas dan sedang dalam perkembangan yang sangat pesat. Dilengkapi dengan destinasi wisata yang khas dan berkembang, tentu menjadi daya Tarik tersendiri. Pun kearifan lokal yang sangat bervariasi baik prosesi adat, budaya, kuliner, & berbagai kerajinan buah tangan tradisional, sehingga Kalimantan-Selatan dapat menjadi salah satu destinasi yang wajib untuk disambangi.
                                  </p><br>
                                  <p>Ketua Panitia</p><br>
-                                 <p><b>dr. Huany Wongdjaja, Sp.KK , M.Kes </b></p>
+                                 <p><b>dr. Huany Wongdjaja, Sp.KK , M.Kes</b></p>
 
                              </span>
                          </span>
