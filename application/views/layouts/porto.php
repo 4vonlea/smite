@@ -26,7 +26,7 @@ $theme_path = base_url("themes/porto") . "/";
 
 	<!-- Web Fonts  -->
 	<link href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700%7CSintony:400,700" rel="stylesheet"
-		  type="text/css">
+	type="text/css">
 
 	<!-- Vendor CSS -->
 	<link rel="stylesheet" href="<?= $theme_path; ?>vendor/bootstrap/css/bootstrap.min.css">
@@ -49,10 +49,10 @@ $theme_path = base_url("themes/porto") . "/";
 	<link rel="stylesheet" href="<?= $theme_path; ?>vendor/rs-plugin/css/navigation.css">
 
 	<!-- Demo CSS -->
-	<link rel="stylesheet" href="<?= $theme_path; ?>css/demos/demo-business-consulting.css">
+	<link rel="stylesheet" href="<?= $theme_path; ?>css/demos/demo-event.css">
 
 	<!-- Skin CSS -->
-	<link rel="stylesheet" href="<?= $theme_path; ?>css/skins/skin-business-consulting.css">
+	<link rel="stylesheet" href="<?= $theme_path; ?>css/skins/skin-event.css">
 
 	<!-- Theme Custom CSS -->
 	<link rel="stylesheet" href="<?= $theme_path; ?>css/custom.css">
@@ -61,54 +61,83 @@ $theme_path = base_url("themes/porto") . "/";
 	<script src="<?= $theme_path; ?>vendor/modernizr/modernizr.min.js"></script>
 	<?php if (ENVIRONMENT == "production"): ?>
 		<script src="https://cdn.jsdelivr.net/npm/vue"></script>
-	<?php else: ?>
-		<script src="<?= base_url('themes/script/vue.js'); ?>"></script>
-	<?php endif; ?>
+		<?php else: ?>
+			<script src="<?= base_url('themes/script/vue.js'); ?>"></script>
+		<?php endif; ?>
 
-</head>
-<body>
+		<style type="text/css">
+			.icon-bar {
+				position: fixed;
+				top: 90%;
+				right: 0%;
+				-webkit-transform: translateY(-10%);
+				-ms-transform: translateY(-10%);
+				transform: translateY(-10%);
+			}
 
-<div class="body">
-	<header id="header" class="header-transparent header-transparent-dark-bottom-border header-effect-shrink"
+			.icon-bar a {
+				display: block;
+				text-align: center;
+				padding: 10px;
+				transition: all 0.3s ease;
+				color: white;
+				font-size: 14px;
+			}
+
+			.icon-bar a:hover {
+				background-color: #000;
+			}
+
+			.whatsapp {
+				background: #6cd115;
+				color: white;
+			}
+		</style>
+
+	</head>
+	<body>
+
+		<div class="body">
+			<header id="header" class="header-transparent header-transparent-dark-bottom-border header-effect-shrink"
 			data-plugin-options="{'stickyEnabled': true, 'stickyEffect': 'shrink', 'stickyEnableOnBoxed': true, 'stickyEnableOnMobile': true, 'stickyChangeLogo': true, 'stickyStartAt': 30, 'stickyHeaderContainerHeight': 70}">
-		<div class="header-body border-top-0 bg-dark box-shadow-none">
-			<div class="header-container container">
-				<div class="header-row">
-					<div class="header-column">
-						<div class="header-row">
-							<div class="header-logo">
-								<a href="demo-business-consulting.html">
-									<img alt="Porto" width="82" height="40"
-										 src="<?= base_url('themes/uploads/logo.png'); ?>">
-								</a>
+			<div class="header-body border-top-0 bg-dark box-shadow-none">
+				<div class="header-container container">
+					<div class="header-row">
+						<div class="header-column">
+							<div class="header-row">
+								<div class="header-logo">
+									<a href="demo-event.html">
+										<img alt="Porto" width="82" height="40"
+										src="<?= base_url('themes/uploads/logo.png'); ?>">
+									</a>
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="header-column justify-content-end">
-						<div class="header-row">
-							<div
+						<div class="header-column justify-content-end">
+							<div class="header-row">
+								<div
 								class="header-nav header-nav-links header-nav-dropdowns-dark header-nav-light-text order-2 order-lg-1">
 								<div
-									class="header-nav-main header-nav-main-mobile-dark header-nav-main-square header-nav-main-dropdown-no-borders header-nav-main-effect-2 header-nav-main-sub-effect-1">
-									<nav class="collapse">
-										<ul class="nav nav-pills" id="mainNav">
-											<?php if (!$this->session->has_userdata('user_session')): ?>
+								class="header-nav-main header-nav-main-mobile-dark header-nav-main-square header-nav-main-dropdown-no-borders header-nav-main-effect-2 header-nav-main-sub-effect-1">
+								<nav class="collapse">
+									<ul class="nav nav-pills" id="mainNav">
+										<?php if (!$this->session->has_userdata('user_session')): ?>
 
-												<li>
-													<a class="nav-link" href="<?= base_url("site"); ?>">
-														Home
-													</a>
-												</li>
-												<li>
-													<a class="nav-link" href="<?= base_url("site/simposium"); ?>">
-														Rundown
-													</a>
-												</li>
-												<li>
-													<a class="nav-link" href="<?= base_url("site/paper"); ?>">
-														Submit Paper
-													</a>
-												</li>
+											<li>
+												<a class="nav-link" href="<?= base_url("site"); ?>">
+													Home
+												</a>
+											</li>
+											<li>
+												<a class="nav-link" href="<?= base_url("site/simposium"); ?>">
+													Rundown
+												</a>
+											</li>
+											<li>
+												<a class="nav-link" href="<?= base_url("site/paper"); ?>">
+													Submit Paper
+												</a>
+											</li>
 												<!-- <li class="dropdown dropdown-primary">
 														<a class="dropdown-toggle nav-link"
 														   href="">
@@ -129,9 +158,9 @@ $theme_path = base_url("themes/porto") . "/";
 															</li>
 														</ul>
 													</li> -->
-												<li class="dropdown dropdown-primary">
-													<a class="dropdown-toggle nav-link"
-													   href="<?= base_url("site/committee"); ?>">
+													<li class="dropdown dropdown-primary">
+														<a class="dropdown-toggle nav-link"
+														href="<?= base_url("site/committee"); ?>">
 														committee
 													</a>
 												</li>
@@ -145,58 +174,112 @@ $theme_path = base_url("themes/porto") . "/";
 											<li style="border-left: 1px solid #fff" class="dropdown dropdown-primary">
 												<?php if ($this->session->has_userdata('user_session')): ?>
 													<a class="dropdown-toggle nav-link"
-													   href="<?= base_url('member/area/#/profile'); ?>/">
-														Member Area
-													</a>
+													href="<?= base_url('member/area/#/profile'); ?>/">
+													Member Area
+												</a>
 												<?php else: ?>
 													<a class="dropdown-toggle nav-link"
-													   href="#">
-														Member Area &nbsp;<i class="fa fa-chevron-circle-down"></i>
+													href="#">
+													Member Area &nbsp;<i class="fa fa-chevron-circle-down"></i>
+												</a>
+												<ul class="dropdown-menu">
+													<li>
+														<a class="dropdown-item"
+														href="<?= base_url("site/login"); ?>">
+														Login
 													</a>
-													<ul class="dropdown-menu">
-														<li>
-															<a class="dropdown-item"
-															   href="<?= base_url("site/login"); ?>">
-																Login
-															</a>
-														</li>
-														<li>
-															<a class="dropdown-item"
-															   href="<?= base_url("member/register"); ?>">
-																Register
-															</a>
-														</li>
-													</ul>
-												<?php endif; ?>
-
+												</li>
+												<li>
+													<a class="dropdown-item"
+													href="<?= base_url("member/register"); ?>">
+													Register
+												</a>
 											</li>
 										</ul>
-									</nav>
-								</div>
-								<button class="btn header-btn-collapse-nav" data-toggle="collapse"
-										data-target=".header-nav-main nav">
-									<i class="fas fa-bars"></i>
-								</button>
-							</div>
-						</div>
+									<?php endif; ?>
+
+								</li>
+							</ul>
+						</nav>
+					</div>
+					<button class="btn header-btn-collapse-nav" data-toggle="collapse"
+					data-target=".header-nav-main nav">
+					<i class="fas fa-bars"></i>
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+</div>
+</header>
+<div role="main" class="main">
+	<?= $content; ?>
+</div>
+
+<footer id="footer" class="bg-color-quaternary m-0 pb-5">
+	<div class="container pt-5">
+		<div class="row pt-5 mb-4 pb-5">
+			<div class="col-lg-5 mb-3">
+				<div class="mb-4">
+					<h4 class="text-color-light font-weight-light mb-2">PIN PERDOSSI</h4>
+					<p class="custom-font-size-3 text-color-light font-weight-normal text-uppercase opacity-5 mb-0"> Virtual Congress 2020</p>
+				</div>
+				<a href="#" class="btn btn-primary custom-border-radius custom-btn-style-1 text-3 font-weight-semibold text-color-light text-uppercase outline-none">Buy Tickets <i class="custom-long-arrow-right ml-3" aria-hidden="true"></i></a>
+			</div>
+			<div class="col-lg-3 mb-3">
+				<div class="contact-details">
+					<h4 class="text-color-light font-weight-light mb-4 pb-1">Contact Us</h4>
+					<div class="mb-3">
+						<strong class="font-weight-light text-color-light">Address:</strong>
+						<span class="font-weight-light">1234 Street Name, City Name, United States</span>
+					</div>
+					<div class="mb-3">
+						<strong class="font-weight-light text-color-light">Phone:</strong>
+						<a href="tel:1234567890" class="text-decoration-none font-weight-light">(123) 456-7890</a>
+					</div>
+					<div>
+						<strong class="font-weight-light text-color-light">Email:</strong>
+						<a href="mailto:mail@example.com" class="text-decoration-none font-weight-light">mail@example.com</a>
 					</div>
 				</div>
 			</div>
+			<div class="col-lg-3 ml-lg-auto">
+				<h4 class="text-color-light font-weight-light mb-4 pb-1">Follow Us</h4>
+				<ul class="social-icons social-icons-clean">
+					<li class="social-icons-facebook">
+						<a href="http://www.facebook.com/" target="_blank" title="Facebook">
+							<i class="fab fa-facebook-f"></i>
+						</a>
+					</li>
+					<li class="social-icons-twitter">
+						<a href="http://www.twitter.com/" target="_blank" title="Twitter">
+							<i class="fab fa-twitter"></i>
+						</a>
+					</li>
+					<li class="social-icons-googleplus">
+						<a href="http://www.plus.google.com/" target="_blank" title="Twitter">
+							<i class="fab fa-google-plus-g" aria-hidden="true"></i>
+						</a>
+					</li>
+					<li class="social-icons-linkedin">
+						<a href="http://www.linkedin.com/" target="_blank" title="Linkedin">
+							<i class="fab fa-linkedin-in"></i>
+						</a>
+					</li>
+				</ul>
+			</div>
 		</div>
-	</header>
-	<div role="main" class="main">
-		<?= $content; ?>
-	</div>
-	<footer id="footer">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12 text-center pb-4">
-					<p>2018 © Porto <span class="text-color-light">Business Consulting</span> - Copyright All Rights
-						Reserved</p>
+		<div class="row">
+			<div class="col">
+				<div class="footer-border text-center pt-5">
+					<p class="font-weight-normal text-1 mb-0">© Copyright 2019. All Rights Reserved.</p>
 				</div>
 			</div>
 		</div>
-	</footer>
+	</div>
+</footer>
+
 </div>
 
 <script src="<?= $theme_path; ?>vendor/jquery/jquery.min.js"></script>
@@ -227,7 +310,7 @@ $theme_path = base_url("themes/porto") . "/";
 <script src="<?= $theme_path; ?>js/views/view.contact.js"></script>
 
 <!-- Demo -->
-<script src="<?= $theme_path; ?>js/demos/demo-business-consulting.js"></script>
+<script src="<?= $theme_path; ?>js/demos/demo-event.js"></script>
 
 <!-- Theme Custom -->
 <script src="<?= $theme_path; ?>js/custom.js"></script>
