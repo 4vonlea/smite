@@ -20,7 +20,7 @@
                     data-start="500"
                     data-paddingleft="['0', '0', '0', '0']"
                     style="z-index: 5; font-size: 18px;"
-                    data-transform_in="y:[-300%];opacity:0;s:500;">Virtual Congress 2020</div>
+                    data-transform_in="y:[-300%];opacity:0;s:500;">Virtual Congress 2020</div> 
 
                     <h1 class="tp-caption text-color-light font-weight-extra-bold text-uppercase"
                     data-x="['left','left','left','left']"
@@ -644,7 +644,24 @@
                         </div>
 
                     </div>
+<<<<<<< HEAD
                 </div>
+=======
+                    <div class="col-sm-12 col-lg-8">
+                        <h2> PRAKATA</h2>
+                        <hr class="solid">
+                        <div class="post-infos d-flex">
+                            <span class="info posted-by">
+                                <span class="post-author font-weight-semibold text-color-dark">
+                                 <p>Lajunya sumber informasi yang tidak terbendung di era digital dan peningkatan status sosial ekonomi serta pendidikan, membuat masyarakat semakin sadar dan peduli terhadap status kesehatan mereka. Salah satunya adalah kesehatan kulit selaku organ paling luar dan kelamin sebagai organ dalam yang penting. Paradigma ini mendorong masyarakat untuk lebih proaktif memeriksakan diri apabila mengalami masalah pada kesehatan kulit dan kelaminnya.</p> <br>
+                                 <p>Penyakit yang dikonsultasikan pasien pada dokter Spesialis Kulit & Kelamin maupun dokter umum selaku garda terdepan fasilitas kesehatan, bergeser tidak sebatas kosmetik, bahkan hingga penyakit kongenital/herediter pada bayi, dewasa muda, hingga keluhan kulit dan kelamin pada geriatri. Di satu sisi, penanganan dan kewaspadaaan terhadap kelainan sejak dini akan sangat berguna untuk menghindari perburukan penyakit.</p><br>
+                                 <p> Berdasarkan uraian tersebut jelas merupakan tantangan tersendiri bagi dokter layanan primer & dokter spesialis kulit kelamin yang menjadi fasilitator dalam memberikan pelayanan setiap harinya berdasarkan Evidence Based Medicine. PERDOSKI memahami hal tersebut, maka dalam rangka P2KB, diadakan simposium dan workshop dengan tema New Paradigm of Management in Pediatric to Geriatric Dermatology and Venereology: Effective Strategies Related to Diagnosis Prevention and Management .
+                                 </p><br>
+                                 <p> Besar harapan kami agar 2nd East INSDV 2020 yang diselenggarakan di Banjarmasin kali ini  dapat menambah wawasan dan menyegarkan pengetahuan para sejawat dokter spesialis kulit dan kelamin, dokter spesialis lain, dokter umum, serta mahasiswa kedokteran yang berminat guna meningkatkan kualitas pelayanan kesehatan pada masyarakat. Terlebih jika mengingat Kalimantan-Selatan sebagai provinsi dengan jalur hijau yang luas dan sedang dalam perkembangan yang sangat pesat. Dilengkapi dengan destinasi wisata yang khas dan berkembang, tentu menjadi daya Tarik tersendiri. Pun kearifan lokal yang sangat bervariasi baik prosesi adat, budaya, kuliner, & berbagai kerajinan buah tangan tradisional, sehingga Kalimantan-Selatan dapat menjadi salah satu destinasi yang wajib untuk disambangi.
+                                 </p><br>
+                                 <p>Ketua Panitia</p><br>
+                                 <p><b>dr. Huany Wongdjaja, Sp.KK , M.Kes</b></p>
+>>>>>>> c02f0d6510d314c86665c892cbb66bae1ec600bb
 
             </div>
         </div>
