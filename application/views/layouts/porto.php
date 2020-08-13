@@ -13,9 +13,9 @@ $theme_path = base_url("themes/porto") . "/";
 
 	<title><?= Settings_m::getSetting('site_title'); ?></title>
 
-	<meta name="keywords" content="Seminar Dermatovenereology"/>
-	<meta name="description" content="Seminar Dermatovenereology">
-	<meta name="anonym" content="Seminar Dermatovenereology International in Banjarmasin">
+	<meta name="keywords" content="PIN PERDOSSI Virtual Congress"/>
+	<meta name="description" content="PIN PERDOSSI Virtual Congress">
+	<meta name="anonym" content="PIN PERDOSSI Virtual Congress">
 
 	<!-- Favicon -->
 	<link rel="shortcut icon" href="<?= $theme_path; ?>img/favicon.ico" type="image/x-icon"/>
@@ -130,85 +130,60 @@ $theme_path = base_url("themes/porto") . "/";
 											</li>
 											<li>
 												<a class="nav-link" href="<?= base_url("site/simposium"); ?>">
-													Rundown
+													Schedule
 												</a>
 											</li>
-											<li>
-												<a class="nav-link" href="<?= base_url("site/paper"); ?>">
-													Submit Paper
-												</a>
-											</li>
-												<!-- <li class="dropdown dropdown-primary">
-														<a class="dropdown-toggle nav-link"
-														   href="">
-															Scientific &nbsp;<i class="fa fa-chevron-circle-down"></i>
-														</a>
-														<ul class="dropdown-menu">
-															<li>
-																<a class="dropdown-item"
-																   href="<?= base_url("site/simposium"); ?>">
-																	Simposium & Workshop
-																</a>
-															</li>
-															<li>
-																<a class="dropdown-item"
-																   href="<?= base_url("site/paper"); ?>">
-																	Submit Paper
-																</a>
-															</li>
-														</ul>
-													</li> -->
-													<li class="dropdown dropdown-primary">
-														<a class="dropdown-toggle nav-link"
-														href="<?= base_url("site/committee"); ?>">
-														committee
-													</a>
-												</li>
-												<li>
-													<a class="nav-link" href="<?= base_url("site/contact"); ?>">
-														contact us
-													</a>
-												</li>
-											<?php endif; ?>
-
-											<li style="border-left: 1px solid #fff" class="dropdown dropdown-primary">
-												<?php if ($this->session->has_userdata('user_session')): ?>
-													<a class="dropdown-toggle nav-link"
-													href="<?= base_url('member/area/#/profile'); ?>/">
-													Member Area
-												</a>
-												<?php else: ?>
-													<a class="dropdown-toggle nav-link"
-													href="#">
-													Member Area &nbsp;<i class="fa fa-chevron-circle-down"></i>
-												</a>
-												<ul class="dropdown-menu">
-													<li>
-														<a class="dropdown-item"
-														href="<?= base_url("site/login"); ?>">
-														Login
-													</a>
-												</li>
-												<li>
-													<a class="dropdown-item"
-													href="<?= base_url("member/register"); ?>">
-													Register
-												</a>
-											</li>
-										</ul>
+											<li class="dropdown dropdown-primary">
+												<a class="dropdown-toggle nav-link"
+												href="<?= base_url("site/committee"); ?>">
+												committee
+											</a>
+										</li>
+										<li>
+											<a class="nav-link" href="#footer">
+												contact us
+											</a>
+										</li>
 									<?php endif; ?>
 
-								</li>
-							</ul>
-						</nav>
-					</div>
-					<button class="btn header-btn-collapse-nav" data-toggle="collapse"
-					data-target=".header-nav-main nav">
-					<i class="fas fa-bars"></i>
-				</button>
+									<li style="border-left: 1px solid #fff" class="dropdown dropdown-primary">
+										<?php if ($this->session->has_userdata('user_session')): ?>
+											<a class="dropdown-toggle nav-link"
+											href="<?= base_url('member/area/#/profile'); ?>/">
+											Member Area
+										</a>
+										<?php else: ?>
+											<a class="dropdown-toggle nav-link"
+											href="#">
+											Member Area &nbsp;<i class="fa fa-chevron-circle-down"></i>
+										</a>
+										<ul class="dropdown-menu">
+											<li>
+												<a class="dropdown-item"
+												href="<?= base_url("site/login"); ?>">
+												Login
+											</a>
+										</li>
+										<li>
+											<a class="dropdown-item"
+											href="<?= base_url("member/register"); ?>">
+											Register
+										</a>
+									</li>
+								</ul>
+							<?php endif; ?>
+
+						</li>
+					</ul>
+				</nav>
 			</div>
-		</div>
+			<button class="btn header-btn-collapse-nav" data-toggle="collapse"
+			data-target=".header-nav-main nav">
+			<i class="fas fa-bars"></i>
+		</button>
 	</div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -232,15 +207,15 @@ $theme_path = base_url("themes/porto") . "/";
 					<h4 class="text-color-light font-weight-light mb-4 pb-1">Contact Us</h4>
 					<div class="mb-3">
 						<strong class="font-weight-light text-color-light">Address:</strong>
-						<span class="font-weight-light">1234 Street Name, City Name, United States</span>
+						<span class="font-weight-light">Apartemen Menteng Square Tower A No. AR-19 Jl. Matraman No. 30E Jakarta Pusat</span>
 					</div>
 					<div class="mb-3">
 						<strong class="font-weight-light text-color-light">Phone:</strong>
-						<a href="tel:1234567890" class="text-decoration-none font-weight-light">(123) 456-7890</a>
+						<a href="tel:1234567890" class="text-decoration-none font-weight-light"> 021-391-7349</a>
 					</div>
 					<div>
 						<strong class="font-weight-light text-color-light">Email:</strong>
-						<a href="mailto:mail@example.com" class="text-decoration-none font-weight-light">mail@example.com</a>
+						<a href="mailto:mail@example.com" class="text-decoration-none font-weight-light">panitia.pinv.perdossi@gmail.com</a>
 					</div>
 				</div>
 			</div>
@@ -273,7 +248,7 @@ $theme_path = base_url("themes/porto") . "/";
 		<div class="row">
 			<div class="col">
 				<div class="footer-border text-center pt-5">
-					<p class="font-weight-normal text-1 mb-0">© Copyright 2019. All Rights Reserved.</p>
+					<a href="https://smiteweb.com/" class="font-weight-normal text-1 mb-0">2020 © SMITE (Scientific Meeting Information sysTEm) Copyright - All Rights Reserved.</a>
 				</div>
 			</div>
 		</div>

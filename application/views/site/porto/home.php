@@ -131,7 +131,7 @@
         $colap = 1;
         foreach ($query as $row):
             ?>
-            <h2 class="font-weight-bold text-color-dark pt-4"><?php echo $row->kategori ?></h2>
+            <h4 class="font-weight-bold text-color-dark pt-4"><?php echo $row->kategori ?></h4>
             <?php
             foreach ($row->kondisi as $row2):
                 ?>
@@ -139,7 +139,7 @@
                     <div class="card card-default">
                         <div class="card-header">
                             <h4 class="card-title m-1">
-                                <a class="accordion-toggle collapsed" data-toggle="collapse" data-parent="#accordion7" href="#colap<?php echo $colap; ?>" aria-expanded="false">
+                                <a class="accordion-toggle collapsed text-1 text-color-light" data-toggle="collapse" data-parent="#accordion7" href="#colap<?php echo $colap; ?>" aria-expanded="false">
                                     <?php echo $row2->kondisi ?> <span class="custom-accordion-plus"></span>
                                 </a>
                             </h4>

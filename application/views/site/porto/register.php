@@ -1,5 +1,5 @@
-<section class="page-header page-header-modern bg-color-quaternary page-header-md custom-page-header">
-    <div class="container">
+<section class="page-header page-header-modern bg-color-quaternary page-header-sm custom-page-header">
+    <div class="container container mt-5 pt-5">
         <div class="row mt-3">
             <div class="col-md-8 order-2 order-md-1 align-self-center p-static">
                 <h1>Downloads</h1>
