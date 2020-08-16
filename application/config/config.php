@@ -522,7 +522,7 @@ $config['rewrite_short_tags'] = FALSE;
 */
 $config['proxy_ips'] = '';
 $config['using_midtrans'] = false;
-$config['theme'] = env("THEME","kingster");
+$config['theme'] = env("THEME","porto");
 if(ENVIRONMENT === 'development') {
 	$config['midtrans'] = [
 		'merchant_id' => 'G988409790',
