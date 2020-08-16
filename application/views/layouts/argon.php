@@ -175,6 +175,11 @@ $role = $this->session->user_session['role'];
 							<i class="ni ni-book-bookmark text-blue"></i> News
 						</a>
 					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="<?= base_url('admin/sponsor'); ?>">
+							<i class="ni ni-html5 text-blue"></i> Sponsor Link
+						</a>
+					</li>
 					<?php if($role == '1'):?>
 					<li class="nav-item">
 						<a class="nav-link" href="<?= base_url('admin/account'); ?>">

@@ -41,6 +41,19 @@ class Site extends MY_Controller
         $this->layout->render('site/'.$this->theme.'/simposium', $data);
     }
 
+    public function sponsor($name = ""){
+        $this->load->model(['Sponsor_link_m','Link_click_m']);
+        $name = urldecode($name);
+        $link = $this->Sponsor_link_m->getLink($name);
+        if($link){
+            $user = $this->session->has_userdata('user_session') ? $this->session->user_session['username']:"anonymous";
+            $this->Link_click_m->insert(['username'=>$user,'link_id'=>$link->id]);
+            redirect($link->link);
+        }else{
+            show_error("Page not found",404);
+        }
+    }
+
     public function schedules()
     {
         $this->layout->render('site/'.$this->theme.'/schedules');

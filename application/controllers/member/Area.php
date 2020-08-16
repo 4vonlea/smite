@@ -30,6 +30,20 @@ class Area extends MY_Controller
 		$this->layout->render('index',['user'=>$user]);
 	}
 
+	public function certificate($event_id,$member_id)
+	{
+			$this->load->model(["Event_m","Member_m"]);
+			$member = $this->input->post();
+			if(file_exists(APPPATH."uploads/cert_template/$event_id.txt")) {
+				$member = Member_m::findOne(['username_account'=>$this->session->user_session['username']])
+									->toArray();
+				$member['status_member'] = "Peserta";
+				$this->Event_m->exportCertificate($member, $event_id)->stream("certificate.pdf", array("Attachment" => false));
+			}else{
+				show_error("The certificate is not yet available, please come again later",400,"Not Yet Available");
+			}
+	}
+
 	public function card($event_id,$member_id)
 	{
 		$this->load->model('Member_m');

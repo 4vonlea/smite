@@ -25,14 +25,17 @@ class Migration_modify_sometable extends CI_Migration
 			->create_table("reviewer_feedback", true);
 		$this->dbforge->add_field([
 				'id' => ['type' => 'int', 'auto_increment' => true],
+				'name' => ['type' => 'varchar', 'constraint' => '100'],
+				'logo' => ['type' => 'varchar', 'constraint' => '100'],
 				'link' => ['type' => 'varchar', 'constraint' => '300'],
+				'category' => ['type' => 'varchar', 'constraint' => '50'],
 				'created_at' => ['type' => 'datetime'], 'updated_at' => ['type' => 'datetime']])
 				->add_key("id", true)
 				->create_table("link_sponsor", true);
 		$this->dbforge->add_field([
 					'id' => ['type' => 'int', 'auto_increment' => true],
 					'link_id' => ['type' => 'int'],
-					'member_id' => ['type' => 'varchar', 'constraint' => '100'],
+					'username' => ['type' => 'varchar', 'constraint' => '100'],
 					'created_at' => ['type' => 'datetime'], 'updated_at' => ['type' => 'datetime']])
 					->add_key("id", true)
 					->create_table("link_click", true);
