@@ -58,6 +58,10 @@ $client_key = $config['client_key'];
 								Cart
 							</router-link>
 						</li>
+                        <li class="nav-item">
+							<router-link active-class="active" class="nav-link text-dark" to="/webminar">Webminar Link
+							</router-link>
+						</li>
 						<li class="nav-item"><a class="nav-link text-dark"
 												href="<?= base_url('member/area/logout'); ?>">Logout</a></li>
 					</ul>
@@ -86,6 +90,7 @@ $client_key = $config['client_key'];
     import PageEvents from "<?= base_url("member/area/page/events"); ?>";
     import PagePaper from "<?= base_url("member/area/page/paper"); ?>";
     import PageBilling from "<?= base_url("member/area/page/billing"); ?>";
+    import PageWebminar from "<?= base_url("member/area/page/webminar"); ?>";
 
     var userD = <?=json_encode(array_merge($user->toArray(), ['status_member' => $user->status_member->kategory]));?>;
     Vue.use(VueRouter);
@@ -95,6 +100,7 @@ $client_key = $config['client_key'];
         {path: '/events', component: PageEvents, meta: {'title': 'Events'}},
         {path: '/paper', component: PagePaper, meta: {'title': 'Submit Paper'}},
         {path: '/billing', component: PageBilling, meta: {'title': 'Transaction & Cart'}},
+        {path: '/webminar', component: PageWebminar, meta: {'title': 'Webminar'}},
     ];
     let router = new VueRouter({
         //mode: 'history',

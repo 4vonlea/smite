@@ -58,6 +58,7 @@ class Event extends Admin_Controller
             $this->load->model(['Event_m','Event_pricing_m']);
             $event = $this->Event_m->findOne(['id'=>$id]);
             $data = $event->toArray();
+            $data['special_link'] = $data['special_link'] == "" || $data['special_link'] == "null" ? [] : json_decode($data['special_link']);
             $data['event_pricing'] = $this->Event_pricing_m->reverseParseForm($event->event_pricings);
             $this->output
                 ->set_content_type("application/json")
@@ -95,6 +96,7 @@ class Event extends Admin_Controller
                 }
 
                 $event->setAttributes($eventData);
+                $event->special_link = json_encode($event->special_link);
                 $event->save(false);
 //                $this->Event_m->insert($event, false);
                 if(!$event_id)

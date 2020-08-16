@@ -131,7 +131,7 @@ class Event_m extends MY_Model
 		$filter = array_merge($filter, ['show' => '1']);
 		$this->load->model("Transaction_m");
 		$result = $this->setAlias("t")->find()->select("t.id as id_event,t.kouta,t.name as event_name,event_pricing.name as name_pricing,event_pricing.price as price_r,event_pricing.id as id_price,td.id as followed,COALESCE(checkout,0) as checkout,tr.status_payment")
-			->select("condition,condition_date,kategory")
+			->select("condition,condition_date,kategory,t.special_link")
 			->where($filter)
 			->join("event_pricing", "t.id = event_id")
 			->join("transaction_details td", "td.event_pricing_id = event_pricing.id AND td.member_id = '$member_id'", "left")
@@ -180,6 +180,7 @@ class Event_m extends MY_Model
 					'id' => $row['id_event'],
 					'name' => $row['event_name'],
 					'category' => $row['kategory'],
+					'special_link'=>($row['special_link'] != "" && $row['special_link'] != "null" ? json_decode($row['special_link']):[]),
 					'kouta' => intval($row['kouta']),
 					'participant' => intval($koutas[$row['id_event']]['participant']),
 					'followed' => ($row['checkout'] == 1 && $row['followed'] != null && $row['status_payment'] == Transaction_m::STATUS_FINISH),

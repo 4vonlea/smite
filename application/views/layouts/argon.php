@@ -34,6 +34,7 @@ $role = $this->session->user_session['role'];
 	<?php else: ?>
 	<script src="<?= base_url('themes/script/vue.js'); ?>"></script>
 	<?php endif; ?>
+	<script src="<?= base_url("themes/script/moment.min.js"); ?>"></script>
 	<style>
 		.fade-enter-active, .fade-leave-active {
 			transition: opacity .4s;
@@ -329,7 +330,6 @@ $role = $this->session->user_session['role'];
 <script src="<?= base_url(); ?>themes/argon/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
 <!-- Argon JS -->
-<script src="<?= base_url("themes/script/moment.min.js"); ?>"></script>
 <script src="<?= base_url("themes/script/vuetable2.js"); ?>"></script>
 <script src="<?= base_url("themes/script/sweetalert2@8.js"); ?>"></script>
 <script src="<?= base_url("themes/script/datatable.js?") . time(); ?>"></script>
