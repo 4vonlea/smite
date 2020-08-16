@@ -27,15 +27,46 @@ class Paper extends Admin_Controller
 	public function grid()
 	{
 		$this->load->model(['User_account_m','Papers_m']);
-		if($this->session->user_session['role'] == User_account_m::ROLE_ADMIN_PAPER) {
-			$gridConfig = $this->Papers_m->gridConfig(['filter' => ['reviewer' => $this->session->user_session['username']]]);
-		}else{
+		// if($this->session->user_session['role'] == User_account_m::ROLE_ADMIN_PAPER) {
+		// 	$gridConfig = $this->Papers_m->gridConfig(['filter' => ['reviewer' => $this->session->user_session['username']]]);
+		// }else{
 			$gridConfig = $this->Papers_m->gridConfig();
-		}
+		// }
 		$grid = $this->Papers_m->gridData($this->input->get(),$gridConfig);
 		$this->output
 			->set_content_type("application/json")
 			->_display(json_encode($grid));
+	}
+
+	public function get_feedback($id){
+		$this->load->model(['Reviewer_feedback_m']);
+		$feedback = $this->Reviewer_feedback_m->find()
+			->select("result,paper_id,reviewer_feedback.created_at,COALESCE(fullname,name) as name")
+			->join("user_accounts","username = member_id")
+			->join("members m","m.username_account = username","left")
+			->where("paper_id",$id)->get()->result_array();
+		$this->output
+			->set_content_type("application/json")
+			->_display(json_encode($feedback));
+	}
+
+	protected function save_reviewer(){
+		$data = $this->input->post();
+		$this->form_validation->set_rules("message", "Message", "required");
+		if ($this->form_validation->run()) {
+			$this->load->model('Reviewer_feedback_m');
+			$response['status'] = $this->Reviewer_feedback_m->insert([
+				'result'=>$data['message'],
+				'paper_id'=>$data['t_id'],
+				'member_id'=>$this->session->user_session['username']
+			]);
+		} else {
+			$response['status'] = false;
+			$response['message'] = $this->form_validation->error_string();
+		}
+		$this->output
+			->set_content_type("application/json")
+			->_display(json_encode($response));
 	}
 
 	public function save()
@@ -44,50 +75,53 @@ class Paper extends Admin_Controller
 		$this->load->model('Papers_m');
 		$data = $this->input->post();
 		$response = [];
+		if($this->session->user_session['role'] == User_account_m::ROLE_ADMIN_PAPER){
+			$this->save_reviewer();
+		}else{
+			$this->form_validation->set_rules("status", "Status", "required");
+			$model = $this->Papers_m->findOne($data['t_id']);
+			if (isset($data['status']) && $data['status'] == 0 && $model->reviewer != "")
+				$this->form_validation->set_rules("message", "Message", "required");
 
-		$this->form_validation->set_rules("status", "Status", "required");
-		$model = $this->Papers_m->findOne($data['t_id']);
-		if (isset($data['status']) && $data['status'] == 0 && $model->reviewer != "")
-			$this->form_validation->set_rules("message", "Message", "required");
-
-		if ($this->form_validation->run()) {
-			if(isset($_POST['feedback_file']) && isset($_POST['filename_feedback'])) {
-				$dataFile = $_POST['feedback_file'];
-				list(, $dataFile) = explode(',', $dataFile);
-				$dataFile = base64_decode($dataFile);
-				list(, $ext) = explode(".", $this->input->post('filename_feedback'));
-				$filename = "feedback_".date("Ymdhis").".".$ext;
-				file_put_contents(APPPATH . "uploads/papers/$filename", $dataFile);
-				$model->feedback = $filename;
-			}
-			$model->status = $data['status'];
-			$model->type_presence = $data['type_presence'];
-			$model->reviewer = (isset($data['reviewer']) ? $data['reviewer'] : "");
-			if(isset($data['message']))
-				$model->message = $data['message'];
-			$response['status'] = $model->save();
-			if($response['status'] == false){
-				$response['message'] = $model->errorsString();
-			}else{
-				if($data['status'] == Papers_m::ACCEPTED || $data['status'] == Papers_m::REJECTED ){
-					$this->load->model("Notification_m");
-					$message = "<p>Dear Participant</p>
-					<p>Thank you for submitting your abstract to ".Settings_m::getSetting('site_title').". Please download your abstract result annoucement here.</p>
-					<p>Best regards.<br/>
-					Committee of ".Settings_m::getSetting('site_title')."</p>";
-					$member = $model->member;
-					$this->Notification_m->sendMessageWithAttachment($member->email,"Result Of Paper Review",$message,['Abstract Announcement'=>$model->exportNotifPdf()->output()]);
+			if ($this->form_validation->run()) {
+				if(isset($_POST['feedback_file']) && isset($_POST['filename_feedback'])) {
+					$dataFile = $_POST['feedback_file'];
+					list(, $dataFile) = explode(',', $dataFile);
+					$dataFile = base64_decode($dataFile);
+					list(, $ext) = explode(".", $this->input->post('filename_feedback'));
+					$filename = "feedback_".date("Ymdhis").".".$ext;
+					file_put_contents(APPPATH . "uploads/papers/$filename", $dataFile);
+					$model->feedback = $filename;
 				}
+				$model->status = $data['status'];
+				$model->type_presence = $data['type_presence'];
+				$model->reviewer = (isset($data['reviewer']) ? $data['reviewer'] : "");
+				if(isset($data['message']))
+					$model->message = $data['message'];
+				$response['status'] = $model->save();
+				if($response['status'] == false){
+					$response['message'] = $model->errorsString();
+				}else{
+					if($data['status'] == Papers_m::ACCEPTED || $data['status'] == Papers_m::REJECTED ){
+						$this->load->model("Notification_m");
+						$message = "<p>Dear Participant</p>
+						<p>Thank you for submitting your abstract to ".Settings_m::getSetting('site_title').". Please download your abstract result annoucement here.</p>
+						<p>Best regards.<br/>
+						Committee of ".Settings_m::getSetting('site_title')."</p>";
+						$member = $model->member;
+						$this->Notification_m->sendMessageWithAttachment($member->email,"Result Of Paper Review",$message,['Abstract Announcement'=>$model->exportNotifPdf()->output()]);
+					}
 
+				}
+			} else {
+				$response['status'] = false;
+				$response['message'] = $this->form_validation->error_string();
 			}
-		} else {
-			$response['status'] = false;
-			$response['message'] = $this->form_validation->error_string();
-		}
 
-		$this->output
-			->set_content_type("application/json")
-			->_display(json_encode($response));
+			$this->output
+				->set_content_type("application/json")
+				->_display(json_encode($response));
+		}
 	}
 
 	public function file($name,$id,$type = "Abstract")

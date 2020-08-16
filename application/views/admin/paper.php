@@ -130,7 +130,7 @@ $this->layout->end_head();
 					@loaded_data="loadedGrid"
 					ref="datagrid"
 					api-url="<?= base_url('admin/paper/grid'); ?>"
-					:fields="[{name:'id_paper',sortField:'id_paper','title':'ID Paper'},{name:'fullname',sortField:'fullname','title':'Member Name'},{name:'status','sortField':'status'},{name:'type_presence','sortField':'type_presence','title':'Presentation'},{name:'reviewer','sortField':'reviewer'},{name:'t_created_at',sortField:'t_created_at',title:'Submit On'},{name:'t_id','title':'Aksi'}]">
+					:fields="[{name:'id_paper',sortField:'id_paper','title':'ID Paper'},{name:'fullname',sortField:'fullname','title':'Member Name'},{name:'status','sortField':'status'},{name:'type_presence','sortField':'type_presence','title':'Presentation'},{name:'t_created_at',sortField:'t_created_at',title:'Submit On'},{name:'t_id','title':'Aksi'}]">
 					<?php if($this->session->user_session['role'] == User_account_m::ROLE_ADMIN_PAPER):?>
 						<template slot="fullname" slot-scope="props">
 							Hidden
@@ -147,10 +147,10 @@ $this->layout->end_head();
 					</template>
 					<template slot="t_id" slot-scope="props">
 						<div class="table-button-container">
-							<button @click="detail(props)" class="btn btn-info btn-sm">
+							<button @click="detail(props,$event)" class="btn btn-info btn-sm">
 								<span class="fa fa-search"></span> Detail
 							</button>
-							<button @click="review(props)" class="btn btn-warning btn-sm">
+							<button @click="review(props,$event)" class="btn btn-warning btn-sm">
 								<span class="fa fa-edit"></span> review
 							</button>
 							<?php if($this->session->user_session['role'] != User_account_m::ROLE_ADMIN_PAPER):?>
@@ -306,7 +306,7 @@ $this->layout->end_head();
 						<th>Link Download Feedback</th>
 						<td><a :href="reviewModel.link_feedback" target="_blank">Click Here !</a></td>
 					</tr>
-					<tr v-if="detailMode == 0">
+					<tr v-show="!isReviewer" v-if="detailMode == 0">
 						<th>Result Of Review</th>
 						<td>
 							<?php foreach(Papers_m::$status as $k=>$v):?>
@@ -325,13 +325,13 @@ $this->layout->end_head();
 							<textarea cols="5" rows="5" class="form-control" v-model="reviewModel.message"></textarea>
 						</td>
 					</tr>
-					<tr v-if="detailMode == 0">
+					<tr v-show="!isReviewer" v-if="detailMode == 0">
 						<th>Feedback File</th>
 						<td>
 							<input type="file" name="feedback" ref="feedbackFile" class="form-control" accept=".doc,.docx,.ods" />
 						</td>
 					</tr>
-					<tr v-if="detailMode == 0">
+					<tr v-show="!isReviewer" v-if="detailMode == 0">
 						<th>Type Presentation</th>
 						<td>
 							<?php foreach(Papers_m::$typePresentation as $i=>$val):?>
@@ -342,6 +342,27 @@ $this->layout->end_head();
 								</label>
 							</div>
 							<?php endforeach;?>
+						</td>
+					</tr>
+					<tr>
+						<th>Feedback from Reviewer</td>
+						<td>
+							<table class="table table-bordered">
+								<thead>
+									<tr>
+										<th>Time</th>
+										<th>Reviewer Name</th>
+										<th>Feedback</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr v-for="feedback in reviewModel.feedback">
+										<td>{{ feedback.created_at }}</td>
+										<td>{{ feedback.name }}</td>
+										<td>{{ feedback.result }}</td>
+									</tr>
+								</tbody>
+							</table>
 						</td>
 					</tr>
 				</table>
@@ -382,6 +403,7 @@ $this->layout->end_head();
 			reviewModel: {},
 			detailMode: 0,
 			saving: false,
+			isReviewer:<?=$this->session->user_session['role'] == User_account_m::ROLE_ADMIN_PAPER ? "true":"false";?>,
 			admin:<?=json_encode($admin_paper);?>,
 			validation: null,
 		},
@@ -389,19 +411,33 @@ $this->layout->end_head();
 			loadedGrid: function (data) {
 				this.pagination = data;
 			},
-			detail(row) {
+			detail(row,event) {
 				this.validation = null;
 				this.detailMode = 1;
 				this.reviewModel = row.row;
+				var inH = event.target.innerHTML;
+				event.target.innerHTML = "<span class='fa fa-spin fa-spinner'></span>";
 				try{
-					var temp = JSON.parse(row.row.co_author);
-					this.reviewModel.co_author = temp;
+					$.get(`<?=base_url('admin/paper/get_feedback');?>/${row.row.t_id}`)
+					.done(function(res){
+						if(typeof row.row.co_author == "string")
+							var temp = JSON.parse(row.row.co_author);
+						else
+							var temp = row.row.co_author;
+						app.reviewModel = row.row;
+						app.reviewModel.feedback = res;
+						app.reviewModel.co_author = temp;
+						app.reviewModel.link = `<?=base_url("admin/paper/file");?>/${row.row.filename}/${row.row.t_id}`;
+						app.reviewModel.link_feedback = `<?=base_url("admin/paper/file");?>/${row.row.feedback}/${row.row.t_id}/feedback`;
+						$("#modal-review").modal('show');
+					}).fail(function(){
+						Swal.fire('Fail', "Failed to load data", 'error');
+					}).always(function(){
+						event.target.innerHTML = inH;
+					})
 				}catch (e) {
 					console.log(e);
 				}
-				this.reviewModel.link = `<?=base_url("admin/paper/file");?>/${row.row.filename}/${row.row.t_id}`;
-				this.reviewModel.link_feedback = `<?=base_url("admin/paper/file");?>/${row.row.feedback}/${row.row.t_id}/feedback`;
-				$("#modal-review").modal('show');
 			},
 			save() {
 				app.saving = true;
@@ -437,18 +473,32 @@ $this->layout->end_head();
 				this.reviewModel.link = `<?=base_url("admin/paper/file");?>/${row.row.filename}/${row.row.t_id}`;
 				$("#modal-reviewer").modal('show');
 			},
-			review(row) {
+			review(row,event) {
 				this.validation = null;
 				this.detailMode = 0;
-				this.reviewModel = row.row;
+				var inH = event.target.innerHTML;
+				event.target.innerHTML = "<span class='fa fa-spin fa-spinner'></span>";
 				try{
-					var temp = JSON.parse(row.row.co_author);
-					this.reviewModel.co_author = temp;
+					$.get(`<?=base_url('admin/paper/get_feedback');?>/${row.row.t_id}`)
+					.done(function(res){
+						if(typeof row.row.co_author == "string")
+							var temp = JSON.parse(row.row.co_author);
+						else
+							var temp = row.row.co_author;
+						app.reviewModel = row.row;
+						app.reviewModel.feedback = res;
+						app.reviewModel.co_author = temp;
+						app.reviewModel.link = `<?=base_url("admin/paper/file");?>/${row.row.filename}/${row.row.t_id}`;
+						$("#modal-review").modal('show');
+
+					}).fail(function(){
+						Swal.fire('Fail', "Failed to load data", 'error');
+					}).always(function(){
+						event.target.innerHTML = inH;
+					})
 				}catch (e) {
 					console.log(e);
 				}
-				this.reviewModel.link = `<?=base_url("admin/paper/file");?>/${row.row.filename}/${row.row.t_id}`;
-				$("#modal-review").modal('show');
 			},
 			formatDate(date) {
 				return moment(date).format("DD MMM YYYY, [At] HH:mm:ss");

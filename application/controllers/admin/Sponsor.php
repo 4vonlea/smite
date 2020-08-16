@@ -35,7 +35,7 @@ class Sponsor extends Admin_Controller
 		if(isset($_FILES['logo'])){
 			$statusUpload = $this->handlingImage("logo",strtolower($data['name']));
 			$imageData =  $this->upload->data();
-			$imageError =  $this->upload->display_errors();
+			$imageError =  $this->upload->display_errors("","");
 			$data['logo'] = $imageData['file_name'];
 		}
 

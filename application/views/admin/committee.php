@@ -6,6 +6,11 @@
 <div class="header bg-info pb-8 pt-5 pt-md-8"></div>
 <!-- Page content -->
 <div class="container-fluid mt--7">
+	<?php if($this->session->has_userdata("message")):?>
+		<div class="alert alert-success">
+			<h4 class="text-center"><?=$this->session->message;?></h4>
+		</div>	
+	<?php endif;?>
 	<!-- Table -->
 	<div v-if="formMode==0" class="row">
 		<div class="col-xl-12">
@@ -68,6 +73,14 @@
 					<div class="form-group">
 						<label class="form-control-label">Fullname</label>
 						<input type="text" class="form-control" v-model="form.name"/>
+					</div>
+					<div class="form-group">
+						<label class="form-control-label">Email</label>
+						<input type="text" class="form-control" v-model="form.email"/>
+					</div>
+					<div class="form-group">
+						<label class="form-control-label">No Contact</label>
+						<input type="text" class="form-control" v-model="form.no_contact"/>
 					</div>
 					<div class="form-group">
 						<label class="form-control-label">Position in Event</label>
@@ -191,6 +204,7 @@
 								<div>
 									<a target="_blank" href="<?=base_url('admin/committee/nametag');?>/${t[0]}" class="badge badge-primary badge-pill pull-right">Download Name Tag</a>
 									<a target="_blank" href="<?=base_url('admin/committee/certificate');?>/${t[0]}" class="badge badge-primary badge-pill pull-right">Download Certificate</a>
+									<a target="_blank" href="<?=base_url('admin/committee/send_certificate');?>/${t[0]}" class="badge badge-primary badge-pill pull-right">Send Certificate</a>
 								</div>
 							  </li>`;
                     });
@@ -231,6 +245,8 @@
                 this.form = {
                     id:row.t_id,
 					name:row.t_name,
+					email:row.email,
+					no_contact:row.no_contact,
 					attributes:[]
 				};
                 if(row.status) {

@@ -21,9 +21,17 @@ class Mailer implements iNotification
         $mail->Password   = $params['password'];                               // SMTP password
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
         $mail->Port       = $params['smtp_port'];
+        $mail->SMTPOptions = array(
+            'ssl' => array(
+                'verify_peer' => false,
+                'verify_peer_name' => false,
+                'allow_self_signed' => true
+            )
+        );
         $this->mail = $mail;
         $this->sender = $params['sender'];
         $this->from = $params['email'];
+        var_dump($params);
     }
     public function sendMessage($to, $subject, $message)
     {
@@ -45,11 +53,16 @@ class Mailer implements iNotification
     public function sendMessageWithAttachment($to, $subject, $message, $attachment, $fname = "")
     {
         try {
-
+            $attc = [];
+            if(!is_array($attachment)){
+                $attc[$fname] = $attachment;
+            }else{
+                $attc = $attachment;
+            }
             $this->mail->setFrom($this->from, $this->sender);
             $this->mail->addAddress($to);               // Name is optional
             // Attachments
-            foreach($attachment as $name=>$atc){
+            foreach($attc as $name=>$atc){
                 $this->mail->addStringAttachment($atc,$name);         // Add attachments
             }
 

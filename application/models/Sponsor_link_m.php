@@ -37,12 +37,12 @@ class Sponsor_link_m extends My_model
 	}
 
 	public function listCategory(){
-		$rs = $this->db->distinct("category")->get($this->table);
+		$rs = $this->db->select("category")->distinct()->get($this->table);
 		$return = [];
 		foreach($rs->result() as $row){
-			$return[$row->category] = $row->category;
+			$return[] = $row->category;
 		}
-		$return['OTHER'] = 'OTHER';
+		$return[] = 'OTHER';
 		return $return;
 	}
 

@@ -50,10 +50,10 @@ application/uploads/material/*
 !application/uploads/material/index.html
 
 themes/uploads/profile/*
-themes/uploads/profile/index.html
+!themes/uploads/profile/index.html
 
 themes/uploads/sponsor/*
-themes/uploads/sponsor/index.html
+!themes/uploads/sponsor/index.html
 
 
 application/third_party/phpqrcode/cache/*
