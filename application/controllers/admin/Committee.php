@@ -36,6 +36,8 @@ class Committee extends Admin_Controller
 			$event = new Committee_m();
 
 		$event->name = $post['name'];
+		$event->email = $post['email'];
+		$event->no_contact = $post['no_contact'];
 		$event->save();
 
 		if (!isset($post['id']))
@@ -89,6 +91,26 @@ class Committee extends Admin_Controller
 		}catch (ErrorException $ex){
 			show_error($ex->getMessage());
 		}
+	}
+
+	public function send_certificate($id){
+		$this->load->model(["Notification_m", "Committee_attributes_m"]);
+		$com = $this->Committee_attributes_m->findOne($id);
+		$commiteMember = $com->committee;
+		if($commiteMember->email){
+			$cert = $com->exportCertificate()->output();
+			$status = $this->Notification_m->sendMessageWithAttachment($commiteMember->email, "Certificate of Event", "Thank you for your participation <br/> Below is your certificate of '" . $com->event->name."'", $cert, "CERTIFICATE.pdf");
+			if($status['status']){
+				$this->session->set_flashdata('message', 'Certificate sent successfully to '.$commiteMember->email);
+			redirect(base_url("admin/committee"));
+			}else{
+				$this->session->set_flashdata('message', $status['message']);
+			}
+			redirect(base_url("admin/committee"));
+		}else{
+			show_error("Committee email is not yet set !",404);
+		}
+
 	}
 
 	public function certificate($id){

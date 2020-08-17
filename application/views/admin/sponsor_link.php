@@ -40,11 +40,11 @@
 									<img v-show="form.model.logo" style="max-height:200px;max-width:300px" class="img" :src="form.model.logo" />
 									<div class="input-group mb-3">
 										<div class="custom-file">
-											<input type="file" ref="inputFile" accept="image/*" v-on:change="browseImage" class="custom-file-input" name="logo" id="inputGroupFile01">
+											<input type="file" ref="inputFile" accept="image/*" :class="{'is-invalid':form.validation.logo}" v-on:change="browseImage" class="custom-file-input" name="logo" id="inputGroupFile01">
 											<label class="custom-file-label" for="inputGroupFile01">{{ form.model.filename }}</label>
 										</div>
 									</div>
-									<div v-if="form.validation.logo" class="invalid-feedback">
+									<div v-if="form.validation.logo" style="display:block" class="invalid-feedback">
 										{{ form.validation.logo }}
 									</div>
 								</div>
@@ -62,7 +62,9 @@
 							<div class="form-group row">
 								<label class="col-lg-3 control-label">Category</label>
 								<div class="col-lg-5">
-									<?= form_dropdown('category',$categoryList,'',['v-model'=>'form.model.category','class'=>'form-control',':class'=>"{'is-invalid':form.validation.category}"]);?>
+									<select v-model='form.model.category' class='form-control' :class="{'is-invalid':form.validation.category}" >
+										<option v-for="cat in categoryList" :value="cat">{{ cat }}</option>
+									</select>
 									<input v-if="form.model.category == 'OTHER'" type="text" :class="{'is-invalid':form.validation.category}"
 										   class="form-control" v-model="form.model.newCategory" placeholder="Please type new category" />
 									<div v-if="form.validation.category" class="invalid-feedback">
@@ -149,7 +151,8 @@
         data: {
             message: '',
 			listRole:<?=json_encode(User_account_m::$listRole);?>,
-            error: null,
+			error: null,
+			categoryList:<?= json_encode($categoryList);?>,
             form: {
 			    validation:{},
                 show: false,
@@ -236,6 +239,9 @@
 					if(res.status) {
 						app.message = res.message;
 						app.form.show = false;
+						if(app.form.model.newCategory != "" && app.form.model.category == "OTHER"){
+							app.categoryList.unshift(app.form.model.newCategory);
+						}
 					}else{
 						if(res.validation)
 							app.form.validation = res.validation;
