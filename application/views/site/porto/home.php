@@ -243,7 +243,7 @@
                             <img src="<?= base_url('themes/uploads/sponsor') ?>/<?= $platinum->logo ?>" class="img-responsive">
                             <span class="thumb-info-title">
                                 <span class="thumb-info-inner"><?= $platinum->name ?></span>
-                                <a href="<?= $platinum->link ?>" class="btn btn-info btn-xs text-weight-bold text-color-light"><i class="fas fa-search"></i></a>
+                                <a href="<?= base_url('site/sponsor') ?>/<?= $platinum->name ?>" target="_blank" class="btn btn-info btn-xs text-weight-bold text-color-light"><i class="fas fa-search"></i></a>
                             </span>
                         </span>
                     </span>
@@ -265,7 +265,7 @@
                             <img src="<?= base_url('themes/uploads/sponsor') ?>/<?= $gold->logo ?>" class="img-fluid">
                             <span class="thumb-info-title">
                                 <span class="thumb-info-inner" style="font-size: 12px;"><?= $gold->name ?></span>
-                                <a href="<?= $gold->link ?>" class="btn btn-info btn-xs text-weight-bold text-color-light"><i class="fas fa-search"></i></a>
+                                <a href="<?= base_url('site/sponsor') ?>/<?= $gold->name ?>" target="_blank" class="btn btn-info btn-xs text-weight-bold text-color-light"><i class="fas fa-search"></i></a>
                             </span>
                         </span>
                     </span>
@@ -285,7 +285,7 @@
                     ?>
                     <div>
                         <center>
-                            <a href="<?= $silver->link ?>">
+                            <a href="<?= base_url('site/sponsor') ?>/<?= $silver->name ?>" target="_blank">
                                 <img class="img-fluid px-2" src="<?= base_url('themes/uploads/sponsor'); ?>/<?= $silver->logo?>" style="" alt="">
                             </a>
                         </center>
