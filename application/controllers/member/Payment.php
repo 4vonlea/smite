@@ -235,32 +235,93 @@ class Payment extends MY_Controller
 			$amount += $row->price;
 			$description .= $row->product_name."\n";
 		}
+		$data = $this->input->post();
+		$data['amount_me'] = $amount;
+		$this->Transaction_m->update(['checkout'=>1,'channel'=>'ESPAY','status_payment'=>Transaction_m::STATUS_PENDING],$order_id);
 
+		file_put_contents("log_espay/".date("Ymdhis")."_inquiry.json",json_encode($data));
 		echo implode(";",[$error_code,$error_message,$order_id,$amount,$ccy,$description,$date]);
+	}
+
+	public function log($type){
+		$data = $this->input->post();
+		if($type == "notif"){
+			$data['responme'] = $this->notification_espay();
+			echo $data['responme'];
+		}
+		file_put_contents("log_espay/".date("Ymdhis")."_$type.json",json_encode($data));
 	}
 
 	public function notification_espay()
 	{
 		$this->load->model("Transaction_m");
 		$success_flag = "0";
-		$error_message = "";
+		$error_message = "Success";
 		$order_id = $this->input->post("order_id");
 		$reconcile_id = "SC$order_id";
-		$reconcile_datetime = date("d/m/y H:i:s");
+		$reconcile_datetime = date("Y-m-d H:i:s");
 		$message_payment = json_encode($this->input->post());
-		$this->Transaction_m->update(['checkout'=>1,'message_payment'=>$message_payment,'status_payment'=>Transaction_m::STATUS_NEED_VERIFY],$order_id);
-		echo implode(",",[$success_flag,$error_message,$reconcile_id ,$order_id,$reconcile_datetime]);
+//		$this->Transaction_m->update(['checkout'=>1,'message_payment'=>$message_payment,'status_payment'=>Transaction_m::STATUS_NEED_VERIFY],$order_id);
+		$rs_date =  date("Y-m-d H:i:s");
+		$signature = $this->create_signature_espay($order_id,"CHECKSTATUS",$rs_date);
+
+		$response = $this->request("https://sandbox-api.espay.id/rest/merchant/status",[
+			'uuid'=>md5($rs_date),
+			'rq_datetime'=>$rs_date,
+			'comm_code'=>'SGWPERDOSSI',
+			'signature'=>$signature,
+			'order_id'=>$order_id
+		]);
+		file_put_contents("log_espay/".date("Ymdhis")."_chstatus.json",$response);
+
+		return implode(", ",[$success_flag,$error_message,$reconcile_id ,$order_id,$reconcile_datetime]);
 	}
 
-	public function confirmation_espay($invoice_id)
+	public function test()
 	{
-		redirect(base_url('member/area#/billing'));
+		$order_id = "INV-20200817-00002";
+		$rs_date =  date("Y-m-d H:i:s");
+		$signature = $this->create_signature_espay($order_id,"CHECKSTATUS",$rs_date);
+
+		$response = $this->request("https://sandbox-api.espay.id/rest/merchant/status",[
+			'uuid'=>md5($rs_date),
+			'rq_datetime'=>$rs_date,
+			'comm_code'=>'SGWPERDOSSI',
+			'signature'=>$signature,
+			'order_id'=>$order_id
+		]);
+		echo $response;
+//		file_put_contents("log_espay/".date("Ymdhis")."_chstatus.json",$response);
 	}
+
+	protected function create_signature_espay($order_id,$service_name,$rq_datetime){
+		$key = "pz7nb0ktvdrc533u";
+		if($service_name == "CHECKSTATUS"){
+			$sign = "##$key##$rq_datetime##$order_id##$service_name##";
+		}
+		$sign = strtoupper($sign);
+		return hash("sha256",$sign);
+	}
+
 	public function settlement_espay()
 	{
 	}
 
-	protected function request(){
-		
+	protected function request($url,$params){
+			$curl = curl_init();
+			curl_setopt_array($curl, array(
+			CURLOPT_URL => $url,
+			CURLOPT_RETURNTRANSFER => true,
+			CURLOPT_ENCODING => "",
+			CURLOPT_MAXREDIRS => 10,
+			CURLOPT_TIMEOUT => 0,
+			CURLOPT_FOLLOWLOCATION => true,
+			CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+			CURLOPT_CUSTOMREQUEST => "POST",
+			CURLOPT_POSTFIELDS => $params,
+			));
+			$response = curl_exec($curl);
+			curl_close($curl);
+			return $response;
 	}
 }

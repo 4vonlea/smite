@@ -65,15 +65,17 @@ export default Vue.component("PageBilling", {
 								<td>{{ formatCurrency(totalPrice) }}</td>
 							</tr>
 							<tr>
-								<td></td>
-								<td class="text-right" colspan="2">
-								<a :href="appUrl+'member/area/download/invoice/'+current_invoice" target="_blank" class="btn btn-primary" >Download Invoice</a>
-								<button :disabled="checking_out" @click="checkout" class="btn btn-primary">
-									Checkout <i v-if="checking_out" class="fa fa-spin fa-spinner"></i>
-								</button>
-								<button data-toggle="modal" data-target="#modal-select-payment" class="btn btn-primary">
-									Select Payment Method
-								</button>
+								<td class="text-right" colspan="3">
+									<a :href="appUrl+'member/area/download/invoice/'+current_invoice" target="_blank" class="btn btn-primary" >Download Invoice</a>
+									<div class="btn-group">
+										<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											Select Payment Method <span class="caret"></span>
+										</button>
+										<div class="dropdown-menu">
+											<a class="dropdown-item" href="#" :disabled="checking_out"  @click="checkout">Manual Transfer <i v-if="checking_out" class="fa fa-spin fa-spinner"></i></a>
+											<a class="dropdown-item" href="#" data-toggle="modal" data-target="#modal-select-payment">Espay Payment Gateway</a>
+										</div>
+									</div>
 								</td>
 							</tr>
 						</tfoot>
@@ -148,6 +150,10 @@ export default Vue.component("PageBilling", {
 									<td colspan="3">{{ amount }}</td>
 								</tr>
 								<tr>
+									<th>Payment Method</th>
+									<td>{{ detailModel.channel }}</td>
+								</tr>
+								<tr>
 									<th>Status</th>
 									<td colspan="3">{{ detailModel.status_payment.toUpperCase() }}</td>
 								</tr>
@@ -165,7 +171,7 @@ export default Vue.component("PageBilling", {
 								<tr v-if="detailModel.status_payment == 'pending'">
 									<th class="text-center" colspan="4">Info Transfer</th>
 								</tr>
-								<tr v-if="detailModel.status_payment == 'pending'">
+								<tr v-if="detailModel.status_payment == 'pending' && detailModel.channel == 'MANUAL TRANSFER'">
 									<td colspan="4">
 										<p>Please transfer <b>{{ amount }}</b> to one of the following bank accounts
 										<br/>Then upload proof of payment (receipts, SMS banking screenshoot, etc) on Transaction History </p>
@@ -425,7 +431,7 @@ export default Vue.component("PageBilling", {
 					var data = {
 						key: "a34a0f9bdb66ab521a3eac8e53a14513",
 						paymentId: res.current_invoice,
-						backUrl: page.appUrl+`member/payment/confirmation_espay/${res.current_invoice}`,
+						backUrl: page.appUrl+`member/area/redirect_client/billing`,
 					},
 					sgoPlusIframe = document.getElementById("sgoplus-iframe");
 					if (sgoPlusIframe !== null) 

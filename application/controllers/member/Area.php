@@ -481,4 +481,8 @@ class Area extends MY_Controller
 			->set_content_type("application/json")
 			->_display(json_encode(['status'=>true,'count'=>$c,'univ'=>$univ->result_array()]));
 	}
+
+	public function redirect_client($name){
+		redirect(base_url("member/area#/$name"));
+	}
 }

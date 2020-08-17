@@ -7,7 +7,7 @@ $client_key = $config['client_key'];
 ?>
 <div id="app">
 	<section class="page-header page-header-modern bg-color-quaternary page-header-md custom-page-header">
-		<div class="container">
+		<div class="container pt-5">
 			<div class="row mt-3">
 				<div class="col-md-8 order-2 order-md-1 align-self-center p-static">
 					<h1>Member Area</h1>
@@ -74,9 +74,9 @@ $client_key = $config['client_key'];
 	</div>
 </div>
 <?php $this->layout->begin_script(); ?>
-<script type="text/javascript"
+<!-- <script type="text/javascript"
 		src="https://app.midtrans.com/snap/snap.js"
-		data-client-key="<?=$client_key;?>"></script>
+		data-client-key="<?=$client_key;?>"></script> -->
 <script src="https://sandbox-kit.espay.id/public/signature/js"></script>
 
 <script src="<?= base_url("themes/script/sweetalert2@8.js"); ?>"></script>
