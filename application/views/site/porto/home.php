@@ -5,7 +5,7 @@
             <ul>
 
                 <li data-transition="fade">
-                    <img src="<?= base_url('themes/porto'); ?>/img/slides/slide-1.jpg"  
+                    <img src="<?= base_url('themes/porto'); ?>/img/slides/neuron.webp"  
                     alt=""
                     data-bgposition="center center" 
                     data-bgfit="cover" 
