@@ -46,4 +46,31 @@ class Sponsor_link_m extends My_model
 		return $return;
 	}
 
+	public function listspplatinum()
+	{
+		$this->db->select('*');
+		$this->db->from('link_sponsor');
+		$this->db->where('category', 'Platinum');
+		$result = $this->db->get()->result();
+		return $result;
+	}
+
+	public function listspgold()
+	{
+		$this->db->select('*');
+		$this->db->from('link_sponsor');
+		$this->db->where('category', 'Gold');
+		$result = $this->db->get()->result();
+		return $result;
+	}
+
+	public function listspsilver()
+	{
+		$this->db->select('*');
+		$this->db->from('link_sponsor');
+		$this->db->where('category', 'Silver');
+		$result = $this->db->get()->result();
+		return $result;
+	}
+
 }

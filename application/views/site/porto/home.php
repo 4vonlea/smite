@@ -12,14 +12,14 @@
                     data-bgrepeat="no-repeat" 
                     class="rev-slidebg">
 
-                    <div class="tp-caption custom-font-size-1 text-color-light font-weight-semibold text-uppercase"
+                    <div class="tp-caption custom-font-size-1 font-weight-semibold text-uppercase"
                     data-x="['left','left','left','left']"
                     data-hoffset="['80','80','80','80']" 
                     data-y="['center','center','center','center']"
                     data-voffset="['-80','-80','-80','-80']" 
                     data-start="500"
                     data-paddingleft="['0', '0', '0', '0']"
-                    style="z-index: 5; font-size: 18px;"
+                    style="z-index: 5; font-size: 18px; color:#FFD800FF;"
                     data-transform_in="y:[-300%];opacity:0;s:500;">Virtual Congress 2020</div> 
 
                     <h1 class="tp-caption text-color-light font-weight-extra-bold text-uppercase"
@@ -40,7 +40,7 @@
                     data-voffset="['0','0','0','0']" 
                     data-start="1500"
                     data-paddingleft="['0', '0', '0', '0']"
-                    data-fontsize="26"
+                    data-fontsize="20"
                     style="z-index: 5;"
                     data-transform_in="y:[-300%];opacity:0;s:500;">Pertemuan Ilmiah Nasional</div>
 
@@ -48,10 +48,10 @@
                     data-x="['left','left','left','left']"
                     data-hoffset="['81','81','81','81']" 
                     data-y="['center','center','center','center']"
-                    data-voffset="['30','30','30','30']" 
+                    data-voffset="['20','20','20','20']" 
                     data-start="1500"
                     data-paddingleft="['0', '0', '0', '0']"
-                    data-fontsize="26"
+                    data-fontsize="20"
                     style="z-index: 5;"
                     data-transform_in="y:[-300%];opacity:0;s:500;">Perhimpunan Dokter Spesialis Saraf Indonesia</div>
 
@@ -59,10 +59,10 @@
                     data-x="['left','left','left','left']"
                     data-hoffset="['80','80','80','80']" 
                     data-y="['center','center','center','center']"
-                    data-voffset="['60','60','60','60']" 
+                    data-voffset="['55','55','55','55']" 
                     data-start="1500"
                     data-paddingleft="['0', '0', '0', '0']"
-                    data-fontsize="['15', '15', '15', '21']"
+                    data-fontsize="['20', '20', '20', '26']"
                     data-lineheight="['15', '15', '15', '22']"
                     style="z-index: 5; color: #6acdca;"
                     data-transform_in="y:[-300%];opacity:0;s:500;">Menjawab Tantangan Pelayanan Neurologi</div>
@@ -71,15 +71,15 @@
                     data-x="['left','left','left','left']"
                     data-hoffset="['80','80','80','80']" 
                     data-y="['center','center','center','center']"
-                    data-voffset="['80','80','80','80']" 
+                    data-voffset="['75','75','75','75']" 
                     data-start="1500"
                     data-paddingleft="['0', '0', '0', '0']"
-                    data-fontsize="['15', '15', '15', '21']"
+                    data-fontsize="['20', '20', '20', '26']"
                     data-lineheight="['15', '15', '15', '22']"
                     style="z-index: 5; color: #6acdca;"
                     data-transform_in="y:[-300%];opacity:0;s:500;">di Era Adaptasi Kebiasaan Baru</div>
 
-                    <div class="tp-caption text-uppercase"
+                    <!-- <div class="tp-caption text-uppercase"
                     data-x="['right','right','right','right']"
                     data-hoffset="['80','80','80','80']" 
                     data-y="['center','center','center','center']"
@@ -90,7 +90,7 @@
 
                     <a href="#" class="play-video-custom custom-rev-next">
                         <img src="<?= base_url('themes/porto'); ?>/img/play-icon.png" class="img-fluid" width="90" height="90" />
-                    </a>
+                    </a> -->
 
                 </div>
 
@@ -206,19 +206,19 @@
         <hr>
         <div class="row">
             <?php
-                foreach ($query2 as $key):
+            foreach ($query2 as $key):
+                ?>
+                <div class="col-lg-4 text-center text-md-left mb-5 mb-lg-0">
+                    <h6 class="text-color-dark font-weight-normal text-6 line-height-2"><strong class="font-weight-extra-bold"><?php echo $key->title ?></strong></h6>
+                    <p style="font-size:9px" >
+                        <?php echo character_limiter($key->content, 100) ?>
+                    </p>
+                    <p><a href="<?php echo base_url('site/readnews/'.$key->id) ?>" style="font-size: 11px" class="btn btn-primary">read more</a></p>
+                </div>
+                <?php 
+            endforeach; 
             ?>
-            <div class="col-lg-4 text-center text-md-left mb-5 mb-lg-0">
-                <h6 class="text-color-dark font-weight-normal text-6 line-height-2"><strong class="font-weight-extra-bold"><?php echo $key->title ?></strong></h6>
-                <p style="font-size:9px" >
-                    <?php echo character_limiter($key->content, 100) ?>
-                </p>
-                <p><a href="<?php echo base_url('site/readnews/'.$key->id) ?>" style="font-size: 11px" class="btn btn-primary">read more</a></p>
-            </div>
-            <?php 
-                endforeach; 
-            ?>
-     </div>
+        </div>
     </div>
 </section>
 
@@ -234,422 +234,72 @@
         <span class="alternative-font" style="font-size: 30px;"><b>Platinum Sponsor</b></span>
         <hr>
         <div class="row">
-            <div class="col">
-                <div class="row">
-                    <div class="col-lg-3 col-xs-6">
-                        <span class="thumb-info thumb-info-no-borders thumb-info-no-borders-rounded thumb-info-lighten thumb-info-bottom-info thumb-info-centered-icons mx-4 my-4">
-                            <span class="thumb-info-wrapper">
-                                <img src="<?= base_url('themes/porto'); ?>/img/sponsors/sponsor.png" class="img-fluid" alt="">
-                                <span class="thumb-info-title">
-                                    <span class="thumb-info-inner line-height-1 font-weight-bold text-dark position-relative top-3">Sponsor Title</span>
-                                    <span class="thumb-info-type">Sponsor Type</span>
-                                </span>
-                                <span class="thumb-info-action">
-                                    <a href="http://www.idionline.org/">
-                                        <span class="btn btn-default btn-flat">Kunjungi situs</span>
-                                    </a>
-                                </span>
+            <?php
+            foreach ($spplatinum as $platinum):
+                ?>
+                <div class="col-lg-3 col-xs-6">
+                    <span class="thumb-info thumb-info-no-borders thumb-info-no-borders-rounded thumb-info-lighten thumb-info-centered-info thumb-info-block thumb-info-block-dark">
+                        <span class="thumb-info-wrapper">
+                            <img src="<?= base_url('themes/uploads/sponsor') ?>/<?= $platinum->logo ?>" class="img-responsive">
+                            <span class="thumb-info-title">
+                                <span class="thumb-info-inner"><?= $platinum->name ?></span>
+                                <a href="<?= $platinum->link ?>" class="btn btn-info btn-xs text-weight-bold text-color-light"><i class="fas fa-search"></i></a>
                             </span>
                         </span>
-                    </div>
-                    <div class="col-lg-3 col-xs-6">
-                        <span class="thumb-info thumb-info-no-borders thumb-info-no-borders-rounded thumb-info-lighten thumb-info-bottom-info thumb-info-centered-icons mx-4 my-4">
-                            <span class="thumb-info-wrapper">
-                                <img src="<?= base_url('themes/porto'); ?>/img/sponsors/sponsor.png" class="img-fluid" alt="">
-                                <span class="thumb-info-title">
-                                    <span class="thumb-info-inner line-height-1 font-weight-bold text-dark position-relative top-3">Sponsor Title</span>
-                                    <span class="thumb-info-type">Sponsor Type</span>
-                                </span>
-                                <span class="thumb-info-action">
-                                    <a href="http://www.idionline.org/">
-                                        <span class="btn btn-default btn-flat">Kunjungi situs</span>
-                                    </a>
-                                </span>
-                            </span>
-                        </span>
-                    </div>
-                    <div class="col-lg-3 col-xs-6">
-                        <span class="thumb-info thumb-info-no-borders thumb-info-no-borders-rounded thumb-info-lighten thumb-info-bottom-info thumb-info-centered-icons mx-4 my-4">
-                            <span class="thumb-info-wrapper">
-                                <img src="<?= base_url('themes/porto'); ?>/img/sponsors/sponsor.png" class="img-fluid" alt="">
-                                <span class="thumb-info-title">
-                                    <span class="thumb-info-inner line-height-1 font-weight-bold text-dark position-relative top-3">Sponsor Title</span>
-                                    <span class="thumb-info-type">Sponsor Type</span>
-                                </span>
-                                <span class="thumb-info-action">
-                                    <a href="http://www.idionline.org/">
-                                        <span class="btn btn-default btn-flat">Kunjungi situs</span>
-                                    </a>
-                                </span>
-                            </span>
-                        </span>
-                    </div>
-                    <div class="col-lg-3 col-xs-6">
-                        <span class="thumb-info thumb-info-no-borders thumb-info-no-borders-rounded thumb-info-lighten thumb-info-bottom-info thumb-info-centered-icons mx-4 my-4">
-                            <span class="thumb-info-wrapper">
-                                <img src="<?= base_url('themes/porto'); ?>/img/sponsors/sponsor.png" class="img-fluid" alt="">
-                                <span class="thumb-info-title">
-                                    <span class="thumb-info-inner line-height-1 font-weight-bold text-dark position-relative top-3">Sponsor Title</span>
-                                    <span class="thumb-info-type">Sponsor Type</span>
-                                </span>
-                                <span class="thumb-info-action">
-                                    <a href="http://www.idionline.org/">
-                                        <span class="btn btn-default btn-flat">Kunjungi situs</span>
-                                    </a>
-                                </span>
-                            </span>
-                        </span>
-                    </div>
+                    </span>
                 </div>
-                <div class="row">
-                    <div class="col-lg-3 col-xs-6">
-                        <span class="thumb-info thumb-info-no-borders thumb-info-no-borders-rounded thumb-info-lighten thumb-info-bottom-info thumb-info-centered-icons mx-4 my-4">
-                            <span class="thumb-info-wrapper">
-                                <img src="<?= base_url('themes/porto'); ?>/img/sponsors/sponsor.png" class="img-fluid" alt="">
-                                <span class="thumb-info-title">
-                                    <span class="thumb-info-inner line-height-1 font-weight-bold text-dark position-relative top-3">Sponsor Title</span>
-                                    <span class="thumb-info-type">Sponsor Type</span>
-                                </span>
-                                <span class="thumb-info-action">
-                                    <a href="http://www.idionline.org/">
-                                        <span class="btn btn-default btn-flat">Kunjungi situs</span>
-                                    </a>
-                                </span>
-                            </span>
-                        </span>
-                    </div>
-                    <div class="col-lg-3 col-xs-6">
-                        <span class="thumb-info thumb-info-no-borders thumb-info-no-borders-rounded thumb-info-lighten thumb-info-bottom-info thumb-info-centered-icons mx-4 my-4">
-                            <span class="thumb-info-wrapper">
-                                <img src="<?= base_url('themes/porto'); ?>/img/sponsors/sponsor.png" class="img-fluid" alt="">
-                                <span class="thumb-info-title">
-                                    <span class="thumb-info-inner line-height-1 font-weight-bold text-dark position-relative top-3">Sponsor Title</span>
-                                    <span class="thumb-info-type">Sponsor Type</span>
-                                </span>
-                                <span class="thumb-info-action">
-                                    <a href="http://www.idionline.org/">
-                                        <span class="btn btn-default btn-flat">Kunjungi situs</span>
-                                    </a>
-                                </span>
-                            </span>
-                        </span>
-                    </div>
-                    <div class="col-lg-3 col-xs-6">
-                        <span class="thumb-info thumb-info-no-borders thumb-info-no-borders-rounded thumb-info-lighten thumb-info-bottom-info thumb-info-centered-icons mx-4 my-4">
-                            <span class="thumb-info-wrapper">
-                                <img src="<?= base_url('themes/porto'); ?>/img/sponsors/sponsor.png" class="img-fluid" alt="">
-                                <span class="thumb-info-title">
-                                    <span class="thumb-info-inner line-height-1 font-weight-bold text-dark position-relative top-3">Sponsor Title</span>
-                                    <span class="thumb-info-type">Sponsor Type</span>
-                                </span>
-                                <span class="thumb-info-action">
-                                    <a href="http://www.idionline.org/">
-                                        <span class="btn btn-default btn-flat">Kunjungi situs</span>
-                                    </a>
-                                </span>
-                            </span>
-                        </span>
-                    </div>
-                    <div class="col-lg-3 col-xs-6">
-                        <span class="thumb-info thumb-info-no-borders thumb-info-no-borders-rounded thumb-info-lighten thumb-info-bottom-info thumb-info-centered-icons mx-4 my-4">
-                            <span class="thumb-info-wrapper">
-                                <img src="<?= base_url('themes/porto'); ?>/img/sponsors/sponsor.png" class="img-fluid" alt="">
-                                <span class="thumb-info-title">
-                                    <span class="thumb-info-inner line-height-1 font-weight-bold text-dark position-relative top-3">Sponsor Title</span>
-                                    <span class="thumb-info-type">Sponsor Type</span>
-                                </span>
-                                <span class="thumb-info-action">
-                                    <a href="http://www.idionline.org/">
-                                        <span class="btn btn-default btn-flat">Kunjungi situs</span>
-                                    </a>
-                                </span>
-                            </span>
-                        </span>
-                    </div>
-                </div>
-                <br>
-                <hr>
-                <span class="alternative-font" style="font-size: 30px;"><b>Gold Sponsor</b></span>
-                <hr>
-                <div class="row">
-                    <div class="col-lg-2">
-                        <span class="thumb-info thumb-info-no-borders thumb-info-no-borders-rounded thumb-info-lighten thumb-info-bottom-info thumb-info-centered-icons mb-4">
-                            <span class="thumb-info-wrapper">
-                                <img src="<?= base_url('themes/porto'); ?>/img/sponsors/sponsor.png" class="img-fluid" alt="">
-                                <span class="thumb-info-title">
-                                    <span class="thumb-info-inner line-height-1 font-weight-bold text-dark position-relative top-3">Sponsor Title</span>
-                                    <span class="thumb-info-type">Sponsor Type</span>
-                                </span>
-                            </span>
-                        </span>
-                    </div>
-                    <div class="col-lg-2">
-                        <span class="thumb-info thumb-info-no-borders thumb-info-no-borders-rounded thumb-info-lighten thumb-info-bottom-info thumb-info-centered-icons mb-4">
-                            <span class="thumb-info-wrapper">
-                                <img src="<?= base_url('themes/porto'); ?>/img/sponsors/sponsor.png" class="img-fluid" alt="">
-                                <span class="thumb-info-title">
-                                    <span class="thumb-info-inner line-height-1 font-weight-bold text-dark position-relative top-3">Sponsor Title</span>
-                                    <span class="thumb-info-type">Sponsor Type</span>
-                                </span>
-                            </span>
-                        </span>
-                    </div>
-                    <div class="col-lg-2">
-                        <span class="thumb-info thumb-info-no-borders thumb-info-no-borders-rounded thumb-info-lighten thumb-info-bottom-info thumb-info-centered-icons mb-4">
-                            <span class="thumb-info-wrapper">
-                                <img src="<?= base_url('themes/porto'); ?>/img/sponsors/sponsor.png" class="img-fluid" alt="">
-                                <span class="thumb-info-title">
-                                    <span class="thumb-info-inner line-height-1 font-weight-bold text-dark position-relative top-3">Sponsor Title</span>
-                                    <span class="thumb-info-type">Sponsor Type</span>
-                                </span>
-                            </span>
-                        </span>
-                    </div>
-                    <div class="col-lg-2">
-                        <span class="thumb-info thumb-info-no-borders thumb-info-no-borders-rounded thumb-info-lighten thumb-info-bottom-info thumb-info-centered-icons mb-4">
-                            <span class="thumb-info-wrapper">
-                                <img src="<?= base_url('themes/porto'); ?>/img/sponsors/sponsor.png" class="img-fluid" alt="">
-                                <span class="thumb-info-title">
-                                    <span class="thumb-info-inner line-height-1 font-weight-bold text-dark position-relative top-3">Sponsor Title</span>
-                                    <span class="thumb-info-type">Sponsor Type</span>
-                                </span>
-                            </span>
-                        </span>
-                    </div>
-                    <div class="col-lg-2">
-                        <span class="thumb-info thumb-info-no-borders thumb-info-no-borders-rounded thumb-info-lighten thumb-info-bottom-info thumb-info-centered-icons mb-4">
-                            <span class="thumb-info-wrapper">
-                                <img src="<?= base_url('themes/porto'); ?>/img/sponsors/sponsor.png" class="img-fluid" alt="">
-                                <span class="thumb-info-title">
-                                    <span class="thumb-info-inner line-height-1 font-weight-bold text-dark position-relative top-3">Sponsor Title</span>
-                                    <span class="thumb-info-type">Sponsor Type</span>
-                                </span>
-                            </span>
-                        </span>
-                    </div>
-                    <div class="col-lg-2">
-                        <span class="thumb-info thumb-info-no-borders thumb-info-no-borders-rounded thumb-info-lighten thumb-info-bottom-info thumb-info-centered-icons mb-4">
-                            <span class="thumb-info-wrapper">
-                                <img src="<?= base_url('themes/porto'); ?>/img/sponsors/sponsor.png" class="img-fluid" alt="">
-                                <span class="thumb-info-title">
-                                    <span class="thumb-info-inner line-height-1 font-weight-bold text-dark position-relative top-3">Sponsor Title</span>
-                                    <span class="thumb-info-type">Sponsor Type</span>
-                                </span>
-                            </span>
-                        </span>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-2">
-                        <span class="thumb-info thumb-info-no-borders thumb-info-no-borders-rounded thumb-info-lighten thumb-info-bottom-info thumb-info-centered-icons mb-4">
-                            <span class="thumb-info-wrapper">
-                                <img src="<?= base_url('themes/porto'); ?>/img/sponsors/sponsor.png" class="img-fluid" alt="">
-                                <span class="thumb-info-title">
-                                    <span class="thumb-info-inner line-height-1 font-weight-bold text-dark position-relative top-3">Sponsor Title</span>
-                                    <span class="thumb-info-type">Sponsor Type</span>
-                                </span>
-                            </span>
-                        </span>
-                    </div>
-                    <div class="col-lg-2">
-                        <span class="thumb-info thumb-info-no-borders thumb-info-no-borders-rounded thumb-info-lighten thumb-info-bottom-info thumb-info-centered-icons mb-4">
-                            <span class="thumb-info-wrapper">
-                                <img src="<?= base_url('themes/porto'); ?>/img/sponsors/sponsor.png" class="img-fluid" alt="">
-                                <span class="thumb-info-title">
-                                    <span class="thumb-info-inner line-height-1 font-weight-bold text-dark position-relative top-3">Sponsor Title</span>
-                                    <span class="thumb-info-type">Sponsor Type</span>
-                                </span>
-                            </span>
-                        </span>
-                    </div>
-                    <div class="col-lg-2">
-                        <span class="thumb-info thumb-info-no-borders thumb-info-no-borders-rounded thumb-info-lighten thumb-info-bottom-info thumb-info-centered-icons mb-4">
-                            <span class="thumb-info-wrapper">
-                                <img src="<?= base_url('themes/porto'); ?>/img/sponsors/sponsor.png" class="img-fluid" alt="">
-                                <span class="thumb-info-title">
-                                    <span class="thumb-info-inner line-height-1 font-weight-bold text-dark position-relative top-3">Sponsor Title</span>
-                                    <span class="thumb-info-type">Sponsor Type</span>
-                                </span>
-                            </span>
-                        </span>
-                    </div>
-                    <div class="col-lg-2">
-                        <span class="thumb-info thumb-info-no-borders thumb-info-no-borders-rounded thumb-info-lighten thumb-info-bottom-info thumb-info-centered-icons mb-4">
-                            <span class="thumb-info-wrapper">
-                                <img src="<?= base_url('themes/porto'); ?>/img/sponsors/sponsor.png" class="img-fluid" alt="">
-                                <span class="thumb-info-title">
-                                    <span class="thumb-info-inner line-height-1 font-weight-bold text-dark position-relative top-3">Sponsor Title</span>
-                                    <span class="thumb-info-type">Sponsor Type</span>
-                                </span>
-                            </span>
-                        </span>
-                    </div>
-                    <div class="col-lg-2">
-                        <span class="thumb-info thumb-info-no-borders thumb-info-no-borders-rounded thumb-info-lighten thumb-info-bottom-info thumb-info-centered-icons mb-4">
-                            <span class="thumb-info-wrapper">
-                                <img src="<?= base_url('themes/porto'); ?>/img/sponsors/sponsor.png" class="img-fluid" alt="">
-                                <span class="thumb-info-title">
-                                    <span class="thumb-info-inner line-height-1 font-weight-bold text-dark position-relative top-3">Sponsor Title</span>
-                                    <span class="thumb-info-type">Sponsor Type</span>
-                                </span>
-                            </span>
-                        </span>
-                    </div>
-                    <div class="col-lg-2">
-                        <span class="thumb-info thumb-info-no-borders thumb-info-no-borders-rounded thumb-info-lighten thumb-info-bottom-info thumb-info-centered-icons mb-4">
-                            <span class="thumb-info-wrapper">
-                                <img src="<?= base_url('themes/porto'); ?>/img/sponsors/sponsor.png" class="img-fluid" alt="">
-                                <span class="thumb-info-title">
-                                    <span class="thumb-info-inner line-height-1 font-weight-bold text-dark position-relative top-3">Sponsor Title</span>
-                                    <span class="thumb-info-type">Sponsor Type</span>
-                                </span>
-                            </span>
-                        </span>
-                    </div>
-                </div>
-                
-                <br>
-                <hr>
-                <span class="alternative-font" style="font-size: 30px;"><b>Silver Sponsor</b></span>
-                <hr>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="owl-carousel owl-theme" data-plugin-options="{'items': 6, 'autoplay': true, 'autoplayTimeout': 3000}">
-                            <div>
-                                <center>
-                                    <img class="img-fluid" src="<?= base_url('themes/porto'); ?>/img/sponsors/sponsor.png" style="width:70px;height:70px;" alt="">
-                                </center>
-                            </div>
-                            <div>
-                                <center>
-                                    <img class="img-fluid" src="<?= base_url('themes/porto'); ?>/img/sponsors/sponsor.png" style="width:70px;height:70px;" alt="">
-                                </center>
-                            </div>
-                            <div>
-                                <center>
-                                    <img class="img-fluid" src="<?= base_url('themes/porto'); ?>/img/sponsors/sponsor.png" style="width:70px;height:70px;" alt="">
-                                </center>
-                            </div>
-                            <div>
-                                <center>
-                                    <img class="img-fluid" src="<?= base_url('themes/porto'); ?>/img/sponsors/sponsor.png" style="width:70px;height:70px;" alt="">
-                                </center>
-                            </div>
-                            <div>
-                                <center>
-                                    <img class="img-fluid" src="<?= base_url('themes/porto'); ?>/img/sponsors/sponsor.png" style="width:70px;height:70px;" alt="">
-                                </center>
-                            </div>
-                            <div>
-                                <center>
-                                    <img class="img-fluid" src="<?= base_url('themes/porto'); ?>/img/sponsors/sponsor.png" style="width:70px;height:70px;" alt="">
-                                </center>
-                            </div>
-                            <div>
-                                <center>
-                                    <img class="img-fluid" src="<?= base_url('themes/porto'); ?>/img/sponsors/sponsor.png" style="width:70px;height:70px;" alt="">
-                                </center>
-                            </div>
-                            <div>
-                                <center>
-                                    <img class="img-fluid" src="<?= base_url('themes/porto'); ?>/img/sponsors/sponsor.png" style="width:70px;height:70px;" alt="">
-                                </center>
-                            </div>
-                            <div>
-                                <center>
-                                    <img class="img-fluid" src="<?= base_url('themes/porto'); ?>/img/sponsors/sponsor.png" style="width:70px;height:70px;" alt="">
-                                </center>
-                            </div>
-                            <div>
-                                <center>
-                                    <img class="img-fluid" src="<?= base_url('themes/porto'); ?>/img/sponsors/sponsor.png" style="width:70px;height:70px;" alt="">
-                                </center>
-                            </div>
-                            <div>
-                                <center>
-                                    <img class="img-fluid" src="<?= base_url('themes/porto'); ?>/img/sponsors/sponsor.png" style="width:70px;height:70px;" alt="">
-                                </center>
-                            </div>
-                            <div>
-                                <center>
-                                    <img class="img-fluid" src="<?= base_url('themes/porto'); ?>/img/sponsors/sponsor.png" style="width:70px;height:70px;" alt="">
-                                </center>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="owl-carousel owl-theme" data-plugin-options="{'items': 6, 'autoplay': true, 'autoplayTimeout': 3000}">
-                            <div>
-                                <center>
-                                    <img class="img-fluid" src="<?= base_url('themes/porto'); ?>/img/sponsors/sponsor.png" style="width:70px;height:70px;" alt="">
-                                </center>
-                            </div>
-                            <div>
-                                <center>
-                                    <img class="img-fluid" src="<?= base_url('themes/porto'); ?>/img/sponsors/sponsor.png" style="width:70px;height:70px;" alt="">
-                                </center>
-                            </div>
-                            <div>
-                                <center>
-                                    <img class="img-fluid" src="<?= base_url('themes/porto'); ?>/img/sponsors/sponsor.png" style="width:70px;height:70px;" alt="">
-                                </center>
-                            </div>
-                            <div>
-                                <center>
-                                    <img class="img-fluid" src="<?= base_url('themes/porto'); ?>/img/sponsors/sponsor.png" style="width:70px;height:70px;" alt="">
-                                </center>
-                            </div>
-                            <div>
-                                <center>
-                                    <img class="img-fluid" src="<?= base_url('themes/porto'); ?>/img/sponsors/sponsor.png" style="width:70px;height:70px;" alt="">
-                                </center>
-                            </div>
-                            <div>
-                                <center>
-                                    <img class="img-fluid" src="<?= base_url('themes/porto'); ?>/img/sponsors/sponsor.png" style="width:70px;height:70px;" alt="">
-                                </center>
-                            </div>
-                            <div>
-                                <center>
-                                    <img class="img-fluid" src="<?= base_url('themes/porto'); ?>/img/sponsors/sponsor.png" style="width:70px;height:70px;" alt="">
-                                </center>
-                            </div>
-                            <div>
-                                <center>
-                                    <img class="img-fluid" src="<?= base_url('themes/porto'); ?>/img/sponsors/sponsor.png" style="width:70px;height:70px;" alt="">
-                                </center>
-                            </div>
-                            <div>
-                                <center>
-                                    <img class="img-fluid" src="<?= base_url('themes/porto'); ?>/img/sponsors/sponsor.png" style="width:70px;height:70px;" alt="">
-                                </center>
-                            </div>
-                            <div>
-                                <center>
-                                    <img class="img-fluid" src="<?= base_url('themes/porto'); ?>/img/sponsors/sponsor.png" style="width:70px;height:70px;" alt="">
-                                </center>
-                            </div>
-                            <div>
-                                <center>
-                                    <img class="img-fluid" src="<?= base_url('themes/porto'); ?>/img/sponsors/sponsor.png" style="width:70px;height:70px;" alt="">
-                                </center>
-                            </div>
-                            <div>
-                                <center>
-                                    <img class="img-fluid" src="<?= base_url('themes/porto'); ?>/img/sponsors/sponsor.png" style="width:70px;height:70px;" alt="">
-                                </center>
-                            </div>
-                        </div>
+            <?php endforeach; ?>
+        </div>
 
+        <hr>
+        <span class="alternative-font" style="font-size: 30px;"><b>Gold Sponsor</b></span>
+        <hr>
+
+        <div class="row">
+            <?php
+            foreach ($spgold as $gold):
+                ?>
+                <div class="col-lg-2">
+                    <span class="align-middle thumb-info thumb-info-no-borders thumb-info-no-borders-rounded thumb-info-lighten thumb-info-centered-info thumb-info-block thumb-info-block-dark mx-3 my-3">
+                        <span class="thumb-info-wrapper">
+                            <img src="<?= base_url('themes/uploads/sponsor') ?>/<?= $gold->logo ?>" class="img-fluid">
+                            <span class="thumb-info-title">
+                                <span class="thumb-info-inner" style="font-size: 12px;"><?= $gold->name ?></span>
+                                <a href="<?= $gold->link ?>" class="btn btn-info btn-xs text-weight-bold text-color-light"><i class="fas fa-search"></i></a>
+                            </span>
+                        </span>
+                    </span>
+                </div>
+            <?php endforeach; ?>
+        </div>
+
+        <br>
+        <hr>
+        <span class="alternative-font" style="font-size: 30px;"><b>Silver Sponsor</b></span>
+        <hr>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="owl-carousel owl-theme" data-plugin-options="{'items': 6, 'autoplay': true, 'autoplayTimeout': 3000}">
+                    <?php 
+                    foreach ($spsilver as $silver):
+                    ?>
+                    <div>
+                        <center>
+                            <a href="<?= $silver->link ?>">
+                                <img class="img-fluid px-2" src="<?= base_url('themes/uploads/sponsor'); ?>/<?= $silver->logo?>" style="" alt="">
+                            </a>
+                        </center>
                     </div>
+                <?php endforeach; ?>
+                </div>
             </div>
         </div>
-    </section>
 
-    <div class="icon-bar">
-        <a href="https://wa.me/6281952750045" target="_blank" class="whatsapp"><i class="fab fa-whatsapp"> How can I help you ?</i></a> 
     </div>
+</section>
+
+<div class="icon-bar">
+    <a href="https://wa.me/6281952750045" target="_blank" class="whatsapp"><i class="fab fa-whatsapp"> How can I help you ?</i></a> 
+</div>
 
 </main>

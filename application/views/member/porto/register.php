@@ -201,7 +201,7 @@
 
                 </form>
                 <hr/>
-                <div class="form-group row">
+                <div class="form-group row mb-5">
                     <label class="col-lg-3 control-label"></label>
                     <div class="col-lg-5 col-lg-offset-3">
                         <button :disabled="saving" type="button" @click="register"
@@ -210,7 +210,7 @@
                             Register
                         </button>
                         <button type="button"
-                                class="btn btn-outline custom-border-width btn-primary custom-border-radius font-weight-semibold text-uppercase"
+                                class="btn btn-outline custom-border-width btn-danger custom-border-radius font-weight-semibold text-uppercase"
                                 id="resetBtn" style="border-color:red;color:red">Cancel
                         </button>
                     </div>

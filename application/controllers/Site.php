@@ -18,6 +18,7 @@ class Site extends MY_Controller
         $this->load->model('News_m', 'NewsM');
         $this->load->model('User_account_m', 'AccountM');
         $this->load->model('Notification_m');
+        $this->load->model('Sponsor_link_m', 'SponsorM');
     }
 
     public function index()
@@ -26,6 +27,12 @@ class Site extends MY_Controller
         $data['query'] = $category['data'];
         $news          = $this->NewsM->listnews();
         $data['query2'] = $news;
+        $spplatinum       = $this->SponsorM->listspplatinum();
+        $data['spplatinum'] = $spplatinum;
+        $spgold       = $this->SponsorM->listspgold();
+        $data['spgold'] = $spgold;
+        $spsilver       = $this->SponsorM->listspsilver();
+        $data['spsilver'] = $spsilver;
         $this->layout->render('site/'.$this->theme.'/home',$data);
     }
 
