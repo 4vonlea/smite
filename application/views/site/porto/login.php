@@ -64,9 +64,9 @@
                         </form>
                     </div>
                 </div>
-                <div class="alert alert-success">
-                    Forget Password ? <a href="<?= base_url("site/forget"); ?>">Click Here</a> <br/>
-                    Don't have an account yet ? <a href="<?= base_url("member/register"); ?>">Click Here</a><br/>
+                <div class="alert alert-primary">
+                    Forget Password ? <a href="<?= base_url("site/forget"); ?>" class="text-light">Click Here</a> <br/>
+                    Don't have an account yet ? <a href="<?= base_url("member/register"); ?>" class="text-light">Click Here</a><br/>
                 </div>
             </div>
         </div>

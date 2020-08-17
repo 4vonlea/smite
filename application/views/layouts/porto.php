@@ -92,6 +92,14 @@ $theme_path = base_url("themes/porto") . "/";
 				background: #6cd115;
 				color: white;
 			}
+
+			.vertical-center {
+				margin: 0;
+				position: absolute;
+				top: 50%;
+				-ms-transform: translateY(-50%);
+				transform: translateY(-50%);
+			}
 		</style>
 
 	</head>
@@ -200,7 +208,7 @@ $theme_path = base_url("themes/porto") . "/";
 					<h4 class="text-color-light font-weight-light mb-2">PIN PERDOSSI</h4>
 					<p class="custom-font-size-3 text-color-light font-weight-normal text-uppercase opacity-5 mb-0"> Virtual Congress 2020</p>
 				</div>
-				<a href="#" class="btn btn-primary custom-border-radius custom-btn-style-1 text-3 font-weight-semibold text-color-light text-uppercase outline-none">Buy Tickets <i class="custom-long-arrow-right ml-3" aria-hidden="true"></i></a>
+				<a href="<?= base_url("site/login"); ?>" class="btn btn-primary custom-border-radius custom-btn-style-1 text-3 font-weight-semibold text-color-light text-uppercase outline-none">Buy Tickets <i class="custom-long-arrow-right ml-3" aria-hidden="true"></i></a>
 			</div>
 			<div class="col-lg-3 mb-3">
 				<div class="contact-details">
@@ -210,12 +218,14 @@ $theme_path = base_url("themes/porto") . "/";
 						<span class="font-weight-light">Apartemen Menteng Square Tower A No. AR-19 Jl. Matraman No. 30E Jakarta Pusat</span>
 					</div>
 					<div class="mb-3">
-						<strong class="font-weight-light text-color-light">Phone:</strong>
-						<a href="tel:1234567890" class="text-decoration-none font-weight-light"> 021-391-7349</a>
+						<strong class="font-weight-light text-color-light">Contact Person:</strong><br>
+						<span class="text-color-light">dr. Rahmi, SpS</span><a href="tel:081575099960" class="text-decoration-none font-weight-light"> (0815-7509-9960)</a><br>
+						<span class="text-color-light">dr. Putri, SpS</span><a href="tel:082274309675" class="text-decoration-none font-weight-light"> (0822-7430-9675)</a><br>
+						<span class="text-color-light">dr. Ade, SpS</span><a href="tel:081285856801" class="text-decoration-none font-weight-light"> (0812-8585-6801)</a>
 					</div>
 					<div>
 						<strong class="font-weight-light text-color-light">Email:</strong>
-						<a href="mailto:mail@example.com" class="text-decoration-none font-weight-light">panitia.pinv.perdossi@gmail.com</a>
+						<a href="mailto:panitia.pinv.perdossi@gmail.com" class="text-decoration-none font-weight-light">panitia.pinv.perdossi@gmail.com</a>
 					</div>
 				</div>
 			</div>
@@ -227,12 +237,12 @@ $theme_path = base_url("themes/porto") . "/";
 							<i class="fab fa-facebook-f"></i>
 						</a>
 					</li>
-					<li class="social-icons-twitter">
-						<a href="http://www.twitter.com/" target="_blank" title="Twitter">
-							<i class="fab fa-twitter"></i>
+					<li class="social-icons-instagram">
+						<a href="https://www.instagram.com/pinperdossi2020/" target="_blank" title="Instagram">
+							<i class="fab fa-instagram"></i>
 						</a>
 					</li>
-					<li class="social-icons-googleplus">
+					<!-- <li class="social-icons-googleplus">
 						<a href="http://www.plus.google.com/" target="_blank" title="Twitter">
 							<i class="fab fa-google-plus-g" aria-hidden="true"></i>
 						</a>
@@ -241,7 +251,7 @@ $theme_path = base_url("themes/porto") . "/";
 						<a href="http://www.linkedin.com/" target="_blank" title="Linkedin">
 							<i class="fab fa-linkedin-in"></i>
 						</a>
-					</li>
+					</li> -->
 				</ul>
 			</div>
 		</div>
