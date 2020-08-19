@@ -137,7 +137,7 @@ $theme_path = base_url("themes/porto") . "/";
 												</a>
 											</li>
 											<li>
-												<a class="nav-link" href="<?= base_url("site/simposium"); ?>">
+												<a class="nav-link" href="<?= base_url("site/schedules"); ?>">
 													Schedule
 												</a>
 											</li>
