@@ -63,7 +63,13 @@ class Site extends MY_Controller
 
     public function schedules()
     {
-        $this->layout->render('site/'.$this->theme.'/schedules');
+        $spplatinum       = $this->SponsorM->listspplatinum();
+        $data['spplatinum'] = $spplatinum;
+        $spgold       = $this->SponsorM->listspgold();
+        $data['spgold'] = $spgold;
+        $spsilver       = $this->SponsorM->listspsilver();
+        $data['spsilver'] = $spsilver;
+        $this->layout->render('site/'.$this->theme.'/schedules', $data);
     }
 
     public function download()
@@ -121,7 +127,10 @@ class Site extends MY_Controller
 
             }
         }
-        $this->layout->render('site/'.$this->theme.'/login', ['error' => $error]);
+        $spplatinum       = $this->SponsorM->listspplatinum();
+        $spgold       = $this->SponsorM->listspgold();
+        $spsilver       = $this->SponsorM->listspsilver();
+        $this->layout->render('site/'.$this->theme.'/login', array('error' => $error, 'spplatinum' => $spplatinum, 'spgold' => $spgold, 'spsilver' => $spsilver));
     }
 
     public function register()
@@ -156,7 +165,13 @@ class Site extends MY_Controller
 
     public function committee()
     {
-        $this->layout->render('site/'.$this->theme.'/committee');
+        $spplatinum       = $this->SponsorM->listspplatinum();
+        $data['spplatinum'] = $spplatinum;
+        $spgold       = $this->SponsorM->listspgold();
+        $data['spgold'] = $spgold;
+        $spsilver       = $this->SponsorM->listspsilver();
+        $data['spsilver'] = $spsilver;
+        $this->layout->render('site/'.$this->theme.'/committee', $data);
     }
 
     public function contact()
@@ -171,14 +186,20 @@ class Site extends MY_Controller
 
     public function readnews($id)
     {
+        $spplatinum       = $this->SponsorM->listspplatinum();
+        $spgold       = $this->SponsorM->listspgold();
+        $spsilver       = $this->SponsorM->listspsilver();
         $news = $this->NewsM->read_news($id);
-        $this->layout->render('site/'.$this->theme.'/readnews', array('news' => $news));
+        $this->layout->render('site/'.$this->theme.'/readnews', array('news' => $news, 'spplatinum' => $spplatinum, 'spgold' => $spgold, 'spsilver' => $spsilver));
     }
 
     public function all_news()
     {
+        $spplatinum       = $this->SponsorM->listspplatinum();
+        $spgold       = $this->SponsorM->listspgold();
+        $spsilver       = $this->SponsorM->listspsilver();
         $allnews = $this->NewsM->allnews();
-        $this->layout->render('site/'.$this->theme.'/all_news', array('allnews' => $allnews));
+        $this->layout->render('site/'.$this->theme.'/all_news', array('allnews' => $allnews, 'spplatinum' => $spplatinum, 'spgold' => $spgold, 'spsilver' => $spsilver));
     }
 
 }
