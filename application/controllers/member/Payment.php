@@ -279,6 +279,8 @@ class Payment extends MY_Controller
 			'signature'=>$signature,
 			'order_id'=>$order_id
 		]);
+		$this->load->model("Transaction_m");
+		$this->Transaction_m->update(['midtrans_data'=>$response],$order_id);
 		echo $response;
 	}
 

@@ -191,6 +191,14 @@ export default Vue.component("PageBilling", {
 											<th>Account Number</th>
 											<td>{{ detailEspay.product_value }}</td>
 										</tr>
+										<tr>
+											<th>Amount</th>
+											<td> 
+												{{ formatCurrency(detailEspay.amount) }} 
+												<br/>
+												<small>*Amount may differ due to additional charge from Espay </small>
+											</td>
+										</tr>
 									</table>
 									</td>
 								<tr>
