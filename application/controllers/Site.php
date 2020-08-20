@@ -19,6 +19,7 @@ class Site extends MY_Controller
         $this->load->model('User_account_m', 'AccountM');
         $this->load->model('Notification_m');
         $this->load->model('Sponsor_link_m', 'SponsorM');
+        $this->load->model('Sponsor_link_m', 'Sponsor_link_m');
     }
 
     public function index()
