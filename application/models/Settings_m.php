@@ -9,6 +9,8 @@ class Settings_m extends MY_Model
     const EVENT_CATEGORY = 'event_category';
     const STATUS_COMMITTEE = 'status_committee';
     const MANUAL_PAYMENT = 'manual_payment';
+    const ENABLE_PAYMENT = 'enable_payment';
+    const ESPAY = 'espay';
 
 
 	/**
@@ -60,7 +62,33 @@ class Settings_m extends MY_Model
 				return (json_decode($setting->value,true));
 		}
 		return [];
-	}
+    }
+    
+    public static function getEspay(){
+        $val = self::getSetting(self::ESPAY);
+        if($val && $val != ""){
+            $return = json_decode($val,true);
+            if(count($return) > 0)
+                return $return;
+        }
+        return [
+            'apiKey'=>"",
+            'merchantCode'=>"",
+            'signature'=>"",
+            "apiLink"=>"",
+            "jsKitUrl"=>"",
+        ];
+    }
+
+    public static function getEnablePayment(){
+        $val = self::getSetting(self::ENABLE_PAYMENT);
+        if($val && $val != ""){
+            $return = json_decode($val,true);
+            if(count($return) > 0)
+                return $return;
+        }
+        return [];
+    }
 
     public static function getSetting($name){
         $setting = Settings_m::findOne(['name'=>$name]);
@@ -78,6 +106,7 @@ class Settings_m extends MY_Model
             foreach($name as $n=>$v){
                 self::saveSetting($n,$v);
             }
+            return true;
         }else {
             $setting = Settings_m::findOne(['name' => $name]);
             if ($setting == null) {
@@ -85,7 +114,8 @@ class Settings_m extends MY_Model
                 $setting->name = $name;
             }
             $setting->value = (is_array($value) ? json_encode($value) : $value);
-            $setting->save();
+            return $setting->save();
         }
+        return true;
     }
 }

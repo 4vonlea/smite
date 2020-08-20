@@ -26,7 +26,7 @@
 						<a class="nav-link mb-sm-3 mb-md-0" data-toggle="tab" href="#tabs-notification" role="tab" aria-controls="tabs-icons-text-1" aria-selected="true"><i class="ni ni-book-bookmark mr-2"></i>Notification</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link mb-sm-3 mb-md-0" data-toggle="tab" href="#tabs-manual_payment" role="tab" aria-controls="tabs-icons-text-1" aria-selected="true"><i class="fa fa-money-bill mr-2"></i>Manual Payment(Bank Account)</a>
+						<a class="nav-link mb-sm-3 mb-md-0" data-toggle="tab" href="#tabs-manual_payment" role="tab" aria-controls="tabs-icons-text-1" aria-selected="true"><i class="fa fa-money-bill mr-2"></i>Payment</a>
 					</li>
 				</ul>
 			</div>
@@ -353,6 +353,12 @@
 						<div class="tab-pane fade show" id="tabs-manual_payment" role="tabpanel">
 							<div class="row">
 								<div class="col">Manual Payment</div>
+								<div class="form-check">
+									<input class="form-check-input" v-model="enablePayment" type="checkbox" value="manualPayment;Manual Payment" id="enableManualPayment">
+									<label class="form-check-label" for="enableManualPayment">
+										Enable Manual Payment
+									</label>
+								</div>
 							</div>
 							<hr />
 							<div class="row">
@@ -393,11 +399,49 @@
 											</tr>
 										</table>
 									</div>
-									<div class="form-group text-right">
-										<button @click="saveManualPayment" :disabled="savingManual" type="button" class="btn btn-primary">
-											<i :class="[savingManual ? 'fa fa-spin fa-spinner':'fa fa-disk']"></i> Save
-										</button>
+									
+								</div>
+							</div>
+							<div class="row">
+								<div class="col">Espay Payment Gateway</div>
+								<div class="form-check">
+									<input class="form-check-input" type="checkbox" v-model="enablePayment" value="espay;Espay Payment Gateway" id="enableEspay">
+									<label class="form-check-label" for="enableEspay">
+										Enable Espay Payment
+									</label>
+								</div>
+							</div>
+							<hr />
+							<div class="row">
+								<div class="col">
+								<div class="form-group">
+										<label class="form-control-label">JS KIT URL</label>
+										<input type="text" class="form-control" v-model="espay.jsKitUrl" placeholder="https://kit.espay.id/public/signature/js" />
 									</div>
+									<div class="form-group">
+										<label class="form-control-label">Web API Link</label>
+										<input type="text" class="form-control" v-model="espay.apiLink" placeholder="https://api.espay.id/rest/merchant/" />
+									</div>
+									<div class="form-group">
+										<label class="form-control-label">Merchant Code</label>
+										<input type="text" class="form-control" v-model="espay.merchantCode" />
+									</div>
+									<div class="form-group">
+										<label class="form-control-label">API Key</label>
+										<input type="text" class="form-control" v-model="espay.apiKey" />
+									</div>
+									<div class="form-group">
+										<label class="form-control-label">Signature</label>
+										<input type="text" class="form-control" v-model="espay.signature" />
+									</div>
+								</div>
+							</div>
+							<hr/>
+							<div class="row">
+								<div class="col form-group text-right">
+									<button @click="saveManualPayment" :disabled="savingManual" type="button" class="btn btn-primary">
+										<i :class="[savingManual ? 'fa fa-spin fa-spinner':'fa fa-disk']"></i> Save
+									</button>
 								</div>
 							</div>
 						</div>
@@ -475,6 +519,8 @@
 			savingMailer:false,
 			uploading: false,
 			preview_certificate: "",
+			espay:<?=json_encode(Settings_m::getEspay());?>,
+			enablePayment:<?=json_encode(Settings_m::getEnablePayment());?>,
 			typeMailer: "<?= $this->Notification_m->getDefaultMailer() ?>",
 			mailer:<?= $this->Notification_m->getValue(Notification_m::SETTING_MAILER) ?>,
 			logo_src: '<?= base_url('themes/uploads/logo.png'); ?>',
@@ -556,9 +602,15 @@
 			},
 			saveManualPayment() {
 				this.savingManual = true;
-				$.post("<?= base_url('admin/setting/save_manual'); ?>", this.manualPayment, function(res) {
+				$.post("<?= base_url('admin/setting/save_manual'); ?>", {
+					manualPayment:this.manualPayment,
+					espay:this.espay,
+					enablePayment:this.enablePayment,
+				}, function(res) {
 					if (res.status) {
-						Swal.fire("Success", "Setting Manual Payment Saved Successfully !", "success");
+						Swal.fire("Success", "Setting Payment Saved Successfully !", "success");
+					}else{
+						Swal.fire('Fail', res.message, 'error');
 					}
 				}, 'JSON').always(function() {
 					app.savingManual = false;

@@ -228,6 +228,7 @@ class Area extends MY_Controller
 				$response['transaction'][] = array_merge($trans->toArray(),['detail'=>$detail]);
 			}
 		}
+		$response['paymentMethod'] = Settings_m::getEnablePayment();
 		$this->output->set_content_type("application/json")
 			->_display(json_encode($response));
 	}

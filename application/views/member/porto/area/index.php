@@ -59,7 +59,7 @@ $client_key = $config['client_key'];
 							</router-link>
 						</li>
                         <li class="nav-item">
-							<router-link active-class="active" class="nav-link text-dark" to="/webminar">Webminar Link
+							<router-link active-class="active" class="nav-link text-dark" to="/webminar">Webinar Link
 							</router-link>
 						</li>
 						<li class="nav-item"><a class="nav-link text-dark"
@@ -77,7 +77,7 @@ $client_key = $config['client_key'];
 <!-- <script type="text/javascript"
 		src="https://app.midtrans.com/snap/snap.js"
 		data-client-key="<?=$client_key;?>"></script> -->
-<script src="https://sandbox-kit.espay.id/public/signature/js"></script>
+<script src="<?=Settings_m::getEspay()['jsKitUrl'];?>"></script>
 
 <script src="<?= base_url("themes/script/sweetalert2@8.js"); ?>"></script>
 
@@ -113,6 +113,7 @@ $client_key = $config['client_key'];
                 appUrl:"<?=base_url();?>",
                 baseUrl: "<?=base_url('member/area');?>/",
                 user: userD,
+                apiKeyEspay:"<?=Settings_m::getEspay()['apiKey'];?>",
             }
         }
     })

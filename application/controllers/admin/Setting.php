@@ -146,14 +146,37 @@ class Setting extends Admin_Controller
 	public function save_manual(){
 		if($this->input->method() != 'post')
 			show_404("Page Not Found !");
-		$this->load->model("Whatsapp_api");
-		$email = $this->input->post("emailReceive");
-		$banks = $this->input->post("banks");
+
+		$espay = ($this->input->post("espay") ? $this->input->post("espay"):[]);
+		$enablePayment = ($this->input->post("enablePayment") ? $this->input->post("enablePayment"):[]);
+
+		$email = $this->input->post("manualPayment[emailReceive]");
+		$banks = $this->input->post("manualPayment[banks]");
+		
+		$message = [];
+
 		Settings_m::saveSetting(Settings_m::MANUAL_PAYMENT,json_encode($banks));
 		Settings_m::saveSetting("email_receive",$email);
+		if(isset($espay) && in_array("espay;Espay Payment Gateway",$enablePayment)){
+			$this->load->library("form_validation");
+			$this->form_validation->set_rules("apiLink","Api Link","required")
+								->set_rules("jsKitUrl","JS KIT URL","required")
+								->set_rules("merchantCode","Merchant Code","required")
+								->set_rules("apiKey","Api Key","required")
+								->set_rules("signature","Signature","required");
+			$this->form_validation->set_data($espay);
+			if($this->form_validation->run()){
+				Settings_m::saveSetting(Settings_m::ESPAY,json_encode($espay));
+			}else{
+				$message[] = $this->form_validation->error_string();
+			}
+		}
+		if(count($message) == 0)
+			Settings_m::saveSetting(Settings_m::ENABLE_PAYMENT,json_encode($enablePayment));
+
 		$this->output
 			->set_content_type("application/json")
-			->_display(json_encode(['status'=>true]));
+			->_display(json_encode(['status'=>count($message) == 0,'message'=>implode("",$message)]));
 
 	}
 	public function save_mailer(){

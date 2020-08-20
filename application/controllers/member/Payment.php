@@ -239,17 +239,15 @@ class Payment extends MY_Controller
 		$data['amount_me'] = $amount;
 		$this->Transaction_m->update(['checkout'=>1,'channel'=>'ESPAY','status_payment'=>Transaction_m::STATUS_PENDING],$order_id);
 
-		file_put_contents("log_espay/".date("Ymdhis")."_inquiry.json",json_encode($data));
+		file_put_contents(APPPATH."logs/".$order_id."_inquiry.json",json_encode($data));
 		echo implode(";",[$error_code,$error_message,$order_id,$amount,$ccy,$description,$date]);
 	}
 
 	public function log($type){
 		$data = $this->input->post();
-		if($type == "notif"){
-			$data['responme'] = $this->notification_espay();
-			echo $data['responme'];
-		}
-		file_put_contents("log_espay/".date("Ymdhis")."_$type.json",json_encode($data));
+		$data['ip_address'] = $this->input->ip_address();
+		$name = ($this->input->post("order_id") ?$this->input->post("order_id"):date("Ymdhis") );
+		file_put_contents(APPPATH."logs/".$name."_$type.json",json_encode($data));
 	}
 
 	public function notification_espay()
@@ -261,43 +259,32 @@ class Payment extends MY_Controller
 		$reconcile_id = "SC$order_id";
 		$reconcile_datetime = date("Y-m-d H:i:s");
 		$message_payment = json_encode($this->input->post());
-//		$this->Transaction_m->update(['checkout'=>1,'message_payment'=>$message_payment,'status_payment'=>Transaction_m::STATUS_NEED_VERIFY],$order_id);
-		$rs_date =  date("Y-m-d H:i:s");
-		$signature = $this->create_signature_espay($order_id,"CHECKSTATUS",$rs_date);
-
-		$response = $this->request("https://sandbox-api.espay.id/rest/merchant/status",[
-			'uuid'=>md5($rs_date),
-			'rq_datetime'=>$rs_date,
-			'comm_code'=>'SGWPERDOSSI',
-			'signature'=>$signature,
-			'order_id'=>$order_id
-		]);
-		file_put_contents("log_espay/".date("Ymdhis")."_chstatus.json",$response);
-
-		return implode(", ",[$success_flag,$error_message,$reconcile_id ,$order_id,$reconcile_datetime]);
+		if(in_array($this->input->ip_address(),["127.0.0.1","139.255.109.146 ","116.90.162.173"])){
+			$this->Transaction_m->update(['message_payment'=>$message_payment,'status_payment'=>Transaction_m::STATUS_FINISH],$order_id);
+		}
+		$this->log("notif");
+		echo implode(", ",[$success_flag,$error_message,$reconcile_id ,$order_id,$reconcile_datetime]);
 	}
 
-	public function test()
-	{
-		$order_id = "INV-20200817-00002";
-		$rs_date =  date("Y-m-d H:i:s");
-		$signature = $this->create_signature_espay($order_id,"CHECKSTATUS",$rs_date);
+	public function check_payment($order_id){
+		$order_id = urldecode($order_id);
+		$espayConfig = Settings_m::getEspay();
 
-		$response = $this->request("https://sandbox-api.espay.id/rest/merchant/status",[
+		$rs_date =  date("Y-m-d H:i:s");
+		$signature = $this->create_signature_espay($espayConfig['signature'],$order_id,"CHECKSTATUS",$rs_date);
+		$response = $this->request($espayConfig['apiLink']."status",[
 			'uuid'=>md5($rs_date),
 			'rq_datetime'=>$rs_date,
-			'comm_code'=>'SGWPERDOSSI',
+			'comm_code'=>$espayConfig['merchantCode'],
 			'signature'=>$signature,
 			'order_id'=>$order_id
 		]);
 		echo $response;
-//		file_put_contents("log_espay/".date("Ymdhis")."_chstatus.json",$response);
 	}
 
-	protected function create_signature_espay($order_id,$service_name,$rq_datetime){
-		$key = "pz7nb0ktvdrc533u";
+	protected function create_signature_espay($keySignature,$order_id,$service_name,$rq_datetime){
 		if($service_name == "CHECKSTATUS"){
-			$sign = "##$key##$rq_datetime##$order_id##$service_name##";
+			$sign = "##$keySignature##$rq_datetime##$order_id##$service_name##";
 		}
 		$sign = strtoupper($sign);
 		return hash("sha256",$sign);
@@ -305,6 +292,7 @@ class Payment extends MY_Controller
 
 	public function settlement_espay()
 	{
+		$this->log("settlement");
 	}
 
 	protected function request($url,$params){

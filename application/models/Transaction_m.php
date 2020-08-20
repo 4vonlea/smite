@@ -15,6 +15,7 @@ class Transaction_m extends MY_Model
 		'deny'=>"Transaction is denied by the bank or Midtrans Fraud Detection System.",
 		"pending"=>"payment transaction has not been processed and is waiting to be completed.",
 		"expired"=>"Transaction has not been completed by the expiry date.",
+		"waiting"=>"Waiting costumer to checkout process payment.",
 		self::STATUS_NEED_VERIFY =>'Payment waiting verification from admin'
 	];
 

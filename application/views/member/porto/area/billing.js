@@ -69,13 +69,18 @@ export default Vue.component("PageBilling", {
 									<a :href="appUrl+'member/area/download/invoice/'+current_invoice" target="_blank" class="btn btn-primary" >Download Invoice</a>
 									<div class="btn-group">
 										<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-											Select Payment Method <span class="caret"></span>
+											{{ paymentMethod[selectedPaymentMethod].desc }} <span class="caret"></span>
 										</button>
 										<div class="dropdown-menu">
-											<a class="dropdown-item" href="#" :disabled="checking_out"  @click="checkout">Manual Transfer <i v-if="checking_out" class="fa fa-spin fa-spinner"></i></a>
-											<a class="dropdown-item" href="#" data-toggle="modal" data-target="#modal-select-payment">Espay Payment Gateway</a>
+											<span v-for="(method,ind) in paymentMethod">
+											<button v-if="ind > 0" class="dropdown-item" href="#" @click="selectedPaymentMethod=ind;return false;"> {{ method.desc }}</button>
+											</span>
 										</div>
 									</div>
+									<button :disabled="checking_out" @click="checkout" type="button" class="btn btn-primary">
+										Checkout
+										<i v-if="checking_out" class="fa fa-spin fa-spinner"></i>
+									</button>
 								</td>
 							</tr>
 						</tfoot>
@@ -151,7 +156,7 @@ export default Vue.component("PageBilling", {
 								</tr>
 								<tr>
 									<th>Payment Method</th>
-									<td>{{ detailModel.channel }}</td>
+									<td colspan="3">{{ detailModel.channel }}</td>
 								</tr>
 								<tr>
 									<th>Status</th>
@@ -171,6 +176,24 @@ export default Vue.component("PageBilling", {
 								<tr v-if="detailModel.status_payment == 'pending'">
 									<th class="text-center" colspan="4">Info Transfer</th>
 								</tr>
+								<tr v-if="detailModel.status_payment == 'pending' && detailModel.channel == 'ESPAY'">
+									<td colspan="4">
+									<table>
+										<tr>
+											<th>Bank/Vendor Name</th>
+											<td>{{ detailEspay.bank_name }}</td>
+										</tr>
+										<tr>
+											<th>Product Name</th>
+											<td>{{ detailEspay.product_name }}</td>
+										</tr>
+										<tr>
+											<th>Account Number</th>
+											<td>{{ detailEspay.product_value }}</td>
+										</tr>
+									</table>
+									</td>
+								<tr>
 								<tr v-if="detailModel.status_payment == 'pending' && detailModel.channel == 'MANUAL TRANSFER'">
 									<td colspan="4">
 										<p>Please transfer <b>{{ amount }}</b> to one of the following bank accounts
@@ -267,6 +290,8 @@ export default Vue.component("PageBilling", {
 			detailModel: {status_payment: ""},
 			manual_payment: {"banks":[{'bank': 'BNI', 'no_rekening': "0212", "holder": "Muhammad Zaien"}],"ammount":0},
 			upload:{},
+			paymentMethod:[{key:"0",desc:"Select Payment Method"}],
+			selectedPaymentMethod:0,
 			upload_validation:{invalid:false,message_invalid:""},
 		}
     },
@@ -283,6 +308,11 @@ export default Vue.component("PageBilling", {
 				total+=Number(this.cart[i].price);
 			}
 			return total;
+		},
+		detailEspay(){
+			if(this.detailModel.midtrans_data)
+				return JSON.parse(this.detailModel.midtrans_data);
+			return {};
 		},
 		amount(){
 			var price = 0;
@@ -330,7 +360,14 @@ export default Vue.component("PageBilling", {
 				btn.innerHTML = "Upload";
 			});
 		},
-    	checkout(){
+		checkout(){
+			let selected = this.paymentMethod[this.selectedPaymentMethod];
+			if(selected && selected.key == "manualPayment")
+				this.checkoutManual();
+			if(selected && selected.key == "espay")
+				$("#modal-select-payment").modal("show");
+		},
+    	checkoutManual(){
     		var page =this;
     		page.checking_out = true;
     		$.ajax({
@@ -427,9 +464,13 @@ export default Vue.component("PageBilling", {
 					page.current_invoice = res.current_invoice;
 					page.cart = res.cart;
 					page.transaction = res.transaction;
+					$.each(res.paymentMethod,function(i,v){
+						let sp = v.split(";");
+						page.paymentMethod.push({key:sp[0],desc:sp[1]});
+					})
 					var invoiceID = this.current_invoice;
 					var data = {
-						key: "a34a0f9bdb66ab521a3eac8e53a14513",
+						key: page.apiKeyEspay,
 						paymentId: res.current_invoice,
 						backUrl: page.appUrl+`member/area/redirect_client/billing`,
 					},
