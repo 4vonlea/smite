@@ -369,11 +369,16 @@ export default Vue.component("PageBilling", {
 			});
 		},
 		checkout(){
-			let selected = this.paymentMethod[this.selectedPaymentMethod];
-			if(selected && selected.key == "manualPayment")
-				this.checkoutManual();
-			if(selected && selected.key == "espay")
-				$("#modal-select-payment").modal("show");
+			if(this.selectedPaymentMethod > 0){
+				let selected = this.paymentMethod[this.selectedPaymentMethod];
+				if(selected && selected.key == "manualPayment")
+					this.checkoutManual();
+				if(selected && selected.key == "espay")
+					$("#modal-select-payment").modal("show");
+			}else{
+				Swal.fire('Info',"Please Select Payment method !",'warning');
+			}
+				
 		},
     	checkoutManual(){
     		var page =this;
@@ -467,32 +472,35 @@ export default Vue.component("PageBilling", {
 			var page = this;
 			page.loading = true;
 			page.fail = false;
-			$.post(this.baseUrl + "get_transaction", null, function (res) {
-				if (res.status) {
-					page.current_invoice = res.current_invoice;
-					page.cart = res.cart;
-					page.transaction = res.transaction;
-					$.each(res.paymentMethod,function(i,v){
-						let sp = v.split(";");
-						page.paymentMethod.push({key:sp[0],desc:sp[1]});
-					})
-					var invoiceID = this.current_invoice;
-					var data = {
-						key: page.apiKeyEspay,
-						paymentId: res.current_invoice,
-						backUrl: page.appUrl+`member/area/redirect_client/billing`,
-					},
-					sgoPlusIframe = document.getElementById("sgoplus-iframe");
-					if (sgoPlusIframe !== null) 
-						sgoPlusIframe.src = SGOSignature.getIframeURL(data);
-					SGOSignature.receiveForm();
-				} else {
+			$.get(this.appUrl+"/member/payment/check_payment")
+			.always(function(){
+				$.post(page.baseUrl + "get_transaction", null, function (res) {
+					if (res.status) {
+						page.current_invoice = res.current_invoice;
+						page.cart = res.cart;
+						page.transaction = res.transaction;
+						$.each(res.paymentMethod,function(i,v){
+							let sp = v.split(";");
+							page.paymentMethod.push({key:sp[0],desc:sp[1]});
+						})
+						var invoiceID = this.current_invoice;
+						var data = {
+							key: page.apiKeyEspay,
+							paymentId: res.current_invoice,
+							backUrl: page.appUrl+`member/area/redirect_client/billing/${invoiceID}`,
+						},
+						sgoPlusIframe = document.getElementById("sgoplus-iframe");
+						if (sgoPlusIframe !== null) 
+							sgoPlusIframe.src = SGOSignature.getIframeURL(data);
+						SGOSignature.receiveForm();
+					} else {
+						page.fail = true;
+					}
+				}).fail(function () {
 					page.fail = true;
-				}
-			}).fail(function () {
-				page.fail = true;
-			}).always(function () {
-				page.loading = false;
+				}).always(function () {
+					page.loading = false;
+				});
 			});
 		},
 		formatCurrency(price){

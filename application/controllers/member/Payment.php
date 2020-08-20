@@ -266,22 +266,45 @@ class Payment extends MY_Controller
 		echo implode(", ",[$success_flag,$error_message,$reconcile_id ,$order_id,$reconcile_datetime]);
 	}
 
-	public function check_payment($order_id){
-		$order_id = urldecode($order_id);
+	public function check_payment($invoice = null){
+		$orders = [];
+		$this->load->model("Transaction_m");
+		if($invoice === null && $this->session->has_userdata("user_session")){
+			$rs = $this->Transaction_m->find()->where("status_payment","pending")
+				->where("member_id",$this->session->user_session['id'])
+				->where("channel","ESPAY")->get();
+				foreach($rs->result_array() as $row){
+					$orders[] = $row['id'];
+				}
+		}else{
+			$orders[] = urldecode($invoice);
+		}
+
 		$espayConfig = Settings_m::getEspay();
 
-		$rs_date =  date("Y-m-d H:i:s");
-		$signature = $this->create_signature_espay($espayConfig['signature'],$order_id,"CHECKSTATUS",$rs_date);
-		$response = $this->request($espayConfig['apiLink']."status",[
-			'uuid'=>md5($rs_date),
-			'rq_datetime'=>$rs_date,
-			'comm_code'=>$espayConfig['merchantCode'],
-			'signature'=>$signature,
-			'order_id'=>$order_id
-		]);
-		$this->load->model("Transaction_m");
-		$this->Transaction_m->update(['midtrans_data'=>$response],$order_id);
-		echo $response;
+		foreach($orders as $order_id){
+			$rs_date =  date("Y-m-d H:i:s");
+			$signature = $this->create_signature_espay($espayConfig['signature'],$order_id,"CHECKSTATUS",$rs_date);
+			$response = $this->request($espayConfig['apiLink']."status",[
+				'uuid'=>md5($rs_date),
+				'rq_datetime'=>$rs_date,
+				'comm_code'=>$espayConfig['merchantCode'],
+				'signature'=>$signature,
+				'order_id'=>$order_id
+			]);
+			$resJson = json_decode($response,true);
+			if($resJson['tx_status'] == "S"){
+				$status = Transaction_m::STATUS_FINISH;
+			}elseif($resJson['tx_status'] == "F"){
+				$status = Transaction_m::STATUS_EXPIRE;
+			}else{
+				$status = Transaction_m::STATUS_PENDING;
+			}
+
+			$this->Transaction_m->update(['midtrans_data'=>$response,'status_payment'=>$status],$order_id);
+			file_put_contents(APPPATH."logs/".$order_id."_status.json",$response);
+		}
+		echo "Oke";
 	}
 
 	protected function create_signature_espay($keySignature,$order_id,$service_name,$rq_datetime){
