@@ -100,6 +100,12 @@ $theme_path = base_url("themes/porto") . "/";
 				-ms-transform: translateY(-50%);
 				transform: translateY(-50%);
 			}
+			.running-logo{
+				position:fixed;bottom:0;height:150px;width:100%;background-color:#343a40;display:flex;flex-direction:column;justify-content:center;
+			}
+			.running-logo img{
+				height: 120px;
+			}
 		</style>
 
 	</head>
@@ -264,6 +270,33 @@ $theme_path = base_url("themes/porto") . "/";
 		</div>
 	</div>
 </footer>
+<div class="running-logo">
+	<marquee behavior="scroll" direction="left">
+	<?php
+	        $spplatinum       = $this->Sponsor_link_m->listspplatinum();
+			$spgold       = $this->Sponsor_link_m->listspgold();
+			$spsilver       = $this->Sponsor_link_m->listspsilver();
+	?>
+	<?php foreach($spplatinum as $sp) :?>
+		<a href=<?=base_url("site/sponsor/$sp->name");?>>
+			<img src="<?= base_url("themes/uploads/sponsor/$sp->logo") ?>" class="img" />
+		</a>
+	<?php endforeach;?>
+	<?php foreach($spgold as $sp) :?>
+		<a href=<?=base_url("site/sponsor/$sp->name");?>>
+			<img src="<?= base_url("themes/uploads/sponsor/$sp->logo") ?>" class="img" />
+		</a>
+	<?php endforeach;?>
+	<?php foreach($spsilver as $sp) :?>
+		<a href=<?=base_url("site/sponsor/$sp->name");?>>
+			<img src="<?= base_url("themes/uploads/sponsor/$sp->logo") ?>" class="img" />
+		</a>
+	<?php endforeach;?>
+	
+  </marquee>	
+</div>
+
+</div>
 
 </div>
 
