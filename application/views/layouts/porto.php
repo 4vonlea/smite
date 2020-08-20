@@ -206,70 +206,10 @@ $theme_path = base_url("themes/porto") . "/";
 	<?= $content; ?>
 </div>
 
-<footer id="footer" class="bg-color-quaternary m-0 pb-5">
-	<div class="container pt-5">
-		<div class="row pt-5 mb-4 pb-5">
-			<div class="col-lg-5 mb-3">
-				<div class="mb-4">
-					<h4 class="text-color-light font-weight-light mb-2">PIN PERDOSSI</h4>
-					<p class="custom-font-size-3 text-color-light font-weight-normal text-uppercase opacity-5 mb-0"> Virtual Congress 2020</p>
-				</div>
-				<a href="<?= base_url("site/login"); ?>" class="btn btn-primary custom-border-radius custom-btn-style-1 text-3 font-weight-semibold text-color-light text-uppercase outline-none">Buy Tickets <i class="custom-long-arrow-right ml-3" aria-hidden="true"></i></a>
-			</div>
-			<div class="col-lg-3 mb-3">
-				<div class="contact-details">
-					<h4 class="text-color-light font-weight-light mb-4 pb-1">Contact Us</h4>
-					<div class="mb-3">
-						<strong class="font-weight-light text-color-light">Address:</strong>
-						<span class="font-weight-light">Apartemen Menteng Square Tower A No. AR-19 Jl. Matraman No. 30E Jakarta Pusat</span>
-					</div>
-					<div class="mb-3">
-						<strong class="font-weight-light text-color-light">Contact Person:</strong><br>
-						<span class="text-color-light">dr. Rahmi, SpS</span><a href="tel:081575099960" class="text-decoration-none font-weight-light"> (0815-7509-9960)</a><br>
-						<span class="text-color-light">dr. Putri, SpS</span><a href="tel:082274309675" class="text-decoration-none font-weight-light"> (0822-7430-9675)</a><br>
-						<span class="text-color-light">dr. Ade, SpS</span><a href="tel:081285856801" class="text-decoration-none font-weight-light"> (0812-8585-6801)</a>
-					</div>
-					<div>
-						<strong class="font-weight-light text-color-light">Email:</strong>
-						<a href="mailto:panitia.pinv.perdossi@gmail.com" class="text-decoration-none font-weight-light">panitia.pinv.perdossi@gmail.com</a>
-					</div>
-				</div>
-			</div>
-			<div class="col-lg-3 ml-lg-auto">
-				<h4 class="text-color-light font-weight-light mb-4 pb-1">Follow Us</h4>
-				<ul class="social-icons social-icons-clean">
-					<li class="social-icons-facebook">
-						<a href="http://www.facebook.com/" target="_blank" title="Facebook">
-							<i class="fab fa-facebook-f"></i>
-						</a>
-					</li>
-					<li class="social-icons-instagram">
-						<a href="https://www.instagram.com/pinperdossi2020/" target="_blank" title="Instagram">
-							<i class="fab fa-instagram"></i>
-						</a>
-					</li>
-					<!-- <li class="social-icons-googleplus">
-						<a href="http://www.plus.google.com/" target="_blank" title="Twitter">
-							<i class="fab fa-google-plus-g" aria-hidden="true"></i>
-						</a>
-					</li>
-					<li class="social-icons-linkedin">
-						<a href="http://www.linkedin.com/" target="_blank" title="Linkedin">
-							<i class="fab fa-linkedin-in"></i>
-						</a>
-					</li> -->
-				</ul>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col">
-				<div class="footer-border text-center pt-5">
-					<a href="https://smiteweb.com/" class="font-weight-normal text-1 mb-0">2020 © SMITE (Scientific Meeting Information sysTEm) Copyright - All Rights Reserved.</a>
-				</div>
-			</div>
-		</div>
-	</div>
+<footer id="footer" class="bg-color-quaternary">
+		<img alt="" class="img-fluid pb-5 mb-5" src="<?= base_url('themes/porto'); ?>/img/4.png">
 </footer>
+
 <div class="running-logo">
 	<marquee behavior="scroll" direction="left">
 	<?php
