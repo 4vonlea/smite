@@ -125,6 +125,16 @@
 </div>
 </div>
 
+<section id="images" class="bg-color-grey pt-4">
+    <div class="container pb-4">
+        <div class="row pt-1">
+            <div class="col-lg-12">
+                <img class="img img-fluid" src="<?= base_url('themes/porto'); ?>/img/gambar.png">
+            </div>
+        </div>
+    </div>
+</section>
+
 <section id="event" class="bg-color-light pt-4">
     <div class="container mt-4 pb-4">
         <?php
@@ -299,7 +309,7 @@
 </section>
 
 <div class="icon-bar">
-    <a href="https://wa.me/6281952750045" target="_blank" class="whatsapp"><i class="fab fa-whatsapp"> How can I help you ?</i></a> 
+    <a href="https://wa.me/6281575099960" target="_blank" class="whatsapp"><i class="fab fa-whatsapp"> How can I help you ?</i></a> 
 </div>
 
 </main>
