@@ -63,6 +63,21 @@ class Transaction extends Admin_Controller
 
 	}
 
+	public function update_detail(){
+		if($this->input->method() != 'post')
+			show_404("Page Not Found !");
+
+		$this->load->model("Transaction_detail_m");
+		$id = $this->input->post('id');
+		$nominal = $this->input->post('price');
+		$dt = $this->Transaction_detail_m->findOne($id);
+		$dt->price = $nominal;
+		$this->output
+			->set_content_type("application/json")
+			->_display(json_encode(['status'=>$dt->save()]));
+
+	}
+
 	public function detail(){
 		if($this->input->method() != 'post')
 			show_404("Page Not Found !");

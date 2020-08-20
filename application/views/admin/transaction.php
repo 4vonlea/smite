@@ -181,9 +181,24 @@
 						<th colspan="2">Event Name</th>
 						<th colspan="2">Price</th>
 					</tr>
-					<tr v-for="dt in detailModel.details">
+					<tr v-for="(dt,ind) in detailModel.details">
 						<td colspan="2">{{ dt.product_name }}</td>
-						<td colspan="2">{{ formatCurrency(dt.price) }}</td>
+						<td colspan="2">
+							{{ editUniquePrice == false || dt.event_pricing_id != 0 ?  formatCurrency(dt.price) : "" }} 
+							<a v-if="dt.event_pricing_id == 0 && editUniquePrice == false" @click="editUniquePrice = true;inputUniquePrice=dt.price;" href="#"><i class="fa fa-edit"></i></a>
+							<div v-if="dt.event_pricing_id == 0 && editUniquePrice == true" class="input-group mb-3">
+								<input type="text" v-model="inputUniquePrice"  class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+								<div class="input-group-append">
+									<button :disabled="sendingUniquePrice" @click="saveEditDetail(dt.id,ind)" class="btn btn-outlined-default" type="button">
+										<i v-show="sendingUniquePrice == false" class="fa fa-save"></i>
+										<i v-show="sendingUniquePrice == true" class="fa fa-spin fa-spinner"></i>
+									</button>
+									<button :disabled="sendingUniquePrice" @click="editUniquePrice = false;" class="btn btn-outlined-default" type="button">
+										<i class="fa fa-times"></i>
+									</button>
+								</div>
+							</div>
+						</td>
 					</tr>
 				</table>
 			</div>
@@ -201,7 +216,7 @@
 				<a :href="'<?=base_url('admin/transaction/download/invoice');?>/'+detailModel.id" target="_blank" class="btn btn-primary" >Download Invoice</a>
 				<a :href="'<?=base_url('admin/transaction/download/proof');?>/'+detailModel.id" target="_blank" v-if="detailModel.status_payment == '<?=Transaction_m::STATUS_FINISH;?>'" class="btn btn-primary" >Download Bukti Registrasi</a>
 				<button :disabled="sendingProof" v-on:click="resendPaymentProof(detailModel)" v-if="detailModel.status_payment == '<?=Transaction_m::STATUS_FINISH;?>'" class="btn btn-primary" ><i v-if="sendingProof" class="fa fa-spin fa-spinner"></i> Resend Bukti Registrasi</button>
-				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				<button :disabled="sendingProof" type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 			</div>
 
 		</div>
@@ -219,6 +234,9 @@
             verifying:false,
 			expiring:false,
 			sendingProof:false,
+			editUniquePrice:false,
+			inputUniquePrice:'',
+			sendingUniquePrice:false,
         },
 		computed:{
             amount(){
@@ -231,6 +249,28 @@
 			}
 		},
         methods: {
+			saveEditDetail(id,ind){
+				app.sendingUniquePrice = true;
+				$.post("<?=base_url('admin/transaction/update_detail');?>",{
+					id:id,
+					price:app.inputUniquePrice,
+				},null,'JSON')
+					.done(function (res) {
+						if(res.status){
+							app.editUniquePrice = false;
+							app.detailModel.details[ind].price = app.inputUniquePrice;
+						}else{
+							Swal.fire("Failed","Gagal mengirim ulang bukti registrasi","error");
+						}
+					}).fail(function (xhr) {
+						var message =  xhr.getResponseHeader("Message");
+						if(!message)
+							message = 'Server fail to response !';
+						Swal.fire('Fail', message, 'error');
+				}).always(function () {
+					app.sendingUniquePrice = false;
+				});
+			},
         	resendPaymentProof(data){
         		this.sendingProof = true;
 				$.post("<?=base_url('admin/transaction/resend/proof');?>/"+data.id,null,'JSON')

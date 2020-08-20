@@ -127,7 +127,7 @@ header('Content-Type: text/html');
 			<div style="float: right;width: 70%;height: 100%;">
 				<p style="text-align:right;font-size: 18px;font-weight: bold">Salam hormat,<br/>
 					Ketua Panitia <br/><br/>
-					<img width="200px" height="100px" class="" src="themes/porto/img/ttd.png"> <br/>
+					<img width="200px" height="100px" class="" src="<?=base_url("themes/uploads/ttd_cap.jpg");?>"> <br/>
 					<?=Settings_m::getSetting('ketua_panitia');?>
 				</p>
 			</div>

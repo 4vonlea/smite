@@ -182,7 +182,7 @@ $payment = Settings_m::manualPayment(false);
 						<p></p>
 						<p style="text-align:right;font-size: 20px;font-weight: bold">Salam hormat,<br/> 
 						Ketua Panitia <br/><br/>
-							 <img width="200px" height="100px" class="" src="themes/porto/img/ttd.png"> <br/>
+							 <img width="200px" height="100px" class="" src="<?=base_url("themes/uploads/ttd_cap.jpg");?>"> <br/>
 							<?=Settings_m::getSetting('ketua_panitia');?>
 						</p>
 					</td>
