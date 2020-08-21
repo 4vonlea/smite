@@ -283,7 +283,3 @@
 
     </div>
 </section>
-
-<div class="icon-bar">
-    <a href="https://wa.me/6281575099960" target="_blank" class="whatsapp"><i class="fab fa-whatsapp"> How can I help you ?</i></a> 
-</div>

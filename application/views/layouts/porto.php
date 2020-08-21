@@ -206,6 +206,10 @@ $theme_path = base_url("themes/porto") . "/";
 	<?= $content; ?>
 </div>
 
+<div class="icon-bar">
+    <a href="https://wa.me/6281575099960" target="_blank" class="whatsapp img-fluid"><i class="fab fa-whatsapp"> How can I help you ?</i></a> 
+</div>
+
 <footer id="footer" class="bg-color-quaternary">
 		<img alt="" class="img-fluid pb-5" src="<?= base_url('themes/porto'); ?>/img/4.png">
 </footer>
