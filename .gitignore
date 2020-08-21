@@ -54,7 +54,7 @@ themes/uploads/profile/*
 
 themes/uploads/sponsor/*
 !themes/uploads/sponsor/index.html
-
+!themes/uploads/sponsor/elearning.jpg
 
 application/third_party/phpqrcode/cache/*
 application/application.zip
