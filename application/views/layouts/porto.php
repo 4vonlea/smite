@@ -104,7 +104,7 @@ $theme_path = base_url("themes/porto") . "/";
 				position:fixed;bottom:0;height:50px;width:100%;background-color:#343a40;display:flex;flex-direction:column;justify-content:center;
 			}
 			.running-logo img{
-				height: 90%;
+				height: 40px;
 			}
 		</style>
 
