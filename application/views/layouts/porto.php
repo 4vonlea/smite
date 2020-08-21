@@ -207,7 +207,7 @@ $theme_path = base_url("themes/porto") . "/";
 </div>
 
 <footer id="footer" class="bg-color-quaternary">
-		<img alt="" class="img-fluid pb-5 mb-5" src="<?= base_url('themes/porto'); ?>/img/4.png">
+		<img alt="" class="img-fluid pb-5" src="<?= base_url('themes/porto'); ?>/img/4.png">
 </footer>
 
 <div class="running-logo">
