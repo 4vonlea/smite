@@ -68,7 +68,7 @@ $theme_path = base_url("themes/porto") . "/";
 		<style type="text/css">
 			.icon-bar {
 				position: fixed;
-				top: 90%;
+				top: 80%;
 				right: 0%;
 				-webkit-transform: translateY(-10%);
 				-ms-transform: translateY(-10%);
