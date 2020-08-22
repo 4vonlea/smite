@@ -19,7 +19,12 @@
                     data-voffset="['-80','-80','-80','-80']" 
                     data-start="500"
                     data-paddingleft="['0', '0', '0', '0']"
-                    style="z-index: 5; font-size: 18px; color:#FFD800FF;"
+                    style="z-index: 5; font-size: 22px; color:#FFD800FF;
+                    text-shadow: -1px 1px 2px #404040FF,
+                    1px 1px 2px #404040FF,
+                    1px -1px 0 #404040FF,
+                    -1px -1px 0 #404040FF;
+                    "
                     data-transform_in="y:[-300%];opacity:0;s:500;">Virtual Congress 2020</div> 
 
                     <h1 class="tp-caption text-color-light font-weight-extra-bold text-uppercase"
@@ -30,7 +35,8 @@
                     data-fontsize="['60', '60', '50', '40']"
                     data-start="800"
                     data-paddingleft="['0', '0', '0', '0']"
-                    style="z-index: 5; font-size: 60px;"
+                    style="z-index: 5; font-size: 60px;
+                    "
                     data-transform_in="y:[-300%];opacity:0;s:500;">PIN PERDOSSI</h1>
 
                     <div class="tp-caption text-color-light"
@@ -41,7 +47,12 @@
                     data-start="1500"
                     data-paddingleft="['0', '0', '0', '0']"
                     data-fontsize="20"
-                    style="z-index: 5;"
+                    style="z-index: 5;
+                    text-shadow: -1px 1px 2px #404040FF,
+                    1px 1px 2px #404040FF,
+                    1px -1px 0 #404040FF,
+                    -1px -1px 0 #404040FF;
+                    "
                     data-transform_in="y:[-300%];opacity:0;s:500;">Pertemuan Ilmiah Nasional</div>
 
                     <div class="tp-caption text-color-light"
@@ -52,7 +63,13 @@
                     data-start="1500"
                     data-paddingleft="['0', '0', '0', '0']"
                     data-fontsize="20"
-                    style="z-index: 5;"
+                    style="
+                    z-index: 5;
+                    text-shadow: -1px 1px 2px #404040FF,
+                    1px 1px 2px #404040FF,
+                    1px -1px 0 #404040FF,
+                    -1px -1px 0 #404040FF;
+                    "
                     data-transform_in="y:[-300%];opacity:0;s:500;">Perhimpunan Dokter Spesialis Saraf Indonesia</div>
 
                     <div class="tp-caption text-uppercase font-weight-extra-bold"
@@ -64,7 +81,12 @@
                     data-paddingleft="['0', '0', '0', '0']"
                     data-fontsize="['20', '20', '20', '26']"
                     data-lineheight="['15', '15', '15', '22']"
-                    style="z-index: 5; color: #6acdca;"
+                    style="
+                    z-index: 5; color: #6acdca; font-size: 42px;
+                    text-shadow: -1px 1px 2px #404040FF,
+                    1px 1px 2px #404040FF,
+                    1px -1px 0 #404040FF,
+                    -1px -1px 0 #404040FF;"
                     data-transform_in="y:[-300%];opacity:0;s:500;">Menjawab Tantangan Pelayanan Neurologi</div>
 
                     <div class="tp-caption text-uppercase font-weight-extra-bold"
@@ -76,7 +98,13 @@
                     data-paddingleft="['0', '0', '0', '0']"
                     data-fontsize="['20', '20', '20', '26']"
                     data-lineheight="['15', '15', '15', '22']"
-                    style="z-index: 5; color: #6acdca;"
+                    style="
+                    z-index: 5; color: #6acdca; 
+                    text-shadow: -1px 1px 2px #404040FF,
+                    1px 1px 2px #404040FF,
+                    1px -1px 0 #404040FF,
+                    -1px -1px 0 #404040FF;
+                    "
                     data-transform_in="y:[-300%];opacity:0;s:500;">di Era Adaptasi Kebiasaan Baru</div>
 
                     <!-- <div class="tp-caption text-uppercase"
@@ -292,15 +320,15 @@
                 <div class="owl-carousel owl-theme" data-plugin-options="{'items': 6, 'autoplay': true, 'autoplayTimeout': 3000}">
                     <?php 
                     foreach ($spsilver as $silver):
-                    ?>
-                    <div>
-                        <center>
-                            <a href="<?= base_url('site/sponsor') ?>/<?= $silver->name ?>" target="_blank">
-                                <img class="img-fluid px-4" src="<?= base_url('themes/uploads/sponsor'); ?>/<?= $silver->logo?>" style="" alt="">
-                            </a>
-                        </center>
-                    </div>
-                <?php endforeach; ?>
+                        ?>
+                        <div>
+                            <center>
+                                <a href="<?= base_url('site/sponsor') ?>/<?= $silver->name ?>" target="_blank">
+                                    <img class="img-fluid px-4" src="<?= base_url('themes/uploads/sponsor'); ?>/<?= $silver->logo?>" style="" alt="">
+                                </a>
+                            </center>
+                        </div>
+                    <?php endforeach; ?>
                 </div>
             </div>
         </div>
