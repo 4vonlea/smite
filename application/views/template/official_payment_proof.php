@@ -42,7 +42,7 @@ header('Content-Type: text/html');
 			</p>
 			<p style="text-align:left">
 				<span
-					style="font-family:times new roman,times,serif;font-size:12pt;text-align:start;background-color:#ffffff">Yth. <?= $member->sponsor; ?></span>
+					style="font-family:times new roman,times,serif;font-size:12pt;text-align:start;background-color:#ffffff">Yth. <?= $member->fullname; ?></span>
 			</p>
 			<p style="text-align:left">
 				<span
@@ -75,11 +75,13 @@ header('Content-Type: text/html');
 					<td>:</td>
 					<td><?=$member->status_member->kategory;?></td>
 				</tr>
+				<?php if($member->sponsor):?>
 				<tr>
 					<th>Sponsor</th>
 					<td>:</td>
 					<td><?=$member->sponsor;?></td>
 				</tr>
+				<?php endif;?>
 				<tr>
 					<th>Acara yang diikuti</th>
 					<td>:</td>

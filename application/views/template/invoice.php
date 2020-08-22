@@ -118,6 +118,7 @@ $payment = Settings_m::manualPayment(false);
 									<?= $member->status_member->kategory; ?>
 								</td>
 							</tr>
+							<?php if($member->sponsor):?>
 							<tr>
 								<td style="padding:5px!important" valign="top" width="170">
 									Sponsor
@@ -127,6 +128,7 @@ $payment = Settings_m::manualPayment(false);
 									<?= $member->sponsor; ?>
 								</td>
 							</tr>
+							<?php endif;?>
 							<tr>
 								<td style="padding:5px!important" valign="top" width="170">
 									Acara yang diikuti
