@@ -270,7 +270,7 @@
             foreach ($spgold as $gold):
                 ?>
                 <div class="col-lg-2">
-                    <span class="align-middle thumb-info thumb-info-no-borders thumb-info-no-borders-rounded thumb-info-lighten thumb-info-centered-info thumb-info-block thumb-info-block-dark mx-3 my-3">
+                    <span class="align-middle thumb-info thumb-info-no-borders thumb-info-no-borders-rounded thumb-info-lighten thumb-info-centered-info thumb-info-block thumb-info-block-dark mx-1 my-1">
                         <span class="thumb-info-wrapper">
                             <img src="<?= base_url('themes/uploads/sponsor') ?>/<?= $gold->logo ?>" class="img-fluid">
                             <span class="thumb-info-title">
@@ -296,7 +296,7 @@
                     <div>
                         <center>
                             <a href="<?= base_url('site/sponsor') ?>/<?= $silver->name ?>" target="_blank">
-                                <img class="img-fluid px-2" src="<?= base_url('themes/uploads/sponsor'); ?>/<?= $silver->logo?>" style="" alt="">
+                                <img class="img-fluid px-4" src="<?= base_url('themes/uploads/sponsor'); ?>/<?= $silver->logo?>" style="" alt="">
                             </a>
                         </center>
                     </div>
