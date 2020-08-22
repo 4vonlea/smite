@@ -13,6 +13,8 @@ class Register extends MY_Controller
 		parent::__construct();
 		$this->theme = $this->config->item("theme");
 		$this->layout->setLayout("layouts/$this->theme");
+		$this->load->model(['Sponsor_link_m']);
+
 	}
 
 	public function index()
