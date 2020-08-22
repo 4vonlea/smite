@@ -118,7 +118,7 @@ $payment = Settings_m::manualPayment(false);
 									<?= $member->status_member->kategory; ?>
 								</td>
 							</tr>
-							<?php if($member->sponsor):?>
+							<?php if(isset($member->sponsor) && $member->sponsor != ""):?>
 							<tr>
 								<td style="padding:5px!important" valign="top" width="170">
 									Sponsor
