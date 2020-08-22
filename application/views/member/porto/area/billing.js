@@ -489,10 +489,12 @@ export default Vue.component("PageBilling", {
 							paymentId: res.current_invoice,
 							backUrl: page.appUrl+`member/area/redirect_client/billing/${invoiceID}`,
 						},
-						sgoPlusIframe = document.getElementById("sgoplus-iframe");
-						if (sgoPlusIframe !== null) 
-							sgoPlusIframe.src = SGOSignature.getIframeURL(data);
-						SGOSignature.receiveForm();
+						if(SGOSignature){
+							sgoPlusIframe = document.getElementById("sgoplus-iframe");
+							if (sgoPlusIframe !== null) 
+								sgoPlusIframe.src = SGOSignature.getIframeURL(data);
+							SGOSignature.receiveForm();
+						}
 					} else {
 						page.fail = true;
 					}

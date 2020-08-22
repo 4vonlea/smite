@@ -77,8 +77,9 @@ $client_key = $config['client_key'];
 <!-- <script type="text/javascript"
 		src="https://app.midtrans.com/snap/snap.js"
 		data-client-key="<?=$client_key;?>"></script> -->
+<?php if(isset(Settings_m::getEspay()['jsKitUrl'])):?>
 <script src="<?=Settings_m::getEspay()['jsKitUrl'];?>"></script>
-
+<?php endif;?>
 <script src="<?= base_url("themes/script/sweetalert2@8.js"); ?>"></script>
 
 <script src="<?= base_url("themes/script/vue-router.min.js"); ?>"></script>
