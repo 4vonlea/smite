@@ -120,7 +120,7 @@ $theme_path = base_url("themes/porto") . "/";
 						<div class="header-column">
 							<div class="header-row">
 								<div class="header-logo">
-									<a href="demo-event.html">
+									<a href="<?=base_url();?>">
 										<img alt="Porto" width="82" height="40"
 										src="<?= base_url('themes/uploads/logo.png'); ?>">
 									</a>
