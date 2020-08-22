@@ -488,7 +488,7 @@ export default Vue.component("PageBilling", {
 							key: page.apiKeyEspay,
 							paymentId: res.current_invoice,
 							backUrl: page.appUrl+`member/area/redirect_client/billing/${invoiceID}`,
-						},
+						};
 						if(SGOSignature){
 							sgoPlusIframe = document.getElementById("sgoplus-iframe");
 							if (sgoPlusIframe !== null) 
