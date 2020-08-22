@@ -71,7 +71,7 @@
                     data-x="['left','left','left','left']"
                     data-hoffset="['80','80','80','80']" 
                     data-y="['center','center','center','center']"
-                    data-voffset="['75','75','75','75']" 
+                    data-voffset="['80','80','80','80']" 
                     data-start="1500"
                     data-paddingleft="['0', '0', '0', '0']"
                     data-fontsize="['20', '20', '20', '26']"
@@ -307,9 +307,5 @@
 
     </div>
 </section>
-
-<div class="icon-bar">
-    <a href="https://wa.me/6281575099960" target="_blank" class="whatsapp"><i class="fab fa-whatsapp"> How can I help you ?</i></a> 
-</div>
 
 </main>
