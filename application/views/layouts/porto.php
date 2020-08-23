@@ -207,37 +207,37 @@ $theme_path = base_url("themes/porto") . "/";
 </div>
 
 <div class="icon-bar">
-    <a href="https://wa.me/6281575099960" target="_blank" class="whatsapp img-fluid"><i class="fab fa-whatsapp"> How can I help you ?</i></a> 
+	<a href="https://wa.me/6281575099960" target="_blank" class="whatsapp img-fluid"><i class="fab fa-whatsapp"> How can I help you ?</i></a> 
 </div>
 
 <footer id="footer" class="bg-color-quaternary">
-		<img alt="" class="img-fluid pb-5" src="<?= base_url('themes/porto'); ?>/img/4.png">
+	<img alt="" class="img-fluid pb-5" src="<?= base_url('themes/porto'); ?>/img/4.png">
 </footer>
 
 <div class="running-logo">
 	<marquee behavior="scroll" direction="left">
-	<?php
-	        $spplatinum       = $this->Sponsor_link_m->listspplatinum();
-			$spgold       = $this->Sponsor_link_m->listspgold();
-			$spsilver       = $this->Sponsor_link_m->listspsilver();
-	?>
-	<?php foreach($spplatinum as $sp) :?>
-		<a href=<?=base_url("site/sponsor/$sp->name");?>>
-			<img src="<?= base_url("themes/uploads/sponsor/$sp->logo") ?>" class="img" />
-		</a>
-	<?php endforeach;?>
-	<?php foreach($spgold as $sp) :?>
-		<a href=<?=base_url("site/sponsor/$sp->name");?>>
-			<img src="<?= base_url("themes/uploads/sponsor/$sp->logo") ?>" class="img" />
-		</a>
-	<?php endforeach;?>
-	<?php foreach($spsilver as $sp) :?>
-		<a href=<?=base_url("site/sponsor/$sp->name");?>>
-			<img src="<?= base_url("themes/uploads/sponsor/$sp->logo") ?>" class="img" />
-		</a>
-	<?php endforeach;?>
-	
-  </marquee>	
+		<?php
+		$spplatinum       = $this->Sponsor_link_m->listspplatinum();
+		$spgold       = $this->Sponsor_link_m->listspgold();
+		$spsilver       = $this->Sponsor_link_m->listspsilver();
+		?>
+		<?php foreach($spplatinum as $sp) :?>
+			<a href=<?=base_url("site/sponsor/$sp->name");?>>
+				<img src="<?= base_url("themes/uploads/sponsor/$sp->logo") ?>" class="img" />
+			</a>
+		<?php endforeach;?>
+		<?php foreach($spgold as $sp) :?>
+			<a href=<?=base_url("site/sponsor/$sp->name");?>>
+				<img src="<?= base_url("themes/uploads/sponsor/$sp->logo") ?>" class="img" />
+			</a>
+		<?php endforeach;?>
+		<?php foreach($spsilver as $sp) :?>
+			<a href=<?=base_url("site/sponsor/$sp->name");?>>
+				<img src="<?= base_url("themes/uploads/sponsor/$sp->logo") ?>" class="img" />
+			</a>
+		<?php endforeach;?>
+		
+	</marquee>	
 </div>
 
 </div>

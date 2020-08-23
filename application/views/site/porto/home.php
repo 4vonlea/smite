@@ -153,7 +153,7 @@
 </div>
 </div>
 
-<section id="images" class="bg-color-grey pt-4">
+<section id="images" class="bg-color-grey pt-3">
     <div class="container pb-4">
         <div class="row pt-1">
             <div class="col-lg-12">
