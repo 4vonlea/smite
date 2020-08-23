@@ -96,7 +96,7 @@ class Event extends Admin_Controller
                 }
 
                 $event->setAttributes($eventData);
-                $event->special_link = json_encode($event->special_link);
+                $event->special_link = ($this->input->post("special_link") ? json_encode($event->special_link):"[]");
                 $event->save(false);
 //                $this->Event_m->insert($event, false);
                 if(!$event_id)
