@@ -23,15 +23,24 @@ header('Content-Type: text/html');
 	.table th{
 		text-align: left;
 	}
+	.watermark {
+		position: absolute;
+		top: 20%; /* or whatever */
+		left: 15%; /* or whatever, position according to taste */
+		opacity: 0.2; /* Firefox, Chrome, Safari, Opera, IE >= 9 (preview) */
+		filter:alpha(opacity=20); /* for <= IE 8 */
+		z-index: -1;
+	}
 </style>
-<table border="0" cellpadding="0" cellspacing="0" style="width:628px">
-	<tr style="height:22px">
+<img class="watermark" src="<?=base_url('themes/uploads/paid.jpg');?>"/>
+<table border="0" cellpadding="0" cellspacing="0" style="width: 700px;margin-right: auto;margin-left: auto">
+	<tr>
 		<td>
-			<img src="<?= $header_image; ?>" width="720"/>
+			<img src="<?= $header_image; ?>" style="width:700px"/>
 		</td>
 	</tr>
 	<tr style="height:30px">
-		<td style="text-align:center;width:720px;height:30px">
+		<td style="text-align:center;height:30px">
 			<p>
 				<span
 					style="font-family:times new roman,times,serif;font-size:12pt"><strong>BUKTI REGISTRASI - KUITANSI</strong></span>
@@ -41,19 +50,10 @@ header('Content-Type: text/html');
 					style="font-family:times new roman,times,serif;font-size:12pt;text-align:start;background-color:#ffffff"><?=  date("d F Y", strtotime($transaction->updated_at)); ?></span>
 			</p>
 			<p style="text-align:left">
-				<span
-					style="font-family:times new roman,times,serif;font-size:12pt;text-align:start;background-color:#ffffff">Yth. <?= $member->fullname; ?></span>
+				Yth. <?= $member->fullname; ?>
 			</p>
-			<p style="text-align:left">
-				<span
-					style="font-family:times new roman,times,serif;font-size:12pt;text-align:start;background-color:#ffffff">
-					Terimakasih atas registrasi dan pembayaran yang dilakukan untuk berpartisipasi dalam acara <?=Settings_m::getSetting("text_payment_proof");?>. Berikut adalah rincian registrasi dan pembayaran:
-					</span>
-				<!-- <span
-					style="font-family:times new roman,times,serif;font-size:12pt;text-align:start;background-color:#ffffff">
-					The details of
-					your registration is shown below:
-				</span> -->
+			<p style="text-align:justify;text-justify:inter-word;">
+				Terimakasih atas registrasi dan pembayaran yang dilakukan untuk berpartisipasi dalam acara <?=Settings_m::getSetting("text_payment_proof");?>. Berikut adalah rincian registrasi dan pembayaran:
 			</p>
 		</td>
 	</tr>
@@ -115,8 +115,8 @@ header('Content-Type: text/html');
 		</td>
 	</tr> <br/>
 	<tr style="height:20px">
-		<td style="text-align:left;width:720px;height:20px">
-			<p>
+		<td style="height:20px">
+			<p style="text-align:justify;text-justify:inter-word;">
 				Bukti pembayaran (kuitansi) ini merupakan tanda bukti yang sah dan dipergunakan sebagaimana mestinya. Peserta wajib menunjukkan kuitansi ini kepada panitia pada saat registrasi ulang. Terimakasih
 			</p> <br/><br/>
 		</td>

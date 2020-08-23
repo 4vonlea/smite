@@ -24,17 +24,26 @@ $payment = Settings_m::manualPayment(false);
 	.table th,.table td{
 		vertical-align: top;
 	}
+	.watermark {
+		position: absolute;
+		top: 20%; /* or whatever */
+		left: 15%; /* or whatever, position according to taste */
+		opacity: 0.2; /* Firefox, Chrome, Safari, Opera, IE >= 9 (preview) */
+		filter:alpha(opacity=20); /* for <= IE 8 */
+		z-index: -1;
+	}
 </style>
+<img class="watermark" src="<?=base_url('themes/uploads/payment_required.jpg');?>"/>
 <table border="0" cellpadding="0" cellspacing="0" style="width: 700px;margin-right: auto;margin-left: auto">
 	<tbody>
 	<tr>
 		<td height="30" style="text-align:center">
-			<img style="width: 660px" src="<?= $header_image; ?>" tabindex="0" width="700"/>
+		<img src="<?= $header_image; ?>" style="width:100%"/>
 		</td>
 	</tr>
 	<tr>
 		<td>
-			<table border="0" cellpadding="0" cellspacing="0" style="width: 500px;margin-right: auto;margin-left: auto;padding-bottom: 15px">
+			<table border="0" cellpadding="0" cellspacing="0" style="width: 100%;margin-right: auto;margin-left: auto;padding-bottom: 15px">
 				<tbody>
 				<tr>
 					<td align="center" style="font-size:16px;vertical-align:middle;padding-top:2px;line-height:20px">
@@ -45,12 +54,12 @@ $payment = Settings_m::manualPayment(false);
 				</tr>
 				</tbody>
 			</table>
-			<table border="0" cellpadding="0" class="table" cellspacing="0" style="width: 660px;vertical-align: top">
+			<table border="0" cellpadding="0" class="table" cellspacing="0" style="width: 100%;vertical-align: top">
 				<tbody>
 				<tr>
 					<td>
 						<p>Yth. <?= $member->fullname; ?></p>
-						<p>Berikut kami kirimkan tagihan pembayaran sebagai bentuk keterangan resmi. Mohon segera melunasi pembayaran ini melalui <br/>						</p>
+						<p style="text-align:justify;text-justify:inter-word;">Berikut kami kirimkan tagihan pembayaran sebagai bentuk keterangan resmi. Mohon segera melunasi pembayaran ini melalui</p>
 					</td>
 				</tr>
 				<tr>
@@ -162,12 +171,12 @@ $payment = Settings_m::manualPayment(false);
 				</tr>
 				</tbody>
 			</table>
-			<table border="0" cellpadding="0" cellspacing="0" width="500">
+			<table border="0" cellpadding="0" cellspacing="0" width="100%">
 				<tbody>
 				<tr style="font-size:14px">
 					<td>
 
-						<p style="font-size: 20px">
+						<p style="text-align:justify;text-justify:inter-word;font-size:20px">
 							Pembayaran yang tidak sesuai atau transaksi palsu akan secara otomatis terhapus oleh sistem,
 							dan peserta harus melakukan registrasi ulang. Terimakasih
 						</p>
