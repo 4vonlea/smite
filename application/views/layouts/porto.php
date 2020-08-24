@@ -206,38 +206,112 @@ $theme_path = base_url("themes/porto") . "/";
 	<?= $content; ?>
 </div>
 
+<?php
+$spplatinum       = $this->Sponsor_link_m->listspplatinum();
+$spgold       = $this->Sponsor_link_m->listspgold();
+$spsilver       = $this->Sponsor_link_m->listspsilver();
+?>
+
+<section id="sponsor" class="bg-color-light">
+	<div class="container mt-4 pt-4 pb-4">
+		<div class="row pt-2">
+			<div class="col">
+				<h2 class="text-color-dark text-uppercase font-weight-bold text-center mb-1">Sponsors</h2>
+				<p class="custom-font-size-1 text-center mb-5">Thanks to our sponsors</p>
+			</div>
+		</div>
+		<span class="alternative-font" style="font-size: 30px;"><b>Platinum Sponsor</b></span>
+		<hr>
+		<div class="row">
+			<?php
+			foreach ($spplatinum as $platinum):
+				?>
+				<div class="col-lg-3 col-xs-6">
+					<span class="thumb-info thumb-info-no-borders thumb-info-no-borders-rounded thumb-info-lighten thumb-info-centered-info thumb-info-block thumb-info-block-dark">
+						<span class="thumb-info-wrapper">
+							<img src="<?= base_url('themes/uploads/sponsor') ?>/<?= $platinum->logo ?>" class="img-responsive">
+							<span class="thumb-info-title">
+								<span class="thumb-info-inner"><?= $platinum->name ?></span>
+								<a href="<?= base_url('site/sponsor') ?>/<?= $platinum->name ?>" target="_blank" class="btn btn-info btn-xs text-weight-bold text-color-light"><i class="fas fa-search"></i></a>
+							</span>
+						</span>
+					</span>
+				</div>
+			<?php endforeach; ?>
+		</div>
+
+		<hr>
+		<span class="alternative-font" style="font-size: 30px;"><b>Gold Sponsor</b></span>
+		<hr>
+
+		<div class="row">
+			<?php
+			foreach ($spgold as $gold):
+				?>
+				<div class="col-lg-2">
+					<span class="align-middle thumb-info thumb-info-no-borders thumb-info-no-borders-rounded thumb-info-lighten thumb-info-centered-info thumb-info-block thumb-info-block-dark mx-1 my-1">
+						<span class="thumb-info-wrapper">
+							<img src="<?= base_url('themes/uploads/sponsor') ?>/<?= $gold->logo ?>" class="img-fluid">
+							<span class="thumb-info-title">
+								<span class="thumb-info-inner" style="font-size: 12px;"><?= $gold->name ?></span>
+								<a href="<?= base_url('site/sponsor') ?>/<?= $gold->name ?>" target="_blank" class="btn btn-info btn-xs text-weight-bold text-color-light"><i class="fas fa-search"></i></a>
+							</span>
+						</span>
+					</span>
+				</div>
+			<?php endforeach; ?>
+		</div>
+		<br>
+		<hr>
+		<span class="alternative-font" style="font-size: 30px;"><b>Silver Sponsor</b></span>
+		<hr>
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="owl-carousel owl-theme" data-plugin-options="{'items': 6, 'autoplay': true, 'autoplayTimeout': 3000}">
+					<?php 
+					foreach ($spsilver as $silver):
+						?>
+						<div>
+							<center>
+								<a href="<?= base_url('site/sponsor') ?>/<?= $silver->name ?>" target="_blank">
+									<img class="img-fluid px-5" src="<?= base_url('themes/uploads/sponsor'); ?>/<?= $silver->logo?>" style="" alt="">
+								</a>
+							</center>
+						</div>
+					<?php endforeach; ?>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
 <div class="icon-bar">
-    <a href="https://wa.me/6281575099960" target="_blank" class="whatsapp img-fluid"><i class="fab fa-whatsapp"> How can I help you ?</i></a> 
+	<a href="https://wa.me/6281575099960" target="_blank" class="whatsapp img-fluid"><i class="fab fa-whatsapp"> How can I help you ?</i></a> 
 </div>
 
 <footer id="footer" class="bg-color-quaternary">
-		<img alt="" class="img-fluid pb-5" src="<?= base_url('themes/porto'); ?>/img/4.png">
+	<img alt="" class="img-fluid pb-5" src="<?= base_url('themes/porto'); ?>/img/4.png">
 </footer>
 
 <div class="running-logo">
 	<marquee behavior="scroll" direction="left">
-	<?php
-	        $spplatinum       = $this->Sponsor_link_m->listspplatinum();
-			$spgold       = $this->Sponsor_link_m->listspgold();
-			$spsilver       = $this->Sponsor_link_m->listspsilver();
-	?>
-	<?php foreach($spplatinum as $sp) :?>
-		<a href=<?=base_url("site/sponsor/$sp->name");?>>
-			<img src="<?= base_url("themes/uploads/sponsor/$sp->logo") ?>" class="img" />
-		</a>
-	<?php endforeach;?>
-	<?php foreach($spgold as $sp) :?>
-		<a href=<?=base_url("site/sponsor/$sp->name");?>>
-			<img src="<?= base_url("themes/uploads/sponsor/$sp->logo") ?>" class="img" />
-		</a>
-	<?php endforeach;?>
-	<?php foreach($spsilver as $sp) :?>
-		<a href=<?=base_url("site/sponsor/$sp->name");?>>
-			<img src="<?= base_url("themes/uploads/sponsor/$sp->logo") ?>" class="img" />
-		</a>
-	<?php endforeach;?>
-	
-  </marquee>	
+		<?php foreach($spplatinum as $sp) :?>
+			<a href=<?=base_url("site/sponsor/$sp->name");?>>
+				<img src="<?= base_url("themes/uploads/sponsor/$sp->logo") ?>" class="img" />
+			</a>
+		<?php endforeach;?>
+		<?php foreach($spgold as $sp) :?>
+			<a href=<?=base_url("site/sponsor/$sp->name");?>>
+				<img src="<?= base_url("themes/uploads/sponsor/$sp->logo") ?>" class="img" />
+			</a>
+		<?php endforeach;?>
+		<?php foreach($spsilver as $sp) :?>
+			<a href=<?=base_url("site/sponsor/$sp->name");?>>
+				<img src="<?= base_url("themes/uploads/sponsor/$sp->logo") ?>" class="img" />
+			</a>
+		<?php endforeach;?>
+		
+	</marquee>	
 </div>
 
 </div>
