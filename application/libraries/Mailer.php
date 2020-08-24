@@ -31,7 +31,6 @@ class Mailer implements iNotification
         $this->mail = $mail;
         $this->sender = $params['sender'];
         $this->from = $params['email'];
-        var_dump($params);
     }
     public function sendMessage($to, $subject, $message)
     {
