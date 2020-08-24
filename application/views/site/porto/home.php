@@ -153,14 +153,78 @@
 </div>
 </div>
 
-<section id="images" class="bg-color-grey pt-3">
+<section id="images" class="bg-color-light pt-3">
     <div class="container pb-4">
-        <div class="row pt-1">
+        <div class="row pt-5">
             <div class="col-lg-12">
                 <img class="img img-fluid" src="<?= base_url('themes/porto'); ?>/img/gambar.png">
             </div>
         </div>
     </div>
+</section>
+
+<section id="login" class="bg-color-grey">
+    <div class="container pb-4">
+        <div class="row">
+            <div class="col-lg-6">
+                <h2 class="text-color-dark font-weight-bold mt-5 mb-3">Login here</h2>
+                <form class="custom-contact-form-style-1" action="<?= base_url('site/login'); ?>" method="POST">
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <div class="custom-input-box">
+                                <i class="icon-user icons text-color-primary"></i>
+                                <input type="text" value="" data-msg-required="Please enter your Email."
+                                maxlength="100" class="form-control" name="username" placeholder="Email"
+                                required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <div class="custom-input-box">
+                                <i class="icon-key icons text-color-primary"></i>
+                                <input type="password" value="" data-msg-required="Please enter your password."
+                                data-msg-password="Password can not empty." maxlength="100"
+                                class="form-control" name="password" placeholder="Password" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col">
+                            <input type="submit" value="Login now" name="login"
+                            class="btn custom-border-width btn-primary custom-border-radius font-weight-semibold text-uppercase"
+                            data-loading-text="Loading...">
+                        </div>
+                        <div class="form-group col">
+                            <label class="form-check-label">
+                                <input type="checkbox" name="rememberme" class="form-check-input"/>
+                                Remember Me
+                            </label>
+                        </div>
+                    </div>
+                </form>
+                <span style="font-size: 20px;" class="text-color-dark font-weight-bold">Don't have account??</span>
+                <a class="btn custom-border-width btn-primary custom-border-radius font-weight-semibold text-uppercase ml-3" href="<?= base_url("member/register"); ?>">Register here</a>
+            </div>
+            <div class="col-lg-6">
+                <h3 class="text-color-dark font-weight-normal text-6 mt-5 ml-3 mb-3"><strong class="font-weight-extra-bold">How to
+                register :</strong></h3>
+                <ol class="text-color-dark text-4 line-height-5 mb-0 ml-3">
+                    <li>Click <b>REGISTER HERE</b>, and fill your profile</li>
+                    <li>Choose your event (and or submit your abstract)</li>
+                    <li>Pay via our online payment</li>
+                    <li>Click Webinar Link and Enjoy our Symposium</li>
+                </ol> 
+                <br>
+                <ul class="text-color-dark text-4 line-height-5 ml-3 mb-0">
+                    <li><i>1 account 1 email per user</i></li>
+                    <li><i>E-certificate will be delivered to registered email</i></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
 </section>
 
 <section id="event" class="bg-color-light pt-4">
