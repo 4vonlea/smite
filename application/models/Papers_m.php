@@ -101,6 +101,9 @@ class Papers_m extends MY_Model
 			$data['presentation_accepted'][$row] = 0;
 		}
 		foreach ($model->result_array() as $row) {
+			if($row['type_presence'] == ""){
+				$row['type_presence'] = "Not Set";
+			}
 			$data['presentation_accepted'][$row['type_presence']] = $row['total'];
 		}
 
