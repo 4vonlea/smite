@@ -32,7 +32,7 @@ class Setting extends Admin_Controller
 			'wa_token'=>$this->Notification_m->getValue(Notification_m::SETTING_WA_TOKEN),
 			'email_binded'=>(is_array($gmail_token) && count($gmail_token) > 0) ? 1: 0,
 			"event"=>$this->Event_m->findAll(),
-			'manual'=>($manual==""?"[]":$manual)
+			'manual'=>($manual=="" || $manual == "null"?"[]":$manual)
 		]);
     }
 
