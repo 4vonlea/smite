@@ -106,13 +106,31 @@ $theme_path = base_url("themes/porto") . "/";
 			.running-logo img{
 				height: 40px;
 			}
+
+			.contai {
+				position: relative;
+				overflow: hidden;
+				width: 100%;
+				padding-top: 56.25%; /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
+			}
+
+			/* Then style the iframe to fit in the container div with full height and width */
+			.responsive-iframe {
+				position: absolute;
+				top: 0;
+				left: 0;
+				bottom: 0;
+				right: 0;
+				width: 100%;
+				height: 500px;
+			}
 		</style>
 
 	</head>
 	<body>
 
 		<div class="body">
-			<header id="header" class="header-transparent header-transparent-dark-bottom-border header-effect-shrink"
+			<header id="header" class="header-effect-shrink"
 			data-plugin-options="{'stickyEnabled': true, 'stickyEffect': 'shrink', 'stickyEnableOnBoxed': true, 'stickyEnableOnMobile': true, 'stickyChangeLogo': true, 'stickyStartAt': 30, 'stickyHeaderContainerHeight': 70}">
 			<div class="header-body border-top-0 bg-dark box-shadow-none">
 				<div class="header-container container">
@@ -121,7 +139,7 @@ $theme_path = base_url("themes/porto") . "/";
 							<div class="header-row">
 								<div class="header-logo">
 									<a href="<?=base_url();?>">
-										<img alt="Porto" width="82" height="40"
+										<img alt="Porto" width="155" height="40"
 										src="<?= base_url('themes/uploads/logo.png'); ?>">
 									</a>
 								</div>
@@ -232,7 +250,7 @@ $spsilver       = $this->Sponsor_link_m->listspsilver();
 							<img src="<?= base_url('themes/uploads/sponsor') ?>/<?= $platinum->logo ?>" class="img-responsive">
 							<span class="thumb-info-title">
 								<span class="thumb-info-inner"><?= $platinum->name ?></span>
-								<a href="<?= base_url('site/sponsor') ?>/<?= $platinum->name ?>" target="_blank" class="btn btn-info btn-xs text-weight-bold text-color-light"><i class="fas fa-search"></i></a>
+								<a class="btn btn-info btn-lg" data-spsr="<?= $platinum->name ?>" data-toggle="modal" data-target="#sponsormodal" onclick="return setPopUp($(this));"><i class="fas fa-search"></i></a>
 							</span>
 						</span>
 					</span>
@@ -254,7 +272,7 @@ $spsilver       = $this->Sponsor_link_m->listspsilver();
 							<img src="<?= base_url('themes/uploads/sponsor') ?>/<?= $gold->logo ?>" class="img-fluid">
 							<span class="thumb-info-title">
 								<span class="thumb-info-inner" style="font-size: 12px;"><?= $gold->name ?></span>
-								<a href="<?= base_url('site/sponsor') ?>/<?= $gold->name ?>" target="_blank" class="btn btn-info btn-xs text-weight-bold text-color-light"><i class="fas fa-search"></i></a>
+								<a class="btn btn-info btn-lg" data-spsr="<?= $gold->name ?>" data-toggle="modal" data-target="#sponsormodal" onclick="return setPopUp($(this));"><i class="fas fa-search"></i></a>
 							</span>
 						</span>
 					</span>
@@ -273,7 +291,7 @@ $spsilver       = $this->Sponsor_link_m->listspsilver();
 						?>
 						<div>
 							<center>
-								<a href="<?= base_url('site/sponsor') ?>/<?= $silver->name ?>" target="_blank">
+									<a href="#" class="" data-spsr="<?= $silver->name ?>" data-toggle="modal" data-target="#sponsormodal" onclick="return setPopUp($(this));">
 									<img class="img-fluid px-5" src="<?= base_url('themes/uploads/sponsor'); ?>/<?= $silver->logo?>" style="" alt="">
 								</a>
 							</center>
@@ -289,8 +307,25 @@ $spsilver       = $this->Sponsor_link_m->listspsilver();
 	<a href="https://wa.me/6281575099960" target="_blank" class="whatsapp img-fluid"><i class="fab fa-whatsapp"> How can I help you ?</i></a> 
 </div>
 
+
+<!-- Modal -->
+<div id="sponsormodal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header"></div>
+                <div class="modal-body">
+                   <div class='contai'>
+                   </div>
+                </div>
+                <div class="modal-footer">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
 <footer id="footer" class="bg-color-quaternary">
-	<img alt="" class="img-fluid pb-5" src="<?= base_url('themes/porto'); ?>/img/4.png">
+	<img alt="" class="img-fluid pb-5" src="<?= base_url('themes/porto'); ?>/img/footerbg.png">
 </footer>
 
 <div class="running-logo">
@@ -346,7 +381,7 @@ $spsilver       = $this->Sponsor_link_m->listspsilver();
 <script src="<?= $theme_path; ?>js/views/view.contact.js"></script>
 
 <!-- Demo -->
-<script src="<?= $theme_path; ?>js/demos/demo-event.js"></script>
+<script src="<?= $theme_path; ?>js/demos/demo-business-consulting.js"></script>
 
 <!-- Theme Custom -->
 <script src="<?= $theme_path; ?>js/custom.js"></script>
@@ -354,6 +389,15 @@ $spsilver       = $this->Sponsor_link_m->listspsilver();
 <!-- Theme Initialization Files -->
 <script src="<?= $theme_path; ?>js/theme.init.js"></script>
 <script src="<?= base_url("themes/script/moment.min.js"); ?>"></script>
+
+<script type="text/javascript">
+	function setPopUp(dom) {
+        var spsr = dom.data('spsr');
+        $("#sponsormodal .modal-body").html("<iframe class='responsive-iframe' src='<?= base_url('site/sponsor') ?>/"+spsr+"' frameborder = '1' allowfullscreen></iframe>");
+        $("#sponsormodal .modal-header").html("<span id='item-popup'></span><button type='button' class='close' data-dismiss='modal'>&times;</button>");
+        $("#item-popup").html(spsr);
+    }
+</script>
 
 <?= $script_js; ?>
 

@@ -244,7 +244,7 @@ class Setting extends Admin_Controller
     {
         $config['upload_path'] = './themes/uploads';
         $config['allowed_types'] = 'gif|jpg|png';
-        $config['max_width'] = 1024;
+        $config['max_width'] = 1100;
         $config['overwrite'] = true;
         $config['file_name'] = 'logo.png';
         $this->load->library('upload', $config);
