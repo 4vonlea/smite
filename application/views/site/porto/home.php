@@ -1,19 +1,19 @@
 <main role="main">
 
-   <div class="slider-container rev_slider_wrapper" style="height: 100%;">
+   <!-- <div class="slider-container rev_slider_wrapper" style="height: 100%;">
     <div id="revolutionSlider" class="slider rev_slider manual" data-version="5.4.8">
         <ul>
             <li data-transition="fade">
-                <img src="<?= base_url('themes/porto'); ?>/img/slide1.png"  
+                <img class="img-fluid" src="<?= base_url('themes/porto'); ?>/img/slide1_.png"  
                 alt=""
                 data-bgposition="center center" 
-                data-bgfit="cover" 
+                data-bgfit="contain" 
                 data-bgrepeat="no-repeat" 
                 data-bgparallax="1" 
                 class="rev-slidebg">
             </li>
             <li data-transition="fade">
-                <img src="<?= base_url('themes/porto'); ?>/img/slide2.png"  
+                <img class="img-fluid" src="<?= base_url('themes/porto'); ?>/img/slide2.png"  
                 alt=""
                 data-bgposition="center center" 
                 data-bgfit="cover" 
@@ -23,9 +23,24 @@
             </li>
         </ul>
     </div>
-</div>
+</div> -->
 
-<section id="images" class="bg-color-light pt-3">
+<section id="slidee" class="bg-color-grey">
+    <div class="owl-carousel owl-theme nav-inside nav-inside-edge nav-squared nav-with-transparency nav-light" data-plugin-options="{'items': 1, 'margin': 10, 'loop': true, 'nav': true, 'dots': false, 'autoplay': true, 'autoplayTimeout': 6000}">
+        <div>
+            <div class="img-thumbnail border-0 p-0 d-block">
+                <img class="img-fluid border-radius-0" src="<?= base_url('themes/porto'); ?>/img/slide1.png" alt="">
+            </div>
+        </div>
+        <div>
+            <div class="img-thumbnail border-0 p-0 d-block">
+                <img class="img-fluid border-radius-0" src="<?= base_url('themes/porto'); ?>/img/slide2.png" alt="">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- <section id="images" class="bg-color-light pt-3">
     <div class="container pb-4">
         <div class="row pt-5">
             <div class="col-lg-12">
@@ -33,7 +48,7 @@
             </div>
         </div>
     </div>
-</section>
+</section> -->
 
 <section id="login" class="bg-color-grey">
     <div class="container pb-4">
