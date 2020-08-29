@@ -26,9 +26,7 @@ class Member extends Admin_Controller
 		$this->load->model(['Category_member_m','Univ_m']);
 		$this->load->helper("form");
 		$statusList = $this->Category_member_m->find()->select('*')->get()->result_array();
-		foreach($statusList as $i=>$r){
-			$statusList[$i]['need_verify'] = (bool)$r['need_verify'];
-		}
+		
 		$univList = $this->Univ_m->find()->order_by("univ_nama")->get();
 		$univDl = Univ_m::asList($univList->result_array(),"univ_id","univ_nama");
 
@@ -80,7 +78,8 @@ class Member extends Admin_Controller
 	{
 		$this->load->model('Category_member_m');
 		$status = $this->Category_member_m->findOne($this->input->post('id'));
-		$status->need_verify = $this->input->post('need_verify') == "true";
+		$status->need_verify = $this->input->post('need_verify') == "1";
+		$status->is_hide = $this->input->post('is_hide') == "1";
 		$this->output
 			->set_content_type("application/json")
 			->_display(json_encode(['status' => $status->save()]));
@@ -272,7 +271,7 @@ class Member extends Admin_Controller
 		} else {
 			$this->load->model(["Category_member_m", "Event_m"]);
 			$this->load->helper("form");
-			$events = $this->Event_m->eventAvailableNow();
+			$events = $this->Event_m->eventAvailableNow(true);
 			$univList = $this->Univ_m->find()->order_by("univ_id,univ_nama")->get();
 			$univDl = Univ_m::asList($univList->result_array(),"univ_id","univ_nama");
 			$this->layout->render("register", [

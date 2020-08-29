@@ -291,6 +291,7 @@
 					<thead>
 					<tr>
 						<th>Need Verification</th>
+						<th>Is Hide</th>
 						<th>Status Name</th>
 						<th></th>
 					</tr>
@@ -298,7 +299,10 @@
 					<tbody>
 					<tr v-for="(cat,index) in statusList">
 						<td>
-							<input type="checkbox" v-model="cat.need_verify" @click="needVerification(index)"/>
+							<input type="checkbox" v-model="cat.need_verify" true-value="1" false-value="0"  @click="needVerification(index)"/>
+						</td>
+						<td>
+							<input type="checkbox" v-model="cat.is_hide" true-value="1" false-value="0"  @click="hideStatus(index)"/>
 						</td>
 						<td>
 							{{ cat.kategory }}
@@ -591,14 +595,27 @@
 						message = 'Server fail to response !';
 					Swal.fire('Fail', message, 'error');
                 });
-            },
-            needVerification: function (index) {
+			},
+			hideStatus: function (index) {
                 var value = this.statusList[index];
-                value.need_verify = !value.need_verify;
+                value.is_hide = (value.is_hide == 1 ? 0:1);
                 $.post("<?=base_url('admin/member/verification_status');?>", value, function (res) {
 
                 }, 'JSON').fail(function (xhr) {
-                    value.need_verify = 0;
+                    value.is_hide = (value.is_hide == 1 ? 0:1);
+					var message =  xhr.getResponseHeader("Message");
+					if(!message)
+						message = 'Server fail to response !';
+					Swal.fire('Fail', message, 'error');
+                });
+            },
+            needVerification: function (index) {
+                var value = this.statusList[index];
+                value.need_verify = (value.need_verify == 1 ? 0:1);
+                $.post("<?=base_url('admin/member/verification_status');?>", value, function (res) {
+
+                }, 'JSON').fail(function (xhr) {
+                    value.need_verify = (value.need_verify == 1 ? 0:1);
 					var message =  xhr.getResponseHeader("Message");
 					if(!message)
 						message = 'Server fail to response !';

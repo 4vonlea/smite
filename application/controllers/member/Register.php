@@ -22,7 +22,7 @@ class Register extends MY_Controller
 		$this->load->model('Category_member_m');
 		$this->load->model('Univ_m');
 
-		$status = $this->Category_member_m->find()->select("id,kategory,need_verify")->get()->result_array();
+		$status = $this->Category_member_m->find()->select("id,kategory,need_verify")->where('is_hide','0')->get()->result_array();
 		$univ = $this->Univ_m->find()->select("univ_id, univ_nama")->order_by('univ_id')->get()->result_array();
 		if ($this->input->post()) {
 			$this->load->model(['Member_m', 'User_account_m', 'Notification_m']);

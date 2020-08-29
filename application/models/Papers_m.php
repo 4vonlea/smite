@@ -31,7 +31,7 @@ class Papers_m extends MY_Model
 	];
 
 	public static $typeStudy = [
-		'Case Report' => 'Case Report',
+		// 'Case Report' => 'Case Report',
 		'Review Article'=>'Review Article',
 		'Original Research'=>'Original Research',
 		'Other' =>'Other',
@@ -49,7 +49,7 @@ class Papers_m extends MY_Model
 			['field' => 'methods', 'label' => 'Type Of Study', 'rules' => 'required'],
 //			['field' => 'result', 'label' => 'result', 'rules' => 'required'],
 //			['field' => 'conclusion', 'label' => 'conclusion', 'rules' => 'required'],
-			['field' => 'type_presence', 'label' => 'Mode Of Presentation', 'rules' => 'required'],
+//			['field' => 'type_presence', 'label' => 'Mode Of Presentation', 'rules' => 'required'],
 		];
 	}
 

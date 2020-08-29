@@ -165,6 +165,7 @@ export default Vue.component("PagePaper", {
 								<div v-if="error_upload.title" class="invalid-feedback">{{ error_upload.introduction }}</div>
 							</div>
 						</div>
+						<!--
 						<div class="form-group row">
                     		<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Mode Of Presentation*</label>
 							<div class="col-lg-9">
@@ -175,6 +176,7 @@ export default Vue.component("PagePaper", {
 								<div v-if="error_upload.type_presence" class="invalid-feedback">{{ error_upload.type_presence }}</div>
 							</div>
 						</div>
+						-->
 <!--						<div class="form-group row">-->
 <!--							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Aims*</label>-->
 <!--							<div class="col-lg-9">-->

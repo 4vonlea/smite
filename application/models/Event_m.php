@@ -49,9 +49,10 @@ class Event_m extends MY_Model
 		return $avalaible;
 	}
 
-	public function eventAvailableNow()
+	public function eventAvailableNow($isManual = false)
 	{
-		$filter = ['show' => '1'];
+		
+		$filter = ($isManual ? []:['show' => '1']);
 		$this->load->model("Transaction_m");
 		$result = $this->setAlias("t")->find()->select("t.name as event_name,event_pricing.name as name_pricing,event_pricing.price as price_r,event_pricing.id as id_price,")
 			->select("condition,condition_date,kategory")
