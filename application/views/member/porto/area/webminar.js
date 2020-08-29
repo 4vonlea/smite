@@ -7,15 +7,20 @@ export default Vue.component("PageWebminar",{
                     <h2 class="font-weight-normal text-7 mb-0"><strong class="font-weight-extra-bold">Webminar Link</strong></h2>
                     <div class="overflow-hidden mb-4 pb-3">
                         <p class="mb-0">Please attend the event that you follow via the link below</p>
+                      
                     </div>
                 </div>
                 <div class="row">
+                    <p>
+                        *The join button cannot be clicked until 5 minutes before the start time
+                        and cannot be clicked unless you have watched the sponsor
+                    </p>
                     <table class="table table-bordered">
                         <thead>
                             <tr>
                                 <th>Start Time</th>
-                                <th>Topic</th>
-                                <th>Link</th>
+                                <th>Room</th>
+                                <th width="20%">Link</th>
                             </tr>
                         </thead>
                         <tbody v-if="events.length == 0">
@@ -30,16 +35,53 @@ export default Vue.component("PageWebminar",{
                             <tr v-if="event.special_link.length == 0">
                                 <td  colspan="3">Link for event {{event.name}} not yet available</td>
                             </tr>
-                            <tr v-for="link in event.special_link">
-                                <td>{{ link.date | formatDate }}</td>
-                                <td>{{ link.topic }}</td>
-                                <td>
-                                    <a :href="link.url" target="_blank" class="btn btn-primary">Join Now</a>
-                                </td>
-                            </tr>
+                            <template v-for="(link,indSpl) in event.special_link">
+                                <tr>
+                                    <td>{{ link.date | formatDate }}</td>
+                                    <td>{{ link.room }}</td>
+                                    <td :rowspan="2" class="">
+                                        <button :disabled="link.finishWatch == '0'" v-on:click="join(link.url)" class="btn btn-primary btn-block">Join Now</button>
+                                        <button v-for="(ads,index) in link.advertisement" class="btn btn-block" :class="[ads.watch == '1' ? 'btn-primary':'btn-default']" v-on:click="showAds(index,link,indSpl)">
+                                            Show Sponsor {{ index+1}}
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr >
+                                    <td colspan="2">
+                                        <div class="card-deck">
+                                            <div v-for="sp in link.speakers" div class="card" style="max-width:200px;">
+                                                <div class="card-header">{{sp.topic}}</div>
+                                                <img class="card-img-top" style="max-width:200px;max-height:200px" :src="sp.image" alt="Card image cap">
+                                                <div class="card-body">
+                                                    <p class="card-text">{{sp.name}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </template>
                         </tbody>
                     </table>
-                    
+                </div>
+            </div>
+            <div id="modal-ads" class="modal" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Sponsor Advertisement</h5>
+                            <button v-show="modalCloseButton" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <span style="font-size:100%" v-show="!modalCloseButton" class="badge badge-info">{{timer}}</span>
+                        </div>
+                        <div class="modal-body">
+                                <iframe v-if="ads.type == 'link'" width="100%" :src="ads.url" height="500" />
+                                <video v-if="ads.type == 'file'" width="100%" height="500" autoplay>
+                                    <source :src="ads.url" type="video/mp4">
+                                </video> 
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -48,7 +90,10 @@ export default Vue.component("PageWebminar",{
         return {
             loading:false,
             fail:false,
-			events: [],
+            events: [],
+            ads:{},
+            modalCloseButton:false,
+            timer:60,
 		}
     },
     filters:{
@@ -63,6 +108,31 @@ export default Vue.component("PageWebminar",{
 		'$route': 'fetchEvents'
 	},
     methods:{
+        showAds(index,linkOfSpecial){
+            this.modalCloseButton = false;
+            this.ads = linkOfSpecial.advertisement[index];
+            $("#modal-ads").modal({backdrop:'static',keyboard:false});
+            $("#modal-ads").modal("show");
+            this.timer = 10;
+            var v = this;
+            var t = setInterval(function(){
+                v.timer--;
+                if(v.timer <= 0){
+                    v.modalCloseButton = true;
+                    clearInterval(t);
+                    var finish = true;
+                    v.ads.watch = "1";
+                    $.each(linkOfSpecial.advertisement,function(i,val){
+                        finish = finish && val.watch == "1";
+                    });
+                    if(finish)
+                        linkOfSpecial.finishWatch = "1";
+                }
+            },1000);
+        },
+        join(url){
+            window.open(url,"_blank");
+        },
         fetchEvents() {
 			var page = this;
 			page.loading = true;

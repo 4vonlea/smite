@@ -73,7 +73,7 @@ class Event extends Admin_Controller
         if ($this->input->is_ajax_request()) {
             $this->load->model(['Event_m', 'Event_pricing_m']);
 
-            $data = $this->input->post();
+            $data = $this->input->post(null,false);
             $pricing = $this->Event_pricing_m->parseForm($data);
 
             $cekEv = $this->Event_m->validate($data);

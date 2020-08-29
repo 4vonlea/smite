@@ -120,7 +120,7 @@
                                     <thead>
                                         <tr>
                                             <th>Starting Date</th>
-                                            <th>Topic</th>
+                                            <th>Room</th>
                                             <th>URL</th>
                                             <th v-if="!detailMode">Action</th>
                                         </tr>
@@ -131,7 +131,7 @@
                                                 {{ link.date | formatDate }}
                                             </td>
                                             <td>
-                                                {{link.topic}}
+                                                {{link.room}}
                                             </td>
                                             <td>
                                                 {{link.url}}
@@ -181,7 +181,7 @@
                                                     <label class="form-control-label" for="input-address">Pricing
                                                         Name</label>
                                                     <input :disabled="detailMode" v-model="eventPrice.name"
-                                                        id="input-address" class="form-control form-control-alternative"
+                                                        class="form-control form-control-alternative"
                                                         placeholder="Pricing Name" type="text">
                                                 </div>
                                             </div>
@@ -311,7 +311,7 @@
     </transition>
 
     <div class="modal" id="modal-add-link">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-lg">
             <div class="modal-content">
 
                 <!-- Modal Header -->
@@ -327,12 +327,76 @@
                         <vue-ctk-date-time-picker :no-label="true" format="YYYY-MM-DD HH:mm" formatted="DD MMMM YYYY HH:mm" v-model="linkData.model.date" ></vue-ctk-date-time-picker>
                     </div>
                     <div class="form-group">
-                        <label>Topic</label>
-                        <input v-model="linkData.model.topic" type="text" class="form-control" />
+                        <label>Room</label>
+                        <input v-model="linkData.model.room" type="text" class="form-control" />
                     </div>
                     <div class="form-group">
-                        <label>URL</label>
+                        <label>Zoom/Recording URL</label>
                         <input v-model="linkData.model.url" type="text" class="form-control" />
+                    </div>
+                    <hr/>
+                    <div class="form-group">
+                        <label>Advertisement</label>
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>Type</th>
+                                <th>URL</th>
+                                <th>
+                                    <button type="button" v-on:click="linkData.model.advertisement.push({type:'link',url:'',watch:0});" class="btn btn-sm">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                </th>
+                            </tr>
+                            <tr v-for="(ads,index) in linkData.model.advertisement" :key="index">
+                                <td>
+                                    <select v-model="ads.type" class="form-control">
+                                        <option value="file">File Video</option>
+                                        <option value="link">Virtual Booth Link/Site</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <input type="text" v-model="ads.url" class="form-control"/>
+                                </td>
+                                <td>
+                                    <button type="button" v-on:click="linkData.model.advertisement.splice(index,1)" class="btn btn-sm btn-danger">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <hr/>
+                    <div class="form-group">
+                        <label>Speakers</label>
+                        <table class="table table-bordered">
+                            <tr>
+                                <th>Image <br/><small>*Max 200 KB</small></th>
+                                <th>Name</th>
+                                <th>Topic</th>
+                                <th>
+                                    <button type="button" v-on:click="linkData.model.speakers.push({image:'',name:'',topic:''});" class="btn btn-sm">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                </th>
+                            </tr>
+                            <tr v-for="(sp,index) in linkData.model.speakers" :key="index">
+                                <td>
+                                    <img v-if="sp.image" :src="sp.image" class="img" style="width:150px"  /><br/>
+                                    <input type="file" accept="image/*" v-on:change="speakerImageChange($event,index);"/>
+                                </td>
+                                <td>
+                                    <input type="text" v-model="sp.name" class="form-control"/>
+                                </td>
+                                <td>
+                                    <input type="text" v-model="sp.topic" class="form-control"/>
+                                </td>
+                                <td>
+                                    <button type="button"  v-on:click="linkData.model.speakers.splice(index,1)" class="btn btn-sm btn-danger">
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
 
@@ -449,7 +513,7 @@ var app = new Vue({
             masked: false
         },
         linkData: {
-            model:{},
+            model:{speakers:[],advertisement:[],finishWatch:0},
             isNew:true,
         },
         eventCategory: <?= Settings_m::eventCategory(); ?> ,
@@ -469,8 +533,24 @@ var app = new Vue({
                 price: <?= json_encode($pricingDefault); ?>
             });
         },
+        speakerImageChange(evt,ind){
+            if(evt.target.files.length > 0 ){
+                let size = evt.target.files[0].size/1024;
+                if(size > 200){
+                    Swal.fire('Warning',"Maximum Filesize is 200 KB !", 'warning');
+                    evt.target.value = "";
+                }else{
+                    var file = evt.target.files[0];
+                    var reader = new FileReader();
+                    reader.onloadend = function() {
+                        app.linkData.model.speakers[ind].image = reader.result;
+                    }
+                    reader.readAsDataURL(file);
+                }
+            }
+        },
         newLink: function(){
-            this.linkData.model = {};
+            this.linkData.model = {speakers:[],advertisement:[],finishWatch:0};
             this.linkData.isNew = true;
             $("#modal-add-link").modal("show");        
         },
@@ -484,6 +564,9 @@ var app = new Vue({
                 this.form.model.special_link.push(this.linkData.model);
             }
             $("#modal-add-link").modal("hide");
+        },
+        detailLink: function(ind){
+
         },
         removeLink: function(ind) {
             this.form.model.special_link.splice(ind, 1);

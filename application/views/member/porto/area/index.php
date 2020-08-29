@@ -5,6 +5,11 @@
 $config = $this->config->item("midtrans");
 $client_key = $config['client_key'];
 ?>
+<style>
+    .btn:disabled{
+        cursor: not-allowed;
+    }
+</style>
 <div id="app">
 	<section class="page-header page-header-modern bg-color-quaternary page-header-md custom-page-header">
 		<div class="container pt-5">
