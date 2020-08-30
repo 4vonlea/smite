@@ -10,12 +10,12 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 order-2 order-md-1 align-self-center p-static">
-                <h1>Account Registration Form</h1>
+                <h1>Registrasi Akun</h1>
             </div>
             <div class="col-md-4 order-1 order-md-2 align-self-center">
                 <ul class="breadcrumb d-block text-md-right breadcrumb-light">
-                    <li><a href="<?= base_url('site/home'); ?>">Home</a></li>
-                    <li class="active">Registration</li>
+                    <li><a href="<?= base_url('site/home'); ?>">Beranda</a></li>
+                    <li class="active">Registrasi</li>
                 </ul>
             </div>
         </div>
@@ -27,21 +27,17 @@
         <div class="row">
             <div v-if="registered" class="col-lg-12 col-lg-offset-2">
                 <div class="alert alert-success">
-                    <h4><i class="fa fa-info"></i> Your account has been successfully created</h4>
-                    <p>We have sent an email with a confirmation link to your email address. In order to complete the sign-up process, please click the confirmation link.
-                        If you do not receive a confirmation email, please check your spam folder. Also, please verify that you entered a valid email address in our sign-up form.
-                        If you need assistance, please contact us.</p>
+                    <h4><i class="fa fa-info"></i> Akunmu berhasil dibuat</h4>
+                    <p>Kami telah mengirim link konfirmasi ke alamat emailmu. Untuk melengkapi proses registrasi, Silahkan klik <i>confirmation link</i>.
+                        Jika tidak menerima email konfirmasi, silakan cek folder spam. Kemudian, mohon pastikan ada memasukan alamat email yg valid saat mengisi form pendaftaran. Jika perlu bantuan, silakan kontak kami.</p>
                 </div>
             </div>
             <div v-else class="col-lg-12 col-lg-offset-2">
 
                 <div class="alert alert-info alert-dismissable alert-hotel">
                     <i class="fa fa-info"></i>
-                    <b>Attention</b>
-                    Make sure the e-mail address you entered is exists and that you can open it, because we will send
-                    the activation code to activate your account to your e-mail.
-                    Before being activated, your account cannot be used yet, And please provide/upload document proof of
-                    your status.
+                    <b>Perhatian</b>
+                    Pastikan alamat email yang dimasukkan valid dan dapat anda akses, karena kami akan mengirimkan kode aktivasi melalui email tersebut. Akun anda tidak dapat digunakan sebelum diaktivasi terlebih dahulu.
                 </div>
                 <form id="form-register" ref="form">
                     <div class="form-group row">
@@ -76,7 +72,7 @@
                     <hr/>
 
                     <div class="form-group row">
-                        <label class="col-lg-3 control-label">Your Status*</label>
+                        <label class="col-lg-3 control-label">Status*</label>
                         <div class="col-lg-5">
                             <?= form_dropdown('status', $participantsCategory, '', [':class'=>"{'is-invalid':validation_error.status}",'v-model'=>'status_selected', 'class' => 'form-control', 'placeholder' => 'Select your status !']); ?>
                             <div v-if="validation_error.status" class="invalid-feedback" >
@@ -86,7 +82,7 @@
                     </div>
 
                     <div v-if="needVerification" class="form-group row">
-                        <label class="col-lg-3 control-label">Upload proof of your status* <small>(jpg,jpeg,png)</small></label>
+                        <label class="col-lg-3 control-label">Mohon unggah bukti identitas anda* <small>(jpg,jpeg,png)</small></label>
                         <div class="col-lg-5">
                             <input type="file" name="proof" accept=".jpg,.png,.jpeg" :class="{'is-invalid':validation_error.proof}" class="form-control-file"/>
                             <div v-if="validation_error.proof" class="invalid-feedback d-block">
@@ -96,9 +92,9 @@
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-lg-3 control-label">Full Name*</label>
+                        <label class="col-lg-3 control-label">Nama Lengkap*</label>
                         <div class="col-lg-5">
-							<small>*PLEASE FILL YOUR NAME CORRECTLY FOR YOUR CERTIFICATE</small>
+							<small>*Mohon mengisi nama dengan lengkap dan benar (beserta gelar) untuk sertifikat</small>
                             <input type="text" :class="{'is-invalid':validation_error.fullname}" class="form-control" name="fullname"/>
                             <div v-if="validation_error.fullname" class="invalid-feedback">
                                 {{ validation_error.fullname }}
@@ -108,7 +104,7 @@
 
 
                     <div class="form-group row">
-                        <label class="col-lg-3 control-label">Address</label>
+                        <label class="col-lg-3 control-label">Alamat</label>
                         <div class="col-lg-5">
                             <textarea :class="{ 'is-invalid':validation_error.address }" class="form-control" name="address"></textarea>
                             <div class="invalid-feedback">
@@ -118,7 +114,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-lg-3 control-label">City</label>
+                        <label class="col-lg-3 control-label">Kota</label>
                         <div class="col-lg-5">
                             <input type="text" :class="{'is-invalid':validation_error.city}" class="form-control" name="city"/>
                             <div v-if="validation_error.city" class="invalid-feedback">
@@ -128,7 +124,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <label class="col-lg-3 control-label">Your Institution*</label>
+                        <label class="col-lg-3 control-label">Institusi*</label>
                         <div class="col-lg-5">
                             <?= form_dropdown('univ', $participantsUniv, '', [':class'=>"{'is-invalid':validation_error.univ}",'v-model'=>'univ_selected', 'class' => 'form-control', 'placeholder' => 'Select your institution !']); ?>
                             <div v-if="validation_error.univ" class="invalid-feedback" >
@@ -138,7 +134,7 @@
                     </div>
 
 					<div v-if="univ_selected == <?=Univ_m::UNIV_OTHER;?>" class="form-group row">
-						<label class="col-lg-3 control-label">Other Institution</label>
+						<label class="col-lg-3 control-label">Institusi lain</label>
 						<div class="col-lg-5">
 							<input type="text" :class="{ 'is-invalid':validation_error.other_institution}"  class="form-control" name="other_institution"/>
 							<div v-if="validation_error.phone" class="invalid-feedback">
@@ -150,7 +146,7 @@
 
 
                     <div class="form-group row">
-                        <label class="col-lg-3 control-label">Phone/WA*</label>
+                        <label class="col-lg-3 control-label">No HP/WA*</label>
                         <div class="col-lg-5">
                             <input type="text" :class="{ 'is-invalid':validation_error.phone}" @keypress="onlyNumber" class="form-control" name="phone"/>
                             <div v-if="validation_error.phone" class="invalid-feedback">
@@ -162,16 +158,16 @@
 
 
                     <div class="form-group row">
-                        <label class="col-lg-3 control-label">Gender*</label>
+                        <label class="col-lg-3 control-label">Jenis Kelamin*</label>
                         <div class="col-lg-5">
                             <div class="radio">
                                 <label>
-                                    <input type="radio" name="gender" checked value="M"/> Male
+                                    <input type="radio" name="gender" checked value="M"/> Laki-laki
                                 </label>
                             </div>
                             <div class="radio">
                                 <label>
-                                    <input type="radio" name="gender" value="F"/> Female
+                                    <input type="radio" name="gender" value="F"/> Wanita
                                 </label>
                             </div>
                         </div>
@@ -207,7 +203,7 @@
                         <button :disabled="saving" type="button" @click="register"
                                 class="btn btn-outline custom-border-width btn-primary custom-border-radius font-weight-semibold text-uppercase">
                             <i v-if="saving"  class="fa fa-spin fa-spinner"></i>
-                            Register
+                            Submit
                         </button>
                         <button type="button"
                                 class="btn btn-outline custom-border-width btn-danger custom-border-radius font-weight-semibold text-uppercase"

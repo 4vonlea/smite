@@ -2,12 +2,12 @@
     <div class="container container">
         <div class="row mt-3">
             <div class="col-md-8 order-2 order-md-1 align-self-center p-static">
-                <h1>All News</h1>
+                <h1>Daftar Berita</h1>
             </div>
             <div class="col-md-4 order-1 order-md-2 align-self-center">
                 <ul class="breadcrumb d-block text-md-right breadcrumb-light">
-                    <li><a href="<?=base_url('site');?>">Home</a></li>
-                    <li class="active">All News</li>
+                    <li><a href="<?=base_url('site');?>">Beranda</a></li>
+                    <li class="active">Daftar Berita</li>
                 </ul>
             </div>
         </div>
@@ -31,7 +31,7 @@
                             <p style="font-size:11px" >
                                 <?php echo character_limiter($key->content, 300) ?>
                             </p>
-                            <p><a href="<?php echo base_url('site/readnews/'.$key->id) ?>" style="font-size: 11px" class="btn btn-primary">read more</a></p>
+                            <p><a href="<?php echo base_url('site/readnews/'.$key->id) ?>" style="font-size: 11px" class="btn btn-primary">Baca selengkapnya</a></p>
                             <hr>
                         </div>
                         <?php

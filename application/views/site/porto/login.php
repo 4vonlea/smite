@@ -6,7 +6,7 @@
             </div>
             <div class="col-md-4 order-1 order-md-2 align-self-center">
                 <ul class="breadcrumb d-block text-md-right breadcrumb-light">
-                    <li><a href="<?=base_url('site');?>">Home</a></li>
+                    <li><a href="<?=base_url('site');?>">Beranda</a></li>
                     <li class="active">Login</li>
                 </ul>
             </div>
@@ -57,7 +57,7 @@
                                 <div class="form-group col">
                                     <label class="form-check-label">
                                         <input type="checkbox" name="rememberme" class="form-check-input"/>
-                                        Remember Me
+                                        Ingat saya
                                     </label>
                                 </div>
                             </div>
@@ -65,8 +65,8 @@
                     </div>
                 </div>
                 <div class="alert alert-primary">
-                    Forget Password ? <a href="<?= base_url("site/forget"); ?>" class="text-light">Click Here</a> <br/>
-                    Don't have an account yet ? <a href="<?= base_url("member/register"); ?>" class="text-light">Click Here</a><br/>
+                    Lupa Password ? <a href="<?= base_url("site/forget"); ?>" class="text-light">Klik disini</a> <br/>
+                    Belum punya akun ? <a href="<?= base_url("member/register"); ?>" class="text-light">Klik disini</a><br/>
                 </div>
             </div>
         </div>

@@ -2,12 +2,12 @@
     <div class="container container">
         <div class="row mt-3">
             <div class="col-md-8 order-2 order-md-1 align-self-center p-static">
-                <h1>Read News</h1>
+                <h1>Baca Berita</h1>
             </div>
             <div class="col-md-4 order-1 order-md-2 align-self-center">
                 <ul class="breadcrumb d-block text-md-right breadcrumb-light">
-                    <li><a href="<?=base_url('site');?>">Home</a></li>
-                    <li class="active">Read News</li>
+                    <li><a href="<?=base_url('site');?>">Beranda</a></li>
+                    <li class="active">Baca Berita</li>
                 </ul>
             </div>
         </div>

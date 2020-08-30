@@ -157,23 +157,23 @@ $theme_path = base_url("themes/porto") . "/";
 
 											<li>
 												<a class="nav-link" href="<?= base_url("site"); ?>">
-													Home
+													Beranda
 												</a>
 											</li>
 											<li>
 												<a class="nav-link" href="<?= base_url("site/schedules"); ?>">
-													Schedule
+													Jadwal
 												</a>
 											</li>
 											<li class="dropdown dropdown-primary">
 												<a class="dropdown-toggle nav-link"
 												href="<?= base_url("site/committee"); ?>">
-												committee
+												Panitia
 											</a>
 										</li>
 										<li>
 											<a class="nav-link" href="#footer">
-												contact us
+												Hubungi kami
 											</a>
 										</li>
 									<?php endif; ?>
@@ -182,12 +182,12 @@ $theme_path = base_url("themes/porto") . "/";
 										<?php if ($this->session->has_userdata('user_session')): ?>
 											<a class="dropdown-toggle nav-link"
 											href="<?= base_url('member/area/#/profile'); ?>/">
-											Member Area
+											Area Pengguna
 										</a>
 										<?php else: ?>
 											<a class="dropdown-toggle nav-link"
 											href="#">
-											Member Area &nbsp;<i class="fa fa-chevron-circle-down"></i>
+											Area Pengguna &nbsp;<i class="fa fa-chevron-circle-down"></i>
 										</a>
 										<ul class="dropdown-menu">
 											<li>
@@ -199,7 +199,7 @@ $theme_path = base_url("themes/porto") . "/";
 										<li>
 											<a class="dropdown-item"
 											href="<?= base_url("member/register"); ?>">
-											Register
+											Registrasi
 										</a>
 									</li>
 								</ul>
@@ -234,8 +234,8 @@ $spsilver       = $this->Sponsor_link_m->listspsilver();
 	<div class="container mt-4 pt-4 pb-4">
 		<div class="row pt-2">
 			<div class="col">
-				<h2 class="text-color-dark text-uppercase font-weight-bold text-center mb-1">Sponsors</h2>
-				<p class="custom-font-size-1 text-center mb-5">Thanks to our sponsors</p>
+				<h2 class="text-color-dark text-uppercase font-weight-bold text-center mb-1">Sponsor</h2>
+				<p class="custom-font-size-1 text-center mb-5">Terima kasih untuk sponsor kami</p>
 			</div>
 		</div>
 		<span class="alternative-font" style="font-size: 30px;"><b>Platinum Sponsor</b></span>
@@ -304,7 +304,7 @@ $spsilver       = $this->Sponsor_link_m->listspsilver();
 </section>
 
 <div class="icon-bar">
-	<a href="https://wa.me/6281575099960" target="_blank" class="whatsapp img-fluid"><i class="fab fa-whatsapp"> How can I help you ?</i></a> 
+	<a href="https://wa.me/6281575099960" target="_blank" class="whatsapp img-fluid"><i class="fab fa-whatsapp"> Perlu bantuan ?</i></a> 
 </div>
 
 

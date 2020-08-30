@@ -2,12 +2,12 @@
     <div class="container container">
         <div class="row mt-3">
             <div class="col-md-8 order-2 order-md-1 align-self-center p-static">
-                <h1>Forget Password</h1>
+                <h1>Lupa Password</h1>
             </div>
             <div class="col-md-4 order-1 order-md-2 align-self-center">
                 <ul class="breadcrumb d-block text-md-right breadcrumb-light">
-                    <li><a href="<?=base_url('site/committee');?>">Home</a></li>
-                    <li class="active">Forget Password</li>
+                    <li><a href="<?=base_url('site/committee');?>">Beranda</a></li>
+                    <li class="active">Lupa Password</li>
                 </ul>
             </div>
         </div>
@@ -21,7 +21,7 @@
                         <div class="row">
                             <label class="col-lg-2 control-label"></label>
                             <div class="col-lg-5">
-                                <h2 class="font-weight-bold">Forget Password Form</h2>
+                                <h2 class="font-weight-bold">Lupa Password</h2>
                             </div>
                         </div>
                     
