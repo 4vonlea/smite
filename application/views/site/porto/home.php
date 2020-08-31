@@ -54,7 +54,7 @@
     <div class="container pb-4">
         <div class="row">
             <div class="col-lg-6">
-                <h2 class="text-color-dark font-weight-bold mt-5 mb-3">Login here</h2>
+                <h2 class="text-color-dark font-weight-bold mt-5 mb-3">Login disini</h2>
                 <form class="custom-contact-form-style-1" action="<?= base_url('site/login'); ?>" method="POST">
                     <div class="form-row">
                         <div class="form-group col">
@@ -85,27 +85,26 @@
                         <div class="form-group col">
                             <label class="form-check-label">
                                 <input type="checkbox" name="rememberme" class="form-check-input"/>
-                                Remember Me
+                                Ingat saya
                             </label>
                         </div>
                     </div>
                 </form>
-                <span style="font-size: 20px;" class="text-color-dark font-weight-bold">Don't have account??</span>
-                <a class="btn custom-border-width btn-primary custom-border-radius font-weight-semibold text-uppercase ml-3" href="<?= base_url("member/register"); ?>">Register here</a>
+                <span style="font-size: 20px;" class="text-color-dark font-weight-bold">Belum punya akun?</span>
+                <a class="btn custom-border-width btn-primary custom-border-radius font-weight-semibold text-uppercase ml-3" href="<?= base_url("member/register"); ?>">Registrasi disini</a>
             </div>
             <div class="col-lg-6">
-                <h3 class="text-color-dark font-weight-normal text-6 mt-5 ml-3 mb-3"><strong class="font-weight-extra-bold">How to
-                register :</strong></h3>
+                <h3 class="text-color-dark font-weight-normal text-6 mt-5 ml-3 mb-3"><strong class="font-weight-extra-bold">Cara untuk registrasi :</strong></h3>
                 <ol class="text-color-dark text-4 line-height-5 mb-0 ml-3">
-                    <li>Click <b>REGISTER HERE</b>, and fill your profile</li>
-                    <li>Choose your event (and or submit your abstract)</li>
-                    <li>Pay via our online payment</li>
-                    <li>Click Webinar Link and Enjoy our Symposium</li>
+                    <li>Klik <b>REGISTRASI DISINI</b>, dan lengkapi biodatamu</li>
+                    <li>Pilih event yang ingin diikuti (and or submit abstrakmu)</li>
+                    <li>Bayar melalui portal pembayaran online kami</li>
+                    <li>Klik <i>Webinar Link</i> dan nikmati webinar kami</li>
                 </ol> 
                 <br>
                 <ul class="text-color-dark text-4 line-height-5 ml-3 mb-0">
-                    <li><i>1 account 1 email per user</i></li>
-                    <li><i>E-certificate will be delivered to registered email</i></li>
+                    <li><i>1 akun 1 email per user</i></li>
+                    <li><i>E-certificate akan dikirimkan ke email yang terdaftar</i></li>
                 </ul>
             </div>
         </div>
@@ -152,7 +151,7 @@
                                                     <?php
                                                 endforeach;
                                                 ?>
-                                                <td rowspan="2" align="center" class="align-middle"><a href="<?=base_url("site/login");?>" class="btn btn-success">ORDER</a></td>
+                                                <td rowspan="2" align="center" class="align-middle"><a href="<?=base_url("site/login");?>" class="btn btn-success">PESAN</a></td>
                                             </tr>
                                             <tr>
                                                 <?php
@@ -188,8 +187,8 @@
     <div class="container pb-4">
         <div class="row pt-2">
             <div class="col">
-                <h2 class="text-color-dark text-uppercase font-weight-bold text-center mb-1">News & Updates</h2>
-                <a class="text-color-primary text-weight-bold" href="<?php echo base_url('site/all_news') ?>" target="_self" id="a_1dd7_5"><center>Read All News</center></a>
+                <h2 class="text-color-dark text-uppercase font-weight-bold text-center mb-1">Berita dan Info Terkini</h2>
+                <a class="text-color-primary text-weight-bold" href="<?php echo base_url('site/all_news') ?>" target="_self" id="a_1dd7_5"><center>Baca semua berita</center></a>
             </div>
         </div>
         <hr>
@@ -202,7 +201,7 @@
                     <p style="font-size:9px" >
                         <?php echo character_limiter($key->content, 100) ?>
                     </p>
-                    <p><a href="<?php echo base_url('site/readnews/'.$key->id) ?>" style="font-size: 11px" class="btn btn-primary">read more</a></p>
+                    <p><a href="<?php echo base_url('site/readnews/'.$key->id) ?>" style="font-size: 11px" class="btn btn-primary">baca selengkapnya</a></p>
                 </div>
                 <?php 
             endforeach; 
@@ -210,8 +209,5 @@
         </div>
     </div>
 </section>
-
-
-
 
 </main>
