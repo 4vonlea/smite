@@ -119,7 +119,7 @@
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>Starting Date</th>
+                                            <th>Starting Date <br/><small>(WIB GMT+7)</small></th>
                                             <th>Room</th>
                                             <th>URL</th>
                                             <th v-if="!detailMode">Action</th>

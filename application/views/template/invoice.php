@@ -58,8 +58,20 @@ $payment = Settings_m::manualPayment(false);
 				<tbody>
 				<tr>
 					<td>
-						<p>Yth. <?= $member->fullname; ?></p>
-						<p style="text-align:justify;text-justify:inter-word;">Berikut kami kirimkan tagihan pembayaran sebagai bentuk keterangan resmi. Mohon segera melunasi pembayaran ini melalui</p>
+						<p>Yth. <?= $member->sponsor; ?></p>
+						<p style="text-align:justify;text-justify:inter-word;">Berikut kami kirimkan tagihan pembayaran sebagai bentuk keterangan resmi. Mohon segera melunasi pembayaran ini
+
+						<?php if(count($payment) == 1 && $transaction->channel == "MANUAL TRANSFER") :?>
+							melalui Bank <?=$payment[0]['bank'];?> No <?=$payment[0]['no_rekening'];?> a.n <?=$payment[0]['holder'];?>
+						<?php elseif(count($payment) > 1):?>
+							melalui :
+							<ul>
+								<?php foreach ($payment as $list):?>
+									<li>Bank <?=$list['bank'];?> No <?=$list['no_rekening'];?> a.n <?=$list['holder'];?></li>
+								<?php endforeach;?>
+							</ul>
+						<?php endif;?>
+						</p>
 					</td>
 				</tr>
 				<tr>

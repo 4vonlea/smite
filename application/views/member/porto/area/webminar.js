@@ -4,7 +4,7 @@ export default Vue.component("PageWebminar",{
             <page-loader :loading="loading" :fail="fail"></page-loader>
             <div v-if="!loading">
             	<div class="overflow-hidden mb-1">
-                    <h2 class="font-weight-normal text-7 mb-0"><strong class="font-weight-extra-bold">Webminar Link</strong></h2>
+                    <h2 class="font-weight-normal text-7 mb-0"><strong class="font-weight-extra-bold">Webinar Link</strong></h2>
                     <div class="overflow-hidden mb-4 pb-3">
                         <p class="mb-0">Please attend the event that you follow via the link below</p>
                       
@@ -14,6 +14,8 @@ export default Vue.component("PageWebminar",{
                     <p>
                         *The join button cannot be clicked until 5 minutes before the start time
                         and cannot be clicked unless you have watched the sponsor
+                        <br/>
+                        *Time using WIB (GMT +7)
                     </p>
                     <table class="table table-bordered">
                         <thead>
@@ -111,9 +113,17 @@ export default Vue.component("PageWebminar",{
         showAds(index,linkOfSpecial){
             this.modalCloseButton = false;
             this.ads = linkOfSpecial.advertisement[index];
+			var xhttp = new XMLHttpRequest();
+			xhttp.open('HEAD', this.ads.url);
+			xhttp.onreadystatechange = function () {
+				if (this.readyState == this.DONE) {
+					console.log(this.getResponseHeader("Content-Type"));
+				}
+			};
+			xhttp.send();
             $("#modal-ads").modal({backdrop:'static',keyboard:false});
             $("#modal-ads").modal("show");
-            this.timer = 10;
+            this.timer = 15;
             var v = this;
             var t = setInterval(function(){
                 v.timer--;

@@ -258,7 +258,7 @@ class Member extends Admin_Controller
 							}
 						}
 					}
-					$this->Notification_m->sendMessageWithAttachment($data['email'], 'Registered On Site Succesfully - Invoice, Bukti Registrasi', $email_message, $attc);
+					$this->Notification_m->sendMessageWithAttachment($data['email'], 'Registered On Site Succesfully - Invoice, Payment Proof', $email_message, $attc);
 				}
 			} else {
 				$error['status'] = false;

@@ -50,7 +50,7 @@ header('Content-Type: text/html');
 					style="font-family:times new roman,times,serif;font-size:12pt;text-align:start;background-color:#ffffff"><?=  date("d F Y", strtotime($transaction->updated_at)); ?></span>
 			</p>
 			<p style="text-align:left">
-				Yth. <?= $member->fullname; ?>
+				Yth. <?= $member->sponsor; ?>
 			</p>
 			<p style="text-align:justify;text-justify:inter-word;">
 				Terimakasih atas registrasi dan pembayaran yang dilakukan untuk berpartisipasi dalam acara <?=Settings_m::getSetting("text_payment_proof");?>. Berikut adalah rincian registrasi dan pembayaran:

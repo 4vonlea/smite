@@ -144,7 +144,7 @@ class Transaction extends Admin_Controller
 					}
 				}
 			}
-			$this->Notification_m->sendMessageWithAttachment($member->email, 'Invoice, Bukti Registrasi And Name Tag', "Thank you for registering and fulfilling your payment, below is your invoice and offical Bukti Registrasi", $attc);
+			$this->Notification_m->sendMessageWithAttachment($member->email, 'Invoice, Payment Proof', "Thank you for registering and fulfilling your payment, below is your invoice and official Payment Proof", $attc);
 
 		}
 		$this->output
