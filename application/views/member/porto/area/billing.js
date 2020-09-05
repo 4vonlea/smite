@@ -4,24 +4,24 @@ export default Vue.component("PageBilling", {
             <page-loader :loading="loading" :fail="fail"></page-loader>
             <div v-if="!loading">
             	<div class="overflow-hidden mb-1">
-                	<h2 class="font-weight-normal text-7 mb-0"><strong class="font-weight-extra-bold">Transaction & Cart</strong></h2>
+                	<h2 class="font-weight-normal text-7 mb-0"><strong class="font-weight-extra-bold">Transaksi & Keranjang</strong></h2>
 				</div>
 				<div class="overflow-hidden mb-4 pb-3">
-					<p class="mb-0">A page to confirm your billing and display invoice history </p>
+					<p class="mb-0">Halaman untuk mengonfirmasi riwayat penagihan dan invoice display </p>
 				</div>
 				<div class="row">
 					<h4>Transaction History</h4>
 					<table class="table table-bordered">
 						<thead>
-							<th>Date</th>
+							<th>Tanggal</th>
 							<th>No Invoice</th>
 							<th>Status</th>
-							<th>Total Price</th>
+							<th>Total Harga</th>
 							<th></th>
 						</thead>
 						<tbody v-if="!transaction">
 							<tr>
-								<td colspan="5" class="text-center">No Transaction</td>
+								<td colspan="5" class="text-center">No Transaksi</td>
 							</tr>
 						</tbody>
 						<tbody v-else>
@@ -31,8 +31,8 @@ export default Vue.component("PageBilling", {
 								<td>{{ item.status_payment.toUpperCase()}}</td>
 								<td>{{ sumPrice(item.detail)}}</td>
 								<td>
-									<button class="btn btn-default" @click="detailTransaction(item,$event)">Detail</button>
-									<button @click="modalProof(item)" v-if="item.status_payment == 'pending'" class="btn btn-default" >Upload Transfer Proof</button>
+									<button class="btn btn-default" @click="detailTransaction(item,$event)">Detil</button>
+									<button @click="modalProof(item)" v-if="item.status_payment == 'pending'" class="btn btn-default" >Unggah Bukti Transfer</button>
 								</td>
 							</tr>
 						</tbody>
@@ -41,7 +41,7 @@ export default Vue.component("PageBilling", {
 				<div class="row">
 					<h4>Current Cart</h4>
 					<div v-if="!cart" class="col-md-12 alert alert-warning">
-						<p>You have not selected the events to added</p>
+						<p>Anda belum memilih acara yang akan ditambahkan</p>
 					</div>
 					<table v-else class="table">
 						<thead>
@@ -91,7 +91,7 @@ export default Vue.component("PageBilling", {
 				<div class="modal-dialog">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h4 class="modal-title">Upload Transfer Proof</h4>
+							<h4 class="modal-title">Unggah Bukti Transfer</h4>
 						</div>
 						<div class="modal-body">
 							<form ref="formUpload">
@@ -134,28 +134,28 @@ export default Vue.component("PageBilling", {
 						<div class="modal-body table-responsive">
 							<table class="table table-bordered">
 								<tr>
-									<th>Invoice Number</th>
+									<th>No Invoice</th>
 									<td>{{ detailModel.id }}</td>
-									<th>Invoice Date</th>
+									<th>Tanggal Invoice</th>
 									<td>{{ detailModel.updated_at }}</td>
 								</tr>
 								<tr>
 									<th class="text-center" colspan="4">Billing Information</th>
 								</tr>
 								<tr>
-									<th>Bill To</th>
+									<th>Penagihan Ke</th>
 									<td colspan="3">{{ user.fullname }}</td>
 								</tr>
 								<tr>
-									<th>Address</th>
+									<th>Alamat</th>
 									<td colspan="3">{{ user.address+", "+user.city }}</td>
 								</tr>
 								<tr>
-									<th>Amount</th>
+									<th>Jumlah</th>
 									<td colspan="3">{{ amount }}</td>
 								</tr>
 								<tr>
-									<th>Payment Method</th>
+									<th>Metode Pembayaran</th>
 									<td colspan="3">{{ detailModel.channel }}</td>
 								</tr>
 								<tr>
@@ -163,11 +163,11 @@ export default Vue.component("PageBilling", {
 									<td colspan="3">{{ detailModel.status_payment.toUpperCase() }}</td>
 								</tr>
 								<tr>
-									<th class="text-center" colspan="4">Details</th>
+									<th class="text-center" colspan="4">Detil</th>
 								</tr>
 								<tr>
-									<th colspan="2">Event Name</th>
-									<th colspan="2">Price</th>
+									<th colspan="2">Nama Acara</th>
+									<th colspan="2">Harga</th>
 								</tr>
 								<tr v-for="dt in detailModel.details">
 									<td colspan="2">{{ dt.product_name }}</td>
@@ -196,7 +196,7 @@ export default Vue.component("PageBilling", {
 											<td> 
 												{{ formatCurrency(detailEspay.amount) }} 
 												<br/>
-												<small>*Amount may differ due to additional charge from Espay </small>
+												<small>*Jumlah mungkin berbeda karena biaya tambahan dari Espay </small>
 											</td>
 										</tr>
 									</table>
@@ -204,8 +204,8 @@ export default Vue.component("PageBilling", {
 								<tr>
 								<tr v-if="detailModel.status_payment == 'pending' && detailModel.channel == 'MANUAL TRANSFER'">
 									<td colspan="4">
-										<p>Please transfer <b>{{ amount }}</b> to one of the following bank accounts
-										<br/>Then upload proof of payment (receipts, SMS banking screenshoot, etc) on Transaction History </p>
+										<p>Silakan transfer <b>{{ amount }}</b> ke salah satu rekening bank berikut
+										<br/>Kemudian upload bukti pembayaran (tanda terima, screenshoot SMS banking, dll) pada Riwayat Transaksi </p>
 										<div class="row">
 											<div class="col-sm-6" v-for="account in detailModel.banks">
 												<div class="card">
@@ -213,12 +213,12 @@ export default Vue.component("PageBilling", {
 														<p class="card-text">
 															<table>
 																<tr>
-																	<th>Account Number</th>
+																	<th>No Rekening</th>
 																	<td>:</td>
 																	<td>{{ account.no_rekening }}</td>
 																</tr>												
 																<tr>
-																	<th>Account Holder</th>
+																	<th>Nama Pemegang Rekening</th>
 																	<td>:</td>
 																	<td>{{ account.holder }}</td>
 																</tr>												

@@ -6,28 +6,28 @@ export default Vue.component("PageWebminar",{
             	<div class="overflow-hidden mb-1">
                     <h2 class="font-weight-normal text-7 mb-0"><strong class="font-weight-extra-bold">Webinar Link</strong></h2>
                     <div class="overflow-hidden mb-4 pb-3">
-                        <p class="mb-0">Please attend the event that you follow via the link below</p>
+                        <p class="mb-0">Silakan hadiri acara yang Anda ikuti melalui link di bawah ini</p>
                       
                     </div>
                 </div>
                 <div class="row">
                     <p>
-                        *The join button cannot be clicked until 5 minutes before the start time
-                        and cannot be clicked unless you have watched the sponsor
+                        *Tombol gabung tidak dapat diklik hingga 5 menit sebelum waktu mulai
+                        dan tidak dapat diklik kecuali Anda telah menonton sponsor
                         <br/>
-                        *Time using WIB (GMT +7)
+                        *WIB (GMT +7)
                     </p>
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th>Start Time</th>
+                                <th>Waktu Mulai</th>
                                 <th>Room</th>
                                 <th width="20%">Link</th>
                             </tr>
                         </thead>
                         <tbody v-if="events.length == 0">
                             <tr>
-                                <td class="text-center" colspan="3">You haven't participated in any event </td>
+                                <td class="text-center" colspan="3">Anda belum berpartisipasi dalam acara apa pun </td>
                             </tr>
                         </tbody>
                         <tbody v-for="event in events" :key="event.id">
@@ -42,9 +42,9 @@ export default Vue.component("PageWebminar",{
                                     <td>{{ link.date | formatDate }}</td>
                                     <td>{{ link.room }}</td>
                                     <td :rowspan="2" class="">
-                                        <button :disabled="link.finishWatch == '0'" v-on:click="join(link.url)" class="btn btn-primary btn-block">Join Now</button>
+                                        <button :disabled="link.finishWatch == '0'" v-on:click="join(link.url)" class="btn btn-primary btn-block">Gabung Sekarang</button>
                                         <button v-for="(ads,index) in link.advertisement" class="btn btn-block" :class="[ads.watch == '1' ? 'btn-primary':'btn-default']" v-on:click="showAds(index,link,indSpl)">
-                                            Show Sponsor {{ index+1}}
+                                            Lihat Sponsor {{ index+1}}
                                         </button>
                                     </td>
                                 </tr>

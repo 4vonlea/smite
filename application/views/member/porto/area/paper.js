@@ -151,7 +151,7 @@ export default Vue.component("PagePaper", {
 							</div>
 						</div>
 						<div class="form-group row">
-							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Title*</label>
+							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Judul*</label>
 							<div class="col-lg-9">
 								<input :disabled="detail"  :class="{'is-invalid':error_upload.title}" class="form-control" name="title"  type="text" v-model="form.title" value="">
 								<div v-if="error_upload.title" class="invalid-feedback">{{ error_upload.title }}</div>
@@ -167,7 +167,7 @@ export default Vue.component("PagePaper", {
 						</div>
 						<!--
 						<div class="form-group row">
-                    		<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Mode Of Presentation*</label>
+                    		<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Jenis Presentasi*</label>
 							<div class="col-lg-9">
 								<select :disabled="detail" class="form-control" v-model="form.type_presence" name="type_presence" :class="{'is-invalid':error_upload.type_presence}">
 									<option disabled value="">Please Select</option>
@@ -178,7 +178,7 @@ export default Vue.component("PagePaper", {
 						</div>
 						-->
 <!--						<div class="form-group row">-->
-<!--							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Aims*</label>-->
+<!--							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Tujuan*</label>-->
 <!--							<div class="col-lg-9">-->
 <!--								<textarea :disabled="detail"  :class="{'is-invalid':error_upload.aims}" v-model="form.aims"  class="form-control" name="aims">-->
 <!--								</textarea>-->
@@ -229,15 +229,15 @@ export default Vue.component("PagePaper", {
 							</div>
 						</div>
 						<div v-if="detail && form.message" class="form-group row">
-							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Feedback Message</label>
+							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Pesan Feedback</label>
 							<div class="col-lg-9">
 								<span>{{ form.message }}</span>
 							</div>
 						</div>
 						<div class="form-group row">
-							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Co-Author <small>if exist</small></label>
+							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Co-Author <small>jika ada</small></label>
 							<div class="col-lg-9 text-right">
-								<button v-if="!detail" type="button" class="btn btn-primary" @click="addCoAuthor">Add Co-Author</button>
+								<button v-if="!detail" type="button" class="btn btn-primary" @click="addCoAuthor">Tambah Co-Author</button>
 							</div>
 							<div class="col-lg-12">
 								<table class="table">

@@ -4,22 +4,22 @@ export default Vue.component("PageEvents", {
             <page-loader :loading="loading" :fail="fail"></page-loader>
             <div v-if="!fail">            
 				<div v-if="user.verified_by_admin == 0" class="alert alert-info">
-					<h4>Your status is under review</h4>
-					<p>The current administrators need to review and approve your status. Please return to check your status later.
-					You will be sent an email when a decision has been made, and <strong>you cannot follow an event before your status accepted</strong></p>
+					<h4>Status Anda sedang ditinjau</h4>
+					<p>Administrator saat ini perlu meninjau dan menyetujui status Anda. Silakan kembali untuk memeriksa status Anda nanti.
+					Anda akan dikirimi email ketika keputusan telah dibuat, dan anda <strong> anda tidak dapat mengikuti acara sebelum status anda diterima</strong></p>
 				</div>
 				<div v-else >
 					<div class="row">
 						<div class="col-md-9">
 						<div class="overflow-hidden mb-1">
-							<h2 class="font-weight-normal text-7 mb-0"><strong class="font-weight-extra-bold">Events</strong></h2>
+							<h2 class="font-weight-normal text-7 mb-0"><strong class="font-weight-extra-bold">Acaran</strong></h2>
 						</div>
 						<div class="overflow-hidden mb-4 pb-3">
-							<p class="mb-0">Please select the event you want. *Event available based on your status and date</p>
+							<p class="mb-0">Silakan pilih acara yang Anda inginkan. *Acara tersedia berdasarkan status dan tanggal Anda</p>
 						</div>
 						</div>
 						<div class="col-md-3">
-							<router-link class="btn btn-primary mt-4" to="/billing"><span style="font-size: 12px;border-right: 1px solid" class="badge badge-warning">{{ countAdded }}</span> <i class="fa fa-shopping-cart fa-1x"></i> To Cart </router-link>
+							<router-link class="btn btn-primary mt-4" to="/billing"><span style="font-size: 12px;border-right: 1px solid" class="badge badge-warning">{{ countAdded }}</span> <i class="fa fa-shopping-cart fa-1x"></i> Menuju Keranjang </router-link>
 						</div>
 					</div>
 					
@@ -35,18 +35,18 @@ export default Vue.component("PageEvents", {
 								</div>
 								<div :id="'accordion-'+index" class="collapse show table-responsive">
 										<div class="alert alert-success text-center" v-if="event.followed">
-											<h5>You are following this event</h5>
+											<h5>Anda mengikuti acara ini</h5>
 											<!--<a class="btn btn-default" :href="'<?=base_url('member/area/card');?>/'+event.id+'/'+user.id" target="_blank">Download Name Tag</a>-->
 											<a class="btn btn-default" :href="'<?=base_url('member/area/certificate');?>/'+event.id+'/'+user.id" target="_blank">Download Certificate</a>
 										</div>
 										<div v-else >
 											<div v-if="event.participant >= event.kouta" class="alert alert-warning text-center">
-												<h4>Sorry Kouta for this event is full</h4>
+												<h4>Maaf Kouta untuk acara ini penuh</h4>
 											</div>
 											<table class="table">
 												<thead>
 													<tr>
-														<th>Category</th>
+														<th>Kategori</th>
 														<th v-for="pricing in event.pricingName" class="text-center"><span v-html="pricing.title"></span></th>
 													</tr>
 												</thead>
