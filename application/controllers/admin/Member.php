@@ -33,6 +33,32 @@ class Member extends Admin_Controller
 		$this->layout->render('member', ['statusList' => $statusList,'univDl'=>$univDl]);
 	}
 
+	public function resend_verification(){
+		$email = $this->input->post("email");
+		$this->load->model(["User_account_m","Notification_m"]);
+		$account = $this->User_account_m->findWithBiodata($email);
+		if($account){
+			$token = explode("_",$account['token_reset']);
+			if(count($token) == 0){
+				$token[1] = uniqid();
+				$this->User_account_m->update([
+					'token_reset' => "verifyemail_" . $token
+				],['username'=>$email]);
+			}
+			$email_message = $this->load->view('template/email_confirmation', ['token' => $token[1], 'name' => $account['fullname']], true);
+			$this->Notification_m->sendMessage($email, 'Email Confirmation', $email_message);
+			$this->output
+			->set_content_type("application/json")
+			->_display(json_encode(['status'=>true,'message'=>'Akun pengguna tidak ditemukan']));
+
+		}else{
+			$this->output
+			->set_content_type("application/json")
+			->_display(json_encode(['status'=>false,'message'=>'Akun pengguna tidak ditemukan']));
+		}
+
+	}
+
 
 	public function card($event_id,$member_id)
 	{

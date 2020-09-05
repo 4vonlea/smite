@@ -41,7 +41,7 @@ class Paper extends Admin_Controller
 	public function get_feedback($id){
 		$this->load->model(['Reviewer_feedback_m']);
 		$feedback = $this->Reviewer_feedback_m->find()
-			->select("result,paper_id,reviewer_feedback.created_at,COALESCE(fullname,name) as name")
+			->select("result,paper_id,reviewer_feedback.status,reviewer_feedback.created_at,COALESCE(fullname,name) as name")
 			->join("user_accounts","username = member_id")
 			->join("members m","m.username_account = username","left")
 			->where("paper_id",$id)->get()->result_array();
@@ -57,6 +57,7 @@ class Paper extends Admin_Controller
 			$this->load->model('Reviewer_feedback_m');
 			$response['status'] = $this->Reviewer_feedback_m->insert([
 				'result'=>$data['message'],
+				'status'=>$data['status'],
 				'paper_id'=>$data['t_id'],
 				'member_id'=>$this->session->user_session['username']
 			]);

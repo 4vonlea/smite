@@ -27,7 +27,14 @@ class Area extends MY_Controller
 		$user = Member_m::findOne(['username_account'=>$this->session->user_session['username']]);
 		if(!$user)
 			show_error("Member not found in sistem or not registered yet !",500,"Member not found");
-		$this->layout->render('index',['user'=>$user]);
+		$this->layout->render('index',['user'=>$user,'statusToUpload'=>json_decode(Settings_m::getSetting("status_to_upload"),true)]);
+	}
+
+	public function presentationList(){	
+		$this->load->model("Papers_m");
+		$data = $this->Papers_m->findAllPoster();
+		$this->output->set_content_type("application/json")
+		->_display(json_encode(['status'=>true,'data'=>$data]));
 	}
 
 	public function certificate($event_id,$member_id)
@@ -104,6 +111,99 @@ class Area extends MY_Controller
 		$events = $this->Event_m->eventVueModel($this->session->user_session['id'],$this->session->user_session['status_name']);
 		$this->output->set_content_type("application/json")
 			->_display(json_encode(['status'=>true,'events'=>$events]));
+	}
+
+	public function file_presentation($name,$id)
+	{
+		$type = "Presentation";
+		$filepath = APPPATH . "uploads/papers/" . $name;
+		$this->load->model("Papers_m");
+		$paper = $this->Papers_m->findOne($id);
+		if (file_exists($filepath)) {
+			list(,$ext) = explode(".",$name);
+			$member = $paper->member;
+			header('Content-Description: File Transfer');
+			header('Content-Type: ' . mime_content_type($filepath));
+			header('Content-Disposition: attachment; filename="'.$type.'-'.$paper->getIdPaper().'-'. $member->fullname . '.'.$ext.'"');
+			header('Expires: 0');
+			header('Cache-Control: must-revalidate');
+			header('Pragma: public');
+			header('Content-Length: ' . filesize($filepath));
+			flush(); // Flush system output buffer
+			readfile($filepath);
+			exit;
+		}else{
+			show_404('File not found on server !',false);
+		}
+	}
+
+	public function upload_material(){
+		$response = [];
+		$this->load->library('upload');
+		$this->load->model("Member_upload_material_m");
+		$type = $this->input->post("type");
+		if(isset($_FILES['filename']) && $type == Member_upload_material_m::TYPE_FILE ){
+			$config = [
+				'upload_path'=>APPPATH.'uploads/material/',
+				'allowed_types'=>'doc|docx|jpg|jpeg|png|bmp',
+				'max_size'=>20480,
+				'overwrite'=>false,
+			];
+			$this->upload->initialize($config);
+			$status = $this->upload->do_upload('filename');
+			$data = $this->upload->data();
+			$error = $this->upload->display_errors("","");
+		}else{
+			$status = true;
+			$data = ['file_name'=>$this->input->post("filename")];
+		}
+		if($status){
+			$id = $this->input->post("id");
+			if($id && $id != "" && $id != 'null')
+				$model = $this->Member_upload_material_m->findOne($id);
+			else
+				$model = new Member_upload_material_m();
+
+			$model->member_id = $this->session->user_session['id'];
+			$model->ref_upload_id = $this->input->post("ref_upload_id");
+			$model->type = $this->input->post("type");
+			$model->filename = $data['file_name'];
+			$response['data']['fullpaper'] = $model->toArray();
+			$response['status'] = $model->save(false);
+		}else{
+			$response['status'] = false;
+			$response['message'] = $error;
+		}
+		$this->output->set_content_type("application/json")
+			->_display(json_encode($response));
+	}
+
+	public function list_material(){
+		$this->load->model("Ref_upload_m");
+		$data = $this->Ref_upload_m->getListMaterialMember($this->session->user_session['id']);
+		$this->output->set_content_type("application/json")
+		->_display(json_encode(['status'=>true,'data'=>$data]));
+	}
+
+	public function file_material($name,$type)
+	{
+		$type = urldecode($type);
+		$filepath = APPPATH . "uploads/material/" . $name;
+		if (file_exists($filepath)) {
+			list(,$ext) = explode(".",$name);
+			header('Content-Description: File Transfer');
+			header('Content-Type: ' . mime_content_type($filepath));
+			header('Content-Disposition: attachment; filename="'.$type.'.'.$ext.'"');
+			header('Expires: 0');
+			header('Cache-Control: must-revalidate');
+			header('Pragma: public');
+			header('Content-Length: ' . filesize($filepath));
+			flush(); // Flush system output buffer
+			readfile($filepath);
+			exit;
+		}else{
+			show_404('File not found on server !',false);
+		}
 	}
 
 	public function delete_paper(){

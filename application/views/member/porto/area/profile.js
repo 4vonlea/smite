@@ -6,59 +6,59 @@ var PageProfile = Vue.component("PageProfile", {
         <div class="row">
             <div class="col-md-7">
                 <div class="overflow-hidden mb-1">
-                    <h2 class="font-weight-normal text-7 mb-0"><strong class="font-weight-extra-bold">My Profile</strong></h2>
+                    <h2 class="font-weight-normal text-7 mb-0"><strong class="font-weight-extra-bold">Profil Ku</strong></h2>
                 </div>
             </div>
             <div class="col-md-5 text-right">
                 <button @click="[editing = !editing]" class="btn btn-default">
-                      <i class="fa fa-edit"></i> {{ editing ? 'Cancel Edit':'Edit Profile' }}
+                      <i class="fa fa-edit"></i> {{ editing ? 'Batal Edit':'Edit Profil' }}
                 </button>
-                <button data-toggle="modal" data-target="#reset-password" class="btn btn-default"><i class="fa fa-key"></i> Change Password</button>
+                <button data-toggle="modal" data-target="#reset-password" class="btn btn-default"><i class="fa fa-key"></i> Ganti Password</button>
             </div>
             <div class="col-md-12">
                 <div class="overflow-hidden mb-4 pb-3">
-                    <p class="mb-0">Your current profile, you may edit your profile by clicking edit button.</p>
+                    <p class="mb-0">Profil Anda saat ini, Anda dapat mengedit profil Anda dengan mengklik tombol edit.</p>
                 </div>
             </div>
         </div>
         <div v-if="countFollowed == 0" class="alert alert-info text-center">
-            <h4>You must select an event</h4>
+            <h4>Anda harus memilih sebuah acara</h4>
         </div>
          <div v-if="user.verified_by_admin == 0" class="alert alert-info">
-            <h4>Your status is under review</h4>
-            <p>The current administrators need to review and approve your status. Please return to check your status later.
-            You will be sent an email when a decision has been made, and <strong>you cannot follow an event before your status accepted</strong></p>
+            <h4>Status Anda sedang ditinjau</h4>
+            <p>Administrator saat ini perlu meninjau dan menyetujui status Anda. Silakan kembali untuk memeriksa status Anda nanti.
+            Anda akan dikirimi email ketika keputusan telah dibuat, dan anda <strong> anda tidak dapat mengikuti acara sebelum status anda diterima</strong></p>
         </div>
         <form role="form" class="needs-validation" method="post">
             <div class="form-group row">
-                <label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Your Status As</label>
+                <label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Status Anda Sebagi</label>
                 <div class="col-lg-9">
                     <input disabled="true" class="form-control"  type="text" :value="user.status_member">
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2 required">Full Name</label>
+                <label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2 required">Nama</label>
                 <div class="col-lg-9">
                     <input :disabled="!editing" class="form-control" required="" type="text" v-model="user.fullname">
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2 required">Sex</label>
+                <label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2 required">Jenis Kelamin</label>
                 <div class="col-lg-5">
                     <div class="radio">
                         <label>
-                            <input :disabled="!editing" type="radio" name="gender" v-model="user.gender" value="M"/> Male
+                            <input :disabled="!editing" type="radio" name="gender" v-model="user.gender" value="M"/> Laki-Laki
                         </label>
                     </div>
                     <div class="radio">
                         <label>
-                            <input :disabled="!editing" type="radio" name="gender" v-model="user.gender" value="F"/> Female
+                            <input :disabled="!editing" type="radio" name="gender" v-model="user.gender" value="F"/> Perempuan
                         </label>
                     </div>
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2 required">Birthday</label>
+                <label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2 required">Tangga Lahir</label>
                 <div class="col-lg-9">
                     <vuejs-datepicker :disabled="!editing" input-class="form-control"
                                     v-model="user.birthday"
@@ -67,7 +67,7 @@ var PageProfile = Vue.component("PageProfile", {
                 </div>
             </div>
             <div class="form-group row">
-                <label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2 required">Phone/WA</label>
+                <label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2 required">No Handphone/WA</label>
                 <div class="col-lg-9">
                     <input :disabled="!editing" type="text" v-model="user.phone" class="form-control" name="phone"/>
                 </div>
@@ -81,14 +81,14 @@ var PageProfile = Vue.component("PageProfile", {
             </div>
 
             <div class="form-group row">
-                <label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">City</label>
+                <label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Kota Tempat Tinggal</label>
                 <div class="col-lg-9">
                     <input :disabled="!editing" class="form-control" type="text" v-model="user.city" placeholder="City">
                 </div>
             </div>
 
             <div class="form-group row">
-                <label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Institution</label>
+                <label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Institusi</label>
                 <div class="col-lg-9">
                 	<select :disabled="!editing" class="form-control" v-model="user.univ">
                 		<option hidden>Select Your Institution</option>
@@ -98,7 +98,7 @@ var PageProfile = Vue.component("PageProfile", {
             </div>
 
             <div class="form-group row">
-                <label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Address</label>
+                <label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Alamat</label>
                 <div class="col-lg-9">
                     <textarea :disabled="!editing" class="form-control" v-model="user.address" rows="4"></textarea>
                 </div>
@@ -113,8 +113,8 @@ var PageProfile = Vue.component("PageProfile", {
 
             <div v-if="editing" class="form-group row">
                 <div class="form-group col-lg-12 text-right">
-                    <button @click="[editing = false]"  type="button" class="btn btn-default "> Cancel</button>
-                    <button v-if="editing" @click="saveProfile" type="button" class="btn btn-primary"> Save</button>
+                    <button @click="[editing = false]"  type="button" class="btn btn-default "> Batal</button>
+                    <button v-if="editing" @click="saveProfile" type="button" class="btn btn-primary"> Simpan</button>
                 </div>
             </div>
             

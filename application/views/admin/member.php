@@ -75,6 +75,7 @@
 						<template slot="email" slot-scope="prop">
 							{{ prop.row.email }}
 						<span v-if="prop.row.verified_email == 0" class="badge badge-warning">Unverified</span>
+						<button @click="resendVerification(prop.row.email)" v-if="prop.row.verified_email == 0" class="badge badge-info">Resend Verification</button>
 						</template>
 						<template slot="verified_by_admin" slot-scope="prop">
 						<span :class="[(prop.row.verified_by_admin == 1 ?'badge-success':'badge-warning')]"
@@ -413,6 +414,18 @@
         methods: {
 			formatDate(date) {
 				return moment(date).format("DD MMM YYYY, [At] HH:mm:ss");
+			},
+			resendVerification(email){
+				$.post("<?=base_url("admin/member/resend_verification");?>", {email:email}, function (res) {
+					if(res.status)
+						Swal.fire("Success", "Verification email sent !", "success");				
+					else
+						Swal.fire('Fail', res.message, 'error');
+				}, "JSON").fail(function (xhr) {
+					Swal.fire('Fail', "Server gagal memproses !", 'error');
+				}).always(function () {
+					app.sendingCertificate = false;
+				});
 			},
 			sendCertificate(event){
 				app.sendingCertificate = true;

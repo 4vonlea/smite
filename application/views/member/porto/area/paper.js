@@ -14,11 +14,11 @@ export default Vue.component("PagePaper", {
 							<form ref="formFullpaper" enctype="multipart/form-data">
 								<input type="hidden" name="id" :value="formFullpaper.id" />
 								<div class="form-group">
-									<label class="font-weight-bold text-dark form-control-label text-2">Paper Title</label>
+									<label class="font-weight-bold text-dark form-control-label text-2">Judul Paper</label>
 									<label>{{ formFullpaper.title}}</label>
 								</div>
 								<div class="form-group">
-									<label class="font-weight-bold text-dark form-control-label text-2">Presentation On {{ formFullpaper.type_presence}}</label>
+									<label class="font-weight-bold text-dark form-control-label text-2">Presentasi Secara {{ formFullpaper.type_presence}}</label>
 								</div>
 								<hr/>
 								<div class="form-group">
@@ -45,19 +45,19 @@ export default Vue.component("PagePaper", {
 			</div>
             <div v-if="!loading && !fail">
                 <div class="overflow-hidden mb-1">
-                    <h2 class="font-weight-normal text-7 mb-0"><strong class="font-weight-extra-bold">Submit Paper</strong></h2>
+                    <h2 class="font-weight-normal text-7 mb-0"><strong class="font-weight-extra-bold">Kirim Paper</strong></h2>
                 </div>
                 <div class="overflow-hidden mb-4 pb-3">
-                    <p class="mb-0">Wanna participate on paper, please upload your fullpaper.</p>
+                    <p class="mb-0">ingin berpartisipasi dalam paper, silakan upload fullpaper Anda.</p>
                 </div>
                 <div v-if="mode == 0" class="table-responsive">
                 	<table class="table table-bordered">
                 		<thead>
                 			<tr>
-                				<th width="15%">Type</th>
-                				<th width="40%">Title</th>
+                				<th width="15%">Jenis</th>
+                				<th width="40%">Judul</th>
                 				<th width="15%">Status</th>
-                				<th width="15%">Submitted On</th>
+                				<th width="15%">Waktu Kirim</th>
                 				<th width="15%"h>
 									<button @click="mode = 1; form = {co_author:[],type:'Free Paper',type_presence:'',methods:''};detail=false;error_upload ={};" class="btn btn-primary"><i class="fa fa-plus"></i> Add</button>
 								</th>
@@ -65,7 +65,7 @@ export default Vue.component("PagePaper", {
 						</thead>
 						<tbody>
 							<tr v-if="paper.data.length == 0">
-								<td colspan="5" class="text-center">No Data</td>
+								<td colspan="5" class="text-center">Tidak Ada Data</td>
 							</tr>
 							<tr v-for="pap in paper.data">
 								<td>
@@ -99,7 +99,7 @@ export default Vue.component("PagePaper", {
 							</tr>
 						</tbody>
 					</table>
-					<p class="mb-0">*<span class="font-weight-bold">(Accepted paper only)</span> you can change/reupload your fullpaper or presentation/poster file, on detail page (icon loop)</p>
+					<p class="mb-0">*<span class="font-weight-bold">(Accepted paper only)</span> Anda dapat mengubah / mengunggah ulang fullpaper atau file presentasi / poster Anda, pada halaman detail (ikon kaca pembesar)</p>
 				</div>
                 <div v-if="mode == 1">
                     <form ref="form" enctype="multipart/form-data">
@@ -124,14 +124,14 @@ export default Vue.component("PagePaper", {
 							</div>
 						</div>
 						<div v-if="detail && form.status == 2" class="form-group row">
-							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Presentation/Poster Link</label>
+							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Presentasi/Poster Link</label>
 							<div class="col-lg-9">
 								<span v-if="form.poster"><a  :href="paperUrl(form.poster)">Click Here</a> | </span>
-								<a href="#" @click.prevent="modalFullpaper(form)">Change/Upload Fullpaper or Presentation File</a>
+								<a href="#" @click.prevent="modalFullpaper(form)">Ubah/Unggah Fullpaper atau File Presentasi</a>
 							</div>
 						</div>
                     	<div class="form-group row">
-                    		<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Type of Abstract*</label>
+                    		<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Jenis Abstract*</label>
 							<div class="col-lg-9">
 								<select :disabled="detail" class="form-control" v-model="form.type" name="type" :class="{'is-invalid':error_upload.type}">
 									<option v-for="(type,key) in paper.abstractType"  :value="key">{{ type }}</option>
@@ -140,13 +140,13 @@ export default Vue.component("PagePaper", {
 							</div>
 						</div>
 						<div class="form-group row">
-                    		<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Type of Study*</label>
+                    		<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Jenis Studi*</label>
 							<div class="col-lg-9">
 								<select :disabled="detail" class="form-control" v-model="form.methods" name="methods" :class="{'is-invalid':error_upload.methods}">
 									<option disabled value="">Please Select</option>
 									<option v-for="(type,key) in paper.typeStudy"  :value="key">{{ type }}</option>
 								</select>
-								<input :disabled="form.methods != 'Other' || detail" placeholder="If type of study other than above list, Please describe here"  :class="[{'is-invalid':error_upload.methods}, form.methods != 'Other' ? 'd-none':'']" class="form-control mt-1" name="type_study_other"  type="text" v-model="form.type_study_other" value="">
+								<input :disabled="form.methods != 'Other' || detail" placeholder="Jika jenis studi selain daftar di atas, Jelaskan di sini"  :class="[{'is-invalid':error_upload.methods}, form.methods != 'Other' ? 'd-none':'']" class="form-control mt-1" name="type_study_other"  type="text" v-model="form.type_study_other" value="">
 								<div v-if="error_upload.methods" class="invalid-feedback">{{ error_upload.methods }}</div>
 							</div>
 						</div>

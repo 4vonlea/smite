@@ -306,7 +306,7 @@ $this->layout->end_head();
 						<th>Link Download Feedback</th>
 						<td><a :href="reviewModel.link_feedback" target="_blank">Click Here !</a></td>
 					</tr>
-					<tr v-show="!isReviewer" v-if="detailMode == 0">
+					<tr v-if="detailMode == 0">
 						<th>Result Of Review</th>
 						<td>
 							<?php foreach(Papers_m::$status as $k=>$v):?>
@@ -353,6 +353,7 @@ $this->layout->end_head();
 										<th>Time</th>
 										<th>Reviewer Name</th>
 										<th>Feedback</th>
+										<th>Status</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -360,6 +361,7 @@ $this->layout->end_head();
 										<td>{{ feedback.created_at }}</td>
 										<td>{{ feedback.name }}</td>
 										<td>{{ feedback.result }}</td>
+										<td>{{ status[feedback.status] }}</td>
 									</tr>
 								</tbody>
 							</table>

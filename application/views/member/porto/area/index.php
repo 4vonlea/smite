@@ -4,6 +4,7 @@
  */
 $config = $this->config->item("midtrans");
 $client_key = $config['client_key'];
+$userDetail = array_merge($user->toArray(), ['status_member' => $user->status_member->kategory]);
 ?>
 <style>
     .btn:disabled{
@@ -48,23 +49,32 @@ $client_key = $config['client_key'];
 				<aside class="sidebar mt-2" id="sidebar">
 					<ul class="nav nav-list flex-column mb-5">
 						<li class="nav-item">
-							<router-link active-class="active" class="nav-link text-dark" to="/profile">My Profile</router-link>
+							<router-link active-class="active" class="nav-link text-dark" to="/profile">Profil-Ku</router-link>
 						</li>
 						<li class="nav-item">
-							<router-link active-class="active" class="nav-link text-dark" to="/paper">Submit Paper
+							<router-link active-class="active" class="nav-link text-dark" to="/paper">Kirim Paper
 							</router-link>
 						</li>
 						<li class="nav-item">
-							<router-link active-class="active" class="nav-link text-dark" to="/events">Events
+							<router-link active-class="active" class="nav-link text-dark" to="/events">Acara
 							</router-link>
 						</li>
 						<li class="nav-item">
-							<router-link active-class="active" class="nav-link text-dark" to="/billing">Transaction &
-								Cart
+							<router-link active-class="active" class="nav-link text-dark" to="/billing">Transaksi & Keranjang
 							</router-link>
 						</li>
                         <li class="nav-item">
 							<router-link active-class="active" class="nav-link text-dark" to="/webminar">Webinar Link
+							</router-link>
+                        </li>
+                        <?php if(in_array($userDetail['status'],$statusToUpload)):?>
+                        <li class="nav-item">
+							<router-link active-class="active" class="nav-link text-dark" to="/material">Upload Materi/Bahan
+							</router-link>
+                        </li>
+                        <?php endif;?>
+                        <li class="nav-item">
+							<router-link active-class="active" class="nav-link text-dark" to="/presentation">Presentasi
 							</router-link>
 						</li>
 						<li class="nav-item"><a class="nav-link text-dark"
@@ -89,16 +99,22 @@ $client_key = $config['client_key'];
 
 <script src="<?= base_url("themes/script/vue-router.min.js"); ?>"></script>
 <script src="<?= base_url("themes/script/vuejs-datepicker.min.js"); ?>"></script>
+<script src="<?= base_url("themes/script/vuetable2.js"); ?>"></script>
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js"></script>
 
 <script type="module">
+    Vue.use(Vuetable);
+
     import progressPage from "<?= base_url("themes/script/progressPage.js"); ?>";
     import PageProfile from "<?= base_url("member/area/page/profile"); ?>";
     import PageEvents from "<?= base_url("member/area/page/events"); ?>";
     import PagePaper from "<?= base_url("member/area/page/paper"); ?>";
     import PageBilling from "<?= base_url("member/area/page/billing"); ?>";
     import PageWebminar from "<?= base_url("member/area/page/webminar"); ?>";
+    import PageMaterial from "<?= base_url("member/area/page/material"); ?>";
+    import PagePresentation from "<?= base_url("member/area/page/presentation"); ?>";
 
-    var userD = <?=json_encode(array_merge($user->toArray(), ['status_member' => $user->status_member->kategory]));?>;
+    var userD = <?=json_encode($userDetail);?>;
     Vue.use(VueRouter);
     const routes = [
         {path: '/', component: PageProfile, meta: {'title': 'My Profile'}},
@@ -107,6 +123,8 @@ $client_key = $config['client_key'];
         {path: '/paper', component: PagePaper, meta: {'title': 'Submit Paper'}},
         {path: '/billing', component: PageBilling, meta: {'title': 'Transaction & Cart'}},
         {path: '/webminar', component: PageWebminar, meta: {'title': 'Webminar'}},
+        {path: '/material', component: PageMaterial, meta: {'title': 'Material Upload'}},
+        {path: '/presentation', component: PagePresentation, meta: {'title': 'Presentation'}},
     ];
     let router = new VueRouter({
         //mode: 'history',

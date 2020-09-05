@@ -31,8 +31,8 @@ class Papers_m extends MY_Model
 	];
 
 	public static $typeStudy = [
-		// 'Case Report' => 'Case Report',
-		'Review Article'=>'Review Article',
+		'Case Report' => 'Case Report',
+		// 'Review Article'=>'Review Article',
 		'Original Research'=>'Original Research',
 		'Other' =>'Other',
 	];
@@ -140,5 +140,15 @@ class Papers_m extends MY_Model
 	public function member()
 	{
 		return $this->hasOne('Member_m', 'id', 'member_id');
+	}
+
+	public function findAllPoster(){
+		$result = $this->setAlias("t")->find()
+						->select("t.id,title,type_presence as type,m.fullname,poster")
+						->join("members m","m.id = t.member_id")
+						->where("t.status",self::ACCEPTED)
+						->where("poster IS NOT NULL")
+						->get();
+		return $result->result_array();
 	}
 }

@@ -176,6 +176,11 @@ $role = $this->session->user_session['role'];
 						</a>
 					</li>
 					<li class="nav-item">
+						<a class="nav-link" href="<?= base_url('admin/material'); ?>">
+							<i class="ni ni-archive-2 text-blue"></i> Material Speaker
+						</a>
+					</li>
+					<li class="nav-item">
 						<a class="nav-link" href="<?= base_url('admin/sponsor'); ?>">
 							<i class="ni ni-html5 text-blue"></i> Sponsor Link
 						</a>
