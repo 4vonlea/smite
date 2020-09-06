@@ -9,7 +9,7 @@ class Ref_upload_m extends MY_Model
     public function gridConfig($option = array())
 	{
         $statustoUpload = Settings_m::getSetting("status_to_upload");
-        $statustoUpload = ($statustoUpload == "" ? []:json_decode($statustoUpload));
+        $statustoUpload = ($statustoUpload == "" ? [0]:json_decode($statustoUpload));
 		return [
 			'select'=>['t_id'=>'t.id','fullname'=>'member.fullname',"mum.filename","title","type"=>"mum.type","id_mum"=>'mum.id'],
 			'relationships' => [

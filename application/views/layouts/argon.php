@@ -146,6 +146,11 @@ $role = $this->session->user_session['role'];
 					</li>
 					<?php endif;?>
 					<li class="nav-item">
+						<a class="nav-link" href="<?= base_url('admin/click_report'); ?>">
+							<i class="ni ni-check-bold text-primary"></i> Link Click Report
+						</a>
+					</li>
+					<li class="nav-item">
 						<a class="nav-link" href="<?= base_url('admin/member'); ?>">
 							<i class="ni ni-single-02 text-orange"></i> Members
 						</a>

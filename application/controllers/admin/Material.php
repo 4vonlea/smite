@@ -6,10 +6,14 @@ class Material extends Admin_Controller
 
 	public function index()
 	{
-		$this->load->model('Ref_upload_m');
+		$this->load->model(['Ref_upload_m','Category_member_m']);
 		$this->load->helper("form");
+        $statustoUpload = Settings_m::getSetting("status_to_upload");
+        $statustoUpload = ($statustoUpload == "" || $statustoUpload == "null" ? "[]":$statustoUpload);
+
+		$statusList = $this->Category_member_m->find()->get()->result_array();
 		$uploadList = $this->Ref_upload_m->find()->select('*')->get()->result_array();
-		$this->layout->render('material', ['uploadList' => $uploadList]);
+		$this->layout->render('material', ['uploadList' => $uploadList,'statusList'=>$statusList,'selectedStatus'=>$statustoUpload]);
 	}
 
 	
@@ -40,6 +44,14 @@ class Material extends Admin_Controller
 		$this->output
 			->set_content_type("application/json")
 			->_display(json_encode(['status' => $status]));
+	}
+
+	public function change_selected(){
+		$value = $this->input->post("selected_status");
+		Settings_m::saveSetting("status_to_upload",$value);
+		$this->output
+			->set_content_type("application/json")
+			->_display(json_encode(['status' => true]));
 	}
 
 	public function file($name,$type)

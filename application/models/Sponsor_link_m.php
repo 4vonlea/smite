@@ -6,6 +6,16 @@ class Sponsor_link_m extends My_model
 	protected $table = "link_sponsor";
 	protected $primaryKey = "id";
 
+	public function gridConfig($option = array()){
+		return [
+			'select'=>["t.id","t.name","t.link","t.category","click_count"=>'COUNT(click.id)'],
+			'relationships' => [
+				'click' => ['link_click', 'click.link_id = t.id','left'],
+			],
+			'group_by'=>'t.id',
+		];
+	}
+
 	public function rules()
 	{
 		return [
@@ -71,6 +81,48 @@ class Sponsor_link_m extends My_model
 		$this->db->where('category', 'Silver');
 		$result = $this->db->get()->result();
 		return $result;
+	}
+
+	public function getFieldGrid(){
+		$rs = $this->find()->get()->result_array();
+		$return = [['name'=>'fullname','title'=>'Member Name']];
+		foreach($rs as $row){
+			$return[] = [
+				'id'=>$row['id'],
+				'name'=>"c_".$row['id'],
+				'title'=>$row['name'],
+				'sortField'=>$row['id']
+			];
+		}
+		return $return;
+	}
+
+	public function getReportMemberClick($params){
+		// $return['column'] = $this->find()->get()->result_array();
+		// $return['data'] = $this->setAlias("t")->find()
+		// 	->join("members m","1 = 1")
+		// 	->join("link_click lc","lc.link_id = t.id AND lc.username = m.username_account","left")
+		// 	->select("m.fullname,t.id, t.name,t.link,COUNT(lc.id) AS click")
+		// 	->group_by("m.username_account,t.id")
+		// 	->get()->result_array();
+		$select = ['fullname'];
+		$fields = $this->getFieldGrid();
+		$disable_search = [];
+		for($i=1;$i<count($fields);$i++){
+			$row = $fields[$i];
+			$disable_search[] = $row['name'];
+			$select[$row['name']] = "SUM(IF(lc.link_id = ".$row['id'].",1,0))";
+		}
+		$config = [
+			'select'=>$select,["m.fullname","t.id", "t.name","click"=>"t.link,COUNT(lc.id)"],
+			'relationships'=>[
+				'm'=>['members','1 = 1'],
+				'lc'=>['link_click','lc.link_id = t.id AND lc.username = m.username_account','left']
+			],
+			'group_by'=>'m.username_account',
+			'disable_search_field'=>$disable_search,
+		];
+		return parent::gridData($params,$config);
 	}
 
 }

@@ -52,6 +52,10 @@ $this->layout->begin_head();
 									<input v-model="message.target" id="customRadio3" class="custom-control-input" name="target" value="event_selected" type="radio">
 									<label class="custom-control-label" for="customRadio3">Send to specific event participants</label>
 								</div>
+								<div class="custom-control custom-radio custom-control-inline">
+									<input v-model="message.target" id="customRadio4" class="custom-control-input" name="target" value="selected_status" type="radio">
+									<label class="custom-control-label" for="customRadio4">Send to specific status member</label>
+								</div>
 								<div class="custom-control custom-checkbox custom-control-inline">
 									<input v-model="message.via" type="checkbox" class="custom-control-input" id="customCheck1" name="via" value="email">
 									<label class="custom-control-label" for="customCheck1">Using Email</label>
@@ -60,6 +64,10 @@ $this->layout->begin_head();
 									<input v-model="message.via" type="checkbox" class="custom-control-input" id="customCheck2" name="via" value="wa">
 									<label class="custom-control-label" for="customCheck2">Using WA</label>
 								</div>
+							</div>
+							<div v-if="message.target == 'selected_status'" class="form-group">
+								<label>To</label>
+								<vue-chosen v-model="message.to" :options="statusList" placeholder="Select Status Member"></vue-chosen>
 							</div>
 							<div v-if="message.target == 'member'" class="form-group">
 								<label>To</label>
@@ -235,7 +243,7 @@ $this->layout->begin_head();
             sending:false,
             message:{
                 "target":"<?=isset($send_to_person)?"member":"all";?>",
-				"via":['wa','email'],
+				"via":['email'],//['wa','email'],
 				"to":"<?=$send_to_person;?>",
 				"subject":"",
 				"text":"",
@@ -247,6 +255,7 @@ $this->layout->begin_head();
 			files:[],
 			listMember:<?=json_encode($memberList);?>,
 			eventList:<?=json_encode($event);?>,
+			statusList:<?=json_encode($statusList);?>,
 			sendingMaterial:false,
 			material_event:"",
 			material:[],

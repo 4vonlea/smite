@@ -24,6 +24,9 @@
 							<h3>Material Uploads</h3>
 						</div>
 						<div class="col-6 text-right">
+						<button type="button" class="btn btn-primary" data-toggle="modal"
+									data-target="#modal-status-list"><i class="fa fa-book"></i> Allowed Status To Upload
+							</button>
 							<button type="button" class="btn btn-primary" data-toggle="modal"
 									data-target="#modal-upload-list"><i class="fa fa-book"></i> List Upload
 							</button>
@@ -48,6 +51,49 @@
 		</div>
 	</div>
 </div>
+
+<div class="modal" id="modal-status-list">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+
+			<!-- Modal Header -->
+			<div class="modal-header">
+				<h4 class="modal-title">Status Allow To Upload Material</h4>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+
+			<!-- Modal body -->
+			<div class="modal-body">
+				<table class="table">
+					<thead>
+						<tr>
+							<th>Status Name</th>
+							<th>Allow To Upload</th>
+						</tr>
+					</thead>
+					<tbody>
+					<tr v-for="(cat,index) in statusList">
+						<td>
+							{{ cat.kategory }}
+						</td>
+						<td>
+							<input type="checkbox" v-model="selectedStatus" :value="cat.id" />
+						</td>
+					</tr>
+					</tbody>
+				</table>
+
+			</div>
+
+			<!-- Modal footer -->
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+
+		</div>
+	</div>
+</div>
+
 
 <div class="modal" id="modal-upload-list">
 	<div class="modal-dialog modal-lg">
@@ -105,6 +151,7 @@
 <?php $this->layout->begin_script(); ?>
 
 <script>
+	var tempOld = [];
     var tempStatus = <?=json_encode($uploadList);?>;
 
     function postStatus(cat) {
@@ -116,9 +163,24 @@
         data: {
 			newList:'',
             uploadList:<?=json_encode($uploadList);?>,
+            statusList:<?=json_encode($statusList);?>,
+			selectedStatus:<?=$selectedStatus;?>,
             verifyModel: {},
             pagination: {},
         },
+		watch:{
+			selectedStatus:function(val,old){
+				if(JSON.stringify(val) !== JSON.stringify(tempOld)){
+					$.post("<?=base_url('admin/material/change_selected');?>", {'selected_status':val}, function (res) {
+						tempOld = val;
+						console.log("Sukses");
+					}, 'JSON').fail(function (xhr) {
+						app.selectedStatus = old;
+						Swal.fire('Fail', "Server Gagal Memproses", 'error');
+					});
+				}
+			}
+		},
         methods: {
 			formatDate(date) {
 				return moment(date).format("DD MMM YYYY, [At] HH:mm:ss");

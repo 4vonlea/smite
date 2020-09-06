@@ -16,14 +16,16 @@ class Notification extends Admin_Controller
 
 	public function index($send_to_person = null)
 	{
-		$this->load->model(["Event_m", "Member_m"]);
+		$this->load->model(["Event_m", "Member_m","Category_member_m"]);
 		$this->load->helper('form_helper');
 		$eventList = $this->Event_m->find()->select("id,name as label")->get()->result_array();
+		$statusList = $this->Category_member_m->find()->select("id,kategory as label")->get()->result_array();
 		$eventList[] = ['id' => 'Paper', 'label' => 'Paper Participant'];
 		$memberList = $this->Member_m->find()->select("id,CONCAT(fullname,' (',email,')') as label")->get()->result_array();
 		$this->layout->render("notification", [
 			'event' => $eventList,
 			'memberList' => $memberList,
+			'statusList' => $statusList,
 			'send_to_person' => $send_to_person,
 		]);
 	}
@@ -209,7 +211,9 @@ class Notification extends Admin_Controller
 				$this->load->model("Event_m");
 				$res = $this->Event_m->getParticipant()->where("t.id", $data['to'])->get();
 			}
-		} elseif ($data['target'] == 'member') {
+		}elseif($data['target'] == 'selected_status'){
+			$res = $this->Member_m->find()->where("status",$data['to'])->get();
+		}elseif ($data['target'] == 'member') {
 			$res = $this->Member_m->findOne($data['to']);
 			$to['email'][] = $res->email;
 			$to['wa'][] = $res->phone;

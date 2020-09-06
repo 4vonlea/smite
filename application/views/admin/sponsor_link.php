@@ -114,7 +114,7 @@
 						<datagrid
 							ref="datagrid"
 							api-url="<?= base_url('admin/sponsor/grid'); ?>"
-							:fields="[{name:'name',sortField:'name'}, {name:'category',sortField:'category'},{name:'link',sortField:'link'},{name:'id',sortField:'id','title':'Actions'}]">
+							:fields="[{name:'name',sortField:'name'}, {name:'category',sortField:'category'},{name:'link',sortField:'link'},{name:'click_count',sortField:'click_count','title':'Click Count'},{name:'id',sortField:'id','title':'Actions'}]">
 							<template slot="id" slot-scope="props">
 								<div class="table-button-container">
 									<button @click="edit(props)" class="btn btn-info btn-sm">
