@@ -291,7 +291,7 @@ $spsilver       = $this->Sponsor_link_m->listspsilver();
 						?>
 						<div>
 							<center>
-									<a href="#" class="" data-spsr="<?= $silver->name ?>" data-toggle="modal" data-target="#sponsormodal" onclick="return setPopUp($(this));">
+								<a href="#" class="" data-spsr="<?= $silver->name ?>" data-toggle="modal" data-target="#sponsormodal" onclick="return setPopUp($(this));">
 									<img class="img-fluid px-5" src="<?= base_url('themes/uploads/sponsor'); ?>/<?= $silver->logo?>" style="" alt="">
 								</a>
 							</center>
@@ -310,19 +310,19 @@ $spsilver       = $this->Sponsor_link_m->listspsilver();
 
 <!-- Modal -->
 <div id="sponsormodal" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header"></div>
-                <div class="modal-body">
-                   <div class='contai'>
-                   </div>
-                </div>
-                <div class="modal-footer">
-                    
-                </div>
-            </div>
-        </div>
-    </div>
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header"></div>
+			<div class="modal-body">
+				<div class='contai'>
+				</div>
+			</div>
+			<div class="modal-footer">
+
+			</div>
+		</div>
+	</div>
+</div>
 
 <footer id="footer" class="bg-color-quaternary">
 	<img alt="" class="img-fluid pb-5" src="<?= base_url('themes/porto'); ?>/img/footerbg.png">
@@ -369,6 +369,7 @@ $spsilver       = $this->Sponsor_link_m->listspsilver();
 <script src="<?= $theme_path; ?>vendor/magnific-popup/jquery.magnific-popup.min.js"></script>
 <script src="<?= $theme_path; ?>vendor/vide/jquery.vide.min.js"></script>
 <script src="<?= $theme_path; ?>vendor/vivus/vivus.min.js"></script>
+<script src="<?= $theme_path; ?>vendor/jquery.countdown/jquery.countdown.min.js"></script>
 
 <!-- Theme Base, Components and Settings -->
 <script src="<?= $theme_path; ?>js/theme.js"></script>
@@ -392,12 +393,13 @@ $spsilver       = $this->Sponsor_link_m->listspsilver();
 
 <script type="text/javascript">
 	function setPopUp(dom) {
-        var spsr = dom.data('spsr');
-        $("#sponsormodal .modal-body").html("<iframe class='responsive-iframe' src='<?= base_url('site/sponsor') ?>/"+spsr+"' frameborder = '1' allowfullscreen></iframe>");
-        $("#sponsormodal .modal-header").html("<span id='item-popup'></span><button type='button' class='close' data-dismiss='modal'>&times;</button>");
-        $("#item-popup").html(spsr);
-    }
+		var spsr = dom.data('spsr');
+		$("#sponsormodal .modal-body").html("<iframe class='responsive-iframe' src='<?= base_url('site/sponsor') ?>/"+spsr+"' frameborder = '1' allowfullscreen></iframe>");
+		$("#sponsormodal .modal-header").html("<span id='item-popup'></span><button type='button' class='close' data-dismiss='modal'>&times;</button>");
+		$("#item-popup").html(spsr);
+	}
 </script>
+
 
 <?= $script_js; ?>
 

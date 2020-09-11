@@ -106,6 +106,7 @@
                     <li><i>1 akun 1 email per user</i></li>
                     <li><i>E-certificate akan dikirimkan ke email yang terdaftar</i></li>
                 </ul>
+                <!-- <div><p id="demo"></p></div> -->
             </div>
         </div>
     </div>
@@ -113,8 +114,26 @@
 </div>
 </section>
 
-<section id="event" class="bg-color-light pt-4">
-    <div class="container mt-4 pb-4">
+<section id="timer" class="bg-color-light pt-4 pb-4">  
+<?php
+foreach($eventcountdown as $eventcd) 
+{
+    $eventtimer = $eventcd->value;
+}
+?>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h3 class="text-color-dark text-uppercase font-weight-bold text-center mb-3">Event Countdown</h3>
+                <div class="countdown countdown-borders countdown-primary" data-plugin-countdown data-plugin-options="{'date': '<?php echo $eventtimer; ?>', 'numberClass': 'font-weight-extra-bold', 'wrapperClass': 'border-color-primary'}"></div>
+            </div>
+        </div>
+    </div>
+</section>
+<hr>
+
+<section id="event" class="bg-color-light pt-1">
+    <div class="container mt-0 pb-4">
         <?php
         $colap = 1;
         foreach ($query as $row):
@@ -199,7 +218,7 @@
                 <div class="col-lg-4 text-center text-md-left mb-5 mb-lg-0">
                     <h6 class="text-color-dark font-weight-normal text-6 line-height-2"><strong class="font-weight-extra-bold"><?php echo $key->title ?></strong></h6>
                     <p style="font-size:9px" >
-                        <?php echo character_limiter($key->content, 100) ?>
+                        <?php echo character_limiter($key->content, 250) ?>
                     </p>
                     <p><a href="<?php echo base_url('site/readnews/'.$key->id) ?>" style="font-size: 11px" class="btn btn-primary">baca selengkapnya</a></p>
                 </div>
