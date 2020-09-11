@@ -20,6 +20,7 @@ class Site extends MY_Controller
         $this->load->model('Notification_m');
         $this->load->model('Sponsor_link_m', 'SponsorM');
         $this->load->model('Sponsor_link_m', 'Sponsor_link_m');
+        $this->load->model('Settings_m', 'SettingM');
     }
 
     public function index()
@@ -34,6 +35,8 @@ class Site extends MY_Controller
         $data['spgold'] = $spgold;
         $spsilver       = $this->SponsorM->listspsilver();
         $data['spsilver'] = $spsilver;
+        $eventcountdown = $this->SettingM->eventcountdown();
+        $data['eventcountdown'] = $eventcountdown;
         $this->layout->render('site/'.$this->theme.'/home',$data);
     }
 

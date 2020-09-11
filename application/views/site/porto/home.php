@@ -106,6 +106,7 @@
                     <li><i>1 akun 1 email per user</i></li>
                     <li><i>E-certificate akan dikirimkan ke email yang terdaftar</i></li>
                 </ul>
+                <!-- <div><p id="demo"></p></div> -->
             </div>
         </div>
     </div>
@@ -113,8 +114,26 @@
 </div>
 </section>
 
-<section id="event" class="bg-color-light pt-4">
-    <div class="container mt-4 pb-4">
+<section id="timer" class="bg-color-light pt-4 pb-4">  
+<?php
+foreach($eventcountdown as $eventcd) 
+{
+    $eventtimer = $eventcd->value;
+}
+?>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h3 class="text-color-dark text-uppercase font-weight-bold text-center mb-3">Event Countdown</h3>
+                <div class="countdown countdown-borders countdown-primary" data-plugin-countdown data-plugin-options="{'date': '<?php echo $eventtimer; ?>', 'numberClass': 'font-weight-extra-bold', 'wrapperClass': 'border-color-primary'}"></div>
+            </div>
+        </div>
+    </div>
+</section>
+<hr>
+
+<section id="event" class="bg-color-light pt-1">
+    <div class="container mt-0 pb-4">
         <?php
         $colap = 1;
         foreach ($query as $row):

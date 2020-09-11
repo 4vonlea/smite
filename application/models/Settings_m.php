@@ -118,4 +118,13 @@ class Settings_m extends MY_Model
         }
         return true;
     }
+
+    public function eventcountdown()
+    {
+        $this->db->select('*');
+        $this->db->from('settings');
+        $this->db->where('name', 'event_countdown');
+        $result = $this->db->get()->result();
+        return $result;
+    }
 }
