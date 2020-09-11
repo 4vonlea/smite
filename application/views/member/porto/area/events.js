@@ -12,7 +12,7 @@ export default Vue.component("PageEvents", {
 					<div class="row">
 						<div class="col-md-9">
 						<div class="overflow-hidden mb-1">
-							<h2 class="font-weight-normal text-7 mb-0"><strong class="font-weight-extra-bold">Acaran</strong></h2>
+							<h2 class="font-weight-normal text-7 mb-0"><strong class="font-weight-extra-bold">Acara</strong></h2>
 						</div>
 						<div class="overflow-hidden mb-4 pb-3">
 							<p class="mb-0">Silakan pilih acara yang Anda inginkan. *Acara tersedia berdasarkan status dan tanggal Anda</p>

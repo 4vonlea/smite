@@ -21,17 +21,13 @@ class Material extends Admin_Controller
 	{
 		$this->load->model('Ref_upload_m');
 		$data = $this->input->post('value');
-		$return = [];
-		foreach ($data as $i => $row) {
-			$model = null;
-			if (isset($row['id']))
-				$model = Ref_upload_m::findOne($row['id']);
-			if ($model == null)
-				$model = new Ref_upload_m();
-			$model->setAttributes($row);
-			$model->save();
-			$return[] = $model->toArray();
-		}
+		if (isset($data['id']))
+			$model = Ref_upload_m::findOne($data['id']);
+		else
+			$model = new Ref_upload_m();
+		$model->setAttributes($data);
+		$model->save();
+		$return = $this->Ref_upload_m->find()->select('*')->get()->result_array();
 		$this->output
 			->set_content_type("application/json")
 			->_display(json_encode($return));

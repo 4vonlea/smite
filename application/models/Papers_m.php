@@ -34,6 +34,7 @@ class Papers_m extends MY_Model
 		'Case Report' => 'Case Report',
 		// 'Review Article'=>'Review Article',
 		'Original Research'=>'Original Research',
+		'Systematic Review / Meta Analysis' => 'Systematic Review / Meta Analysis',
 		'Other' =>'Other',
 	];
 

@@ -219,6 +219,10 @@ class Payment extends MY_Controller
 
 
 	//Method Untuk Espay
+
+	public function check_ip(){
+		echo $this->request("https://git.ulm.ac.id/ip.php",[]);
+	}
 	public function inquiry_espay(){
 		$error_code = 0;
 		$error_message = "";
@@ -300,11 +304,9 @@ class Payment extends MY_Controller
 			}else{
 				$status = Transaction_m::STATUS_PENDING;
 			}
-
 			$this->Transaction_m->update(['midtrans_data'=>$response,'status_payment'=>$status],$order_id);
 			file_put_contents(APPPATH."logs/".$order_id."_status.json",$response);
 		}
-		echo "Oke";
 	}
 
 	protected function create_signature_espay($keySignature,$order_id,$service_name,$rq_datetime){
@@ -321,7 +323,7 @@ class Payment extends MY_Controller
 	}
 
 	protected function request($url,$params){
-			$curl = curl_init();
+		$curl = curl_init();
 			curl_setopt_array($curl, array(
 			CURLOPT_URL => $url,
 			CURLOPT_RETURNTRANSFER => true,
@@ -332,9 +334,9 @@ class Payment extends MY_Controller
 			CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
 			CURLOPT_CUSTOMREQUEST => "POST",
 			CURLOPT_POSTFIELDS => $params,
-			));
-			$response = curl_exec($curl);
-			curl_close($curl);
-			return $response;
+		));
+		$response = curl_exec($curl);
+		curl_close($curl);
+		return $response;
 	}
 }

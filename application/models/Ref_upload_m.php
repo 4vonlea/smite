@@ -23,7 +23,7 @@ class Ref_upload_m extends MY_Model
     
     public function getListMaterialMember($member_id){
         $rs = $this->setAlias("t")->find()
-                ->select("t.id,t.title,mum.id as id_mum,mum.filename,COALESCE(mum.type,2) as type,'' as tempname")
+                ->select("t.id,t.title,mum.id as id_mum,mum.filename,COALESCE(mum.type,2) as type,'' as tempname,deadline,'0' as countdown")
                 ->join("member_upload_material mum","mum.ref_upload_id = t.id AND mum.member_id = '$member_id'","left")
                 ->get();
         return $rs->result_array();

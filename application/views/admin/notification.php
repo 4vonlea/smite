@@ -84,7 +84,7 @@ $this->layout->begin_head();
 							</div>
 							<div class="form-group">
 								<label>Message</label>
-								<textarea v-model="message.text" class="form-control" id="exampleFormControlTextarea1" rows="3" ></textarea>
+								<textarea v-model="message.text" class="form-control" id="messageContent" rows="3" ></textarea>
 							</div>
 							<div class="form-group text-right">
 								<button :disabled="sending" type="button" class="btn btn-primary" @click="sendMessage">
@@ -232,10 +232,27 @@ $this->layout->begin_head();
 	</div>
 </div>
 <?php $this->layout->begin_script(); ?>
+<script src="<?=base_url('themes/script/tinymce/tinymce.min.js');?>"></script>
 <script src="<?=base_url("themes/script/vue-upload-component.js");?>"></script>
 <script src="<?=base_url("themes/script/chosen/chosen.jquery.min.js");?>"></script>
 <script src="<?=base_url("themes/script/chosen/vue-chosen.js");?>"></script>
 <script>
+	tinymce.init({
+		selector: '#messageContent',
+		height:400,
+		plugins: [
+			"code advlist anchor autolink fullscreen help image imagetools",
+			"lists link media noneditable preview",
+			"searchreplace table template visualblocks wordcount responsivefilemanager filemanager"
+		],
+		toolbar:
+			"code undo redo | bold italic | forecolor backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist | link image responsivefilemanager",
+		image_advtab: true,
+		external_filemanager_path: "<?=base_url('filemanager');?>/",
+		filemanager_title: "File Manager",
+		filemanager_access_key:"0082577b00bfd2651d8d3cbd8974e6f3"
+	});
+
 	Vue.component('file-upload', VueUploadComponent);
 	var app = new Vue({
         el: '#app',
@@ -446,10 +463,11 @@ $this->layout->begin_head();
             sendMessage(){
                 var url = "<?=base_url('admin/notification/send_message');?>";
                 var app = this;
-                app.sending = true;
+				app.sending = true;
+				this.message.text = tinymce.get("messageContent").getContent();
                 $.post(url,this.message,null,'JSON')
                     .done(function (res) {
-                    	if(res.type != "member" && res.data){
+                    	if(res.type != "member" && res.status){
     						app.pooling.title = "Send Mass Notification";
     						app.pooling.url = "<?=base_url('admin/notification/send_message');?>";
     						app.pooling.data = res.data;

@@ -90,12 +90,12 @@
 		selector: '#content_area',
 		height:400,
 		plugins: [
-			"advlist anchor autolink fullscreen help image imagetools",
+			"code advlist anchor autolink fullscreen help image imagetools",
 			"lists link media noneditable preview",
 			"searchreplace table template visualblocks wordcount responsivefilemanager filemanager"
 		],
 		toolbar:
-			"undo redo | bold italic | forecolor backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist | link image responsivefilemanager",
+			"code undo redo | bold italic | forecolor backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist | link image responsivefilemanager",
 		image_advtab: true,
 		external_filemanager_path: "<?=base_url('filemanager');?>/",
 		filemanager_title: "File Manager",

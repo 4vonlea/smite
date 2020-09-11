@@ -54,9 +54,9 @@ class Event_pricing_m extends MY_Model
 
     public function reverseParseForm($datas){
 		$this->load->model("Category_member_m");
-//		$participantsCategory = Category_member_m::asList(Category_member_m::findAll(), 'id', 'kategory');
-
-		$return = [];
+		$participantsCategory = Category_member_m::asList(Category_member_m::findAll(), 'id', 'kategory');
+        $return = [];
+        $temp = [];
         foreach($datas as $row){
             if(is_object($row))
                 $row = $row->toArray();
@@ -72,6 +72,17 @@ class Event_pricing_m extends MY_Model
                     'condition'=>$row['condition'],//(isset($participantsCategory[$row['condition']])?$participantsCategory[$row['condition']]:"-"),
                     'price'=>$row['price'],
                     'show'=>($row['show']==1)
+                ];
+                $temp[$row['name'].'price'][] = $row['condition'];
+            }
+        }
+        foreach($return as $eventPricing){
+            $notInclude = array_diff($participantsCategory,$temp[$eventPricing['name'].'price']);
+            foreach($notInclude as  $condition){
+                $return[$eventPricing['name']]['price'][] = [
+                    'condition'=> $condition,
+                    'price' => 0,
+                    'show'=>1
                 ];
             }
         }

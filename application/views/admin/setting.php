@@ -7,6 +7,10 @@
  * @var $manual
  */
 ?>
+<?php $this->layout->begin_head();?>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/vue-ctk-date-time-picker@2.5.0/dist/vue-ctk-date-time-picker.css">
+<?php $this->layout->end_head();?>
+
 <div class="header bg-info pb-8 pt-5 pt-md-7"></div>
 <div class="container-fluid mt--7">
 	<div class="row mb-2">
@@ -94,9 +98,17 @@
 									<div class="form-group">
 										<label>Chairman of the committee</label>
 										<input type="text" class="form-control" v-model="form.ketua_panitia" />
-
 									</div>
 								</div>
+								<div class="col-md-6">
+									<label>Event Date (for Countdown)</label>
+									<vue-ctk-date-time-picker :no-label="true" format="YYYY-MM-DD HH:mm:ss" formatted="DD MMMM YYYY HH:mm" v-model="form.event_countdown" ></vue-ctk-date-time-picker>
+								</div>
+								<div class="col-md-6">
+									<label>Paper Submission Deadline (for Countdown)</label>
+									<vue-ctk-date-time-picker :no-label="true" format="YYYY-MM-DD HH:mm:ss" formatted="DD MMMM YYYY HH:mm" v-model="form.paper_deadline" ></vue-ctk-date-time-picker>
+								</div>
+
 							</div>
 						</div>
 						<div class="tab-pane fade show" id="tabs-certificate" role="tabpanel">
@@ -466,6 +478,8 @@
 	</div>
 </div>
 <?php $this->layout->begin_script(); ?>
+<script src="https://cdn.jsdelivr.net/npm/vue-ctk-date-time-picker@2.5.0/dist/vue-ctk-date-time-picker.umd.js" charset="utf-8"></script>
+
 <script>
 	var banks = <?= $manual; ?>;
 	var emailReceive = "<?= Settings_m::getSetting("email_receive"); ?>";
@@ -504,7 +518,7 @@
 			property: []
 		}
 	}
-
+	Vue.component('vue-ctk-date-time-picker', window['vue-ctk-date-time-picker']);
 	var app = new Vue({
 		'el': '#app',
 		data: {
@@ -530,6 +544,8 @@
 				text_payment_proof: '<?= Settings_m::getSetting('text_payment_proof'); ?>',
 				format_id_paper: '<?= Settings_m::getSetting('format_id_paper'); ?>',
 				ketua_panitia: '<?= Settings_m::getSetting('ketua_panitia'); ?>',
+				event_countdown: '<?= Settings_m::getSetting('event_countdown'); ?>',
+				paper_deadline: '<?= Settings_m::getSetting('paper_deadline'); ?>',
 			},
 			email_notif_binded: <?= $email_binded; ?>,
 			email_notif: "<?= Settings_m::getSetting(Notification_m::SETTING_GMAIL_ADMIN); ?>",

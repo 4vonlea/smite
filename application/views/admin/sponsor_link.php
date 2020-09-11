@@ -106,6 +106,7 @@
 								<h3>Sponsor Link</h3>
 							</div>
 							<div class="col-6 text-right">
+								<a href="<?=base_url('admin/sponsor/download');?>" class="btn btn-primary"><i class="fa fa-file"></i> Download</a>
 								<button @click="onAdd" type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Add Sponsor</button>
 							</div>
 						</div>

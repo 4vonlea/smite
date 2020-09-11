@@ -16,6 +16,19 @@ class Sponsor extends Admin_Controller
 		]);
 	}
 
+	public function download(){
+		$this->load->model('Sponsor_link_m');
+		$data = $this->Sponsor_link_m->setAlias("t")->find()->select("name,category,link,count(lc.id) as click")
+		->join('link_click lc','t.id = lc.link_id')
+		->group_by('t.id')->get()->result_array();
+
+		$this->load->library('Exporter');
+		$exporter = new Exporter();
+		$exporter->setData($data);
+		$exporter->setTitle("Sponsor Link Click");
+		$exporter->asExcel();
+	}
+
 	public function save()
 	{
 		$this->load->model('Sponsor_link_m');

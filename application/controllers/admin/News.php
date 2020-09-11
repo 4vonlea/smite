@@ -31,7 +31,7 @@ class News extends Admin_Controller
 			show_404("Page Not Found !");
 		$this->load->model('News_m');
 
-		$post = $this->input->post();
+		$post = $this->input->post(null,false);
 
 		if (isset($post['id'])) {
 			$id = $post['id'];

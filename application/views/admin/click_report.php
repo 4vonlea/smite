@@ -15,6 +15,17 @@
                         <div class="col-6">
                             <h3>Link Click Report</h3>
                         </div>
+                        <div class="col-6 text-right">
+                            <div class="dropdown">
+                                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Download
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a href="<?=base_url('admin/click_report/download');?>" target="_blank" class="dropdown-item">Report</a>
+                                    <a class="dropdown-item" href="<?=base_url('admin/click_report/download_detail');?>" target="_blank">Detail</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="table-responsive">

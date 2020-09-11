@@ -181,7 +181,9 @@ export default Vue.component("PageBilling", {
 									<table>
 										<tr>
 											<th>Bank/Vendor Name</th>
-											<td>{{ detailEspay.bank_name }}</td>
+											<td>
+												{{ detailEspay.bank_name }}
+											</td>
 										</tr>
 										<tr>
 											<th>Product Name</th>
@@ -196,10 +198,13 @@ export default Vue.component("PageBilling", {
 											<td> 
 												{{ formatCurrency(detailEspay.amount) }} 
 												<br/>
-												<small>*Jumlah mungkin berbeda karena biaya tambahan dari Espay </small>
+												<small>*Jumlah mungkin berbeda karena biaya tambahan dari Espay </small><br/>
 											</td>
 										</tr>
 									</table>
+									<small>
+										*Untuk pembayaran dengan menggunakan Kartu Kredit , tagihan yang akan tercetak di lembar tagihan kartu kredit pelanggan adalah atas nama ESPAY  
+									</small>
 									</td>
 								<tr>
 								<tr v-if="detailModel.status_payment == 'pending' && detailModel.channel == 'MANUAL TRANSFER'">

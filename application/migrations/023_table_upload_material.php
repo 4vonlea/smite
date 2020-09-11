@@ -53,6 +53,5 @@ class Migration_table_upload_material extends CI_Migration
         $this->dbforge->drop_column("reviewer_feedback","status");
         $this->dbforge->drop_table("member_upload_material", true);
         $this->dbforge->drop_table("ref_upload", true);
-        
 	}
 }

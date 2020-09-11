@@ -198,6 +198,7 @@ class Notification extends Admin_Controller
 			show_404("Page Not Found !");
 
 		$data = $this->input->post();
+		$data['text'] = $this->input->post('text',false);
 		$this->load->model("Member_m");
 		$to = [];
 		$type = $this->input->post("target");
@@ -221,7 +222,7 @@ class Notification extends Admin_Controller
 			$to = $this->input->post("to");
 		}
 		$status = true;
-
+		$responseEmail = [];
 		if ($type == "member" || $type == "pooling") {
 			$this->load->model("Notification_m");
 			$responseEmail['status'] = true;
@@ -246,7 +247,7 @@ class Notification extends Admin_Controller
 		}
 		$this->output
 			->set_content_type("application/json")
-			->_display(json_encode(['status' => $status, 'type' => $type, 'data' => $to]));
+			->_display(json_encode(['status' => $status, 'type' => $type, 'data' => $to ,'detail'=>$responseEmail]));
 	}
 
 }

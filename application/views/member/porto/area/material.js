@@ -1,3 +1,8 @@
+Vue.filter('formatDate', function(value) {
+    if (value) {
+        return moment(value).format('DD MMMM YYYY HH:mm')
+    }
+});
 export default Vue.component("Material", {
     template:`
     <div class="col-lg-9">
@@ -15,6 +20,7 @@ export default Vue.component("Material", {
                         <tr>
                             <th>Nama Bahan</th>
                             <th>Upload/Link</th>
+                            <th>Deadline/Countdown</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -54,6 +60,10 @@ export default Vue.component("Material", {
                                     <small>*ekstensi file 'doc|docx|jpg|jpeg|png|bmp'</small>
                                 </div>
                             </td>
+                            <td>
+                                <span class="badge badge-pill badge-danger">{{ m.deadline | formatDate  }}</span> <br/>
+                                <span class="badge badge-pill badge-info" v-html="m.countdown"></span>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -66,6 +76,7 @@ export default Vue.component("Material", {
             listMaterial:[],
             loading:false,
             fail:false,
+            timer:null,
         }
     },
     mounted(){
@@ -85,6 +96,7 @@ export default Vue.component("Material", {
 			.always(function(res){
                 if (res.status) {
                     page.listMaterial = res.data;
+                    page.runTimer();
                 } else {
                     page.fail = true;
                 }
@@ -93,6 +105,22 @@ export default Vue.component("Material", {
             }).always(function () {
                 page.loading = false;
             });
+        },
+        runTimer(){
+            var page = this;
+            clearInterval(this.timer);
+            this.timer = setInterval(function(){
+                $.each(page.listMaterial,function(i,v){
+                    var duration = moment.duration(moment(v.deadline).unix() - moment().unix(),'seconds');
+                    if(duration > 0){
+                        v.countdown = `${duration.days()}<small>hari</small> ${duration.hours()}<small>jam</small> ${duration.minutes()}<small>menit</small> ${duration.seconds()}<small>detik</small>`;
+
+                    }else if(!v.deadline)
+                        v.countdown = 'Not Set';
+                    else
+                        v.countdown = `Expired`;
+                });
+            },1000);
         },
         saveMaterial(row,index,evt){
             var page = this;
@@ -138,7 +166,6 @@ export default Vue.component("Material", {
                 }).always(function () {
                     evt.target.innerHTML = "Simpan";
                     evt.target.removeAttribute("disabled");
-
                 });
             }
         }

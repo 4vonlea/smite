@@ -116,7 +116,7 @@ class Sponsor_link_m extends My_model
 		$config = [
 			'select'=>$select,["m.fullname","t.id", "t.name","click"=>"t.link,COUNT(lc.id)"],
 			'relationships'=>[
-				'm'=>['members','1 = 1'],
+				'm'=>['(SELECT fullname,username_account FROM members UNION ALL SELECT DISTINCT username AS fullname,username AS username_account FROM link_click WHERE username NOT IN (SELECT username_account FROM members))','1 = 1'],
 				'lc'=>['link_click','lc.link_id = t.id AND lc.username = m.username_account','left']
 			],
 			'group_by'=>'m.username_account',

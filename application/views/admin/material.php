@@ -4,6 +4,10 @@
  * @var array $univDl
  */
 ?>
+<?php $this->layout->begin_head();?>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/vue-ctk-date-time-picker@2.5.0/dist/vue-ctk-date-time-picker.css">
+<?php $this->layout->end_head();?>
+
 <div class="header bg-info pb-8 pt-5 pt-md-8">
 	<div class="container-fluid">
 		<div class="header-body">
@@ -107,12 +111,22 @@
 
 			<!-- Modal body -->
 			<div class="modal-body">
-				<div class="form-group">
-					<div class="input-group">
-						<input v-model="newList" type="text" class="form-control" @keyup.enter="addList"
-							   placeholder="New List"/>
-						<div class="input-group-append">
-							<button type="button" class="btn btn-primary" @click="addList"><i class="fa fa-plus"></i>
+				<div class="row mb-3">
+					<div class="col-md-5">
+						<label>Title</label>
+						<input v-model="newList.title" type="text" class="form-control" placeholder="New List"/>
+					</div>
+					<div class="col-md-5">
+						<label>Deadline</label>
+						<vue-ctk-date-time-picker :no-label="true" format="YYYY-MM-DD HH:mm" formatted="DD MMMM YYYY HH:mm" v-model="newList.deadline" ></vue-ctk-date-time-picker>
+					</div>
+					<div class="col-md-2" style="padding-top:20px">
+						<div class="btn-group">
+							<button type="button" class="btn btn-primary" @click="addList">
+								<i class="fa fa-save"></i>
+							</button>
+							<button type="button" class="btn btn-default" @click="newList = {}">
+								<i class="fa fa-minus-square"></i>
 							</button>
 						</div>
 					</div>
@@ -121,6 +135,7 @@
 					<thead>
 					<tr>
 						<th>File to Upload</th>
+						<th>Deadline</th>
 						<th></th>
 					</tr>
 					</thead>
@@ -130,8 +145,13 @@
 							{{ cat.title }}
 						</td>
 						<td>
+							{{ cat.deadline | formatDate }}
+						</td>
+						<td>
 							<button @click="removeList(index)" class="btn btn-danger btn-sm"><i
 									class="fa fa-times"></i></button>
+							<button @click="editList(index)" class="btn btn-info btn-sm"><i
+									class="fa fa-edit"></i></button>
 						</td>
 					</tr>
 					</tbody>
@@ -149,6 +169,7 @@
 </div>
 
 <?php $this->layout->begin_script(); ?>
+<script src="https://cdn.jsdelivr.net/npm/vue-ctk-date-time-picker@2.5.0/dist/vue-ctk-date-time-picker.umd.js" charset="utf-8"></script>
 
 <script>
 	var tempOld = [];
@@ -156,12 +177,18 @@
 
     function postStatus(cat) {
         return $.post('<?=base_url('admin/material/add_list');?>', {value: cat});
-    }
+	}
 
+	Vue.filter('formatDate', function(value) {
+		if (value) {
+			return moment(value).format('DD MMMM YYYY HH:mm')
+		}
+	});
+	Vue.component('vue-ctk-date-time-picker', window['vue-ctk-date-time-picker']);
     var app = new Vue({
         el: '#app',
         data: {
-			newList:'',
+			newList:{},
             uploadList:<?=json_encode($uploadList);?>,
             statusList:<?=json_encode($statusList);?>,
 			selectedStatus:<?=$selectedStatus;?>,
@@ -185,24 +212,21 @@
 			formatDate(date) {
 				return moment(date).format("DD MMM YYYY, [At] HH:mm:ss");
 			},
-			
             addList: function () {
-                if (this.newList != "") {
-					tempStatus.push({"title": this.newList});
-                    postStatus(tempStatus).done(function (res) {
-                        app.uploadList = res;
-						tempStatus = res;
-                        app.newList = "";
-                    }).fail(function (xhr) {
-                        tempStatus.pop();
-						var message =  xhr.getResponseHeader("Message");
-						if(!message)
-							message = 'Server fail to response !';
-						Swal.fire('Fail', message, 'error');
-                    });
-                }
-
-            },
+				postStatus(this.newList).done(function (res) {
+					app.uploadList = res;
+					app.newList = {};
+					Swal.fire('Success',"Material list and deadline saved successfully", 'success');
+				}).fail(function (xhr) {
+					var message =  xhr.getResponseHeader("Message");
+					if(!message)
+						message = 'Server fail to response !';
+					Swal.fire('Fail', message, 'error');
+				});
+			},
+			editList: function(index){
+                this.newList = this.uploadList[index];
+			},
             removeList: function (index) {
                 var value = this.uploadList[index];
                 $.post("<?=base_url('admin/material/remove_list');?>", {id: value.id}, function (res) {
