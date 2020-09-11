@@ -199,7 +199,7 @@
                 <div class="col-lg-4 text-center text-md-left mb-5 mb-lg-0">
                     <h6 class="text-color-dark font-weight-normal text-6 line-height-2"><strong class="font-weight-extra-bold"><?php echo $key->title ?></strong></h6>
                     <p style="font-size:9px" >
-                        <?php echo character_limiter($key->content, 100) ?>
+                        <?php echo character_limiter($key->content, 250) ?>
                     </p>
                     <p><a href="<?php echo base_url('site/readnews/'.$key->id) ?>" style="font-size: 11px" class="btn btn-primary">baca selengkapnya</a></p>
                 </div>
