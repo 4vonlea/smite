@@ -3,6 +3,12 @@
 
 class Material extends Admin_Controller
 {
+	protected $accessRule = [
+		'index'=>'view',
+		'grid'=>'view',
+		'remove_list'=>'delete',
+		'add_list'=>'insert',
+	];
 
 	public function index()
 	{

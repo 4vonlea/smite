@@ -6,6 +6,13 @@
 
 class Click_report extends Admin_Controller
 {
+	protected $accessRule = [
+		'index'=>'view',
+		'grid'=>'view',
+		'download_detail'=>'view',
+		'download'=>'view',
+	];
+	
     public function index()
 	{
 		$this->load->model('Sponsor_link_m');
