@@ -40,7 +40,7 @@ class Login extends MY_Controller
                     if($user['role'] == User_account_m::ROLE_ADMIN_PAPER)
 						redirect(base_url("admin/paper"));
 					elseif($user['role'] == User_account_m::ROLE_OPERATOR)
-						redirect(base_url("admin/administration"));
+						redirect(base_url("admin/dashboard"));
 					else
 						redirect(base_url("admin/dashboard"));
                 } else {
