@@ -6,6 +6,9 @@
  * @var $additional_head
  */
 $role = $this->session->user_session['role'];
+function hideForRole($role,$listRole){
+	echo (in_array($role,$listRole) ? "hidden" : "");
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -72,6 +75,9 @@ $role = $this->session->user_session['role'];
 		.action-th {
 			width: 10%;
 		}
+		.hidden{
+			display: none;
+		}
 	</style>
 	<?=$additional_head;?>
 </head>
@@ -136,56 +142,53 @@ $role = $this->session->user_session['role'];
 			</div>
 
 			<!-- Navigation -->
-			<?php if (in_array($role, ['1','2','4','5'])): ?>
 				<ul class="navbar-nav">
-					<?php if(!in_array($role,['4'])):?>
-					<li class="nav-item">
+					<li class="nav-item <?=hideForRole($role,['3','4']);?>">
 						<a class="nav-link" href="<?= base_url('admin/dashboard'); ?>">
 							<i class="ni ni-tv-2 text-primary"></i> Dashboard
 						</a>
 					</li>
-					<?php endif;?>
-					<li class="nav-item">
+					<li class="nav-item  <?=hideForRole($role,['3','4']);?>">
 						<a class="nav-link" href="<?= base_url('admin/click_report'); ?>">
 							<i class="ni ni-check-bold text-primary"></i> Link Click Report
 						</a>
 					</li>
-					<li class="nav-item">
+					<li class="nav-item  <?=hideForRole($role,['3']);?>">
 						<a class="nav-link" href="<?= base_url('admin/member'); ?>">
 							<i class="ni ni-single-02 text-orange"></i> Members
 						</a>
 					</li>
-					<li class="nav-item">
+					<li class="nav-item ">
 						<a class="nav-link" href="<?= base_url('admin/paper'); ?>">
 							<i class="ni ni-book-bookmark text-orange"></i> Papers
 						</a>
 					</li>
-					<li class="nav-item">
+					<li class="nav-item  <?=hideForRole($role,['3','4']);?>">
 						<a class="nav-link" href="<?= base_url('admin/event'); ?>">
 							<i class="ni ni-planet text-blue"></i> Events List
 						</a>
 					</li>
-					<li class="nav-item">
+					<li class="nav-item  <?=hideForRole($role,['3']);?>">
 						<a class="nav-link" href="<?= base_url('admin/transaction'); ?>">
 							<i class="ni ni-cart text-orange"></i> Transaction
 						</a>
 					</li>
-					<li class="nav-item">
+					<li class="nav-item  <?=hideForRole($role,['3']);?>">
 						<a class="nav-link" href="<?= base_url('admin/notification'); ?>">
 							<i class="ni ni-chat-round text-blue"></i> Message & Notification
 						</a>
 					</li>
-					<li class="nav-item">
+					<li class="nav-item  <?=hideForRole($role,['3','4']);?>">
 						<a class="nav-link" href="<?= base_url('admin/news'); ?>">
 							<i class="ni ni-book-bookmark text-blue"></i> News
 						</a>
 					</li>
-					<li class="nav-item">
+					<li class="nav-item  <?=hideForRole($role,['3']);?>">
 						<a class="nav-link" href="<?= base_url('admin/material'); ?>">
 							<i class="ni ni-archive-2 text-blue"></i> Material Speaker
 						</a>
 					</li>
-					<li class="nav-item">
+					<li class="nav-item  <?=hideForRole($role,['3','4']);?>">
 						<a class="nav-link" href="<?= base_url('admin/sponsor'); ?>">
 							<i class="ni ni-html5 text-blue"></i> Sponsor Link
 						</a>
@@ -197,12 +200,12 @@ $role = $this->session->user_session['role'];
 						</a>
 					</li>
 					<?php endif;?>
-					<li class="nav-item">
+					<li class="nav-item  <?=hideForRole($role,['3']);?>">
 						<a class="nav-link" href="<?= base_url('admin/committee'); ?>">
 							<i class="fa fa-bookmark text-blue"></i> Committees
 						</a>
 					</li>
-					<li class="nav-item">
+					<li class="nav-item  <?=hideForRole($role,['3','4']);?>">
 						<a class="nav-link" href="<?= base_url('admin/setting'); ?>">
 							<i class="ni ni-settings text-red"></i> Setting
 						</a>
@@ -214,34 +217,25 @@ $role = $this->session->user_session['role'];
 				<h6 class="navbar-heading text-muted">On Event</h6>
 				<!-- Navigation -->
 				<ul class="navbar-nav mb-md-3">
-					<li class="nav-item">
+					<li class="nav-item  <?=hideForRole($role,['3']);?>">
 						<a class="nav-link"
 						   href="<?= base_url("admin/member/register"); ?>">
 							<i class="ni ni-spaceship text-green"></i> Manual Registration
 						</a>
 					</li>
-					<li class="nav-item">
+					<li class="nav-item  <?=hideForRole($role,['3','4']);?>">
 						<a class="nav-link"
 						   href="<?= base_url("admin/presence"); ?>">
 							<i class="ni ni-bullet-list-67 text-green"></i> Presence check
 						</a>
 					</li>
-					<li class="nav-item">
+					<li class="nav-item  <?=hideForRole($role,['3','4']);?>">
 						<a class="nav-link"
 						   href="<?= base_url("admin/administration"); ?>">
 							<i class="fa fa-book text-green"></i> Administration
 						</a>
 					</li>
 				</ul>
-			<?php elseif (in_array($role, ['3'])): ?>
-				<ul class="navbar-nav">
-					<li class="nav-item">
-						<a class="nav-link" href="<?= base_url('admin/paper'); ?>">
-							<i class="ni ni-book-bookmark text-orange"></i> Papers
-						</a>
-					</li>
-				</ul>
-			<?php endif; ?>
 		</div>
 	</div>
 </nav>
