@@ -143,7 +143,7 @@ function hideForRole($role,$listRole){
 
 			<!-- Navigation -->
 				<ul class="navbar-nav">
-					<li class="nav-item <?=hideForRole($role,['3','4']);?>">
+					<li class="nav-item <?=hideForRole($role,['3']);?>">
 						<a class="nav-link" href="<?= base_url('admin/dashboard'); ?>">
 							<i class="ni ni-tv-2 text-primary"></i> Dashboard
 						</a>
