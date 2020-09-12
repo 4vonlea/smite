@@ -54,7 +54,7 @@
     ?>
     <div class="container">
         <div class="row">
-           <div class="col-lg-6 divider-left-border py-2">
+           <div class="col-lg-6 py-2">
             <h3 class="text-color-dark text-uppercase font-weight-bold text-center mb-3">abstract Countdown</h3>
                <div class="countdown countdown-borders countdown-light" data-plugin-countdown data-plugin-options="{'date': '<?php echo $papertimer; ?>', 'numberClass': 'font-weight-extra-bold', 'wrapperClass': 'border-color-primary bg-color-primary'}"></div>
            </div>
