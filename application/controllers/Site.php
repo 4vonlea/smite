@@ -37,6 +37,8 @@ class Site extends MY_Controller
         $data['spsilver'] = $spsilver;
         $eventcountdown = $this->SettingM->eventcountdown();
         $data['eventcountdown'] = $eventcountdown;
+        $papercountdown = $this->SettingM->papercountdown();
+        $data['papercountdown'] = $papercountdown;
         $this->layout->render('site/'.$this->theme.'/home',$data);
     }
 

@@ -127,4 +127,13 @@ class Settings_m extends MY_Model
         $result = $this->db->get()->result();
         return $result;
     }
+
+    public function papercountdown()
+    {
+        $this->db->select('*');
+        $this->db->from('settings');
+        $this->db->where('name', 'paper_deadline');
+        $result = $this->db->get()->result();
+        return $result;
+    }
 }

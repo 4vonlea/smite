@@ -40,18 +40,34 @@
     </div>
 </section>
 
-<!-- <section id="images" class="bg-color-light pt-3">
-    <div class="container pb-4">
-        <div class="row pt-5">
-            <div class="col-lg-12">
-                <img class="img img-fluid" src="<?= base_url('themes/porto'); ?>/img/gambar.png">
-            </div>
-        </div>
-    </div>
-</section> -->
+<section id="timer" class="bg-color-light pt-2 pb-3">  
+    <?php
+    foreach($eventcountdown as $eventcd) 
+    {
+        $eventtimer = $eventcd->value;
+    }
+
+    foreach($papercountdown as $papercd) 
+    {
+        $papertimer = $papercd->value;
+    }
+    ?>
+    <div class="container">
+        <div class="row">
+           <div class="col-lg-6 divider-left-border py-2">
+            <h3 class="text-color-dark text-uppercase font-weight-bold text-center mb-3">abstract Countdown</h3>
+               <div class="countdown countdown-borders countdown-light" data-plugin-countdown data-plugin-options="{'date': '<?php echo $papertimer; ?>', 'numberClass': 'font-weight-extra-bold', 'wrapperClass': 'border-color-primary bg-color-primary'}"></div>
+           </div>
+           <div class="col-lg-6 divider-left-border py-2">
+               <h3 class="text-color-dark text-uppercase font-weight-bold text-center mb-3">Event Countdown</h3>
+               <div class="countdown countdown-borders countdown-primary" data-plugin-countdown data-plugin-options="{'date': '<?php echo $eventtimer; ?>', 'numberClass': 'font-weight-extra-bold', 'wrapperClass': 'border-color-primary'}"></div>
+           </div>
+       </div>
+   </div>
+</section>
 
 <section id="login" class="bg-color-grey">
-    <div class="container pb-4">
+    <div class="container pb-4  appear-animation animated bounce appear-animation-visible" data-appear-animation="bounce" data-appear-animation-delay="0" data-appear-animation-duration="1s" style="animation-duration: 1s; animation-delay: 0ms;">
         <div class="row">
             <div class="col-lg-6">
                 <h2 class="text-color-dark font-weight-bold mt-5 mb-3">Login disini</h2>
@@ -113,24 +129,6 @@
 </div>
 </div>
 </section>
-
-<section id="timer" class="bg-color-light pt-4 pb-4">  
-<?php
-foreach($eventcountdown as $eventcd) 
-{
-    $eventtimer = $eventcd->value;
-}
-?>
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <h3 class="text-color-dark text-uppercase font-weight-bold text-center mb-3">Event Countdown</h3>
-                <div class="countdown countdown-borders countdown-primary" data-plugin-countdown data-plugin-options="{'date': '<?php echo $eventtimer; ?>', 'numberClass': 'font-weight-extra-bold', 'wrapperClass': 'border-color-primary'}"></div>
-            </div>
-        </div>
-    </div>
-</section>
-<hr>
 
 <section id="event" class="bg-color-light pt-1">
     <div class="container mt-0 pb-4">
