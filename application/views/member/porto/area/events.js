@@ -19,7 +19,7 @@ export default Vue.component("PageEvents", {
 						</div>
 						</div>
 						<div class="col-md-3">
-							<router-link class="btn btn-primary mt-4" to="/billing"><span style="font-size: 12px;border-right: 1px solid" class="badge badge-warning">{{ countAdded }}</span> <i class="fa fa-shopping-cart fa-1x"></i> Menuju Keranjang </router-link>
+							<router-link class="btn btn-primary mt-4" to="/billing"><span style="font-size: 12px;border-right: 1px solid" class="badge badge-warning">{{ countAdded }}</span> <i class="fa fa-shopping-cart fa-1x"></i> Lakukan Pembayaran </router-link>
 						</div>
 					</div>
 					

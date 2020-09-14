@@ -52,7 +52,7 @@ $userDetail = array_merge($user->toArray(), ['status_member' => $user->status_me
 							<router-link active-class="active" class="nav-link text-dark" to="/profile">Profil-Ku</router-link>
 						</li>
 						<li class="nav-item">
-							<router-link active-class="active" class="nav-link text-dark" to="/paper">Kirim Paper
+							<router-link active-class="active" class="nav-link text-dark" to="/paper">Kirim Manuskrip
 							</router-link>
 						</li>
 						<li class="nav-item">
