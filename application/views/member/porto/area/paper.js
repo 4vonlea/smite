@@ -305,7 +305,7 @@ export default Vue.component("PagePaper", {
 				evt.keyCode != 38 &&
 				evt.keyCode != 39 &&
 				evt.keyCode != 40 &&
-				 this.form.introduction && this.form.introduction.split(" ").length > 5){
+				 this.form.introduction && this.form.introduction.split(" ").length > 300){
 				evt.preventDefault();
 			}
 		},
