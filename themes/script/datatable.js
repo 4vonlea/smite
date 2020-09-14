@@ -33,6 +33,7 @@ var template = `
                   :per-page="pageSize"
                   data-path="data"
                   pagination-path=""
+                  :sort-order="sortOrder"
                   :append-params="paramsQuery"
                   @vuetable:pagination-data="onPaginationData"
                   @vuetable:loading="onLoading"
@@ -60,7 +61,7 @@ Vue.component('datagrid', {
         'vuetable-pagination-info': Vuetable.VuetablePaginationInfo
     },
     props: {
-        'fields': Array, 'api-url': String, 'per-page': {
+        'fields': Array, 'api-url': String, 'sort-order': Array, 'per-page': {
             'type': Array, 'default': function () {
                 return [10, 20, 50, 100];
             }

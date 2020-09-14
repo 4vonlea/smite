@@ -18,9 +18,7 @@ export default Vue.component("PageEvents", {
 							<p class="mb-0">Silakan pilih acara yang Anda inginkan. *Acara tersedia berdasarkan status dan tanggal Anda</p>
 						</div>
 						</div>
-						<div class="col-md-3">
-							<router-link class="btn btn-primary mt-4" to="/billing"><span style="font-size: 12px;border-right: 1px solid" class="badge badge-warning">{{ countAdded }}</span> <i class="fa fa-shopping-cart fa-1x"></i> Lakukan Pembayaran </router-link>
-						</div>
+						<div class="col-md-3"></div>
 					</div>
 					
 					<div class="row">
@@ -68,6 +66,11 @@ export default Vue.component("PageEvents", {
 										</div>
 								</div>
 							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-12  text-right">
+							<router-link class="btn btn-primary mt-4" to="/billing"><span style="font-size: 12px;border-right: 1px solid" class="badge badge-warning">{{ countAdded }}</span> <i class="fa fa-shopping-cart fa-1x"></i> Lakukan Pembayaran </router-link>
 						</div>
 					</div>
 				</div>

@@ -96,6 +96,7 @@
 				@loaded_data="loadedGrid"
 				ref="datagrid"
 				api-url="<?= base_url('admin/transaction/grid'); ?>"
+				:sort-order="[{field:'t_updated_at',direction:'desc'}]"
 				:fields="[{name:'invoice',sortField:'invoice','title':'No Invoice'}, {name:'fullname',sortField:'fullname','title':'Member Name'},{name:'status_payment',sortField:'status_payment'},{name:'t_updated_at',sortField:'t_updated_at',title:'Date'},{name:'t_id','title':'Aksi'}]">
 				<template slot="status_payment" slot-scope="props">
 					{{ props.row.status_payment.toUpperCase() }}

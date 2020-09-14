@@ -160,9 +160,10 @@ export default Vue.component("PagePaper", {
 						<div class="form-group row">
 							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Abstract*</label>
 							<div class="col-lg-9">
-								<textarea :disabled="detail"  :class="{'is-invalid':error_upload.introduction}" v-model="form.introduction"  class="form-control" name="introduction">
+								<textarea :disabled="detail" rows="5" @keydown='wordCount'  :class="{'is-invalid':error_upload.introduction}" v-model="form.introduction"  class="form-control" name="introduction">
 								</textarea>
 								<div v-if="error_upload.title" class="invalid-feedback">{{ error_upload.introduction }}</div>
+								<small>{{ wordCountIntroduction }} Kata (Maksimal 300)</small>
 							</div>
 						</div>
 						<!--
@@ -273,7 +274,7 @@ export default Vue.component("PagePaper", {
     `,
     data: function () {
         return {
-        	mode:0,
+			mode:0,
 			detail:false,
             loading: false,
             fail: false,
@@ -291,8 +292,23 @@ export default Vue.component("PagePaper", {
     },
     watch: {
         '$route': 'fetchData'
-    },
+	},
+	computed:{
+		wordCountIntroduction(){
+			return (this.form.introduction ? this.form.introduction.trim().split(" ").length:0);
+		}
+	},
     methods: {
+		wordCount(evt){
+			if(evt.keyCode != 8 &&
+				evt.keyCode != 37 &&
+				evt.keyCode != 38 &&
+				evt.keyCode != 39 &&
+				evt.keyCode != 40 &&
+				 this.form.introduction && this.form.introduction.split(" ").length > 5){
+				evt.preventDefault();
+			}
+		},
     	uploadFullpaper(){
 			var page = this;
 			var fd = new FormData(this.$refs.formFullpaper);

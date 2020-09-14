@@ -48,21 +48,28 @@ $userDetail = array_merge($user->toArray(), ['status_member' => $user->status_me
 
 				<aside class="sidebar mt-2" id="sidebar">
 					<ul class="nav nav-list flex-column mb-5">
+
 						<li class="nav-item">
-							<router-link active-class="active" class="nav-link text-dark" to="/profile">Profil-Ku</router-link>
+							<router-link active-class="active" class="nav-link text-dark" to="/profile">Profil</router-link>
 						</li>
 						<li class="nav-item">
 							<router-link active-class="active" class="nav-link text-dark" to="/paper">Kirim Manuskrip
 							</router-link>
 						</li>
+                        <h6 class="sidebar-heading d-flex justify-content-between align-items-center mt-2 pl-2 mb-1 text-muted">
+                            <span>Pembelian</span>
+                        </h6>
 						<li class="nav-item">
-							<router-link active-class="active" class="nav-link text-dark" to="/events">Acara
+							<router-link active-class="active" class="nav-link text-dark" to="/events">Pilih Acara
 							</router-link>
 						</li>
 						<li class="nav-item">
-							<router-link active-class="active" class="nav-link text-dark" to="/billing">Transaksi & Keranjang
+							<router-link active-class="active" class="nav-link text-dark" to="/billing">Keranjang & Pembayaran
 							</router-link>
 						</li>
+                        <h6 class="sidebar-heading d-flex justify-content-between align-items-center mt-2 pl-2 mb-1 text-muted">
+                            <span>On Event</span>
+                        </h6>
                         <li class="nav-item">
 							<router-link active-class="active" class="nav-link text-dark" to="/webminar">Webinar Link
 							</router-link>
@@ -74,10 +81,10 @@ $userDetail = array_merge($user->toArray(), ['status_member' => $user->status_me
                         </li>
                         <?php endif;?>
                         <li class="nav-item">
-							<router-link active-class="active" class="nav-link text-dark" to="/presentation">Presentasi
+							<router-link active-class="active" class="nav-link text-dark" to="/presentation">Daftar Presentasi Ilmiah
 							</router-link>
-						</li>
-						<li class="nav-item"><a class="nav-link text-dark"
+                        </li>
+						<li class="nav-item mt-4"><a class="nav-link text-dark"
 												href="<?= base_url('member/area/logout'); ?>">Logout</a></li>
 					</ul>
 				</aside>
