@@ -11,7 +11,7 @@ export default Vue.component("PageBilling", {
 				</div>
 				<div class="row">
 					<h4>Transaction History</h4>
-					<table class="table table-bordered">
+					<table class="table table-responsive table-bordered">
 						<thead>
 							<th>Tanggal</th>
 							<th>No Invoice</th>
