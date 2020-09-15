@@ -75,7 +75,10 @@ class MY_Model extends yidas\Model
 			$builder->select($this->convertGridSelect($gridConfig['select']));
 
         if(count($sort) > 1)
-            $builder->order_by($sort[0],$sort[1]);
+			$builder->order_by($sort[0],$sort[1]);
+		elseif(count($gridConfig['sort']) > 0)
+			$builder->order_by($gridConfig['sort'][0],$gridConfig['sort'][1]);
+
 
         if($global_filter){
         	$builder->group_start();
