@@ -45,7 +45,11 @@ class Papers_m extends MY_Model
 		return [
 			['field' => 'title', 'label' => 'Title', 'rules' => 'required|max_length[255]'],
 			['field' => 'type', 'label' => 'Type Abstract', 'rules' => 'required|max_length[255]'],
-			['field' => 'introduction', 'label' => 'Abstract', 'rules' => 'required'],
+			['field' => 'introduction', 'label' => 'Abstract', 'rules' => ['required',[
+				'max_word',function($value){
+					return (count(explode(" ",trim($value))) <= 300);
+				}
+			]],'errors'=>['max_word'=>'{field} Maksimal 300 Kata']],
 //			['field' => 'aims', 'label' => 'aims', 'rules' => 'required'],
 			['field' => 'methods', 'label' => 'Type Of Study', 'rules' => 'required'],
 //			['field' => 'result', 'label' => 'result', 'rules' => 'required'],

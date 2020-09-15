@@ -160,7 +160,7 @@ export default Vue.component("PagePaper", {
 						<div class="form-group row">
 							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Abstract*</label>
 							<div class="col-lg-9">
-								<textarea :disabled="detail" rows="5" @keydown='wordCount'  :class="{'is-invalid':error_upload.introduction}" v-model="form.introduction"  class="form-control" name="introduction">
+								<textarea :disabled="detail" rows="5" @keydown='wordCount' @keyup='reduceWord'  :class="{'is-invalid':error_upload.introduction}" v-model="form.introduction"  class="form-control" name="introduction">
 								</textarea>
 								<div v-if="error_upload.title" class="invalid-feedback">{{ error_upload.introduction }}</div>
 								<small>{{ wordCountIntroduction }} Kata (Maksimal 300)</small>
@@ -299,6 +299,13 @@ export default Vue.component("PagePaper", {
 		}
 	},
     methods: {
+		reduceWord(){
+			if(this.form.introduction && this.form.introduction.trim().split(" ").length > 300){
+				let temp = this.form.introduction.split(" ");
+				temp.splice(300,temp.length - 300);
+				this.form.introduction = temp.join(" ");
+			}
+		},
 		wordCount(evt){
 			if(evt.keyCode != 8 &&
 				evt.keyCode != 37 &&
