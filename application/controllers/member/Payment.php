@@ -212,6 +212,7 @@ class Payment extends MY_Controller
 			$transaction->save();
 			$response['status'] = true;
 			$response['manual'] = $manual_payment;
+			$this->load->model(["Member_m","Notification_m"]);
 
 			$member = $this->Member_m->findOne(['id'=>$transaction->member_id]);
 			$attc = [
@@ -239,7 +240,7 @@ class Payment extends MY_Controller
 		$amount = 0;
 
 		$order_id = $this->input->post("order_id");
-		$this->load->model(["Transaction_m","Notification_m"]);
+		$this->load->model(["Transaction_m","Notification_m","Member_m"]);
 		$trx = $this->Transaction_m->findOne(['id'=>$order_id]);
 
 		foreach($trx->detailsWithEvent() as $row){
