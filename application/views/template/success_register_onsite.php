@@ -26,7 +26,7 @@
 </style>
 <p>Yth, <?=$fullname;?></p>
 <p>
-	Terlampir Akun Anda serta invoice bukti dan registrasi pada kegiatan <?=Settings_m::getSetting('text_payment_proof');?>.
+	Terlampir akun anda serta invoice dan bukti registrasi pada kegiatan <?=Settings_m::getSetting('text_payment_proof');?>.
 </p>
 	<table>
 		<tr>
