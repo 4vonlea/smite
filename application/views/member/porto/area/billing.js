@@ -9,9 +9,9 @@ export default Vue.component("PageBilling", {
 				<div class="overflow-hidden mb-4 pb-3">
 					<p class="mb-0">Halaman untuk mengonfirmasi riwayat penagihan dan invoice display </p>
 				</div>
-				<div class="row">
+				<div class="row  table-responsive">
 					<h4>Transaction History</h4>
-					<table class="table table-responsive table-bordered">
+					<table class="table table-bordered">
 						<thead>
 							<th>Tanggal</th>
 							<th>No Invoice</th>
@@ -38,7 +38,7 @@ export default Vue.component("PageBilling", {
 						</tbody>
 					</table>
 				</div>
-				<div class="row">
+				<div class="row table-responsive">
 					<h4>Current Cart</h4>
 					<div v-if="!cart" class="col-md-12 alert alert-warning">
 						<p>Anda belum memilih acara yang akan ditambahkan</p>
@@ -215,7 +215,7 @@ export default Vue.component("PageBilling", {
 											<div class="col-sm-6" v-for="account in detailModel.banks">
 												<div class="card">
 														<h3 class="card-title">{{ account.bank }}</h3>
-														<p class="card-text">
+														<p class="card-text table-responsive">
 															<table>
 																<tr>
 																	<th>No Rekening</th>

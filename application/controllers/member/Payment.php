@@ -212,6 +212,13 @@ class Payment extends MY_Controller
 			$transaction->save();
 			$response['status'] = true;
 			$response['manual'] = $manual_payment;
+
+			$member = $this->Member_m->findOne(['id'=>$transaction->member_id]);
+			$attc = [
+				$member->fullname.'-invoice.pdf' => $transaction->exportInvoice()->output(),
+			];
+			$this->Notification_m->sendMessageWithAttachment($member->email, 'Invoice', "Terima kasih atas partisipasi anda berikut adalah invoice acara yang anda ikuti", $attc);
+	
 		}
 		$this->output->set_content_type("application/json")
 			->_display(json_encode($response));
@@ -232,7 +239,7 @@ class Payment extends MY_Controller
 		$amount = 0;
 
 		$order_id = $this->input->post("order_id");
-		$this->load->model("Transaction_m");
+		$this->load->model(["Transaction_m","Notification_m"]);
 		$trx = $this->Transaction_m->findOne(['id'=>$order_id]);
 
 		foreach($trx->detailsWithEvent() as $row){
@@ -242,6 +249,13 @@ class Payment extends MY_Controller
 		$data = $this->input->post();
 		$data['amount_me'] = $amount;
 		$this->Transaction_m->update(['checkout'=>1,'channel'=>'ESPAY','status_payment'=>Transaction_m::STATUS_PENDING],$order_id);
+		$tr = $this->Transaction_m->findOne(['id'=>$order_id]);
+		$member = $this->Member_m->findOne(['id'=>$tr->member_id]);
+		$attc = [
+			$member->fullname.'-invoice.pdf' => $tr->exportInvoice()->output(),
+		];
+		$this->Notification_m->sendMessageWithAttachment($member->email, 'Invoice', "Terima kasih atas partisipasi anda berikut adalah invoice acara yang anda ikuti", $attc);
+
 
 		file_put_contents(APPPATH."logs/".$order_id."_inquiry.json",json_encode($data));
 		echo implode(";",[$error_code,$error_message,$order_id,$amount,$ccy,$description,$date]);

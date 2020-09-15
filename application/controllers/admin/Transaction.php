@@ -135,7 +135,7 @@ class Transaction extends Admin_Controller
 						'held_in' => $row->held_in,
 						'theme' => $row->theme
 					];
-					if(env('send_card_member','1') == '1') {
+					if(env('send_card_member','1') == '1' && false) {
 						try {
 							$attc[$member->fullname . "_" . $row->event_name . ".pdf"] = $member->getCard($row->event_id)->output();
 						}catch (ErrorException $exception){

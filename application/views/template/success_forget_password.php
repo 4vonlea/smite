@@ -27,6 +27,7 @@
 <p>Hi</p>
 <p>
 	You've received this email because you have successfully reset your password.
+	
 </p>
 <p>
     Your new password is <b><?php echo $password; ?><b>

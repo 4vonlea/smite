@@ -275,7 +275,7 @@ class Member extends Admin_Controller
 								'held_in' => $row->held_in,
 								'theme' => $row->theme
 							];
-							if(env('send_card_member','1') == '1') {
+							if(env('send_card_member','1') == '1' && false) {
 								try {
 									$attc[$data['fullname'] . "_" . $row->event_name . ".pdf"] = $this->Member_m->getCard($row->event_id, $data)->output();
 								}catch (ErrorException $ex){
@@ -284,7 +284,7 @@ class Member extends Admin_Controller
 							}
 						}
 					}
-					$this->Notification_m->sendMessageWithAttachment($data['email'], 'Registered On Site Succesfully - Invoice, Payment Proof', $email_message, $attc);
+					$this->Notification_m->sendMessageWithAttachment($data['email'], 'Pendaftaran Berhasil', $email_message, $attc);
 				}
 			} else {
 				$error['status'] = false;

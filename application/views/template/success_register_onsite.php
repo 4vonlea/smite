@@ -24,9 +24,9 @@
 		padding: 10px 10px;
 	}
 </style>
-<p>Hi, <?=$fullname;?></p>
+<p>Yth, <?=$fullname;?></p>
 <p>
-	You've received this email because you have successfully registered by admin to participate on events. Below is your account description
+	Terlampir Akun Anda serta invoice bukti dan registrasi pada kegiatan <?=Settings_m::getSetting('text_payment_proof');?>.
 </p>
 	<table>
 		<tr>
@@ -38,24 +38,23 @@
 			<td><?=$password;?></td>
 		</tr>
 		<tr>
-			<th>Fullname</th>
+			<th>Nama</th>
 			<td><?=$fullname;?></td>
 		</tr>
 		<tr>
-			<th>Status As</th>
+			<th>Status</th>
 			<td><?=$participantsCategory[$status];?></td>
 		</tr>
 		<tr>
-			<th>Gender</th>
-			<td><?=$gender == "M" ? "Male":"Female";?></td>
+			<th>Jenis Kelamin</th>
+			<td><?=$gender == "M" ? "Laki-Laki":"Perempuan";?></td>
 		</tr>
 		<tr>
-			<th>City</th>
+			<th>Kota</th>
 			<td><?=$city?></td>
 		</tr>
 		<tr>
-			<th>Address</th>
+			<th>Alamat</th>
 			<td><?=$address?></td>
 		</tr>
 </table>
-<p>And below is your invoice and Bukti Registrasi</p>
