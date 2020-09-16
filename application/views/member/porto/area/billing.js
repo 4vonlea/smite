@@ -178,7 +178,7 @@ export default Vue.component("PageBilling", {
 								</tr>
 								<tr v-if="detailModel.status_payment == 'pending' && detailModel.channel == 'ESPAY'">
 									<td colspan="4">
-									<table>
+									<table v-if="detailEspay.product_value">
 										<tr>
 											<th>Bank/Vendor Name</th>
 											<td>
@@ -202,6 +202,7 @@ export default Vue.component("PageBilling", {
 											</td>
 										</tr>
 									</table>
+									<h4 v-else>Informasi pembayaran bisa dilihat pada email yang dikirim oleh ESPAY</h4>
 									<small>
 										*Untuk pembayaran dengan menggunakan Kartu Kredit , tagihan yang akan tercetak di lembar tagihan kartu kredit pelanggan adalah atas nama ESPAY  
 									</small>

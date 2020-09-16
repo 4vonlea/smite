@@ -69,8 +69,6 @@ class Gmail_api implements iNotification
     }
 
     public function sendMessage($to,$subject,$message){
-		$message.="<br/><br/><br/><hr/><small>This is an automated email, Please do not reply to this message.</small>";
-
 		$from = $this->getEmail();
         $sender = $this->getSender();
 
@@ -100,7 +98,6 @@ class Gmail_api implements iNotification
     }
 
 	public function sendMessageWithAttachment($to,$subject,$message,$attachment,$fname = ""){
-    	$message.="<br/><br/><br/><hr/><small>This is an automated email, Please do not reply to this message.</small>";
     	$files = [];
     	if(!is_array($attachment)){
     		$files[$fname] = $attachment;
