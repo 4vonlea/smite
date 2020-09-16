@@ -91,11 +91,11 @@
 		height:400,
 		plugins: [
 			"code advlist anchor autolink fullscreen help image imagetools",
-			"lists link media noneditable preview",
+			"lists link media noneditable preview pagebreak",
 			"searchreplace table template visualblocks wordcount responsivefilemanager filemanager"
 		],
 		toolbar:
-			"code undo redo | bold italic | forecolor backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist | link image responsivefilemanager",
+			"code undo redo | bold italic | forecolor backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist | link image responsivefilemanager | pagebreak",
 		image_advtab: true,
 		external_filemanager_path: "<?=base_url('filemanager');?>/",
 		filemanager_title: "File Manager",

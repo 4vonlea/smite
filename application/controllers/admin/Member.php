@@ -406,7 +406,7 @@ class Member extends Admin_Controller
 			$this->Member_m->getDB()->trans_start();
 			$this->Member_m->find()->where(['id'=>$post['id']])->delete();
 			$this->Transaction_m->find()->where(['member_id'=>$post['id']])->delete();
-			//$this->User_account_m->find()->where(['username'=>$post['email']])->delete();
+			$this->User_account_m->find()->where(['username'=>$post['email']])->delete();
 			$this->Member_m->getDB()->trans_complete();
 			$status = $this->Member_m->getDB()->trans_status();
 			if($status == false)
