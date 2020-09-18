@@ -66,8 +66,22 @@
    </div>
 </section>
 
+<section class="bg-color-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                    <a href="<?= base_url('themes/porto'); ?>/pengumuman/2nd.pdf" target="_blank" class="btn btn-primary font-weight-semibold text-uppercase text-5 mt-2 mb-3 col-lg-12">Second Announcement</a>
+            </div>
+            <div class="col-lg-6 divider-left-border">
+                    <a href="<?= base_url('themes/porto'); ?>/pengumuman/ketentuan.pdf" target="_blank" class="btn btn-outline btn-primary font-weight-semibold text-uppercase text-5 mt-2 mb-3 col-lg-12">KETENTUAN E-POSTER & PRESENTASI ORAL</a>
+            </div>
+        </div>
+        
+    </div>
+</section>
+
 <section id="login" class="bg-color-grey">
-    <div class="container pb-4  appear-animation animated bounce appear-animation-visible" data-appear-animation="bounce" data-appear-animation-delay="0" data-appear-animation-duration="1s" style="animation-duration: 1s; animation-delay: 0ms;">
+    <div class="container pb-4 appear-animation animated bounce appear-animation-visible" data-appear-animation="bounce" data-appear-animation-delay="0" data-appear-animation-duration="1s" style="animation-duration: 1s; animation-delay: 0ms;">
         <div class="row">
             <div class="col-lg-6">
                 <h2 class="text-color-dark font-weight-bold mt-5 mb-3">Login disini</h2>
@@ -122,7 +136,6 @@
                     <li><i>1 akun 1 email per user</i></li>
                     <li><i>E-certificate akan dikirimkan ke email yang terdaftar</i></li>
                 </ul>
-                <!-- <div><p id="demo"></p></div> -->
             </div>
         </div>
     </div>
@@ -216,9 +229,11 @@
                 <div class="col-lg-4 text-center text-md-left mb-5 mb-lg-0">
                     <h6 class="text-color-dark font-weight-normal text-6 line-height-2"><strong class="font-weight-extra-bold"><?php echo $key->title ?></strong></h6>
                     <p style="font-size:9px" >
-                        <?php echo character_limiter($key->content, 250) ?>
+                        <?php echo character_limiter($key->content, 500) ?>
                     </p>
-                    <p><a href="<?php echo base_url('site/readnews/'.$key->id) ?>" style="font-size: 11px" class="btn btn-primary">baca selengkapnya</a></p>
+                    <p>
+                        <a href="<?php echo base_url('site/readnews/'.$key->id) ?>" style="font-size: 11px" class="btn btn-primary">baca selengkapnya</a>
+                    </p>
                 </div>
                 <?php 
             endforeach; 
