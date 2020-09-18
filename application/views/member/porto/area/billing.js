@@ -32,7 +32,7 @@ export default Vue.component("PageBilling", {
 								<td>{{ sumPrice(item.detail)}}</td>
 								<td>
 									<button class="btn btn-default" @click="detailTransaction(item,$event)">Detil</button>
-									<button @click="modalProof(item)" v-if="item.status_payment == 'pending'" class="btn btn-default" >Unggah Bukti Transfer</button>
+									<button @click="modalProof(item)" v-if="item.status_payment == 'pending' && item.channel == 'MANUAL TRANSFER'" class="btn btn-default" >Unggah Bukti Transfer</button>
 								</td>
 							</tr>
 						</tbody>
@@ -178,31 +178,32 @@ export default Vue.component("PageBilling", {
 								</tr>
 								<tr v-if="detailModel.status_payment == 'pending' && detailModel.channel == 'ESPAY'">
 									<td colspan="4">
-									<table v-if="detailEspay.product_value">
-										<tr>
-											<th>Bank/Vendor Name</th>
-											<td>
-												{{ detailEspay.bank_name }}
-											</td>
-										</tr>
-										<tr>
-											<th>Product Name</th>
-											<td>{{ detailEspay.product_name }}</td>
-										</tr>
-										<tr>
-											<th>Account Number</th>
-											<td>{{ detailEspay.product_value }}</td>
-										</tr>
-										<tr>
-											<th>Amount</th>
-											<td> 
-												{{ formatCurrency(detailEspay.amount) }} 
-												<br/>
-												<small>*Jumlah mungkin berbeda karena biaya tambahan dari Espay </small><br/>
-											</td>
-										</tr>
-									</table>
-									<h4 v-else>Informasi pembayaran bisa dilihat pada email yang dikirim oleh ESPAY</h4>
+										<table v-if="detailEspay.product_value">
+											<tr>
+												<th>Bank/Vendor Name</th>
+												<td>
+													{{ detailEspay.bank_name }}
+												</td>
+											</tr>
+											<tr>
+												<th>Product Name</th>
+												<td>{{ detailEspay.product_name }}</td>
+											</tr>
+											<tr>
+												<th>Account Number</th>
+												<td>{{ detailEspay.product_value }}</td>
+											</tr>
+											<tr>
+												<th>Amount</th>
+												<td> 
+													{{ formatCurrency(detailEspay.amount) }} 
+													<br/>
+													<small>*Jumlah mungkin berbeda karena biaya tambahan dari Espay </small><br/>
+												</td>
+											</tr>
+										</table>
+										<h4 v-else>Informasi pembayaran bisa dilihat pada email yang dikirim oleh ESPAY</h4>
+										<p>Status pembayaran akan berubah otomatis ketika anda telah menyelesaikan pembayaran sesuai petunjuk ESPAY</p>
 									<small>
 										*Untuk pembayaran dengan menggunakan Kartu Kredit , tagihan yang akan tercetak di lembar tagihan kartu kredit pelanggan adalah atas nama ESPAY  
 									</small>

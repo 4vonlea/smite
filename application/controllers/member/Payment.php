@@ -319,7 +319,12 @@ class Payment extends MY_Controller
 			}else{
 				$status = Transaction_m::STATUS_PENDING;
 			}
+			$tr = $this->Transaction_m->findOne(['id'=>$order_id]);
+			if($tr->status_payment == Transaction_m::STATUS_FINISH){
+				$status =  Transaction_m::STATUS_FINISH;
+			}
 			$this->Transaction_m->update(['midtrans_data'=>$response,'status_payment'=>$status],$order_id);
+
 			file_put_contents(APPPATH."logs/".$order_id."_status.json",$response);
 		}
 	}
