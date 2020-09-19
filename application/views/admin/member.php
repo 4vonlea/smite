@@ -118,7 +118,13 @@
 				<div class="card-body">
 					<div class="form-group">
 						<label class="form-check-label">Email</label>
-						<input type="text" class="form-control" readonly v-model="profile.email"/>
+						<input type="text" class="form-control" v-model="profile.email"/>
+					</div>
+					<div class="form-group">
+						<label class="form-check-label">Status</label>
+						<select class="form-control" v-model="profile.status">
+							<option v-for="status in statusList" :value="status.id">{{status.kategory}}</option>
+						</select>
 					</div>
 					<div class="form-group">
 						<label class="form-check-label">Fullname</label>
@@ -133,7 +139,6 @@
 							<label>
 								<input type="radio" name="gender" v-model="profile.gender" value="F"/> Female
 							</label>
-
 						</div>
 					</div>
 					<div class="form-group">
@@ -457,7 +462,7 @@
                     if (res.status)
                         Swal.fire("Success", "Profile Saved !", "success");
                     else
-                        Swal.fire("Failed", "Failed to save data !", "error");
+                        Swal.fire("Failed", (res.message ? res.message : "Failed to save data !"), "error");
                 }, "JSON").fail(function (xhr) {
 					var message =  xhr.getResponseHeader("Message");
 					if(!message)

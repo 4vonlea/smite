@@ -88,4 +88,45 @@ class Material extends Admin_Controller
 
 	}
 
+	public function upload_material(){
+		$response = [];
+		$this->load->library('upload');
+		$this->load->model("Member_upload_material_m");
+		$type = $this->input->post("type");
+		if(isset($_FILES['filename']) && $type == Member_upload_material_m::TYPE_FILE ){
+			$config = [
+				'upload_path'=>APPPATH.'uploads/material/',
+				'allowed_types'=>'doc|docx|jpg|jpeg|png|bmp',
+				'max_size'=>20480,
+				'overwrite'=>false,
+			];
+			$this->upload->initialize($config);
+			$status = $this->upload->do_upload('filename');
+			$data = $this->upload->data();
+			$error = $this->upload->display_errors("","");
+		}else{
+			$status = true;
+			$data = ['file_name'=>$this->input->post("filename")];
+		}
+		if($status){
+			$id = $this->input->post("id");
+			if($id && $id != "" && $id != 'null')
+				$model = $this->Member_upload_material_m->findOne($id);
+			else
+				$model = new Member_upload_material_m();
+
+			$model->member_id = $this->input->post("member_id");
+			$model->ref_upload_id = $this->input->post("ref_upload_id");
+			$model->type = $this->input->post("type");
+			$model->filename = $data['file_name'];
+			$response['data']['fullpaper'] = $model->toArray();
+			$response['status'] = $model->save(false);
+		}else{
+			$response['status'] = false;
+			$response['message'] = $error;
+		}
+		$this->output->set_content_type("application/json")
+			->_display(json_encode($response));
+	}
+
 }

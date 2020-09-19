@@ -325,18 +325,27 @@ class Member extends Admin_Controller
 
 		$this->load->model('Member_m');
 		$data = $this->input->post();
-		$status =  $this->Member_m->update([
-			'fullname'=>$data['fullname'],
-			'gender'=>$data['gender'],
-			'phone'=>$data['phone'],
-			'city'=>$data['city'],
-			'address'=>$data['address'],
-			'univ'=>$data['univ'],
-			'sponsor'=>$data['sponsor'],
-		],['id'=>$data['id']],false);
+		$model = $this->Member_m->findOne(['id'=>$data['id']]);
+		$account = $model->account;
+		if($model->email != $data['email']){
+			$account->username = $data['email'];
+			$check = $account->toArray();
+			$check['username'] = $data['email'];
+			if($account->validate($check)){
+				$account->save();
+				$data['username_account'] = $data['email'];
+			}else{
+				$this->output
+					->set_content_type("application/json")
+					->_display(json_encode(['status'=>false,'message'=>"Username/Email sudah terdaftar"]));
+				exit;
+			}
+		}
+		$model->setAttributes($data);
+		$status = $model->save(false);
 		$this->output
 			->set_content_type("application/json")
-			->_display(json_encode(['status'=>$status]));
+			->_display(json_encode(['status'=>$status,'message'=>$model->getErrors()]));
 	}
 
 	public function save_check(){
