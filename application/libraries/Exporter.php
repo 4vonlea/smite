@@ -63,7 +63,7 @@ class Exporter
 	}
 
 
-	public function asExcel()
+	public function asExcel($costumType = [])
 	{
 		$colTitle = $this->headingColumn();
 
@@ -92,11 +92,20 @@ class Exporter
 			'font' => ['size' => 12]
 		]);
 
+
 		foreach ($this->data as $rowData) {
 			$row++;
 			$col = 1;
-			foreach ($rowData as $value) {
+			foreach ($rowData as $key=>$value) {
+				if(isset($costumType[$key])){
+					switch($costumType[$key]){
+						case 'asCurrency':
+							$sheet->getStyleByColumnAndRow($col,$row)->getNumberFormat()->setFormatCode('#,##0.00');
+							break;
+					}
+				}
 				$sheet->setCellValueByColumnAndRow($col, $row, $value);
+				
 				$col++;
 			}
 		}

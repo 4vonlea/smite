@@ -302,7 +302,7 @@ $this->layout->end_head();
 						<th>Feedback Message</th>
 						<td>{{ reviewModel.message }}</td>
 					</tr>
-					<tr  v-if="reviewModel.status == 0">
+					<tr  v-if="reviewModel.status == 0 && reviewModel.link_feedback">
 						<th>Link Download Feedback</th>
 						<td><a :href="reviewModel.link_feedback" target="_blank">Click Here !</a></td>
 					</tr>
@@ -357,7 +357,7 @@ $this->layout->end_head();
 									</tr>
 								</thead>
 								<tbody>
-									<tr v-for="feedback in reviewModel.feedback">
+									<tr v-for="feedback in reviewModel.feedbackList">
 										<td>{{ feedback.created_at }}</td>
 										<td>{{ feedback.name }}</td>
 										<td>{{ feedback.result }}</td>
@@ -427,7 +427,7 @@ $this->layout->end_head();
 						else
 							var temp = row.row.co_author;
 						app.reviewModel = row.row;
-						app.reviewModel.feedback = res;
+						app.reviewModel.feedbackList = res;
 						app.reviewModel.co_author = temp;
 						app.reviewModel.link = `<?=base_url("admin/paper/file");?>/${row.row.filename}/${row.row.t_id}`;
 						app.reviewModel.link_feedback = `<?=base_url("admin/paper/file");?>/${row.row.feedback}/${row.row.t_id}/feedback`;
@@ -488,9 +488,10 @@ $this->layout->end_head();
 						else
 							var temp = row.row.co_author;
 						app.reviewModel = row.row;
-						app.reviewModel.feedback = res;
+						app.reviewModel.feedbackList = res;
 						app.reviewModel.co_author = temp;
 						app.reviewModel.link = `<?=base_url("admin/paper/file");?>/${row.row.filename}/${row.row.t_id}`;
+						app.reviewModel.link_feedback = `<?=base_url("admin/paper/file");?>/${row.row.feedback}/${row.row.t_id}/feedback`;
 						$("#modal-review").modal('show');
 
 					}).fail(function(){

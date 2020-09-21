@@ -80,7 +80,7 @@ class Dashboard extends Admin_Controller
 		$exporter->setData($data);
 		$exporter->setTitle($title);
 		if($tipe == 'excel'){
-			$exporter->asExcel();
+			$exporter->asExcel(['price'=>'asCurrency']);
 		}elseif($tipe == "pdf"){
 			$exporter->asPDF();
 		}elseif($tipe == "csv"){

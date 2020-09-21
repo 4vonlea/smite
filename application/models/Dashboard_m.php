@@ -105,7 +105,7 @@ class Dashboard_m extends CI_Model
 	{
 		$this->load->model("Transaction_m");
 
-		$rs = $this->db->select("t.id AS no_invoice,m.id AS id_member, m.fullname,kt.kategory as status, m.gender,m.phone,m.email,m.city,e.name AS event_name,CONCAT('Rp ',FORMAT(td.price,2)) as price,t.channel as method_payment,t.message_payment as additional_info")
+		$rs = $this->db->select("t.id AS no_invoice,m.id AS id_member, m.fullname,kt.kategory as status, m.gender,m.phone,m.email,m.city,e.name AS event_name,td.price as price,t.channel as method_payment,t.message_payment as additional_info")
 			->select("IF(JSON_EXTRACT(checklist, '$.nametag') = 'true','Yes','No') as take_nametag,
 							IF(JSON_EXTRACT(checklist, '$.seminarkit') = 'true','Yes','No') as take_seminarkit,
 							IF(JSON_EXTRACT(checklist, '$.certificate') = 'true','Yes','No') as take_certificate")
