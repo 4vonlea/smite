@@ -63,11 +63,11 @@ $header_image = base_url('themes/uploads/header_kop.jpg');
 					<td><?= $paper->type_presence; ?></td>
 				</tr>
 			</table>
-			<p>Please see our guideline and check for important date for your presentation <a href="https://eastinsdv2020.com/themes/porto/pengumuman/pedoman.rtf">here</a>. Deadline for uploading
+			<!-- <p>Please see our guideline and check for important date for your presentation <a href="https://eastinsdv2020.com/themes/porto/pengumuman/pedoman.rtf">here</a>. Deadline for uploading
 				your FULLPAPER AND MEDIA OF PRESENTATION (poster or oral) is <span style="font-weight: bold">14th February 2020 23.59 WITA</span>. Please login your account for uploading the file.
-			</p>
+			</p> -->
 			<p>We appreciate you submitting your abstract and for giving us the opportunity to consider your work.
-				 Thank you and we wait for your attendance at Banjarmasin.
+				 Thank you and we wait for your attendance.
 			</p> 
 
 		</td>
