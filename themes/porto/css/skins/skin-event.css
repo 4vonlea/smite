@@ -64,6 +64,16 @@ html .text-hover-dark:hover {
 	color: #212529 !important;
 }
 
+html .text-color-biru,
+html .text-biru {
+	color: #080531 !important;
+}
+
+html .text-color-hover-dark:hover,
+html .text-hover-dark:hover {
+	color: #212529 !important;
+}
+
 html .text-color-light,
 html .text-light {
 	color: #FFF !important;
@@ -203,6 +213,14 @@ html .border-color-biru {
 
 html .border-color-hover-biru:hover {
 	border-color: #080531 !important;
+}
+
+html .border-color-emas {
+	border-color: #dfad26 !important;
+}
+
+html .border-color-hover-emas:hover {
+	border-color: #dfad26 !important;
 }
 
 html .border-color-secondary {
@@ -4539,8 +4557,8 @@ html .counters .counter-light strong {
 }
 
 html .countdown.countdown-primary > span > span {
-	color: #080531;
-	/*color: #43a6a3;*/
+	/*color: #080531;*/
+	color: #43a6a3;
 }
 
 html .countdown.countdown-secondary > span > span {
@@ -4565,6 +4583,10 @@ html .countdown.countdown-light > span > span {
 
 html .countdown.countdown-biru > span > span {
 	color: #080531;
+}
+
+html .countdown.countdown-emas > span > span {
+	color: #dfad26;
 }
 
 html .image-hotspot-primary strong {
