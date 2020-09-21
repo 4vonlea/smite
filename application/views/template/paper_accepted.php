@@ -77,7 +77,7 @@ $header_image = base_url('themes/uploads/header_kop.jpg');
 			<div style="width:50%;float: right">
 				<p style="text-align: right">Kind Regards,</p>
 				<div style="text-align: center">
-					<p>Chairman of 2nd East INSDV 2020</p>
+					<p>Chairman of <?= Settings_m::getSetting('site_title'); ?></p>
 					<img width="200px" height="100px" style="z-index: -10"
 						 src="<?= base_url('themes/uploads/ttd_cap.jpg'); ?>">
 					<div style="margin-top: -50px;z-index: -5"><?= Settings_m::getSetting('ketua_panitia'); ?></div>

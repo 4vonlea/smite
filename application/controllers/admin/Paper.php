@@ -89,7 +89,8 @@ class Paper extends Admin_Controller
 					$dataFile = $_POST['feedback_file'];
 					list(, $dataFile) = explode(',', $dataFile);
 					$dataFile = base64_decode($dataFile);
-					list(, $ext) = explode(".", $this->input->post('filename_feedback'));
+					$split = explode(".", $this->input->post('filename_feedback'));
+					$ext = $split[count($split)-1];
 					$filename = "feedback_".date("Ymdhis").".".$ext;
 					file_put_contents(APPPATH . "uploads/papers/$filename", $dataFile);
 					$model->feedback = $filename;
@@ -110,7 +111,7 @@ class Paper extends Admin_Controller
 						<p>Best regards.<br/>
 						Committee of ".Settings_m::getSetting('site_title')."</p>";
 						$member = $model->member;
-						$this->Notification_m->sendMessageWithAttachment($member->email,"Result Of Paper Review",$message,['Abstract Announcement'=>$model->exportNotifPdf()->output()]);
+						$this->Notification_m->sendMessageWithAttachment($member->email,"Result Of Paper Review",$message,['Abstract Announcement.pdf'=>$model->exportNotifPdf()->output()]);
 					}
 
 				}
