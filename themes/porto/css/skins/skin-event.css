@@ -84,12 +84,22 @@ html .text-hover-light:hover {
 
 html .bg-color-primary,
 html .bg-primary {
-	background-color: #43a6a3 !important;
+	background-color: #080531 !important;
 }
 
 html .bg-color-hover-primary:hover,
 html .bg-hover-primary:hover {
 	background-color: #43a6a3 !important;
+}
+
+html .bg-color-biru,
+html .bg-biru {
+	background-color: #080531 !important;
+}
+
+html .bg-color-hover-biru:hover,
+html .bg-hover-biru:hover {
+	background-color: #080531 !important;
 }
 
 html .bg-color-secondary,
@@ -179,11 +189,20 @@ html .bg-hover-light:hover {
 }
 
 html .border-color-primary {
-	border-color: #43a6a3 !important;
+	/*border-color: #43a6a3 !important;*/
+	border-color: #080531 !important;
 }
 
 html .border-color-hover-primary:hover {
 	border-color: #43a6a3 !important;
+}
+
+html .border-color-biru {
+	border-color: #080531 !important;
+}
+
+html .border-color-hover-biru:hover {
+	border-color: #080531 !important;
 }
 
 html .border-color-secondary {
@@ -633,16 +652,16 @@ html .overlay-color-light:not(.no-skin):before {
 }
 
 html .btn-primary {
-	background-color: #43a6a3;
+	background-color: #080531;
 	border-color: #43a6a3 #43a6a3 #34827f;
-	color: #FFF;
+	color: #dfad26;
 }
 
 html .btn-primary:hover,
 html .btn-primary.hover {
 	background-color: #55bab7;
 	border-color: #5ebebb #5ebebb #43a6a3;
-	color: #FFF;
+	color: #dfad26;
 }
 
 html .btn-primary:focus,
@@ -667,14 +686,14 @@ html .btn-primary.active {
 html .btn-primary-scale-2 {
 	background-color: #34827f;
 	border-color: #34827f #34827f #265d5c;
-	color: #FFF;
+	color: #dfad26;
 }
 
 html .btn-primary-scale-2:hover,
 html .btn-primary-scale-2.hover {
 	background-color: #3f9d9a;
 	border-color: #43a6a3 #43a6a3 #34827f;
-	color: #FFF;
+	color: #dfad26;
 }
 
 html .btn-primary-scale-2:focus,
@@ -3211,11 +3230,11 @@ section.video blockquote i.fa-quote-left {
 }
 
 html .accordion.accordion-primary .card-header {
-	background-color: #43a6a3 !important;
+	background-color: #080531 !important;
 }
 
 html .accordion.accordion-primary .card-header a {
-	color: #FFF;
+	color: #dfad26;
 }
 
 html .accordion.accordion-secondary .card-header {
@@ -4520,7 +4539,8 @@ html .counters .counter-light strong {
 }
 
 html .countdown.countdown-primary > span > span {
-	color: #43a6a3;
+	color: #080531;
+	/*color: #43a6a3;*/
 }
 
 html .countdown.countdown-secondary > span > span {
@@ -4541,6 +4561,10 @@ html .countdown.countdown-dark > span > span {
 
 html .countdown.countdown-light > span > span {
 	color: #FFF;
+}
+
+html .countdown.countdown-biru > span > span {
+	color: #080531;
 }
 
 html .image-hotspot-primary strong {

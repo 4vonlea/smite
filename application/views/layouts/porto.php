@@ -238,7 +238,7 @@ $spsilver       = $this->Sponsor_link_m->listspsilver();
 				<p class="custom-font-size-1 text-center mb-5">Terima kasih untuk sponsor kami</p>
 			</div>
 		</div>
-		<span class="alternative-font" style="font-size: 30px;"><b>Platinum Sponsor</b></span>
+		<span class="text-color-dark" style="font-size: 30px;"><b>Platinum Sponsor</b></span>
 		<hr>
 		<div class="row">
 			<?php
@@ -259,7 +259,7 @@ $spsilver       = $this->Sponsor_link_m->listspsilver();
 		</div>
 
 		<hr>
-		<span class="alternative-font" style="font-size: 30px;"><b>Gold Sponsor</b></span>
+		<span class="text-color-dark" style="font-size: 30px;"><b>Gold Sponsor</b></span>
 		<hr>
 
 		<div class="row">
@@ -281,7 +281,7 @@ $spsilver       = $this->Sponsor_link_m->listspsilver();
 		</div>
 		<br>
 		<hr>
-		<span class="alternative-font" style="font-size: 30px;"><b>Silver Sponsor</b></span>
+		<span class="text-color-dark" style="font-size: 30px;"><b>Silver Sponsor</b></span>
 		<hr>
 		<div class="row">
 			<div class="col-lg-12">

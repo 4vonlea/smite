@@ -56,11 +56,11 @@
         <div class="row">
            <div class="col-lg-6 py-2">
             <h3 class="text-color-dark text-uppercase font-weight-bold text-center mb-3">abstract Countdown</h3>
-               <div class="countdown countdown-borders countdown-light" data-plugin-countdown data-plugin-options="{'date': '<?php echo $papertimer; ?>', 'numberClass': 'font-weight-extra-bold', 'wrapperClass': 'border-color-primary bg-color-primary'}"></div>
+               <div class="countdown countdown-borders countdown-biru" data-plugin-countdown data-plugin-options="{'date': '<?php echo $papertimer; ?>', 'numberClass': 'font-weight-extra-bold', 'wrapperClass': ''}"></div>
            </div>
            <div class="col-lg-6 divider-left-border py-2">
                <h3 class="text-color-dark text-uppercase font-weight-bold text-center mb-3">Event Countdown</h3>
-               <div class="countdown countdown-borders countdown-primary" data-plugin-countdown data-plugin-options="{'date': '<?php echo $eventtimer; ?>', 'numberClass': 'font-weight-extra-bold', 'wrapperClass': 'border-color-primary'}"></div>
+               <div class="countdown countdown-borders" data-plugin-countdown data-plugin-options="{'date': '<?php echo $eventtimer; ?>', 'numberClass': 'font-weight-extra-bold', 'wrapperClass': 'border-color-biru bg-color-biru'}"></div>
            </div>
        </div>
    </div>
@@ -73,7 +73,7 @@
                     <a href="<?= base_url('themes/porto'); ?>/pengumuman/2nd.pdf" target="_blank" class="btn btn-primary font-weight-semibold text-uppercase text-5 mt-2 mb-3 col-lg-12">Second Announcement</a>
             </div>
             <div class="col-lg-6 divider-left-border">
-                    <a href="<?= base_url('themes/porto'); ?>/pengumuman/ketentuan.pdf" target="_blank" class="btn btn-outline btn-primary font-weight-semibold text-uppercase text-5 mt-2 mb-3 col-lg-12">KETENTUAN E-POSTER & PRESENTASI ORAL</a>
+                    <a href="<?= base_url('themes/porto'); ?>/pengumuman/ketentuan.pdf" target="_blank" class="btn btn-primary font-weight-semibold text-uppercase text-5 mt-2 mb-3 col-lg-12">KETENTUAN E-POSTER & PRESENTASI ORAL</a>
             </div>
         </div>
         
@@ -109,7 +109,7 @@
                     <div class="form-row">
                         <div class="form-group col">
                             <input type="submit" value="Login now" name="login"
-                            class="btn custom-border-width btn-primary custom-border-radius font-weight-semibold text-uppercase"
+                            class="btn btn-primary custom-border-width custom-border-radius font-weight-semibold text-uppercase"
                             data-loading-text="Loading...">
                         </div>
                         <div class="form-group col">
@@ -121,7 +121,7 @@
                     </div>
                 </form>
                 <span style="font-size: 20px;" class="text-color-dark font-weight-bold">Belum punya akun?</span>
-                <a class="btn custom-border-width btn-primary custom-border-radius font-weight-semibold text-uppercase ml-3" href="<?= base_url("member/register"); ?>">Registrasi disini</a>
+                <a class="btn btn-primary  custom-border-width custom-border-radius font-weight-semibold text-uppercase ml-3" href="<?= base_url("member/register"); ?>">Registrasi disini</a>
             </div>
             <div class="col-lg-6">
                 <h3 class="text-color-dark font-weight-normal text-6 mt-5 ml-3 mb-3"><strong class="font-weight-extra-bold">Cara untuk registrasi :</strong></h3>
@@ -153,11 +153,11 @@
             <?php
             foreach ($row->kondisi as $row2):
                 ?>
-                <div class="accordion accordion-primary" id="accordion7">
+                <div class="accordion" id="accordion7">
                     <div class="card card-default">
-                        <div class="card-header">
+                        <div class="card-header" style="background-color: #080531;">
                             <h4 class="card-title m-1">
-                                <a class="accordion-toggle collapsed text-1 text-color-light" data-toggle="collapse" data-parent="#accordion7" href="#colap<?php echo $colap; ?>" aria-expanded="false">
+                                <a class="accordion-toggle collapsed text-1"  style="color: #dfad26;" data-toggle="collapse" data-parent="#accordion7" href="#colap<?php echo $colap; ?>" aria-expanded="false">
                                     <?php echo $row2->kondisi ?> <span class="custom-accordion-plus"></span>
                                 </a>
                             </h4>
@@ -181,7 +181,7 @@
                                                     <?php
                                                 endforeach;
                                                 ?>
-                                                <td rowspan="2" align="center" class="align-middle"><a href="<?=base_url("site/login");?>" class="btn btn-success">PESAN</a></td>
+                                                <td rowspan="2" align="center" class="align-middle"><a href="<?=base_url("site/login");?>" class="btn btn-primary">PESAN</a></td>
                                             </tr>
                                             <tr>
                                                 <?php
@@ -218,7 +218,7 @@
         <div class="row pt-2">
             <div class="col">
                 <h2 class="text-color-dark text-uppercase font-weight-bold text-center mb-1">Berita dan Info Terkini</h2>
-                <a class="text-color-primary text-weight-bold" href="<?php echo base_url('site/all_news') ?>" target="_self" id="a_1dd7_5"><center>Baca semua berita</center></a>
+                <a class="text-weight-bold" style="background-color: #080531; color: #dfad26;" href="<?php echo base_url('site/all_news') ?>" target="_self" id="a_1dd7_5"><center>Baca semua berita</center></a>
             </div>
         </div>
         <hr>
