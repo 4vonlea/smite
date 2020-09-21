@@ -11,7 +11,7 @@ class Ref_upload_m extends MY_Model
         $statustoUpload = Settings_m::getSetting("status_to_upload");
         $statustoUpload = ($statustoUpload == "" ? [0]:json_decode($statustoUpload));
 		return [
-			'select'=>['t_id'=>'t.id','fullname'=>'member.fullname',"mum.filename","title","type"=>"mum.type","id_mum"=>'mum.id'],
+			'select'=>['t_id'=>'t.id','type'=>'mum.type','filename','m_id'=>'member.id','fullname'=>'member.fullname',"mum.filename","title","type"=>"mum.type","id_mum"=>'mum.id'],
 			'relationships' => [
 				'member' => ['members', '1 = 1'],
 				'mum' => ['member_upload_material', 'mum.member_id = member.id AND mum.ref_upload_id = t.id','left']

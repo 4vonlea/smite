@@ -342,7 +342,7 @@
                                 <th>Type</th>
                                 <th>URL</th>
                                 <th>
-                                    <button type="button" v-on:click="linkData.model.advertisement.push({type:'link',url:'',watch:0});" class="btn btn-sm">
+                                    <button type="button" v-on:click="addAdvertisement" class="btn btn-sm">
                                         <i class="fa fa-plus"></i>
                                     </button>
                                 </th>
@@ -526,6 +526,12 @@ var app = new Vue({
 
     },
     methods: {
+        addAdvertisement(){
+            if(!this.linkData.model.advertisement){
+                this.linkData.model.advertisement = [];
+            }
+            this.linkData.model.advertisement.push({type:'link',url:'',watch:0});
+        },
         addPricing: function() {
             this.form.model.event_pricing.push({
                 name: "-",
@@ -610,6 +616,14 @@ var app = new Vue({
                 }, null, 'JSON')
                 .done(function(res) {
                     app.form.show = true;
+                    
+                    $.each(res.special_link,function(i,v){
+                        if(!v.advertisement)
+                            v.advertisement = [];
+                        console.log(v);
+                        if(!v.speakers)
+                            v.speakers = [];
+                    });
                     app.form.model = res;
                 }).fail(function(xhr) {
                     var message = xhr.getResponseHeader("Message");

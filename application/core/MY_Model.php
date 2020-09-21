@@ -76,7 +76,7 @@ class MY_Model extends yidas\Model
 
         if(count($sort) > 1)
 			$builder->order_by($sort[0],$sort[1]);
-		elseif(count($gridConfig['sort']) > 0)
+		elseif(isset($gridConfig['sort']) && count($gridConfig['sort']) > 0)
 			$builder->order_by($gridConfig['sort'][0],$gridConfig['sort'][1]);
 
 

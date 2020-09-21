@@ -42,7 +42,7 @@ export default Vue.component("PageWebminar",{
                                     <td>{{ link.date | formatDate }}</td>
                                     <td>{{ link.room }}</td>
                                     <td :rowspan="2" class="">
-                                        <button :disabled="link.finishWatch == '0'" v-on:click="join(link.url)" class="btn btn-primary btn-block">Gabung Sekarang</button>
+                                        <button :disabled="link.finishWatch == '0' && link.advertisement" v-on:click="join(link.url)" class="btn btn-primary btn-block">Gabung Sekarang</button>
                                         <button v-for="(ads,index) in link.advertisement" class="btn btn-block" :class="[ads.watch == '1' ? 'btn-primary':'btn-default']" v-on:click="showAds(index,link,indSpl)">
                                             Lihat Sponsor {{ index+1}}
                                         </button>
@@ -53,7 +53,7 @@ export default Vue.component("PageWebminar",{
                                         <div class="card-deck">
                                             <div v-for="sp in link.speakers" div class="card" style="max-width:200px;">
                                                 <div class="card-header">{{sp.topic}}</div>
-                                                <img class="card-img-top" style="max-width:200px;max-height:200px" :src="sp.image" alt="Card image cap">
+                                                <img v-if="sp.image" class="card-img-top" style="max-width:200px;max-height:200px" :src="sp.image" alt="Card image cap">
                                                 <div class="card-body">
                                                     <p class="card-text">{{sp.name}}</p>
                                                 </div>

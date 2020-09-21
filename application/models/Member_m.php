@@ -10,6 +10,7 @@ class Member_m extends MY_Model
 
 	public function rules($insert = false)
 	{
+		$this->load->model("Univ_m");
 		$rules = [
 			[
 				'field' => 'email', 'rules' => 'required|max_length[100]|valid_email|is_unique[members.email]',
@@ -36,7 +37,8 @@ class Member_m extends MY_Model
 		return [
 			'relationships' => [
 				'institution' => ['univ', 'institution.univ_id = univ', 'left'],
-			]
+			],
+			'sort'=>['t.created_at','desc']
 		];
 	}
 
@@ -52,6 +54,12 @@ class Member_m extends MY_Model
 	{
 		return $this->hasOne("Category_member_m", "id", "status");
 	}
+
+	public function account()
+	{
+		return $this->hasOne("User_account_m", "username", "username_account");
+	}
+
 
 	public function gridData($params, $relationship = [])
 	{
