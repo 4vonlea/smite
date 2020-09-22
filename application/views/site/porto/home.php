@@ -1,31 +1,6 @@
-<main role="main">
+<div role="main" class="main">
 
-   <!-- <div class="slider-container rev_slider_wrapper" style="height: 100%;">
-    <div id="revolutionSlider" class="slider rev_slider manual" data-version="5.4.8">
-        <ul>
-            <li data-transition="fade">
-                <img class="img-fluid" src="<?= base_url('themes/porto'); ?>/img/slide1_.png"  
-                alt=""
-                data-bgposition="center center" 
-                data-bgfit="contain" 
-                data-bgrepeat="no-repeat" 
-                data-bgparallax="1" 
-                class="rev-slidebg">
-            </li>
-            <li data-transition="fade">
-                <img class="img-fluid" src="<?= base_url('themes/porto'); ?>/img/slide2.png"  
-                alt=""
-                data-bgposition="center center" 
-                data-bgfit="cover" 
-                data-bgrepeat="no-repeat" 
-                data-bgparallax="1" 
-                class="rev-slidebg">
-            </li>
-        </ul>
-    </div>
-</div> -->
-
-<section id="slidee" class="bg-color-grey">
+<section id="slidee" class="bg-color-grey appear-animation" data-appear-animation = "fadeIn">
     <div class="owl-carousel owl-theme nav-inside nav-inside-edge nav-squared nav-with-transparency nav-light" data-plugin-options="{'items': 1, 'margin': 10, 'loop': true, 'nav': true, 'dots': false, 'autoplay': true, 'autoplayTimeout': 6000}">
         <div>
             <div class="img-thumbnail border-0 p-0 d-block">
@@ -40,7 +15,7 @@
     </div>
 </section>
 
-<section id="timer" class="bg-color-light pt-2 pb-3">  
+<section id="timer" class="bg-color-light pt-2 pb-3">
     <?php
     foreach($eventcountdown as $eventcd) 
     {
@@ -54,11 +29,11 @@
     ?>
     <div class="container">
         <div class="row">
-           <div class="col-lg-6 py-2">
+           <div class="col-lg-6 py-2 appear-animation" data-appear-animation="fadeInRightShorter">
             <h3 class="text-color-dark text-uppercase font-weight-bold text-center mb-3">abstract Countdown</h3>
                <div class="countdown countdown-borders countdown-biru" data-plugin-countdown data-plugin-options="{'date': '<?php echo $papertimer; ?>', 'numberClass': 'font-weight-extra-bold', 'wrapperClass': 'border-color-emas'}"></div>
            </div>
-           <div class="col-lg-6 divider-left-border py-2">
+           <div class="col-lg-6 divider-left-border py-2 appear-animation" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="200">
                <h3 class="text-color-dark text-uppercase font-weight-bold text-center mb-3">Event Countdown</h3>
                <div class="countdown countdown-borders countdown-emas" data-plugin-countdown data-plugin-options="{'date': '<?php echo $eventtimer; ?>', 'numberClass': 'font-weight-extra-bold', 'wrapperClass': 'border-color-biru bg-color-biru'}"></div>
            </div>
@@ -81,9 +56,9 @@
 </section>
 
 <section id="login" class="bg-color-grey">
-    <div class="container pb-4 appear-animation animated bounce appear-animation-visible" data-appear-animation="bounce" data-appear-animation-delay="0" data-appear-animation-duration="1s" style="animation-duration: 1s; animation-delay: 0ms;">
+    <div class="container pb-4">
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-6 appear-animation" data-appear-animation="fadeInRightShorter">
                 <h2 class="text-color-dark font-weight-bold mt-5 mb-3">Login disini</h2>
                 <form class="custom-contact-form-style-1" action="<?= base_url('site/login'); ?>" method="POST">
                     <div class="form-row">
@@ -123,7 +98,7 @@
                 <span style="font-size: 20px;" class="text-color-dark font-weight-bold">Belum punya akun?</span>
                 <a class="btn btn-primary  custom-border-width custom-border-radius font-weight-semibold text-uppercase ml-3" href="<?= base_url("member/register"); ?>">Registrasi disini</a>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-6 appear-animation" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="400">
                 <h3 class="text-color-dark font-weight-normal text-6 mt-5 ml-3 mb-3"><strong class="font-weight-extra-bold">Cara untuk registrasi :</strong></h3>
                 <ol class="text-color-dark text-4 line-height-5 mb-0 ml-3">
                     <li>Klik <b>REGISTRASI DISINI</b>, dan lengkapi biodatamu</li>
@@ -149,11 +124,11 @@
         $colap = 1;
         foreach ($query as $row):
             ?>
-            <h4 class="font-weight-bold text-color-dark pt-4"><?php echo $row->kategori ?></h4>
+            <h4 class="font-weight-bold text-color-dark pt-4 appear-animation" data-appear-animation="fadeInRightShorter"><?php echo $row->kategori ?></h4>
             <?php
             foreach ($row->kondisi as $row2):
                 ?>
-                <div class="accordion" id="accordion7">
+                <div class="accordion" id="accordion7 appear-animation" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="600">
                     <div class="card card-default">
                         <div class="card-header" style="background-color: #080531;">
                             <h4 class="card-title m-1">
@@ -217,8 +192,8 @@
     <div class="container pb-4">
         <div class="row pt-2">
             <div class="col">
-                <h2 class="text-color-dark text-uppercase font-weight-bold text-center mb-1">Berita dan Info Terkini</h2>
-                <a class="text-weight-bold" style="background-color: #080531; color: #dfad26;" href="<?php echo base_url('site/all_news') ?>" target="_self" id="a_1dd7_5"><center>Baca semua berita</center></a>
+                <h2 class="text-color-dark text-uppercase font-weight-bold text-center mb-1 appear-animation" data-appear-animation="fadeInUp" data-appear-animation-delay = "200">Berita dan Info Terkini</h2>
+                <a class="text-weight-bold appear-animation" style="background-color: #080531; color: #dfad26;" href="<?php echo base_url('site/all_news') ?>" target="_self" id="a_1dd7_5" data-appear-animation = "fadeInUp" data-appear-animation-delay = "600"><center>Baca semua berita</center></a>
             </div>
         </div>
         <hr>
@@ -227,12 +202,14 @@
             foreach ($query2 as $key):
                 ?>
                 <div class="col-lg-4 text-center text-md-left mb-5 mb-lg-0">
-                    <h6 class="text-color-dark font-weight-normal text-6 line-height-2"><strong class="font-weight-extra-bold"><?php echo $key->title ?></strong></h6>
-                    <p style="font-size:9px" >
+                    <h6 class="text-color-dark font-weight-normal text-6 line-height-2 appear-animation" data-appear-animation = "fadeInUp" data-appear-animation-delay = "1200"><strong class="font-weight-extra-bold"><?php echo $key->title ?></strong></h6>
+                    <div class="appear-animation" data-appear-animation = "fadeInUp" data-appear-animation-delay = "1200">
+                    <p style="font-size:9px">
                         <?php echo character_limiter($key->content, 500) ?>
                     </p>
+                    </div>
                     <p>
-                        <a href="<?php echo base_url('site/readnews/'.$key->id) ?>" style="font-size: 11px" class="btn btn-primary">baca selengkapnya</a>
+                        <a href="<?php echo base_url('site/readnews/'.$key->id) ?>" style="font-size: 11px" class="btn btn-primary appear-animation" data-appear-animation ="fadeInRightShorter" data-appear-animation-delay = "1800">baca selengkapnya</a>
                     </p>
                 </div>
                 <?php 
@@ -242,4 +219,4 @@
     </div>
 </section>
 
-</main>
+</div>

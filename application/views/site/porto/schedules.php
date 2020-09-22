@@ -18,12 +18,11 @@
     <div class="container pt-4 pb-4 mt-4">
         <div class="row pt-2 pb-4">
             <div class="col">
-                <h3 class="text-color-dark text-uppercase font-weight-bold text-center mb-1">Jadwal Simposium</h3>
-                <!-- <p class="custom-font-size-1 text-center mb-2">Porto Event Agenda</p> -->
+                <h3 class="text-color-dark text-uppercase font-weight-bold text-center mb-1 appear-animation" data-appear-animation="fadeInUp">Jadwal Simposium</h3>
             </div>
         </div>
         <div class="row">
-            <div class="col-sm-12 col-lg-12">
+            <div class="col-sm-12 col-lg-12 appear-animation" data-appear-animation = "fadeInUp" data-appear-animation-delay = "600">
                 <table class="table table-bordered mb-5">
                  <tr>
                      <td class="info text-center" colspan="5"><b>SABTU, 14 NOVEMBER 2020</b></td>
