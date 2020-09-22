@@ -10,9 +10,9 @@ class Papers_m extends MY_Model
 {
 	const ACCEPTED = 2;
 	const REJECTED = 3;
-
+	const RETURN_TO_AUTHOR = 0;
 	public static $status = [
-		0 => 'Returned to author',
+		self::RETURN_TO_AUTHOR => 'Returned to author',
 		1 => 'Waiting/Under Review',
 		self::ACCEPTED => 'Accepted',
 		self::REJECTED => 'Rejected'

@@ -104,14 +104,20 @@ class Paper extends Admin_Controller
 				if($response['status'] == false){
 					$response['message'] = $model->errorsString();
 				}else{
+					$this->load->model("Notification_m");
 					if($data['status'] == Papers_m::ACCEPTED || $data['status'] == Papers_m::REJECTED ){
-						$this->load->model("Notification_m");
 						$message = "<p>Dear Participant</p>
 						<p>Thank you for submitting your abstract to ".Settings_m::getSetting('site_title').". Please download your abstract result annoucement here.</p>
 						<p>Best regards.<br/>
 						Committee of ".Settings_m::getSetting('site_title')."</p>";
 						$member = $model->member;
 						$this->Notification_m->sendMessageWithAttachment($member->email,"Result Of Paper Review",$message,['Abstract Announcement.pdf'=>$model->exportNotifPdf()->output()]);
+					}elseif($data['status'] == Papers_m::RETURN_TO_AUTHOR){
+						$message = "<p>Dear Participant</p>
+						<p>Mohon melakukan revisi sesuai komentar dan masukan dari reviewer<p>";
+						$member = $model->member;
+						$this->Notification_m->sendMessage($member->email,"Result Of Paper Review",$message);
+
 					}
 
 				}
