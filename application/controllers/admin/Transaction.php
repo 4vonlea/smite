@@ -78,6 +78,46 @@ class Transaction extends Admin_Controller
 
 	}
 
+	public function save_modify(){
+		if($this->input->method() != 'post')
+			show_404("Page Not Found !");
+
+		$this->load->model(["Transaction_m","Transaction_detail_m"]);
+		
+		$data = $this->input->post();
+		$trans = $this->Transaction_m->findOne(['id'=>$data['id']]);
+		$status = false;
+		if($trans){
+			$trans->status_payment = $data['status_payment'];
+			$trans->getDb()->trans_start();
+			$trans->save();
+			foreach($data['details'] as $dt){
+				if(isset($dt['id'])){
+					$detail = $this->Transaction_detail_m->findOne(['id'=>$dt['id']]);
+					if($dt['isDeleted'] == 1){
+						$detail->delete();
+					}else{
+						unset($dt['isDeleted']);
+						$detail->setAttributes($dt);
+						$detail->save();
+					}
+				}else{
+					unset($dt['isDeleted']);
+					$this->Transaction_detail_m->insert($dt);
+				}
+			}
+			$trans->getDb()->trans_complete();
+			$status = $trans->getDb()->trans_status();
+		}
+		if($status){
+			$this->detail();
+		}else{
+			$this->output
+				->set_content_type("application/json")
+				->_display(json_encode(['status'=>false,'message'=>'Failed to save !']));
+		}
+	}
+
 	public function detail(){
 		if($this->input->method() != 'post')
 			show_404("Page Not Found !");
@@ -86,12 +126,15 @@ class Transaction extends Admin_Controller
 		$id = $this->input->post('id');
 		$detail = $this->Transaction_m->findOne($id);
 		if($detail){
-			$response = $detail->toArray();
-			$response['member'] = $detail->member->toArray();
+			$response['model'] = $detail->toArray();
+			$response['model']['member'] = $detail->member->toArray();
 			foreach($detail->details as $row){
-				$response['details'][] = $row->toArray();
+				$temp =  $row->toArray();
+				$temp['isDeleted'] = 0;
+				$response['model']['details'][] = $temp;
 			}
 		}
+		$response['listEvent'] = $this->Transaction_m->getNotFollowedEvent($response['model']['member']['id']);
 		$this->output
 			->set_content_type("application/json")
 			->_display(json_encode($response));

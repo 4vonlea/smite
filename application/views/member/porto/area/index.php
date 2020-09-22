@@ -80,6 +80,10 @@ $userDetail = array_merge($user->toArray(), ['status_member' => $user->status_me
 							</router-link>
                         </li>
                         <?php endif;?>
+                        <!-- <li class="nav-item">
+							<router-link active-class="active" class="nav-link text-dark" to="/sertifikat">Download Sertifikat
+							</router-link>
+                        </li> -->
                         <li class="nav-item">
 							<router-link active-class="active" class="nav-link text-dark" to="/presentation">Daftar Presentasi Ilmiah
 							</router-link>
@@ -120,6 +124,7 @@ $userDetail = array_merge($user->toArray(), ['status_member' => $user->status_me
     import PageWebminar from "<?= base_url("member/area/page/webminar"); ?>";
     import PageMaterial from "<?= base_url("member/area/page/material"); ?>";
     import PagePresentation from "<?= base_url("member/area/page/presentation"); ?>";
+    import PageSertifikat from "<?= base_url("member/area/page/sertifikat"); ?>";
 
     var userD = <?=json_encode($userDetail);?>;
     Vue.use(VueRouter);
@@ -131,6 +136,7 @@ $userDetail = array_merge($user->toArray(), ['status_member' => $user->status_me
         {path: '/billing', component: PageBilling, meta: {'title': 'Transaction & Cart'}},
         {path: '/webminar', component: PageWebminar, meta: {'title': 'Webminar'}},
         {path: '/material', component: PageMaterial, meta: {'title': 'Material Upload'}},
+        {path: '/sertifikat', component: PageSertifikat, meta: {'title': 'Download Sertifikat'}},
         {path: '/presentation', component: PagePresentation, meta: {'title': 'Presentation'}},
     ];
     let router = new VueRouter({

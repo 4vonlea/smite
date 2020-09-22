@@ -35,7 +35,7 @@ export default Vue.component("PageEvents", {
 										<div class="alert alert-success text-center" v-if="event.followed">
 											<h5>Anda mengikuti acara ini</h5>
 											<!--<a class="btn btn-default" :href="'<?=base_url('member/area/card');?>/'+event.id+'/'+user.id" target="_blank">Download Name Tag</a>-->
-											<a class="btn btn-default" :href="'<?=base_url('member/area/certificate');?>/'+event.id+'/'+user.id" target="_blank">Download Certificate</a>
+											<!--<a class="btn btn-default" :href="'<?=base_url('member/area/certificate');?>/'+event.id+'/'+user.id" target="_blank">Download Certificate</a>-->
 										</div>
 										<div v-else >
 											<div v-if="event.participant >= event.kouta" class="alert alert-warning text-center">

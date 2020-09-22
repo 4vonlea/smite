@@ -132,4 +132,16 @@ class Transaction_m extends MY_Model
 		$dompdf->render();
 		return $dompdf;
 	}
+
+	public function getNotFollowedEvent($member_id){
+		$rs = $this->db->query("SELECT e.name as event_name,ev.* FROM `events` e
+								JOIN members m ON m.id = '$member_id'
+								JOIN kategory_members km ON km.id = m.`status`
+								JOIN event_pricing ev ON ev.event_id = e.id AND ev.`condition` = km.kategory
+								WHERE ev.id NOT IN (
+								SELECT td.event_pricing_id FROM transaction_details td
+								JOIN `transaction` tr ON tr.id = td.transaction_id WHERE tr.member_id = '$member_id'
+								)");
+		return $rs->result_array();
+	}
 }

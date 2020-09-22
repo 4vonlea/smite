@@ -1,8 +1,10 @@
-<?php $this->layout->begin_head();?>
+<?php $this->layout->begin_head(); ?>
 <style>
-	.card{min-height: 115px}
+	.card {
+		min-height: 115px
+	}
 </style>
-<?php $this->layout->end_head();?>
+<?php $this->layout->end_head(); ?>
 <div class="header bg-info pb-8 pt-5 pt-md-8">
 	<div class="container-fluid">
 		<div class="header-body">
@@ -109,25 +111,26 @@
 				</div>
 			</div>
 			<div class="table-responsive">
-			<datagrid
-				@loaded_data="loadedGrid"
-				ref="datagrid"
-				api-url="<?= base_url('admin/transaction/grid'); ?>"
-				:fields="[{name:'invoice',sortField:'invoice','title':'No Invoice'}, {name:'fullname',sortField:'fullname','title':'Member Name'},{name:'status_payment',sortField:'status_payment'},{name:'t_updated_at',sortField:'t_updated_at',title:'Date'},{name:'t_id','title':'Aksi'}]">
-				<template slot="status_payment" slot-scope="props">
-					{{ props.row.status_payment.toUpperCase() }}
-				</template>
-				<template  slot="t_id" slot-scope="props">
-					<div class="table-button-container">
-						<button @click="detail(props)" class="btn btn-info btn-sm">
-							<span class="fa fa-search"></span> Detail
-						</button>
-						<a class="btn btn-primary btn-sm" :href="'<?=base_url('admin/notification/index');?>/'+props.row.m_id" target="_blank">
-							<span class="fa fa-envelope"></span> Email
-						</a>
-					</div>
-				</template>
-			</datagrid>
+				<datagrid @loaded_data="loadedGrid" ref="datagrid" api-url="<?= base_url('admin/transaction/grid'); ?>" :fields="[{name:'invoice',sortField:'invoice','title':'No Invoice'}, {name:'fullname',sortField:'fullname','title':'Member Name'},{name:'status_payment',sortField:'status_payment'},{name:'t_updated_at',sortField:'t_updated_at',title:'Date'},{name:'t_id','title':'Aksi'}]">
+					<template slot="status_payment" slot-scope="props">
+						{{ props.row.status_payment.toUpperCase() }}
+					</template>
+					<template slot="t_id" slot-scope="props">
+						<div class="table-button-container">
+							<button @click="detail(props)" class="btn btn-info btn-sm">
+								<span class="fa fa-search"></span> Detail
+							</button>
+							<?php if($this->session->user_session['role'] == User_account_m::ROLE_SUPERADMIN):?>
+							<button @click="modify(props)" class="btn btn-info btn-sm">
+								<span class="fa fa-edit"></span> Modify
+							</button>
+							<?php endif;?>
+							<a class="btn btn-primary btn-sm" :href="'<?= base_url('admin/notification/index'); ?>/'+props.row.m_id" target="_blank">
+								<span class="fa fa-envelope"></span> Email
+							</a>
+						</div>
+					</template>
+				</datagrid>
 			</div>
 
 		</div>
@@ -182,11 +185,11 @@
 					<tr v-if="detailModel.payment_proof">
 						<th>Transfer Proof</th>
 						<td colspan="3">
-							<a target="_blank" :href="'<?=base_url('admin/transaction/file');?>/'+detailModel.payment_proof">Click Here To View</a>
+							<a target="_blank" :href="'<?= base_url('admin/transaction/file'); ?>/'+detailModel.payment_proof">Click Here To View</a>
 						</td>
 					</tr>
 					<tr v-if="detailModel.client_message">
-						<th>Participant Message <br/>(Upload Transfer Proof)</th>
+						<th>Participant Message <br />(Upload Transfer Proof)</th>
 						<td colspan="3">
 							{{ detailModel.client_message }}
 						</td>
@@ -201,10 +204,10 @@
 					<tr v-for="(dt,ind) in detailModel.details">
 						<td colspan="2">{{ dt.product_name }}</td>
 						<td colspan="2">
-							{{ editUniquePrice == false || dt.event_pricing_id != 0 ?  formatCurrency(dt.price) : "" }} 
+							{{ editUniquePrice == false || dt.event_pricing_id != 0 ?  formatCurrency(dt.price) : "" }}
 							<a v-if="dt.event_pricing_id == 0 && editUniquePrice == false" @click="editUniquePrice = true;inputUniquePrice=dt.price;" href="#"><i class="fa fa-edit"></i></a>
 							<div v-if="dt.event_pricing_id == 0 && editUniquePrice == true" class="input-group mb-3">
-								<input type="text" v-model="inputUniquePrice"  class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+								<input type="text" v-model="inputUniquePrice" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
 								<div class="input-group-append">
 									<button :disabled="sendingUniquePrice" @click="saveEditDetail(dt.id,ind)" class="btn btn-outlined-default" type="button">
 										<i v-show="sendingUniquePrice == false" class="fa fa-save"></i>
@@ -222,17 +225,126 @@
 
 			<!-- Modal footer -->
 			<div class="modal-footer">
-				<button v-if="detailModel.status_payment == '<?=Transaction_m::STATUS_PENDING;?>'" @click="expirePayment" type="button" class="btn btn-primary" :disabled="expiring">
+				<button v-if="detailModel.status_payment == '<?= Transaction_m::STATUS_PENDING; ?>'" @click="expirePayment" type="button" class="btn btn-primary" :disabled="expiring">
 					<i v-if="verifying" class="fa fa-spin fa-spinner"></i>
 					Expire Payment
 				</button>
-				<button v-if="detailModel.status_payment != '<?=Transaction_m::STATUS_EXPIRE;?>' && detailModel.status_payment != '<?=Transaction_m::STATUS_FINISH;?>'" @click="verifyPayment" type="button" class="btn btn-primary" :disabled="verifying">
+				<button v-if="detailModel.status_payment != '<?= Transaction_m::STATUS_EXPIRE; ?>' && detailModel.status_payment != '<?= Transaction_m::STATUS_FINISH; ?>'" @click="verifyPayment" type="button" class="btn btn-primary" :disabled="verifying">
 					<i v-if="verifying" class="fa fa-spin fa-spinner"></i>
 					Verify Payment
 				</button>
-				<a :href="'<?=base_url('admin/transaction/download/invoice');?>/'+detailModel.id" target="_blank" class="btn btn-primary" >Download Invoice</a>
-				<a :href="'<?=base_url('admin/transaction/download/proof');?>/'+detailModel.id" target="_blank" v-if="detailModel.status_payment == '<?=Transaction_m::STATUS_FINISH;?>'" class="btn btn-primary" >Download Bukti Registrasi</a>
-				<button :disabled="sendingProof" v-on:click="resendPaymentProof(detailModel)" v-if="detailModel.status_payment == '<?=Transaction_m::STATUS_FINISH;?>'" class="btn btn-primary" ><i v-if="sendingProof" class="fa fa-spin fa-spinner"></i> Resend Bukti Registrasi</button>
+				<a :href="'<?= base_url('admin/transaction/download/invoice'); ?>/'+detailModel.id" target="_blank" class="btn btn-primary">Download Invoice</a>
+				<a :href="'<?= base_url('admin/transaction/download/proof'); ?>/'+detailModel.id" target="_blank" v-if="detailModel.status_payment == '<?= Transaction_m::STATUS_FINISH; ?>'" class="btn btn-primary">Download Bukti Registrasi</a>
+				<button :disabled="sendingProof" v-on:click="resendPaymentProof(detailModel)" v-if="detailModel.status_payment == '<?= Transaction_m::STATUS_FINISH; ?>'" class="btn btn-primary"><i v-if="sendingProof" class="fa fa-spin fa-spinner"></i> Resend Bukti Registrasi</button>
+				<button :disabled="sendingProof" type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<div class="modal" id="modal-modify">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<!-- Modal Header -->
+			<div class="modal-header">
+				<h4 class="modal-title">Modify Transaction</h4>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+
+			<!-- Modal body -->
+			<div class="modal-body table-responsive">
+				<table class="table table-bordered">
+					<tr>
+						<th>Invoice Number</th>
+						<td>{{ modifyModel.id }}</td>
+						<th>Invoice Date</th>
+						<td>{{ modifyModel.updated_at }}</td>
+					</tr>
+					<tr>
+						<th class="text-center" colspan="4">Billing Information</th>
+					</tr>
+					<tr>
+						<th>Bill To</th>
+						<td colspan="3">{{ modifyModel.member.fullname }}</td>
+					</tr>
+					<tr>
+						<th>Address</th>
+						<td colspan="3">{{ modifyModel.member.address+", "+modifyModel.member.city }}</td>
+					</tr>
+					<tr>
+						<th>Amount</th>
+						<td colspan="3">{{ amount }}</td>
+					</tr>
+					<tr>
+						<th>Channel Payment</th>
+						<td colspan="3">{{ modifyModel.channel }}</td>
+					</tr>
+					<tr>
+						<th>Status</th>
+						<td colspan="3">
+							<select class="form-control" v-model="modifyModel.status_payment">
+								<option value="<?= Transaction_m::STATUS_WAITING; ?>">Waiting Checkout</option>
+								<option value="<?= Transaction_m::STATUS_PENDING; ?>">Pending</option>
+								<option value="<?= Transaction_m::STATUS_FINISH; ?>">Settlement</option>
+								<option value="<?= Transaction_m::STATUS_EXPIRE; ?>">Expired</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<th>{{ modifyModel.channel == 'EDC' || modifyModel.channel == 'MANUAL TRANSFER' ? 'Code Reference' : 'Additional Info' }}</th>
+						<td colspan="3">{{ modifyModel.message_payment }}</td>
+					</tr>
+
+					<tr v-if="modifyModel.payment_proof">
+						<th>Transfer Proof</th>
+						<td colspan="3">
+							<a target="_blank" :href="'<?= base_url('admin/transaction/file'); ?>/'+modifyModel.payment_proof">Click Here To View</a>
+						</td>
+					</tr>
+					<tr v-if="modifyModel.client_message">
+						<th>Participant Message <br />(Upload Transfer Proof)</th>
+						<td colspan="3">
+							{{ modifyModel.client_message }}
+						</td>
+					</tr>
+					<tr>
+						<th class="text-center" colspan="4">Details</th>
+					</tr>
+					<tr>
+						<th colspan="2">Event Name</th>
+						<th>Price</th>
+						<th><button @click="modifyModel.details.push({member_id:modifyModel.member.id,transaction_id:modifyModel.id,event_pricing_id:0,product_name:'',price:0,isDeleted:0})" class="btn btn-primary btn-sm">Add Item</button></th>
+					</tr>
+					<tr v-for="(dt,ind) in modifyModel.details" :class="{'bg-red':dt.isDeleted}">
+						<td v-if="!dt.id" colspan="2">
+							<select class="form-control" @change="changeEvent($event,dt)" v-model="dt.event_pricing_id">
+								<option value="0">Select Event (Event filtered by status)</option>
+								<option v-for="item in listEvent" :data-product_name="`${item.event_name} (${item.condition})`" :data-price="item.price" :value="item.id"> {{ `${item.event_name} (${item.name})` }}</option>
+							</select>
+						</td>
+						<td v-else colspan="2">{{ dt.product_name }}</td>
+						<td colspan="2">
+							<div class="input-group input-group-sm">
+								<input type="text" v-model="dt.price" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2">
+								<div class="input-group-append">
+									<button v-if="dt.isDeleted == 0" @click="deleteItem(dt,ind)" class="btn btn-outlined-default" type="button">
+										<i class="fa fa-times"></i>
+									</button>
+									<button v-if="dt.isDeleted == 1" @click="dt.isDeleted = 0" class="btn btn-outlined-default" type="button">
+										<i class="fa fa-redo"></i>
+									</button>
+
+								</div>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+
+			<!-- Modal footer -->
+			<div class="modal-footer">
+				<button  type="button" class="btn btn-primary" @click="saveModify">Save</button>
 				<button :disabled="sendingProof" type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 			</div>
 
@@ -241,137 +353,206 @@
 </div>
 <?php $this->layout->begin_script(); ?>
 <script>
-	var info = <?=json_encode(Transaction_m::$transaction_status);?>;
-    var app = new Vue({
-        el: '#app',
-        data: {
-			info:info,
-            detailModel: {member:{},details:[],status_payment:""},
-            pagination: {},
-            verifying:false,
-			expiring:false,
-			sendingProof:false,
-			editUniquePrice:false,
-			inputUniquePrice:'',
-			sendingUniquePrice:false,
-        },
-		computed:{
-            amount(){
-                var price = 0;
-                for(var d in this.detailModel.details){
-                    if(this.detailModel.details[d])
-                        price += Number(this.detailModel.details[d].price);
+	var info = <?= json_encode(Transaction_m::$transaction_status); ?>;
+	var app = new Vue({
+		el: '#app',
+		data: {
+			info: info,
+			listEvent:[],
+			detailModel: {
+				member: {},
+				details: [],
+				status_payment: ""
+			},
+			modifyModel: {
+				member: {},
+				details: [],
+				status_payment: ""
+			},
+			pagination: {},
+			verifying: false,
+			expiring: false,
+			sendingProof: false,
+			editUniquePrice: false,
+			inputUniquePrice: '',
+			sendingUniquePrice: false,
+		},
+		computed: {
+			amount() {
+				var price = 0;
+				for (var d in this.detailModel.details) {
+					if (this.detailModel.details[d])
+						price += Number(this.detailModel.details[d].price);
 				}
-                return this.formatCurrency(price);
+				return this.formatCurrency(price);
 			}
 		},
-        methods: {
-			saveEditDetail(id,ind){
+		methods: {
+			saveModify(event){
+				event.target.innerHTML = "<i class='fa fa-spin fa-spinner'></i>";
+				event.target.setAttribute("disabled", "disabled");
+				$.post("<?=base_url('admin/transaction/save_modify');?>",this.modifyModel,null,'JSON')
+				.done(function(res){
+					if(res.status && res.status == false){
+						Swal.fire("Failed", res.message, "error");						
+					}else{
+						app.modifyModel = res.model;
+						app.listEvent = res.listEvent;
+						app.modifyModel = res.model;
+						Swal.fire("Success", "Transaction Saved Successfully", "success");
+					}
+				}).always(function(){
+					event.target.innerHTML = "Save";
+					event.target.removeAttribute("disabled");
+				}).fail(function(){
+					Swal.fire("Failed", "Failed to save", "error");
+				});
+
+			},
+			deleteItem(dt,ind){
+				if(dt.id){
+					dt.isDeleted = 1;
+				}else{
+					this.modifyModel.details.splice(ind,1);
+				}
+				
+			},
+			changeEvent(event,dt){
+				let options = event.target.options;
+				let selectedIndex =event.target.selectedIndex;
+				dt.price = options[selectedIndex].dataset.price;
+				dt.product_name =  options[selectedIndex].dataset.product_name;
+			},
+			saveEditDetail(id, ind) {
 				app.sendingUniquePrice = true;
-				$.post("<?=base_url('admin/transaction/update_detail');?>",{
-					id:id,
-					price:app.inputUniquePrice,
-				},null,'JSON')
-					.done(function (res) {
-						if(res.status){
+				$.post("<?= base_url('admin/transaction/update_detail'); ?>", {
+						id: id,
+						price: app.inputUniquePrice,
+					}, null, 'JSON')
+					.done(function(res) {
+						if (res.status) {
 							app.editUniquePrice = false;
 							app.detailModel.details[ind].price = app.inputUniquePrice;
-						}else{
-							Swal.fire("Failed","Gagal mengirim ulang bukti registrasi","error");
+						} else {
+							Swal.fire("Failed", "Gagal mengirim ulang bukti registrasi", "error");
 						}
-					}).fail(function (xhr) {
-						var message =  xhr.getResponseHeader("Message");
-						if(!message)
+					}).fail(function(xhr) {
+						var message = xhr.getResponseHeader("Message");
+						if (!message)
 							message = 'Server fail to response !';
 						Swal.fire('Fail', message, 'error');
-				}).always(function () {
-					app.sendingUniquePrice = false;
-				});
+					}).always(function() {
+						app.sendingUniquePrice = false;
+					});
 			},
-        	resendPaymentProof(data){
-        		this.sendingProof = true;
-				$.post("<?=base_url('admin/transaction/resend/proof');?>/"+data.id,null,'JSON')
-					.done(function (res) {
-						if(res.status){
-							Swal.fire("Success","Bukti Registrasi berhasil dikirim ulang !","success");
-						}else{
-							Swal.fire("Failed","Gagal mengirim ulang bukti registrasi","error");
+			resendPaymentProof(data) {
+				this.sendingProof = true;
+				$.post("<?= base_url('admin/transaction/resend/proof'); ?>/" + data.id, null, 'JSON')
+					.done(function(res) {
+						if (res.status) {
+							Swal.fire("Success", "Bukti Registrasi berhasil dikirim ulang !", "success");
+						} else {
+							Swal.fire("Failed", "Gagal mengirim ulang bukti registrasi", "error");
 						}
-					}).fail(function (xhr) {
-					var message =  xhr.getResponseHeader("Message");
-					if(!message)
-						message = 'Server fail to response !';
-					Swal.fire('Fail', message, 'error');
-				}).always(function () {
-					app.sendingProof = false;
-				});
+					}).fail(function(xhr) {
+						var message = xhr.getResponseHeader("Message");
+						if (!message)
+							message = 'Server fail to response !';
+						Swal.fire('Fail', message, 'error');
+					}).always(function() {
+						app.sendingProof = false;
+					});
 			},
-            loadedGrid: function (data) {
-                this.pagination = data;
-            },
-			expirePayment(){
-				var url = "<?=base_url('admin/transaction/expire');?>";
+			loadedGrid: function(data) {
+				this.pagination = data;
+			},
+			expirePayment() {
+				var url = "<?= base_url('admin/transaction/expire'); ?>";
 				var app = this;
 				app.expiring = true;
-				$.post(url,this.detailModel,null,'JSON')
-					.done(function (res) {
-						if(res.status){
-						    app.$refs.datagrid.refresh();
-							app.detailModel.status_payment = "<?=Transaction_m::STATUS_EXPIRE;?>";
-							Swal.fire("Success","The payment has been declared expired !","success");
-						}else{
-							Swal.fire("Failed","Failed to expire transaction","error");
+				$.post(url, this.detailModel, null, 'JSON')
+					.done(function(res) {
+						if (res.status) {
+							app.$refs.datagrid.refresh();
+							app.detailModel.status_payment = "<?= Transaction_m::STATUS_EXPIRE; ?>";
+							Swal.fire("Success", "The payment has been declared expired !", "success");
+						} else {
+							Swal.fire("Failed", "Failed to expire transaction", "error");
 						}
-					}).fail(function (xhr) {
-					var message =  xhr.getResponseHeader("Message");
-					if(!message)
-						message = 'Server fail to response !';
-					Swal.fire('Fail', message, 'error');
-				}).always(function () {
-					app.expiring = false;
-				});
+					}).fail(function(xhr) {
+						var message = xhr.getResponseHeader("Message");
+						if (!message)
+							message = 'Server fail to response !';
+						Swal.fire('Fail', message, 'error');
+					}).always(function() {
+						app.expiring = false;
+					});
 			},
-			verifyPayment(){
-                var url = "<?=base_url('admin/transaction/verify');?>";
-                var app = this;
-                app.verifying = true;
-                $.post(url,this.detailModel,null,'JSON')
-                    .done(function (res) {
-                        if(res.status){
-                            app.detailModel.status_payment = "<?=Transaction_m::STATUS_FINISH;?>";
-                            Swal.fire("Success","Transaction success verified !","success");
-						}else{
-                            Swal.fire("Failed","Failed to verify transaction","error");
-                        }
-                    }).fail(function (xhr) {
-					var message =  xhr.getResponseHeader("Message");
-					if(!message)
-						message = 'Server fail to response !';
-					Swal.fire('Fail', message, 'error');
-                }).always(function () {
-                    app.verifying = false;
-                });
+			verifyPayment() {
+				var url = "<?= base_url('admin/transaction/verify'); ?>";
+				var app = this;
+				app.verifying = true;
+				$.post(url, this.detailModel, null, 'JSON')
+					.done(function(res) {
+						if (res.status) {
+							app.detailModel.status_payment = "<?= Transaction_m::STATUS_FINISH; ?>";
+							Swal.fire("Success", "Transaction success verified !", "success");
+						} else {
+							Swal.fire("Failed", "Failed to verify transaction", "error");
+						}
+					}).fail(function(xhr) {
+						var message = xhr.getResponseHeader("Message");
+						if (!message)
+							message = 'Server fail to response !';
+						Swal.fire('Fail', message, 'error');
+					}).always(function() {
+						app.verifying = false;
+					});
 			},
-            detail(row){
-                app.$refs.datagrid.loading = true;
-                var url = "<?=base_url('admin/transaction/detail');?>";
-                $.post(url,{id:row.row.invoice},null,'JSON')
-                    .done(function (res) {
-                        app.detailModel = res;
-                        $("#modal-detail").modal("show");
-                    }).fail(function (xhr) {
-					var message =  xhr.getResponseHeader("Message");
-					if(!message)
-						message = 'Server fail to response !';
-					Swal.fire('Fail', message, 'error');
-                }).always(function () {
-                    app.$refs.datagrid.loading = false;
-                });
+			detail(row) {
+				app.$refs.datagrid.loading = true;
+				var url = "<?= base_url('admin/transaction/detail'); ?>";
+				$.post(url, {
+						id: row.row.invoice
+					}, null, 'JSON')
+					.done(function(res) {
+						app.detailModel = res.model;
+						$("#modal-detail").modal("show");
+					}).fail(function(xhr) {
+						var message = xhr.getResponseHeader("Message");
+						if (!message)
+							message = 'Server fail to response !';
+						Swal.fire('Fail', message, 'error');
+					}).always(function() {
+						app.$refs.datagrid.loading = false;
+					});
 			},
-			formatCurrency(price){
-                return new Intl.NumberFormat("id-ID",{ style: 'currency',currency:"IDR"} ).format(price);
+			modify(row) {
+				app.$refs.datagrid.loading = true;
+				var url = "<?= base_url('admin/transaction/detail'); ?>";
+				$.post(url, {
+						id: row.row.invoice
+					}, null, 'JSON')
+					.done(function(res) {
+						app.modifyModel = res.model;
+						app.listEvent = res.listEvent;
+						$("#modal-modify").modal("show");
+					}).fail(function(xhr) {
+						var message = xhr.getResponseHeader("Message");
+						if (!message)
+							message = 'Server fail to response !';
+						Swal.fire('Fail', message, 'error');
+					}).always(function() {
+						app.$refs.datagrid.loading = false;
+					});
+			},
+			formatCurrency(price) {
+				return new Intl.NumberFormat("id-ID", {
+					style: 'currency',
+					currency: "IDR"
+				}).format(price);
 			}
-        }
-    });
+		}
+	});
 </script>
 <?php $this->layout->end_script(); ?>
