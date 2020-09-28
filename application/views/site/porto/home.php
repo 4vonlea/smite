@@ -1,54 +1,54 @@
 <div role="main" class="main">
 
-<section id="slidee" class="bg-color-grey appear-animation" data-appear-animation = "fadeIn">
-    <div class="owl-carousel owl-theme nav-inside nav-inside-edge nav-squared nav-with-transparency nav-light" data-plugin-options="{'items': 1, 'margin': 10, 'loop': true, 'nav': true, 'dots': false, 'autoplay': true, 'autoplayTimeout': 6000}">
-        <div>
-            <div class="img-thumbnail border-0 p-0 d-block">
-                <img class="img-fluid border-radius-0" src="<?= base_url('themes/porto'); ?>/img/slide1.png" alt="">
+    <section id="slidee" class="bg-color-grey appear-animation" data-appear-animation = "fadeIn">
+        <div class="owl-carousel owl-theme nav-inside nav-inside-edge nav-squared nav-with-transparency nav-light" data-plugin-options="{'items': 1, 'margin': 10, 'loop': true, 'nav': true, 'dots': false, 'autoplay': true, 'autoplayTimeout': 6000}">
+            <div>
+                <div class="img-thumbnail border-0 p-0 d-block">
+                    <img class="img-fluid border-radius-0" src="<?= base_url('themes/porto'); ?>/img/slide1.png" alt="">
+                </div>
+            </div>
+            <div>
+                <div class="img-thumbnail border-0 p-0 d-block">
+                    <img class="img-fluid border-radius-0" src="<?= base_url('themes/porto'); ?>/img/slide2.png" alt="">
+                </div>
             </div>
         </div>
-        <div>
-            <div class="img-thumbnail border-0 p-0 d-block">
-                <img class="img-fluid border-radius-0" src="<?= base_url('themes/porto'); ?>/img/slide2.png" alt="">
+    </section>
+
+    <section id="timer" class="bg-color-light pt-2 pb-3">
+        <?php
+        foreach($eventcountdown as $eventcd) 
+        {
+            $eventtimer = $eventcd->value;
+        }
+
+        foreach($papercountdown as $papercd) 
+        {
+            $papertimer = $papercd->value;
+        }
+        ?>
+        <div class="container">
+            <div class="row">
+             <div class="col-lg-6 py-2 appear-animation" data-appear-animation="fadeInRightShorter">
+                <h3 class="text-color-dark text-uppercase font-weight-bold text-center mb-3">abstract Countdown</h3>
+                <div class="countdown countdown-borders countdown-biru" data-plugin-countdown data-plugin-options="{'date': '<?php echo $papertimer; ?>', 'numberClass': 'font-weight-extra-bold', 'wrapperClass': 'border-color-emas'}"></div>
             </div>
-        </div>
-    </div>
-</section>
-
-<section id="timer" class="bg-color-light pt-2 pb-3">
-    <?php
-    foreach($eventcountdown as $eventcd) 
-    {
-        $eventtimer = $eventcd->value;
-    }
-
-    foreach($papercountdown as $papercd) 
-    {
-        $papertimer = $papercd->value;
-    }
-    ?>
-    <div class="container">
-        <div class="row">
-           <div class="col-lg-6 py-2 appear-animation" data-appear-animation="fadeInRightShorter">
-            <h3 class="text-color-dark text-uppercase font-weight-bold text-center mb-3">abstract Countdown</h3>
-               <div class="countdown countdown-borders countdown-biru" data-plugin-countdown data-plugin-options="{'date': '<?php echo $papertimer; ?>', 'numberClass': 'font-weight-extra-bold', 'wrapperClass': 'border-color-emas'}"></div>
-           </div>
-           <div class="col-lg-6 divider-left-border py-2 appear-animation" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="200">
-               <h3 class="text-color-dark text-uppercase font-weight-bold text-center mb-3">Event Countdown</h3>
-               <div class="countdown countdown-borders countdown-emas" data-plugin-countdown data-plugin-options="{'date': '<?php echo $eventtimer; ?>', 'numberClass': 'font-weight-extra-bold', 'wrapperClass': 'border-color-biru bg-color-biru'}"></div>
-           </div>
-       </div>
-   </div>
+            <div class="col-lg-6 divider-left-border py-2 appear-animation" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="200">
+             <h3 class="text-color-dark text-uppercase font-weight-bold text-center mb-3">Event Countdown</h3>
+             <div class="countdown countdown-borders countdown-emas" data-plugin-countdown data-plugin-options="{'date': '<?php echo $eventtimer; ?>', 'numberClass': 'font-weight-extra-bold', 'wrapperClass': 'border-color-biru bg-color-biru'}"></div>
+         </div>
+     </div>
+ </div>
 </section>
 
 <section class="bg-color-light">
     <div class="container">
         <div class="row">
             <div class="col-lg-6">
-                    <a href="<?= base_url('themes/porto'); ?>/pengumuman/2nd.pdf" target="_blank" class="btn btn-primary font-weight-semibold text-uppercase text-5 mt-2 mb-3 col-lg-12">Second Announcement</a>
+                <a href="<?= base_url('themes/porto'); ?>/pengumuman/2nd.pdf" target="_blank" class="btn btn-primary font-weight-semibold text-uppercase text-5 mt-2 mb-3 col-lg-12">Second Announcement</a>
             </div>
             <div class="col-lg-6 divider-left-border">
-                    <a href="<?= base_url('themes/porto'); ?>/pengumuman/ketentuan.pdf" target="_blank" class="btn btn-primary font-weight-semibold text-uppercase text-5 mt-2 mb-3 col-lg-12">KETENTUAN E-POSTER & PRESENTASI ORAL</a>
+                <a href="<?= base_url('themes/porto'); ?>/pengumuman/ketentuan.pdf" target="_blank" class="btn btn-primary font-weight-semibold text-uppercase text-5 mt-2 mb-3 col-lg-12">KETENTUAN E-POSTER & PRESENTASI ORAL</a>
             </div>
         </div>
         
@@ -204,9 +204,9 @@
                 <div class="col-lg-4 text-center text-md-left mb-5 mb-lg-0">
                     <h6 class="text-color-dark font-weight-normal text-6 line-height-2 appear-animation" data-appear-animation = "fadeInUp" data-appear-animation-delay = "1200"><strong class="font-weight-extra-bold"><?php echo $key->title ?></strong></h6>
                     <div class="appear-animation" data-appear-animation = "fadeInUp" data-appear-animation-delay = "1200">
-                    <p style="font-size:9px">
-                        <?php echo character_limiter($key->content, 500) ?>
-                    </p>
+                        <p style="font-size:9px">
+                            <?php echo character_limiter($key->content, 500) ?>
+                        </p>
                     </div>
                     <p>
                         <a href="<?php echo base_url('site/readnews/'.$key->id) ?>" style="font-size: 11px" class="btn btn-primary appear-animation" data-appear-animation ="fadeInRightShorter" data-appear-animation-delay = "1800">baca selengkapnya</a>
@@ -215,6 +215,26 @@
                 <?php 
             endforeach; 
             ?>
+        </div>
+    </div>
+</section>
+
+<section id="vid_promo" class="bg-color-light pt-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="d-flex justify-content-center">
+                    <iframe width="600" height="300" allowfullscreen="true" src="https://www.youtube.com/embed/awJsqhB9mwE"></iframe>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="mt-4">
+                    <img class="img-fluid border-radius-0" src="<?= base_url('themes/porto'); ?>/img/lomba.png" alt="">
+                    <div>
+                    <a href="<?= base_url('themes/porto'); ?>/img/syarat.pdf" target="_blank" class="btn btn-primary font-weight-semibold text-uppercase text-5 mt-2 mb-3 col-lg-12">Syarat & Ketentuan</a>
+                </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
