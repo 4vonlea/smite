@@ -12,22 +12,26 @@ class Upload_video_m extends MY_Model
     public static $types = [
         self::TYPE_VIDEO=>'Video',
         self::TYPE_IMAGE=>'Image',
-        self::TYPE_LINK=>'Link'        
+        // self::TYPE_LINK=>'Link'        
     ];
 
     public function rules(){
         return [
-			['field' => 'title','label'=>'Title','rules' => 'required|max_length[100]'],
+			['field' => 'filename','label'=>'Video/Image','rules' => 'required|max_length[100]'],
+			['field' => 'title','label'=>'Title','rules' => 'required|max_length[250]'],
+			['field' => 'type','label'=>'Type','rules' => 'required'],
+			['field' => 'uploader','label'=>'Contestant','rules' => 'required|max_length[100]'],
+			['field' => 'description','label'=>'Description','rules' => 'required'],
         ];
     }
 
     public function gridConfig($option = array())
 	{
 		return [
-			'select'=>['id'=>'t.id',"filename","title","description","like_count"=>'COUNT(likes.id)','comment'=>'count(comments.id)'],
+			'select'=>['id'=>'t.id',"filename","uploader","type","title","description","like_count"=>'COUNT(likes.id)','comment'=>'count(comments.id)'],
 			'relationships' => [
-				'likes' => ['video_like', 'vidoe_id = t.id'],
-				'comments' => ['video_komen', 't.id = comments.video_id']
+				'likes' => ['video_like', 'vidoe_id = t.id','left'],
+				'comments' => ['video_komen', 't.id = comments.video_id','left']
             ],
             'group_by'=>'t.id',
 		];
