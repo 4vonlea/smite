@@ -259,14 +259,14 @@ $spsilver       = $this->Sponsor_link_m->listspsilver();
 		</div>
 
 		<hr>
-		<span class="text-color-biru appear-animation" data-appear-animation = "fadeInUpBig" data-appear-animation-delay = "1200" style="font-size: 30px;"><b>Gold Sponsor</b></span>
+		<span class="text-color-biru appear-animation" data-appear-animation = "fadeInUpBig" data-appear-animation-delay = "900" style="font-size: 30px;"><b>Gold Sponsor</b></span>
 		<hr>
 
 		<div class="row">
 			<?php
 			foreach ($spgold as $gold):
 				?>
-				<div class="col-lg-2 appear-animation" data-appear-animation = "fadeInUpBig" data-appear-animation-delay = "1800">
+				<div class="col-lg-2 appear-animation" data-appear-animation = "fadeInUpBig" data-appear-animation-delay = "1200">
 					<span class="align-middle thumb-info thumb-info-no-borders thumb-info-no-borders-rounded thumb-info-lighten thumb-info-centered-info thumb-info-block thumb-info-block-dark mx-1 my-1">
 						<span class="thumb-info-wrapper">
 							<img src="<?= base_url('themes/uploads/sponsor') ?>/<?= $gold->logo ?>" class="img-fluid">
@@ -281,10 +281,10 @@ $spsilver       = $this->Sponsor_link_m->listspsilver();
 		</div>
 		<br>
 		<hr>
-		<span class="text-color-biru appear-animation" data-appear-animation = "fadeInUpBig" data-appear-animation-delay = "1800" style="font-size: 30px;"><b>Silver Sponsor</b></span>
+		<span class="text-color-biru appear-animation" data-appear-animation = "fadeInUpBig" data-appear-animation-delay = "1500" style="font-size: 30px;"><b>Silver Sponsor</b></span>
 		<hr>
 		<div class="row">
-			<div class="col-lg-12 appear-animation" data-appear-animation = "fadeInUpBig" data-appear-animation-delay = "1800">
+			<div class="col-lg-12 appear-animation" data-appear-animation = "fadeInUpBig" data-appear-animation-delay = "1500">
 				<div class="owl-carousel owl-theme" data-plugin-options="{'items': 6, 'autoplay': true, 'autoplayTimeout': 3000}">
 					<?php 
 					foreach ($spsilver as $silver):

@@ -6,15 +6,15 @@
  * @var array $univList;
  */
 ?>
-<section class="page-header page-header-modern bg-color-dark page-header-sm custom-page-header">
+<section class="page-header page-header-modern page-header-sm custom-page-header" style="background-color: #d4af37;">
     <div class="container">
         <div class="row">
             <div class="col-md-8 order-2 order-md-1 align-self-center p-static">
-                <h1>Registrasi Akun</h1>
+                <h1 class="text-color-dark font-weight-bold">Registrasi Akun</h1>
             </div>
             <div class="col-md-4 order-1 order-md-2 align-self-center">
-                <ul class="breadcrumb d-block text-md-right breadcrumb-light">
-                    <li><a href="<?= base_url('site/home'); ?>">Beranda</a></li>
+                <ul class="breadcrumb d-block text-md-right breadcrumb-dark">
+                    <li><a href="<?= base_url('site/home'); ?>" class="text-color-dark">Beranda</a></li>
                     <li class="active">Registrasi</li>
                 </ul>
             </div>
@@ -22,7 +22,7 @@
     </div>
 </section>
 
-<section id="app" class="custom-section-padding">
+<section id="app" class="custom-section-padding" style="background-image: url('<?= base_url('themes/porto'); ?>/img/bgjadwal.jpg'); background-repeat: no-repeat; background-size: cover; height: 100%;">
     <div class="container">
         <div class="row">
             <div v-if="registered" class="col-lg-12 col-lg-offset-2">
@@ -34,14 +34,14 @@
             </div>
             <div v-else class="col-lg-12 col-lg-offset-2">
 
-                <div class="alert alert-info alert-dismissable alert-hotel">
+                <div class="alert alert-info alert-dismissable alert-hotel mt-5">
                     <i class="fa fa-info"></i>
                     <b>Perhatian</b>
                     Pastikan alamat email yang dimasukkan valid dan dapat anda akses, karena kami akan mengirimkan kode aktivasi melalui email tersebut. Akun anda tidak dapat digunakan sebelum diaktivasi terlebih dahulu.
                 </div>
                 <form id="form-register" ref="form">
                     <div class="form-group row">
-                        <label class="col-lg-3 control-label">Email*</label>
+                        <label class="col-lg-3 control-label control-label-bold">Email*</label>
                         <div class="col-lg-5">
                             <input type="text" :class="{'is-invalid': validation_error.email}" class="form-control" name="email"/>
                             <div v-if="validation_error.email" class="invalid-feedback">
@@ -201,13 +201,13 @@
                     <label class="col-lg-3 control-label"></label>
                     <div class="col-lg-5 col-lg-offset-3">
                         <button :disabled="saving" type="button" @click="register"
-                                class="btn btn-outline custom-border-width btn-primary custom-border-radius font-weight-semibold text-uppercase">
+                                class="btn btn-primary custom-border-radius font-weight-semibold text-uppercase">
                             <i v-if="saving"  class="fa fa-spin fa-spinner"></i>
                             Submit
                         </button>
                         <button type="button"
-                                class="btn btn-outline custom-border-width btn-danger custom-border-radius font-weight-semibold text-uppercase"
-                                id="resetBtn" style="border-color:red;color:red">Cancel
+                                class="btn btn-danger custom-border-radius font-weight-semibold text-uppercase"
+                                id="resetBtn">Cancel
                         </button>
                     </div>
                 </div>
