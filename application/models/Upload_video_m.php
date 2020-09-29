@@ -35,5 +35,9 @@ class Upload_video_m extends MY_Model
             ],
             'group_by'=>'t.id',
 		];
-	}
+    }
+    
+    public function detail($id){
+        
+    }
 }

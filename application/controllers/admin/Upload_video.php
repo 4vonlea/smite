@@ -71,6 +71,14 @@ class Upload_video extends Admin_Controller
 
 	}
 
+	public function detail($id){
+		$this->load->model('Upload_video_m');
+		$data = $this->Upload_video_m->findDetail($id);
+		$this->output
+			->set_content_type("application/json")
+			->_display(json_encode($data));
+	}
+
 	/**
 	 * @param $name
 	 * @return boolean

@@ -60,3 +60,6 @@ application/third_party/phpqrcode/cache/*
 application/application.zip
 
 themes/filemanager/*
+
+themes/uploads/video/*
+!themes/uploads/video/index.html
