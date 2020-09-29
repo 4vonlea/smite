@@ -43,7 +43,7 @@ class Transaction_m extends MY_Model
 	{
 		$data = parent::gridData($params, $relationship);
 		$result = $this->find()->select("SUM(IF(status_payment = '".self::STATUS_FINISH."',1,0)) as finish")
-		->select("SUM(IF(status_payment = 'capture' OR status_payment = 'pending' OR status_payment = 'waiting',1,0)) as pending")
+		->select("SUM(IF(status_payment = 'capture' OR status_payment = 'pending',1,0)) as pending")
 		->select("SUM(IF(status_payment = 'waiting',1,0)) as waiting")
 		->select("SUM(IF(status_payment = 'need_verification',1,0)) as need_verify")
 		->select("SUM(IF(status_payment = 'cancel' OR status_payment = 'deny' OR status_payment = 'expired',1,0)) as unfinish")
