@@ -17,6 +17,11 @@ class Migration_paper_3step extends CI_Migration
 			'time_upload_fullpaper'=>['type'=>'datetime'],
 			'time_upload_presentasi'=>['type'=>'datetime'],
 		]);
+		$this->dbforge->add_column("upload_video",[
+			'type'=>['type'=>'tinyint'],
+			'title'=>['type'=>'varchar','constraint'=>'250'],
+			'description'=>['type'=>'text'],
+		]);
 	}
 
 	public function down(){
@@ -26,6 +31,7 @@ class Migration_paper_3step extends CI_Migration
 		$this->dbforge->drop_column("papers","feedback_file_presentasi");
 		$this->dbforge->drop_column("papers","time_upload_fullpaper");
 		$this->dbforge->drop_column("papers","time_upload_presentasi");
+		$this->dbforge->drop_column("upload_video","type");
 
 	}
 }
