@@ -104,7 +104,7 @@ $userDetail = array_merge($user->toArray(), ['status_member' => $user->status_me
 		src="https://app.midtrans.com/snap/snap.js"
 		data-client-key="<?=$client_key;?>"></script> -->
 <?php if(isset(Settings_m::getEspay()['jsKitUrl'])):?>
-<script src="<?=Settings_m::getEspay()['jsKitUrl'];?>"></script>
+<!-- <script src="<?=Settings_m::getEspay()['jsKitUrl'];?>"></script> -->
 <?php endif;?>
 <script src="<?= base_url("themes/script/sweetalert2@8.js"); ?>"></script>
 

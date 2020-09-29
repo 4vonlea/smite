@@ -279,7 +279,7 @@ class Payment extends MY_Controller
 		$reconcile_datetime = date("Y-m-d H:i:s");
 		$message_payment = json_encode($this->input->post());
 		$status = '5';
-		if(in_array($this->input->ip_address(),["::1","127.0.0.1","139.255.109.146 ","116.90.162.173"])){
+		if(in_array($this->input->ip_address(),["::1","127.0.0.1","139.255.109.146","116.90.162.173"])){
 			$status = $this->Transaction_m->update(['message_payment'=>$message_payment,'status_payment'=>Transaction_m::STATUS_FINISH],$order_id);
 		}
 		$this->log("notif".$status);

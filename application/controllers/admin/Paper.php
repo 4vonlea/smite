@@ -11,6 +11,7 @@ class Paper extends Admin_Controller
 	];
 	public function index()
 	{
+		$this->load->helper("form");
 		$this->load->model(["Papers_m", "User_account_m"]);
 		$adminPaper = [];
 		foreach ($this->User_account_m->findAll(['role' => User_account_m::ROLE_ADMIN_PAPER]) as $row) {
@@ -70,6 +71,25 @@ class Paper extends Admin_Controller
 			->_display(json_encode($response));
 	}
 
+	public function save_setting_date(){
+		$post = $this->input->post();
+		$response = [];
+		$response['status'] = Settings_m::saveSetting($post);
+		$this->output
+			->set_content_type("application/json")
+			->_display(json_encode($response));
+	}
+
+	protected function saveFeedbackFile($dataFile,$filename,$type){
+		list(, $dataFile) = explode(',', $dataFile);
+		$dataFile = base64_decode($dataFile);
+		$split = explode(".", $filename);
+		$ext = $split[count($split)-1];
+		$filename = $type."_".date("Ymdhis").".".$ext;
+		file_put_contents(APPPATH . "uploads/papers/$filename", $dataFile);
+		return $filename;
+	}
+
 	public function save()
 	{
 		$this->load->library('form_validation');
@@ -86,17 +106,25 @@ class Paper extends Admin_Controller
 
 			if ($this->form_validation->run()) {
 				if(isset($_POST['feedback_file']) && isset($_POST['filename_feedback'])) {
-					$dataFile = $_POST['feedback_file'];
-					list(, $dataFile) = explode(',', $dataFile);
-					$dataFile = base64_decode($dataFile);
-					$split = explode(".", $this->input->post('filename_feedback'));
-					$ext = $split[count($split)-1];
-					$filename = "feedback_".date("Ymdhis").".".$ext;
-					file_put_contents(APPPATH . "uploads/papers/$filename", $dataFile);
+					$filename = $this->saveFeedbackFile($_POST['feedback_file'],$_POST['filename_feedback'],'feedback');
 					$model->feedback = $filename;
 				}
+				if(isset($_POST['feedback_file_fullpaper']) && isset($_POST['filename_feedback_fullpaper'])) {
+					$filename = $this->saveFeedbackFile($_POST['feedback_file_fullpaper'],$_POST['filename_feedback_fullpaper'],'fullpaper_feedback');
+					$model->feedback_file_fullpaper = $filename;
+				}
+				if(isset($_POST['feedback_file_presentasi']) && isset($_POST['filename_feedback_presentasi'])) {
+					$filename = $this->saveFeedbackFile($_POST['feedback_file_presentasi'],$_POST['filename_feedback_presentasi'],'presentation_feedback');
+					$model->feedback_file_presentasi = $filename;
+				}
+
 				$model->status = $data['status'];
+				$model->status_fullpaper = $data['status_fullpaper'];
+				$model->status_presentasi = $data['status_presentasi'];
 				$model->type_presence = $data['type_presence'];
+				$model->feedback_fullpaper = $data['feedback_fullpaper'];
+				$model->feedback_presentasi = $data['feedback_presentasi'];
+
 				$model->reviewer = (isset($data['reviewer']) ? $data['reviewer'] : "");
 				if(isset($data['message']))
 					$model->message = $data['message'];
@@ -105,20 +133,19 @@ class Paper extends Admin_Controller
 					$response['message'] = $model->errorsString();
 				}else{
 					$this->load->model("Notification_m");
-					if($data['status'] == Papers_m::ACCEPTED || $data['status'] == Papers_m::REJECTED ){
-						$message = "<p>Dear Participant</p>
-						<p>Thank you for submitting your abstract to ".Settings_m::getSetting('site_title').". Please download your abstract result annoucement here.</p>
-						<p>Best regards.<br/>
-						Committee of ".Settings_m::getSetting('site_title')."</p>";
-						$member = $model->member;
-						$this->Notification_m->sendMessageWithAttachment($member->email,"Result Of Paper Review",$message,['Abstract Announcement.pdf'=>$model->exportNotifPdf()->output()]);
-					}elseif($data['status'] == Papers_m::RETURN_TO_AUTHOR){
-						$message = "<p>Dear Participant</p>
-						<p>Mohon melakukan revisi sesuai komentar dan masukan dari reviewer<p>";
-						$member = $model->member;
-						$this->Notification_m->sendMessage($member->email,"Result Of Paper Review",$message);
-
-					}
+					// if($data['status'] == Papers_m::ACCEPTED || $data['status'] == Papers_m::REJECTED ){
+					// 	$message = "<p>Dear Participant</p>
+					// 	<p>Thank you for submitting your abstract to ".Settings_m::getSetting('site_title').". Please download your abstract result annoucement here.</p>
+					// 	<p>Best regards.<br/>
+					// 	Committee of ".Settings_m::getSetting('site_title')."</p>";
+					// 	$member = $model->member;
+					// 	$this->Notification_m->sendMessageWithAttachment($member->email,"Result Of Paper Review",$message,['Abstract Announcement.pdf'=>$model->exportNotifPdf()->output()]);
+					// }elseif($data['status'] == Papers_m::RETURN_TO_AUTHOR){
+					// 	$message = "<p>Dear Participant</p>
+					// 	<p>Mohon melakukan revisi sesuai komentar dan masukan dari reviewer<p>";
+					// 	$member = $model->member;
+					// 	$this->Notification_m->sendMessage($member->email,"Result Of Paper Review",$message);
+					// }
 
 				}
 			} else {

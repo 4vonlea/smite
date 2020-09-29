@@ -1,5 +1,5 @@
 export default Vue.component("PagePaper", {
-    template: `
+	template: `
         <div class="col-lg-9">
             <page-loader :loading="loading" :fail="fail"></page-loader>
             <div class="modal" data-backdrop="static" id="modal-fullpaper">
@@ -21,16 +21,22 @@ export default Vue.component("PagePaper", {
 									<label class="font-weight-bold text-dark form-control-label text-2">Presentasi Secara {{ formFullpaper.type_presence}}</label>
 								</div>
 								<hr/>
-								<div class="form-group">
+								<div v-if="formFullpaper.status == 2 && formFullpaper.status_fullpaper != 2 && !isAfter(paper.deadline.fullpaper_cutoff)" class="form-group">
 									<label class="font-weight-bold text-dark form-control-label text-2">Fullpaper (doc,docx,ods)</label>
 									<input :class="{'is-invalid':error_fullpaper.fullpaper}" type="file" class="form-control-file" name="fullpaper" accept=".doc,.docx,.ods">
 									<div v-if="error_fullpaper.fullpaper" class="invalid-feedback">{{ error_fullpaper.fullpaper }}</div>
 								</div>
-								<div class="form-group">
+								<div v-if="isAfter(paper.deadline.fullpaper_cutoff)" class="alert alert-danger">
+									Anda tidak diperkenankan lagi mengupload fullpaper, karena telah melewati batas waktu
+								</div>
+								<div  v-if="formFullpaper.status_fullpaper == 2 && formFullpaper.status_presentasi != 2 && !isAfter(paper.deadline.presentation_cutoff)" class="form-group">
 									<label class="font-weight-bold text-dark form-control-label text-2">Presentation/Poster File (jpg,png,jpeg,ppt,pptx)</label>
 									<input :class="{'is-invalid':error_fullpaper.presentation}" type="file" class="form-control-file" name="presentation" accept=".jpg,.jpeg,.png,.ppt,.pptx">
 									<div v-if="error_fullpaper.presentation" class="invalid-feedback">{{ error_fullpaper.presentation }}</div>
 								</div>	
+								<div v-if="isAfter(paper.deadline.presentation_cutoff)" class="alert alert-danger">
+									Anda tidak diperkenankan lagi mengupload presentasi, karena telah melewati batas waktu
+								</div>
 							</form>					  	
 						</div>						
 						<!-- Modal footer -->
@@ -48,18 +54,22 @@ export default Vue.component("PagePaper", {
                     <h2 class="font-weight-normal text-7 mb-0"><strong class="font-weight-extra-bold">Kirim Paper</strong></h2>
                 </div>
                 <div class="overflow-hidden mb-4 pb-3">
-                    <p class="mb-0">ingin berpartisipasi dalam paper, silakan upload fullpaper Anda.</p>
-                </div>
+                    <p class="mb-0">ingin berpartisipasi dalam paper, silakan upload abstract Anda .</p>
+				</div>
+				<ul class="list-group list-group-horizontal flex-fill mb-2">
+					<li class="list-group-item">Deadline Abstract <span class='badge badge-info'>{{ paper.deadline.paper_deadline | formatDate }}</span></li>
+					<li class="list-group-item">Deadline Fullpaper <span class='badge badge-info'>{{ paper.deadline.fullpaper_deadline | formatDate }}</span></li>
+					<li class="list-group-item">Deadline Presentasi <span class='badge badge-info'>{{ paper.deadline.presentasi_cutoff | formatDate }}</span></li>
+				</ul>
                 <div v-if="mode == 0" class="table-responsive">
                 	<table class="table table-bordered">
                 		<thead>
                 			<tr>
                 				<th width="15%">Jenis</th>
                 				<th width="40%">Judul</th>
-                				<th width="15%">Status</th>
-                				<th width="15%">Waktu Kirim</th>
+                				<th width="30%">Status</th>
                 				<th width="15%"h>
-									<button @click="mode = 1; form = {co_author:[],type:'Free Paper',type_presence:'',methods:''};detail=false;error_upload ={};" class="btn btn-primary"><i class="fa fa-plus"></i> Add</button>
+									<button :disabled="isAfter(paper.deadline.paper_cutoff)" @click="mode = 1; form = {co_author:[],type:'Case Report',type_presence:'',methods:'',check:null};detail=false;error_upload ={};" class="btn btn-primary"><i class="fa fa-plus"></i> Tambah</button>
 								</th>
 							</tr>
 						</thead>
@@ -73,25 +83,42 @@ export default Vue.component("PagePaper", {
 								</td>
 								<td style="white-space: normal !important;">{{ pap.title }}</td>
 								<td>
-									<span style="font-size: 14px" class="badge"  :class="[ pap.status == 2 ?'badge-success': pap.status == 3 ? 'badge-danger':'badge-info' ]">
-										{{ paper.status[pap.status] }}
-									</span>
-									<span v-if="pap.status == 0">
-									Please Revise Paper <small>(Click Detail then Edit)</small>
-									</span>
-									<span v-if="pap.status == 2">
-										<br/><small>(Presentation on {{ pap.type_presence }})</small>
-									</span>
-									<span v-if="pap.status == 2">
-										<span v-if="!pap.fullpaper" style="font-weight: bold">
-											<br/>Please upload your fullpaper <a href="#" @click.prevent="modalFullpaper(pap)">Here</a>
+									<ul class="list-group">
+										<li class="list-group-item d-flex justify-content-between align-items-center">
+											Abstract
+											<span class="badge badge-primary badge-pill">{{ paper.status[pap.status] }}</span>
+											
+										</li>
+										<li class="list-group-item d-flex justify-content-between align-items-center">
+											Fullpaper
+											<span class="badge badge-primary badge-pill">{{ paper.status[pap.status_fullpaper] }}</span>
+										</li>
+										<li class="list-group-item d-flex justify-content-between align-items-center">
+											Presentasi
+											<span class="badge badge-primary badge-pill">{{ paper.status[pap.status_presentasi] }}</span>
+										</li>
+									</ul>
+									<div class="text-center pt-2">
+										<h5 class="badge badge-info" v-if="pap.status == 0">
+											Harap perbaiki abstract <br/><small>(Tekan Detail kemudian Edit)</small>
+										</h5>
+										<h5 class="badge badge-info" v-if="pap.status_fullpaper == 0">
+											Harap perbaiki fullpaper <br/><small>(Tekan Detail untuk upload ulang)</small>
+										</h5>
+										<h5 class="badge badge-info" v-if="pap.status_presentasi == 0">
+											Harap perbaiki abstract <br/><small>(Tekan Detail untuk upload ulang)</small>
+										</h5>
+										<span v-if="pap.status_fullpaper == 2">
+											<h5 class="badge badge-info">(Presentation on {{ pap.type_presence }})</h5>
 										</span>
+									</div>
+									
+									<span v-if="pap.status == 2">
 										<hr/>
 										<i class="fa" :class="[pap.fullpaper?'fa-check':'fa-times']"></i> Fullpaper<br/>
 										<i class="fa" :class="[pap.poster?'fa-check':'fa-times']"></i> {{ pap.type_presence }} File<br/>
 									</span>
 								</td>
-								<td>{{ formatDate(pap.created_at) }}</td>
 								<td>
 									<button @click="detailPaper(pap)" class="btn btn-primary"><i class="fa fa-search"></i></button>
 									<button v-if="pap.status == 0 || pap.status == 1" @click="deletePaper(pap,$event)" class="btn btn-danger"><i class="fa fa-trash"></i></button>
@@ -113,23 +140,65 @@ export default Vue.component("PagePaper", {
                     	<div v-if="detail" class="form-group row">
 							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Status</label>
 							<div class="col-lg-9">
-								<span class="alert alert-info">{{ paper.status[form.status] }}</span>							
+								<ul class="list-group">
+									<li class="list-group-item d-flex justify-content-between align-items-center">
+										Abstract
+										<span class="badge badge-primary badge-pill">{{ paper.status[form.status] }}</span>
+									</li>
+									<li class="list-group-item d-flex justify-content-between align-items-center">
+										Fullpaper
+										<span class="badge badge-primary badge-pill">{{ paper.status[form.status_fullpaper] }}</span>
+									</li>
+									<li class="list-group-item d-flex justify-content-between align-items-center">
+										Presentasi
+										<span class="badge badge-primary badge-pill">{{ paper.status[form.status_presentasi] }}</span>
+									</li>
+								</ul>
+							</div>
+						</div>
+
+
+						<div v-if="detail && form.status_fullpaper == 0 && form.feedback_file_fullpaper" class="form-group row">
+							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Feedback File Fullpaper</label>
+							<div class="col-lg-9">
+								<a :href="feedbackUrl(form.feedback_file_fullpaper)">Klik Disini</a>
+							</div>
+						</div>
+						<div v-if="detail && form.status_fullpaper == 0 && form.feedback_fullpaper" class="form-group row">
+							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Pesan Feedback Fullpaper</label>
+							<div class="col-lg-9">
+								<span>{{ form.feedback_fullpaper }}</span>
 							</div>
 						</div>
 						<div v-if="detail && form.status == 2" class="form-group row">
 							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Fullpaper Link</label>
 							<div class="col-lg-9">
 								<span v-if="form.fullpaper" ><a :href="paperUrl(form.fullpaper)">Click Here</a> | </span>
-								<a href="#" @click.prevent="modalFullpaper(form)">Change/Upload Fullpaper or Presentation File</a>
+								<a v-if="form.status_fullpaper != 2" href="#" @click.prevent="modalFullpaper(form)">Ubah/Upload Fullpaper </a>
 							</div>
 						</div>
-						<div v-if="detail && form.status == 2" class="form-group row">
-							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Presentasi/Poster Link</label>
+
+
+						<div v-if="detail && form.status_presentasi == 0 && form.feedback_file_presentasi" class="form-group row">
+							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Feedback File Presentasi</label>
+							<div class="col-lg-9">
+								<a :href="feedbackUrl(form.feedback_file_presentasi)">Klik Disini</a>
+							</div>
+						</div>
+						<div v-if="detail && form.status_presentasi == 0 && form.feedback_fullpaper" class="form-group row">
+							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Pesan Feedback Presentasi</label>
+							<div class="col-lg-9">
+								<span>{{ form.feedback_presentasi }}</span>
+							</div>
+						</div>
+						<div v-if="detail &&  form.status_fullpaper == 2" class="form-group row">
+							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Presentasi Link</label>
 							<div class="col-lg-9">
 								<span v-if="form.poster"><a  :href="paperUrl(form.poster)">Click Here</a> | </span>
-								<a href="#" @click.prevent="modalFullpaper(form)">Ubah/Unggah Fullpaper atau File Presentasi</a>
+								<a v-if="form.status_presentasi != 2" href="#" @click.prevent="modalFullpaper(form)">Ubah/Unggah File Presentasi</a>
 							</div>
 						</div>
+
                     	<div class="form-group row">
                     		<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Jenis Abstract*</label>
 							<div class="col-lg-9">
@@ -224,13 +293,13 @@ export default Vue.component("PagePaper", {
 							</div>
 						</div>
 						<div v-if="detail && form.status == 0 && form.feedback" class="form-group row">
-							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Feedback File</label>
+							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Feedback File Abstract</label>
 							<div class="col-lg-9">
 								<a :href="feedbackUrl(form.feedback)">Click Here</a>
 							</div>
 						</div>
 						<div v-if="detail && form.message" class="form-group row">
-							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Pesan Feedback</label>
+							<label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Pesan Feedback Abstract</label>
 							<div class="col-lg-9">
 								<span>{{ form.message }}</span>
 							</div>
@@ -259,6 +328,23 @@ export default Vue.component("PagePaper", {
 								</table>
 							</div>
 						</div>
+						<div v-if="!detail" class="form-group">
+							<div class="form-check">
+								<input type="checkbox" v-model="form.check" class="form-check-input" id="exampleCheck1">
+									<label class="form-check-label" for="exampleCheck1">
+									<span v-if="form.methods == 'Origninal Research'">I hereby declared that the mentioned study has granted ethical clearance from an official ethical committee.
+									I will take any consequence for my action.</span>
+									
+									<span v-if="form.methods == 'Case Report'">
+									I hereby declared that the mentioned case report has granted informed consent to be published from the patient or the responsible caregiver and all possible effort to obscure patient's identity has been taken. 
+									I agree to take any consequence for my action.</span>
+									
+									<span v-if="form.methods == 'Systematic Review / Meta Analysis'">I hereby declared that this submitted review has made according to PRISMA Statement</span>
+								</label>
+							</div>
+						</div>
+
+						
 
 						<div class="form-group text-right">
 							<button :disabled="uploading" class="btn btn-primary" @click="mode = 0">Back</button>
@@ -272,51 +358,59 @@ export default Vue.component("PagePaper", {
             </div>
         </div>
     `,
-    data: function () {
-        return {
-			mode:0,
-			detail:false,
-            loading: false,
-            fail: false,
-            paper: {},
-            error_upload: {},
-            uploading:false,
-			form:{co_author:[],type:'Free Paper'},
-			formFullpaper:{},
-			uploadingFullpaper:false,
-			error_fullpaper:{},
-        }
-    },
-    created() {
-        this.fetchData()
-    },
-    watch: {
-        '$route': 'fetchData'
-	},
-	computed:{
-		wordCountIntroduction(){
-			return (this.form.introduction ? this.form.introduction.trim().split(" ").length:0);
+	data: function () {
+		return {
+			mode: 0,
+			detail: false,
+			loading: false,
+			fail: false,
+			paper: {deadline:{}},
+			error_upload: {},
+			uploading: false,
+			form: { co_author: [], type: 'Free Paper' },
+			formFullpaper: {},
+			uploadingFullpaper: false,
+			error_fullpaper: {},
 		}
 	},
-    methods: {
-		reduceWord(){
-			if(this.form.introduction && this.form.introduction.trim().split(" ").length > 300){
+	filters: {
+		formatDate: function (val) {
+			return moment(val).format("DD MMMM YYYY [At] HH:mm");
+		}
+	},
+	created() {
+		this.fetchData()
+	},
+	watch: {
+		'$route': 'fetchData'
+	},
+	computed: {
+		wordCountIntroduction() {
+			return (this.form.introduction ? this.form.introduction.trim().split(" ").length : 0);
+		}
+	},
+	methods: {
+		isAfter(date){
+			return moment().isAfter(date);
+		},
+		reduceWord() {
+			if (this.form.introduction && this.form.introduction.trim().split(" ").length > 300) {
 				let temp = this.form.introduction.split(" ");
-				temp.splice(300,temp.length - 300);
+				temp.splice(300, temp.length - 300);
 				this.form.introduction = temp.join(" ");
 			}
 		},
-		wordCount(evt){
-			if(evt.keyCode != 8 &&
+		wordCount(evt) {
+			if (evt.keyCode != 8 &&
 				evt.keyCode != 37 &&
 				evt.keyCode != 38 &&
 				evt.keyCode != 39 &&
 				evt.keyCode != 40 &&
-				 this.form.introduction && this.form.introduction.split(" ").length > 300){
+				this.form.introduction && this.form.introduction.split(" ").length > 300) {
 				evt.preventDefault();
 			}
 		},
-    	uploadFullpaper(){
+		uploadFullpaper() {
 			var page = this;
 			var fd = new FormData(this.$refs.formFullpaper);
 			page.uploadingFullpaper = true;
@@ -330,11 +424,15 @@ export default Vue.component("PagePaper", {
 				success: function (response) {
 					if (response.status) {
 						$("#modal-fullpaper").modal("hide");
-						Swal.fire('Success',"Fullpaper or Presentation/Poster File uploaded successfully !",'success');
-						if(response.data.fullpaper)
+						Swal.fire('Success', "Fullpaper or Presentation/Poster File uploaded successfully !", 'success');
+						if (response.data.fullpaper){
 							page.formFullpaper.fullpaper = response.data.fullpaper;
-						if(response.data.poster)
+							page.form.status_fullpaper = 1;
+						}
+						if (response.data.poster){
 							page.formFullpaper.poster = response.data.poster;
+							page.form.status_presentasi = 1;
+						}
 						page.fetchData();
 					} else {
 						page.error_fullpaper = response.message;
@@ -343,35 +441,35 @@ export default Vue.component("PagePaper", {
 			}).always(function () {
 				page.uploadingFullpaper = false;
 			}).fail(function () {
-				Swal.fire('Fail',"Failed to process !",'error');
+				Swal.fire('Fail', "Failed to process !", 'error');
 			});
 		},
-    	modalFullpaper(paper){
+		modalFullpaper(paper) {
 			this.$refs.formFullpaper.reset();
-    		this.formFullpaper = paper;
-    		this.error_fullpaper = {};
+			this.formFullpaper = paper;
+			this.error_fullpaper = {};
 			$("#modal-fullpaper").modal("show");
 		},
-    	removeAuthor(i){
-    		this.form.co_author.splice(i,1);
+		removeAuthor(i) {
+			this.form.co_author.splice(i, 1);
 		},
-		addCoAuthor(){
-			this.form.co_author.push({'fullname':'','email':'','phone':'','affilition':''});
+		addCoAuthor() {
+			this.form.co_author.push({ 'fullname': '', 'email': '', 'phone': '', 'affilition': '' });
 		},
-        fetchData() {
-            var page = this;
-            page.loading = true;
-            $.post(this.baseUrl + "get_paper", function (res) {
+		fetchData() {
+			var page = this;
+			page.loading = true;
+			$.post(this.baseUrl + "get_paper", function (res) {
 				page.paper = res;
-            }, "JSON").fail(function () {
-                page.fail = true;
-            }).always(function () {
-                page.loading = false;
-            });
-        },
-		deletePaper(paper,event){
-    		var btn = event.currentTarget;
-    		var app = this;
+			}, "JSON").fail(function () {
+				page.fail = true;
+			}).always(function () {
+				page.loading = false;
+			});
+		},
+		deletePaper(paper, event) {
+			var btn = event.currentTarget;
+			var app = this;
 			Swal.fire({
 				title: "Are you sure ?",
 				text: `You will delete paper with title "${paper.title}"`,
@@ -383,15 +481,15 @@ export default Vue.component("PagePaper", {
 			}).then((result) => {
 				if (result.value) {
 					btn.innerHTML = "<i class='fa fa-spin fa-spinner'></i>";
-					btn.setAttribute("disabled",true);
-					$.post(this.baseUrl+"delete_paper",paper,function (res) {
-						if(res.status){
+					btn.setAttribute("disabled", true);
+					$.post(this.baseUrl + "delete_paper", paper, function (res) {
+						if (res.status) {
 							app.fetchData();
-						}else{
-							Swal.fire('Fail',"Failed to delete !",'error');
+						} else {
+							Swal.fire('Fail', "Failed to delete !", 'error');
 						}
 					}).fail(function () {
-						Swal.fire('Fail',"Failed to delete !",'error');
+						Swal.fire('Fail', "Failed to delete !", 'error');
 					}).always(function () {
 						btn.innerHTML = "<i class='fa fa-trash'></i>";
 						btn.removeAttribute("disabled");
@@ -399,34 +497,38 @@ export default Vue.component("PagePaper", {
 				}
 			});
 		},
-        uploadPaper() {
-            var page = this;
-            var fd = new FormData(this.$refs.form);
-            fd.append('file', this.$refs.file.files[0]);
-            // fd.append('title', this.$refs.title.value);
-            page.uploading = true;
-            $.ajax({
-                url: this.baseUrl + "upload_paper",
-                type: 'post',
-                data: fd,
-                contentType: false,
-                processData: false,
-                dataType: 'JSON',
-                success: function (response) {
-                    if (response.status) {
-                        page.fetchData();
-						page.mode = 0;
-                    } else {
-                        page.error_upload = response.message;
-                    }
-                },
-            }).always(function () {
-                page.uploading = false;
-            }).fail(function () {
-                Swal.fire('Fail',"Failed to process !",'error');
-            });
-        },
-		detailPaper(row){
+		uploadPaper() {
+			var page = this;
+			if(this.form.check){
+				var fd = new FormData(this.$refs.form);
+				fd.append('file', this.$refs.file.files[0]);
+				// fd.append('title', this.$refs.title.value);
+				page.uploading = true;
+				$.ajax({
+					url: this.baseUrl + "upload_paper",
+					type: 'post',
+					data: fd,
+					contentType: false,
+					processData: false,
+					dataType: 'JSON',
+					success: function (response) {
+						if (response.status) {
+							page.fetchData();
+							page.mode = 0;
+						} else {
+							page.error_upload = response.message;
+						}
+					},
+				}).always(function () {
+					page.uploading = false;
+				}).fail(function () {
+					Swal.fire('Fail', "Failed to process !", 'error');
+				});
+			}else{
+				Swal.fire('Info', "Pernyataan tentang paper wajib dicentang !", 'warning');
+			}
+		},
+		detailPaper(row) {
 			this.mode = 1;
 			this.form = row;
 			this.detail = true;
@@ -447,5 +549,5 @@ export default Vue.component("PagePaper", {
 			}
 			return null;
 		}
-    }
+	}
 });

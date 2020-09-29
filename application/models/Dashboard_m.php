@@ -16,9 +16,9 @@ class Dashboard_m extends CI_Model
 							event_id AS id_event,
 							COUNT(event_id) as number_participant,
 							SUM(td.price) AS fund_collected,
-							SUM(IF(JSON_EXTRACT(checklist, '$.nametag') = 'true',1,0)) as nametag,
-							SUM(IF(JSON_EXTRACT(checklist, '$.seminarkit') = 'true',1,0)) as seminarkit,
-							SUM(IF(JSON_EXTRACT(checklist, '$.certificate') = 'true',1,0)) as certificate
+							SUM(IF(JSON_EXTRACT(IF(checklist = '','{}',checklist), '$.nametag') = 'true',1,0)) as nametag,
+							SUM(IF(JSON_EXTRACT(IF(checklist = '','{}',checklist), '$.seminarkit') = 'true',1,0)) as seminarkit,
+							SUM(IF(JSON_EXTRACT(IF(checklist = '','{}',checklist), '$.certificate') = 'true',1,0)) as certificate
 							FROM transaction_details td
 						JOIN transaction t ON t.id = td.transaction_id
 						JOIN event_pricing ep ON ep.id = td.event_pricing_id

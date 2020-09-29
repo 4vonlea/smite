@@ -1,14 +1,17 @@
 <?php
+
 /**
  * @var $admin_paper
  */
 $this->layout->begin_head();
 ?>
 <style>
-	.table th, .table td{
+	.modal .table th,
+	.modal .table td {
 		white-space: normal !important;
 	}
 </style>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/vue-ctk-date-time-picker@2.5.0/dist/vue-ctk-date-time-picker.css">
 <?php
 $this->layout->end_head();
 ?>
@@ -24,12 +27,20 @@ $this->layout->end_head();
 								<div class="row">
 									<div class="col">
 										<h5 class="card-title text-uppercase text-muted mb-0">Returned to Author</h5>
-										<span class="h2 font-weight-bold mb-0">{{ pagination.total_stat_0 }}</span>
 									</div>
 									<div class="col-auto">
 										<div class="icon icon-shape bg-danger text-white rounded-circle shadow">
 											<i class="fa fa-reply"></i>
 										</div>
+									</div>
+									<div class="col-6">
+										<span class="h5 font-weight-bold mb-0">Abstract : {{ pagination.total_stat_0 }}</span>
+									</div>
+									<div class="col-6">
+										<span class="h5 font-weight-bold mb-0">Fullpaper : {{ pagination.stat_fullpaper_0 }}</span>
+									</div>
+									<div class="col-6">
+										<span class="h5 font-weight-bold mb-0">Presentation : {{ pagination.stat_presentasi_0 }}</span>
 									</div>
 								</div>
 							</div>
@@ -41,12 +52,20 @@ $this->layout->end_head();
 								<div class="row">
 									<div class="col">
 										<h5 class="card-title text-uppercase text-muted mb-0">Waiting for Reviewing</h5>
-										<span class="h2 font-weight-bold mb-0">{{ pagination.total_stat_1 }}</span>
 									</div>
 									<div class="col-auto">
 										<div class="icon icon-shape bg-warning text-white rounded-circle shadow">
 											<i class="fa fa-clock"></i>
 										</div>
+									</div>
+									<div class="col-6">
+										<span class="h5 font-weight-bold mb-0">Abstract : {{ pagination.total_stat_1 }}</span>
+									</div>
+									<div class="col-6">
+										<span class="h5 font-weight-bold mb-0">Fullpaper : {{ pagination.stat_fullpaper_1 }}</span>
+									</div>
+									<div class="col-6">
+										<span class="h5 font-weight-bold mb-0">Presentation : {{ pagination.stat_presentasi_1 }}</span>
 									</div>
 								</div>
 							</div>
@@ -58,12 +77,23 @@ $this->layout->end_head();
 								<div class="row">
 									<div class="col">
 										<h5 class="card-title text-uppercase text-muted mb-0">Rejected</h5>
-										<span class="h2 font-weight-bold mb-0">{{ pagination.total_stat_3 }}</span>
 									</div>
 									<div class="col-auto">
 										<div class="icon icon-shape bg-danger text-white rounded-circle shadow">
 											<i class="fa fa-minus"></i>
 										</div>
+									</div>
+								</div>
+								<div class="row">
+
+									<div class="col-6">
+										<span class="h5 font-weight-bold mb-0">Abstract : {{ pagination.total_stat_3 }}</span>
+									</div>
+									<div class="col-6">
+										<span class="h5 font-weight-bold mb-0">Fullpaper : {{ pagination.stat_fullpaper_3 }}</span>
+									</div>
+									<div class="col-6">
+										<span class="h5 font-weight-bold mb-0">Presentation : {{ pagination.stat_presentasi_3 }}</span>
 									</div>
 								</div>
 							</div>
@@ -93,7 +123,6 @@ $this->layout->end_head();
 							<div class="row">
 								<div class="col">
 									<h5 class="card-title text-uppercase text-muted mb-0">Accepted</h5>
-									<span class="h2 font-weight-bold mb-0">{{ pagination.total_stat_2 }}</span>
 								</div>
 								<div class="col-auto">
 									<div class="icon icon-shape bg-warning text-white rounded-circle shadow">
@@ -101,7 +130,18 @@ $this->layout->end_head();
 									</div>
 								</div>
 							</div>
-							<hr style="margin: 19px 0px"/>
+							<div class="row">
+								<div class="col-6">
+									<span class="h5 font-weight-bold mb-0">Abstract : {{ pagination.total_stat_2 }}</span>
+								</div>
+								<div class="col-6">
+									<span class="h5 font-weight-bold mb-0">Fullpaper : {{ pagination.stat_fullpaper_2 }}</span>
+								</div>
+								<div class="col-6">
+									<span class="h5 font-weight-bold mb-0">Presentation : {{ pagination.stat_presentasi_2 }}</span>
+								</div>
+							</div>
+							<hr style="margin: 19px 0px" />
 							<div class="row">
 								<div class="col-6" v-for="(total,type) in pagination.presentation_accepted">
 									<small class="text-success mr-2">{{ type }}: {{ total }}</small>
@@ -122,25 +162,27 @@ $this->layout->end_head();
 					<div class="col-6">
 						<h3>Papers</h3>
 					</div>
+					<div class="col-6 text-right">
+						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-setting"><i class="fa fa-book"></i> Setting Due Date & Cut Off
+						</button>
+					</div>
 				</div>
 			</div>
 			<div class="table-responsive">
-
-				<datagrid
-					@loaded_data="loadedGrid"
-					ref="datagrid"
-					api-url="<?= base_url('admin/paper/grid'); ?>"
-					:fields="[{name:'id_paper',sortField:'id_paper','title':'ID Paper'},{name:'fullname',sortField:'fullname','title':'Member Name'},{name:'status','sortField':'status'},{name:'type_presence','sortField':'type_presence','title':'Presentation'},{name:'t_created_at',sortField:'t_created_at',title:'Submit On'},{name:'t_id','title':'Aksi'}]">
-					<?php if($this->session->user_session['role'] == User_account_m::ROLE_ADMIN_PAPER):?>
+				<datagrid @loaded_data="loadedGrid" ref="datagrid" api-url="<?= base_url('admin/paper/grid'); ?>" :fields="[{name:'id_paper',sortField:'id_paper','title':'ID Paper'},{name:'fullname',sortField:'fullname','title':'Member Name'},{name:'status','sortField':'status','title':'Status Abstract'},{name:'status_fullpaper','sortField':'status_fullpaper','title':'status_fullpaper'},{name:'status_presentasi','sortField':'status_presentasi','title':'Status Presentation'},{name:'type_presence','sortField':'type_presence','title':'Presentation'},{name:'t_created_at',sortField:'t_created_at',title:'Submit On'},{name:'t_id','title':'Aksi'}]">
+					<?php if ($this->session->user_session['role'] == User_account_m::ROLE_ADMIN_PAPER) : ?>
 						<template slot="fullname" slot-scope="props">
 							Hidden
 						</template>
-					<?php endif ;?>
-					<template slot="status" slot-scope="props">
-						{{ status[props.row.status] }}<br/>
-						<a class="badge badge-info" :href="'<?=base_url('admin/paper/file');?>/'+props.row.filename+'/'+props.row.t_id+'/Abstract'"  target="_blank" v-if="props.row.filename">Abstract</a>
-						<a class="badge badge-info" :href="'<?=base_url('admin/paper/file');?>/'+props.row.fullpaper+'/'+props.row.t_id+'/Fullpaper'"  target="_blank" v-if="props.row.fullpaper">Fullpaper</a>
-						<a class="badge badge-info" :href="'<?=base_url('admin/paper/file');?>/'+props.row.poster+'/'+props.row.t_id+'/Presentation'"  target="_blank" v-if="props.row.poster">Presentation/Poster</a>
+					<?php endif; ?>
+					<template slot="status" slot-scope="props">{{ status[props.row.status] }}<br />
+						<a class="badge badge-info" :href="'<?= base_url('admin/paper/file'); ?>/'+props.row.filename+'/'+props.row.t_id+'/Abstract'" target="_blank" v-if="props.row.filename">Abstract</a>
+					</template>
+					<template slot="status_fullpaper" slot-scope="props">{{ status[props.row.status_fullpaper]}}<br />
+						<a class="badge badge-info" :href="'<?= base_url('admin/paper/file'); ?>/'+props.row.fullpaper+'/'+props.row.t_id+'/Fullpaper'" target="_blank" v-if="props.row.fullpaper">Fullpaper</a>
+					</template>
+					<template slot="status_presentasi" slot-scope="props">{{ status[props.row.status_presentasi] }}<br />
+						<a class="badge badge-info" :href="'<?= base_url('admin/paper/file'); ?>/'+props.row.poster+'/'+props.row.t_id+'/Presentation'" target="_blank" v-if="props.row.poster">Presentation/Poster</a>
 					</template>
 					<template slot="t_updated_at" slot-scope="props">
 						{{ formatDate(props.row.t_created_at) }}
@@ -153,15 +195,58 @@ $this->layout->end_head();
 							<button @click="review(props,$event)" class="btn btn-warning btn-sm">
 								<span class="fa fa-edit"></span> review
 							</button>
-							<?php if($this->session->user_session['role'] != User_account_m::ROLE_ADMIN_PAPER):?>
-								<button v-if="!props.row.reviewer" @click="setReviewer(props)"
-										class="btn btn-warning btn-sm">
+							<?php if ($this->session->user_session['role'] != User_account_m::ROLE_ADMIN_PAPER) : ?>
+								<button v-if="!props.row.reviewer" @click="setReviewer(props)" class="btn btn-warning btn-sm">
 									<span class="fa fa-user"></span> Set Reviewer
 								</button>
-							<?php endif;?>
+							<?php endif; ?>
 						</div>
 					</template>
 				</datagrid>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal" id="modal-setting" tabindex="-1" role="dialog">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Setting Due Date & Cut Off</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<label>Abstract Due Date</label>
+					<vue-ctk-date-time-picker :no-label="true" format="YYYY-MM-DD HH:mm:ss" formatted="DD MMMM YYYY HH:mm" v-model="setting_date.paper_deadline"></vue-ctk-date-time-picker>
+				</div>
+				<div class="form-group">
+					<label>Abstract Cut Off Date</label>
+					<vue-ctk-date-time-picker :no-label="true" format="YYYY-MM-DD HH:mm:ss" formatted="DD MMMM YYYY HH:mm" v-model="setting_date.paper_cutoff"></vue-ctk-date-time-picker>
+				</div>
+
+				<div class="form-group">
+					<label>Fullpaper Due Date</label>
+					<vue-ctk-date-time-picker :no-label="true" format="YYYY-MM-DD HH:mm:ss" formatted="DD MMMM YYYY HH:mm" v-model="setting_date.fullpaper_deadline"></vue-ctk-date-time-picker>
+				</div>
+				<div class="form-group">
+					<label>Fullpaper Cut Off Date</label>
+					<vue-ctk-date-time-picker :no-label="true" format="YYYY-MM-DD HH:mm:ss" formatted="DD MMMM YYYY HH:mm" v-model="setting_date.fullpaper_cutoff"></vue-ctk-date-time-picker>
+				</div>
+
+				<div class="form-group">
+					<label>Presentation Due Date</label>
+					<vue-ctk-date-time-picker :no-label="true" format="YYYY-MM-DD HH:mm:ss" formatted="DD MMMM YYYY HH:mm" v-model="setting_date.presentation_deadline"></vue-ctk-date-time-picker>
+				</div>
+				<div class="form-group">
+					<label>Presentation Cut Off Date</label>
+					<vue-ctk-date-time-picker :no-label="true" format="YYYY-MM-DD HH:mm:ss" formatted="DD MMMM YYYY HH:mm" v-model="setting_date.presentation_cutoff"></vue-ctk-date-time-picker>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" @click="saveSetting" class="btn btn-primary">Save Date</button>
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 			</div>
 		</div>
 	</div>
@@ -185,7 +270,7 @@ $this->layout->end_head();
 					</tr>
 					<tr>
 						<th>Title</th>
-						<td >{{ reviewModel.title }}</td>
+						<td>{{ reviewModel.title }}</td>
 					</tr>
 					<tr>
 						<th>Submitted On</th>
@@ -224,150 +309,250 @@ $this->layout->end_head();
 				<div v-if="validation" class="alert alert-danger">
 					<span v-html="validation"></span>
 				</div>
-				<table class="table" style="white-space: normal !important;">
-					<tr>
-						<th>ID Paper</th>
-						<td>{{ reviewModel.id_paper }}</td>
-					</tr>
-					<tr v-if="reviewModel.fullpaper">
-						<th>Fullpaper Link</th>
-						<td><a :href="'<?=base_url('admin/paper/file');?>/'+reviewModel.fullpaper+'/'+reviewModel.t_id+'/Fullpaper'" target="_blank">Click Here !</a></td>
-					</tr>
-					<tr  v-if="reviewModel.poster">
-						<th>Presentation/Poster Link</th>
-						<td><a :href="'<?=base_url('admin/paper/file');?>/'+reviewModel.poster+'/'+reviewModel.t_id+'/Presentation'" target="_blank">Click Here !</a></td>
-					</tr>
-					<tr>
-						<th>Submitted On</th>
-						<td>{{ formatDate(reviewModel.t_created_at) }}</td>
-					</tr>
+				<ul class="nav nav-tabs" id="myTab" role="tablist">
+					<li class="nav-item">
+						<a class="nav-link active" id="home-tab" data-toggle="tab" href="#info_paper_tab" role="tab" aria-controls="home" aria-selected="true">Info Paper</a>
+					</li>
+					<li v-show="!isReviewer" class="nav-item">
+						<a class="nav-link" id="profile-tab" data-toggle="tab" href="#abstract_tab" role="tab" aria-controls="profile" aria-selected="false">Review Abstract</a>
+					</li>
+					<li v-show="!isReviewer" class="nav-item">
+						<a class="nav-link" id="contact-tab" data-toggle="tab" href="#fullpaper_tab" role="tab" aria-controls="contact" aria-selected="false">Review Fullpaper</a>
+					</li>
+					<li v-show="!isReviewer" class="nav-item">
+						<a class="nav-link" id="contact-tab" data-toggle="tab" href="#presentation_tab" role="tab" aria-controls="contact" aria-selected="false">Review Presentation</a>
+					</li>
+				</ul>
+				<div class="tab-content" id="myTabContent">
+					<div class="tab-pane fade show active" id="info_paper_tab" role="tabpanel" aria-labelledby="home-tab">
+						<table class="table" style="white-space: normal !important;">
+							<tr>
+								<th>ID Paper</th>
+								<td>{{ reviewModel.id_paper }}</td>
+							</tr>
+							<tr>
+								<th>Submitted On</th>
+								<td>{{ formatDate(reviewModel.t_created_at) }}</td>
+							</tr>
 
-					<tr>
-						<th>Title</th>
-						<td>{{ reviewModel.title }}</td>
-					</tr>
-					<tr>
-						<th>Abstract</th>
-						<td style="white-space: pre-wrap !important;">{{ (reviewModel.introduction) }}</td>
-					</tr>
-					<!--					<tr>-->
-					<!--						<th>Aims</th>-->
-					<!--						<td>{{ (reviewModel.aims) }}</td>-->
-					<!--					</tr>-->
-					<!--					<tr>-->
-					<!--						<th>Methods</th>-->
-					<!--						<td>{{ (reviewModel.methods) }}</td>-->
-					<!--					</tr>-->
-					<!--					<tr>-->
-					<!--						<th>Result</th>-->
-					<!--						<td>{{ (reviewModel.result) }}</td>-->
-					<!--					</tr>-->
-					<!--					<tr>-->
-					<!--						<th>Conclusion</th>-->
-					<!--						<td>{{ (reviewModel.conclusion) }}</td>-->
-					<!--					</tr>-->
+							<tr>
+								<th>Title</th>
+								<td>{{ reviewModel.title }}</td>
+							</tr>
+							<tr>
+								<th>Abstract</th>
+								<td style="white-space: pre-wrap !important;">{{ (reviewModel.introduction) }}</td>
+							</tr>
+							<!-- <tr v-if="detailMode == 1">
+								<th>Status</th>
+								<td>{{ status[reviewModel.status] }}</td>
+							</tr> -->
+						
+							<tr v-if="detailMode == 1">
+								<th>Mode Of Presentation</th>
+								<td>{{ reviewModel.type_presence }}</td>
+							</tr>
+							<tr v-if="reviewModel.co_author">
+								<th>Co-Author</th>
+								<td>
+									<table class="table">
+										<tr>
+											<th>Fullname</th>
+											<th>Email</th>
+											<th>Phone</th>
+											<th>Affiliation</th>
+										</tr>
+										<tr v-for="c in reviewModel.co_author">
+											<td>{{ (c.fullname ?c.fullname:"") }}</td>
+											<td>{{ (c.email ?c.email:"") }}</td>
+											<td>{{ (c.phone ?c.phone:"") }}</td>
+											<td>{{ (c.affiliation ?c.affiliation:"") }}</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<h5>Feedback from Reviewer</h5>
+									<table class="table table-bordered">
+										<thead>
+											<tr>
+												<th>Time</th>
+												<th>Reviewer Name</th>
+												<th>Feedback</th>
+												<th>Status</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr v-for="feedback in reviewModel.feedbackList">
+												<td>{{ feedback.created_at }}</td>
+												<td>{{ feedback.name }}</td>
+												<td>{{ feedback.result }}</td>
+												<td>{{ status[feedback.status] }}</td>
+											</tr>
+										</tbody>
+									</table>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div v-show="!isReviewer" class="tab-pane fade" id="abstract_tab" role="tabpanel" aria-labelledby="profile-tab">
+						<table class="table table-border">
+							<tr>
+								<th>Upload Date</th>
+								<td>{{ reviewModel.created_at | formatDate }}</td>
+							</tr>
+							<tr>
+								<th>Abstract Link</th>
+								<td><a :href="reviewModel.link" target="_blank">Click Here !</a></td>
+							</tr>
+							<tr v-if="reviewModel.status == 0">
+								<th>Feedback Message</th>
+								<td>{{ reviewModel.message }}</td>
+							</tr>
+							<tr v-if="reviewModel.status == 0 && reviewModel.feedback">
+								<th>Link Download Feedback</th>
+								<td><a :href="reviewModel.link_feedback" target="_blank">Click Here !</a></td>
+							</tr>
+							<!-- Review Abstract -->
+							<tr v-if="detailMode == 0">
+								<th>Result Of Abstract Review</th>
+								<td>
+									<?php foreach (Papers_m::$status as $k => $v) : ?>
+										<div class="form-check-inline">
+											<label class="form-check-label">
+												<input type="radio" class="form-check-input" v-model="reviewModel.status" value="<?= $k; ?>">
+												<?= $v; ?>
+											</label>
+										</div>
+									<?php endforeach; ?>
+								</td>
+							</tr>
+							<tr v-if="detailMode == 0">
+								<th>Message <br /><small>*if returned to author</small></th>
+								<td>
+									<textarea cols="5" rows="5" class="form-control" v-model="reviewModel.message"></textarea>
+								</td>
+							</tr>
+							<tr v-show="!isReviewer" v-if="detailMode == 0">
+								<th>Feedback File</th>
+								<td>
+									<input type="file" name="feedback" ref="feedbackFile" class="form-control" accept=".doc,.docx,.ods" />
+								</td>
+							</tr>
+							<!-- End Review Abstract -->
+						</table>
+					</div>
+					<div v-show="!isReviewer" class="tab-pane fade" id="fullpaper_tab" role="tabpanel" aria-labelledby="contact-tab">
+						<table class="table table-border">
+							<!-- Review Full Paper -->
+							<tr>
+								<th>Upload Date</th>
+								<td>{{ reviewModel.time_upload_fullpaper | formatDate }}</td>
+							</tr>
+							<tr v-if="reviewModel.fullpaper">
+								<th>Fullpaper Link</th>
+								<td><a :href="'<?= base_url('admin/paper/file'); ?>/'+reviewModel.fullpaper+'/'+reviewModel.t_id+'/Fullpaper'" target="_blank">Click Here !</a></td>
+							</tr>
+							<tr v-if="reviewModel.status_fullpaper == 0">
+								<th>Feedback Message</th>
+								<td>{{ reviewModel.feedback_fullpaper }}</td>
+							</tr>
+							<tr v-if="reviewModel.status == 0 && reviewModel.link_feedback">
+								<th>Link Download Feedback</th>
+								<td><a :href="`<?= base_url("admin/paper/file"); ?>/${reviewModel.feedback_file_fullpaper}/${reviewModel.paper_id}/feedback_fullpaper`" target="_blank">Click Here !</a></td>
+							</tr>
+							<tr v-if="detailMode == 0">
+								<th>Result Of Review</th>
+								<td>
+									<?php foreach (Papers_m::$status as $k => $v) : ?>
+										<div class="form-check-inline">
+											<label class="form-check-label">
+												<input type="radio" class="form-check-input" v-model="reviewModel.status_fullpaper" value="<?= $k; ?>">
+												<?= $v; ?>
+											</label>
+										</div>
+									<?php endforeach; ?>
+								</td>
+							</tr>
+							<tr v-if="detailMode == 0">
+								<th>Message <br /><small>*if returned to author</small></th>
+								<td>
+									<textarea cols="5" rows="5" class="form-control" v-model="reviewModel.feedback_fullpaper"></textarea>
+								</td>
+							</tr>
+							<tr v-if="detailMode == 0">
+								<th>Feedback File Fullpaper</th>
+								<td>
+									<input type="file" name="feedback" ref="feedbackFileFullpaper" class="form-control" accept=".doc,.docx,.ods" />
+								</td>
+							</tr>
+							<tr v-if="detailMode == 0">
+								<th>Type Presentation</th>
+								<td>
+									<?php foreach (Papers_m::$typePresentation as $i => $val) : ?>
+										<div class="form-check-inline">
+											<label class="form-check-label">
+												<input v-model="reviewModel.type_presence" type="radio" name="type_presence" value="<?= $i; ?>">
+												<?= $val; ?>
+											</label>
+										</div>
+									<?php endforeach; ?>
+								</td>
+							</tr>
+							<!-- End Review Fullpaper -->
+						</table>
+					</div>
+					<div v-show="!isReviewer" class="tab-pane fade" id="presentation_tab" role="tabpanel" aria-labelledby="contact-tab">
+						<table class="table table-border">
+							<!-- Review Presentation -->
+							<tr>
+								<th>Upload Date</th>
+								<td>{{ reviewModel.time_upload_presentasi | formatDate }}</td>
+							</tr>
+							<tr v-if="reviewModel.poster">
+								<th>Presentation/Poster Link</th>
+								<td><a :href="'<?= base_url('admin/paper/file'); ?>/'+reviewModel.poster+'/'+reviewModel.t_id+'/Presentation'" target="_blank">Click Here !</a></td>
+							</tr>
+							<tr v-if="reviewModel.status_presentasi == 0">
+								<th>Feedback Message</th>
+								<td>{{ reviewModel.feedback_presentasi }}</td>
+							</tr>
+							<tr v-if="reviewModel.status_presentasi == 0 && reviewModel.feedback_file_presentasi">
+								<th>Link Download Feedback</th>
+								<td><a :href="`<?= base_url("admin/paper/file"); ?>/${reviewModel.feedback_file_presentasi}/${reviewModel.paper_id}/feedback_presenatasi`" target="_blank">Click Here !</a></td>
+							</tr>
+							<tr v-if="detailMode == 0">
+								<th>Result Of Review</th>
+								<td>
+									<?php foreach (Papers_m::$status as $k => $v) : ?>
+										<div class="form-check-inline">
+											<label class="form-check-label">
+												<input type="radio" class="form-check-input" v-model="reviewModel.status_presentasi" value="<?= $k; ?>">
+												<?= $v; ?>
+											</label>
+										</div>
+									<?php endforeach; ?>
+								</td>
+							</tr>
+							<tr v-if="detailMode == 0">
+								<th>Message <br /><small>*if returned to author</small></th>
+								<td>
+									<textarea cols="5" rows="5" class="form-control" v-model="reviewModel.feedback_presentasi"></textarea>
+								</td>
+							</tr>
+							<tr v-if="detailMode == 0">
+								<th>Feedback File Presenatation</th>
+								<td>
+									<input type="file" name="feedback" ref="feedbackFilePresentasi" class="form-control" accept=".doc,.docx,.ods,.jpg,.jpeg,.ppt,.pptx" />
+								</td>
+							</tr>
 
-					<tr v-if="detailMode == 1">
-						<th>Status</th>
-						<td>{{ status[reviewModel.status] }}</td>
-					</tr>
-					<tr>
-						<th>Abstract Link</th>
-						<td><a :href="reviewModel.link" target="_blank">Click Here !</a></td>
-					</tr>
-					<tr v-if="detailMode == 1">
-						<th>Mode Of Presentation</th>
-						<td>{{ reviewModel.type_presence }}</td>
-					</tr>
-					<tr v-if="reviewModel.co_author">
-						<th>Co-Author</th>
-						<td>
-							<table class="table">
-								<tr>
-									<th>Fullname</th>
-									<th>Email</th>
-									<th>Phone</th>
-									<th>Affiliation</th>
-								</tr>
-								<tr v-for="c in reviewModel.co_author">
-									<td>{{ (c.fullname ?c.fullname:"") }}</td>
-									<td>{{ (c.email ?c.email:"") }}</td>
-									<td>{{ (c.phone ?c.phone:"") }}</td>
-									<td>{{ (c.affiliation ?c.affiliation:"") }}</td>
-								</tr>
-							</table>
-						</td>
-					</tr>
-					<tr v-if="reviewModel.status == 0">
-						<th>Feedback Message</th>
-						<td>{{ reviewModel.message }}</td>
-					</tr>
-					<tr  v-if="reviewModel.status == 0 && reviewModel.link_feedback">
-						<th>Link Download Feedback</th>
-						<td><a :href="reviewModel.link_feedback" target="_blank">Click Here !</a></td>
-					</tr>
-					<tr v-if="detailMode == 0">
-						<th>Result Of Review</th>
-						<td>
-							<?php foreach(Papers_m::$status as $k=>$v):?>
-								<div class="form-check-inline">
-									<label class="form-check-label">
-										<input type="radio" class="form-check-input" v-model="reviewModel.status" value="<?=$k;?>">
-										<?=$v;?>
-									</label>
-								</div>
-							<?php endforeach; ?>
-						</td>
-					</tr>
-					<tr v-if="detailMode == 0">
-						<th>Message <br/><small>*if returned to author</small></th>
-						<td>
-							<textarea cols="5" rows="5" class="form-control" v-model="reviewModel.message"></textarea>
-						</td>
-					</tr>
-					<tr v-show="!isReviewer" v-if="detailMode == 0">
-						<th>Feedback File</th>
-						<td>
-							<input type="file" name="feedback" ref="feedbackFile" class="form-control" accept=".doc,.docx,.ods" />
-						</td>
-					</tr>
-					<tr v-show="!isReviewer" v-if="detailMode == 0">
-						<th>Type Presentation</th>
-						<td>
-							<?php foreach(Papers_m::$typePresentation as $i=>$val):?>
-							<div class="form-check-inline">
-								<label class="form-check-label">
-									<input  v-model="reviewModel.type_presence"  type="radio" name="type_presence" value="<?=$i;?>">
-									<?=$val;?>
-								</label>
-							</div>
-							<?php endforeach;?>
-						</td>
-					</tr>
-					<tr>
-						<th>Feedback from Reviewer</td>
-						<td>
-							<table class="table table-bordered">
-								<thead>
-									<tr>
-										<th>Time</th>
-										<th>Reviewer Name</th>
-										<th>Feedback</th>
-										<th>Status</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr v-for="feedback in reviewModel.feedbackList">
-										<td>{{ feedback.created_at }}</td>
-										<td>{{ feedback.name }}</td>
-										<td>{{ feedback.result }}</td>
-										<td>{{ status[feedback.status] }}</td>
-									</tr>
-								</tbody>
-							</table>
-						</td>
-					</tr>
-				</table>
+							<!-- End Review Presentation -->
+						</table>
+					</div>
+				</div>
+
 			</div>
 
 			<!-- Modal footer -->
@@ -385,6 +570,8 @@ $this->layout->end_head();
 	</div>
 </div>
 <?php $this->layout->begin_script(); ?>
+<script src="https://cdn.jsdelivr.net/npm/vue-ctk-date-time-picker@2.5.0/dist/vue-ctk-date-time-picker.umd.js" charset="utf-8"></script>
+
 <script>
 	const toBase64 = file => new Promise((resolve, reject) => {
 		const reader = new FileReader();
@@ -397,109 +584,153 @@ $this->layout->end_head();
 		reader.onerror = error => reject(error);
 	});
 
+	Vue.component('vue-ctk-date-time-picker', window['vue-ctk-date-time-picker']);
 	var app = new Vue({
 		el: '#app',
 		data: {
-			status:<?=json_encode(Papers_m::$status);?>,
+			status: <?= json_encode(Papers_m::$status); ?>,
 			pagination: {},
 			reviewModel: {},
 			detailMode: 0,
 			saving: false,
-			isReviewer:<?=$this->session->user_session['role'] == User_account_m::ROLE_ADMIN_PAPER ? "true":"false";?>,
-			admin:<?=json_encode($admin_paper);?>,
+			isReviewer: <?= $this->session->user_session['role'] == User_account_m::ROLE_ADMIN_PAPER ? "true" : "false"; ?>,
+			admin: <?= json_encode($admin_paper); ?>,
 			validation: null,
+			setting_date: {
+				paper_deadline: "<?= Settings_m::getSetting('paper_deadline'); ?>",
+				paper_cutoff: "<?= Settings_m::getSetting('paper_cutoff'); ?>",
+				fullpaper_deadline: "<?= Settings_m::getSetting('fullpaper_deadline'); ?>",
+				fullpaper_cutoff: "<?= Settings_m::getSetting('fullpaper_cutoff'); ?>",
+				presentation_deadline: "<?= Settings_m::getSetting('presentation_deadline'); ?>",
+				presentation_cutoff: "<?= Settings_m::getSetting('presentation_cutoff'); ?>",
+			}
+		},
+		filters: {
+			formatDate: function(val) {
+				return moment(val).format("DD MMMM YYYY [At] HH:mm");
+			}
 		},
 		methods: {
-			loadedGrid: function (data) {
+			loadedGrid: function(data) {
 				this.pagination = data;
 			},
-			detail(row,event) {
+			detail(row, event) {
 				this.validation = null;
 				this.detailMode = 1;
 				this.reviewModel = row.row;
 				var inH = event.target.innerHTML;
 				event.target.innerHTML = "<span class='fa fa-spin fa-spinner'></span>";
-				try{
-					$.get(`<?=base_url('admin/paper/get_feedback');?>/${row.row.t_id}`)
-					.done(function(res){
-						if(typeof row.row.co_author == "string")
-							var temp = JSON.parse(row.row.co_author);
-						else
-							var temp = row.row.co_author;
-						app.reviewModel = row.row;
-						app.reviewModel.feedbackList = res;
-						app.reviewModel.co_author = temp;
-						app.reviewModel.link = `<?=base_url("admin/paper/file");?>/${row.row.filename}/${row.row.t_id}`;
-						app.reviewModel.link_feedback = `<?=base_url("admin/paper/file");?>/${row.row.feedback}/${row.row.t_id}/feedback`;
-						$("#modal-review").modal('show');
-					}).fail(function(){
-						Swal.fire('Fail', "Failed to load data", 'error');
-					}).always(function(){
-						event.target.innerHTML = inH;
-					})
-				}catch (e) {
+				try {
+					$.get(`<?= base_url('admin/paper/get_feedback'); ?>/${row.row.t_id}`)
+						.done(function(res) {
+							if (typeof row.row.co_author == "string")
+								var temp = JSON.parse(row.row.co_author);
+							else
+								var temp = row.row.co_author;
+							app.reviewModel = row.row;
+							app.reviewModel.feedbackList = res;
+							app.reviewModel.co_author = temp;
+							app.reviewModel.link = `<?= base_url("admin/paper/file"); ?>/${row.row.filename}/${row.row.t_id}`;
+							app.reviewModel.link_feedback = `<?= base_url("admin/paper/file"); ?>/${row.row.feedback}/${row.row.t_id}/feedback`;
+							$("#modal-review").modal('show');
+						}).fail(function() {
+							Swal.fire('Fail', "Failed to load data", 'error');
+						}).always(function() {
+							event.target.innerHTML = inH;
+						})
+				} catch (e) {
 					console.log(e);
 				}
 			},
-			save() {
-				app.saving = true;
-				toBase64(app.$refs.feedbackFile.files[0]).then(function (result) {
-					if(result) {
-						app.reviewModel.feedback_file = result;
-						app.reviewModel.filename_feedback = app.$refs.feedbackFile.files[0].name;
-					}
-					$.post("<?=base_url('admin/paper/save');?>", app.reviewModel, function (res) {
-						if (!res.status) {
-							app.validation = res.message;
-						} else {
-							app.$refs.datagrid.refresh();
-							$("#modal-review").modal('hide');
-							$("#modal-reviewer").modal('hide');
-							Swal.fire('Success', "Review has been saved", 'success');
+			saveSetting(evt) {
+				evt.target.innerHTML = "<span class='fa fa-spin fa-spinner'></span>";
+				$.post("<?= base_url('admin/paper/save_setting_date'); ?>", this.setting_date, null, 'JSON')
+					.done(function(res) {
+						if (res.status) {
+							Swal.fire('Success', "Date saved successfully", 'success');
 						}
-					}, "JSON").fail(function (xhr) {
-						var message =  xhr.getResponseHeader("Message");
-						if(!message)
+					}).fail(function(xhr) {
+						var message = xhr.getResponseHeader("Message");
+						if (!message)
 							message = 'Server fail to response !';
 						Swal.fire('Fail', message, 'error');
-					}).always(function () {
-						app.saving = false;
+					}).always(function() {
+						evt.target.innerHTML = "Save Date";
+
 					});
-				});
+			},
+			save() {
+				app.saving = true;
+				toBase64(app.$refs.feedbackFile.files[0])
+					.then(function(result) {
+						if (result) {
+							app.reviewModel.feedback_file = result;
+							app.reviewModel.filename_feedback = app.$refs.feedbackFile.files[0].name;
+						}
+						return toBase64(app.$refs.feedbackFileFullpaper.files[0])
+					}).then(function(result) {
+						if (result) {
+							app.reviewModel.feedback_file_fullpaper = result;
+							app.reviewModel.filename_feedback_fullpaper = app.$refs.feedbackFileFullpaper.files[0].name;
+						}
+						return toBase64(app.$refs.feedbackFilePresentasi.files[0])
+					}).then(function(result) {
+						if (result) {
+							app.reviewModel.feedback_file_presentasi = result;
+							app.reviewModel.filename_feedback_presentasi = app.$refs.feedbackFilePresentasi.files[0].name;
+						}
+						$.post("<?= base_url('admin/paper/save'); ?>", app.reviewModel, function(res) {
+							if (!res.status) {
+								app.validation = res.message;
+							} else {
+								app.$refs.datagrid.refresh();
+								$("#modal-review").modal('hide');
+								$("#modal-reviewer").modal('hide');
+								Swal.fire('Success', "Review has been saved", 'success');
+							}
+						}, "JSON").fail(function(xhr) {
+							var message = xhr.getResponseHeader("Message");
+							if (!message)
+								message = 'Server fail to response !';
+							Swal.fire('Fail', message, 'error');
+						}).always(function() {
+							app.saving = false;
+						});
+					});
 
 			},
 			setReviewer(row) {
 				this.validation = null;
 				this.detailMode = 0;
 				this.reviewModel = row.row;
-				this.reviewModel.link = `<?=base_url("admin/paper/file");?>/${row.row.filename}/${row.row.t_id}`;
+				this.reviewModel.link = `<?= base_url("admin/paper/file"); ?>/${row.row.filename}/${row.row.t_id}`;
 				$("#modal-reviewer").modal('show');
 			},
-			review(row,event) {
+			review(row, event) {
 				this.validation = null;
 				this.detailMode = 0;
 				var inH = event.target.innerHTML;
 				event.target.innerHTML = "<span class='fa fa-spin fa-spinner'></span>";
-				try{
-					$.get(`<?=base_url('admin/paper/get_feedback');?>/${row.row.t_id}`)
-					.done(function(res){
-						if(typeof row.row.co_author == "string")
-							var temp = JSON.parse(row.row.co_author);
-						else
-							var temp = row.row.co_author;
-						app.reviewModel = row.row;
-						app.reviewModel.feedbackList = res;
-						app.reviewModel.co_author = temp;
-						app.reviewModel.link = `<?=base_url("admin/paper/file");?>/${row.row.filename}/${row.row.t_id}`;
-						app.reviewModel.link_feedback = `<?=base_url("admin/paper/file");?>/${row.row.feedback}/${row.row.t_id}/feedback`;
-						$("#modal-review").modal('show');
+				try {
+					$.get(`<?= base_url('admin/paper/get_feedback'); ?>/${row.row.t_id}`)
+						.done(function(res) {
+							if (typeof row.row.co_author == "string")
+								var temp = JSON.parse(row.row.co_author);
+							else
+								var temp = row.row.co_author;
+							app.reviewModel = row.row;
+							app.reviewModel.feedbackList = res;
+							app.reviewModel.co_author = temp;
+							app.reviewModel.link = `<?= base_url("admin/paper/file"); ?>/${row.row.filename}/${row.row.t_id}`;
+							app.reviewModel.link_feedback = `<?= base_url("admin/paper/file"); ?>/${row.row.feedback}/${row.row.t_id}/feedback`;
+							$("#modal-review").modal('show');
 
-					}).fail(function(){
-						Swal.fire('Fail', "Failed to load data", 'error');
-					}).always(function(){
-						event.target.innerHTML = inH;
-					})
-				}catch (e) {
+						}).fail(function() {
+							Swal.fire('Fail', "Failed to load data", 'error');
+						}).always(function() {
+							event.target.innerHTML = inH;
+						})
+				} catch (e) {
 					console.log(e);
 				}
 			},

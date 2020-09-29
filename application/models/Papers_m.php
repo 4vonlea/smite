@@ -35,7 +35,7 @@ class Papers_m extends MY_Model
 		// 'Review Article'=>'Review Article',
 		'Original Research'=>'Original Research',
 		'Systematic Review / Meta Analysis' => 'Systematic Review / Meta Analysis',
-		'Other' =>'Other',
+		// 'Other' =>'Other',
 	];
 
 	protected $table = "papers";
@@ -65,7 +65,10 @@ class Papers_m extends MY_Model
 				'member' => ['members', 'member.id = member_id'],
 				'st'=>['settings','st.name = "format_id_paper"',"left"]
 			],
-			'select' => ['id_paper'=>'CONCAT(st.value,LPAD(t.id,3,0))','t_id' => 't.id', 'fullname', 'title', 'status' => 't.status', 't_created_at' => 't.created_at','m_id'=>'member.id', 'author' => 'member.fullname', 'filename', 'reviewer','introduction','aims','methods','conclusion','co_author','result','message','feedback','type_presence','fullpaper','poster']
+			'select' => [
+					'id_paper'=>'CONCAT(st.value,LPAD(t.id,3,0))','t_id' => 't.id', 'fullname', 'title', 'status' => 't.status', 't_created_at' => 't.created_at','m_id'=>'member.id', 'author' => 'member.fullname', 'filename', 'reviewer','introduction','aims','methods','conclusion','co_author','result','message','feedback','type_presence','fullpaper','poster',
+					"status_fullpaper","status_presentasi","feedback_file_fullpaper","feedback_fullpaper","feedback_presentasi","feedback_file_presentasi"	
+				]
 		];
 		$config =  array_merge($default,$option);
 		return $config;
@@ -82,6 +85,14 @@ class Papers_m extends MY_Model
 	{
 		$data = parent::gridData($params, $gridConfig);
 		$db = $this->find()->select("SUM(IF(status = 0,1,0)) as stat_0")
+			->select("SUM(IF(status_fullpaper = 0,1,0)) as stat_fullpaper_0")
+			->select("SUM(IF(status_fullpaper = 1,1,0)) as stat_fullpaper_1")
+			->select("SUM(IF(status_fullpaper = 2,1,0)) as stat_fullpaper_2")
+			->select("SUM(IF(status_fullpaper = 3,1,0)) as stat_fullpaper_3")
+			->select("SUM(IF(status_presentasi = 0,1,0)) as stat_presentasi_0")
+			->select("SUM(IF(status_presentasi = 1,1,0)) as stat_presentasi_1")
+			->select("SUM(IF(status_presentasi = 2,1,0)) as stat_presentasi_2")
+			->select("SUM(IF(status_presentasi = 3,1,0)) as stat_presentasi_3")
 			->select("SUM(IF(status = 1,1,0)) as stat_1")
 			->select("SUM(IF(status = 2,1,0)) as stat_2")
 			->select("SUM(IF(status = 3,1,0)) as stat_3");
@@ -91,10 +102,12 @@ class Papers_m extends MY_Model
 			$db->where($gridConfig['filter']);
 
 		$result = $db->get()->row_array();
+		$data = array_merge($data,$result);
 		$data['total_stat_0'] = isset($result['stat_0']) ? $result['stat_0']:0;
 		$data['total_stat_1'] = isset($result['stat_1']) ? $result['stat_1']:0;
 		$data['total_stat_2'] = isset($result['stat_2']) ? $result['stat_2']:0;
 		$data['total_stat_3'] = isset($result['stat_3']) ? $result['stat_3']:0;
+
 
 		$model = $this->find()->group_start()
 			->where("reviewer", "")->or_where("reviewer IS NULL", null)->group_end()
