@@ -119,8 +119,8 @@
 									<button @click="edit(props)" class="btn btn-info btn-sm">
 										<span class="fa fa-edit"></span> Edit
 									</button>
-									<button @click="detail(props)" class="btn btn-info btn-sm">
-										<span class="fa fa-search"></span> detail
+									<button @click="onDetail(props,$event)" class="btn btn-info btn-sm">
+										<span class="fa fa-search"></span> Detail
 									</button>
 									<button @click="deleteRow(props)" class="btn btn-warning btn-sm">
 										<span class="fa fa-trash"></span> Delete
@@ -134,7 +134,7 @@
 		</div>
 	</transition>
 	<div class="modal" id="modal-detail" tabindex="-1" role="dialog">
-		<div class="modal-dialog" role="document">
+		<div class="modal-dialog modal-lg" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title">Detail</h5>
@@ -151,8 +151,10 @@
 					</tr>
 					<tr>
 						<td colspan="2">
-							<video v-if="detail.type == 1" style="width:100%" :src="'<?= base_url('themes/uploads/video'); ?>/'+form.model.filename" />
-							<img v-if="detail.type == 2" style="width:100%" :src="'<?= base_url('themes/uploads/video'); ?>/'+form.model.filename" />
+							<video v-if="detail.type == 1" style="width:100%" controls>
+								<source :src="'<?= base_url('themes/uploads/video'); ?>/'+detail.filename" />
+							</video>
+							<img v-if="detail.type == 2" style="width:100%" :src="'<?= base_url('themes/uploads/video'); ?>/'+detail.filename" />
 						</td>
 					</tr>
 					<tr>
@@ -161,6 +163,20 @@
 						</th>
 						<td>
 							{{ detail.likeCount }}
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<p class="text-center">Comments</p>
+							<div v-for="com in detail.comments" class="list-group">
+								<div class="list-group-item list-group-item-action flex-column align-items-start">
+									<div class="d-flex w-100 justify-content-between">
+										<h4 class="mb-1">{{ com.username }} :</h5>
+										<small>{{ com.created_at | formatDate }}</small>
+									</div>
+									<p class="mb-1">{{ com.comment }}</p>
+								</div>
+							</div>
 						</td>
 					</tr>
 				</table>
@@ -201,6 +217,11 @@
 			},
 			detail:{},
 		},
+		filters: {
+			formatDate: function(val) {
+				return moment(val).format("DD MMMM YYYY [At] HH:mm");
+			}
+		},
 		methods: {
 			browseImage(event) {
 				if (event.target.files.length > 0) {
@@ -218,7 +239,7 @@
 					confirmButtonText: 'Yes, delete it!'
 				}).then((result) => {
 					if (result.value) {
-						var url = "<?= base_url('admin/sponsor/delete'); ?>";
+						var url = "<?= base_url('admin/upload_video/delete'); ?>";
 						$.post(url, {
 								id: prop.row.id
 							}, null, "JSON")
@@ -252,8 +273,21 @@
 			formCancel: function() {
 				this.form.show = false;
 			},
-			detail: function(event) {
-				
+			onDetail: function(props,event) {
+				event.target.innerHTML = '<i class="fa fa-spin fa-spinner"></i>';
+				event.target.setAttribute("disabled", "disabled");
+				$.get(`<?=base_url('admin/upload_video/detail');?>/${props.row.id}`,function(res){
+					app.detail = res;
+					$("#modal-detail").modal("show");
+				},'JSON').fail(function(xhr){
+					var message = xhr.getResponseHeader("Message");
+					if (!message)
+						message = 'Server fail to response !';
+					Swal.fire('Fail', message, 'error');
+				}).always(function(){
+					event.target.innerHTML = '<span class="fa fa-search"></span> Detail';
+					event.target.removeAttribute("disabled");
+				});
 			},
 			save: function() {
 				this.error = null;

@@ -37,7 +37,15 @@ class Upload_video_m extends MY_Model
 		];
     }
     
-    public function detail($id){
-        
+    public function findDetail($id){
+        $row = $this->db->select("t.*,count(likes.id) as likeCount")
+                    ->from($this->table." t")
+                    ->join("video_like likes",'t.id = vidoe_id',"left")
+                    ->where("t.id",$id)
+                    ->get()->row_array();
+        if($row){
+            $row['comments'] = $this->db->get_where("video_komen",['video_id'=>$id])->result_array();
+        }
+        return $row;
     }
 }
