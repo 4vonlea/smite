@@ -177,7 +177,7 @@
 						<th>Status</th>
 						<td colspan="3">{{ detailModel.status_payment.toUpperCase() }}</td>
 					</tr>
-					<tr>
+					<tr v-if="detailModel.channel != 'ESPAY'">
 						<th>{{ detailModel.channel == 'EDC' || detailModel.channel == 'MANUAL TRANSFER' ? 'Code Reference' : 'Additional Info' }}</th>
 						<td colspan="3">{{ detailModel.message_payment }}</td>
 					</tr>
@@ -291,7 +291,7 @@
 							</select>
 						</td>
 					</tr>
-					<tr>
+					<tr  v-if="detailModel.channel != 'ESPAY'">
 						<th>{{ modifyModel.channel == 'EDC' || modifyModel.channel == 'MANUAL TRANSFER' ? 'Code Reference' : 'Additional Info' }}</th>
 						<td colspan="3">{{ modifyModel.message_payment }}</td>
 					</tr>
