@@ -400,7 +400,7 @@ $this->layout->end_head();
 						<table class="table table-border">
 							<tr>
 								<th>Upload Date</th>
-								<td>{{ reviewModel.created_at | formatDate }}</td>
+								<td>{{ reviewModel.t_created_at | formatDate }}</td>
 							</tr>
 							<tr>
 								<th>Abstract Link</th>
@@ -446,7 +446,7 @@ $this->layout->end_head();
 					<div v-show="!isReviewer" class="tab-pane fade" id="fullpaper_tab" role="tabpanel" aria-labelledby="contact-tab">
 						<table class="table table-border">
 							<!-- Review Full Paper -->
-							<tr>
+							<tr v-if="reviewModel.fullpaper">
 								<th>Upload Date</th>
 								<td>{{ reviewModel.time_upload_fullpaper | formatDate }}</td>
 							</tr>
@@ -506,7 +506,7 @@ $this->layout->end_head();
 					<div v-show="!isReviewer" class="tab-pane fade" id="presentation_tab" role="tabpanel" aria-labelledby="contact-tab">
 						<table class="table table-border">
 							<!-- Review Presentation -->
-							<tr>
+							<tr v-if="reviewModel.poster">
 								<th>Upload Date</th>
 								<td>{{ reviewModel.time_upload_presentasi | formatDate }}</td>
 							</tr>
