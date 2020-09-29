@@ -95,7 +95,7 @@ export default Vue.component("PageWebminar",{
             events: [],
             ads:{},
             modalCloseButton:false,
-            timer:60,
+            timer:10,
 		}
     },
     filters:{
@@ -123,7 +123,7 @@ export default Vue.component("PageWebminar",{
 			xhttp.send();
             $("#modal-ads").modal({backdrop:'static',keyboard:false});
             $("#modal-ads").modal("show");
-            this.timer = 15;
+            this.timer = 10;
             var v = this;
             var t = setInterval(function(){
                 v.timer--;
