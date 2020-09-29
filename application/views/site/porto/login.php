@@ -1,11 +1,11 @@
-<section class="page-header page-header-modern bg-color-dark page-header-sm custom-page-header">
+<section class="page-header page-header-modern page-header-sm custom-page-header" style="background-color: #d4af37;">
     <div class="container">
         <div class="row">
             <div class="col-md-8 order-2 order-md-1 align-self-center p-static">
                 <h1>Login</h1>
             </div>
             <div class="col-md-4 order-1 order-md-2 align-self-center">
-                <ul class="breadcrumb d-block text-md-right breadcrumb-light">
+                <ul class="breadcrumb d-block text-md-right breadcrumb-dark">
                     <li><a href="<?=base_url('site');?>">Beranda</a></li>
                     <li class="active">Login</li>
                 </ul>
@@ -14,7 +14,7 @@
     </div>
 </section>
 
-<section class="custom-section-padding">
+<section class="custom-section-padding" style="background-image: url('<?= base_url('themes/porto'); ?>/img/bgjadwal.jpg'); background-repeat: no-repeat; background-size: cover; height: 100%;">
     <div class="container">
         <div class="row">
             <div class="col-lg-5 offset-lg-3">
@@ -30,8 +30,8 @@
                         <form class="custom-contact-form-style-1" method="POST">
                             <div class="form-row">
                                 <div class="form-group col">
-                                    <div class="custom-input-box">
-                                        <i class="icon-user icons text-color-primary"></i>
+                                    <div class="custom-input-box mt-4">
+                                        <i class="icon-user icons text-color-dark">  Email</i>
                                         <input type="text" value="" data-msg-required="Please enter your Email."
                                         maxlength="100" class="form-control" name="username" placeholder="Email"
                                         required>
@@ -41,7 +41,7 @@
                             <div class="form-row">
                                 <div class="form-group col">
                                     <div class="custom-input-box">
-                                        <i class="icon-key icons text-color-primary"></i>
+                                        <i class="icon-key icons text-color-dark">  Password</i>
                                         <input type="password" value="" data-msg-required="Please enter your password."
                                         data-msg-password="Password can not empty." maxlength="100"
                                         class="form-control" name="password" placeholder="Password" required>
@@ -64,7 +64,7 @@
                         </form>
                     </div>
                 </div>
-                <div class="alert alert-primary">
+                <div class="alert alert-primary mb-5">
                     Lupa Password ? <a href="<?= base_url("site/forget"); ?>" class="text-light">Klik disini</a> <br/>
                     Belum punya akun ? <a href="<?= base_url("member/register"); ?>" class="text-light">Klik disini</a><br/>
                 </div>

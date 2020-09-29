@@ -222,13 +222,13 @@
 <section id="vid_promo" class="bg-color-light pt-4">
     <div class="container">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-6 appear-animation" data-appear-animation="fadeIn">
                 <div class="d-flex justify-content-center">
                     <iframe width="600" height="300" allowfullscreen="true" src="https://www.youtube.com/embed/awJsqhB9mwE"></iframe>
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="mt-4">
+                <div class="mt-4 appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="600">
                     <img class="img-fluid border-radius-0" src="<?= base_url('themes/porto'); ?>/img/lomba.png" alt="">
                     <div>
                     <a href="<?= base_url('themes/porto'); ?>/img/syarat.pdf" target="_blank" class="btn btn-primary font-weight-semibold text-uppercase text-5 mt-2 mb-3 col-lg-12">Syarat & Ketentuan</a>
