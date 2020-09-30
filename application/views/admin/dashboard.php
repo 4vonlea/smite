@@ -1,29 +1,3 @@
-<?php $this->layout->begin_head(); ?>
-<style>
-	/* The emerging W3C standard
-   that is currently Firefox-only */
-	* {
-		scrollbar-width: thin;
-		scrollbar-color: #5e72e4 #e9ecef;
-	}
-
-	/* Works on Chrome/Edge/Safari */
-	*::-webkit-scrollbar {
-		width: 12px;
-	}
-
-	*::-webkit-scrollbar-track {
-		background: #e9ecef;
-	}
-
-	*::-webkit-scrollbar-thumb {
-		background-color: #5e72e4;
-		border-radius: 20px;
-		border: 3px solid #e9ecef;
-	}
-</style>
-
-<?php $this->layout->end_head(); ?>
 <div class="header bg-info pb-8 pt-5 pt-md-8">
 	<div class="container-fluid">
 		<div class="header-body">
