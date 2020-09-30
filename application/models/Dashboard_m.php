@@ -37,6 +37,25 @@ class Dashboard_m extends CI_Model
 
 		}
 
+		$countByStatus = $this->db->query("SELECT ev.id as event_id, t.kategory as status,ev.name as event, COUNT(m.id) AS jumlah FROM kategory_members t
+											LEFT JOIN members m ON t.id = m.`status`
+											LEFT JOIN `transaction` tr ON tr.member_id = m.id AND tr.status_payment = 'settlement'
+											LEFT JOIN transaction_details dt ON dt.transaction_id = tr.id AND dt.event_pricing_id > 0
+											LEFT JOIN `event_pricing` ep ON ep.id = dt.event_pricing_id
+											LEFT JOIN `events` ev ON ev.id = ep.event_id
+											GROUP BY t.id,ev.id")->result_array();
+		$chartResult = [];
+		foreach($countByStatus as $row){
+			if($row['event'] != ""){
+				$chartResult[$row['event_id']]['title'] = $row['event'];
+				$chartResult[$row['event_id']]['data']['labels'][] = $row['status'];
+				$chartResult[$row['event_id']]['data']['datasets'][0]['label'] = 'Participant';
+				$chartResult[$row['event_id']]['data']['datasets'][0]['backgroundColor'] = '#f87979';
+				$chartResult[$row['event_id']]['data']['datasets'][0]['data'][] =$row['jumlah'];
+			}
+		}									
+
+		$return['charts'] = $chartResult;
 		$return['participants_event'] = $rs->result_array();
 		return $return;
 	}

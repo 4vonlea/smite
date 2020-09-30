@@ -24,8 +24,8 @@ class Dashboard extends Admin_Controller
     }
 
     public function data(){
-		if($this->input->method() != 'post')
-			show_404("Page Not Found !");
+		// if($this->input->method() != 'post')
+		// 	show_404("Page Not Found !");
 
 		$this->load->model("Dashboard_m");
 		$report = $this->Dashboard_m->getData();

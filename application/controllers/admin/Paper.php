@@ -119,6 +119,7 @@ class Paper extends Admin_Controller
 				}
 
 				$model->status = $data['status'];
+				$model->score = $data['score'];
 				$model->status_fullpaper = $data['status_fullpaper'];
 				$model->status_presentasi = $data['status_presentasi'];
 				$model->type_presence = $data['type_presence'];

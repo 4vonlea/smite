@@ -67,7 +67,8 @@ class Papers_m extends MY_Model
 			],
 			'select' => [
 					'id_paper'=>'CONCAT(st.value,LPAD(t.id,3,0))','t_id' => 't.id', 'fullname', 'title', 'status' => 't.status', 't_created_at' => 't.created_at','m_id'=>'member.id', 'author' => 'member.fullname', 'filename', 'reviewer','introduction','aims','methods','conclusion','co_author','result','message','feedback','type_presence','fullpaper','poster',
-					"status_fullpaper","status_presentasi","feedback_file_fullpaper","feedback_fullpaper","feedback_presentasi","feedback_file_presentasi"	
+					"status_fullpaper","status_presentasi","feedback_file_fullpaper","feedback_fullpaper","feedback_presentasi","feedback_file_presentasi",	
+					'score'
 				]
 		];
 		$config =  array_merge($default,$option);

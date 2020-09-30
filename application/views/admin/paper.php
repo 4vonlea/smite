@@ -169,7 +169,7 @@ $this->layout->end_head();
 				</div>
 			</div>
 			<div class="table-responsive">
-				<datagrid @loaded_data="loadedGrid" ref="datagrid" api-url="<?= base_url('admin/paper/grid'); ?>" :fields="[{name:'id_paper',sortField:'id_paper','title':'ID Paper'},{name:'fullname',sortField:'fullname','title':'Member Name'},{name:'status','sortField':'status','title':'Status Abstract'},{name:'status_fullpaper','sortField':'status_fullpaper','title':'status_fullpaper'},{name:'status_presentasi','sortField':'status_presentasi','title':'Status Presentation'},{name:'type_presence','sortField':'type_presence','title':'Presentation'},{name:'t_created_at',sortField:'t_created_at',title:'Submit On'},{name:'t_id','title':'Aksi'}]">
+				<datagrid @loaded_data="loadedGrid" ref="datagrid" api-url="<?= base_url('admin/paper/grid'); ?>" :fields="[{name:'id_paper',sortField:'id_paper','title':'ID Paper'},{name:'fullname',sortField:'fullname','title':'Member Name'},{name:'score','sortField':'score'},{name:'status','sortField':'status','title':'Status Abstract'},{name:'status_fullpaper','sortField':'status_fullpaper','title':'status_fullpaper'},{name:'status_presentasi','sortField':'status_presentasi','title':'Status Presentation'},{name:'type_presence','sortField':'type_presence','title':'Presentation'},{name:'t_created_at',sortField:'t_created_at',title:'Submit On'},{name:'t_id','title':'Aksi'}]">
 					<?php if ($this->session->user_session['role'] == User_account_m::ROLE_ADMIN_PAPER) : ?>
 						<template slot="fullname" slot-scope="props">
 							Hidden
@@ -485,6 +485,12 @@ $this->layout->end_head();
 								<th>Feedback File Fullpaper</th>
 								<td>
 									<input type="file" name="feedback" ref="feedbackFileFullpaper" class="form-control" accept=".doc,.docx,.ods" />
+								</td>
+							</tr>
+							<tr v-if="detailMode == 0">
+								<th>Score</th>
+								<td>
+									<input type="text" name="score" class="form-control" v-model="reviewModel.score" />
 								</td>
 							</tr>
 							<tr v-if="detailMode == 0">
