@@ -12,8 +12,9 @@ class Area extends MY_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		if ($this->user_session_expired())
+		if ($this->user_session_expired() && $this->router->method != "page")
 			redirect(base_url("site/login"));
+			
 		$this->theme = $this->config->item("theme");
 		$this->layout->setLayout("layouts/$this->theme");
 		$this->layout->setBaseView('member/' . $this->theme . '/area/');
