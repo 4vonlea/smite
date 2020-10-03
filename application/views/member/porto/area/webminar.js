@@ -42,7 +42,7 @@ export default Vue.component("PageWebminar",{
                                     <td>{{ link.date | formatDate }}</td>
                                     <td>{{ link.room }}</td>
                                     <td :rowspan="2" class="">
-                                        <button :disabled="link.finishWatch == '0' && link.advertisement" v-on:click="join(link.url)" class="btn btn-primary btn-block">Gabung Sekarang</button>
+                                        <button :disabled="(link.finishWatch == '0' && link.advertisement) || link.url == '#'" v-on:click="join(link.url)" class="btn btn-primary btn-block">Gabung Sekarang</button>
                                         <button v-for="(ads,index) in link.advertisement" class="btn btn-block" :class="[ads.watch == '1' ? 'btn-primary':'btn-default']" v-on:click="showAds(index,link,indSpl)">
                                             Lihat Sponsor {{ index+1}}
                                         </button>
@@ -50,15 +50,17 @@ export default Vue.component("PageWebminar",{
                                 </tr>
                                 <tr >
                                     <td colspan="2">
-                                        <div class="card-deck">
-                                            <div v-for="sp in link.speakers" div class="card" style="max-width:200px;">
-                                                <div class="card-header">{{sp.topic}}</div>
-                                                <img v-if="sp.image" class="card-img-top" style="max-width:200px;max-height:200px" :src="sp.image" alt="Card image cap">
-                                                <div class="card-body">
-                                                    <p class="card-text">{{sp.name}}</p>
+                                        <ul class="list-group list-group-flush">
+                                            <li v-for="sp in link.speakers" class="list-group-item d-flex">
+                                                <div class="d-flex mr-2">
+                                                    <img class="img-thumbnail rounded" style="max-width:80px"  :src="sp.image ? sp.image:appUrl+'/themes/uploads/people.jpg'" alt="Card image cap">
                                                 </div>
-                                            </div>
-                                        </div>
+                                                <div class="d-flex flex-column">
+                                                    <h5 style="margin-bottom:0px">{{ sp.topic}}</h5>
+                                                    <span>{{ sp.name }}</span>
+                                                </div>
+                                            </li>
+                                        </ul>
                                     </td>
                                 </tr>
                             </template>
