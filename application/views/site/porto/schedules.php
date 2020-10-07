@@ -22,8 +22,10 @@
                 <h3 class="text-color-light text-uppercase font-weight-bold text-center mb-1 appear-animation" data-appear-animation="fadeInUp">Jadwal Simposium</h3>
             </div>
         </div>
+
         <div class="row">
-            <div class="col-sm-12 col-lg-12 appear-animation" data-appear-animation = "fadeInUp" data-appear-animation-delay = "600">
+            <div class="col-sm-12 col-lg-12">
+                <div class="table-responsive">
                 <table class="table table-bordered mb-5">
                  <tr>
                      <td class="info text-center" colspan="5"><b>SABTU, 14 NOVEMBER 2020</b></td>
@@ -74,6 +76,7 @@
                      <td class="text-center" colspan="4">HUKUM, ETIK dan KESELAMATAN PASIEN/ PLENARY LECTURE</td>
                  </tr> 
              </table>
+         </div>
 
              <table class="table table-bordered mb-5 appear-animation" data-appear-animation = "fadeInUp" data-appear-animation-delay = "600">
                  <tr>

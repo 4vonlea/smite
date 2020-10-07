@@ -122,7 +122,7 @@ $theme_path = base_url("themes/porto") . "/";
 				bottom: 0;
 				right: 0;
 				width: 100%;
-				height: 500px;
+				/*height: 500px;*/
 			}
 		</style>
 
