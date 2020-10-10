@@ -42,9 +42,7 @@ export default Vue.component("PageWebminar",{
                                     <td>{{ link.date | formatDate }}</td>
                                     <td>{{ link.room }}</td>
                                     <td :rowspan="2" class="">
-                                        {{ link.date }}
-
-                                        <button :disabled="(link.finishWatch == '0' && link.advertisement) || link.url == '#'" v-on:click="join(link.url)" class="btn btn-primary btn-block">Gabung Sekarang</button>
+                                        <button :disabled="(link.finishWatch == '0' && link.advertisement) || link.url == '#' || more5Minutes(link.date) " v-on:click="join(link.url)" class="btn btn-primary btn-block">Gabung Sekarang</button>
                                         <button v-for="(ads,index) in link.advertisement" class="btn btn-block" :class="[ads.watch == '1' ? 'btn-primary':'btn-default']" v-on:click="showAds(index,link,indSpl)">
                                             Lihat Sponsor {{ index+1}}
                                         </button>
@@ -112,8 +110,12 @@ export default Vue.component("PageWebminar",{
 	},
 	watch: {
 		'$route': 'fetchEvents'
-	},
+    },
     methods:{
+        more5Minutes(date){
+            return moment(date).unix() - moment().unix() > 60*5
+        },
+       
         showAds(index,linkOfSpecial){
             this.modalCloseButton = false;
             this.ads = linkOfSpecial.advertisement[index];
