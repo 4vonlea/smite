@@ -96,9 +96,9 @@ class Paper extends Admin_Controller
 		$this->load->model('Papers_m');
 		$data = $this->input->post();
 		$response = [];
-		if($this->session->user_session['role'] == User_account_m::ROLE_ADMIN_PAPER){
-			$this->save_reviewer();
-		}else{
+		// if($this->session->user_session['role'] == User_account_m::ROLE_ADMIN_PAPER){
+		// 	$this->save_reviewer();
+		// }else{
 			$this->form_validation->set_rules("status", "Status", "required");
 			$model = $this->Papers_m->findOne($data['t_id']);
 			if (isset($data['status']) && $data['status'] == 0 && $model->reviewer != "")
@@ -157,7 +157,7 @@ class Paper extends Admin_Controller
 			$this->output
 				->set_content_type("application/json")
 				->_display(json_encode($response));
-		}
+		// }
 	}
 
 	public function file($name,$id,$type = "Abstract")

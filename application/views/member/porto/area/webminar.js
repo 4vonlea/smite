@@ -42,6 +42,8 @@ export default Vue.component("PageWebminar",{
                                     <td>{{ link.date | formatDate }}</td>
                                     <td>{{ link.room }}</td>
                                     <td :rowspan="2" class="">
+                                        {{ link.date }}
+
                                         <button :disabled="(link.finishWatch == '0' && link.advertisement) || link.url == '#'" v-on:click="join(link.url)" class="btn btn-primary btn-block">Gabung Sekarang</button>
                                         <button v-for="(ads,index) in link.advertisement" class="btn btn-block" :class="[ads.watch == '1' ? 'btn-primary':'btn-default']" v-on:click="showAds(index,link,indSpl)">
                                             Lihat Sponsor {{ index+1}}
