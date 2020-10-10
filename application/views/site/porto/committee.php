@@ -14,8 +14,7 @@
     </div>
 </section>
 
-<section class="custom-section-padding" style="background-image: url('<?= base_url('themes/porto'); ?>/img/bgjadwal.jpg'); background-repeat: no-repeat;
-  background-size: cover; height: 100%;">
+<section class="custom-section-padding" style="background-image: url('<?= base_url('themes/porto'); ?>/img/bgjadwal.jpg'); background-repeat: no-repeat; background-size: cover; height: 100%;">
     <div class="container">
         <div class="row">
         <div class="owl-carousel owl-theme nav-inside float-left mr-4 mb-2" data-plugin-options="{'items': 1, 'margin': 10, 'animateOut': 'fadeOut','autoplay': true}">

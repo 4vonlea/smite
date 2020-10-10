@@ -29,16 +29,16 @@
         ?>
         <div class="container">
             <div class="row">
-             <div class="col-lg-6 py-2 appear-animation" data-appear-animation="fadeInRightShorter">
+               <div class="col-lg-6 py-2 appear-animation" data-appear-animation="fadeInRightShorter">
                 <h3 class="text-color-dark text-uppercase font-weight-bold text-center mb-3">abstract Countdown</h3>
                 <div class="countdown countdown-borders countdown-biru" data-plugin-countdown data-plugin-options="{'date': '<?php echo $papertimer; ?>', 'numberClass': 'font-weight-extra-bold', 'wrapperClass': 'border-color-emas'}"></div>
             </div>
             <div class="col-lg-6 divider-left-border py-2 appear-animation" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="200">
-             <h3 class="text-color-dark text-uppercase font-weight-bold text-center mb-3">Event Countdown</h3>
-             <div class="countdown countdown-borders countdown-emas" data-plugin-countdown data-plugin-options="{'date': '<?php echo $eventtimer; ?>', 'numberClass': 'font-weight-extra-bold', 'wrapperClass': 'border-color-biru bg-color-biru'}"></div>
-         </div>
-     </div>
- </div>
+               <h3 class="text-color-dark text-uppercase font-weight-bold text-center mb-3">Event Countdown</h3>
+               <div class="countdown countdown-borders countdown-emas" data-plugin-countdown data-plugin-options="{'date': '<?php echo $eventtimer; ?>', 'numberClass': 'font-weight-extra-bold', 'wrapperClass': 'border-color-biru bg-color-biru'}"></div>
+           </div>
+       </div>
+   </div>
 </section>
 
 <section class="bg-color-light">
@@ -128,7 +128,7 @@
             <?php
             foreach ($row->kondisi as $row2):
                 ?>
-                <div class="accordion" id="accordion7 appear-animation" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="600">
+                <div class="accordion appear-animation" id="accordion7" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="600">
                     <div class="card card-default">
                         <div class="card-header" style="background-color: #080531;">
                             <h4 class="card-title m-1">
@@ -219,7 +219,7 @@
     </div>
 </section>
 
-<section id="vid_promo" class="bg-color-light pt-4">
+<section id="vid_promo" class="bg-color-light pt-4 pb-4">
     <div class="container">
         <div class="row">
             <div class="col-md-6 appear-animation" data-appear-animation="fadeIn">
@@ -231,12 +231,13 @@
                 <div class="mt-4 appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="600">
                     <img class="img-fluid border-radius-0" src="<?= base_url('themes/porto'); ?>/img/lomba.png" alt="">
                     <div>
-                    <a href="<?= base_url('themes/porto'); ?>/img/syarat.pdf" target="_blank" class="btn btn-primary font-weight-semibold text-uppercase text-5 mt-2 mb-3 col-lg-12">Syarat & Ketentuan</a>
-                </div>
+                        <a href="<?= base_url('themes/porto'); ?>/img/syarat.pdf" target="_blank" class="btn btn-primary font-weight-semibold text-uppercase text-5 mt-2 mb-3 col-lg-12">Syarat & Ketentuan</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
 
 </div>

