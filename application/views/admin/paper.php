@@ -458,9 +458,9 @@ $this->layout->end_head();
 								<th>Feedback Message</th>
 								<td>{{ reviewModel.feedback_fullpaper }}</td>
 							</tr>
-							<tr v-if="reviewModel.status == 0 && reviewModel.link_feedback">
+							<tr v-if="reviewModel.status_fullpaper == 0 && reviewModel.feedback_file_fullpaper">
 								<th>Link Download Feedback</th>
-								<td><a :href="`<?= base_url("admin/paper/file"); ?>/${reviewModel.feedback_file_fullpaper}/${reviewModel.paper_id}/feedback_fullpaper`" target="_blank">Click Here !</a></td>
+								<td><a :href="`<?= base_url("admin/paper/file"); ?>/${reviewModel.feedback_file_fullpaper}/${reviewModel.t_id}/feedback_fullpaper`" target="_blank">Click Here !</a></td>
 							</tr>
 							<tr v-if="detailMode == 0">
 								<th>Result Of Review</th>
@@ -526,7 +526,7 @@ $this->layout->end_head();
 							</tr>
 							<tr v-if="reviewModel.status_presentasi == 0 && reviewModel.feedback_file_presentasi">
 								<th>Link Download Feedback</th>
-								<td><a :href="`<?= base_url("admin/paper/file"); ?>/${reviewModel.feedback_file_presentasi}/${reviewModel.paper_id}/feedback_presenatasi`" target="_blank">Click Here !</a></td>
+								<td><a :href="`<?= base_url("admin/paper/file"); ?>/${reviewModel.feedback_file_presentasi}/${reviewModel.t_id}/feedback_presenatasi`" target="_blank">Click Here !</a></td>
 							</tr>
 							<tr v-if="detailMode == 0">
 								<th>Result Of Review</th>
@@ -716,6 +716,10 @@ $this->layout->end_head();
 				this.validation = null;
 				this.detailMode = 0;
 				var inH = event.target.innerHTML;
+				this.$refs.feedbackFile.value = "";//files[0].name;
+				this.$refs.feedbackFileFullpaper.value = "";//files[0].name;
+				this.$refs.feedbackFilePresentasi.value = "";//files[0].name;
+
 				event.target.innerHTML = "<span class='fa fa-spin fa-spinner'></span>";
 				try {
 					$.get(`<?= base_url('admin/paper/get_feedback'); ?>/${row.row.t_id}`)
