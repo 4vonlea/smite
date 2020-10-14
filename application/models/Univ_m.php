@@ -17,7 +17,7 @@ class Univ_m extends MY_Model
 		$univ_nama = trim($attributes['univ_nama']);
 		$model = $this->findOne(['univ_nama'=>$univ_nama]);
 		if($model){
-			$this->last_insert_id = $model->id;
+			$this->last_insert_id = $model->univ_id;
 			return true;
 		}
 		$id = $this->find()->select_max('univ_id')

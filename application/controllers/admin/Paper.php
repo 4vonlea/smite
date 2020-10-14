@@ -96,9 +96,9 @@ class Paper extends Admin_Controller
 		$this->load->model('Papers_m');
 		$data = $this->input->post();
 		$response = [];
-		if($this->session->user_session['role'] == User_account_m::ROLE_ADMIN_PAPER){
-			$this->save_reviewer();
-		}else{
+		// if($this->session->user_session['role'] == User_account_m::ROLE_ADMIN_PAPER){
+		// 	$this->save_reviewer();
+		// }else{
 			$this->form_validation->set_rules("status", "Status", "required");
 			$model = $this->Papers_m->findOne($data['t_id']);
 			if (isset($data['status']) && $data['status'] == 0 && $model->reviewer != "")
@@ -134,20 +134,19 @@ class Paper extends Admin_Controller
 					$response['message'] = $model->errorsString();
 				}else{
 					$this->load->model("Notification_m");
-					// if($data['status'] == Papers_m::ACCEPTED || $data['status'] == Papers_m::REJECTED ){
-					// 	$message = "<p>Dear Participant</p>
-					// 	<p>Thank you for submitting your abstract to ".Settings_m::getSetting('site_title').". Please download your abstract result annoucement here.</p>
-					// 	<p>Best regards.<br/>
-					// 	Committee of ".Settings_m::getSetting('site_title')."</p>";
-					// 	$member = $model->member;
-					// 	$this->Notification_m->sendMessageWithAttachment($member->email,"Result Of Paper Review",$message,['Abstract Announcement.pdf'=>$model->exportNotifPdf()->output()]);
-					// }elseif($data['status'] == Papers_m::RETURN_TO_AUTHOR){
-					// 	$message = "<p>Dear Participant</p>
-					// 	<p>Mohon melakukan revisi sesuai komentar dan masukan dari reviewer<p>";
-					// 	$member = $model->member;
-					// 	$this->Notification_m->sendMessage($member->email,"Result Of Paper Review",$message);
-					// }
-
+					if($data['status'] == Papers_m::ACCEPTED || $data['status'] == Papers_m::REJECTED ){
+						$message = "<p>Dear Participant</p>
+						<p>Thank you for submitting your abstract to ".Settings_m::getSetting('site_title').". Please download your abstract result annoucement here.</p>
+						<p>Best regards.<br/>
+						Committee of ".Settings_m::getSetting('site_title')."</p>";
+						$member = $model->member;
+						$this->Notification_m->sendMessageWithAttachment($member->email,"Result Of Paper Review",$message,['Abstract Announcement.pdf'=>$model->exportNotifPdf()->output()]);
+					}elseif($data['status'] == Papers_m::RETURN_TO_AUTHOR || $data['status_fullpaper'] == Papers_m::RETURN_TO_AUTHOR  || $data['status_presentasi'] == Papers_m::RETURN_TO_AUTHOR ){
+						$message = "<p>Dear Participant</p>
+						<p>Mohon melakukan revisi sesuai komentar dan masukan dari reviewer<p>";
+						$member = $model->member;
+						$this->Notification_m->sendMessage($member->email,"Result Of Paper Review",$message);
+					}
 				}
 			} else {
 				$response['status'] = false;
@@ -157,7 +156,7 @@ class Paper extends Admin_Controller
 			$this->output
 				->set_content_type("application/json")
 				->_display(json_encode($response));
-		}
+		// }
 	}
 
 	public function file($name,$id,$type = "Abstract")

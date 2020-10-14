@@ -23,7 +23,7 @@ class User_account_m extends MY_Model
         self::ROLE_MEMBER => 'Member/Participant',
         self::ROLE_SUPERADMIN => 'Superadmin',
 //        self::ROLE_ADMIN => 'Admin',
-        self::ROLE_ADMIN_PAPER => 'Admin Paper',
+        self::ROLE_ADMIN_PAPER => 'Reviewer',
         self::ROLE_OPERATOR => 'Operator',
         self::ROLE_MANAGER => 'Manager',
         self::ROLE_FINANCE => 'Finance',
