@@ -120,8 +120,15 @@ class Paper extends Admin_Controller
 
 				$model->status = $data['status'];
 				$model->score = $data['score'];
-				$model->status_fullpaper = $data['status_fullpaper'];
-				$model->status_presentasi = $data['status_presentasi'];
+				if($data['status_fullpaper'] != "")
+					$model->status_fullpaper = $data['status_fullpaper'];
+				else
+					$model->status_fullpaper = "-1";//$data['status_fullpaper'];
+				if($data['status_presensi'] != ""){
+					$model->status_presentasi = $data['status_presentasi'];
+				}else{
+					$model->status_presentasi = "-1";//$data['status_presentasi'];
+				}
 				$model->type_presence = $data['type_presence'];
 				$model->feedback_fullpaper = $data['feedback_fullpaper'];
 				$model->feedback_presentasi = $data['feedback_presentasi'];
