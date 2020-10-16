@@ -30,7 +30,7 @@ class Upload_video_m extends MY_Model
 		return [
 			'select'=>['id'=>'t.id',"filename","uploader","type","title","description","like_count"=>'COUNT(likes.id)','comment'=>'count(comments.id)'],
 			'relationships' => [
-				'likes' => ['video_like', 'vidoe_id = t.id','left'],
+				'likes' => ['video_like', 'video_id = t.id','left'],
 				'comments' => ['video_komen', 't.id = comments.video_id','left']
             ],
             'group_by'=>'t.id',
@@ -40,7 +40,7 @@ class Upload_video_m extends MY_Model
     public function findDetail($id){
         $row = $this->db->select("t.*,count(likes.id) as likeCount")
                     ->from($this->table." t")
-                    ->join("video_like likes",'t.id = vidoe_id',"left")
+                    ->join("video_like likes",'t.id = video_id',"left")
                     ->where("t.id",$id)
                     ->get()->row_array();
         if($row){
