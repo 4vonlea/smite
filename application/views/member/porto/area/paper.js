@@ -91,21 +91,21 @@ export default Vue.component("PagePaper", {
 										</li>
 										<li class="list-group-item d-flex justify-content-between align-items-center">
 											Fullpaper
-											<span class="badge badge-primary badge-pill">{{ paper.status[pap.status_fullpaper] }}</span>
+											<span class="badge badge-primary badge-pill">{{ (pap.status == 2 ? paper.status[pap.status_fullpaper]:'') }}</span>
 										</li>
 										<li class="list-group-item d-flex justify-content-between align-items-center">
 											Presentasi
-											<span class="badge badge-primary badge-pill">{{ paper.status[pap.status_presentasi] }}</span>
+											<span class="badge badge-primary badge-pill">{{ (pap.status_fullpaper == 2 ? paper.status[pap.status_presentasi]:'') }}</span>
 										</li>
 									</ul>
 									<div class="text-center pt-2">
 										<h5 class="badge badge-info" v-if="pap.status == 0">
 											Harap perbaiki abstract <br/><small>(Tekan Detail kemudian Edit)</small>
 										</h5>
-										<h5 class="badge badge-info" v-if="pap.status_fullpaper == 0">
+										<h5 class="badge badge-info" v-if="pap.status == 2 && pap.status_fullpaper == 0">
 											Harap perbaiki fullpaper <br/><small>(Tekan Detail untuk upload ulang)</small>
 										</h5>
-										<h5 class="badge badge-info" v-if="pap.status_presentasi == 0">
+										<h5 class="badge badge-info" v-if="pap.status_fullpaper == 2 && pap.status_presentasi == 0">
 											Harap perbaiki abstract <br/><small>(Tekan Detail untuk upload ulang)</small>
 										</h5>
 										<span v-if="pap.status_fullpaper == 2">

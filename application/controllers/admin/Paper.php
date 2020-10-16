@@ -124,7 +124,7 @@ class Paper extends Admin_Controller
 					$model->status_fullpaper = $data['status_fullpaper'];
 				else
 					$model->status_fullpaper = "-1";//$data['status_fullpaper'];
-				if($data['status_presensi'] != ""){
+				if($data['status_presentasi'] != ""){
 					$model->status_presentasi = $data['status_presentasi'];
 				}else{
 					$model->status_presentasi = "-1";//$data['status_presentasi'];

@@ -178,10 +178,10 @@ $this->layout->end_head();
 					<template slot="status" slot-scope="props">{{ status[props.row.status] }}<br />
 						<a class="badge badge-info" :href="'<?= base_url('admin/paper/file'); ?>/'+props.row.filename+'/'+props.row.t_id+'/Abstract'" target="_blank" v-if="props.row.filename">Abstract</a>
 					</template>
-					<template slot="status_fullpaper" slot-scope="props">{{ status[props.row.status_fullpaper]}}<br />
+					<template slot="status_fullpaper" slot-scope="props">{{ (props.row.status == 2 ? status[props.row.status_fullpaper]:'') }}<br />
 						<a class="badge badge-info" :href="'<?= base_url('admin/paper/file'); ?>/'+props.row.fullpaper+'/'+props.row.t_id+'/Fullpaper'" target="_blank" v-if="props.row.fullpaper">Fullpaper</a>
 					</template>
-					<template slot="status_presentasi" slot-scope="props">{{ status[props.row.status_presentasi] }}<br />
+					<template slot="status_presentasi" slot-scope="props">{{ (props.row.status_fullpaper == 2 ? status[props.row.status_presentasi]:'') }}<br />
 						<a class="badge badge-info" :href="'<?= base_url('admin/paper/file'); ?>/'+props.row.poster+'/'+props.row.t_id+'/Presentation'" target="_blank" v-if="props.row.poster">Presentation/Poster</a>
 					</template>
 					<template slot="t_updated_at" slot-scope="props">
