@@ -103,10 +103,10 @@ export default Vue.component("PagePaper", {
 											Harap perbaiki abstract <br/><small>(Tekan Detail kemudian Edit)</small>
 										</h5>
 										<h5 class="badge badge-info" v-if="pap.status == 2 && pap.status_fullpaper == 0">
-											Harap perbaiki fullpaper <br/><small>(Tekan Detail untuk upload ulang)</small>
+											Harap perbaiki fullpaper <br/><small>(Lihat Rincian)</small>
 										</h5>
 										<h5 class="badge badge-info" v-if="pap.status_fullpaper == 2 && pap.status_presentasi == 0">
-											Harap perbaiki abstract <br/><small>(Tekan Detail untuk upload ulang)</small>
+											Harap perbaiki abstract <br/><small>(Lihat Rincian)</small>
 										</h5>
 										<span v-if="pap.status_fullpaper == 2">
 											<h5 class="badge badge-info">(Presentation on {{ pap.type_presence }})</h5>
@@ -115,8 +115,8 @@ export default Vue.component("PagePaper", {
 									
 									<span v-if="pap.status == 2">
 										<hr/>
-										<i class="fa" :class="[pap.fullpaper?'fa-check':'fa-times']"></i> Fullpaper<br/>
-										<i class="fa" :class="[pap.poster?'fa-check':'fa-times']"></i> {{ pap.type_presence }} File<br/>
+										<i class="fa" :class="[pap.fullpaper?'fa-check':'fa-times']"></i>File Fullpaper<br/>
+										<i  v-if="pap.status_fullpaper" class="fa" :class="[pap.poster?'fa-check':'fa-times']"></i>File Presentasi / Gambar ({{ pap.type_presence }})<br/>
 									</span>
 								</td>
 								<td>
