@@ -59,7 +59,7 @@ export default Vue.component("PagePaper", {
 				<ul class="list-group list-group-horizontal flex-fill mb-2">
 					<li class="list-group-item">Deadline Abstract <span class='badge badge-info'>{{ paper.deadline.paper_deadline | formatDate }}</span></li>
 					<li class="list-group-item">Deadline Fullpaper <span class='badge badge-info'>{{ paper.deadline.fullpaper_deadline | formatDate }}</span></li>
-					<li class="list-group-item">Deadline Presentasi <span class='badge badge-info'>{{ paper.deadline.presentasi_deadline | formatDate }}</span></li>
+					<li class="list-group-item">Deadline Presentasi <span class='badge badge-info'>{{ paper.deadline.presentation_deadline | formatDate }}</span></li>
 				</ul>
                 <div v-if="mode == 0" class="table-responsive">
                 	<table class="table table-bordered">
