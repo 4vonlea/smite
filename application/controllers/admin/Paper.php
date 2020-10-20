@@ -118,6 +118,7 @@ class Paper extends Admin_Controller
 					$model->feedback_file_presentasi = $filename;
 				}
 
+                $model->id = $data['t_id'];
 				$model->status = $data['status'];
 				$model->score = $data['score'];
 				$model->status_fullpaper = $data['status_fullpaper'];
@@ -135,16 +136,20 @@ class Paper extends Admin_Controller
 				}else{
 					$this->load->model("Notification_m");
 					if($data['status'] == Papers_m::ACCEPTED || $data['status'] == Papers_m::REJECTED ){
-						$message = "<p>Dear Participant</p>
+						$member = $model->member;
+						$message = "<p>Dear $member->fullname</p>
+						<p>Paper ID : $model->id</p>
 						<p>Thank you for submitting your abstract to ".Settings_m::getSetting('site_title').". Please download your abstract result annoucement here.</p>
 						<p>Best regards.<br/>
 						Committee of ".Settings_m::getSetting('site_title')."</p>";
-						$member = $model->member;
+						
 						$this->Notification_m->sendMessageWithAttachment($member->email,"Result Of Paper Review",$message,['Abstract Announcement.pdf'=>$model->exportNotifPdf()->output()]);
 					}elseif($data['status'] == Papers_m::RETURN_TO_AUTHOR || $data['status_fullpaper'] == Papers_m::RETURN_TO_AUTHOR  || $data['status_presentasi'] == Papers_m::RETURN_TO_AUTHOR ){
-						$message = "<p>Dear Participant</p>
-						<p>Mohon melakukan revisi sesuai komentar dan masukan dari reviewer<p>";
 						$member = $model->member;
+						$message = "<p>Dear $member->fullname</p>
+						<p>Paper ID : $model->id</p>
+						<p>Mohon melakukan revisi sesuai komentar dan masukan dari reviewer<p>";
+						
 						$this->Notification_m->sendMessage($member->email,"Result Of Paper Review",$message);
 					}
 				}
