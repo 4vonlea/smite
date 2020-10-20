@@ -5,12 +5,11 @@ class Whatsapp_api implements iNotification
 {
 	protected $primaryKey = "name";
 	protected $table = "settings";
-
+	protected $token = "";
 	const NAME_SETTINGS = "wa_api_token";
 
 	public function getToken(){
-		$token = $this->findOne(['name'=>self::NAME_SETTINGS]);
-		return ($token ? $token->value:null);
+		return $this->token;
 	}
 
 	/**
@@ -18,20 +17,13 @@ class Whatsapp_api implements iNotification
 	 * @return bool
 	 */
 	public function setToken($token){
-		return $this->replace([
-			'name'=>self::NAME_SETTINGS,
-			'value'=>$token
-		]);
+		return $this->token = $token;
 	}
 
-	protected function composeRequest($phone,$message,$url)
+	protected function composeRequest($data,$url)
 	{
 		$curl = curl_init();
 		$token = $this->getToken();
-		$data = [
-			'phone' => $phone,
-			'message' => $message,
-		];
 
 		curl_setopt($curl, CURLOPT_HTTPHEADER,
 			array(
@@ -46,8 +38,16 @@ class Whatsapp_api implements iNotification
 		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
 		$result = curl_exec($curl);
 		curl_close($curl);
+		return $result;
+	}
 
-		return json_decode($result,true);
+	protected function convertHtmlToWa($message){
+		$message = str_replace("<br/>","\n",$message);
+		$message = str_replace("<p>","",$message);
+		$message = str_replace("</p>","\n",$message);
+		$message = str_replace("<strong>","*",$message);
+		$message = str_replace("</strong>","*",$message);
+		return $message;
 	}
 
 	public function sendMessage($to, $subject, $message)
@@ -55,10 +55,16 @@ class Whatsapp_api implements iNotification
 		if($to[0] === "0"){
 			$to = "62".substr($to,1,strlen($to));
 		}
-		$url = "https://wablas.com/api/send-message";
+		$url = "https://selo.wablas.com/api/send-message";
 		$message = "*".$subject."*\n\n".$message;
-		$result = $this->composeRequest($to,$message,$url);
-		return $result['status'];
+		$data = [
+			'phone' => $to,
+			'message' => $this->convertHtmlToWa($message),
+		];
+
+		$result = $this->composeRequest($data,$url);
+		$resJson = json_decode($result,true);
+		return $resJson;
 	}
 
     public function sendMessageWithAttachment($to,$subject,$message,$attachment,$fname = ""){
