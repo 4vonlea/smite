@@ -56,8 +56,10 @@ class Notification_m extends MY_Model{
                 return $class;
                 break;
             case self::TYPE_WA:
+                $token = $this->getValue(Notification_m::SETTING_WA_TOKEN);
                 $this->load->library("Whatsapp_api");
                 $class = new Whatsapp_api();
+                $class->setToken($token);
                 return $class;
                 break;
             default:
@@ -86,12 +88,21 @@ class Notification_m extends MY_Model{
      * 
      */
     public function sendMessage($to,$subject,$message){
-        $message = "#DO NOT REPLY THIS AUTOMATED MESSAGE#<br/>If reply, sent to panitia.pinv.perdossi@gmail.com <br/><br/><hr/>".$message;
-        $message.="<br/>Best Regards,<br/>Panitia PIN PERDOSSI VIRTUAL 2020<br/>";
-        $message.="<br/>Atau Hubungi via WA:";
-        $message.="<br/>dr. Rahmi Sp.S (081575099960)";
-        $message.="<br/>dr. Putri Sp.S (082274309675)";
-        $message.="<br/>dr. Ade Sp.S (081285856801)";
+        if($this->getType() == self::TYPE_WA){
+            $message = "#DO NOT REPLY THIS AUTOMATED MESSAGE#\nIf reply, sent to panitia.pinv.perdossi@gmail.com\n\n".$message;
+            $message.="\n\nBest Regards,\nPanitia PIN PERDOSSI VIRTUAL 2020\n";
+            $message.="\nAtau Hubungi via WA:";
+            $message.="\ndr. Rahmi Sp.S (081575099960)";
+            $message.="\ndr. Putri Sp.S (082274309675)";
+            $message.="\ndr. Ade Sp.S (081285856801)";    
+        }else{
+            $message = "#DO NOT REPLY THIS AUTOMATED MESSAGE#<br/>If reply, sent to panitia.pinv.perdossi@gmail.com <br/><br/><hr/>".$message;
+            $message.="<br/>Best Regards,<br/>Panitia PIN PERDOSSI VIRTUAL 2020<br/>";
+            $message.="<br/>Atau Hubungi via WA:";
+            $message.="<br/>dr. Rahmi Sp.S (081575099960)";
+            $message.="<br/>dr. Putri Sp.S (082274309675)";
+            $message.="<br/>dr. Ade Sp.S (081285856801)";    
+        }
 
         $class = $this->getClass();
         if($class)
