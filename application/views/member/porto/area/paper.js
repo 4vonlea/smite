@@ -59,7 +59,7 @@ export default Vue.component("PagePaper", {
 				<ul class="list-group list-group-horizontal flex-fill mb-2">
 					<li class="list-group-item">Deadline Abstract <span class='badge badge-info'>{{ paper.deadline.paper_deadline | formatDate }}</span></li>
 					<li class="list-group-item">Deadline Fullpaper <span class='badge badge-info'>{{ paper.deadline.fullpaper_deadline | formatDate }}</span></li>
-					<li class="list-group-item">Deadline Presentasi <span class='badge badge-info'>{{ paper.deadline.presentasi_cutoff | formatDate }}</span></li>
+					<li class="list-group-item">Deadline Presentasi <span class='badge badge-info'>{{ paper.deadline.presentation_deadline | formatDate }}</span></li>
 				</ul>
                 <div v-if="mode == 0" class="table-responsive">
                 	<table class="table table-bordered">
@@ -91,22 +91,22 @@ export default Vue.component("PagePaper", {
 										</li>
 										<li class="list-group-item d-flex justify-content-between align-items-center">
 											Fullpaper
-											<span class="badge badge-primary badge-pill">{{ paper.status[pap.status_fullpaper] }}</span>
+											<span class="badge badge-primary badge-pill">{{ (pap.status == 2 ? paper.status[pap.status_fullpaper]:'') }}</span>
 										</li>
 										<li class="list-group-item d-flex justify-content-between align-items-center">
 											Presentasi
-											<span class="badge badge-primary badge-pill">{{ paper.status[pap.status_presentasi] }}</span>
+											<span class="badge badge-primary badge-pill">{{ (pap.status_fullpaper == 2 ? paper.status[pap.status_presentasi]:'') }}</span>
 										</li>
 									</ul>
 									<div class="text-center pt-2">
 										<h5 class="badge badge-info" v-if="pap.status == 0">
 											Harap perbaiki abstract <br/><small>(Tekan Detail kemudian Edit)</small>
 										</h5>
-										<h5 class="badge badge-info" v-if="pap.status_fullpaper == 0">
-											Harap perbaiki fullpaper <br/><small>(Tekan Detail untuk upload ulang)</small>
+										<h5 class="badge badge-info" v-if="pap.status == 2 && pap.status_fullpaper == 0">
+											Harap perbaiki fullpaper <br/><small>(Lihat Rincian)</small>
 										</h5>
-										<h5 class="badge badge-info" v-if="pap.status_presentasi == 0">
-											Harap perbaiki abstract <br/><small>(Tekan Detail untuk upload ulang)</small>
+										<h5 class="badge badge-info" v-if="pap.status_fullpaper == 2 && pap.status_presentasi == 0">
+											Harap perbaiki abstract <br/><small>(Lihat Rincian)</small>
 										</h5>
 										<span v-if="pap.status_fullpaper == 2">
 											<h5 class="badge badge-info">(Presentation on {{ pap.type_presence }})</h5>
@@ -115,8 +115,8 @@ export default Vue.component("PagePaper", {
 									
 									<span v-if="pap.status == 2">
 										<hr/>
-										<i class="fa" :class="[pap.fullpaper?'fa-check':'fa-times']"></i> Fullpaper<br/>
-										<i class="fa" :class="[pap.poster?'fa-check':'fa-times']"></i> {{ pap.type_presence }} File<br/>
+										<i class="fa" :class="[pap.fullpaper?'fa-check':'fa-times']"></i>File Fullpaper<br/>
+										<i  v-if="pap.status_fullpaper" class="fa" :class="[pap.poster?'fa-check':'fa-times']"></i>File Presentasi / Gambar ({{ pap.type_presence }})<br/>
 									</span>
 								</td>
 								<td>

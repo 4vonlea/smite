@@ -31,7 +31,7 @@ class Migration_upload_video extends CI_Migration
                 'type' => 'int',
                 'auto_increment' => true,
             ],
-            'vidoe_id' => [
+            'video_id' => [
                 'type' => 'int',
 			],
 			'username' => [

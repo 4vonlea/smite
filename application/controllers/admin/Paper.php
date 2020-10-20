@@ -128,7 +128,12 @@ class Paper extends Admin_Controller
 					$model->status_presentasi = $data['status_presentasi'];
 				}else{
 					$model->status_presentasi = "-1";//$data['status_presentasi'];
+<<<<<<< HEAD
 				}				$model->type_presence = $data['type_presence'];
+=======
+				}
+				$model->type_presence = $data['type_presence'];
+>>>>>>> heroku/master
 				$model->feedback_fullpaper = $data['feedback_fullpaper'];
 				$model->feedback_presentasi = $data['feedback_presentasi'];
 
