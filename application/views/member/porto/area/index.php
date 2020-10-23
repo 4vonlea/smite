@@ -117,7 +117,7 @@ $userDetail = array_merge($user->toArray(), ['status_member' => $user->status_me
 <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js"></script>
 
 <script type="module">
-    // document.addEventListener('contextmenu', event => event.preventDefault());
+    document.addEventListener('contextmenu', event => event.preventDefault());
     Vue.use(Vuetable);
 
     import progressPage from "<?= base_url("themes/script/progressPage.js"); ?>";
