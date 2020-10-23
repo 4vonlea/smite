@@ -18,53 +18,74 @@ export default Vue.component("PageWebminar",{
                         *WIB (GMT +7)
                     </p>
                     <table class="table table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Waktu Mulai</th>
-                                <th>Room</th>
-                                <th width="20%">Link</th>
-                            </tr>
-                        </thead>
                         <tbody v-if="events.length == 0">
                             <tr>
                                 <td class="text-center" colspan="3">Anda belum berpartisipasi dalam acara apa pun </td>
                             </tr>
                         </tbody>
-                        <tbody v-for="event in events" :key="event.id">
+                        <template v-for="event in events" :key="event.id">
                             <tr>
-                                <td class="font-weight-bold text-center" colspan="3">{{event.name}}</td>
+                                <td class="font-weight-bold text-center" colspan="3">
+                                    {{event.name}}
+                                    <hr/>
+                                    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                                        <li v-for="(d,i) in groupDate(event.special_link)" class="nav-item">
+                                            <a :class="{active: d.active}" class="nav-link" data-toggle="pill" :href="'#tabs-'+event.id+'-'+d.index" role="tab" aria-controls="pills-home" aria-selected="true">
+                                                {{ i }}
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </td>
                             </tr>
                             <tr v-if="event.special_link.length == 0">
                                 <td  colspan="3">Link for event {{event.name}} not yet available</td>
                             </tr>
-                            <template v-for="(link,indSpl) in event.special_link">
-                                <tr>
-                                    <td>{{ link.date | formatDate }}</td>
-                                    <td>{{ link.room }}</td>
-                                    <td :rowspan="2" class="">
-                                        <button :disabled="(link.finishWatch == '0' && link.advertisement) || link.url == '#' || more5Minutes(link.date) " v-on:click="join(link.url)" class="btn btn-primary btn-block">Gabung Sekarang</button>
-                                        <button v-for="(ads,index) in link.advertisement" class="btn btn-block" :class="[ads.watch == '1' ? 'btn-primary':'btn-default']" v-on:click="showAds(index,link,indSpl)">
-                                            Lihat Sponsor {{ index+1}}
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr >
-                                    <td colspan="2">
-                                        <ul class="list-group list-group-flush">
-                                            <li v-for="sp in link.speakers" class="list-group-item d-flex">
-                                                <div class="d-flex mr-2">
-                                                    <img class="img-thumbnail rounded" style="max-width:80px"  :src="sp.image ? sp.image:appUrl+'/themes/uploads/people.jpg'" alt="Card image cap">
-                                                </div>
-                                                <div class="d-flex flex-column">
-                                                    <h5 style="margin-bottom:0px">{{ sp.topic}}</h5>
-                                                    <span>{{ sp.name }}</span>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </td>
-                                </tr>
-                            </template>
-                        </tbody>
+                            <tr>
+                                <td class="tab-content" colspan="3">
+                                    <table v-for="(d,i) in groupDate(event.special_link)" :id="'tabs-'+event.id+'-'+d.index" class="table tab-pane fade">
+                                        <thead>
+                                            <tr>
+                                                <th>Waktu Mulai</th>
+                                                <th>Room</th>
+                                                <th width="20%">Link</th>
+                                            </tr>
+                                        </thead>
+                                        <template v-for="(link,indSpl) in d.items">
+                                            <tr>
+                                                <td>{{ link.date | formatDate }}</td>
+                                                <td>
+                                                    {{ link.room }}
+                                                    <button data-status='hide' @click="toggle" class="float-right btn btn-sm btn-default" data-toggle="collapse" :data-target="'#speakers_'+event.id+'_'+indSpl+d.index">
+                                                        Show Speaker <i class="fa fa-caret-right"></i>
+                                                    </button>
+                                                </td>
+                                                <td :rowspan="2" class="">
+                                                    <button :disabled="(link.finishWatch == '0' && link.advertisement) || link.url == '#' || more5Minutes(link.date) " v-on:click="join(link.url)" class="btn btn-primary btn-block">Gabung Sekarang</button>
+                                                    <button v-for="(ads,index) in link.advertisement" class="btn btn-block" :class="[ads.watch == '1' ? 'btn-primary':'btn-default']" v-on:click="showAds(index,link,indSpl)">
+                                                        Lihat Sponsor {{ index+1}}
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            <tr >
+                                                <td colspan="2" :id="'speakers_'+event.id+'_'+indSpl+d.index" class="collapse">
+                                                    <ul class="list-group list-group-flush">
+                                                        <li v-for="sp in link.speakers" class="list-group-item d-flex">
+                                                            <div class="d-flex mr-2">
+                                                                <img class="img-thumbnail rounded" style="max-width:80px"  :src="sp.image ? sp.image:appUrl+'/themes/uploads/people.jpg'" alt="Card image cap">
+                                                            </div>
+                                                            <div class="d-flex flex-column">
+                                                                <h5 style="margin-bottom:0px">{{ sp.topic}}</h5>
+                                                                <span>{{ sp.name }}</span>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </td>
+                                            </tr>
+                                        </template>
+                                    </table>
+                                </td>
+                            </tr>
+                        </template>
                     </table>
                 </div>
             </div>
@@ -112,10 +133,34 @@ export default Vue.component("PageWebminar",{
 		'$route': 'fetchEvents'
     },
     methods:{
+        groupDate(special_link){
+            let listDate = {};
+            let ind = 0
+            $.each(special_link,function(i,v){
+                let date = moment(v.date).format("DD MMMM YYYY");
+                if(!listDate[date]){
+                    listDate[date] = {
+                        index:ind,
+                        items:[]
+                    };
+                    ind++;
+                }
+                listDate[date].items.push(v);
+            });
+            return listDate;
+        },
         more5Minutes(date){
             return moment(date).unix() - moment().unix() > 60*5
         },
-       
+        toggle(evt){
+            if(evt.currentTarget.dataset.status == 'hide'){
+                evt.currentTarget.dataset.status = 'show';
+                evt.currentTarget.innerHTML = `Hide Speaker <i class="fa fa-caret-down"></i>`
+            }else{
+                evt.currentTarget.dataset.status = 'hide';
+                evt.currentTarget.innerHTML = `Show Speaker <i class="fa fa-caret-right"></i>`;
+            }
+        },
         showAds(index,linkOfSpecial){
             this.modalCloseButton = false;
             this.ads = linkOfSpecial.advertisement[index];
