@@ -2,7 +2,7 @@
     <div class="container container">
         <div class="row mt-3">
             <div class="col-md-8 order-2 order-md-1 align-self-center p-static">
-                <h1>Daftar Video</h1>
+                <h1>Galeri Foto & Video</h1>
             </div>
             <div class="col-md-4 order-1 order-md-2 align-self-center">
                 <ul class="breadcrumb d-block text-md-right breadcrumb-light">
@@ -37,9 +37,15 @@
                                 <span class="text-color-dark font-weight-normal text-4 mb-2 line-height-2 appear-animation" data-appear-animation = "fadeInUp" data-appear-animation-delay = "600"><strong class="font-weight-extra-bold"><?php echo $key->title ?></strong></span>
                                 <?php if ($key->type == '2') { ?>
                                     <span class="thumb-info thumb-info-lighten border-radius-0">
-                                        <span class="thumb-info-wrapper border-radius-0">
+                                        <span class="thumb-info thumb-info-no-borders thumb-info-no-borders-rounded thumb-info-centered-icons">
                                             <img src="<?= base_url(); ?>themes/uploads/video/<?php echo $key->filename; ?>" class="img-fluid border-radius-0">
+                                            <span class="thumb-info-action">
+                                                <a href="<?php echo base_url('site/seevideo/'.$key->id) ?>">
+                                                    <span class="thumb-info-action-icon thumb-info-action-icon-primary" title=""><i class="fas fa-search"></i></span>
+                                                </a>
+                                            </span>
                                         </span>
+                                        
                                     </span>
                                 <?php } else { ?>
                                     <div class="contai">
@@ -47,40 +53,41 @@
                                     </div>
                                 <?php } ?>
                                 <p>
-                                <a onclick="javascript:savelike(<?php echo $key->id;?>);">
-                                 <i class="fa fa-thumbs-up"></i> 
-                                 <span id="like_<?php echo $key->id;?>">
-                                    <?php if($key->likesbantu > 0){echo $key->likesbantu.' Likes';}else{echo 'Like';} ?>
-                                </span></a>
-                                <span class="float-right">
-                                    <a href="<?php echo base_url('site/seevideo/'.$key->id) ?>">
-                                        <?php if($key->komen > 0){echo $key->komen.' Komentar';}else{echo 'Komentar';} ?>
-                                    </a>
-                                </span>
+                                    <a onclick="javascript:savelike(<?php echo $key->id;?>);">
+                                       <i class="far fa-thumbs-up" style="color: #00B297FF"></i> 
+                                       <span id="like_<?php echo $key->id;?>">
+                                        <?php if($key->likesbantu > 0){echo $key->likesbantu.' Likes';}else{echo 'Like';} ?>
+                                    </span></a>
+                                    <span class="float-right">
+                                        <a href="<?php echo base_url('site/seevideo/'.$key->id) ?>">
+                                            <?php if($key->komen > 0){echo $key->komen.' Komentar';}else{echo 'Komentar';} ?>
+                                        </a>
+                                    </span>
                                 </p>
+                            </div>
                         </div>
-                    </div>
 
                     <?php endforeach; ?>
 
+                </div>
             </div>
+            <hr>
         </div>
     </div>
 </div>
-</div>
 
 <script type="text/javascript">
-function savelike(video_id)
-{
+    function savelike(video_id)
+    {
         $.ajax({
-                type: "POST",
-                url: "<?php echo base_url('site/savelikes');?>",
-                data: "Video_id="+video_id,
-                success: function (response) {
-                 $("#like_"+video_id).html(response+" Likes");
-                  
-                }
-            });
-}
+            type: "POST",
+            url: "<?php echo base_url('site/savelikes');?>",
+            data: "Video_id="+video_id,
+            success: function (response) {
+               $("#like_"+video_id).html(response+" Likes");
+               
+           }
+       });
+    }
 </script>
 

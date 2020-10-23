@@ -239,5 +239,73 @@
     </div>
 </section>
 
+<section id="galeri" class="bg-color-grey pt-4">
+    <div class="container pb-4">
+        <div class="row pt-2">
+            <div class="col">
+                <h2 class="text-color-dark text-uppercase font-weight-bold text-center mb-1 appear-animation" data-appear-animation="fadeInUp" data-appear-animation-delay = "200">Galeri Foto & Video</h2>
+                <a class="text-weight-bold appear-animation" style="background-color: #080531; color: #dfad26;" href="<?php echo base_url('site/vid') ?>" target="_self" id="a_1dd7_5" data-appear-animation = "fadeInUp" data-appear-animation-delay = "600"><center>Lihat semua foto & video</center></a>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <?php
+            foreach ($query3 as $key):
+                ?>
+                <div class="col-lg-4 text-center text-md-left mb-5 mb-lg-0">
+                    <h6 class="text-color-dark font-weight-normal text-6 line-height-2 appear-animation" data-appear-animation = "fadeInUp" data-appear-animation-delay = "1200"><strong class="font-weight-extra-bold"><?php echo $key->title ?></strong></h6>
+                    <div class="appear-animation" data-appear-animation = "fadeInUp" data-appear-animation-delay = "1200">
+                        <?php if ($key->type == '2') { ?>
+                            <span class="thumb-info thumb-info-lighten border-radius-0">
+                                <span class="thumb-info thumb-info-no-borders thumb-info-no-borders-rounded thumb-info-centered-icons">
+                                    <img src="<?= base_url(); ?>themes/uploads/video/<?php echo $key->filename; ?>" class="img-fluid border-radius-0">
+                                    <span class="thumb-info-action">
+                                        <a href="<?php echo base_url('site/seevideo/'.$key->id) ?>">
+                                            <span class="thumb-info-action-icon thumb-info-action-icon-primary" title=""><i class="fas fa-search"></i></span>
+                                        </a>
+                                    </span>
+                                </span>
+                            </span>
+                        <?php } else { ?>
+                            <div class="contai">
+                                <iframe class="responsive-iframe" allowfullscreen="true" src="<?= base_url(); ?>themes/uploads/video/<?php echo $key->filename; ?>"></iframe>
+                            </div>
+                        <?php } ?>
+                        <p>
+                            <a onclick="javascript:savelike(<?php echo $key->id;?>);">
+                             <i class="far fa-thumbs-up" style="color: #00B297FF"></i> 
+                             <span id="like_<?php echo $key->id;?>">
+                                <?php if($key->likesbantu > 0){echo $key->likesbantu.' Likes';}else{echo 'sukai';} ?>
+                            </span></a>
+                            <span class="float-right">
+                                <a href="<?php echo base_url('site/seevideo/'.$key->id) ?>">
+                                    <?php if($key->komen > 0){echo $key->komen.' Komentar';}else{echo 'Komentar';} ?>
+                                </a>
+                            </span>
+                        </p>
+                    </div>
+                    
+                </div>
+                <?php 
+            endforeach; 
+            ?>
+        </div>
+    </div>
+</section>
 
 </div>
+
+<script type="text/javascript">
+    function savelike(video_id)
+    {
+        $.ajax({
+            type: "POST",
+            url: "<?php echo base_url('site/savelikes');?>",
+            data: "Video_id="+video_id,
+            success: function (response) {
+               $("#like_"+video_id).html(response+" Likes");
+
+           }
+       });
+    }
+</script>

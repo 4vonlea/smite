@@ -66,6 +66,24 @@ class Upload_video_m extends MY_Model
         return $result;
     }
 
+    public function listvid_home()
+    {
+        $this->db->select('*');
+        $this->db->from('upload_video');
+        $this->db->limit(3);
+        $this->db->order_by('rand()');
+        $temp = $this->db->get()->result();
+        $result['data'] = array();
+
+        foreach ($temp as $data) {
+            $data->like = $this->get_like($data->id);
+            $data->komen = $this->get_komen($data->id);
+            $result['data'][] = $data;
+        }
+        
+        return $result;
+    }
+
     public function get_like($id)
     {
         $this->db->select('*');

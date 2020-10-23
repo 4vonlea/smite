@@ -26,10 +26,12 @@ class Site extends MY_Controller
 
     public function index()
     {
-        $category      = $this->EventM->listcategory();
-        $data['query'] = $category['data'];
-        $news          = $this->NewsM->listnews();
+        $category       = $this->EventM->listcategory();
+        $data['query']  = $category['data'];
+        $news           = $this->NewsM->listnews();
         $data['query2'] = $news;
+        $allvid         = $this->VideoM->listvid_home();
+        $data['query3'] = $allvid['data'];
         
         $eventcountdown = $this->SettingM->eventcountdown();
         $data['eventcountdown'] = $eventcountdown;
