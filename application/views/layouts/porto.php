@@ -101,7 +101,7 @@ $theme_path = base_url("themes/porto") . "/";
 				transform: translateY(-50%);
 			}
 			.running-logo{
-				position:fixed;bottom:0;height:50px;width:100%;background-color:#343a40;display:flex;flex-direction:column;justify-content:center;
+				position:fixed;bottom:0;height:50px;width:100%;background-color:#FFFFFFFF;display:flex;flex-direction:column;justify-content:center;
 			}
 			.running-logo img{
 				height: 40px;
