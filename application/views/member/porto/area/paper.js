@@ -61,6 +61,9 @@ export default Vue.component("PagePaper", {
 					<li class="list-group-item">Deadline Fullpaper <span class='badge badge-info'>{{ paper.deadline.fullpaper_deadline | formatDate }}</span></li>
 					<li class="list-group-item">Deadline Presentasi <span class='badge badge-info'>{{ paper.deadline.presentation_deadline | formatDate }}</span></li>
 				</ul>
+				<p class="mb-0">*<small class="font-weight-bold">Anda dapat mengubah / mengunggah ulang fullpaper atau file presentasi / poster Anda, pada halaman detail (ikon kaca pembesar)</small></p>
+				<p class="mb-0">*<small class="font-weight-bold">Catatan: abstrak yg telah disubmit tidak dapat di delete, pastikan mengisi dengan benar</small></p>
+
                 <div v-if="mode == 0" class="table-responsive">
                 	<table class="table table-bordered">
                 		<thead>
@@ -121,12 +124,11 @@ export default Vue.component("PagePaper", {
 								</td>
 								<td>
 									<button @click="detailPaper(pap)" class="btn btn-primary"><i class="fa fa-search"></i></button>
-									<button v-if="pap.status == 0 || pap.status == 1" @click="deletePaper(pap,$event)" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+									<button v-if="(pap.status == 0 || pap.status == 1) && false" @click="deletePaper(pap,$event)" class="btn btn-danger"><i class="fa fa-trash"></i></button>
 								</td>
 							</tr>
 						</tbody>
 					</table>
-					<p class="mb-0">*<span class="font-weight-bold">(Accepted paper only)</span> Anda dapat mengubah / mengunggah ulang fullpaper atau file presentasi / poster Anda, pada halaman detail (ikon kaca pembesar)</p>
 				</div>
                 <div v-if="mode == 1">
                     <form ref="form" enctype="multipart/form-data">
