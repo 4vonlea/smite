@@ -92,7 +92,7 @@
 									<label class="custom-file-label">{{ uploadMaterial.tempname ? uploadMaterial.tempname : 'Pilih File' }}</label>
 								</div>
 							</div>
-							<small>*ekstensi file 'doc|docx|jpg|jpeg|png|bmp'</small>
+							<small>*ekstensi file 'doc|docx|jpg|jpeg|png|bmp|ppt|pdf|mp4'</small>
 						</div>
 					</th>
 				</tr>
