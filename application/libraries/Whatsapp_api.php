@@ -42,11 +42,11 @@ class Whatsapp_api implements iNotification
 	}
 
 	protected function convertHtmlToWa($message){
-		$message = str_replace("<br/>","\n",$message);
-		$message = str_replace("<p>","",$message);
-		$message = str_replace("</p>","\n",$message);
 		$message = str_replace("<strong>","*",$message);
 		$message = str_replace("</strong>","*",$message);
+		$message = \Soundasleep\Html2Text::convert($message,[
+			'drop_links'=>false,
+		]);
 		return $message;
 	}
 
