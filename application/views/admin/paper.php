@@ -22,78 +22,90 @@ $this->layout->end_head();
 			<div class="row">
 				<div class="col-md-8 row">
 					<div class="col-md-6">
-						<div class="card card-stats mb-4 mb-xl-0">
+						<div class="card card-stats mb-4 mb-xl-1">
 							<div class="card-body">
-								<div class="row">
+								<div class="row mb-2">
 									<div class="col">
-										<h5 class="card-title text-uppercase text-muted mb-0">Returned to Author</h5>
+										<h5 class="card-title text-uppercase text-muted mb-0">Abstract</h5>
 									</div>
-									<div class="col-auto">
+									<div class="col text-right">
 										<div class="icon icon-shape bg-danger text-white rounded-circle shadow">
-											<i class="fa fa-reply"></i>
+											<i class="fa fa-archive"></i>
 										</div>
 									</div>
+								</div>
+								<div class="row">
 									<div class="col-6">
-										<span class="h5 font-weight-bold mb-0">Abstract : {{ pagination.total_stat_0 }}</span>
+										<span class="h5 font-weight-bold mb-0">Waiting For Review : {{ pagination.total_stat_1 }}</span>
 									</div>
 									<div class="col-6">
-										<span class="h5 font-weight-bold mb-0">Fullpaper : {{ pagination.stat_fullpaper_0 }}</span>
+										<span class="h5 font-weight-bold mb-0">Return To Author : {{ pagination.total_stat_0 }}</span>
 									</div>
 									<div class="col-6">
-										<span class="h5 font-weight-bold mb-0">Presentation : {{ pagination.stat_presentasi_0 }}</span>
+										<span class="h5 font-weight-bold mb-0">Reject : {{ pagination.total_stat_3 }}</span>
+									</div>
+									<div class="col-6">
+										<span class="h5 font-weight-bold mb-0">Accept : {{ pagination.total_stat_2 }}</span>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 					<div class="col-md-6">
-						<div class="card card-stats mb-4 mb-xl-0">
+						<div class="card card-stats mb-4 mb-xl-1">
 							<div class="card-body">
-								<div class="row">
+								<div class="row mb-2">
 									<div class="col">
-										<h5 class="card-title text-uppercase text-muted mb-0">Waiting for Reviewing</h5>
+										<h5 class="card-title text-uppercase text-muted mb-0">Fullpaper</h5>
 									</div>
-									<div class="col-auto">
-										<div class="icon icon-shape bg-warning text-white rounded-circle shadow">
-											<i class="fa fa-clock"></i>
+									<div class="col text-right">
+										<div class="icon icon-shape bg-danger text-white rounded-circle shadow">
+											<i class="fa fa-copy"></i>
 										</div>
 									</div>
+								</div>
+								<div class="row">
 									<div class="col-6">
-										<span class="h5 font-weight-bold mb-0">Abstract : {{ pagination.total_stat_1 }}</span>
+										<span class="h5 font-weight-bold mb-0">Waiting For Review : {{ pagination.stat_fullpaper_1 }}</span>
 									</div>
 									<div class="col-6">
-										<span class="h5 font-weight-bold mb-0">Fullpaper : {{ pagination.stat_fullpaper_1 }}</span>
+										<span class="h5 font-weight-bold mb-0">Return To Author : {{ pagination.stat_fullpaper_0 }}</span>
 									</div>
 									<div class="col-6">
-										<span class="h5 font-weight-bold mb-0">Presentation : {{ pagination.stat_presentasi_1 }}</span>
+										<span class="h5 font-weight-bold mb-0">Reject : {{ pagination.stat_fullpaper_3 }}</span>
+									</div>
+									<div class="col-6">
+										<span class="h5 font-weight-bold mb-0">Accept : {{ pagination.stat_fullpaper_2 }}</span>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="col-md-6 mt-1">
-						<div class="card card-stats mb-4 mb-xl-0">
+					<div class="col-md-6">
+						<div class="card card-stats mb-4 mb-xl-1">
 							<div class="card-body">
-								<div class="row">
+								<div class="row mb-2">
 									<div class="col">
-										<h5 class="card-title text-uppercase text-muted mb-0">Rejected</h5>
+										<h5 class="card-title text-uppercase text-muted mb-0">Presentation</h5>
 									</div>
-									<div class="col-auto">
+									<div class="col text-right">
 										<div class="icon icon-shape bg-danger text-white rounded-circle shadow">
-											<i class="fa fa-minus"></i>
+											<i class="fa fa-file-powerpoint"></i>
 										</div>
 									</div>
 								</div>
 								<div class="row">
-
 									<div class="col-6">
-										<span class="h5 font-weight-bold mb-0">Abstract : {{ pagination.total_stat_3 }}</span>
+										<span class="h5 font-weight-bold mb-0">Waiting For Review : {{ pagination.stat_presentasi_1 }}</span>
 									</div>
 									<div class="col-6">
-										<span class="h5 font-weight-bold mb-0">Fullpaper : {{ pagination.stat_fullpaper_3 }}</span>
+										<span class="h5 font-weight-bold mb-0">Return To Author : {{ pagination.stat_presentasi_0 }}</span>
 									</div>
 									<div class="col-6">
-										<span class="h5 font-weight-bold mb-0">Presentation : {{ pagination.stat_presentasi_3 }}</span>
+										<span class="h5 font-weight-bold mb-0">Reject : {{ pagination.stat_presentasi_3 }}</span>
+									</div>
+									<div class="col-6">
+										<span class="h5 font-weight-bold mb-0">Accept : {{ pagination.stat_presentasi_2 }}</span>
 									</div>
 								</div>
 							</div>
@@ -120,9 +132,9 @@ $this->layout->end_head();
 				<div class="col-md-4">
 					<div class="card card-stats mb-4 mb-xl-0">
 						<div class="card-body">
-							<div class="row">
+							<div class="row mb-2">
 								<div class="col">
-									<h5 class="card-title text-uppercase text-muted mb-0">Accepted</h5>
+									<h5 class="card-title text-uppercase text-muted mb-0">Mode Of Presentation</h5>
 								</div>
 								<div class="col-auto">
 									<div class="icon icon-shape bg-warning text-white rounded-circle shadow">
@@ -131,20 +143,8 @@ $this->layout->end_head();
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-6">
-									<span class="h5 font-weight-bold mb-0">Abstract : {{ pagination.total_stat_2 }}</span>
-								</div>
-								<div class="col-6">
-									<span class="h5 font-weight-bold mb-0">Fullpaper : {{ pagination.stat_fullpaper_2 }}</span>
-								</div>
-								<div class="col-6">
-									<span class="h5 font-weight-bold mb-0">Presentation : {{ pagination.stat_presentasi_2 }}</span>
-								</div>
-							</div>
-							<hr style="margin: 19px 0px" />
-							<div class="row">
 								<div class="col-6" v-for="(total,type) in pagination.presentation_accepted">
-									<small class="text-success mr-2">{{ type }}: {{ total }}</small>
+									<small class="font-weight-bold mr-2">{{ type }}: {{ total }}</small>
 								</div>
 							</div>
 						</div>
