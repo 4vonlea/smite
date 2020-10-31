@@ -35,16 +35,16 @@ $this->layout->end_head();
 									</div>
 								</div>
 								<div class="row">
-									<div class="col-6">
+									<div class="col-7">
 										<span class="h5 font-weight-bold mb-0">Waiting For Review : {{ pagination.total_stat_1 }}</span>
 									</div>
-									<div class="col-6">
+									<div class="col-5">
 										<span class="h5 font-weight-bold mb-0">Reject : {{ pagination.total_stat_3 }}</span>
 									</div>
-									<div class="col-6">
+									<div class="col-7">
 										<span class="h5 font-weight-bold mb-0">Return To Author : {{ pagination.total_stat_0 }}</span>
 									</div>
-									<div class="col-6">
+									<div class="col-5">
 										<span class="h5 font-weight-bold mb-0">Accept : {{ pagination.total_stat_2 }}</span>
 									</div>
 								</div>
@@ -65,16 +65,16 @@ $this->layout->end_head();
 									</div>
 								</div>
 								<div class="row">
-									<div class="col-6">
+									<div class="col-7">
 										<span class="h5 font-weight-bold mb-0">Waiting For Review : {{ pagination.stat_fullpaper_1 }}</span>
 									</div>
-									<div class="col-6">
+									<div class="col-5">
 										<span class="h5 font-weight-bold mb-0">Reject : {{ pagination.stat_fullpaper_3 }}</span>
 									</div>
-									<div class="col-6">
+									<div class="col-7">
 										<span class="h5 font-weight-bold mb-0">Return To Author : {{ pagination.stat_fullpaper_0 }}</span>
 									</div>
-									<div class="col-6">
+									<div class="col-5">
 										<span class="h5 font-weight-bold mb-0">Accept : {{ pagination.stat_fullpaper_2 }}</span>
 									</div>
 								</div>
@@ -95,16 +95,16 @@ $this->layout->end_head();
 									</div>
 								</div>
 								<div class="row">
-									<div class="col-6">
+									<div class="col-7">
 										<span class="h5 font-weight-bold mb-0">Waiting For Review : {{ pagination.stat_presentasi_1 }}</span>
 									</div>
-									<div class="col-6">
+									<div class="col-5">
 										<span class="h5 font-weight-bold mb-0">Reject : {{ pagination.stat_presentasi_3 }}</span>
 									</div>
-									<div class="col-6">
+									<div class="col-7">
 										<span class="h5 font-weight-bold mb-0">Return To Author : {{ pagination.stat_presentasi_0 }}</span>
 									</div>
-									<div class="col-6">
+									<div class="col-5">
 										<span class="h5 font-weight-bold mb-0">Accept : {{ pagination.stat_presentasi_2 }}</span>
 									</div>
 								</div>

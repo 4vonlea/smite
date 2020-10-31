@@ -57,7 +57,7 @@ export default Vue.component("Material", {
                                             <button class="btn btn-outline-secondary" @click="saveMaterial(m,index,$event)" type="button">Simpan</button>
                                         </div>
                                     </div>
-                                    <small>*ekstensi file 'doc|docx|jpg|jpeg|png|bmp'</small>
+                                    <small>*ekstensi file 'doc|docx|jpg|jpeg|png|bmp|ppt|pdf|mp4|ppt|pptx'</small>
                                 </div>
                             </td>
                             <td>

@@ -96,7 +96,7 @@ class Material extends Admin_Controller
 		if(isset($_FILES['filename']) && $type == Member_upload_material_m::TYPE_FILE ){
 			$config = [
 				'upload_path'=>APPPATH.'uploads/material/',
-				'allowed_types'=>'doc|docx|jpg|jpeg|png|bmp|ppt|pdf|mp4',
+				'allowed_types'=>'doc|docx|jpg|jpeg|png|bmp|ppt|pdf|mp4|ppt|pptx',
 				'max_size'=>20480,
 				'overwrite'=>false,
 			];
