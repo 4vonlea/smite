@@ -59,7 +59,7 @@ header('Content-Type: text/html');
 	</tr>
 	<tr>
 		<td align="center">
-			<table class="table">
+			<table class="table" style="width: 100%;">
 				<tr>
 					<th width="170">ID INVOICE</th>
 					<td width="10">:</td>
@@ -100,7 +100,7 @@ header('Content-Type: text/html');
 				<tr>
 					<th>Total Harga</th>
 					<td>:</td>
-					<td>Rp <?= number_format($total,2,",",".");?></td>
+					<td>Rp <?= number_format($total,2,",",".");?>*</td>
 				</tr>
 				<tr>
 					<th>
@@ -109,6 +109,11 @@ header('Content-Type: text/html');
 					<td>:</td>
 					<td>
 						<?= strtoupper($transaction->channel); ?>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="3">
+					<span style="font-size:9pt">*Total Harga diatas belum termasuk biaya administrasi payment online bank (Rp. 3.300 Bank BNI atau Rp. 3.850 Bank Mandiri)</small>
 					</td>
 				</tr>
 			</table>

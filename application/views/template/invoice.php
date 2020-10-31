@@ -164,7 +164,7 @@ $payment = Settings_m::manualPayment(false);
 								</td>
 								<td>:</td>
 								<td style="padding:5px!important">
-									Rp <?= number_format($total, 2, ",", "."); ?>
+									Rp <?= number_format($total, 2, ",", "."); ?>*
 								</td>
 							</tr>
 							<tr>
@@ -174,6 +174,11 @@ $payment = Settings_m::manualPayment(false);
 								<td>:</td>
 								<td style="padding:5px!important">
 									<?= strtoupper($transaction->channel); ?>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="3">
+									<span style="font-size:9pt">*Total Harga diatas belum termasuk biaya administrasi payment online bank (Rp. 3.300 Bank BNI atau Rp. 3.850 Bank Mandiri)</small>
 								</td>
 							</tr>
 							</tbody>
