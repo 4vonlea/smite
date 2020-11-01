@@ -51,7 +51,7 @@
                             <div class="form-row">
                                 <div class="form-group col">
                                     <input type="submit" value="Login Now" name="login"
-                                    class="btn btn-outline custom-border-width btn-primary custom-border-radius font-weight-semibold text-uppercase"
+                                    class="btn btn-primary custom-border-width custom-border-radius font-weight-semibold text-uppercase"
                                     data-loading-text="Loading...">
                                 </div>
                                 <div class="form-group col">
@@ -65,8 +65,8 @@
                     </div>
                 </div>
                 <div class="alert alert-primary mb-5">
-                    Lupa Password ? <a href="<?= base_url("site/forget"); ?>" class="text-light">Klik disini</a> <br/>
-                    Belum punya akun ? <a href="<?= base_url("member/register"); ?>" class="text-light">Klik disini</a><br/>
+                    Lupa Password ? <a href="<?= base_url("site/forget"); ?>" class="text-light"><i>Klik disini</i></a> <br/>
+                    Belum punya akun ? <a href="<?= base_url("member/register"); ?>" class="text-light"><i>Klik disini</i></a><br/>
                 </div>
             </div>
         </div>

@@ -92,6 +92,7 @@
                                 <input type="checkbox" name="rememberme" class="form-check-input"/>
                                 Ingat saya
                             </label>
+                            <a href="<?= base_url("site/forget"); ?>" class="text-color-primary ml-5">Lupa password?</a>
                         </div>
                     </div>
                 </form>
