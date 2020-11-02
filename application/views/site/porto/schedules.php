@@ -46,12 +46,12 @@
                      <td class="text-center" colspan="4">Sambutan OC</td>
                  </tr>
                  <tr style="background-color:#fcfcfc;">
-                     <td class="text-center">08.20-08.35</td>
+                     <td class="text-center">08.20-08.40</td>
                      <td class="text-center" colspan="4">Sambutan Ketua Umum Perdossi dan Pembukaan</td>
                  </tr>
                  <tr style="background-color:#fcfcfc;">
-                     <td class="text-center">08.40-09.50</td>
-                     <td class="text-center" colspan="4">MATERI OLEH SATGAS COVID-19/PLENARY LECTURE 1</td>
+                     <td class="text-center">08.40-09.00</td>
+                     <td class="text-center" colspan="4">Moderator : dr. Ahmad Rizal, Sp.<br>MATERI OLEH SATGAS COVID-19/PLENARY LECTURE 1</td>
                  </tr>
                  <tr style="background-color:#fcfcfc;">
                      <td class="text-center">09-55-11.05</td>
