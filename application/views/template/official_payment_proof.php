@@ -75,6 +75,11 @@ header('Content-Type: text/html');
 					<td>:</td>
 					<td><?=$member->status_member->kategory;?></td>
 				</tr>
+				<tr>
+					<th>Username</th>
+					<td>:</td>
+					<td><?= $member->username_account; ?></td>
+				</tr>
 				<?php if(isset($member->sponsor) && $member->sponsor != ""):?>
 				<tr>
 					<th>Sponsor</th>
@@ -113,7 +118,7 @@ header('Content-Type: text/html');
 				</tr>
 				<tr>
 					<td colspan="3">
-					<span style="font-size:9pt">*Total Harga diatas belum termasuk biaya administrasi payment online bank (Rp. 3.300 Bank BNI atau Rp. 3.850 Bank Mandiri)</small>
+					<span style="font-size:9pt">*Total Harga diatas belum termasuk biaya administrasi payment online bank</small>
 					</td>
 				</tr>
 			</table>
