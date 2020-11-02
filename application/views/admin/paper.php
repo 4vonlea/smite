@@ -487,7 +487,7 @@ $this->layout->end_head();
 									<input type="file" name="feedback" ref="feedbackFileFullpaper" class="form-control" accept=".doc,.docx,.ods" />
 								</td>
 							</tr>
-							<tr v-if="detailMode == 0 && !isReviewer">
+							<tr v-if="detailMode == 0">
 								<th>Score</th>
 								<td>
 									<input type="text" name="score" class="form-control" v-model="reviewModel.score" />

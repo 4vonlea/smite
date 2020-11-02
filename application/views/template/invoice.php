@@ -122,6 +122,15 @@ $payment = Settings_m::manualPayment(false);
 							</tr>
 							<tr>
 								<td style="padding:5px!important" valign="top" width="170">
+									Username
+								</td>
+								<td>:</td>
+								<td style="padding:5px!important">
+									<?= $member->username_account; ?>
+								</td>
+							</tr>
+							<tr>
+								<td style="padding:5px!important" valign="top" width="170">
 									Status
 								</td>
 								<td>:</td>

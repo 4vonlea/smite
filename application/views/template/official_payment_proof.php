@@ -75,6 +75,11 @@ header('Content-Type: text/html');
 					<td>:</td>
 					<td><?=$member->status_member->kategory;?></td>
 				</tr>
+				<tr>
+					<th>Username</th>
+					<td>:</td>
+					<td><?= $member->username_account; ?></td>
+				</tr>
 				<?php if(isset($member->sponsor) && $member->sponsor != ""):?>
 				<tr>
 					<th>Sponsor</th>
