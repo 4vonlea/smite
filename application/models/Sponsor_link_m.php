@@ -12,6 +12,7 @@ class Sponsor_link_m extends My_model
 			'relationships' => [
 				'click' => ['link_click', 'click.link_id = t.id','left'],
 			],
+			'disable_search_field'=>["click_count","id"],
 			'group_by'=>'t.id',
 		];
 	}
