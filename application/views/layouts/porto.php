@@ -177,6 +177,13 @@ $theme_path = base_url("themes/porto") . "/";
 											</a>
 										</li>
 									<?php endif; ?>
+									<?php if ($this->session->has_userdata('user_session')): ?>
+									<li>
+										<a class="nav-link" href="<?= base_url("site/vid"); ?>">
+											Vote foto & video
+										</a>
+									</li>
+									<?php endif;?>
 
 									<li style="border-left: 1px solid #fff" class="dropdown dropdown-primary">
 										<?php if ($this->session->has_userdata('user_session')): ?>
