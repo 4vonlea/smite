@@ -313,6 +313,8 @@ class Payment extends MY_Controller
 				'order_id'=>$order_id
 			]);
 			$resJson = json_decode($response,true);
+			$tr = $this->Transaction_m->findOne(['id'=>$order_id]);
+			$status = $tr->status_payment;
 			if($resJson['tx_status'] == "S"){
 				$status = Transaction_m::STATUS_FINISH;
 			}elseif($resJson['tx_status'] == "F"){
@@ -323,8 +325,7 @@ class Payment extends MY_Controller
 				else
 					$status = Transaction_m::STATUS_PENDING;
 			}
-			$tr = $this->Transaction_m->findOne(['id'=>$order_id]);
-			$status = $tr->status_payment;
+			
 			if($tr->status_payment == Transaction_m::STATUS_FINISH){
 				$status =  Transaction_m::STATUS_FINISH;
 			}

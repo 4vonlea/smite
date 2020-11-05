@@ -4,7 +4,11 @@
  * @var array $events
  * @var array $univDl
  */
+$this->layout->begin_head();
 ?>
+<link href="<?= base_url(); ?>themes/script/chosen/chosen.css" rel="stylesheet">
+<?php $this->layout->end_head();?>
+
 <div class="header bg-info pb-8 pt-5 pt-md-8" xmlns:v-bind="http://www.w3.org/1999/xhtml"
 	 xmlns:v-bind="http://www.w3.org/1999/xhtml"></div>
 <div class="container-fluid mt--7">
@@ -121,7 +125,7 @@
 						<div class="form-group row">
 							<label class="col-lg-3 control-label">Institution</label>
 							<div class="col-lg-5">
-								<?= form_dropdown("univ", $univDl, "", [':class' => "{ 'is-invalid':validation_error.univ}", "class" => 'form-control','v-model'=>'selectedInstitution']); ?>
+								<?= form_dropdown("univ", $univDl, "", [':class' => "{ 'is-invalid':validation_error.univ}", "class" => 'form-control chosen','v-model'=>'selectedInstitution']); ?>
 								<div v-if="validation_error.phone" class="invalid-feedback">
 									{{ validation_error.univ }}
 								</div>
@@ -237,7 +241,9 @@
 	</div>
 </div>
 <?php $this->layout->begin_script(); ?>
+<script src="<?=base_url("themes/script/chosen/chosen.jquery.min.js");?>"></script>
 <script>
+	
     var app = new Vue({
         el: "#app",
         data: {
@@ -338,6 +344,11 @@
             }
         }
     });
+	$(function(){
+		$(".chosen").chosen().change(function(){
+        	app.selectedInstitution = $(this).val();
+    	});
+	});
 
 </script>
 <?php $this->layout->end_script(); ?>
