@@ -205,10 +205,30 @@ public function savelikes()
     $fetchlikes = $this->db->query('select likesbantu from upload_video where id="'.$video_id.'"');
     $result = $fetchlikes->result();
 
-    $checklikes = $this->db->query('select * from video_like 
-        where video_id="'.$video_id.'" 
+    // $jenis = $this->db->query('select type from upload_video where id="'.$video_id.'"');
+    // $resultjenis = $jenis->result();
+    // foreach ($resultjenis as $key) {
+    //     $tipe = $key->type;
+    // }
+
+    // if ($tipe == '1') {
+    //     $checklikes = $this->db->query('select * from video_like vl
+    //         JOIN upload_video uv ON uv.id = vl.video_id 
+    //         where uv.type = 1 
+    //         and vl.username = "'.$username.'"');
+    //     $resultchecklikes = $checklikes->num_rows();
+    // } else {
+    //     $checklikes = $this->db->query('select * from video_like vl
+    //         JOIN upload_video uv ON uv.id = vl.video_id 
+    //         where uv.type = 2 
+    //         and vl.username = "'.$username.'"');
+    //     $resultchecklikes = $checklikes->num_rows();
+    // }
+    $checklikes = $this->db->query('select * from video_like
+        where video_id = "'.$video_id.'"   
         and username = "'.$username.'"');
     $resultchecklikes = $checklikes->num_rows();
+
 
     if($resultchecklikes == '0' ){
         if($result[0]->likesbantu=="" || $result[0]->likesbantu=="NULL")

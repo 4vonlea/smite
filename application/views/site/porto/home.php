@@ -229,10 +229,11 @@
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="mt-4 appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="600">
-                    <img class="img-fluid border-radius-0" src="<?= base_url('themes/porto'); ?>/img/lomba.png" alt="">
+                <div class="appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="600">
+                    <img class="mt-2 img-fluid border-radius-0" src="<?= base_url('themes/porto'); ?>/img/lomba.png" alt="">
                     <div>
-                        <a href="<?= base_url('themes/porto'); ?>/img/syarat.pdf" target="_blank" class="btn btn-primary font-weight-semibold text-uppercase text-5 mt-2 mb-3 col-lg-12">Syarat & Ketentuan</a>
+                        <a href="<?= base_url('themes/porto'); ?>/img/syarat.pdf" target="_blank" class="btn btn-info font-weight-semibold text-4 mt-2 col-lg-12">Syarat & Ketentuan</a>
+                        <a href="<?php echo base_url('site/vid') ?>" class="btn btn-primary font-weight-semibold  text-uppercase text-4 mt-2 col-lg-12"><i class="fas fa-vote-yea">  Vote Foto & Video</i></a>
                     </div>
                 </div>
             </div>
@@ -240,7 +241,7 @@
     </div>
 </section>
 
-<section id="galeri" class="bg-color-grey pt-4">
+<!-- <section id="galeri" class="bg-color-grey pt-4">
     <div class="container pb-4">
         <div class="row pt-2">
             <div class="col">
@@ -292,7 +293,7 @@
             ?>
         </div>
     </div>
-</section>
+</section> -->
 
 </div>
 

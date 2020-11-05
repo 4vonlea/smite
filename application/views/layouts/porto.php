@@ -81,7 +81,7 @@ $theme_path = base_url("themes/porto") . "/";
 				padding: 10px;
 				transition: all 0.3s ease;
 				color: white;
-				font-size: 14px;
+				font-size: 18px;
 			}
 
 			.icon-bar a:hover {
