@@ -7,12 +7,11 @@ export default Vue.component("PageWebminar",{
                     <h2 class="font-weight-normal text-7 mb-0"><strong class="font-weight-extra-bold">Webinar Link</strong></h2>
                     <div class="overflow-hidden mb-4 pb-3">
                         <p class="mb-0">Silakan hadiri acara yang Anda ikuti melalui link di bawah ini</p>
-                      
                     </div>
                 </div>
                 <div class="row">
                     <p>
-                        *Tombol gabung tidak dapat diklik hingga 5 menit sebelum waktu mulai
+                        *Tombol gabung tidak dapat diklik hingga {{ minuteWait }} menit sebelum waktu mulai
                         dan tidak dapat diklik kecuali Anda telah menonton sponsor
                         <br/>
                         *WIB (GMT +7)
@@ -117,6 +116,7 @@ export default Vue.component("PageWebminar",{
             fail:false,
             events: [],
             ads:{},
+            minuteWait:5,
             modalCloseButton:false,
             timer:10,
 		}
@@ -150,7 +150,7 @@ export default Vue.component("PageWebminar",{
             return listDate;
         },
         more5Minutes(date){
-            return moment(date).unix() - moment().unix() > 60*5
+            return moment(date).unix() - moment().unix() > 60*this.minuteWait
         },
         toggle(evt){
             if(evt.currentTarget.dataset.status == 'hide'){
