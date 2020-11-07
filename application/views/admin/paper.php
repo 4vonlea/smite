@@ -159,10 +159,10 @@ $this->layout->end_head();
 		<div class="card shadow">
 			<div class="card-header">
 				<div class="row">
-					<div class="col-6">
+					<div class="col-md-6 col-sm-12">
 						<h3>Papers</h3>
 					</div>
-					<div class="col-6 text-right">
+					<div class="col-md-6 col-sm-12 text-right">
 						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-setting"><i class="fa fa-book"></i> Setting Due Date & Cut Off
 						</button>
 					</div>
@@ -258,7 +258,7 @@ $this->layout->end_head();
 			<div class="modal-header">
 				<h4 class="modal-title">Set Reviewer</h4>
 			</div>
-			<div class="modal-body">
+			<div class="modal-body table-responsive">
 				<table class="table" style="white-space: normal !important;">
 					<tr>
 						<th>ID Paper</th>
@@ -323,7 +323,7 @@ $this->layout->end_head();
 						<a class="nav-link" id="contact-tab" data-toggle="tab" href="#presentation_tab" role="tab" aria-controls="contact" aria-selected="false">Review Presentation</a>
 					</li>
 				</ul>
-				<div class="tab-content" id="myTabContent">
+				<div class="tab-content table-responsive" id="myTabContent">
 					<div class="tab-pane fade show active" id="info_paper_tab" role="tabpanel" aria-labelledby="home-tab">
 						<table class="table" style="white-space: normal !important;">
 							<tr>

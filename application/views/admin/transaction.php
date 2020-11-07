@@ -225,6 +225,7 @@
 
 			<!-- Modal footer -->
 			<div class="modal-footer">
+				<div class="btn-toolbar">
 				<button v-if="detailModel.status_payment == '<?= Transaction_m::STATUS_PENDING; ?>'" @click="expirePayment" type="button" class="btn btn-primary" :disabled="expiring">
 					<i v-if="verifying" class="fa fa-spin fa-spinner"></i>
 					Expire Payment
@@ -237,6 +238,8 @@
 				<a :href="'<?= base_url('admin/transaction/download/proof'); ?>/'+detailModel.id" target="_blank" v-if="detailModel.status_payment == '<?= Transaction_m::STATUS_FINISH; ?>'" class="btn btn-primary">Download Bukti Registrasi</a>
 				<button :disabled="sendingProof" v-on:click="resendPaymentProof(detailModel)" v-if="detailModel.status_payment == '<?= Transaction_m::STATUS_FINISH; ?>'" class="btn btn-primary"><i v-if="sendingProof" class="fa fa-spin fa-spinner"></i> Resend Bukti Registrasi</button>
 				<button :disabled="sendingProof" type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+				</div>
+
 			</div>
 
 		</div>
