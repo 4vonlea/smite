@@ -5,7 +5,10 @@
  * @var array $participantsUniv
  * @var array $univList;
  */
+$this->layout->begin_head();
 ?>
+<link href="<?= base_url(); ?>themes/script/chosen/chosen.css" rel="stylesheet">
+<?php $this->layout->end_head();?>
 <section class="page-header page-header-modern page-header-sm custom-page-header" style="background-color: #d4af37;">
     <div class="container">
         <div class="row">
@@ -126,7 +129,7 @@
                     <div class="form-group row">
                         <label class="col-lg-3 control-label">Institusi*</label>
                         <div class="col-lg-5">
-                            <?= form_dropdown('univ', $participantsUniv, '', [':class'=>"{'is-invalid':validation_error.univ}",'v-model'=>'univ_selected', 'class' => 'form-control', 'placeholder' => 'Select your institution !']); ?>
+                            <?= form_dropdown('univ', $participantsUniv, '', [':class'=>"{'is-invalid':validation_error.univ}",'v-model'=>'univ_selected', 'class' => 'form-control chosen', 'placeholder' => 'Select your institution !']); ?>
                             <div v-if="validation_error.univ" class="invalid-feedback" >
                                 {{ validation_error.univ }}
                             </div>
@@ -218,6 +221,7 @@
 <?php $this->layout->begin_script(); ?>
 <script src="<?= base_url("themes/script/sweetalert2@8.js"); ?>"></script>
 <script src="<?= base_url("themes/script/vuejs-datepicker.min.js"); ?>"></script>
+<script src="<?=base_url("themes/script/chosen/chosen.jquery.min.js");?>"></script>
 
 <script>
     var app = new Vue({
@@ -284,6 +288,11 @@
             }
         }
     });
+    $(function(){
+		$(".chosen").chosen().change(function(){
+        	app.univ_selected = $(this).val();
+    	});
+	});
 </script>
 <?php $this->layout->end_script(); ?>
 

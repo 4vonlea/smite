@@ -97,6 +97,7 @@
 		toolbar:
 			"code undo redo | bold italic | forecolor backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist | link image responsivefilemanager | pagebreak",
 		image_advtab: true,
+		relative_urls:false,
 		external_filemanager_path: "<?=base_url('filemanager');?>/",
 		filemanager_title: "File Manager",
 		filemanager_access_key:"0082577b00bfd2651d8d3cbd8974e6f3"

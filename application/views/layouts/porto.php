@@ -125,6 +125,7 @@ $theme_path = base_url("themes/porto") . "/";
 				/*height: 500px;*/
 			}
 		</style>
+	<?= $additional_head; ?>
 
 	</head>
 	<body>

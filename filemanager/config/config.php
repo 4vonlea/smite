@@ -74,7 +74,9 @@ define('DEBUG_ERROR_MESSAGE', false); // TRUE or FALSE
 |    |   |   |   |- responsivefilemanager
 |    |   |   |   |   |- plugin.min.js
 */
-
+$base_url = env("base_url" ,((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") ? "https" : "http"). "://". @$_SERVER['HTTP_HOST']);
+if($base_url[strlen($base_url)-1] == "/");
+    $base_url = substr($base_url,0,strlen($base_url)-1);
 $config = array(
 
     /*
@@ -85,7 +87,7 @@ $config = array(
     | without final / (DON'T TOUCH)
     |
     */
-    'base_url' =>env("base_url" ,((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] == "on") ? "https" : "http"). "://". @$_SERVER['HTTP_HOST']),
+    'base_url' =>'https://seminar_dokter.test',//$base_url,
     /*
     |--------------------------------------------------------------------------
     | path from base_url to base of upload folder
