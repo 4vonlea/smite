@@ -20,6 +20,15 @@
 
     <div class="row">
         <div class="col">
+            <?php 
+            $sess = $this->session->userdata('user_session');
+            if (empty($sess)){
+                echo 
+                "<div class='alert alert-warning text-center'>
+                Anda harus login untuk vote foto & video
+                </div>";
+            }
+            ?>
 
             <ul class="nav nav-pills sort-source sort-source-style-3 justify-content-center" data-sort-id="portfolio" data-option-key="filter" data-plugin-options="{'layoutMode': 'fitRows', 'filter': '*'}">
                 <li class="nav-item active" data-option-value="*"><a class="nav-link text-1 text-uppercase active" href="#">Show All</a></li>
@@ -54,40 +63,52 @@
                                 <?php } ?>
                                 <p>
                                     <a onclick="javascript:savelike(<?php echo $key->id;?>);">
-                                       <i class="far fa-thumbs-up" style="color: #00B297FF"></i> 
-                                       <span id="like_<?php echo $key->id;?>">
-                                        <?php if($key->likesbantu > 0){echo $key->likesbantu.' Likes';}else{echo 'Like';} ?>
-                                    </span></a>
-                                    <span class="float-right">
-                                        <a href="<?php echo base_url('site/seevideo/'.$key->id) ?>">
-                                            <?php if($key->komen > 0){echo $key->komen.' Komentar';}else{echo 'Komentar';} ?>
+                                        <?php
+                                        if (!empty($sess)) {
+                                            echo "<i class='far fa-thumbs-up' style='color: #00B297FF'></i>";
+                                        }
+                                        ?>
+                                    
+                                        <span id="like_<?php echo $key->id;?>">
+                                            <!-- <?php if($key->likesbantu > 0){echo $key->likesbantu.' Likes';}else{echo '0 Like';} ?> -->
+                                            <?php
+                                            if (!empty($sess)) {
+                                                if ($key->ini > 0) {
+                                                    echo "<i>disukai</i>";
+                                                }
+                                            }
+                                            ?>
+                                        </span>
                                         </a>
-                                    </span>
-                                </p>
+                                        <span class="float-right">
+                                            <a href="<?php echo base_url('site/seevideo/'.$key->id) ?>">
+                                                <?php if($key->komen > 0){echo $key->komen.' Komentar';}else{echo 'Komentar';} ?>
+                                            </a>
+                                        </span>
+                                    </p>
+                                </div>
                             </div>
-                        </div>
 
-                    <?php endforeach; ?>
+                        <?php endforeach; ?>
 
+                    </div>
                 </div>
+                <hr>
             </div>
-            <hr>
         </div>
     </div>
-</div>
 
-<script type="text/javascript">
-    function savelike(video_id)
-    {
-        $.ajax({
-            type: "POST",
-            url: "<?php echo base_url('site/savelikes');?>",
-            data: "Video_id="+video_id,
-            success: function (response) {
-               $("#like_"+video_id).html(response+" Likes");
-               
-           }
-       });
-    }
-</script>
+    <script type="text/javascript">
+        function savelike(video_id)
+        {
+            $.ajax({
+                type: "POST",
+                url: "<?php echo base_url('site/savelikes');?>",
+                data: "Video_id="+video_id,
+                success: function (response) {
+                 $("#like_"+video_id).html(response);
+             }
+         });
+        }
+    </script>
 
