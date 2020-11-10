@@ -11,18 +11,19 @@ export default Vue.component("PageWebminar",{
                 </div>
                 <div class="row">
                     <p>
-                        *Tombol gabung tidak dapat diklik hingga {{ minuteWait }} menit sebelum waktu mulai
+                        *Tombol gabung tidak dapat diklik hingga 5 menit sebelum waktu mulai
                         dan tidak dapat diklik kecuali Anda telah menonton sponsor
                         <br/>
                         *WIB (GMT +7)
                     </p>
+                    <p>Bila simposium telah memenuhi kuota, mohon untuk pindah ke simposium yang lain</p>
                     <table class="table table-bordered">
                         <tbody v-if="events.length == 0">
                             <tr>
                                 <td class="text-center" colspan="3">Anda belum berpartisipasi dalam acara apa pun </td>
                             </tr>
                         </tbody>
-                        <template v-for="event in events" :key="event.id">
+                        <template v-for="event in events">
                             <tr>
                                 <td class="font-weight-bold text-center" colspan="3">
                                     {{event.name}}
@@ -51,7 +52,9 @@ export default Vue.component("PageWebminar",{
                                         </thead>
                                         <template v-for="(link,indSpl) in d.items">
                                             <tr>
-                                                <td>{{ link.date | formatDate }}</td>
+                                                <td>
+                                                <span style="font-size:14px" :class="currentClass(link)">{{ link.date | formatDate }}</span>
+                                                </td>
                                                 <td>
                                                     {{ link.room }}
                                                     <button data-status='hide' @click="toggle" class="float-right btn btn-sm btn-default" data-toggle="collapse" :data-target="'#speakers_'+event.id+'_'+indSpl+d.index">
@@ -116,7 +119,7 @@ export default Vue.component("PageWebminar",{
             fail:false,
             events: [],
             ads:{},
-            minuteWait:5,
+            minuteWait:10,
             modalCloseButton:false,
             timer:10,
 		}
@@ -133,6 +136,16 @@ export default Vue.component("PageWebminar",{
 		'$route': 'fetchEvents'
     },
     methods:{
+        currentClass(link){
+            if(typeof link.dateEnd != "undefined"){
+                console.log(moment().isBetween(link.date,link.dateEnd),link.date,link.dateEnd);
+                if(moment().isBetween(link.date,link.dateEnd))
+                    return "badge badge-success";
+                else if(moment().isSameOrAfter(link.dateEnd))
+                    return "badge badge-danger";
+            }
+            return "";
+        },
         groupDate(special_link){
             let listDate = {};
             let ind = 0

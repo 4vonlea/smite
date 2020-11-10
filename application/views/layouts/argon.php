@@ -219,7 +219,7 @@ function hideForRole($role, $listRole)
 							<i class="ni ni-html5 text-blue"></i> Sponsor Link
 						</a>
 					</li>
-					<li class="nav-item  <?= hideForRole($role, ['3', '4']); ?>">
+					<li class="nav-item  <?= hideForRole($role, ['3']); ?>">
 						<a class="nav-link" href="<?= base_url('admin/upload_video'); ?>">
 							<i class="ni ni-camera-compact text-blue"></i> Upload Video
 						</a>

@@ -128,7 +128,8 @@ class Paper extends Admin_Controller
 					$model->status_presentasi = $data['status_presentasi'];
 				}else{
 					$model->status_presentasi = "-1";//$data['status_presentasi'];
-				}				$model->type_presence = $data['type_presence'];
+				}				
+				$model->type_presence = $data['type_presence'];
 				$model->feedback_fullpaper = $data['feedback_fullpaper'];
 				$model->feedback_presentasi = $data['feedback_presentasi'];
 
@@ -140,7 +141,14 @@ class Paper extends Admin_Controller
 					$response['message'] = $model->errorsString();
 				}else{
 					$this->load->model("Notification_m");
-					if($data['status'] == Papers_m::ACCEPTED || $data['status'] == Papers_m::REJECTED ){
+					if($data['status'] == Papers_m::RETURN_TO_AUTHOR || $data['status_fullpaper'] == Papers_m::RETURN_TO_AUTHOR  || $data['status_presentasi'] == Papers_m::RETURN_TO_AUTHOR ){
+						$member = $model->member;
+						$paperid = $this->Papers_m->getIdPaper($model->id);
+						$message = "<p>Dear $member->fullname</p>
+						<p>ID Paper : $paperid</p>
+						<p>Mohon login ke akun untuk melihat komentar / file feedback lebih rinci. Mohon untuk melakukan revisi sebelum batas akhir waktu. Terimakasih<p>";
+						$this->Notification_m->sendMessage($member->email,"Result Of Paper Review",$message);
+					}elseif($data['status'] == Papers_m::ACCEPTED || $data['status_fullpaper'] == Papers_m::ACCEPTED || $data['status'] == Papers_m::REJECTED ){
 						$member = $model->member;
 						$paperid = $this->Papers_m->getIdPaper($model->id);
 						$message = "<p>Dear $member->fullname</p>
@@ -149,13 +157,6 @@ class Paper extends Admin_Controller
 						<p>Best regards.<br/>
 						Committee of ".Settings_m::getSetting('site_title')."</p>";
 						$this->Notification_m->sendMessageWithAttachment($member->email,"Result Of Paper Review",$message,['Abstract Announcement.pdf'=>$model->exportNotifPdf()->output()]);
-					}elseif($data['status'] == Papers_m::RETURN_TO_AUTHOR || $data['status_fullpaper'] == Papers_m::RETURN_TO_AUTHOR  || $data['status_presentasi'] == Papers_m::RETURN_TO_AUTHOR ){
-						$member = $model->member;
-						$paperid = $this->Papers_m->getIdPaper($model->id);
-						$message = "<p>Dear $member->fullname</p>
-						<p>ID Paper : $paperid</p>
-						<p>Mohon login ke akun untuk melihat komentar / file feedback lebih rinci. Mohon untuk melakukan revisi sebelum batas akhir waktu. Terimakasih<p>";
-						$this->Notification_m->sendMessage($member->email,"Result Of Paper Review",$message);
 					}
 				}
 			} else {
@@ -190,5 +191,11 @@ class Paper extends Admin_Controller
 		}else{
 			show_404('File not found on server !');
 		}
+	}
+
+	public function previewNotif($id){
+		$this->load->model("Papers_m");
+		$paper = $this->Papers_m->findOne($id);
+		$paper->exportNotifPdf()->stream("dompdf_out.pdf", array("Attachment" => false));
 	}
 }
