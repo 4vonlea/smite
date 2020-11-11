@@ -3,7 +3,11 @@
  * @var array $statusList
  * @var array $univDl
  */
+$this->layout->begin_head();
 ?>
+<link href="<?= base_url(); ?>themes/script/chosen/chosen.css" rel="stylesheet">
+
+<?php $this->layout->end_head();?>
 <div class="header bg-info pb-8 pt-5 pt-md-8">
 	<div class="container-fluid">
 		<div class="header-body">
@@ -155,7 +159,7 @@
 					</div>
 					<div class="form-group">
 						<label class="form-check-label">Institution</label>
-						<?= form_dropdown("univ",$univDl,"",['v-model'=>'profile.univ','class'=>'form-control']);?>
+						<vue-chosen v-model="profile.univ" :options="institutionList" placeholder="Select Institution"></vue-chosen>
 					</div>
 					<div class="form-group">
 						<label class="form-check-label">Sponsor</label>
@@ -397,6 +401,8 @@
 </div>
 
 <?php $this->layout->begin_script(); ?>
+<script src="<?=base_url("themes/script/chosen/chosen.jquery.min.js");?>"></script>
+<script src="<?=base_url("themes/script/chosen/vue-chosen.js");?>"></script>
 
 <script>
     var tempStatus = <?=json_encode($statusList);?>;
@@ -410,6 +416,7 @@
         data: {
             new_status: '',
             statusList:<?=json_encode($statusList);?>,
+            institutionList:<?=json_encode($univDl);?>,
             verifyModel: {},
             verifying: false,
             verifyMessage: null,

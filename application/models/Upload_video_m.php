@@ -33,6 +33,7 @@ class Upload_video_m extends MY_Model
         'likes' => ['video_like', 'video_id = t.id','left'],
         'comments' => ['video_komen', 't.id = comments.video_id','left']
     ],
+    'disable_search_field'=>['like_count','comment'],
     'group_by'=>'t.id',
 ];
 }
