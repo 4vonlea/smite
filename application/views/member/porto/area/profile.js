@@ -90,10 +90,7 @@ var PageProfile = Vue.component("PageProfile", {
             <div class="form-group row">
                 <label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2">Institusi</label>
                 <div class="col-lg-9">
-                	<select :disabled="!editing" class="form-control" v-model="user.univ">
-                		<option hidden>Select Your Institution</option>
-                		<option v-for="univ in univ_list" :value="univ.univ_id">{{ univ.univ_nama }}</option>
-					</select>
+                    <vue-chosen :disabled="!editing"  v-model="user.univ" :options="univ_list" placeholder="Pilih Institusi"></vue-chosen>
                 </div>
             </div>
 

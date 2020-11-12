@@ -3,7 +3,11 @@
  * @var array $statusList
  * @var array $univDl
  */
+$this->layout->begin_head();
 ?>
+<link href="<?= base_url(); ?>themes/script/chosen/chosen.css" rel="stylesheet">
+
+<?php $this->layout->end_head();?>
 <div class="header bg-info pb-8 pt-5 pt-md-8">
 	<div class="container-fluid">
 		<div class="header-body">
@@ -71,7 +75,7 @@
 						@loaded_data="loadedGrid"
 						ref="datagrid"
 						api-url="<?= base_url('admin/member/grid'); ?>"
-						:fields="[{name:'fullname',sortField:'fullname'}, {name:'email',sortField:'email'},{name:'verified_by_admin',sortField:'verified_by_admin',title:'Verification'},{name:'created_at',title:'Registered At',sortField:'created_at'},{name:'id',title:'Actions',titleClass:'action-th'}]">
+						:fields="[{name:'fullname',sortField:'fullname'}, {name:'email',sortField:'email'}, {name:'username_account',sortField:'username_account',title:'Username Account'},{name:'verified_by_admin',sortField:'verified_by_admin',title:'Verification'},{name:'created_at',title:'Registered At',sortField:'created_at'},{name:'id',title:'Actions',titleClass:'action-th'}]">
 						<template slot="email" slot-scope="prop">
 							{{ prop.row.email }}
 						<span v-if="prop.row.verified_email == 0" class="badge badge-warning">Unverified</span>
@@ -155,7 +159,7 @@
 					</div>
 					<div class="form-group">
 						<label class="form-check-label">Institution</label>
-						<?= form_dropdown("univ",$univDl,"",['v-model'=>'profile.univ','class'=>'form-control']);?>
+						<vue-chosen v-model="profile.univ" :options="institutionList" placeholder="Select Institution"></vue-chosen>
 					</div>
 					<div class="form-group">
 						<label class="form-check-label">Sponsor</label>
@@ -193,6 +197,10 @@
 					<tr>
 						<th>Email</th>
 						<td colspan="2">{{ profile.email }}</td>
+					</tr>
+					<tr>
+						<th>Username Account</th>
+						<td colspan="2">{{ profile.username_account }}</td>
 					</tr>
 					<tr>
 						<th>Phone/WA</th>
@@ -393,6 +401,8 @@
 </div>
 
 <?php $this->layout->begin_script(); ?>
+<script src="<?=base_url("themes/script/chosen/chosen.jquery.min.js");?>"></script>
+<script src="<?=base_url("themes/script/chosen/vue-chosen.js");?>"></script>
 
 <script>
     var tempStatus = <?=json_encode($statusList);?>;
@@ -406,6 +416,7 @@
         data: {
             new_status: '',
             statusList:<?=json_encode($statusList);?>,
+            institutionList:<?=json_encode($univDl);?>,
             verifyModel: {},
             verifying: false,
             verifyMessage: null,

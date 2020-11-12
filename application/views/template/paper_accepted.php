@@ -53,10 +53,17 @@ $header_image = base_url('themes/uploads/header_kop.jpg');
 					<td><?= $paper->getIdPaper(); ?></td>
 				</tr>
 				<tr>
-					<td>Result</td>
+					<td>Result Of Abstract</td>
 					<td>:</td>
-					<td>Accepted</td>
+					<td><?= Papers_m::$status[$paper->status];?></td>
 				</tr>
+				<?php if($paper->status_fullpaper != "" && $paper->status_fullpaper != "-1"):?>
+				<tr>
+					<td>Result Of Fullpaper</td>
+					<td>:</td>
+					<td><?= Papers_m::$status[$paper->status_fullpaper];?></td>
+				</tr>
+				<?php endif;?>
 				<tr>
 					<td>Mode Of Presentation</td>
 					<td>:</td>
@@ -78,7 +85,7 @@ $header_image = base_url('themes/uploads/header_kop.jpg');
 				<p style="text-align: right">Kind Regards,</p>
 				<div style="text-align: center">
 					<p>Chairman of <?= Settings_m::getSetting('site_title'); ?></p>
-					<img width="200px" height="100px" style="z-index: -10"
+					<img width="200px" style="z-index: -10;margin-bottom:40px"
 						 src="<?= base_url('themes/uploads/ttd_cap.jpg'); ?>">
 					<div style="margin-top: -50px;z-index: -5"><?= Settings_m::getSetting('ketua_panitia'); ?></div>
 				</div>

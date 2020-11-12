@@ -6,6 +6,7 @@ $config = $this->config->item("midtrans");
 $client_key = $config['client_key'];
 $userDetail = array_merge($user->toArray(), ['status_member' => $user->status_member->kategory]);
 ?>
+<link href="<?= base_url(); ?>themes/script/chosen/chosen.css" rel="stylesheet">
 <style>
     .btn:disabled{
         cursor: not-allowed;
@@ -115,6 +116,8 @@ $userDetail = array_merge($user->toArray(), ['status_member' => $user->status_me
 <script src="<?= base_url("themes/script/vuejs-datepicker.min.js"); ?>"></script>
 <script src="<?= base_url("themes/script/vuetable2.js"); ?>"></script>
 <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js"></script>
+<script src="<?=base_url("themes/script/chosen/chosen.jquery.min.js");?>"></script>
+<script src="<?=base_url("themes/script/chosen/vue-chosen.js");?>"></script>
 
 <script type="module">
     document.addEventListener('contextmenu', event => event.preventDefault());

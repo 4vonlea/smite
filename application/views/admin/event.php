@@ -128,7 +128,7 @@
                                     <tbody>
                                         <tr v-for="(link,index) in form.model.special_link" :key="index">
                                             <td>
-                                                {{ link.date | formatDate }}
+                                                {{ link.date | formatDate }} - {{ link.dateEnd | formatDate }} 
                                             </td>
                                             <td>
                                                 {{link.room}}
@@ -325,6 +325,10 @@
                     <div class="form-group">
                         <label>Starting Date</label>
                         <vue-ctk-date-time-picker :no-label="true" format="YYYY-MM-DD HH:mm" formatted="DD MMMM YYYY HH:mm" v-model="linkData.model.date" ></vue-ctk-date-time-picker>
+                    </div>
+                    <div class="form-group">
+                        <label>End Date</label>
+                        <vue-ctk-date-time-picker :no-label="true" format="YYYY-MM-DD HH:mm" formatted="DD MMMM YYYY HH:mm" v-model="linkData.model.dateEnd" ></vue-ctk-date-time-picker>
                     </div>
                     <div class="form-group">
                         <label>Room</label>

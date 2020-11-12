@@ -84,7 +84,7 @@ Vue.component('vue-chosen',{
 				? [{ [this.trackBy]: null, [this.label]: '' }].concat(options)
 				: options
 		},
-
+		
 		localValue() {
 			let value = this.allowAll && this.value === null ? -1 : this.value
 
@@ -97,9 +97,13 @@ Vue.component('vue-chosen',{
 	},
 
 	watch: {
-		localValue() {
+		localValue() {},
+		disabled(){
+			this.$nextTick(function () {
+				let value = this.allowAll && this.value === null ? '-1' : this.value
+				$(this.$el).val(value).trigger("chosen:updated")
+			})
 		},
-
 		localOptions() {
 			this.$nextTick(function () {
 				let value = this.allowAll && this.value === null ? '-1' : this.value
@@ -110,7 +114,7 @@ Vue.component('vue-chosen',{
 
 	mounted() {
 		let component = this
-
+		console.log("TES");
 		$(this.$el).chosen({
 			width: "100%",
 			disable_search_threshold: this.searchable ? this.searchableMin : 100000,
