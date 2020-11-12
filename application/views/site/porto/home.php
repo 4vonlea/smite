@@ -18,45 +18,45 @@
     <section id="counttotal" class="bg-color-light">
         <div class="container">
             <div class="featured-boxes featured-boxes-style-3 featured-boxes-flat">
-                        <div class="row">
-                            <div class="col-lg-3 col-sm-6">
-                                <div class="featured-box featured-box-primary featured-box-effect-3" style="height: 200px;">
-                                    <div class="box-content box-content-border-0">
-                                        <i class="icon-featured far fa-user"></i>
-                                        <h4 class="font-weight-normal text-8 mt-2"><strong class="font-weight-extra-bold"></strong>93</h4>
-                                        <p class="mb-0 mt-0 text-3">speaker</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-sm-6">
-                                <div class="featured-box featured-box-secondary featured-box-effect-3" style="height: 200px;">
-                                    <div class="box-content box-content-border-0">
-                                        <i class="icon-featured far fa-user"></i>
-                                        <h4 class="font-weight-normal text-8 mt-2"><strong class="font-weight-extra-bold"></strong>36</h4>
-                                        <p class="mb-0 mt-0 text-3">Moderator</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-sm-6">
-                                <div class="featured-box featured-box-tertiary featured-box-effect-3" style="height: 200px;">
-                                    <div class="box-content box-content-border-0">
-                                        <i class="icon-featured far fa-user"></i>
-                                        <h4 class="font-weight-normal text-8 mt-2"><strong class="font-weight-extra-bold"></strong><?php echo $participant; ?></h4>
-                                        <p class="mb-0 mt-0 text-3">Participant</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-sm-6">
-                                <div class="featured-box featured-box-quaternary featured-box-effect-3" style="height: 200px;">
-                                    <div class="box-content box-content-border-0">
-                                        <i class="icon-featured far fa-file-alt"></i>
-                                        <h4 class="font-weight-normal text-8 mt-2"><strong class="font-weight-extra-bold">293</strong></h4>
-                                        <p class="mb-0 mt-0 text-3">Abstrak</p>
-                                    </div>
-                                </div>
+                <div class="row">
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="featured-box featured-box-primary featured-box-effect-3" style="height: 200px;">
+                            <div class="box-content box-content-border-0">
+                                <i class="icon-featured far fa-user"></i>
+                                <h4 class="font-weight-normal text-8 mt-2"><strong class="font-weight-extra-bold"></strong>93</h4>
+                                <p class="mb-0 mt-0 text-3">speaker</p>
                             </div>
                         </div>
                     </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="featured-box featured-box-primary featured-box-effect-3" style="height: 200px;">
+                            <div class="box-content box-content-border-0">
+                                <i class="icon-featured far fa-user"></i>
+                                <h4 class="font-weight-normal text-8 mt-2"><strong class="font-weight-extra-bold"></strong>36</h4>
+                                <p class="mb-0 mt-0 text-3">Moderator</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="featured-box featured-box-tertiary featured-box-effect-3" style="height: 200px;">
+                            <div class="box-content box-content-border-0">
+                                <i class="icon-featured far fa-user"></i>
+                                <h4 class="font-weight-normal text-8 mt-2"><strong class="font-weight-extra-bold"></strong><?php echo $participant; ?></h4>
+                                <p class="mb-0 mt-0 text-3">Participant</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="featured-box featured-box-quaternary featured-box-effect-3" style="height: 200px;">
+                            <div class="box-content box-content-border-0">
+                                <i class="icon-featured far fa-file-alt"></i>
+                                <h4 class="font-weight-normal text-8 mt-2"><strong class="font-weight-extra-bold">293</strong></h4>
+                                <p class="mb-0 mt-0 text-3">Abstrak</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -74,7 +74,7 @@
         ?>
         <div class="container">
             <div class="row">
-             <div class="col-lg-6 py-2 appear-animation" data-appear-animation="fadeInRightShorter">
+               <div class="col-lg-6 py-2 appear-animation" data-appear-animation="fadeInRightShorter">
                 <!-- <h3 class="text-color-dark text-uppercase font-weight-bold text-center mb-3">abstract Countdown</h3> -->
                 <!-- <div class="countdown countdown-borders countdown-biru" data-plugin-countdown data-plugin-options="{'date': '<?php echo $papertimer; ?>', 'numberClass': 'font-weight-extra-bold', 'wrapperClass': 'border-color-emas'}"></div> -->
                 <h3 class="text-color-dark text-uppercase font-weight-bold text-center mb-3">Event Countdown</h3>
@@ -82,18 +82,18 @@
             </div>
             <div class="col-lg-6 divider-left-border py-2 appear-animation" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="200">
                <!-- <h3 class="text-color-dark text-uppercase font-weight-bold text-center mb-3">Event Countdown</h3>
-                 <div class="countdown countdown-borders countdown-emas" data-plugin-countdown data-plugin-options="{'date': '<?php echo $eventtimer; ?>', 'numberClass': 'font-weight-extra-bold', 'wrapperClass': 'border-color-biru bg-color-biru'}"></div> -->
-                 <div class="text-color-dark ml-3">
-                     <span><b>Oral Presentation:</b><br>Dipresentasikan durasi 10 menit (termasuk tanya jawab)</span><br>
-                     <span><b>Moderated poster:</b><br>E-Poster dipresentasikan dengan durasi 8 menit (termasuk tanya jawab)</span><br>
-                     <span><b>Viewed poster:</b><br>E-Poster tidak dipresentasikan</span>
-                 </div>
-             </div>
-         </div>
-     </div>
- </section>
+                   <div class="countdown countdown-borders countdown-emas" data-plugin-countdown data-plugin-options="{'date': '<?php echo $eventtimer; ?>', 'numberClass': 'font-weight-extra-bold', 'wrapperClass': 'border-color-biru bg-color-biru'}"></div> -->
+                   <div class="text-color-dark ml-3">
+                       <span><b>Oral Presentation:</b><br>Dipresentasikan durasi 10 menit (termasuk tanya jawab)</span><br>
+                       <span><b>Moderated poster:</b><br>E-Poster dipresentasikan dengan durasi 8 menit (termasuk tanya jawab)</span><br>
+                       <span><b>Viewed poster:</b><br>E-Poster tidak dipresentasikan</span>
+                   </div>
+               </div>
+           </div>
+       </div>
+   </section>
 
- <section class="bg-color-light">
+   <section class="bg-color-light">
     <div class="container">
         <div class="row">
             <div class="col-lg-6">
@@ -293,6 +293,56 @@
     </div>
 </section>
 
+<section id="sponsor" class="bg-color-light">
+    <div class="container mt-4 pt-4 pb-4">
+        <div class="row">
+            <div class="col-lg-12">
+                <hr class="d-lg-none tall">
+                <h4>Frequently Asked Question</h4>
+
+                <div class="toggle toggle-minimal toggle-primary" data-plugin-toggle="" data-plugin-options="{ 'isAccordion': true }">
+                    <section class="toggle active">
+                        <label>Bagaimana cara login?</label>
+                        <div class="toggle-content" style="display: block;">
+                            <p>Login menggunakan user email yang telah didaftarkan pada web https://pinperdossi2020.com/  dan password masing-masing</p>
+                        </div>
+                    </section>
+                    <section class="toggle">
+                        <label>Bagaimana kalau saya lupa password saya?</label>
+                        <div class="toggle-content">
+                            <p>Apabila lupa password, silakan mengklik bagian “Lupa Password” pada laman login, dan masukkan email yang terdaftar, kemudian klik Reset. Password baru akan dikirim ke email yang telah diinput ketika proses reset. Atau bisa juga langsung menklik: https://pinperdossi2020.com/site/forget</p>
+                        </div>
+                    </section>
+                    <section class="toggle">
+                        <label>Di mana link acara tersedia?</label>
+                        <div class="toggle-content">
+                            <p>Link acara tersedia di bagian “Webinar Link” di laman Member Area, sebelah kiri laman tsb. Saksikan video Tutorial di https://pinperdossi2020.com/site/readnews/5</p>
+                        </div>
+                    </section>
+                    <section class="toggle">
+                        <label>Bagaimana apabila saya salah input email user saya?</label>
+                        <div class="toggle-content">
+                            <p>Silakan mencari di kotak masuk email anda, dengan kata kunci: admin@pinperdossi2020.com untuk mengetahui notifikasi username anda</p>
+                        </div>
+                    </section>
+                    <section class="toggle">
+                        <label>Saya didaftarkan oleh sponsor, apa yang harus saya lakukan untuk login?</label>
+                        <div class="toggle-content">
+                            <p>Silakan menghubungi sponsor anda langsung untuk informasi akun anda</p>
+                        </div>
+                    </section>
+                    <section class="toggle">
+                        <label>Saya bukan peserta di acara ini, tapi saya pembicara/moderator/juri pada acara ini, bagaimana saya login?</label>
+                        <div class="toggle-content">
+                            <p>Bagi para pembicara, moderator dan juri, akses akun telah kami kirimkan secara autogenerated ke email dokter sekalian. Mohon mengecek inbox/ spam dan mencoba akses di website kami dengan akun tersebut.</p>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- <section id="galeri" class="bg-color-grey pt-4">
     <div class="container pb-4">
         <div class="row pt-2">
@@ -357,9 +407,9 @@
             url: "<?php echo base_url('site/savelikes');?>",
             data: "Video_id="+video_id,
             success: function (response) {
-             $("#like_"+video_id).html(response+" Likes");
+               $("#like_"+video_id).html(response+" Likes");
 
-         }
-     });
+           }
+       });
     }
 </script>
