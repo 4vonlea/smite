@@ -124,6 +124,12 @@ $theme_path = base_url("themes/porto") . "/";
 				width: 100%;
 				/*height: 500px;*/
 			}
+
+			.responsive-video {
+				width: 100%;
+                height: auto;
+			}
+
 		</style>
 	<?= $additional_head; ?>
 

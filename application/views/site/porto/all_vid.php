@@ -58,7 +58,10 @@
                                     </span>
                                 <?php } else { ?>
                                     <div class="contai">
-                                        <iframe class="responsive-iframe" allowfullscreen="true" src="<?= base_url(); ?>themes/uploads/video/<?php echo $key->filename; ?>"></iframe>
+                                        <!-- <iframe class="responsive-iframe" allowfullscreen="true" src="<?= base_url(); ?>themes/uploads/video/<?php echo $key->filename; ?>"></iframe> -->
+                                        <video class="responsive-iframe" controls>
+                                            <source src="<?= base_url(); ?>themes/uploads/video/<?php echo $key->filename; ?>" type="video/mp4">
+                                        </video>
                                     </div>
                                 <?php } ?>
                                 <p>

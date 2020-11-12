@@ -74,7 +74,7 @@
         ?>
         <div class="container">
             <div class="row">
-               <div class="col-lg-6 py-2 appear-animation" data-appear-animation="fadeInRightShorter">
+             <div class="col-lg-6 py-2 appear-animation" data-appear-animation="fadeInRightShorter">
                 <!-- <h3 class="text-color-dark text-uppercase font-weight-bold text-center mb-3">abstract Countdown</h3> -->
                 <!-- <div class="countdown countdown-borders countdown-biru" data-plugin-countdown data-plugin-options="{'date': '<?php echo $papertimer; ?>', 'numberClass': 'font-weight-extra-bold', 'wrapperClass': 'border-color-emas'}"></div> -->
                 <h3 class="text-color-dark text-uppercase font-weight-bold text-center mb-3">Event Countdown</h3>
@@ -82,25 +82,25 @@
             </div>
             <div class="col-lg-6 divider-left-border py-2 appear-animation" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="200">
                <!-- <h3 class="text-color-dark text-uppercase font-weight-bold text-center mb-3">Event Countdown</h3>
-                   <div class="countdown countdown-borders countdown-emas" data-plugin-countdown data-plugin-options="{'date': '<?php echo $eventtimer; ?>', 'numberClass': 'font-weight-extra-bold', 'wrapperClass': 'border-color-biru bg-color-biru'}"></div> -->
-                   <div class="text-color-dark ml-3">
-                       <span><b>Oral Presentation:</b><br>Dipresentasikan durasi 10 menit (termasuk tanya jawab)</span><br>
-                       <span><b>Moderated poster:</b><br>E-Poster dipresentasikan dengan durasi 8 menit (termasuk tanya jawab)</span><br>
-                       <span><b>Viewed poster:</b><br>E-Poster tidak dipresentasikan</span>
-                   </div>
-               </div>
-           </div>
-       </div>
-   </section>
+                 <div class="countdown countdown-borders countdown-emas" data-plugin-countdown data-plugin-options="{'date': '<?php echo $eventtimer; ?>', 'numberClass': 'font-weight-extra-bold', 'wrapperClass': 'border-color-biru bg-color-biru'}"></div> -->
+                 <div class="text-color-dark ml-3">
+                     <span><b>Oral Presentation:</b><br>Dipresentasikan durasi 10 menit (termasuk tanya jawab)</span><br>
+                     <span><b>Moderated poster:</b><br>E-Poster dipresentasikan dengan durasi 8 menit (termasuk tanya jawab)</span><br>
+                     <span><b>Viewed poster:</b><br>E-Poster tidak dipresentasikan</span>
+                 </div>
+             </div>
+         </div>
+     </div>
+ </section>
 
-   <section class="bg-color-light">
+ <section class="bg-color-light">
     <div class="container">
         <div class="row">
             <div class="col-lg-6">
-                <a href="<?= base_url('themes/porto'); ?>/pengumuman/final.pdf" target="_blank" class="btn btn-primary font-weight-semibold text-uppercase text-5 mt-2 mb-3 col-lg-12">Final Announcement</a>
+                <a href="<?= base_url('themes/porto'); ?>/pengumuman/final.pdf" target="_blank" class="btn btn-primary font-weight-semibold text-uppercase text-3 mt-2 mb-3 col-lg-12">Final Announcement</a>
             </div>
             <div class="col-lg-6 divider-left-border">
-                <a href="<?= base_url('themes/porto'); ?>/pengumuman/ketentuan.pdf" target="_blank" class="btn btn-primary font-weight-semibold text-uppercase text-5 mt-2 mb-3 col-lg-12">KETENTUAN E-POSTER & PRESENTASI ORAL</a>
+                <a href="<?= base_url('themes/porto'); ?>/pengumuman/penyajian.pdf" target="_blank" class="btn btn-primary font-weight-semibold text-uppercase text-3 mt-2 mb-3 col-lg-12">Ketentuan Penyajian Presentasi PIN PERDOSSI 2020</a>
             </div>
         </div>
         
@@ -272,25 +272,58 @@
     </div>
 </section>
 
-<section id="vid_promo" class="bg-color-light pt-4 pb-4">
+<section id="vid_promo" class="bg-color-light pt-3 pb-4">
     <div class="container">
         <div class="row">
             <div class="col-md-6 appear-animation" data-appear-animation="fadeIn">
-                <div class="d-flex justify-content-center">
+                <div class="d-flex justify-content-center pb-4 pt-5">
                     <iframe width="600" height="300" allowfullscreen="true" src="https://www.youtube.com/embed/awJsqhB9mwE"></iframe>
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="600">
-                    <img class="mt-2 img-fluid border-radius-0" src="<?= base_url('themes/porto'); ?>/img/lomba.png" alt="">
-                    <div>
-                        <a href="<?= base_url('themes/porto'); ?>/img/syarat.pdf" target="_blank" class="btn btn-info font-weight-semibold text-4 mt-2 col-lg-12">Syarat & Ketentuan</a>
-                        <a href="<?php echo base_url('site/vid') ?>" class="btn btn-primary font-weight-semibold  text-uppercase text-4 mt-2 col-lg-12"><i class="fas fa-vote-yea">  Vote Foto & Video</i></a>
+                <div class="text-center text-uppercase">
+                    <h4>Juri Lomba Foto & Video</h4>
+                </div>
+                <hr>
+                
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="600">
+                            <span class="thumb-info thumb-info-no-borders thumb-info-no-borders-rounded thumb-info-lighten thumb-info-bottom-info thumb-info-centered-icons">
+                                <span class="thumb-info-wrapper">
+                                    <img src="<?= base_url('themes/porto'); ?>/img/yuliardy.jpg" class="img-fluid" alt="">
+                                    <span class="thumb-info-title">
+                                        <span class="thumb-info-inner line-height-1 font-weight-bold text-dark position-relative top-3">dr. Yuliardy Limengka, BMedSc, SpB</span>
+                                    </span>                                                 
+                                    
+                                </span>
+                            </span>
+                        </div>
                     </div>
+                    <div class="col-md-6">
+                        <div class="appear-animation" data-appear-animation="fadeIn" data-appear-animation-delay="600">
+                            <span class="thumb-info thumb-info-no-borders thumb-info-no-borders-rounded thumb-info-lighten thumb-info-bottom-info thumb-info-centered-icons">
+                                <span class="thumb-info-wrapper">
+                                    <img src="<?= base_url('themes/porto'); ?>/img/rara.jpg" class="img-fluid" alt="">
+                                    <span class="thumb-info-title">
+                                        <span class="thumb-info-inner line-height-1 font-weight-bold text-dark position-relative top-3">dr. Twindy Rarasati</span>
+                                    </span>  
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div>
+                    <!-- <a href="<?= base_url('themes/porto'); ?>/img/syarat.pdf" target="_blank" class="btn btn-info font-weight-semibold text-4 mt-2 col-lg-12">Syarat & Ketentuan</a> -->
+                    <a href="<?php echo base_url('site/vid') ?>" class="btn btn-primary font-weight-semibold  text-uppercase text-4 mt-2 col-lg-12"><i class="fas fa-vote-yea">  Vote Foto & Video</i></a>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </section>
 
 <section id="sponsor" class="bg-color-light">
@@ -300,7 +333,7 @@
                 <hr class="d-lg-none tall">
                 <h4>Frequently Asked Question</h4>
 
-                <div class="toggle toggle-minimal toggle-primary" data-plugin-toggle="" data-plugin-options="{ 'isAccordion': true }">
+                <div class="toggle toggle-primary" data-plugin-toggle="" data-plugin-options="{ 'isAccordion': true }">
                     <section class="toggle active">
                         <label>Bagaimana cara login?</label>
                         <div class="toggle-content" style="display: block;">
@@ -343,60 +376,6 @@
     </div>
 </section>
 
-<!-- <section id="galeri" class="bg-color-grey pt-4">
-    <div class="container pb-4">
-        <div class="row pt-2">
-            <div class="col">
-                <h2 class="text-color-dark text-uppercase font-weight-bold text-center mb-1 appear-animation" data-appear-animation="fadeInUp" data-appear-animation-delay = "200">Galeri Foto & Video</h2>
-                <a class="text-weight-bold appear-animation" style="background-color: #080531; color: #dfad26;" href="<?php echo base_url('site/vid') ?>" target="_self" id="a_1dd7_5" data-appear-animation = "fadeInUp" data-appear-animation-delay = "600"><center>Lihat semua foto & video</center></a>
-            </div>
-        </div>
-        <hr>
-        <div class="row">
-            <?php
-            foreach ($query3 as $key):
-                ?>
-                <div class="col-lg-4 text-center text-md-left mb-5 mb-lg-0">
-                    <h6 class="text-color-dark font-weight-normal text-6 line-height-2 appear-animation" data-appear-animation = "fadeInUp" data-appear-animation-delay = "1200"><strong class="font-weight-extra-bold"><?php echo $key->title ?></strong></h6>
-                    <div class="appear-animation" data-appear-animation = "fadeInUp" data-appear-animation-delay = "1200">
-                        <?php if ($key->type == '2') { ?>
-                            <span class="thumb-info thumb-info-lighten border-radius-0">
-                                <span class="thumb-info thumb-info-no-borders thumb-info-no-borders-rounded thumb-info-centered-icons">
-                                    <img src="<?= base_url(); ?>themes/uploads/video/<?php echo $key->filename; ?>" class="img-fluid border-radius-0">
-                                    <span class="thumb-info-action">
-                                        <a href="<?php echo base_url('site/seevideo/'.$key->id) ?>">
-                                            <span class="thumb-info-action-icon thumb-info-action-icon-primary" title=""><i class="fas fa-search"></i></span>
-                                        </a>
-                                    </span>
-                                </span>
-                            </span>
-                        <?php } else { ?>
-                            <div class="contai">
-                                <iframe class="responsive-iframe" allowfullscreen="true" src="<?= base_url(); ?>themes/uploads/video/<?php echo $key->filename; ?>"></iframe>
-                            </div>
-                        <?php } ?>
-                        <p>
-                            <a onclick="javascript:savelike(<?php echo $key->id;?>);">
-                             <i class="far fa-thumbs-up" style="color: #00B297FF"></i> 
-                             <span id="like_<?php echo $key->id;?>">
-                                <?php if($key->likesbantu > 0){echo $key->likesbantu.' Likes';}else{echo 'sukai';} ?>
-                            </span></a>
-                            <span class="float-right">
-                                <a href="<?php echo base_url('site/seevideo/'.$key->id) ?>">
-                                    <?php if($key->komen > 0){echo $key->komen.' Komentar';}else{echo 'Komentar';} ?>
-                                </a>
-                            </span>
-                        </p>
-                    </div>
-                    
-                </div>
-                <?php 
-            endforeach; 
-            ?>
-        </div>
-    </div>
-</section> -->
-
 </div>
 
 <script type="text/javascript">
@@ -407,9 +386,9 @@
             url: "<?php echo base_url('site/savelikes');?>",
             data: "Video_id="+video_id,
             success: function (response) {
-               $("#like_"+video_id).html(response+" Likes");
+             $("#like_"+video_id).html(response+" Likes");
 
-           }
-       });
+         }
+     });
     }
 </script>
