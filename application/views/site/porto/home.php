@@ -15,6 +15,51 @@
         </div>
     </section>
 
+    <section id="counttotal" class="bg-color-light">
+        <div class="container">
+            <div class="featured-boxes featured-boxes-style-3 featured-boxes-flat">
+                        <div class="row">
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="featured-box featured-box-primary featured-box-effect-3" style="height: 200px;">
+                                    <div class="box-content box-content-border-0">
+                                        <i class="icon-featured far fa-user"></i>
+                                        <h4 class="font-weight-normal text-8 mt-2"><strong class="font-weight-extra-bold"></strong>93</h4>
+                                        <p class="mb-0 mt-0 text-3">speaker</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="featured-box featured-box-secondary featured-box-effect-3" style="height: 200px;">
+                                    <div class="box-content box-content-border-0">
+                                        <i class="icon-featured far fa-user"></i>
+                                        <h4 class="font-weight-normal text-8 mt-2"><strong class="font-weight-extra-bold"></strong>36</h4>
+                                        <p class="mb-0 mt-0 text-3">Moderator</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="featured-box featured-box-tertiary featured-box-effect-3" style="height: 200px;">
+                                    <div class="box-content box-content-border-0">
+                                        <i class="icon-featured far fa-user"></i>
+                                        <h4 class="font-weight-normal text-8 mt-2"><strong class="font-weight-extra-bold"></strong><?php echo $participant; ?></h4>
+                                        <p class="mb-0 mt-0 text-3">Participant</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-sm-6">
+                                <div class="featured-box featured-box-quaternary featured-box-effect-3" style="height: 200px;">
+                                    <div class="box-content box-content-border-0">
+                                        <i class="icon-featured far fa-file-alt"></i>
+                                        <h4 class="font-weight-normal text-8 mt-2"><strong class="font-weight-extra-bold">293</strong></h4>
+                                        <p class="mb-0 mt-0 text-3">Abstrak</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        </div>
+    </section>
+
     <section id="timer" class="bg-color-light pt-2 pb-3">
         <?php
         foreach($eventcountdown as $eventcd) 
@@ -29,19 +74,26 @@
         ?>
         <div class="container">
             <div class="row">
-               <div class="col-lg-6 py-2 appear-animation" data-appear-animation="fadeInRightShorter">
-                <h3 class="text-color-dark text-uppercase font-weight-bold text-center mb-3">abstract Countdown</h3>
-                <div class="countdown countdown-borders countdown-biru" data-plugin-countdown data-plugin-options="{'date': '<?php echo $papertimer; ?>', 'numberClass': 'font-weight-extra-bold', 'wrapperClass': 'border-color-emas'}"></div>
+             <div class="col-lg-6 py-2 appear-animation" data-appear-animation="fadeInRightShorter">
+                <!-- <h3 class="text-color-dark text-uppercase font-weight-bold text-center mb-3">abstract Countdown</h3> -->
+                <!-- <div class="countdown countdown-borders countdown-biru" data-plugin-countdown data-plugin-options="{'date': '<?php echo $papertimer; ?>', 'numberClass': 'font-weight-extra-bold', 'wrapperClass': 'border-color-emas'}"></div> -->
+                <h3 class="text-color-dark text-uppercase font-weight-bold text-center mb-3">Event Countdown</h3>
+                <div class="countdown countdown-borders countdown-emas" data-plugin-countdown data-plugin-options="{'date': '<?php echo $eventtimer; ?>', 'numberClass': 'font-weight-extra-bold', 'wrapperClass': 'border-color-biru bg-color-biru'}"></div>
             </div>
             <div class="col-lg-6 divider-left-border py-2 appear-animation" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="200">
-               <h3 class="text-color-dark text-uppercase font-weight-bold text-center mb-3">Event Countdown</h3>
-               <div class="countdown countdown-borders countdown-emas" data-plugin-countdown data-plugin-options="{'date': '<?php echo $eventtimer; ?>', 'numberClass': 'font-weight-extra-bold', 'wrapperClass': 'border-color-biru bg-color-biru'}"></div>
-           </div>
-       </div>
-   </div>
-</section>
+               <!-- <h3 class="text-color-dark text-uppercase font-weight-bold text-center mb-3">Event Countdown</h3>
+                 <div class="countdown countdown-borders countdown-emas" data-plugin-countdown data-plugin-options="{'date': '<?php echo $eventtimer; ?>', 'numberClass': 'font-weight-extra-bold', 'wrapperClass': 'border-color-biru bg-color-biru'}"></div> -->
+                 <div class="text-color-dark ml-3">
+                     <span><b>Oral Presentation:</b><br>Dipresentasikan durasi 10 menit (termasuk tanya jawab)</span><br>
+                     <span><b>Moderated poster:</b><br>E-Poster dipresentasikan dengan durasi 8 menit (termasuk tanya jawab)</span><br>
+                     <span><b>Viewed poster:</b><br>E-Poster tidak dipresentasikan</span>
+                 </div>
+             </div>
+         </div>
+     </div>
+ </section>
 
-<section class="bg-color-light">
+ <section class="bg-color-light">
     <div class="container">
         <div class="row">
             <div class="col-lg-6">
@@ -305,9 +357,9 @@
             url: "<?php echo base_url('site/savelikes');?>",
             data: "Video_id="+video_id,
             success: function (response) {
-               $("#like_"+video_id).html(response+" Likes");
+             $("#like_"+video_id).html(response+" Likes");
 
-           }
-       });
+         }
+     });
     }
 </script>

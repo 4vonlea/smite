@@ -22,7 +22,6 @@
 								<img src="<?= base_url(); ?>themes/uploads/video/<?php echo $key->filename; ?>" class="img-fluid" alt="" />
 
 							<?php } else { ?>
-								
 								<iframe width="500" height="340"
 								src="<?= base_url(); ?>themes/uploads/video/<?php echo $key->filename; ?>">
 							</iframe>

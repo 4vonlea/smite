@@ -161,11 +161,24 @@ $theme_path = base_url("themes/porto") . "/";
 													Beranda
 												</a>
 											</li>
-											<li>
-												<a class="nav-link" href="<?= base_url("site/schedules"); ?>">
-													Jadwal
-												</a>
-											</li>
+											<li class="dropdown">
+														<a class="dropdown-item dropdown-toggle" href="#">
+															Jadwal
+														<i class="fas fa-chevron-down"></i></a>
+														<ul class="dropdown-menu">
+															<li>
+																<a class="dropdown-item" href="<?= base_url("site/schedules"); ?>">
+																	Simposium
+																</a>
+															</li>
+															<li>
+																<a class="dropdown-item" href="<?= base_url("site/oralposter"); ?>">
+																	Presentasi Oral & E-Poster
+																</a>
+															</li>
+														</ul>
+													</li>
+
 											<li class="dropdown dropdown-primary">
 												<a class="dropdown-toggle nav-link"
 												href="<?= base_url("site/committee"); ?>">

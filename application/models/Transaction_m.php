@@ -47,7 +47,7 @@ class Transaction_m extends MY_Model
 		->select("SUM(IF(status_payment = 'waiting',1,0)) as waiting")
 		->select("SUM(IF(status_payment = 'need_verification',1,0)) as need_verify")
 		->select("SUM(IF(status_payment = 'cancel' OR status_payment = 'deny' OR status_payment = 'expired',1,0)) as unfinish")
-			->get()->row_array();
+		->get()->row_array();
 		$data['total_waiting'] = $result['waiting'];
 		$data['total_finish'] = $result['finish'];
 		$data['total_unfinish'] = $result['unfinish'];
@@ -81,9 +81,9 @@ class Transaction_m extends MY_Model
 	}
 	public function detailsWithEvent(){
 		$rs = $this->db->select("t.*,e.id as event_id,e.name as event_name,e.theme, e.held_on,e.held_in,e.theme")
-				->join("event_pricing ep","ep.id = t.event_pricing_id","left")
-				->join("events e","e.id = ep.event_id","left")
-				->where("transaction_id",$this->id)->get("transaction_details t");
+		->join("event_pricing ep","ep.id = t.event_pricing_id","left")
+		->join("events e","e.id = ep.event_id","left")
+		->where("transaction_id",$this->id)->get("transaction_details t");
 		return $rs->result();
 
 	}
@@ -135,13 +135,22 @@ class Transaction_m extends MY_Model
 
 	public function getNotFollowedEvent($member_id){
 		$rs = $this->db->query("SELECT e.name as event_name,ev.* FROM `events` e
-								JOIN members m ON m.id = '$member_id'
-								JOIN kategory_members km ON km.id = m.`status`
-								JOIN event_pricing ev ON ev.event_id = e.id AND ev.`condition` = km.kategory
-								WHERE ev.id NOT IN (
-								SELECT td.event_pricing_id FROM transaction_details td
-								JOIN `transaction` tr ON tr.id = td.transaction_id WHERE tr.member_id = '$member_id'
-								)");
+			JOIN members m ON m.id = '$member_id'
+			JOIN kategory_members km ON km.id = m.`status`
+			JOIN event_pricing ev ON ev.event_id = e.id AND ev.`condition` = km.kategory
+			WHERE ev.id NOT IN (
+			SELECT td.event_pricing_id FROM transaction_details td
+			JOIN `transaction` tr ON tr.id = td.transaction_id WHERE tr.member_id = '$member_id'
+		)");
 		return $rs->result_array();
+	}
+
+	public function count_participant()
+	{
+		$this->db->select('*');
+		$this->db->from('transaction');
+		$this->db->where('status_payment', 'settlement');
+		$result = $this->db->get();
+		return $result->num_rows();
 	}
 }
