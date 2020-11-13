@@ -119,7 +119,7 @@ export default Vue.component("PageWebminar",{
             fail:false,
             events: [],
             ads:{},
-            minuteWait:10,
+            minuteWait:15,
             modalCloseButton:false,
             timer:10,
 		}

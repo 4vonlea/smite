@@ -328,17 +328,24 @@ class Member extends Admin_Controller
 		$model = $this->Member_m->findOne(['id'=>$data['id']]);
 		$account = $model->account;
 		if($model->email != $data['email']){
-			$account->username = $data['email'];
-			$check = $account->toArray();
-			$check['username'] = $data['email'];
-			if($account->validate($check)){
-				$account->save();
-				$data['username_account'] = $data['email'];
+			if($account){
+				$account->username = $data['email'];
+				$check = $account->toArray();
+				$check['username'] = $data['email'];
+				if($account->validate($check)){
+					$account->save();
+					$data['username_account'] = $data['email'];
+				}else{
+					$this->output
+						->set_content_type("application/json")
+						->_display(json_encode(['status'=>false,'message'=>"Username/Email sudah terdaftar"]));
+					exit;
+				}
 			}else{
 				$this->output
-					->set_content_type("application/json")
-					->_display(json_encode(['status'=>false,'message'=>"Username/Email sudah terdaftar"]));
-				exit;
+						->set_content_type("application/json")
+						->_display(json_encode(['status'=>false,'message'=>"Username/Email tidak terdaftar di user account harap cek menu user account"]));
+					exit;
 			}
 		}
 		$model->setAttributes($data);

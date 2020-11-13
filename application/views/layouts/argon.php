@@ -224,7 +224,7 @@ function hideForRole($role, $listRole)
 							<i class="ni ni-camera-compact text-blue"></i> Upload Video
 						</a>
 					</li>
-					<?php if ($role == '1') : ?>
+					<?php if ($role == '1' || $role == '4') : ?>
 						<li class="nav-item">
 							<a class="nav-link" href="<?= base_url('admin/account'); ?>">
 								<i class="ni ni-circle-08 text-blue"></i> User Account

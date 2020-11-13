@@ -89,21 +89,28 @@ class Transaction extends Admin_Controller
 		$status = false;
 		if($trans){
 			$trans->status_payment = $data['status_payment'];
+			if($trans->status_payment != Transaction_m::STATUS_WAITING){
+				$trans->checkout = 1;
+			}else{
+				$trans->checkout = 0;
+			}
 			$trans->getDb()->trans_start();
 			$trans->save();
-			foreach($data['details'] as $dt){
-				if(isset($dt['id'])){
-					$detail = $this->Transaction_detail_m->findOne(['id'=>$dt['id']]);
-					if($dt['isDeleted'] == 1){
-						$detail->delete();
+			if(isset($data['details'])){
+				foreach($data['details'] as $dt){
+					if(isset($dt['id'])){
+						$detail = $this->Transaction_detail_m->findOne(['id'=>$dt['id']]);
+						if($dt['isDeleted'] == 1){
+							$detail->delete();
+						}else{
+							unset($dt['isDeleted']);
+							$detail->setAttributes($dt);
+							$detail->save();
+						}
 					}else{
 						unset($dt['isDeleted']);
-						$detail->setAttributes($dt);
-						$detail->save();
+						$this->Transaction_detail_m->insert($dt);
 					}
-				}else{
-					unset($dt['isDeleted']);
-					$this->Transaction_detail_m->insert($dt);
 				}
 			}
 			$trans->getDb()->trans_complete();
@@ -128,6 +135,7 @@ class Transaction extends Admin_Controller
 		if($detail){
 			$response['model'] = $detail->toArray();
 			$response['model']['member'] = $detail->member->toArray();
+			$response['model']['details'] = [];
 			foreach($detail->details as $row){
 				$temp =  $row->toArray();
 				$temp['isDeleted'] = 0;

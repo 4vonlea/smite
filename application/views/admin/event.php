@@ -119,7 +119,10 @@
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
-                                            <th>Starting Date <br/><small>(WIB GMT+7)</small></th>
+                                            <th>
+                                                Starting Date <br/><small>(WIB GMT+7)</small>
+                                                <button @click="sortingZoomLink" class="btn btn-primary btn-sm" type="button">Sorting Asc</button>
+                                            </th>
                                             <th>Room</th>
                                             <th>URL</th>
                                             <th v-if="!detailMode">Action</th>
@@ -530,6 +533,11 @@ var app = new Vue({
 
     },
     methods: {
+        sortingZoomLink(){
+             this.form.model.special_link.sort((a, b) => {
+                 return new Date(a.date) - new Date(b.date)
+            })
+        },
         addAdvertisement(){
             if(!this.linkData.model.advertisement){
                 this.linkData.model.advertisement = [];
@@ -624,7 +632,6 @@ var app = new Vue({
                     $.each(res.special_link,function(i,v){
                         if(!v.advertisement)
                             v.advertisement = [];
-                        console.log(v);
                         if(!v.speakers)
                             v.speakers = [];
                     });
