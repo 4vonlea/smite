@@ -22,6 +22,7 @@ class Site extends MY_Controller
         $this->load->model('Sponsor_link_m', 'Sponsor_link_m');
         $this->load->model('Settings_m', 'SettingM');
         $this->load->model('Upload_video_m', 'VideoM');
+        $this->load->model('Transaction_m', 'TransactionM');
     }
 
     public function index()
@@ -32,6 +33,9 @@ class Site extends MY_Controller
         $data['query2'] = $news;
         $allvid         = $this->VideoM->listvid_home();
         $data['query3'] = $allvid['data'];
+
+        $countparticipant = $this->TransactionM->count_participant();
+        $data['participant'] = $countparticipant;
         
         $eventcountdown = $this->SettingM->eventcountdown();
         $data['eventcountdown'] = $eventcountdown;
@@ -68,6 +72,11 @@ class Site extends MY_Controller
     public function schedules()
     {
         $this->layout->render('site/'.$this->theme.'/schedules');
+    }
+
+    public function oralposter()
+    {
+        $this->layout->render('site/'.$this->theme.'/oralposter');
     }
 
     public function download()

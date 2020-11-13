@@ -4682,19 +4682,19 @@ html .featured-box-primary .box-content-border-bottom {
 }
 
 html .featured-box-secondary .icon-featured {
-	background-color: #eff3f5;
+	background-color: #0F0EAAFF;
 }
 
 html .featured-box-secondary h4 {
-	color: #eff3f5;
+	color: #0F0EAAFF;
 }
 
 html .featured-box-secondary .box-content {
-	border-top-color: #eff3f5;
+	border-top-color: #0F0EAAFF;
 }
 
 html .featured-box-secondary .box-content-border-bottom {
-	border-bottom-color: #eff3f5;
+	border-bottom-color: #0F0EAAFF;
 }
 
 html .featured-box-tertiary .icon-featured {
@@ -4767,8 +4767,8 @@ html .featured-boxes-style-3 .featured-box.featured-box-primary .icon-featured {
 }
 
 html .featured-boxes-style-3 .featured-box.featured-box-secondary .icon-featured {
-	border-color: #eff3f5;
-	color: #eff3f5;
+	border-color: #0F0EAAFF;
+	color: #0F0EAAFF;
 }
 
 html .featured-boxes-style-3 .featured-box.featured-box-tertiary .icon-featured {
@@ -4951,12 +4951,12 @@ html .featured-box-effect-3.featured-box-primary:hover .icon-featured {
 }
 
 html .featured-box-effect-3.featured-box-secondary .icon-featured:after {
-	-webkit-box-shadow: 0 0 0 10px #eff3f5;
-	box-shadow: 0 0 0 10px #eff3f5;
+	-webkit-box-shadow: 0 0 0 10px #0F0EAAFF;
+	box-shadow: 0 0 0 10px #0F0EAAFF;
 }
 
 html .featured-box-effect-3.featured-box-secondary:hover .icon-featured {
-	background: #eff3f5 !important;
+	background: #0F0EAAFF !important;
 }
 
 html .featured-box-effect-3.featured-box-tertiary .icon-featured:after {
