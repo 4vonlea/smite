@@ -25,18 +25,21 @@ export default Vue.component("Presentation", {
                 :data-manager="dataManager"
                 pagination-path="pagination"
                 @vuetable:pagination-data="onPaginationData">
-					<template slot="poster" slot-scope="props">
-                        <a target="_blank" :href="baseUrl+'member/area/file_presentation/'+props.rowData.poster+'/'+props.rowData.id" class='btn btn-primary'>Lihat
+                    <template slot="poster" slot-scope="props">
+                        <a v-if="isImage(props.rowData.poster)" target="_blank" :href="baseUrl+'file_presentation/'+props.rowData.poster+'/'+props.rowData.id"  class='btn btn-primary magnific'>Lihat
                         </a>
+                        <span v-else>
+                        <a target="_blank" :href="baseUrl+'file_presentation/'+props.rowData.poster+'/'+props.rowData.id"  class='btn btn-primary'>Lihat
+                        </a>
+                        </span>
                     </template>
                 </vuetable>
             </div>
         </div>
     </div>
     `,
-    
 	created() {
-		this.fetchData()
+        this.fetchData();
 	},
     data:function(){
         return {
@@ -62,8 +65,16 @@ export default Vue.component("Presentation", {
         }
     },
     methods: {
+        isImage(data){
+            let extension = data.toLowerCase().split(".");
+            if(extension.length > 0){
+                return ['jpg','jpeg','png','bmp'].includes(extension[1]);
+            }
+            return false;
+        },
         onPaginationData(paginationData) {
             this.$refs.pagination.setPaginationData(paginationData);
+            $("a.magnific").magnificPopup({type:'image'});
         },
         onChangePage(page) {
             this.$refs.vuetable.changePage(page);

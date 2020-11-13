@@ -7,6 +7,7 @@ $client_key = $config['client_key'];
 $userDetail = array_merge($user->toArray(), ['status_member' => $user->status_member->kategory]);
 ?>
 <link href="<?= base_url(); ?>themes/script/chosen/chosen.css" rel="stylesheet">
+<link href="<?= base_url(); ?>themes/script/magnific/magnific.css" rel="stylesheet">
 <style>
     .btn:disabled{
         cursor: not-allowed;
@@ -118,9 +119,10 @@ $userDetail = array_merge($user->toArray(), ['status_member' => $user->status_me
 <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js"></script>
 <script src="<?=base_url("themes/script/chosen/chosen.jquery.min.js");?>"></script>
 <script src="<?=base_url("themes/script/chosen/vue-chosen.js");?>"></script>
+<script src="<?=base_url("themes/script/magnific/magnific.js");?>"></script>
 
 <script type="module">
-    document.addEventListener('contextmenu', event => event.preventDefault());
+   
     Vue.use(Vuetable);
 
     import progressPage from "<?= base_url("themes/script/progressPage.js"); ?>";
@@ -150,6 +152,11 @@ $userDetail = array_merge($user->toArray(), ['status_member' => $user->status_me
         //mode: 'history',
         routes // short for `routes: routes`
     });
+
+    document.addEventListener('contextmenu', event => {
+        if(router.currentRoute.path != "/presentation")
+            event.preventDefault()}
+    );
 
     Vue.mixin({
         data: function () {
