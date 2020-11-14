@@ -100,6 +100,7 @@
                 <a href="<?= base_url('themes/porto'); ?>/pengumuman/final.pdf" target="_blank" class="btn btn-primary font-weight-semibold text-uppercase text-3 mt-2 mb-3 col-lg-12">Final Announcement</a>
             </div>
             <div class="col-lg-6 divider-left-border">
+                <a href="<?= base_url('themes/porto'); ?>/pengumuman/oralposter.pdf" target="_blank" class="btn btn-primary font-weight-semibold text-uppercase text-3 col-lg-12">Jadwal Oral & E-Poster</a>
                 <a href="<?= base_url('themes/porto'); ?>/pengumuman/penyajian.pdf" target="_blank" class="btn btn-primary font-weight-semibold text-uppercase text-3 mt-2 mb-3 col-lg-12">Ketentuan Penyajian Presentasi PIN PERDOSSI 2020</a>
             </div>
         </div>
@@ -171,7 +172,7 @@
 </div>
 </section>
 
-<section id="event" class="bg-color-light pt-1">
+<!-- <section id="event" class="bg-color-light pt-1">
     <div class="container mt-0 pb-4">
         <?php
         $colap = 1;
@@ -239,7 +240,7 @@
         endforeach;
         ?>
     </div>
-</section>
+</section> -->
 
 <section id="news" class="bg-color-grey pt-4">
     <div class="container pb-4">
@@ -337,19 +338,19 @@
                     <section class="toggle active">
                         <label>Bagaimana cara login?</label>
                         <div class="toggle-content" style="display: block;">
-                            <p>Login menggunakan user email yang telah didaftarkan pada web https://pinperdossi2020.com/  dan password masing-masing</p>
+                            <p>Login menggunakan user email yang telah didaftarkan pada web <a href="https://pinperdossi2020.com/">https://pinperdossi2020.com/</a> dan password masing-masing</p>
                         </div>
                     </section>
                     <section class="toggle">
                         <label>Bagaimana kalau saya lupa password saya?</label>
                         <div class="toggle-content">
-                            <p>Apabila lupa password, silakan mengklik bagian “Lupa Password” pada laman login, dan masukkan email yang terdaftar, kemudian klik Reset. Password baru akan dikirim ke email yang telah diinput ketika proses reset. Atau bisa juga langsung menklik: https://pinperdossi2020.com/site/forget</p>
+                            <p>Apabila lupa password, silakan mengklik bagian “Lupa Password” pada laman login, dan masukkan email yang terdaftar, kemudian klik Reset. Password baru akan dikirim ke email yang telah diinput ketika proses reset. Atau bisa juga langsung menklik: <a href="https://pinperdossi2020.com/site/forget">https://pinperdossi2020.com/site/forget</a></p>
                         </div>
                     </section>
                     <section class="toggle">
                         <label>Di mana link acara tersedia?</label>
                         <div class="toggle-content">
-                            <p>Link acara tersedia di bagian “Webinar Link” di laman Member Area, sebelah kiri laman tsb. Saksikan video Tutorial di https://pinperdossi2020.com/site/readnews/5</p>
+                            <p>Link acara tersedia di bagian “Webinar Link” di laman Member Area, sebelah kiri laman tsb. Saksikan video Tutorial di <a href="https://pinperdossi2020.com/site/readnews/5">https://pinperdossi2020.com/site/readnews/5</p>
                         </div>
                     </section>
                     <section class="toggle">

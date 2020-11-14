@@ -127,11 +127,11 @@ $theme_path = base_url("themes/porto") . "/";
 
 			.responsive-video {
 				width: 100%;
-                height: auto;
+				height: auto;
 			}
 
 		</style>
-	<?= $additional_head; ?>
+		<?= $additional_head; ?>
 
 	</head>
 	<body>
@@ -168,81 +168,98 @@ $theme_path = base_url("themes/porto") . "/";
 												</a>
 											</li>
 											<li class="dropdown">
-														<a class="dropdown-item dropdown-toggle" href="#">
-															Jadwal
-														<i class="fas fa-chevron-down"></i></a>
-														<ul class="dropdown-menu">
-															<li>
-																<a class="dropdown-item" href="<?= base_url("site/schedules"); ?>">
-																	Simposium
-																</a>
-															</li>
-															<li>
-																<a class="dropdown-item" href="<?= base_url("site/oralposter"); ?>">
-																	Presentasi Oral & E-Poster
-																</a>
-															</li>
-														</ul>
-													</li>
+												<a class="dropdown-item dropdown-toggle" href="#">
+													Jadwal
+													<i class="fas fa-chevron-down"></i></a>
+													<ul class="dropdown-menu">
+														<li>
+															<a class="dropdown-item" href="<?= base_url("site/schedules"); ?>">
+																Simposium
+															</a>
+														</li>
+														<li>
+															<a class="dropdown-item" href="<?= base_url("site/oralposter"); ?>">
+																Presentasi Oral & E-Poster
+															</a>
+														</li>
+													</ul>
+												</li>
 
-											<li class="dropdown dropdown-primary">
-												<a class="dropdown-toggle nav-link"
-												href="<?= base_url("site/committee"); ?>">
-												Panitia
-											</a>
-										</li>
-										<li>
-											<a class="nav-link" href="#footer">
-												Hubungi kami
-											</a>
-										</li>
-									<?php endif; ?>
-									<?php if ($this->session->has_userdata('user_session')): ?>
-									<li>
-										<a class="nav-link" href="<?= base_url("site/vid"); ?>">
-											Vote foto & video
-										</a>
-									</li>
-									<?php endif;?>
-
-									<li style="border-left: 1px solid #fff" class="dropdown dropdown-primary">
-										<?php if ($this->session->has_userdata('user_session')): ?>
-											<a class="dropdown-toggle nav-link"
-											href="<?= base_url('member/area/#/profile'); ?>/">
-											Area Pengguna
-										</a>
-										<?php else: ?>
-											<a class="dropdown-toggle nav-link"
-											href="#">
-											Area Pengguna &nbsp;<i class="fa fa-chevron-circle-down"></i>
-										</a>
-										<ul class="dropdown-menu">
+												<li class="dropdown dropdown-primary">
+													<a class="dropdown-toggle nav-link"
+													href="<?= base_url("site/committee"); ?>">
+													Panitia
+												</a>
+											</li>
 											<li>
-												<a class="dropdown-item"
-												href="<?= base_url("site/login"); ?>">
-												Login
-											</a>
-										</li>
-										<li>
-											<a class="dropdown-item"
-											href="<?= base_url("member/register"); ?>">
-											Registrasi
-										</a>
-									</li>
-								</ul>
-							<?php endif; ?>
+												<a class="nav-link" href="#footer">
+													Hubungi kami
+												</a>
+											</li>
+										<?php endif; ?>
+										<?php if ($this->session->has_userdata('user_session')): ?>
+											<li class="dropdown">
+												<a class="dropdown-item dropdown-toggle" href="#">
+													Jadwal
+													<i class="fas fa-chevron-down"></i></a>
+													<ul class="dropdown-menu">
+														<li>
+															<a class="dropdown-item" href="<?= base_url("site/schedules"); ?>">
+																Simposium
+															</a>
+														</li>
+														<li>
+															<a class="dropdown-item" href="<?= base_url("site/oralposter"); ?>">
+																Presentasi Oral & E-Poster
+															</a>
+														</li>
+													</ul>
+												</li>
+												<li>
+													<a class="nav-link" href="<?= base_url("site/vid"); ?>">
+														Vote foto & video
+													</a>
+												</li>
+											<?php endif;?>
 
-						</li>
-					</ul>
-				</nav>
+											<li style="border-left: 1px solid #fff" class="dropdown dropdown-primary">
+												<?php if ($this->session->has_userdata('user_session')): ?>
+													<a class="dropdown-toggle nav-link"
+													href="<?= base_url('member/area/#/profile'); ?>/">
+													Area Pengguna
+												</a>
+												<?php else: ?>
+													<a class="dropdown-toggle nav-link"
+													href="#">
+													Area Pengguna &nbsp;<i class="fa fa-chevron-circle-down"></i>
+												</a>
+												<ul class="dropdown-menu">
+													<li>
+														<a class="dropdown-item"
+														href="<?= base_url("site/login"); ?>">
+														Login
+													</a>
+												</li>
+												<li>
+													<a class="dropdown-item"
+													href="<?= base_url("member/register"); ?>">
+													Registrasi
+												</a>
+											</li>
+										</ul>
+									<?php endif; ?>
+
+								</li>
+							</ul>
+						</nav>
+					</div>
+					<button class="btn header-btn-collapse-nav" data-toggle="collapse"
+					data-target=".header-nav-main nav">
+					<i class="fas fa-bars"></i>
+				</button>
 			</div>
-			<button class="btn header-btn-collapse-nav" data-toggle="collapse"
-			data-target=".header-nav-main nav">
-			<i class="fas fa-bars"></i>
-		</button>
+		</div>
 	</div>
-</div>
-</div>
 </div>
 </div>
 </div>
