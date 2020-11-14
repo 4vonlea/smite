@@ -350,7 +350,7 @@
                     <section class="toggle">
                         <label>Di mana link acara tersedia?</label>
                         <div class="toggle-content">
-                            <p>Link acara tersedia di bagian “Webinar Link” di laman Member Area, sebelah kiri laman tsb. Saksikan video Tutorial di <a href="https://pinperdossi2020.com/site/readnews/5">https://pinperdossi2020.com/site/readnews/5</p>
+                            <p>Link acara tersedia di bagian “Webinar Link” di laman Member Area, sebelah kiri laman tsb. Saksikan video Tutorial di <a href="https://pinperdossi2020.com/site/readnews/5">https://pinperdossi2020.com/site/readnews/5</a></p>
                         </div>
                     </section>
                     <section class="toggle">
