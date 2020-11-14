@@ -1,10 +1,10 @@
 <?php
+
 /**
  * @var $pricingDefault
  */
 ?>
-<div class="header bg-info pb-8 pt-5 pt-md-8" xmlns:v-bind="http://www.w3.org/1999/xhtml"
-    xmlns:v-bind="http://www.w3.org/1999/xhtml"></div>
+<div class="header bg-info pb-8 pt-5 pt-md-8" xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml"></div>
 
 <div class="container-fluid mt--7">
     <div v-if="message" class="row">
@@ -28,8 +28,7 @@
                                 <h3 class="mb-0">{{ form.title }}</h3>
                             </div>
                             <div class="col-4 text-right">
-                                <a href="#!" v-on:click="formCancel" class="btn btn-sm btn-default"><i
-                                        class="fa fa-times"></i> </a>
+                                <a href="#!" v-on:click="formCancel" class="btn btn-sm btn-default"><i class="fa fa-times"></i> </a>
                             </div>
                         </div>
                     </div>
@@ -44,17 +43,13 @@
                                     <div class="col-lg-6">
                                         <div class="form-group focused">
                                             <label class="form-control-label" for="input-username">Name</label>
-                                            <input :disabled="detailMode" type="text"
-                                                class="form-control form-control-alternative" v-model="form.model.name"
-                                                placeholder="name">
+                                            <input :disabled="detailMode" type="text" class="form-control form-control-alternative" v-model="form.model.name" placeholder="name">
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label class="form-control-label" for="input-email">Category</label>
-                                            <select :disabled="detailMode" name="kategory"
-                                                class="form-control  form-control-alternative"
-                                                v-model="form.model.kategory">
+                                            <select :disabled="detailMode" name="kategory" class="form-control  form-control-alternative" v-model="form.model.kategory">
                                                 <option value="" hidden selected>Select Event Category</option>
                                                 <option v-for="cat in eventCategory" :value="cat">{{ cat}}</option>
                                             </select>
@@ -65,18 +60,14 @@
                                     <div class="col-lg-6">
                                         <div class="form-group focused">
                                             <label class="form-control-label" for="input-username">Theme</label>
-                                            <input :disabled="detailMode" type="text"
-                                                class="form-control form-control-alternative" v-model="form.model.theme"
-                                                placeholder="Theme">
+                                            <input :disabled="detailMode" type="text" class="form-control form-control-alternative" v-model="form.model.theme" placeholder="Theme">
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group focused">
                                             <label class="form-control-label" for="input-username">Held On
                                                 (Date)</label>
-                                            <input :disabled="detailMode" type="text"
-                                                class="form-control form-control-alternative"
-                                                v-model="form.model.held_on" placeholder="Example 20 August 2019">
+                                            <input :disabled="detailMode" type="text" class="form-control form-control-alternative" v-model="form.model.held_on" placeholder="Example 20 August 2019">
                                         </div>
                                     </div>
                                 </div>
@@ -85,22 +76,17 @@
                                         <div class="form-group focused">
                                             <label class="form-control-label" for="input-username">Held In
                                                 (Place)</label>
-                                            <input :disabled="detailMode" type="text"
-                                                class="form-control form-control-alternative"
-                                                v-model="form.model.held_in" placeholder="Example RSUD Banjarmasin">
+                                            <input :disabled="detailMode" type="text" class="form-control form-control-alternative" v-model="form.model.held_in" placeholder="Example RSUD Banjarmasin">
                                         </div>
                                         <div class="form-group focused">
                                             <label class="form-control-label" for="input-username">Kouta</label>
-                                            <input :disabled="detailMode" type="text"
-                                                class="form-control form-control-alternative" v-model="form.model.kouta"
-                                                placeholder="">
+                                            <input :disabled="detailMode" type="text" class="form-control form-control-alternative" v-model="form.model.kouta" placeholder="">
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="form-group focused">
                                             <label class="form-control-label">Description</label>
-                                            <textarea :disabled="detailMode" v-model="form.model.description" rows="6"
-                                                class="form-control form-control-alternative"></textarea>
+                                            <textarea :disabled="detailMode" v-model="form.model.description" rows="6" class="form-control form-control-alternative"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -109,18 +95,17 @@
                             <!-- Address -->
                             <h6 class="heading-small text-muted mb-4">
                                 Zoom Link
-                                <button v-if="!detailMode" type="button" class="btn btn-primary btn-sm"
-                                    v-on:click="newLink"><i class="fa fa-plus"></i> Add
+                                <button v-if="!detailMode" type="button" class="btn btn-primary btn-sm" v-on:click="newLink"><i class="fa fa-plus"></i> Add
                                     Link
                                 </button>
 
                             </h6>
-                            <div class="pl-lg-4">
+                            <div class="pl-lg-4 table-responsive">
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
                                             <th>
-                                                Starting Date <br/><small>(WIB GMT+7)</small>
+                                                Starting Date <br /><small>(WIB GMT+7)</small>
                                                 <button @click="sortingZoomLink" class="btn btn-primary btn-sm" type="button">Sorting Asc</button>
                                             </th>
                                             <th>Room</th>
@@ -131,7 +116,7 @@
                                     <tbody>
                                         <tr v-for="(link,index) in form.model.special_link" :key="index">
                                             <td>
-                                                {{ link.date | formatDate }} - {{ link.dateEnd | formatDate }} 
+                                                {{ link.date | formatDate }} - {{ link.dateEnd | formatDate }}
                                             </td>
                                             <td>
                                                 {{link.room}}
@@ -140,10 +125,8 @@
                                                 {{link.url}}
                                             </td>
                                             <td v-if="!detailMode">
-                                                <button type="button" v-on:click="removeLink(index)"
-                                                    class="btn btn-danger btn-sm fa fa-trash"></button>
-                                                <button type="button" v-on:click="editLink(index)"
-                                                    class="btn btn-danger btn-sm fa fa-edit"></button>
+                                                <button type="button" v-on:click="removeLink(index)" class="btn btn-danger btn-sm fa fa-trash"></button>
+                                                <button type="button" v-on:click="editLink(index)" class="btn btn-danger btn-sm fa fa-edit"></button>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -154,38 +137,28 @@
                             <!-- Address -->
                             <h6 class="heading-small text-muted mb-4">
                                 Event Pricing
-                                <button v-if="!detailMode" type="button" class="btn btn-primary btn-sm"
-                                    v-on:click="addPricing"><i class="fa fa-plus"></i> Add Price Category
+                                <button v-if="!detailMode" type="button" class="btn btn-primary btn-sm" v-on:click="addPricing"><i class="fa fa-plus"></i> Add Price Category
                                 </button>
 
                             </h6>
                             <div class="pl-lg-4">
                                 <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-                                    <li class="nav-item" v-for="(eventPrice,index) in form.model.event_pricing"
-                                        v-bind:key="'m'+index">
-                                        <a class="nav-link" v-bind:class="[index == 0 ? 'active':'']"
-                                            id="pills-home-tab" data-toggle="pill" v-bind:href="'#pills-'+index"
-                                            role="tab" aria-controls="pills-home" aria-selected="true">
+                                    <li class="nav-item" v-for="(eventPrice,index) in form.model.event_pricing" v-bind:key="'m'+index">
+                                        <a class="nav-link" v-bind:class="[index == 0 ? 'active':'']" id="pills-home-tab" data-toggle="pill" v-bind:href="'#pills-'+index" role="tab" aria-controls="pills-home" aria-selected="true">
                                             {{eventPrice.name}}
                                             <span style="border-left: 1px solid;height: 100%; padding: 0px 5px"></span>
-                                            <button v-if="!detailMode" type="button"
-                                                class="btn btn-danger btn-sm fa fa-trash"
-                                                v-on:click="deletePricing(index,$event)"></button>
+                                            <button v-if="!detailMode" type="button" class="btn btn-danger btn-sm fa fa-trash" v-on:click="deletePricing(index,$event)"></button>
                                         </a>
                                     </li>
                                 </ul>
                                 <div class="tab-content">
-                                    <div v-for="(eventPrice,index) in form.model.event_pricing" class="tab-pane fade"
-                                        v-bind:class="[index == 0 ? 'show active':'']" v-bind:key="'p'+index"
-                                        v-bind:id="'pills-'+index" role="tabpanel">
+                                    <div v-for="(eventPrice,index) in form.model.event_pricing" class="tab-pane fade" v-bind:class="[index == 0 ? 'show active':'']" v-bind:key="'p'+index" v-bind:id="'pills-'+index" role="tabpanel">
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group focused">
                                                     <label class="form-control-label" for="input-address">Pricing
                                                         Name</label>
-                                                    <input :disabled="detailMode" v-model="eventPrice.name"
-                                                        class="form-control form-control-alternative"
-                                                        placeholder="Pricing Name" type="text">
+                                                    <input :disabled="detailMode" v-model="eventPrice.name" class="form-control form-control-alternative" placeholder="Pricing Name" type="text">
                                                 </div>
                                             </div>
                                         </div>
@@ -199,9 +172,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">From</span>
                                                     </div>
-                                                    <vuejs-datepicker :disabled="detailMode" input-class="form-control"
-                                                        wrapper-class="wrapper-datepicker" :value="form.model.date"
-                                                        v-model="eventPrice.dateFrom" name="uniquename">
+                                                    <vuejs-datepicker :disabled="detailMode" input-class="form-control" wrapper-class="wrapper-datepicker" :value="form.model.date" v-model="eventPrice.dateFrom" name="uniquename">
                                                     </vuejs-datepicker>
                                                 </div>
                                             </div>
@@ -210,9 +181,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">To</span>
                                                     </div>
-                                                    <vuejs-datepicker :disabled="detailMode" input-class="form-control"
-                                                        wrapper-class="wrapper-datepicker" v-model="eventPrice.dateTo"
-                                                        :value="form.model.date" name="uniquename"></vuejs-datepicker>
+                                                    <vuejs-datepicker :disabled="detailMode" input-class="form-control" wrapper-class="wrapper-datepicker" v-model="eventPrice.dateTo" :value="form.model.date" name="uniquename"></vuejs-datepicker>
                                                 </div>
                                             </div>
                                         </div>
@@ -228,20 +197,17 @@
                                             <tbody>
                                                 <tr v-for="(cat,index) in eventPrice.price" v-bind:key="index">
                                                     <td>
-                                                        <input type="checkbox" value="1" v-model="cat.show"
-                                                            :disabled="detailMode" />
+                                                        <input type="checkbox" value="1" v-model="cat.show" :disabled="detailMode" />
                                                     </td>
                                                     <td>
-                                                        <input :disabled="detailMode" type="text" readonly
-                                                            v-model="cat.condition" class="form-control" />
+                                                        <input :disabled="detailMode" type="text" readonly v-model="cat.condition" class="form-control" />
                                                     </td>
                                                     <td>
                                                         <div class="input-group input-group-alternative">
                                                             <div class="input-group-prepend">
                                                                 <span class="input-group-text">IDR</span>
                                                             </div>
-                                                            <money :disabled="detailMode" v-model="cat.price"
-                                                                v-bind="money" class="form-control"></money>
+                                                            <money :disabled="detailMode" v-model="cat.price" v-bind="money" class="form-control"></money>
                                                         </div>
                                                     </td>
                                                     <!--												<td>-->
@@ -256,15 +222,11 @@
                             </div>
                         </div>
                         <div class="card-footer text-right">
-                            <button v-if="!detailMode" v-on:click="save" v-bind:disabled="form.saving" type="button"
-                                class="btn btn-primary"><i
-                                    :class="[form.saving? 'fa fa-spin fa-spinner':'fa fa-save']"></i> Save
+                            <button v-if="!detailMode" v-on:click="save" v-bind:disabled="form.saving" type="button" class="btn btn-primary"><i :class="[form.saving? 'fa fa-spin fa-spinner':'fa fa-save']"></i> Save
                             </button>
-                            <button v-if="detailMode" type="button" v-on:click="detailMode = false"
-                                class="btn btn-default"><i class="fa fa-edit"></i> Edit
+                            <button v-if="detailMode" type="button" v-on:click="detailMode = false" class="btn btn-default"><i class="fa fa-edit"></i> Edit
                             </button>
-                            <button type="button" v-on:click="formCancel" class="btn btn-default"><i
-                                    class="fa fa-times"></i> Cancel
+                            <button type="button" v-on:click="formCancel" class="btn btn-default"><i class="fa fa-times"></i> Cancel
                             </button>
                         </div>
                     </form>
@@ -282,15 +244,13 @@
                             <div class="col-6 text-right">
                                 <button @click="onAdd" type="button" class="btn btn-primary"><i class="fa fa-plus"></i>
                                     Add Event</button>
-                                <button type="button" class="btn btn-primary" data-toggle="modal"
-                                    data-target="#modal-event-category"><i class="fa fa-book"></i> Event Categories
+                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-event-category"><i class="fa fa-book"></i> Event Categories
                                     List</button>
                             </div>
                         </div>
                     </div>
                     <div class="table-responsive">
-                        <datagrid ref="datagrid" api-url="<?= base_url('admin/event/grid'); ?>"
-                            :fields="[{name:'name',sortField:'name'}, {name:'kategory',sortField:'kategory','title':'Category'},{name:'id',title:'Actions',titleClass:'action-th'}]">
+                        <datagrid ref="datagrid" api-url="<?= base_url('admin/event/grid'); ?>" :fields="[{name:'name',sortField:'name'}, {name:'kategory',sortField:'kategory','title':'Category'},{name:'id',title:'Actions',titleClass:'action-th'}]">
                             <template slot="id" slot-scope="props">
                                 <div class="table-button-container">
                                     <button @click="editRow(props)" class="btn btn-warning btn-sm">
@@ -327,11 +287,11 @@
                 <div class="modal-body form-vertical">
                     <div class="form-group">
                         <label>Starting Date</label>
-                        <vue-ctk-date-time-picker :no-label="true" format="YYYY-MM-DD HH:mm" formatted="DD MMMM YYYY HH:mm" v-model="linkData.model.date" ></vue-ctk-date-time-picker>
+                        <vue-ctk-date-time-picker :no-label="true" format="YYYY-MM-DD HH:mm" formatted="DD MMMM YYYY HH:mm" v-model="linkData.model.date"></vue-ctk-date-time-picker>
                     </div>
                     <div class="form-group">
                         <label>End Date</label>
-                        <vue-ctk-date-time-picker :no-label="true" format="YYYY-MM-DD HH:mm" formatted="DD MMMM YYYY HH:mm" v-model="linkData.model.dateEnd" ></vue-ctk-date-time-picker>
+                        <vue-ctk-date-time-picker :no-label="true" format="YYYY-MM-DD HH:mm" formatted="DD MMMM YYYY HH:mm" v-model="linkData.model.dateEnd"></vue-ctk-date-time-picker>
                     </div>
                     <div class="form-group">
                         <label>Room</label>
@@ -341,7 +301,7 @@
                         <label>Zoom/Recording URL</label>
                         <input v-model="linkData.model.url" type="text" class="form-control" />
                     </div>
-                    <hr/>
+                    <hr />
                     <div class="form-group">
                         <label>Advertisement</label>
                         <table class="table table-bordered">
@@ -362,7 +322,7 @@
                                     </select>
                                 </td>
                                 <td>
-                                    <input type="text" v-model="ads.url" class="form-control"/>
+                                    <input type="text" v-model="ads.url" class="form-control" />
                                 </td>
                                 <td>
                                     <button type="button" v-on:click="linkData.model.advertisement.splice(index,1)" class="btn btn-sm btn-danger">
@@ -372,12 +332,12 @@
                             </tr>
                         </table>
                     </div>
-                    <hr/>
+                    <hr />
                     <div class="form-group">
                         <label>Speakers</label>
                         <table class="table table-bordered">
                             <tr>
-                                <th>Image <br/><small>*Max 200 KB</small></th>
+                                <th>Image <br /><small>*Max 200 KB</small></th>
                                 <th>Name</th>
                                 <th>Topic</th>
                                 <th>
@@ -388,17 +348,17 @@
                             </tr>
                             <tr v-for="(sp,index) in linkData.model.speakers" :key="index">
                                 <td>
-                                    <img v-if="sp.image" :src="sp.image" class="img" style="width:150px"  /><br/>
-                                    <input type="file" accept="image/*" v-on:change="speakerImageChange($event,index);"/>
+                                    <img v-if="sp.image" :src="sp.image" class="img" style="width:150px" /><br />
+                                    <input type="file" accept="image/*" v-on:change="speakerImageChange($event,index);" />
                                 </td>
                                 <td>
-                                    <input type="text" v-model="sp.name" class="form-control"/>
+                                    <input type="text" v-model="sp.name" class="form-control" />
                                 </td>
                                 <td>
-                                    <input type="text" v-model="sp.topic" class="form-control"/>
+                                    <input type="text" v-model="sp.topic" class="form-control" />
                                 </td>
                                 <td>
-                                    <button type="button"  v-on:click="linkData.model.speakers.splice(index,1)" class="btn btn-sm btn-danger">
+                                    <button type="button" v-on:click="linkData.model.speakers.splice(index,1)" class="btn btn-sm btn-danger">
                                         <i class="fa fa-trash"></i>
                                     </button>
                                 </td>
@@ -431,20 +391,16 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <div class="input-group">
-                            <input v-model="new_event_category" type="text" class="form-control"
-                                @keyup.enter="addEventCategory" placeholder="New Event Category" />
+                            <input v-model="new_event_category" type="text" class="form-control" @keyup.enter="addEventCategory" placeholder="New Event Category" />
                             <div class="input-group-append">
-                                <button type="button" class="btn btn-primary" @click="addEventCategory"><i
-                                        class="fa fa-plus"></i> </button>
+                                <button type="button" class="btn btn-primary" @click="addEventCategory"><i class="fa fa-plus"></i> </button>
                             </div>
                         </div>
                     </div>
                     <ul class="list-group">
-                        <li v-for="(cat,index) in eventCategory"
-                            class="list-group-item d-flex justify-content-between align-items-center">
+                        <li v-for="(cat,index) in eventCategory" class="list-group-item d-flex justify-content-between align-items-center">
                             {{ cat }}
-                            <button @click="removeEventCategory(index)" class="btn badge badge-primary badge-pill"><i
-                                    class="fa fa-times"></i></button>
+                            <button @click="removeEventCategory(index)" class="btn badge badge-primary badge-pill"><i class="fa fa-times"></i></button>
                         </li>
                     </ul>
                 </div>
@@ -460,315 +416,336 @@
 </div>
 <!-- Table -->
 
-<?php $this->layout->begin_head();?>
+<?php $this->layout->begin_head(); ?>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/vue-ctk-date-time-picker@2.5.0/dist/vue-ctk-date-time-picker.css">
-<?php $this->layout->end_head();?>
+<?php $this->layout->end_head(); ?>
 
 <?php $this->layout->begin_script(); ?>
 <script src="<?= base_url("themes/script/v-money.js"); ?>"></script>
 <script src="<?= base_url("themes/script/vuejs-datepicker.min.js"); ?>"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue-ctk-date-time-picker@2.5.0/dist/vue-ctk-date-time-picker.umd.js" charset="utf-8"></script>
 <script>
-var tempCategory = <?= Settings_m::eventCategory(); ?>;
-function model() {
-    return {
-        kategory: "",
-        special_link: [],
-        event_pricing: [{
-            name: "-",
-            condition_date: "",
-            price: <?= json_encode($pricingDefault); ?>
-        }]
-    }
-}
+    var tempCategory = <?= Settings_m::eventCategory(); ?>;
 
-function postCategory(cat) {
-    return $.post('<?=base_url('admin/setting/save/'.Settings_m::EVENT_CATEGORY);?>', {
-            value: cat
-        });
-}
-
-function formatDate(date) {
-    if (typeof date != 'undefined' && date != "")
-        date = moment(date);
-
-    if (date)
-        return date.format('Y-MM-DD');
-    return "";
-}
-
-Vue.component('vue-ctk-date-time-picker', window['vue-ctk-date-time-picker']);
-Vue.filter('formatDate', function(value) {
-  if (value) {
-    return moment(value).format('DD MMMM YYYY HH:mm')
-  }
-});
-var app = new Vue({
-    el: '#app',
-    components: {
-        vuejsDatepicker,
-    },
-    data: {
-        new_event_category: '',
-        message: '',
-        error: null,
-        detailMode: false,
-        money: {
-            decimal: ',',
-            thousands: '.',
-            precision: 0,
-            masked: false
-        },
-        linkData: {
-            model:{speakers:[],advertisement:[],finishWatch:0},
-            isNew:true,
-        },
-        eventCategory: <?= Settings_m::eventCategory(); ?> ,
-        form : {
-            show: false,
-            title: "",
-            saving: false,
-            model: model()
-        },
-
-    },
-    methods: {
-        sortingZoomLink(){
-             this.form.model.special_link.sort((a, b) => {
-                 return new Date(a.date) - new Date(b.date)
-            })
-        },
-        addAdvertisement(){
-            if(!this.linkData.model.advertisement){
-                this.linkData.model.advertisement = [];
-            }
-            this.linkData.model.advertisement.push({type:'link',url:'',watch:0});
-        },
-        addPricing: function() {
-            this.form.model.event_pricing.push({
+    function model() {
+        return {
+            kategory: "",
+            special_link: [],
+            event_pricing: [{
                 name: "-",
                 condition_date: "",
                 price: <?= json_encode($pricingDefault); ?>
-            });
+            }]
+        }
+    }
+
+    function postCategory(cat) {
+        return $.post('<?= base_url('admin/setting/save/' . Settings_m::EVENT_CATEGORY); ?>', {
+            value: cat
+        });
+    }
+
+    function formatDate(date) {
+        if (typeof date != 'undefined' && date != "")
+            date = moment(date);
+
+        if (date)
+            return date.format('Y-MM-DD');
+        return "";
+    }
+
+    Vue.component('vue-ctk-date-time-picker', window['vue-ctk-date-time-picker']);
+    Vue.filter('formatDate', function(value) {
+        if (value) {
+            return moment(value).format('DD MMMM YYYY HH:mm')
+        }
+    });
+    var app = new Vue({
+        el: '#app',
+        components: {
+            vuejsDatepicker,
         },
-        speakerImageChange(evt,ind){
-            if(evt.target.files.length > 0 ){
-                let size = evt.target.files[0].size/1024;
-                if(size > 200){
-                    Swal.fire('Warning',"Maximum Filesize is 200 KB !", 'warning');
-                    evt.target.value = "";
-                }else{
-                    var file = evt.target.files[0];
-                    var reader = new FileReader();
-                    reader.onloadend = function() {
-                        app.linkData.model.speakers[ind].image = reader.result;
+        data: {
+            new_event_category: '',
+            message: '',
+            error: null,
+            detailMode: false,
+            money: {
+                decimal: ',',
+                thousands: '.',
+                precision: 0,
+                masked: false
+            },
+            linkData: {
+                model: {
+                    speakers: [],
+                    advertisement: [],
+                    finishWatch: 0
+                },
+                isNew: true,
+            },
+            eventCategory: <?= Settings_m::eventCategory(); ?>,
+            form: {
+                show: false,
+                title: "",
+                saving: false,
+                model: model()
+            },
+
+        },
+        methods: {
+            sortingZoomLink() {
+                this.form.model.special_link.sort((a, b) => {
+                    return new Date(a.date) - new Date(b.date)
+                })
+            },
+            addAdvertisement() {
+                if (!this.linkData.model.advertisement) {
+                    this.linkData.model.advertisement = [];
+                }
+                this.linkData.model.advertisement.push({
+                    type: 'link',
+                    url: '',
+                    watch: 0
+                });
+            },
+            addPricing: function() {
+                this.form.model.event_pricing.push({
+                    name: "-",
+                    condition_date: "",
+                    price: <?= json_encode($pricingDefault); ?>
+                });
+            },
+            speakerImageChange(evt, ind) {
+                if (evt.target.files.length > 0) {
+                    let size = evt.target.files[0].size / 1024;
+                    if (size > 200) {
+                        Swal.fire('Warning', "Maximum Filesize is 200 KB !", 'warning');
+                        evt.target.value = "";
+                    } else {
+                        var file = evt.target.files[0];
+                        var reader = new FileReader();
+                        reader.onloadend = function() {
+                            app.linkData.model.speakers[ind].image = reader.result;
+                        }
+                        reader.readAsDataURL(file);
                     }
-                    reader.readAsDataURL(file);
                 }
-            }
-        },
-        newLink: function(){
-            this.linkData.model = {speakers:[],advertisement:[],finishWatch:0};
-            this.linkData.isNew = true;
-            $("#modal-add-link").modal("show");        
-        },
-        editLink: function(ind){
-            this.linkData.model = this.form.model.special_link[ind];
-            this.linkData.isNew = false;
-            $("#modal-add-link").modal("show");        
-        },
-        addLink: function() {
-            if(this.linkData.isNew){
-                this.form.model.special_link.push(this.linkData.model);
-            }
-            $("#modal-add-link").modal("hide");
-        },
-        detailLink: function(ind){
+            },
+            newLink: function() {
+                this.linkData.model = {
+                    speakers: [],
+                    advertisement: [],
+                    finishWatch: 0
+                };
+                this.linkData.isNew = true;
+                $("#modal-add-link").modal("show");
+            },
+            editLink: function(ind) {
+                this.linkData.model = this.form.model.special_link[ind];
+                this.linkData.isNew = false;
+                $("#modal-add-link").modal("show");
+            },
+            addLink: function() {
+                if (this.linkData.isNew) {
+                    this.form.model.special_link.push(this.linkData.model);
+                }
+                $("#modal-add-link").modal("hide");
+            },
+            detailLink: function(ind) {
 
-        },
-        removeLink: function(ind) {
-            this.form.model.special_link.splice(ind, 1);
-        },
-        onAdd: function() {
-            this.form.title = "Add Event";
-            this.form.show = true;
-            this.form.model = model();
-            this.error = null;
-            this.detailMode = false;
-        },
-        detailRow: function(row) {
-            this.form.title = "Detail Event";
-            app.$refs.datagrid.loading = true;
-            var url = "<?=base_url('admin/event/detail');?>";
-            $.post(url, {
-                    id: row.row.id
-                }, null, 'JSON')
-                .done(function(res) {
-                    app.form.show = true;
-                    app.form.model = res;
-                    app.detailMode = true;
-                }).fail(function(xhr) {
-                    var message = xhr.getResponseHeader("Message");
-                    if (!message)
-                        message = 'Server fail to response !';
-                    Swal.fire('Fail', message, 'error');
-                }).always(function() {
-                    app.$refs.datagrid.loading = false;
+            },
+            removeLink: function(ind) {
+                this.form.model.special_link.splice(ind, 1);
+            },
+            onAdd: function() {
+                this.form.title = "Add Event";
+                this.form.show = true;
+                this.form.model = model();
+                this.error = null;
+                this.detailMode = false;
+            },
+            detailRow: function(row) {
+                this.form.title = "Detail Event";
+                app.$refs.datagrid.loading = true;
+                var url = "<?= base_url('admin/event/detail'); ?>";
+                $.post(url, {
+                        id: row.row.id
+                    }, null, 'JSON')
+                    .done(function(res) {
 
-                });
-            this.error = null;
-        },
-        editRow: function(row) {
-            this.detailMode = false;
-            this.form.title = "Edit Event";
-            app.$refs.datagrid.loading = true;
-            var url = "<?=base_url('admin/event/detail');?>";
-            $.post(url, {
-                    id: row.row.id
-                }, null, 'JSON')
-                .done(function(res) {
-                    app.form.show = true;
-                    
-                    $.each(res.special_link,function(i,v){
-                        if(!v.advertisement)
-                            v.advertisement = [];
-                        if(!v.speakers)
-                            v.speakers = [];
+                        app.form.show = true;
+                        app.form.model = res;
+                        app.detailMode = true;
+                    }).fail(function(xhr) {
+                        var message = xhr.getResponseHeader("Message");
+                        if (!message)
+                            message = 'Server fail to response !';
+                        Swal.fire('Fail', message, 'error');
+                    }).always(function() {
+                        app.$refs.datagrid.loading = false;
+
                     });
-                    app.form.model = res;
-                }).fail(function(xhr) {
-                    var message = xhr.getResponseHeader("Message");
-                    if (!message)
-                        message = 'Server fail to response !';
-                    Swal.fire('Fail', message, 'error');
-                }).always(function() {
-                    app.$refs.datagrid.loading = false;
-
-                });
-            this.error = null;
-        },
-        deleteRow: function(row) {
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.value) {
-                    var url = "<?=base_url('admin/event/delete');?>";
-                    $.post(url, row.row, null)
-                        .done(function() {
-                            app.$refs.datagrid.refresh();
-                        }).fail(function(xhr) {
-                            var message = xhr.getResponseHeader("Message");
-                            if (!message)
-                                message = 'Server fail to response !';
-                            Swal.fire('Fail', message, 'error');
-                        });
-                }
-            });
-
-        },
-        formCancel: function() {
-            this.form.show = false;
-        },
-        addEventCategory: function() {
-            if (this.new_event_category != "") {
-                tempCategory.push(this.new_event_category);
-                postCategory(tempCategory).done(function() {
-                    app.eventCategory.push(app.new_event_category);
-                    app.new_event_category = "";
-                }).fail(function(xhr) {
-                    tempCategory.pop();
-                    var message = xhr.getResponseHeader("Message");
-                    if (!message)
-                        message = 'Server fail to response !';
-                    Swal.fire('Fail', message, 'error');
-                });
-            }
-        },
-        deletePricing(index, ev) {
-            var page = app;
-            var item = page.form.model.event_pricing[index];
-            Swal.fire({
-                title: "Are you sure ?",
-                text: `You will delete "${item.name}" From Pricing`,
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.value) {
-                    if (item.price.filter(e => e.id).length > 0) {
-                        var url = "<?=base_url('admin/event/delete_pricing');?>";
-                        ev.target.innerHTML = "<i class='fa fa-spin fa-spinner'></i>";
-                        ev.target.setAttribute("disabled", true);
-                        $.post(url, item, null, 'JSON')
-                            .done(function(res) {
-                                if (res.status) {
-                                    page.form.model.event_pricing.splice(index, 1);
-                                } else {
-                                    Swal.fire("Failed", res.message, "error");
+                this.error = null;
+            },
+            editRow: function(row) {
+                this.detailMode = false;
+                this.form.title = "Edit Event";
+                app.$refs.datagrid.loading = true;
+                var url = "<?= base_url('admin/event/detail'); ?>";
+                $.post(url, {
+                        id: row.row.id
+                    }, null, 'JSON')
+                    .done(function(res) {
+                        app.form.show = true;
+                        $.each(res.special_link, function(i, v) {
+                            if (!v.advertisement)
+                                v.advertisement = [];
+                            if (!v.speakers)
+                                v.speakers = [];
+                            $.ajax({
+                                url: `<?= base_url('/themes/uploads/speaker'); ?>/${row.row.id}${i}.json`,
+                                cache: false,
+                                type: 'get',
+                                success: function(speakers) {
+                                    v.speakers = speakers;
                                 }
+                            });
+                        });
+                        app.form.model = res;
+                    }).fail(function(xhr) {
+                        var message = xhr.getResponseHeader("Message");
+                        if (!message)
+                            message = 'Server fail to response !';
+                        Swal.fire('Fail', message, 'error');
+                    }).always(function() {
+                        app.$refs.datagrid.loading = false;
+
+                    });
+                this.error = null;
+            },
+            deleteRow: function(row) {
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.value) {
+                        var url = "<?= base_url('admin/event/delete'); ?>";
+                        $.post(url, row.row, null)
+                            .done(function() {
+                                app.$refs.datagrid.refresh();
                             }).fail(function(xhr) {
                                 var message = xhr.getResponseHeader("Message");
                                 if (!message)
                                     message = 'Server fail to response !';
                                 Swal.fire('Fail', message, 'error');
-                            }).always(function() {
-                                ev.target.innerHTML = "";
-                                ev.target.removeAttribute("disabled");
                             });
-                    } else {
-                        page.form.model.event_pricing.splice(index, 1);
                     }
-
-                }
-            });
-        },
-        removePricing(id, index) {
-            console.log(id);
-        },
-        removeEventCategory: function(index) {
-            var value = tempCategory[index];
-            tempCategory.splice(index, 1);
-            postCategory(tempCategory).done(function() {
-                app.eventCategory.splice(index, 1);
-            }).fail(function(xhr) {
-                tempCategory.push(value);
-                var message = xhr.getResponseHeader("Message");
-                if (!message)
-                    message = 'Server fail to response !';
-                Swal.fire('Fail', message, 'error');
-            });
-        },
-        save: function() {
-            this.error = null;
-            this.form.saving = true;
-            this.form.model.event_pricing.forEach(function(i, v) {
-                if (i.dateFrom || i.dateTo)
-                    app.form.model.event_pricing[v].condition_date = formatDate(i.dateFrom) + ":" +
-                    formatDate(i.dateTo);
-            })
-            $.post("<?=base_url('admin/event/save');?>", this.form.model, null, 'JSON')
-                .done(function(res, text, xhr) {
-                    app.message = res.msg;
-                    app.form.show = false;
-                }).fail(function(xhr) {
-                    app.error = xhr.responseJSON;
-                    var message = xhr.getResponseHeader("Message");
-                    if (message) {
-                        Swal.fire('Fail', message, 'error');
-                    }
-                }).always(function() {
-                    app.form.saving = false;
                 });
+
+            },
+            formCancel: function() {
+                this.form.show = false;
+            },
+            addEventCategory: function() {
+                if (this.new_event_category != "") {
+                    tempCategory.push(this.new_event_category);
+                    postCategory(tempCategory).done(function() {
+                        app.eventCategory.push(app.new_event_category);
+                        app.new_event_category = "";
+                    }).fail(function(xhr) {
+                        tempCategory.pop();
+                        var message = xhr.getResponseHeader("Message");
+                        if (!message)
+                            message = 'Server fail to response !';
+                        Swal.fire('Fail', message, 'error');
+                    });
+                }
+            },
+            deletePricing(index, ev) {
+                var page = app;
+                var item = page.form.model.event_pricing[index];
+                Swal.fire({
+                    title: "Are you sure ?",
+                    text: `You will delete "${item.name}" From Pricing`,
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.value) {
+                        if (item.price.filter(e => e.id).length > 0) {
+                            var url = "<?= base_url('admin/event/delete_pricing'); ?>";
+                            ev.target.innerHTML = "<i class='fa fa-spin fa-spinner'></i>";
+                            ev.target.setAttribute("disabled", true);
+                            $.post(url, item, null, 'JSON')
+                                .done(function(res) {
+                                    if (res.status) {
+                                        page.form.model.event_pricing.splice(index, 1);
+                                    } else {
+                                        Swal.fire("Failed", res.message, "error");
+                                    }
+                                }).fail(function(xhr) {
+                                    var message = xhr.getResponseHeader("Message");
+                                    if (!message)
+                                        message = 'Server fail to response !';
+                                    Swal.fire('Fail', message, 'error');
+                                }).always(function() {
+                                    ev.target.innerHTML = "";
+                                    ev.target.removeAttribute("disabled");
+                                });
+                        } else {
+                            page.form.model.event_pricing.splice(index, 1);
+                        }
+
+                    }
+                });
+            },
+            removePricing(id, index) {
+                console.log(id);
+            },
+            removeEventCategory: function(index) {
+                var value = tempCategory[index];
+                tempCategory.splice(index, 1);
+                postCategory(tempCategory).done(function() {
+                    app.eventCategory.splice(index, 1);
+                }).fail(function(xhr) {
+                    tempCategory.push(value);
+                    var message = xhr.getResponseHeader("Message");
+                    if (!message)
+                        message = 'Server fail to response !';
+                    Swal.fire('Fail', message, 'error');
+                });
+            },
+            save: function() {
+                this.error = null;
+                this.form.saving = true;
+                this.form.model.event_pricing.forEach(function(i, v) {
+                    if (i.dateFrom || i.dateTo)
+                        app.form.model.event_pricing[v].condition_date = formatDate(i.dateFrom) + ":" +
+                        formatDate(i.dateTo);
+                })
+                $.post("<?= base_url('admin/event/save'); ?>", this.form.model, null, 'JSON')
+                    .done(function(res, text, xhr) {
+                        app.message = res.msg;
+                        app.form.show = false;
+                    }).fail(function(xhr) {
+                        app.error = xhr.responseJSON;
+                        var message = xhr.getResponseHeader("Message");
+                        if (message) {
+                            Swal.fire('Fail', message, 'error');
+                        }
+                    }).always(function() {
+                        app.form.saving = false;
+                    });
+            }
         }
-    }
-});
+    });
 </script>
 <?php $this->layout->end_script(); ?>

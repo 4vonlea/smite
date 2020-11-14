@@ -425,8 +425,11 @@ $this->layout->begin_head();
                         app.pooling.processed++;
                         var percent = (app.pooling.processed/app.pooling.size)*100;
                         app.pooling.style = {"width": percent+"%"};
-                        if(app.pooling.data.length > 0)
-							proses(url,app.pooling.data.pop());
+                        if(app.pooling.data.length > 0){
+							setTimeout(function(){
+								proses(url,app.pooling.data.pop());
+							},2000);
+						}
                     });
                 };
 

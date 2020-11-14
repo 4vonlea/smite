@@ -120,6 +120,7 @@ $userDetail = array_merge($user->toArray(), ['status_member' => $user->status_me
 <script src="<?=base_url("themes/script/chosen/chosen.jquery.min.js");?>"></script>
 <script src="<?=base_url("themes/script/chosen/vue-chosen.js");?>"></script>
 <script src="<?=base_url("themes/script/magnific/magnific.js");?>"></script>
+<script src="<?=base_url("themes/script/moment-tz.js");?>"></script>
 
 <script type="module">
    

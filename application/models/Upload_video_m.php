@@ -28,13 +28,12 @@ class Upload_video_m extends MY_Model
  public function gridConfig($option = array())
  {
   return [
-     'select'=>['id'=>'t.id',"filename","uploader","type","title","description","like_count"=>'COUNT(likes.id)','comment'=>'count(comments.id)'],
+     'select'=>['id'=>'t.id',"filename","uploader","type","title","description","like_count"=>'jumlah_like','comment'=>'jumlah_komen'],
      'relationships' => [
-        'likes' => ['video_like', 'video_id = t.id','left'],
-        'comments' => ['video_komen', 't.id = comments.video_id','left']
+        'likes' => ['(SELECT video_id,COUNT(id) as jumlah_like FROM video_like GROUP BY video_id)', 'video_id = t.id','left'],
+        'comments' => ['(SELECT video_id,COUNT(id) as jumlah_komen FROM video_komen GROUP BY video_id)', 't.id = comments.video_id','left']
     ],
     'disable_search_field'=>['like_count','comment'],
-    'group_by'=>'t.id',
 ];
 }
 

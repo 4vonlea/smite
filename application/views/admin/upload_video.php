@@ -135,7 +135,7 @@
 	</transition>
 	<div class="modal" id="modal-detail" tabindex="-1" role="dialog">
 		<div class="modal-dialog modal-lg" role="document">
-			<div class="modal-content">
+			<div class="modal-content table-responsive">
 				<div class="modal-header">
 					<h5 class="modal-title">Detail</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -151,10 +151,9 @@
 					</tr>
 					<tr>
 						<td colspan="2">
-							<video v-if="detail.type == 1" style="width:100%" controls>
-								<source :src="'<?= base_url('themes/uploads/video'); ?>/'+detail.filename" />
+							<video v-if="detail.type == 1" style="width: 100%;" :src="'<?= base_url('themes/uploads/video'); ?>/'+detail.filename" controls>
 							</video>
-							<img v-if="detail.type == 2" style="width:100%" :src="'<?= base_url('themes/uploads/video'); ?>/'+detail.filename" />
+							<img v-if="detail.type == 2"  :src="'<?= base_url('themes/uploads/video'); ?>/'+detail.filename" />
 						</td>
 					</tr>
 					<tr>
@@ -166,7 +165,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td colspan="2">
+						<td colspan="2" style="white-space: pre-line;">
 							<p class="text-center">Comments</p>
 							<div v-for="com in detail.comments" class="list-group">
 								<div class="list-group-item list-group-item-action flex-column align-items-start">
