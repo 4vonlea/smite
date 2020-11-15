@@ -63,7 +63,7 @@
 				<div class="card card-block">
 					<div class="card-body">
 						<h5 class="card-title text-center">{{ chart.title }}</h5>
-						<line-chart height="300px" :chart-data="chart.data"></line-chart>
+						<line-chart :chart-data="chart.data"></line-chart>
 					</div>
 				</div>
 			</div>
@@ -246,6 +246,14 @@
 					display: false,
 					text: ''
 				},
+				scaleShowValues: true,
+				scales: {
+					xAxes: [{
+					ticks: {
+						autoSkip: false
+					}
+					}]
+				}
 			})
 		}
 

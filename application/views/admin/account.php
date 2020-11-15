@@ -79,7 +79,7 @@
 								<div class="col-lg-5">
 									<select name="role" v-model="form.model.role" class="form-control"  :class="{'is-invalid':form.validation.role}">
 										<option disabled value="">Select Role</option>
-										<option v-for="(name,index) in listRole" :hidden="name == '<?=User_account_m::$listRole[User_account_m::ROLE_MEMBER];?>'" :disabled="name == '<?=User_account_m::$listRole[User_account_m::ROLE_MEMBER];?>'" :value="index">{{ name }}</option>
+										<option v-for="(name,index) in listRole" :value="index">{{ name }}</option>
 									</select>
 									<div v-if="form.validation.role" class="invalid-feedback">
 										{{ form.validation.role }}

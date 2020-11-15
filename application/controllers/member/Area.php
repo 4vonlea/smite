@@ -110,6 +110,7 @@ class Area extends MY_Controller
 
 	public function get_events()
 	{
+		ini_set('memory_limit', '2048M');
 		if ($this->input->method() !== 'post')
 			show_404("Page not found !");
 		$this->load->model("Event_m");

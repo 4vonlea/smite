@@ -96,7 +96,19 @@ class Event extends Admin_Controller
                 }
 
                 $event->setAttributes($eventData);
-                $event->special_link = ($this->input->post("special_link") ? json_encode($event->special_link):"[]");
+                $special_link = [];
+                if($this->input->post("special_link")){
+                    $special_link = $_POST['special_link'];
+                    foreach($special_link as $i=>$row ){
+                        if(isset($row['speakers'])){
+                            file_put_contents(APPPATH."../themes/uploads/speaker/".$event->id.$i.".json",json_encode($row['speakers']));
+                            unset($special_link[$i]['speakers']);
+                        }else{
+                            unlink(APPPATH."../themes/uploads/speaker/".$event->id.$i.".json");
+                        }
+                    }
+                }
+                $event->special_link = ($special_link ? json_encode($special_link):"[]");
                 $event->save(false);
 //                $this->Event_m->insert($event, false);
                 if(!$event_id)

@@ -9,14 +9,14 @@ export default Vue.component("PageWebminar",{
                         <p class="mb-0">Silakan hadiri acara yang Anda ikuti melalui link di bawah ini</p>
                     </div>
                 </div>
-                <div class="row">
-                    <p>
+                <div class="row table-responsive">
+                    <p class="font-weight-bold h5">
                         *Tombol gabung tidak dapat diklik hingga 5 menit sebelum waktu mulai
                         dan tidak dapat diklik kecuali Anda telah menonton sponsor
                         <br/>
-                        *WIB (GMT +7)
+                        *<span class="badge badge-success h4" style="font-size:14px">{{ jam }}</span> WIB (GMT +7) 
                     </p>
-                    <p>Bila simposium telah memenuhi kuota, mohon untuk pindah ke simposium yang lain</p>
+                    <p class="font-weight-bold h5">Bila simposium telah memenuhi kuota, mohon untuk pindah ke simposium yang lain</p>
                     <table class="table table-bordered">
                         <tbody v-if="events.length == 0">
                             <tr>
@@ -51,9 +51,9 @@ export default Vue.component("PageWebminar",{
                                             </tr>
                                         </thead>
                                         <template v-for="(link,indSpl) in d.items">
-                                            <tr>
+                                            <tr :class="{'bg-danger':link.showingClass == 'badge badge-danger'}">
                                                 <td>
-                                                <span style="font-size:14px" :class="currentClass(link)">{{ link.date | formatDate }}</span>
+                                                <span style="font-size:14px" :class="link.showingClass">{{ link.date | formatDate }}{{ link.dateEnd | formatHour }}</span>
                                                 </td>
                                                 <td>
                                                     {{ link.room }}
@@ -61,8 +61,10 @@ export default Vue.component("PageWebminar",{
                                                         Show Speaker <i class="fa fa-caret-right"></i>
                                                     </button>
                                                 </td>
-                                                <td :rowspan="2" class="">
-                                                    <button :disabled="(link.finishWatch == '0' && link.advertisement) || link.url == '#' || more5Minutes(link.date) " v-on:click="join(link.url)" class="btn btn-primary btn-block">Gabung Sekarang</button>
+                                                <td :rowspan="2" class="" style="white-space: nowrap;">
+                                                    <button :disabled="(link.finishWatch == '0' && link.advertisement) || link.url == '#' || link.timeReady " v-on:click="join(link.url)" class="btn btn-primary btn-block">
+                                                    {{ link.showingClass == 'badge badge-success' ? 'Live Now' : 'Gabung Sekarang' }}
+                                                    </button>
                                                     <button v-for="(ads,index) in link.advertisement" class="btn btn-block" :class="[ads.watch == '1' ? 'btn-primary':'btn-default']" v-on:click="showAds(index,link,indSpl)">
                                                         Lihat Sponsor {{ index+1}}
                                                     </button>
@@ -122,27 +124,46 @@ export default Vue.component("PageWebminar",{
             minuteWait:15,
             modalCloseButton:false,
             timer:10,
+            jam:'',
 		}
     },
     filters:{
         formatDate:function(val){
             return moment(val).format("DD MMMM YYYY [At] HH:mm");
-        }
+        },
+        formatHour:function(val){
+            if(val)
+                return " s.d. "+moment(val).format("HH:mm");
+            return ""
+        },
+
     },
     created() {
-		this.fetchEvents()
+        this.fetchEvents();
+        let app = this;
+        setInterval(function(){
+            app.jam = moment().tz('Asia/Jakarta').format("DD MMMM YYYY [At] HH:mm:ss");
+            $.each(app.events,function(i,event){
+                $.each(event.special_link,function(i,v){
+                    v.timeReady = app.more5Minutes(v.date); 
+                    v.showingClass = app.currentClass(v);
+                })
+            });
+        }, 1000)
 	},
 	watch: {
 		'$route': 'fetchEvents'
     },
     methods:{
         currentClass(link){
-            if(typeof link.dateEnd != "undefined"){
-                console.log(moment().isBetween(link.date,link.dateEnd),link.date,link.dateEnd);
-                if(moment().isBetween(link.date,link.dateEnd))
+            if(link.dateEnd){
+                let date = moment.tz(link.date,'Asia/Jakarta');
+                let dateEnd = moment.tz(link.dateEnd,'Asia/Jakarta');
+                if(moment().tz('Asia/Jakarta').isBetween(date,dateEnd))
                     return "badge badge-success";
-                else if(moment().isSameOrAfter(link.dateEnd))
+                else if(moment().tz('Asia/Jakarta').isSameOrAfter(dateEnd)){
                     return "badge badge-danger";
+                }
             }
             return "";
         },
@@ -163,7 +184,10 @@ export default Vue.component("PageWebminar",{
             return listDate;
         },
         more5Minutes(date){
-            return moment(date).unix() - moment().unix() > 60*this.minuteWait
+            // var duration = moment.duration(moment.tz(date,'Asia/Jakarta').diff(moment().tz('Asia/Jakarta')));
+            // console.log(duration.asSeconds(),duration.asSeconds() >  60*this.minuteWait,60*this.minuteWait);
+            // console.log(moment.tz(date,'Asia/Jakarta').unix() - moment().tz('Asia/Jakarta').unix());
+            return moment.tz(date,'Asia/Jakarta').unix() - moment().tz('Asia/Jakarta').unix() > 60*this.minuteWait
         },
         toggle(evt){
             if(evt.currentTarget.dataset.status == 'hide'){
@@ -216,6 +240,14 @@ export default Vue.component("PageWebminar",{
                     let eventsFollowed = [];
 					$.each(res.events,function(i,event){
                         if(event.followed){
+                            $.each(event.special_link,function(i,v){
+                                v.speakers = [];
+                                v.timeReady = page.more5Minutes(v.date); 
+                                v.showingClass = page.currentClass(v);
+                                $.get(page.appUrl+`/themes/uploads/speaker/${event.id}${i}.json`,function(res){
+                                    v.speakers = res;
+                                });
+                            })
                             eventsFollowed.push(event);
                         }
                     });

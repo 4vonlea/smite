@@ -45,6 +45,8 @@ application/uploads/nametag_template/*
 application/uploads/tmp/*
 !application/uploads/tmp/index.html
 
+themes/uploads/speaker/*
+
 
 application/uploads/material/*
 !application/uploads/material/index.html
