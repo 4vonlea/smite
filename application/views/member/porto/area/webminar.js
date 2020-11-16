@@ -53,7 +53,7 @@ export default Vue.component("PageWebminar",{
                                         <template v-for="(link,indSpl) in d.items">
                                             <tr :class="{'bg-danger':link.showingClass == 'badge badge-danger'}">
                                                 <td>
-                                                <span style="font-size:14px" :class="link.showingClass">{{ link.date | formatDate }}{{ link.dateEnd | formatHour }}</span>
+                                                <span style="font-size:14px" class="badge" :class="link.showingClass">{{ link.date | formatDate }}{{ link.dateEnd | formatHour }}</span>
                                                 </td>
                                                 <td>
                                                     {{ link.room }}
