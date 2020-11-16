@@ -104,6 +104,7 @@
                                 <table class="table table-bordered">
                                     <thead>
                                         <tr>
+                                            <th>No</th>
                                             <th>
                                                 Starting Date <br /><small>(WIB GMT+7)</small>
                                                 <button @click="sortingZoomLink" class="btn btn-primary btn-sm" type="button">Sorting Asc</button>
@@ -115,6 +116,7 @@
                                     </thead>
                                     <tbody>
                                         <tr v-for="(link,index) in form.model.special_link" :key="index">
+                                            <td>{{ index+1 }}</td>
                                             <td>
                                                 {{ link.date | formatDate }} - {{ link.dateEnd | formatDate }}
                                             </td>
@@ -126,12 +128,13 @@
                                             </td>
                                             <td v-if="!detailMode">
                                                 <button type="button" v-on:click="removeLink(index)" class="btn btn-danger btn-sm fa fa-trash"></button>
-                                                <button type="button" v-on:click="editLink(index)" class="btn btn-danger btn-sm fa fa-edit"></button>
+                                                <button :disabled="link.loadSpeaker == '1'" type="button" v-on:click="editLink(index)" class="btn btn-danger btn-sm fa fa-edit">
+                                                    <i v-if="link.loadSpeaker == '1'" class="fa fa-spin fa-spinner"></i>
+                                                </button>
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
-
                             </div>
                             <hr class="my-4">
                             <!-- Address -->
@@ -298,8 +301,12 @@
                         <input v-model="linkData.model.room" type="text" class="form-control" />
                     </div>
                     <div class="form-group">
-                        <label>Zoom/Recording URL</label>
+                        <label>Zoom URL</label>
                         <input v-model="linkData.model.url" type="text" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label>Recording URL dari Google Drive</label>
+                        <input v-model="linkData.model.urlRecording" type="text" class="form-control" />
                     </div>
                     <hr />
                     <div class="form-group">
@@ -491,7 +498,7 @@
                 saving: false,
                 model: model()
             },
-
+            loadedSpeaker: 0,
         },
         methods: {
             sortingZoomLink() {
@@ -598,20 +605,31 @@
                     }, null, 'JSON')
                     .done(function(res) {
                         app.form.show = true;
-                        $.each(res.special_link, function(i, v) {
-                            if (!v.advertisement)
-                                v.advertisement = [];
-                            if (!v.speakers)
-                                v.speakers = [];
-                            $.ajax({
-                                url: `<?= base_url('/themes/uploads/speaker'); ?>/${row.row.id}${i}.json`,
-                                cache: false,
-                                type: 'get',
-                                success: function(speakers) {
-                                    v.speakers = speakers;
-                                }
+                        if (res.special_link.length > 0) {
+                            app.form.saving = true;
+                            app.loadedSpeaker = 0;
+                            $.each(res.special_link, function(i, v) {
+                                if (!v.advertisement)
+                                    v.advertisement = [];
+                                if (!v.speakers)
+                                    v.speakers = [];
+                                v.loadSpeaker = '1';
+                                $.ajax({
+                                    url: `<?= base_url('/themes/uploads/speaker'); ?>/${row.row.id}${i}.json`,
+                                    cache: false,
+                                    type: 'get',
+                                    success: function(speakers) {
+                                        v.speakers = speakers;
+                                    }
+                                }).always(function() {
+                                    v.loadSpeaker = '0';
+                                    app.loadedSpeaker++;
+                                    if (app.loadedSpeaker >= res.special_link.length) {
+                                        app.form.saving = false;
+                                    }
+                                });
                             });
-                        });
+                        }
                         app.form.model = res;
                     }).fail(function(xhr) {
                         var message = xhr.getResponseHeader("Message");
@@ -620,7 +638,6 @@
                         Swal.fire('Fail', message, 'error');
                     }).always(function() {
                         app.$refs.datagrid.loading = false;
-
                     });
                 this.error = null;
             },

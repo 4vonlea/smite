@@ -338,14 +338,17 @@ class Member extends Admin_Controller
 				}else{
 					$this->output
 						->set_content_type("application/json")
-						->_display(json_encode(['status'=>false,'message'=>"Username/Email sudah terdaftar"]));
+						->_display(json_encode(['status'=>false,'message'=>"Username/Email sudah dipakai oleh member lain"]));
 					exit;
 				}
 			}else{
-				$this->output
-						->set_content_type("application/json")
-						->_display(json_encode(['status'=>false,'message'=>"Username/Email tidak terdaftar di user account harap cek menu user account"]));
-					exit;
+				$token = uniqid();
+				$this->User_account_m->insert([
+					'username' => $data['email'],
+					'password' => password_hash("1q2w3e4r", PASSWORD_DEFAULT),
+					'role' => 0,
+					'token_reset' => "verifyemail_" . $token
+				], false);
 			}
 		}
 		$model->setAttributes($data);

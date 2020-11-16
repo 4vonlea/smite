@@ -101,18 +101,26 @@ class Event extends Admin_Controller
                     $special_link = $_POST['special_link'];
                     foreach($special_link as $i=>$row ){
                         if(isset($row['speakers'])){
-                            file_put_contents(APPPATH."../themes/uploads/speaker/".$event->id.$i.".json",json_encode($row['speakers']));
                             unset($special_link[$i]['speakers']);
-                        }else{
-                            unlink(APPPATH."../themes/uploads/speaker/".$event->id.$i.".json");
                         }
                     }
                 }
                 $event->special_link = ($special_link ? json_encode($special_link):"[]");
                 $event->save(false);
 //                $this->Event_m->insert($event, false);
-                if(!$event_id)
+                if(!$event_id){
                     $event_id = $this->Event_m->getLastInsertID();
+                    if($this->input->post("special_link")){
+                        foreach($_POST['special_link'] as $i=>$row ){
+                            if(isset($row['speakers'])){
+                                file_put_contents(APPPATH."../themes/uploads/speaker/".$event_id.$i.".json",json_encode($row['speakers']));
+                            }else{
+                                if(file_exists(APPPATH."../themes/uploads/speaker/".$event_id.$i.".json"))
+                                    rename(APPPATH."../themes/uploads/speaker/".$event_id.$i.".json",APPPATH."../themes/uploads/speaker/".$event->id.$i."_del.json");
+                            }
+                        }
+                    }
+                }
 
                 $pricing = $this->Event_pricing_m->parseForm($data, $event_id);
                 foreach($pricing as $row){

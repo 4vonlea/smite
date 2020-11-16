@@ -140,7 +140,7 @@ class Transaction_m extends MY_Model
 			JOIN event_pricing ev ON ev.event_id = e.id AND ev.`condition` = km.kategory
 			WHERE ev.id NOT IN (
 			SELECT td.event_pricing_id FROM transaction_details td
-			JOIN `transaction` tr ON tr.id = td.transaction_id WHERE tr.member_id = '$member_id'
+			JOIN `transaction` tr ON tr.id = td.transaction_id WHERE tr.member_id = '$member_id' AND tr.status_payment != 'expire'
 		)");
 		return $rs->result_array();
 	}
