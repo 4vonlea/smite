@@ -60,7 +60,7 @@
         </div>
     </section>
 
-    <section id="timer" class="bg-color-light pt-2 pb-3">
+    <section id="timer" class="bg-color-grey pt-2 pb-3">
         <?php
         foreach($eventcountdown as $eventcd) 
         {
@@ -77,23 +77,29 @@
              <div class="col-lg-6 py-2 appear-animation" data-appear-animation="fadeInRightShorter">
                 <!-- <h3 class="text-color-dark text-uppercase font-weight-bold text-center mb-3">abstract Countdown</h3> -->
                 <!-- <div class="countdown countdown-borders countdown-biru" data-plugin-countdown data-plugin-options="{'date': '<?php echo $papertimer; ?>', 'numberClass': 'font-weight-extra-bold', 'wrapperClass': 'border-color-emas'}"></div> -->
-                <h3 class="text-color-dark text-uppercase font-weight-bold text-center mb-3">Event Countdown</h3>
-                <div class="countdown countdown-borders countdown-emas" data-plugin-countdown data-plugin-options="{'date': '<?php echo $eventtimer; ?>', 'numberClass': 'font-weight-extra-bold', 'wrapperClass': 'border-color-biru bg-color-biru'}"></div>
+                <!-- <h3 class="text-color-dark text-uppercase font-weight-bold text-center mb-3">Event Countdown</h3> -->
+                <!-- <div class="countdown countdown-borders countdown-emas" data-plugin-countdown data-plugin-options="{'date': '<?php echo $eventtimer; ?>', 'numberClass': 'font-weight-extra-bold', 'wrapperClass': 'border-color-biru bg-color-biru'}"></div> -->
+                <div class="d-flex justify-content-center pb-4">
+                    <iframe width="600" height="270" allowfullscreen="true" src="https://www.youtube.com/embed/awJsqhB9mwE"></iframe>
+                </div>
             </div>
             <div class="col-lg-6 divider-left-border py-2 appear-animation" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="200">
                <!-- <h3 class="text-color-dark text-uppercase font-weight-bold text-center mb-3">Event Countdown</h3>
                  <div class="countdown countdown-borders countdown-emas" data-plugin-countdown data-plugin-options="{'date': '<?php echo $eventtimer; ?>', 'numberClass': 'font-weight-extra-bold', 'wrapperClass': 'border-color-biru bg-color-biru'}"></div> -->
-                 <div class="text-color-dark ml-3">
+                 <div class="text-color-dark ml-3 pb-3">
                      <span><b>Oral Presentation:</b><br>Dipresentasikan durasi 10 menit (termasuk tanya jawab)</span><br>
                      <span><b>Moderated poster:</b><br>E-Poster dipresentasikan dengan durasi 8 menit (termasuk tanya jawab)</span><br>
                      <span><b>Viewed poster:</b><br>E-Poster tidak dipresentasikan</span>
-                 </div>
+                </div>
+                     <a href="<?= base_url('themes/porto'); ?>/pengumuman/oralposter.pdf" target="_blank" class="btn btn-primary font-weight-semibold text-uppercase text-3 col-lg-12">Jadwal Oral & E-Poster</a>
+                <a href="<?= base_url('themes/porto'); ?>/pengumuman/penyajian.pdf" target="_blank" class="btn btn-primary font-weight-semibold text-uppercase text-3 mt-2 mb-3 col-lg-12">Ketentuan Penyajian Presentasi PIN PERDOSSI 2020</a>
+                 
              </div>
          </div>
      </div>
  </section>
 
- <section class="bg-color-light">
+ <!-- <section class="bg-color-light">
     <div class="container">
         <div class="row">
             <div class="col-lg-6">
@@ -106,9 +112,9 @@
         </div>
         
     </div>
-</section>
+</section> -->
 
-<section id="login" class="bg-color-grey">
+<section id="login" class="bg-color-light">
     <div class="container pb-4">
         <div class="row">
             <div class="col-lg-6 appear-animation" data-appear-animation="fadeInRightShorter">
@@ -277,12 +283,14 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6 appear-animation" data-appear-animation="fadeIn">
-                <div class="d-flex justify-content-center pb-4 pt-5">
+                <!-- <div class="d-flex justify-content-center pb-4 pt-5">
                     <iframe width="600" height="300" allowfullscreen="true" src="https://www.youtube.com/embed/awJsqhB9mwE"></iframe>
-                </div>
+                </div> -->
+                <img src="<?= base_url('themes/porto'); ?>/img/fotolomba.png" class="img-fluid mt-5" alt="">
             </div>
             <div class="col-md-6">
-                <div class="text-center text-uppercase">
+                <hr>
+                <div class="text-center text-uppercase mt-2">
                     <h4>Juri Lomba Foto & Video</h4>
                 </div>
                 <hr>
