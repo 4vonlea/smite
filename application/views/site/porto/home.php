@@ -79,9 +79,10 @@
                 <!-- <div class="countdown countdown-borders countdown-biru" data-plugin-countdown data-plugin-options="{'date': '<?php echo $papertimer; ?>', 'numberClass': 'font-weight-extra-bold', 'wrapperClass': 'border-color-emas'}"></div> -->
                 <!-- <h3 class="text-color-dark text-uppercase font-weight-bold text-center mb-3">Event Countdown</h3> -->
                 <!-- <div class="countdown countdown-borders countdown-emas" data-plugin-countdown data-plugin-options="{'date': '<?php echo $eventtimer; ?>', 'numberClass': 'font-weight-extra-bold', 'wrapperClass': 'border-color-biru bg-color-biru'}"></div> -->
-                <div class="d-flex justify-content-center pb-4">
+                <div class="d-flex justify-content-center pb-1">
                     <iframe width="600" height="270" allowfullscreen="true" src="https://www.youtube.com/embed/awJsqhB9mwE"></iframe>
                 </div>
+                    <a href="<?= base_url('themes/porto'); ?>/pengumuman/simpo.pdf" target="_blank" class="btn btn-primary font-weight-semibold text-uppercase text-3 mt-2 mb-3 col-lg-12">Jadwal Acara (perubahan)</a>
             </div>
             <div class="col-lg-6 divider-left-border py-2 appear-animation" data-appear-animation="fadeInRightShorter" data-appear-animation-delay="200">
                <!-- <h3 class="text-color-dark text-uppercase font-weight-bold text-center mb-3">Event Countdown</h3>
