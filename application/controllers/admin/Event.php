@@ -110,14 +110,14 @@ class Event extends Admin_Controller
 //                $this->Event_m->insert($event, false);
                 if(!$event_id){
                     $event_id = $this->Event_m->getLastInsertID();
-                    if($this->input->post("special_link")){
-                        foreach($_POST['special_link'] as $i=>$row ){
-                            if(isset($row['speakers'])){
-                                file_put_contents(APPPATH."../themes/uploads/speaker/".$event_id.$i.".json",json_encode($row['speakers']));
-                            }else{
-                                if(file_exists(APPPATH."../themes/uploads/speaker/".$event_id.$i.".json"))
-                                    rename(APPPATH."../themes/uploads/speaker/".$event_id.$i.".json",APPPATH."../themes/uploads/speaker/".$event->id.$i."_del.json");
-                            }
+                }
+                if($this->input->post("special_link")){
+                    foreach($_POST['special_link'] as $i=>$row ){
+                        if(isset($row['speakers'])){
+                            file_put_contents(APPPATH."../themes/uploads/speaker/".$event_id.$i.".json",json_encode($row['speakers']));
+                        }else{
+                            if(file_exists(APPPATH."../themes/uploads/speaker/".$event_id.$i.".json"))
+                                rename(APPPATH."../themes/uploads/speaker/".$event_id.$i.".json",APPPATH."../themes/uploads/speaker/".$event->id.$i."_del.json");
                         }
                     }
                 }

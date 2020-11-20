@@ -131,6 +131,10 @@ $this->layout->begin_head();
 						</select>
 					</div>
 					<div class="form-group">
+						<label class="form-check-label">Alternatif Status (Optional)</label>
+						<input type="text" class="form-control" v-model="profile.alternatif_status"/>
+					</div>
+					<div class="form-group">
 						<label class="form-check-label">Fullname</label>
 						<input type="text" class="form-control" v-model="profile.fullname"/>
 					</div>
@@ -189,6 +193,10 @@ $this->layout->begin_head();
 						<td rowspan="3">
 							<img class="img img-thumbnail" :src="profile.imageLink" style="max-height: 200px"/>
 						</td>
+					</tr>
+					<tr>
+						<th>Alternatif Status</th>
+						<td colspan="2">{{ profile.alternatif_status }}</td>
 					</tr>
 					<tr>
 						<th>Full Name</th>
@@ -270,7 +278,7 @@ $this->layout->begin_head();
 				<div class="card-footer text-right">
 					<button @click="saveChecklist" class="btn btn-default" :disabled="savingCheck">
 						<i v-if="savingCheck" class="fa fa-spin fa-spinner"></i>
-						Save
+						Save Check
 					</button>
 					<button @click="profileMode=0" class="btn btn-default">Close</button>
 				</div>
