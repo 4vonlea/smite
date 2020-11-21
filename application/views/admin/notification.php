@@ -428,7 +428,7 @@ $this->layout->begin_head();
                         if(app.pooling.data.length > 0){
 							setTimeout(function(){
 								proses(url,app.pooling.data.pop());
-							},2000);
+							},2*1000);
 						}
                     });
                 };

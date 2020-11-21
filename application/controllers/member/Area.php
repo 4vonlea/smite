@@ -45,13 +45,13 @@ class Area extends MY_Controller
 	{
 		$this->load->model(["Event_m", "Member_m"]);
 		$member = $this->input->post();
-		if (file_exists(APPPATH . "uploads/cert_template/$event_id.txt")) {
+		if (file_exists(APPPATH . "uploads/cert_template/$event_id.txt") && time() >= strtotime('2020-11-22 23:00')) {
 			$member = Member_m::findOne(['username_account' => $this->session->user_session['username']])
 				->toArray();
 			$member['status_member'] = "Peserta";
 			$this->Event_m->exportCertificate($member, $event_id)->stream("certificate.pdf", array("Attachment" => false));
 		} else {
-			show_error("The certificate is not yet available, please come again later", 400, "Not Yet Available");
+			show_error("Sertifikat belum tersedia. Sertifikat dapat didownload setelah acara selesai", 400, "Not Yet Available");
 		}
 	}
 
