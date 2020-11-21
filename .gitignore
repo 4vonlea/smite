@@ -46,6 +46,9 @@ application/uploads/tmp/*
 !application/uploads/tmp/index.html
 
 themes/uploads/speaker/*
+themes/uploads/abstract_all.zip
+themes/uploads/fullpaper_all.zip
+themes/uploads/presentation_all.zip
 
 
 application/uploads/material/*

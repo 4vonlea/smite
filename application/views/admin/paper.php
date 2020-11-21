@@ -163,6 +163,16 @@ $this->layout->end_head();
 						<h3>Papers</h3>
 					</div>
 					<div class="col-md-6 col-sm-12 text-right">
+						<div class="dropdown">
+							<button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Download All File
+							</button>
+							<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+								<a class="dropdown-item" href="<?=base_url('admin/paper/download_all_files/abstract');?>">Abstract</a>
+								<a class="dropdown-item" href="<?=base_url('admin/paper/download_all_files/fullpaper');?>">Fullpaper</a>
+								<a class="dropdown-item" href="<?=base_url('admin/paper/download_all_files/presentation');?>">Presentation</a>
+							</div>
+						</div>
 						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-setting"><i class="fa fa-book"></i> Setting Due Date & Cut Off
 						</button>
 					</div>
