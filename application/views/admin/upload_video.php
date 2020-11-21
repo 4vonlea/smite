@@ -108,12 +108,16 @@
 								<h3>Upload Video</h3>
 							</div>
 							<div class="col-6 text-right">
+								<a href="<?=base_url('admin/upload_video/download_report');?>" class="btn btn-primary">Download as Excel</a>
 								<button @click="onAdd" type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Add Video/Image</button>
 							</div>
 						</div>
 					</div>
 					<div class="table-responsive">
-						<datagrid ref="datagrid" api-url="<?= base_url('admin/upload_video/grid'); ?>" :fields="[{name:'title',sortField:'title'}, {name:'uploader',sortField:'uploader','title':'Contestant'},{name:'like_count',sortField:'like_count',title:'Like Count'},{name:'comment',sortField:'comment',title:'Comment Count'},{name:'id',sortField:'id','title':'Actions'}]">
+						<datagrid ref="datagrid" api-url="<?= base_url('admin/upload_video/grid'); ?>" :fields="[{name:'title',sortField:'title'},{name:'type',sortField:'type'}, {name:'uploader',sortField:'uploader','title':'Contestant'},{name:'like_count',sortField:'like_count',title:'Like Count'},{name:'comment',sortField:'comment',title:'Comment Count'},{name:'id',sortField:'id','title':'Actions'}]">
+							<template slot="type" slot-scope="props">
+								{{ listType[props.row.type]}}
+							</template>
 							<template slot="id" slot-scope="props">
 								<div class="table-button-container">
 									<button @click="edit(props)" class="btn btn-info btn-sm">
@@ -151,7 +155,7 @@
 					</tr>
 					<tr>
 						<td colspan="2">
-							<video v-if="detail.type == 1" style="width: 100%;" :src="'<?= base_url('themes/uploads/video'); ?>/'+detail.filename" controls>
+							<video v-if="detail.type == 1" width="100%" style="width: 100%;" :src="'<?= base_url('themes/uploads/video'); ?>/'+detail.filename" controls>
 							</video>
 							<img v-if="detail.type == 2"  :src="'<?= base_url('themes/uploads/video'); ?>/'+detail.filename" />
 						</td>

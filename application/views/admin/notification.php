@@ -428,13 +428,13 @@ $this->layout->begin_head();
                         if(app.pooling.data.length > 0){
 							setTimeout(function(){
 								proses(url,app.pooling.data.pop());
-							},2*1000);
+							},20*1000);
 						}
                     });
                 };
 
                 if(app.pooling.data.length > 0) {
-                    var worker = (app.pooling.data.length > 3) ? 3:app.pooling.data.length;
+                    var worker = (app.pooling.data.length > 3) ? 1:app.pooling.data.length;
                     app.pooling.style = {"width": "0%"};
                     for(i=0;i<worker;i++) {
                         proses(this.pooling.url, app.pooling.data.pop());

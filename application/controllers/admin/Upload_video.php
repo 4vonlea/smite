@@ -59,6 +59,20 @@ class Upload_video extends Admin_Controller
 			->_display(json_encode($return));
 	}
 
+	public function download_report(){
+		$this->load->library('Exporter');
+		$exporter = new Exporter();
+
+		$this->load->model('Upload_video_m');
+
+		$data = $this->Upload_video_m->downloadReport();
+
+		$exporter->setData($data);
+		$exporter->setTitle("Report Upload Video dan Gambar");
+		$exporter->setFilename("Report Upload Video dan Gambar");
+		$exporter->asExcel();
+
+	}
 
 	public function grid()
 	{
