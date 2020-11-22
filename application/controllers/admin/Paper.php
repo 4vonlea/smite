@@ -207,7 +207,8 @@ class Paper extends Admin_Controller
 		$this->load->model("Papers_m");
 		$participant = $this->Papers_m->setAlias("t")->find()
 		->join("members m", "m.id = t.member_id")
-		->select("m.fullname,t.*")->get()->result();
+		->join("settings st",'st.name = "format_id_paper"','left')
+		->select("m.fullname,t.*,CONCAT(st.value,LPAD(t.id,3,0)) as id_paper")->get()->result();
 		foreach($participant as $row){
 			$fileToAdd = "";
 			if($type == 'abstract'){
@@ -222,7 +223,7 @@ class Paper extends Admin_Controller
 			if(count($temp) > 0)
 				$ext = $temp[count($temp)-1];
 			if(file_exists(APPPATH."uploads/papers/".$fileToAdd) && $fileToAdd != ""){
-				$zip->addFromString("$type - ".$row->fullname.".".$ext,file_get_contents(APPPATH."uploads/papers/".$fileToAdd));
+				$zip->addFromString($type."_".$row->fullname."_".$row->id_paper.".".$ext,file_get_contents(APPPATH."uploads/papers/".$fileToAdd));
 			}
 		}
 		redirect(base_url('themes/uploads/'.$type."_all.zip"));
