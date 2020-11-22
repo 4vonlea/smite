@@ -28,6 +28,7 @@ class Committee_attributes_m extends My_model
 			'fullname'=>$com->committee->name,
 			'status_member'=>$com->status,
 			'event_name'=>$event->name,
+			'alternatif_status'=>$com->status,
 		];
 		if(file_exists(APPPATH."uploads/cert_template/$event->id.txt")) {
 
