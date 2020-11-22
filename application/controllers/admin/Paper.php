@@ -223,7 +223,7 @@ class Paper extends Admin_Controller
 			if(count($temp) > 0)
 				$ext = $temp[count($temp)-1];
 			if(file_exists(APPPATH."uploads/papers/".$fileToAdd) && $fileToAdd != ""){
-				$zip->addFromString($type."_".$row->fullname."_".$row->id_paper.".".$ext,file_get_contents(APPPATH."uploads/papers/".$fileToAdd));
+				$zip->addFromString($row->id_paper."_".$type."_".$row->fullname.".".$ext,file_get_contents(APPPATH."uploads/papers/".$fileToAdd));
 			}
 		}
 		redirect(base_url('themes/uploads/'.$type."_all.zip"));

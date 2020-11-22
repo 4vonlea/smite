@@ -43,22 +43,24 @@ class Committee extends Admin_Controller
 		if (!isset($post['id']))
 			$id = $event->getLastInsertID();
 
-		foreach ($post['attributes'] as $row) {
-			if (isset($row['id'])) {
-				$attr = $this->Committee_attributes_m->findOne($row['id']);
-			} else
-				$attr = new Committee_attributes_m();
-			$attr->event_id = $row['event'];
-			$attr->status = $row['status'];
-			$attr->committee_id = $id;
-			$attr->save();
+		if($this->input->post('attributes')){
+			foreach ($post['attributes'] as $row) {
+				if (isset($row['id'])) {
+					$attr = $this->Committee_attributes_m->findOne($row['id']);
+				} else
+					$attr = new Committee_attributes_m();
+				$attr->event_id = $row['event'];
+				$attr->status = $row['status'];
+				$attr->committee_id = $id;
+				$attr->save();
+			}
 		}
 
 		$this->Committee_m->getDB()->trans_complete();
 		$status = $this->Committee_m->getDB()->trans_status();
 		$this->output
 			->set_content_type("application/json")
-			->_display(json_encode(['status' => $status]));
+			->_display(json_encode(['status' => $status,'message'=>$message]));
 	}
 
 	public function delete()
@@ -174,5 +176,20 @@ class Committee extends Admin_Controller
 		}elseif($tipe == "csv"){
 			$exporter->asCSV();
 		}
+	}
+
+	public function search_member(){
+		$this->load->model('Member_m');
+		$data = $this->Member_m->setAlias("t")->find()
+			->select("fullname as value,phone,email")
+			->like('fullname',$this->input->post('cari'))
+			->get()->result_array();
+		$this->output
+			->set_content_type("application/json")
+			->_display(json_encode([
+				'inputPhrase'=>$this->input->post('cari'),
+				'items'=>$data
+			]));
+
 	}
 }

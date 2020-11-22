@@ -2,6 +2,12 @@
 /**
  * @var array $events
  */
+$this->layout->begin_head()
+?>
+<link href="<?=base_url('themes/script/easyautocomplete/easy-autocomplete.min.css');?>" rel="stylesheet">
+	
+<?php
+	$this->layout->end_head();
 ?>
 <div class="header bg-info pb-8 pt-5 pt-md-8"></div>
 <!-- Page content -->
@@ -72,7 +78,7 @@
 				<div class="card-body">
 					<div class="form-group">
 						<label class="form-control-label">Fullname</label>
-						<input type="text" class="form-control" v-model="form.name"/>
+						<input type="text" class="form-control autocomplete" v-model="form.name"/>
 					</div>
 					<div class="form-group">
 						<label class="form-control-label">Email</label>
@@ -175,13 +181,13 @@
 </div>
 
 <?php $this->layout->begin_script(); ?>
-
+<script src="<?=base_url('themes/script/easyautocomplete/jquery.easy-autocomplete.min.js');?>"></script>
 <script>
     var tempPosition = <?=Settings_m::statusCommitte();?>;
 
     function postCategory(cat) {
         return $.post('<?=base_url('admin/setting/save/' . Settings_m::STATUS_COMMITTEE);?>', {value: cat});
-    }
+	}
 
     var app = new Vue({
         el: '#app',
@@ -191,8 +197,47 @@
             committeePosition:<?=Settings_m::statusCommitte();?>,
             saving: false,
             events:<?=json_encode($events);?>,
-            form: {attributes: []},
-        },
+            form: {attributes: [],no_contact:'',email:'',name:''},
+		},
+		watch:{
+			formMode(newVal,oldVal){
+				if(newVal == 1){
+					Vue.nextTick(function(){
+						$('.autocomplete').easyAutocomplete({
+							url: '<?=base_url('admin/committee/search_member');?>',
+							listLocation: "items",
+							getValue: 'value',
+							template: {
+								type: "custom",
+								method: function (value, item) {
+									return `${value} (${item.email})`;
+								}
+							},
+							ajaxSettings: {
+								dataType: "json",
+								method: "POST",
+								data: {
+									dataType: "json"
+								}
+							},
+							list:{
+								onClickEvent:function(){
+									var element = $('.autocomplete').getSelectedItemData();
+									app.form.no_contact = element.phone;
+									app.form.email = element.email;
+									app.form.name = element.value;
+									console.log(app.form);
+								}
+							},
+							preparePostData: function (data) {
+								data.cari = app.form.name;
+								return data;
+							},
+						});
+					});
+				}
+			}
+		},
         methods: {
             parseStatus(data){
                 if(data.status) {
@@ -307,7 +352,7 @@
                 }).fail(function (xhr) {
 					var message =  xhr.getResponseHeader("Message");
 					if(!message)
-						message = 'Server fail to response !';
+						message = 'Pleases fullfill fullname, email, no contact, position in event !';
 					Swal.fire('Fail', message, 'error');
                 });
             },
