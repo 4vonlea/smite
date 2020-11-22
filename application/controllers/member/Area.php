@@ -45,7 +45,7 @@ class Area extends MY_Controller
 	{
 		$this->load->model(["Event_m", "Member_m"]);
 		$member = $this->input->post();
-		if (file_exists(APPPATH . "uploads/cert_template/$event_id.txt") && time() >= strtotime('2020-11-22 23:00')) {
+		if (file_exists(APPPATH . "uploads/cert_template/$event_id.txt")) {
 			$member = Member_m::findOne(['username_account' => $this->session->user_session['username']])
 				->toArray();
 			$member['status_member'] = "Peserta";
