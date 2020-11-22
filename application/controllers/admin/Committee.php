@@ -1,6 +1,8 @@
 <?php
 
 use Dompdf\Dompdf;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class Committee extends Admin_Controller
 {
@@ -191,5 +193,105 @@ class Committee extends Admin_Controller
 				'items'=>$data
 			]));
 
+	}
+
+	public function download_template(){
+		$this->load->model('Event_m');
+		$data = $this->Event_m->findAll();
+
+		$reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader("Xlsx");
+		$spreadsheet = $reader->load(APPPATH."/uploads/template_committe.xlsx");
+		$sheet = $spreadsheet->getActiveSheet();
+
+		$j = 2;
+		foreach($data as $row){
+			$sheet->setCellValueByColumnAndRow(9, $j, $row->id);
+			$sheet->setCellValueByColumnAndRow(10, $j, $row->name);
+			$j++;
+		}
+
+		$sheet->getStyleByColumnAndRow(9,2, 10, $j-1)->applyFromArray([
+			'borders' => ['allBorders' => [
+				'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+				'color' => ['argb' => '000']]
+			]
+		]);
+
+		$writer = new Xlsx($spreadsheet);
+		header('filename:template_committee.xlsx');
+		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+		header('Content-Disposition: attachment; filename="template_committee.xlsx"');
+		$writer->save("php://output");
+
+	}
+
+	public function import(){
+		$config['upload_path'] = APPPATH."/uploads/tmp/";
+		$config['allowed_types'] = 'xls|xlsx';
+		$config['file_name'] = time();
+		$this->load->library('upload', $config);
+		$status = true;
+		$message = "";
+		if($this->upload->do_upload('import')){
+			$uploadData =  $this->upload->data();
+			$spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load(APPPATH."/uploads/tmp/".$uploadData['file_name']);
+			$sheet = $spreadsheet->getActiveSheet();
+			$data = [];
+			$i = 2;
+			while($sheet->getCellByColumnAndRow(1,$i)->getValue() != ""){
+				$data[] = [
+					'name'=>$sheet->getCellByColumnAndRow(1,$i)->getValue(),
+					'email'=>$sheet->getCellByColumnAndRow(2,$i)->getValue(),
+					'no_contact'=>$sheet->getCellByColumnAndRow(3,$i)->getValue(),
+					'status'=>$sheet->getCellByColumnAndRow(4,$i)->getValue(),
+					'event_id'=>$sheet->getCellByColumnAndRow(5,$i)->getValue(),
+				];
+				$i++;
+			}
+			$this->load->model(['Committee_m','Committee_attributes_m']);
+			$success = 0;
+			foreach($data as $row){
+				$idCom = '';
+				$statusPart = true;
+				$com = $this->Committee_m->find()->where([
+					'name'=>$row['name'],
+					'email'=>$row['email'],
+				])->get()->row();
+				if($com){
+					$idCom = $com->id;
+				}else{
+					$statusPart = $this->Committee_m->insert([
+						'name'=>$row['name'],
+						'email'=>$row['email'],
+						'no_contact'=>$row['no_contact']
+					]);
+					$idCom = $this->Committee_m->getLastInsertID();
+				}
+				$dataAttr = [
+					'committee_id'=>$idCom,
+					'event_id'=>$row['event_id'],
+					'status'=>$row['status']
+				];
+				$attribute = $this->Committee_attributes_m->find()->where($dataAttr)->get()->row();
+				if(!$attribute){
+					$statusPart = $this->Committee_attributes_m->insert($dataAttr) & $statusPart;
+				}
+				if($statusPart){
+					$success++;
+				}
+			}
+			$message = "$success dari ".count($data)." Berhasil diimport";
+			unlink(APPPATH."/uploads/tmp/".$uploadData['file_name']);
+		}else{
+			$message =  $this->upload->display_errors("","");
+		}
+		$this->session->set_flashdata('import',$status.";".$message);
+		redirect(base_url('admin/committee'));
+		// $this->output
+		// 	->set_content_type("application/json")
+		// 	->_display(json_encode([
+		// 		'status'=>$status,
+		// 		'message'=>$message
+		// 	]));
 	}
 }

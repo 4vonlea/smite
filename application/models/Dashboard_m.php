@@ -63,7 +63,7 @@ class Dashboard_m extends CI_Model
 	public function getDataPaper()
 	{
 		$this->load->model("Papers_m");
-		$result = $this->db->select("fullname as nama,title, u.name as reviewer,p.status as status_abstract,status_fullpaper,status_presentasi,type,DATE_FORMAT(p.created_at,'%d %M %Y at %H:%i') as submitted_on,score,DATE_FORMAT(p.updated_at,'%d %M %Y at %H:%i') as reviewed_on")
+		$result = $this->db->select("fullname as nama,title, u.name as reviewer,p.status as status_abstract,status_fullpaper,status_presentasi,type,type_presence as type_presentation,DATE_FORMAT(p.created_at,'%d %M %Y at %H:%i') as submitted_on,score,DATE_FORMAT(p.updated_at,'%d %M %Y at %H:%i') as reviewed_on")
 			->from("papers p")
 			->join("members m", "m.id = p.member_id")
 			->join("user_accounts u", "u.username = p.reviewer", "left")

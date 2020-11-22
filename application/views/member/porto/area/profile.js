@@ -39,7 +39,7 @@ var PageProfile = Vue.component("PageProfile", {
             <div class="form-group row">
                 <label class="col-lg-3 font-weight-bold text-dark col-form-label form-control-label text-2 required">Nama</label>
                 <div class="col-lg-9">
-                    <input :disabled="!editing" class="form-control" required="" type="text" v-model="user.fullname">
+                    <input :disabled="!editing" class="form-control" readonly required="" type="text" v-model="user.fullname">
                 </div>
             </div>
             <div class="form-group row">
