@@ -65,6 +65,40 @@ class Notification extends Admin_Controller
 
 	}
 
+	public function send_cert_com($preparing = null)
+	{
+		if ($this->input->method() != 'post')
+			show_404("Page Not Found !");
+
+		$this->load->model(['Event_m', 'Committee_attributes_m']);
+		if ($preparing) {
+			$id = $this->input->post("id");
+			if (Settings_m::getSetting("config_cert_$id") != "" && file_exists(APPPATH . "uploads/cert_template/$id.txt")) {
+				$result = $this->Committee_attributes_m->find()
+				->join('committee','committee.id = committee_id')
+				->join("events","events.id = event_id")
+				->select('email,committee_attribute.id,events.name as event_name')
+				->where('event_id', $id)->get();
+				$this->output
+					->set_content_type("application/json")
+					->_display(json_encode(['status' => true, 'data' => $result->result_array()]));
+			} else {
+				$this->output
+					->set_content_type("application/json")
+					->_display(json_encode(['status' => false, 'message' => "Template of certificate is not found !"]));
+			}
+		} else {
+			$this->load->model("Notification_m");
+			$post = $this->input->post();
+			$cert = $this->Committee_attributes_m->exportCertificate($post['id'])->output();
+			$status = $this->Notification_m->sendMessageWithAttachment($post['email'], "Certificate of Event", "Thank you for your participation <br/> Below is your certificate of '" . $post['event_name'] . "'", $cert, "CERTIFICATE.pdf");
+			$this->output
+				->set_content_type("application/json")
+				->_display(json_encode(['status' => true, 'log' => $status]));
+		}
+
+	}
+
 	public function send_material($preparing = null)
 	{
 		if ($this->input->method() != 'post')

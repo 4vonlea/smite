@@ -107,6 +107,19 @@ $this->layout->begin_head();
 								</div>
 							</div>
 							<hr/>
+							<div class="form-group row">
+
+								<label class="form-control-label col-md-3 mt-2">Send To Committee</label>
+								<div class="col-md-6">
+									<?=form_dropdown('event',Event_m::asList($event,'id','label'),'',['class'=>'form-control','v-model'=>'cert_event_com','placeholder'=>'']);?>
+								</div>
+								<div class="col-md-3">
+									<button :disabled="sendingCert" type="button" @click="sendCertCom" class="btn btn-primary">
+										<i v-if="sendingCert" class="fa fa-spin fa-spinner"></i>
+										Send
+									</button>
+								</div>
+							</div>
 						</div>
 						<div class="tab-pane fade" id="tabs-material" role="tab">
 							<p>
@@ -268,6 +281,7 @@ $this->layout->begin_head();
 			sendingCert:false,
 			event_notif:"",
 			cert_event:"",
+			cert_event_com:"",
 			pooling:{title:"",data:[],size:0,success:0,fail:0,processed:0},
 			files:[],
 			listMember:<?=json_encode($memberList);?>,
@@ -450,6 +464,28 @@ $this->layout->begin_head();
                         if(res.status) {
                             app.pooling.title = "Send Certificate";
                             app.pooling.url = "<?=base_url('admin/notification/send_cert');?>";
+                            app.pooling.data = res.data;
+                            app.poolingStart();
+                        }else
+                            Swal.fire("Failed",res.message,"error");
+                    }).fail(function (xhr) {
+					var message =  xhr.getResponseHeader("Message");
+					if(!message)
+						message = 'Server fail to response !';
+					Swal.fire('Fail', message, 'error');
+                }).always(function () {
+                    app.sendingCert = false;
+                });
+			},
+			sendCertCom(){
+                var url = "<?=base_url('admin/notification/send_cert_com/preparing');?>";
+                var app = this;
+                app.sendingCert = true;
+                $.post(url,{id:this.cert_event},null,'JSON')
+                    .done(function (res) {
+                        if(res.status) {
+                            app.pooling.title = "Send Certificate Committee";
+                            app.pooling.url = "<?=base_url('admin/notification/send_cert_com');?>";
                             app.pooling.data = res.data;
                             app.poolingStart();
                         }else

@@ -20,6 +20,16 @@ $this->layout->begin_head()
 	<!-- Table -->
 	<div v-if="formMode==0" class="row">
 		<div class="col-xl-12">
+			<?php if($this->session->has_userdata('import')):?>
+				<?php
+				$import = $this->session->userdata('import');
+				$import = explode(";",$import);
+
+				?>
+			<div class="alert <?=$import[0] == '0' ? 'alert-danger':'alert-success';?>">
+				<?=$import[1];?>
+			</div>
+			<?php endif;?>
 			<div class="card shadow">
 				<div class="card-header">
 					<div class="row">
@@ -27,6 +37,18 @@ $this->layout->begin_head()
 							<h3>Committees</h3>
 						</div>
 						<div class="col-9 text-right">
+							<div class="dropdown">
+								<button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									Import Data
+								</button>
+								<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+									<a class="dropdown-item" href="<?=base_url('admin/committee/download_template');?>">Download Template</a>
+									<button onclick="$('#file').click()" class="dropdown-item">Upload Template</button>
+									<form id="form-import" method="POST" enctype="multipart/form-data" action="<?=base_url('admin/committee/import');?>">
+										<input onchange="$('#form-import').submit()" id="file" accept=".xls,.xlsx" type="file" name="import" class="hidden" />
+									</form>
+								</div>
+							</div>
 							<div class="dropdown">
 								<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 									Download Committtee
