@@ -18,7 +18,11 @@ class Migration_modify_member extends CI_Migration
 				'sponsor' => [
 					'type' => 'varchar',
 					'constraint' => '50'
-				],				
+				],
+				'alternatif_status' => [
+					'type' => 'varchar',
+					'constraint' => '250'
+				],			
 			]);
 		}
 		$this->dbforge->add_field([

@@ -101,7 +101,7 @@
 
                             </h6>
                             <div class="pl-lg-4 table-responsive">
-                                <table class="table table-bordered">
+                                <table class="table table-bordered pre-wrap">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -120,7 +120,7 @@
                                             <td>
                                                 {{ link.date | formatDate }} - {{ link.dateEnd | formatDate }}
                                             </td>
-                                            <td>
+                                            <td class="pre-line">
                                                 {{link.room}}
                                             </td>
                                             <td>
@@ -353,7 +353,7 @@
                                     </button>
                                 </th>
                             </tr>
-                            <tr v-for="(sp,index) in linkData.model.speakers" :key="index">
+                            <tr v-for="(sp,index) in linkData.model.speakers" :key="index+linkData.model.room">
                                 <td>
                                     <img v-if="sp.image" :src="sp.image" class="img" style="width:150px" /><br />
                                     <input type="file" accept="image/*" v-on:change="speakerImageChange($event,index);" />
@@ -425,6 +425,11 @@
 
 <?php $this->layout->begin_head(); ?>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/vue-ctk-date-time-picker@2.5.0/dist/vue-ctk-date-time-picker.css">
+<style>
+   .pre-line{
+        white-space: inherit !important;
+    }
+</style>
 <?php $this->layout->end_head(); ?>
 
 <?php $this->layout->begin_script(); ?>

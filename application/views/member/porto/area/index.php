@@ -85,10 +85,10 @@ $userDetail = array_merge($user->toArray(), ['status_member' => $user->status_me
 							</router-link>
                         </li>
                         <?php endif;?>
-                        <!-- <li class="nav-item">
+                        <li class="nav-item">
 							<router-link active-class="active" class="nav-link text-dark" to="/sertifikat">Download Sertifikat
 							</router-link>
-                        </li> -->
+                        </li>
                         <li class="nav-item">
 							<router-link active-class="active" class="nav-link text-dark" to="/presentation">Daftar Presentasi Ilmiah
 							</router-link>

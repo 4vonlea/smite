@@ -9,13 +9,22 @@ export default Vue.component("PageSertifikat",{
                         <p class="mb-0">Silakan download sertifikat anda</p>
                     </div>
                 </div>
+                
                 <div class="row">
-                    <div class="card-group">
+                    <div class="alert alert-success text-center">
+                        <h4>
+                            Mohon berkenan mengisi kuesioner melalui link berikut<br/><br/>
+                            <a @click="klikKuesioner = 1" target="_blank" href="https://forms.gle/TWuc3ubh9nCQfKrp8">Isi Kuesioner</a>
+                        </h4>
+                        <p>Tombol download sertifikat dapat diklik setelah mengisi kuesioner</p>
+                    </div>
+                    <div class="card-group col-md-12">
                         <div v-for="event in events" :key="event.id" class="card w-50">
                             <div class="card-body text-center">
                                 <h5 class="card-title">{{ event.name }}</h5>
                                 <p class="card-text">Terima kasih atas partisipasi anda, Silakan download sertifikat anda dengan menekan tombol dibawah</p>
-                                <a class="btn btn-default" :href="'<?=base_url('member/area/certificate');?>/'+event.id+'/'+user.id" target="_blank">Download Sertifikat</a>
+                                <button disabled v-if="klikKuesioner == 0" class="btn btn-default">Download Sertifikat</button>
+                                <a v-if="klikKuesioner == 1" class="btn btn-primary" :href="'<?=base_url('member/area/certificate');?>/'+event.id+'/'+user.id" target="_blank">Download Sertifikat</a>
                             </div>
                         </div>
                     </div>
@@ -31,6 +40,7 @@ export default Vue.component("PageSertifikat",{
             ads:{},
             modalCloseButton:false,
             timer:60,
+            klikKuesioner:0,
 		}
     },
     filters:{

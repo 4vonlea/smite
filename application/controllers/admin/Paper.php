@@ -193,6 +193,42 @@ class Paper extends Admin_Controller
 		}
 	}
 
+	public function download_all_files($type){
+		set_time_limit(0);
+		ini_set('memory_limit', '2048M');
+		$zip = new ZipArchive();
+		$filename = "./themes/uploads/".$type."_all.zip";
+
+		if(file_exists($filename)){
+			unlink($filename);
+		}
+		$zip->open($filename, ZipArchive::CREATE);
+
+		$this->load->model("Papers_m");
+		$participant = $this->Papers_m->setAlias("t")->find()
+		->join("members m", "m.id = t.member_id")
+		->join("settings st",'st.name = "format_id_paper"','left')
+		->select("m.fullname,t.*,CONCAT(st.value,LPAD(t.id,3,0)) as id_paper")->get()->result();
+		foreach($participant as $row){
+			$fileToAdd = "";
+			if($type == 'abstract'){
+				$fileToAdd = $row->filename;
+			}elseif($type == 'presentation'){
+				$fileToAdd = $row->poster;
+			}elseif($type == 'fullpaper'){
+				$fileToAdd = $row->fullpaper;
+			}
+			$temp = explode(".",$fileToAdd);
+			$ext = "";
+			if(count($temp) > 0)
+				$ext = $temp[count($temp)-1];
+			if(file_exists(APPPATH."uploads/papers/".$fileToAdd) && $fileToAdd != ""){
+				$zip->addFromString($row->id_paper."_".$type."_".$row->fullname.".".$ext,file_get_contents(APPPATH."uploads/papers/".$fileToAdd));
+			}
+		}
+		redirect(base_url('themes/uploads/'.$type."_all.zip"));
+	}
+
 	public function previewNotif($id){
 		$this->load->model("Papers_m");
 		$paper = $this->Papers_m->findOne($id);

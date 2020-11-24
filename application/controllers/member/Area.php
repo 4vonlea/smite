@@ -51,7 +51,7 @@ class Area extends MY_Controller
 			$member['status_member'] = "Peserta";
 			$this->Event_m->exportCertificate($member, $event_id)->stream("certificate.pdf", array("Attachment" => false));
 		} else {
-			show_error("The certificate is not yet available, please come again later", 400, "Not Yet Available");
+			show_error("Sertifikat belum tersedia. Sertifikat dapat didownload setelah acara selesai", 400, "Not Yet Available");
 		}
 	}
 

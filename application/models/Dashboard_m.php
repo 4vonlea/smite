@@ -63,13 +63,15 @@ class Dashboard_m extends CI_Model
 	public function getDataPaper()
 	{
 		$this->load->model("Papers_m");
-		$result = $this->db->select("fullname as nama,title, u.name as reviewer,p.status,type,DATE_FORMAT(p.created_at,'%d %M %Y at %H:%i') as submitted_on,DATE_FORMAT(p.updated_at,'%d %M %Y at %H:%i') as reviewed_on")
+		$result = $this->db->select("fullname as nama,title, u.name as reviewer,p.status as status_abstract,status_fullpaper,status_presentasi,type,type_presence as type_presentation,DATE_FORMAT(p.created_at,'%d %M %Y at %H:%i') as submitted_on,score,DATE_FORMAT(p.updated_at,'%d %M %Y at %H:%i') as reviewed_on")
 			->from("papers p")
 			->join("members m", "m.id = p.member_id")
 			->join("user_accounts u", "u.username = p.reviewer", "left")
 			->get()->result_array();
 		foreach ($result as $i => $row) {
-			$result[$i]['status'] = Papers_m::$status[$row['status']];
+			$result[$i]['status_abstract'] = isset(Papers_m::$status[$row['status_abstract']]) ? Papers_m::$status[$row['status_abstract']]:'-';
+			$result[$i]['status_fullpaper'] = isset(Papers_m::$status[$row['status_fullpaper']]) ? Papers_m::$status[$row['status_fullpaper']]:'-';
+			$result[$i]['status_presentasi'] = isset(Papers_m::$status[$row['status_presentasi']]) ?Papers_m::$status[$row['status_presentasi']]:'-';
 		}
 		return $result;
 	}
