@@ -65,7 +65,7 @@
                                     </div>
                                 <?php } ?>
                                 <p>
-                                    <a onclick="javascript:savelike(<?php echo $key->id;?>);">
+                                    <!-- <a onclick="javascript:savelike(<?php echo $key->id;?>);">
                                         <?php
                                         if (!empty($sess)) {
                                             echo "<i class='far fa-thumbs-up' style='color: #00B297FF'></i>";
@@ -73,7 +73,7 @@
                                         ?>
                                     
                                         <span id="like_<?php echo $key->id;?>">
-                                            <!-- <?php if($key->likesbantu > 0){echo $key->likesbantu.' Likes';}else{echo '0 Like';} ?> -->
+                                            <?php if($key->likesbantu > 0){echo $key->likesbantu.' Likes';}else{echo '0 Like';} ?>
                                             <?php
                                             if (!empty($sess)) {
                                                 if ($key->ini > 0) {
@@ -82,7 +82,7 @@
                                             }
                                             ?>
                                         </span>
-                                        </a>
+                                        </a>  -->
                                         <span class="float-right">
                                             <a href="<?php echo base_url('site/seevideo/'.$key->id) ?>">
                                                 <?php if($key->komen > 0){echo $key->komen.' Komentar';}else{echo 'Komentar';} ?>
