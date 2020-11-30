@@ -8,6 +8,7 @@ $userDetail = array_merge($user->toArray(), ['status_member' => $user->status_me
 ?>
 <link href="<?= base_url(); ?>themes/script/chosen/chosen.css" rel="stylesheet">
 <link href="<?= base_url(); ?>themes/script/magnific/magnific.css" rel="stylesheet">
+<link href="https://vjs.zencdn.net/7.10.2/video-js.css" rel="stylesheet" />
 <style>
     .btn:disabled{
         cursor: not-allowed;
@@ -121,6 +122,8 @@ $userDetail = array_merge($user->toArray(), ['status_member' => $user->status_me
 <script src="<?=base_url("themes/script/chosen/vue-chosen.js");?>"></script>
 <script src="<?=base_url("themes/script/magnific/magnific.js");?>"></script>
 <script src="<?=base_url("themes/script/moment-tz.js");?>"></script>
+  <!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
+<script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
 
 <script type="module">
    

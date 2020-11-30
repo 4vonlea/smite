@@ -13,6 +13,7 @@ class Committee extends Admin_Controller
 		'nametag'=>'view',
 		'delete_attribute'=>'delete',
 		'grid'=>'view',
+		'import'=>'insert',
 	];
 
 	public function index()

@@ -269,8 +269,9 @@ export default Vue.component("PageWebminar", {
                     let eventsFollowed = [];
                     $.each(res.events, function (i, event) {
                         if (event.followed) {
-                            $.each(event.special_link, function (i, v) {
-                                v.speakers = [];
+                            $.each(event.special_link, function (i, v) { 
+                                if(!v.speakers)                             
+                                    v.speakers = [];
                                 v.timeReady = page.more5Minutes(v.date);
                                 v.showingClass = page.currentClass(v);
                                 $.get(page.appUrl + `/themes/uploads/speaker/${event.id}${i}.json`, function (res) {

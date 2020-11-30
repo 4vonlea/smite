@@ -68,6 +68,35 @@ class Event extends Admin_Controller
         }
     }
 
+    protected function base64ImageSaver($image_data,$path,$filename){
+        if (preg_match('/^data:image\/(\w+);base64,/', $image_data, $type)) {
+            list($typeRaw, $data) = explode(';', $image_data); // exploding data for later checking and validating 
+            $data = substr($data, strpos($data, ',') + 1);
+            $type = strtolower($type[1]); // jpg, png, gif
+    
+            if (!in_array($type, [ 'jpg', 'jpeg', 'gif', 'png' ])) {
+                return false;
+            }
+    
+            $data = base64_decode($data);
+    
+            if ($data === false) {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    
+        $fullname = $filename.".".$type;
+    
+        if(file_put_contents($path.$fullname, $data) === false){
+            return false;
+        }
+        /* it will return image name if image is saved successfully 
+        or it will return error on failing to save image. */
+        return $fullname; 
+    }
+
     public function save()
     {
         if ($this->input->is_ajax_request()) {
@@ -101,26 +130,34 @@ class Event extends Admin_Controller
                     $special_link = $_POST['special_link'];
                     foreach($special_link as $i=>$row ){
                         if(isset($row['speakers'])){
-                            unset($special_link[$i]['speakers']);
+                            foreach($row['speakers'] as $j=>$speaker){
+                                if(isset($speaker['image'])){
+                                    $filename = $this->base64ImageSaver($speaker['image'],APPPATH."../themes/uploads/speaker/",$i.$j.time());
+                                    if( $filename !== false){
+                                        $special_link[$i]['speakers'][$j]['image'] = base_url('themes/uploads/speaker/'.$filename);
+                                    }
+                                }
+                            }
+                            // unset($special_link[$i]['speakers']);
                         }
                     }
                 }
-                $event->special_link = ($special_link ? json_encode($special_link):"[]");
+                $event->special_link = (count($special_link) > 0 ? json_encode($special_link):"[]");
                 $event->save(false);
 //                $this->Event_m->insert($event, false);
                 if(!$event_id){
                     $event_id = $this->Event_m->getLastInsertID();
                 }
-                if($this->input->post("special_link")){
-                    foreach($_POST['special_link'] as $i=>$row ){
-                        if(isset($row['speakers'])){
-                            file_put_contents(APPPATH."../themes/uploads/speaker/".$event_id.$i.".json",json_encode($row['speakers']));
-                        }else{
-                            if(file_exists(APPPATH."../themes/uploads/speaker/".$event_id.$i.".json"))
-                                rename(APPPATH."../themes/uploads/speaker/".$event_id.$i.".json",APPPATH."../themes/uploads/speaker/".$event->id.$i."_del.json");
-                        }
-                    }
-                }
+                // if($this->input->post("special_link")){
+                //     foreach($_POST['special_link'] as $i=>$row ){
+                //         if(isset($row['speakers'])){
+                //             file_put_contents(APPPATH."../themes/uploads/speaker/".$event_id.$i.".json",json_encode($row['speakers']));
+                //         }else{
+                //             if(file_exists(APPPATH."../themes/uploads/speaker/".$event_id.$i.".json"))
+                //                 rename(APPPATH."../themes/uploads/speaker/".$event_id.$i.".json",APPPATH."../themes/uploads/speaker/".$event->id.$i."_del.json");
+                //         }
+                //     }
+                // }
 
                 $pricing = $this->Event_pricing_m->parseForm($data, $event_id);
                 foreach($pricing as $row){
