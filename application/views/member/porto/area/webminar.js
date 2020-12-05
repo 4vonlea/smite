@@ -17,6 +17,10 @@ export default Vue.component("PageWebminar", {
                         *<span class="badge badge-success h4" style="font-size:14px">{{ jam }}</span> WIB (GMT +7) 
                     </p>
                     <p class="font-weight-bold h5">Bila simposium telah memenuhi kuota, mohon untuk pindah ke simposium yang lain</p>
+                    <p class="font-weight-bold h5">
+                        Materi Presentasi dapat dilihat pada link
+                        <a href="https://drive.google.com/drive/folders/1Wi7t64mOIq_WGD-v7GS7G3dL6CZo8DGr?usp=sharing" target="_blank">disini</a>
+                    </p>
                     <table class="table table-bordered">
                         <tbody v-if="events.length == 0">
                             <tr>
