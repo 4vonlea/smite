@@ -336,6 +336,26 @@
 </div>
 </section>
 
+<section id="news" class="bg-color-grey pt-4">
+    <div class="container pb-4">
+        <div class="row pt-2">
+            <div class="col">
+                <h4 class="text-color-dark text-uppercase font-weight-bold text-center mb-1 appear-animation" data-appear-animation="fadeInUp" data-appear-animation-delay = "200">Daftar Pemenang Kompetisi Ilmiah, Kontes Foto - Video,  Quiz Interaktif, dan Doorprize</h4>
+            </div>
+        </div>
+        <hr>
+
+        <div class="row">
+        <div class="col-sm-12 col-lg-12">
+          <div class="embed-responsive embed-responsive-16by9">
+      <iframe class="embed-responsive-item" src="<?= base_url('themes/porto'); ?>/pengumuman/winner.pdf"></iframe>
+    </div>
+    </div>
+  </div>
+        
+    </div>
+</section>
+
 <section id="sponsor" class="bg-color-light">
     <div class="container mt-4 pt-4 pb-4">
         <div class="row">

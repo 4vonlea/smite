@@ -35,7 +35,7 @@
 
 						<div class="post-meta">
 							<span><i class="far fa-user"></i> By <?php echo $key->uploader; ?> </span>
-							<span>
+							<!-- <span>
 								<a onclick="javascript:savelike(<?php echo $key->id;?>);">
 									<?php
                                         if (!empty($sess)) {
@@ -43,7 +43,6 @@
                                         }
                                         ?>
 									<span id="like_<?php echo $key->id;?>"  style="color: #00B297FF">
-										<!-- <?php if($key->likesbantu > 0){echo $key->likesbantu.' Likes';}else{echo 'Like';} ?> -->
 										<?php
                                             if (!empty($sess)) {
                                                 if ($key->ini > 0) {
@@ -52,7 +51,7 @@
                                             }
                                         ?>
 									</span></a>
-								</span>
+								</span> -->
 								<span><i class="far fa-comments"></i> <?php echo $key->komen; ?> Komentar</span>
 							</div>
 							<span class="text-color-primary">Deskripsi</span>
