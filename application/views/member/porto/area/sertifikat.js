@@ -11,6 +11,7 @@ export default Vue.component("PageSertifikat",{
                 </div>
                 
                 <div class="row">
+                    <!--
                     <div class="alert alert-success text-center">
                         <h4>
                             Mohon berkenan mengisi kuesioner melalui link berikut<br/><br/>
@@ -18,6 +19,7 @@ export default Vue.component("PageSertifikat",{
                         </h4>
                         <p>Tombol download sertifikat dapat diklik setelah mengisi kuesioner</p>
                     </div>
+                    -->
                     <div class="card-group col-md-12">
                         <div v-for="event in events" :key="event.id" class="card w-50">
                             <div class="card-body text-center">
@@ -40,7 +42,7 @@ export default Vue.component("PageSertifikat",{
             ads:{},
             modalCloseButton:false,
             timer:60,
-            klikKuesioner:0,
+            klikKuesioner:1,
 		}
     },
     filters:{
