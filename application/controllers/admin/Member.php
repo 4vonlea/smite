@@ -82,6 +82,7 @@ class Member extends Admin_Controller
 				$model = Category_member_m::findOne($row['id']);
 			if ($model == null)
 				$model = new Category_member_m();
+			$row['is_hide'] = 0;
 			$model->setAttributes($row);
 			$model->save();
 			$return[] = $model->toArray();
