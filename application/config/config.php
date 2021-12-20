@@ -378,7 +378,7 @@ $config['encryption_key'] = '';
 |
 */
 $config['sess_driver'] = 'files';
-$config['sess_cookie_name'] = 'seminar_dokter';
+$config['sess_cookie_name'] = env('sess_cookie_name','seminar_dokter');
 $config['sess_expiration'] =60*60*24*30;
 $config['sess_save_path'] =  env('sess_path',NULL);//NULL;//APPPATH."cache/";
 $config['sess_match_ip'] = FALSE;
@@ -402,7 +402,7 @@ $config['sess_regenerate_destroy'] = FALSE;
 */
 $config['cookie_prefix']	= '';
 $config['cookie_domain']	= '';
-$config['cookie_path']		= '/';
+$config['cookie_path']		= env('cookie_path','/');
 $config['cookie_secure']	= FALSE;
 $config['cookie_httponly'] 	= FALSE;
 

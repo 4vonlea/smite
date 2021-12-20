@@ -16,6 +16,7 @@ class Area extends MY_Controller
 			redirect(base_url("site/login"));
 			
 		$this->theme = $this->config->item("theme");
+		$this->layout->setTheme($this->theme);
 		$this->layout->setLayout("layouts/$this->theme");
 		$this->layout->setBaseView('member/' . $this->theme . '/area/');
 		$this->load->model(['Member_m', 'User_account_m', 'Sponsor_link_m']);
@@ -30,7 +31,7 @@ class Area extends MY_Controller
 		$user = Member_m::findOne(['username_account' => $this->session->user_session['username']]);
 		if (!$user)
 			show_error("Member not found in sistem or not registered yet !", 500, "Member not found");
-		$this->layout->render('index', ['user' => $user, 'statusToUpload' => json_decode(Settings_m::getSetting("status_to_upload"), true)]);
+		$this->layout->render('index', ['user' => $user, 'statusToUpload' => json_decode(Settings_m::getSetting("status_to_upload"), true) ?? []]);
 	}
 
 	public function presentationList()

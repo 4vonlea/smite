@@ -17,7 +17,7 @@ class MY_Controller extends CI_Controller
     }
 
     protected function user_session_expired(){
-        if($this->session->has_userdata('user_session')){
+        if($this->session->has_userdata('user_session') && isset($this->session->user_session['role'])){
             $sess = $this->session->userdata("sess_expired");
             if($sess && time() > $sess){
                 $this->session->sess_destroy();

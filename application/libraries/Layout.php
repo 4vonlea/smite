@@ -12,12 +12,21 @@ class Layout {
     protected $base_view = "";
     protected $breadcrumb = "";
     protected $script_js;
+	protected $theme = "default";
 
 	public function __construct($params = array()){
 		$this->ci =& get_instance();
 		if(isset($params['layout']))
 			$this->layout = $params['layout'];
 	}
+
+	 /**
+     * @param $base string
+     */
+	public function setTheme($theme){
+	    $this->theme = $theme;
+    }
+
 
     /**
      * @param $base string
@@ -69,7 +78,14 @@ class Layout {
 	 * @param  array  $dataLayout array data untuk layout
 	 */
 	public function render($view,$data = array(),$dataLayout = array()){
-		$content = $this->ci->load->view($this->base_view.$view,$data,true);
+		$viewPath = $this->base_view.$view;
+		$content = "";
+		if(file_exists(APPPATH."views/".$viewPath.".php")){
+			$content = $this->ci->load->view($viewPath,$data,true);
+		}else{
+			$viewPath = str_replace($this->theme,"default",$viewPath);
+			$content = $this->ci->load->view($viewPath,$data,true);
+		}
 
 		$dataLayout['active_menu'] = (isset($dataLayout['active_menu'])) ? $dataLayout['active_menu']: $this->menu_active;
 		$dataLayout['breadcrumb'] = ($this->breadcrumb == ""?str_replace("_"," ",$this->ci->router->class):$this->breadcrumb);
@@ -84,8 +100,12 @@ class Layout {
 	}
 
 	public function renderAsJavascript($view,$data = array()){
+		$viewPath = $this->base_view.$view;
+		if(!file_exists(APPPATH."views/".$viewPath.".php")){
+			$viewPath = str_replace($this->theme,"default",$viewPath);
+		}
         $this->ci->output->set_content_type("application/javascript");
-        $this->ci->load->view($this->base_view.$view,$data);
+        $this->ci->load->view($viewPath,$data);
     }
 
 	/**

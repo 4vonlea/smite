@@ -8,7 +8,7 @@ class Migration_modify_transaction extends CI_Migration
 {
 	public function up(){
 		$this->dbforge->add_column("transaction_details",[
-			'checklist'=>['type'=>'varchar', 'constraint'=>'200'],
+			'checklist'=>['type'=>'varchar', 'constraint'=>'200','default'=>'{}'],
 		]);
 	}
 

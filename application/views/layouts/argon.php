@@ -282,7 +282,7 @@ function hideForRole($role, $listRole)
 									<i class="fa fa-user"></i>
 								</span>
 								<div class="media-body ml-2 d-none d-lg-block">
-									<span class="mb-0 text-sm  font-weight-bold"><?= $this->session->user_session['name']; ?></span>
+									<span class="mb-0 text-sm  font-weight-bold"><?= $this->session->user_session['name'] ?? "-"; ?></span>
 								</div>
 							</div>
 						</a>
