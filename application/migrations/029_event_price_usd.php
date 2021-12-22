@@ -15,6 +15,6 @@ class Migration_event_price_usd extends CI_Migration
 	}
 
 	public function down(){
-		$this->dbforge->drop_column("price_usd","price_usd");
+		$this->dbforge->drop_column("event_pricing","price_usd");
 	}
 }

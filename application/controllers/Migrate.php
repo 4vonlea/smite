@@ -9,7 +9,7 @@ class Migrate extends CI_Controller
 //        if (is_cli()) {
             $this->load->library(['migration']);
 
-            if ($this->migration->current() === FALSE) {
+            if ($this->migration->latest() === FALSE) {
                 show_error($this->migration->error_string());
             }
 //        }else{
