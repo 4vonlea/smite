@@ -209,8 +209,8 @@ $userDetail = array_merge($user->toArray(), ['status_member' => $user->status_me
     });
 
     document.addEventListener('contextmenu', event => {
-        if (router.currentRoute.path != "/presentation")
-            event.preventDefault()
+        // if (router.currentRoute.path != "/presentation")
+        //     event.preventDefault()
     });
 
     Vue.mixin({

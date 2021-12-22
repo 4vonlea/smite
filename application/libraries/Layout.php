@@ -101,7 +101,7 @@ class Layout {
 
 	public function renderAsJavascript($view,$data = array()){
 		$viewPath = $this->base_view.$view;
-		if(!file_exists(APPPATH."views/".$viewPath.".php")){
+		if(!file_exists(APPPATH."views/".$viewPath)){
 			$viewPath = str_replace($this->theme,"default",$viewPath);
 		}
         $this->ci->output->set_content_type("application/javascript");
