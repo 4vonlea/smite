@@ -7,9 +7,9 @@
  * @var $manual
  */
 ?>
-<?php $this->layout->begin_head();?>
+<?php $this->layout->begin_head(); ?>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/vue-ctk-date-time-picker@2.5.0/dist/vue-ctk-date-time-picker.css">
-<?php $this->layout->end_head();?>
+<?php $this->layout->end_head(); ?>
 
 <div class="header bg-info pb-8 pt-5 pt-md-7"></div>
 <div class="container-fluid mt--7">
@@ -102,11 +102,11 @@
 								</div>
 								<div class="col-md-6">
 									<label>Event Date (for Countdown)</label>
-									<vue-ctk-date-time-picker :no-label="true" format="YYYY-MM-DD HH:mm:ss" formatted="DD MMMM YYYY HH:mm" v-model="form.event_countdown" ></vue-ctk-date-time-picker>
+									<vue-ctk-date-time-picker :no-label="true" format="YYYY-MM-DD HH:mm:ss" formatted="DD MMMM YYYY HH:mm" v-model="form.event_countdown"></vue-ctk-date-time-picker>
 								</div>
 								<div class="col-md-6">
 									<label>Paper Submission Deadline (for Countdown)</label>
-									<vue-ctk-date-time-picker :no-label="true" format="YYYY-MM-DD HH:mm:ss" formatted="DD MMMM YYYY HH:mm" v-model="form.paper_deadline" ></vue-ctk-date-time-picker>
+									<vue-ctk-date-time-picker :no-label="true" format="YYYY-MM-DD HH:mm:ss" formatted="DD MMMM YYYY HH:mm" v-model="form.paper_deadline"></vue-ctk-date-time-picker>
 								</div>
 
 							</div>
@@ -135,7 +135,7 @@
 									</div>
 									<div class="form-group row">
 										<label class="col-md-3 col-form-label">Parameter from Member</label>
-										<?= form_dropdown("param", ['' => 'Select Parameter', 'fullname' => 'Full Name', 'email' => 'Email', 'gender' => 'Gender', 'status_member' => 'Status Of Member', 'event_name' => 'Event Name','alternatif_status'=>'Alternatif Status'], "", ['class' => 'form-control col-md-3', 'v-model' => 'selectedParam', 'id' => 'sel_param']); ?>
+										<?= form_dropdown("param", ['' => 'Select Parameter', 'fullname' => 'Full Name', 'email' => 'Email', 'gender' => 'Gender', 'status_member' => 'Status Of Member', 'event_name' => 'Event Name', 'alternatif_status' => 'Alternatif Status'], "", ['class' => 'form-control col-md-3', 'v-model' => 'selectedParam', 'id' => 'sel_param']); ?>
 										<div class="col-md-6">
 											<button type="button" @click="addPropertyCert" class="btn btn-primary">Add
 												Property
@@ -312,12 +312,12 @@
 								</div>
 							</div>
 							<div v-if="typeMailer == 'gmail'" class="row mt-5">
-							<div class="col-3">
+								<div class="col-3">
 									<label>Gmail Account Used</label>
 								</div>
 								<div v-if="email_notif_binded" class="col-4">
-										<input type="text" readonly v-model="email_notif" class="form-control" />
-									</div>
+									<input type="text" readonly v-model="email_notif" class="form-control" />
+								</div>
 								<div class="col-4">
 									<button v-if="email_notif_binded" @click="unbindEmail" class="btn btn-danger">
 										Unbind
@@ -328,28 +328,28 @@
 							<div v-if="typeMailer == 'mailer'" class="row mt-5">
 								<div class="col-12">
 									<div class="form-group">
-										<label class="form-control-label" >SMTP Address</label>
+										<label class="form-control-label">SMTP Address</label>
 										<input type="text" class="form-control" v-model="mailer.smtp_host" />
 									</div>
 									<div class="form-group">
-										<label class="form-control-label" >SMTP Port</label>
+										<label class="form-control-label">SMTP Port</label>
 										<input type="text" class="form-control" v-model="mailer.smtp_port" />
 									</div>
 									<div class="form-group">
 										<label class="form-control-label">Email</label>
-										<input type="text" class="form-control"  v-model="mailer.email" />
+										<input type="text" class="form-control" v-model="mailer.email" />
 									</div>
 									<div class="form-group">
 										<label class="form-control-label">Password</label>
-										<input type="text" class="form-control"  v-model="mailer.password" />
+										<input type="text" class="form-control" v-model="mailer.password" />
 									</div>
 								</div>
 							</div>
-							<hr/>
+							<hr />
 							<div class="row mt-3">
 								<div class="col-12">
 									<h4>Another Service</h5>
-									<hr/>
+										<hr />
 								</div>
 								<div class="col-3">
 									<label>Whatsapp (Token from wablas.com)</label>
@@ -363,6 +363,29 @@
 							</div>
 						</div>
 						<div class="tab-pane fade show" id="tabs-manual_payment" role="tabpanel">
+
+							<div class="row">
+								<div class="col">Kurs USD</div>
+								<div class="form-check">
+									<input class="form-check-input" v-model="kurs_usd.using_api" type="checkbox" :checked="kurs_usd.using_api" value="kurs_usd.using_api" id="enableApiCurrency" @click="enableApiCurrency">
+									<label class="form-check-label" for="enableManualPayment">
+										Using API
+									</label>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12">
+									<div class="form-group">
+										<div class="input-group input-group-alternative">
+											<div class="input-group-prepend">
+												<span class="input-group-text">IDR</span>
+											</div>
+											<money :disabled="kurs_usd.using_api == 1" v-model="kurs_usd.value" v-bind="money" class="form-control"></money>
+										</div>
+									</div>
+								</div>
+							</div>
+							<hr>
 							<div class="row">
 								<div class="col">Manual Payment</div>
 								<div class="form-check">
@@ -411,7 +434,7 @@
 											</tr>
 										</table>
 									</div>
-									
+
 								</div>
 							</div>
 							<div class="row">
@@ -426,7 +449,7 @@
 							<hr />
 							<div class="row">
 								<div class="col">
-								<div class="form-group">
+									<div class="form-group">
 										<label class="form-control-label">JS KIT URL</label>
 										<input type="text" class="form-control" v-model="espay.jsKitUrl" placeholder="https://kit.espay.id/public/signature/js" />
 									</div>
@@ -448,7 +471,7 @@
 									</div>
 								</div>
 							</div>
-							<hr/>
+							<hr />
 							<div class="row">
 								<div class="col form-group text-right">
 									<button @click="saveManualPayment" :disabled="savingManual" type="button" class="btn btn-primary">
@@ -479,10 +502,13 @@
 </div>
 <?php $this->layout->begin_script(); ?>
 <script src="https://cdn.jsdelivr.net/npm/vue-ctk-date-time-picker@2.5.0/dist/vue-ctk-date-time-picker.umd.js" charset="utf-8"></script>
+<script src="<?= base_url("themes/script/v-money.js"); ?>"></script>
 
 <script>
 	var banks = <?= $manual; ?>;
 	var emailReceive = "<?= Settings_m::getSetting("email_receive"); ?>";
+	var kurs_usd = <?= Settings_m::getSetting("kurs_usd"); ?>;
+	console.log(kurs_usd);
 	const toBase64 = file => new Promise((resolve, reject) => {
 		const reader = new FileReader();
 		if (file) {
@@ -530,13 +556,13 @@
 			saving: false,
 			savingCert: false,
 			savingNametag: false,
-			savingMailer:false,
+			savingMailer: false,
 			uploading: false,
 			preview_certificate: "",
-			espay:<?=json_encode(Settings_m::getEspay());?>,
-			enablePayment:<?=json_encode(Settings_m::getEnablePayment());?>,
+			espay: <?= json_encode(Settings_m::getEspay()); ?>,
+			enablePayment: <?= json_encode(Settings_m::getEnablePayment()); ?>,
 			typeMailer: "<?= $this->Notification_m->getDefaultMailer() ?>",
-			mailer:<?= $this->Notification_m->getValue(Notification_m::SETTING_MAILER) ?>,
+			mailer: <?= $this->Notification_m->getValue(Notification_m::SETTING_MAILER) ?>,
 			logo_src: '<?= base_url('themes/uploads/logo.png'); ?>',
 			form: {
 				preface: <?= json_encode(Settings_m::getSetting('preface')); ?>,
@@ -556,7 +582,15 @@
 				emailReceive: emailReceive,
 				banks: banks
 			},
+			kurs_usd: kurs_usd,
 			savingManual: false,
+
+			money: {
+				decimal: ',',
+				thousands: '.',
+				precision: 0,
+				masked: false
+			},
 		},
 		computed: {
 			urlPreview() {
@@ -606,9 +640,12 @@
 			}
 		},
 		methods: {
-			saveMailer(){
+			saveMailer() {
 				this.savingMailer = true;
-				$.post("<?= base_url('admin/setting/save_mailer'); ?>",{type:this.typeMailer,mailer:this.mailer}, function(res) {
+				$.post("<?= base_url('admin/setting/save_mailer'); ?>", {
+					type: this.typeMailer,
+					mailer: this.mailer
+				}, function(res) {
 					if (res.status) {
 						Swal.fire("Success", "Setting Email Saved Successfully !", "success");
 					}
@@ -619,13 +656,14 @@
 			saveManualPayment() {
 				this.savingManual = true;
 				$.post("<?= base_url('admin/setting/save_manual'); ?>", {
-					manualPayment:this.manualPayment,
-					espay:this.espay,
-					enablePayment:this.enablePayment,
+					manualPayment: this.manualPayment,
+					espay: this.espay,
+					enablePayment: this.enablePayment,
+					kurs_usd: this.kurs_usd,
 				}, function(res) {
 					if (res.status) {
 						Swal.fire("Success", "Setting Payment Saved Successfully !", "success");
-					}else{
+					} else {
 						Swal.fire('Fail', res.message, 'error');
 					}
 				}, 'JSON').always(function() {
@@ -830,6 +868,28 @@
 				}).always(function() {
 					app.uploading = false;
 				});
+			},
+			formatCurrency(price) {
+				return new Intl.NumberFormat("id-ID", {
+					style: 'currency',
+					currency: "IDR"
+				}).format(price);
+			},
+			enableApiCurrency(e) {
+				var cur = 'IDR';
+				if (e.target.checked) {
+					app.kurs_usd.using_api = true;
+					$.get("<?= base_url('admin/setting/currency') ?>", function(res) {
+						if (res.code == 200) {
+							app.kurs_usd.value = res.data[cur];
+						} else {
+							Swal.fire("Gagal", res.message, "error");
+						}
+					});
+				} else {
+					app.kurs_usd.using_api = false;
+					app.kurs_usd.value = kurs_usd.value;
+				}
 			},
 		}
 	});
