@@ -51,8 +51,8 @@ class Event_m extends MY_Model
 
 	public function eventAvailableNow($isManual = false)
 	{
-		
-		$filter = ($isManual ? []:['show' => '1']);
+
+		$filter = ($isManual ? [] : ['show' => '1']);
 		$this->load->model("Transaction_m");
 		$result = $this->setAlias("t")->find()->select("t.name as event_name,event_pricing.name as name_pricing,event_pricing.price as price_r,event_pricing.id as id_price,")
 			->select("condition,condition_date,kategory")
@@ -121,13 +121,11 @@ class Event_m extends MY_Model
 					$return[$index]['pricingName'][$pId]['pricing'][$row['condition']] = ['id' => $row['id_price'], 'price' => $row['price_r'], 'available' => $avalaible];
 				}
 			}
-
 		}
 		return $return;
-
 	}
 
-	public function eventVueModel($member_id, $userStatus, $filter = [])
+	public function eventVueModel($member_id = '', $userStatus = '', $filter = [])
 	{
 		$filter = array_merge($filter, ['show' => '1']);
 		$this->load->model("Transaction_m");
@@ -138,13 +136,13 @@ class Event_m extends MY_Model
 			->join("transaction_details td", "td.event_pricing_id = event_pricing.id AND td.member_id = '$member_id'", "left")
 			->join("transaction tr", "tr.id = td.transaction_id", "left")
 			->order_by("t.id,event_pricing.name,event_pricing.condition_date")->get();
-		$count = $this->setAlias("t")->find()->select("t.id as id_event,t.kouta,SUM(IF(tr.status_payment = '".Transaction_m::STATUS_FINISH."',1,0)) as participant")
+		$count = $this->setAlias("t")->find()->select("t.id as id_event,t.kouta,SUM(IF(tr.status_payment = '" . Transaction_m::STATUS_FINISH . "',1,0)) as participant")
 			->join("event_pricing", "t.id = event_id")
 			->join("transaction_details td", "td.event_pricing_id = event_pricing.id", "left")
 			->join("transaction tr", "tr.id = td.transaction_id", "left")
 			->group_by("t.id")->get()->result_array();
 		$koutas = [];
-		foreach($count as $row){
+		foreach ($count as $row) {
 			$koutas[$row['id_event']] = $row;
 		}
 		$return = [];
@@ -154,9 +152,9 @@ class Event_m extends MY_Model
 		$pId = 0;
 		$frmt = "d M Y";
 		foreach ($result->result_array() as $row) {
-			if($koutas[$row['id_event']]['participant'] < $row['kouta']) {
+			if ($koutas[$row['id_event']]['participant'] < $row['kouta']) {
 				$avalaible = $this->validateFollowing($row, $userStatus);
-			}else{
+			} else {
 				$avalaible = false;
 			}
 			$conditionDate = explode(":", $row['condition_date']);
@@ -174,14 +172,14 @@ class Event_m extends MY_Model
 				}
 			}
 			$added = ($row['followed'] != null && $row['checkout'] == 0 ? 1 : 0);
-			$waiting_payment = ($row['checkout'] == 1 && !in_array($row['status_payment'],[Transaction_m::STATUS_FINISH,Transaction_m::STATUS_UNFINISH,Transaction_m::STATUS_EXPIRE,Transaction_m::STATUS_DENY]));
+			$waiting_payment = ($row['checkout'] == 1 && !in_array($row['status_payment'], [Transaction_m::STATUS_FINISH, Transaction_m::STATUS_UNFINISH, Transaction_m::STATUS_EXPIRE, Transaction_m::STATUS_DENY]));
 			if ($temp != $row['event_name']) {
 				$index++;
 				$return[$index] = [
 					'id' => $row['id_event'],
 					'name' => $row['event_name'],
 					'category' => $row['kategory'],
-					'special_link'=>($row['special_link'] != "" && $row['special_link'] != "null" ? json_decode($row['special_link']):[]),
+					'special_link' => ($row['special_link'] != "" && $row['special_link'] != "null" ? json_decode($row['special_link']) : []),
 					'kouta' => intval($row['kouta']),
 					'participant' => intval($koutas[$row['id_event']]['participant']),
 					'followed' => ($row['checkout'] == 1 && $row['followed'] != null && $row['status_payment'] == Transaction_m::STATUS_FINISH),
@@ -189,7 +187,15 @@ class Event_m extends MY_Model
 						[
 							'name' => $row['name_pricing'],
 							'title' => $title,
-							'pricing' => [$row['condition'] => ['id' => $row['id_price'], 'price' => $row['price_r'], 'available' => $avalaible, 'added' => $added,'waiting_payment'=>$waiting_payment]]
+							'pricing' => [
+								$row['condition'] => [
+									'id' => $row['id_price'],
+									'price' => $row['price_r'],
+									'available' => $avalaible,
+									'added' => $added,
+									'waiting_payment' => $waiting_payment
+								]
+							]
 						]
 					],
 					'memberStatus' => [$row['condition']]
@@ -198,7 +204,7 @@ class Event_m extends MY_Model
 				$pId = 0;
 				$temp = $row['event_name'];
 			} else {
-				if($return[$index]['followed'] == false && ($row['checkout'] == 1 && $row['followed'] != null && $row['status_payment'] == Transaction_m::STATUS_FINISH)){
+				if ($return[$index]['followed'] == false && ($row['checkout'] == 1 && $row['followed'] != null && $row['status_payment'] == Transaction_m::STATUS_FINISH)) {
 					$return[$index]['followed'] = true;
 				}
 				if (!in_array($row['condition'], $return[$index]['memberStatus']))
@@ -208,15 +214,14 @@ class Event_m extends MY_Model
 					$return[$index]['pricingName'][$pId] = [
 						'name' => $row['name_pricing'],
 						'title' => $title,
-						'pricing' => [$row['condition'] => ['id' => $row['id_price'], 'price' => $row['price_r'], 'available' => $avalaible, 'added' => $added,'waiting_payment'=>$waiting_payment]]
+						'pricing' => [$row['condition'] => ['id' => $row['id_price'], 'price' => $row['price_r'], 'available' => $avalaible, 'added' => $added, 'waiting_payment' => $waiting_payment]]
 					];
 					$tempPricing = $row['name_pricing'];
 				} else {
-					if ($row['checkout'] == 0 || $waiting_payment || in_array($row['status_payment'],[Transaction_m::STATUS_EXPIRE,Transaction_m::STATUS_DENY]))
-						$return[$index]['pricingName'][$pId]['pricing'][$row['condition']] = ['id' => $row['id_price'], 'price' => $row['price_r'], 'available' => $avalaible, 'added' => $added,'waiting_payment'=>$waiting_payment];
+					if ($row['checkout'] == 0 || $waiting_payment || in_array($row['status_payment'], [Transaction_m::STATUS_EXPIRE, Transaction_m::STATUS_DENY]))
+						$return[$index]['pricingName'][$pId]['pricing'][$row['condition']] = ['id' => $row['id_price'], 'price' => $row['price_r'], 'available' => $avalaible, 'added' => $added, 'waiting_payment' => $waiting_payment];
 				}
 			}
-
 		}
 		return $return;
 	}
@@ -247,7 +252,6 @@ class Event_m extends MY_Model
 		}
 		// debug($result);
 		return $result;
-
 	}
 
 	public function get_kondisi($id)
@@ -311,17 +315,18 @@ class Event_m extends MY_Model
 	 * @param $data
 	 * @return Dompdf
 	 */
-	public function exportCertificate($data,$id = null){
-		if($id == null) {
+	public function exportCertificate($data, $id = null)
+	{
+		if ($id == null) {
 			$id = $this->id;
 			$event_name = $this->name;
-		}else {
+		} else {
 			$rs = $this->findOne($id);
 			$event_name = $rs->name;
 		}
 
 		$this->load->model('Settings_m');
-		if(file_exists(APPPATH."uploads/cert_template/$id.txt")) {
+		if (file_exists(APPPATH . "uploads/cert_template/$id.txt")) {
 
 			$data['event_name'] = $event_name;
 			$domInvoice = new Dompdf();
@@ -335,9 +340,8 @@ class Event_m extends MY_Model
 			$domInvoice->loadHtml($html);
 			$domInvoice->render();
 			return $domInvoice;
-		}else{
+		} else {
 			throw new ErrorException("Template of Certificate not found !");
 		}
 	}
-
 }
