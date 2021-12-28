@@ -47,7 +47,7 @@ $theme_path = base_url("themes/gigaland") . "/";
     <div class="container">
         <div class="row">
             <!-- NOTE Setelah Submmit -->
-            <div v-if="registered" class="col-lg-12 col-lg-offset-2">
+            <div v-if="page == 'registered'" class="col-lg-12 col-lg-offset-2">
                 <div class="alert alert-success">
                     <h4><i class="fa fa-info"></i> Akunmu berhasil dibuat</h4>
                     <p>Kami telah mengirim link konfirmasi ke alamat emailmu. Untuk melengkapi proses registrasi, Silahkan klik <i>confirmation link</i>.
@@ -111,9 +111,93 @@ $theme_path = base_url("themes/gigaland") . "/";
                 </div>
             </div>
 
-            <!-- NOTE Sebelum Submit -->
-            <div v-else class="col-lg-12 col-lg-offset-2">
 
+            <!-- NOTE Payment -->
+            <div v-if="page == 'payment'" class="col-lg-12 col-lg-offset-2">
+
+                <div class="card mt-2">
+                    <div class="card-header text-center">
+                        <h4 class="m-0 p-0"><strong class="font-weight-extra-bold">Data Akun</strong></h4>
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td>Email</td>
+                                    <td>:</td>
+                                    <th>{{data.email}}</th>
+                                </tr>
+                                <tr>
+                                    <td>Nama</td>
+                                    <td>:</td>
+                                    <th>{{data.fullname}}</th>
+                                </tr>
+                                <tr>
+                                    <td>Member ID</td>
+                                    <td>:</td>
+                                    <th>{{data.id}}</th>
+                                </tr>
+                                <tr>
+                                    <td>Invoince ID</td>
+                                    <td>:</td>
+                                    <th>{{data.id_invoice}}</th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="card mt-2">
+                    <div class="card-header text-center">
+                        <h4 class="m-0 p-0"><strong class="font-weight-extra-bold">Event</strong></h4>
+                    </div>
+                    <div class="card-body">
+                        <table class="table">
+                            <thead>
+                                <th></th>
+                                <th>Event Name</th>
+                                <th>Pricing</th>
+                            </thead>
+                            <tbody>
+                                <tr v-for="item in transactionsSort">
+                                    <td></td>
+                                    <td>{{ item.product_name}}</td>
+                                    <td>{{ formatCurrency(item.price) }}</td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td></td>
+                                    <td class="text-right font-weight-bold">Total :</td>
+                                    <td>{{ formatCurrency(totalPrice) }}</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="form-group mb-2">
+                    <select name="selectedPaymentMethod" id="selectedPaymentMethod" :class="{ 'is-invalid':validation_error.selectedPaymentMethod}" class="form-control selectedPaymentMethod mt-2 text-center" v-model="selectedPaymentMethod">
+                        <option v-for="(method,ind) in paymentMethod" :value="method.key">{{method.desc}}</option>
+                    </select>
+                    <div v-if="validation_error.selectedPaymentMethod" class="invalid-feedback">
+                        {{ validation_error.selectedPaymentMethod }}
+                    </div>
+                </div>
+                <hr />
+                <div class="form-group row mb-2 mb-5">
+                    <div class="col-lg-12 text-center">
+                        <button :disabled="saving" type="button" @click="checkout" class="btn btn-primary custom-border-radius font-weight-semibold text-uppercase">
+                            <i v-if="saving" class="fa fa-spin fa-spinner"></i>
+                            Submit
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- NOTE Sebelum Submit -->
+            <div v-if="page == 'register'" class="col-lg-12 col-lg-offset-2">
                 <div class="alert alert-info alert-dismissable alert-hotel mt-5">
                     <i class="fa fa-info"></i>
                     <b>Perhatian</b>
@@ -288,7 +372,7 @@ $theme_path = base_url("themes/gigaland") . "/";
 
                         <div class="row">
                             <div class="accordion accordion-quaternary col-md-12">
-                                <div v-for="(event, index) in events" class="card card-default mt-2" v-bind:key="index">
+                                <div v-for="(event, index) in filteredEvent" class="card card-default mt-2" v-bind:key="index">
                                     <div class="card-header">
                                         <h4 class="card-title m-0">
                                             <a class="accordion-toggle" data-toggle="collapse" :href="'#accordion-'+index" aria-expanded="true">
@@ -330,25 +414,23 @@ $theme_path = base_url("themes/gigaland") . "/";
                                         </div>
                                     </div>
                                 </div>
-
-                                <!-- <div class="btn-group">
-                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        {{ paymentMethod[selectedPaymentMethod].desc }} <span class="caret"></span>
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <span v-for="(method,ind) in paymentMethod">
-                                            <button v-if="ind > 0" class="dropdown-item" href="#" @click="selectedPaymentMethod=ind;return false;"> {{ method.desc }}</button>
-                                        </span>
+                                <div class="card card-default mt-2">
+                                    <div class="card-header text-center">
+                                        <b>{{ formatCurrency(total) }}</b>
                                     </div>
-                                </div> -->
-                                <div class="form-group mb-2">
-                                    <select name="selectedPaymentMethod" id="selectedPaymentMethod" :class="{ 'is-invalid':validation_error.selectedPaymentMethod}" class="form-control mt-2 text-center" v-model="selectedPaymentMethod">
+                                </div>
+                                <div v-if="validation_error.eventAdded" style="font-size: .875em;color: #dc3545;">
+                                    {{ validation_error.eventAdded }}
+                                </div>
+
+                                <!-- <div class="form-group mb-2">
+                                    <select name="selectedPaymentMethod" id="selectedPaymentMethod" :class="{ 'is-invalid':validation_error.selectedPaymentMethod}" class="form-control selectedPaymentMethod mt-2 text-center" v-model="selectedPaymentMethod">
                                         <option v-for="(method,ind) in paymentMethod" :value="method.key">{{method.desc}}</option>
                                     </select>
                                     <div v-if="validation_error.selectedPaymentMethod" class="invalid-feedback">
                                         {{ validation_error.selectedPaymentMethod }}
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </div>
@@ -360,10 +442,22 @@ $theme_path = base_url("themes/gigaland") . "/";
                     <div class="col-lg-12 text-center">
                         <button :disabled="saving" type="button" @click="register" class="btn btn-primary custom-border-radius font-weight-semibold text-uppercase">
                             <i v-if="saving" class="fa fa-spin fa-spinner"></i>
-                            Submit
+                            Next
                         </button>
-                        <button type="button" class="btn btn-danger custom-border-radius font-weight-semibold text-uppercase" id="resetBtn">Cancel
-                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal" id="modal-select-payment">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Select Payment Method</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <iframe id="sgoplus-iframe" style="width:100%"></iframe>
                     </div>
                 </div>
             </div>
@@ -375,6 +469,9 @@ $theme_path = base_url("themes/gigaland") . "/";
 <script src="<?= base_url("themes/script/vuejs-datepicker.min.js"); ?>"></script>
 <script src="<?= base_url("themes/script/chosen/chosen.jquery.min.js"); ?>"></script>
 
+<?php if (isset(Settings_m::getEspay()['jsKitUrl'])) : ?>
+    <script src="<?= Settings_m::getEspay()['jsKitUrl']; ?>"></script>
+<?php endif; ?>
 <script>
     var app = new Vue({
         'el': "#app",
@@ -389,7 +486,7 @@ $theme_path = base_url("themes/gigaland") . "/";
             univ_selected: "",
             saving: false,
             validation_error: {},
-            registered: false,
+            page: 'register',
 
             paymentMethod: [],
             selectedPaymentMethod: '',
@@ -398,6 +495,8 @@ $theme_path = base_url("themes/gigaland") . "/";
             adding: false,
             transactions: null,
             paymentBank: null,
+
+            data: {},
         },
         mounted: function() {
 
@@ -441,6 +540,29 @@ $theme_path = base_url("themes/gigaland") . "/";
                 return this.transactions.sort(function(a, b) {
                     return (a.event_pricing_id > b.event_pricing_id) ? -1 : 1;
                 })
+            },
+
+            total() {
+                var total = 0;
+                this.eventAdded.forEach((item, index) => {
+                    total += parseFloat(item.price);
+                })
+                return total;
+            },
+            filteredEvent() {
+                var statusSelected = this.status_selected;
+                var status = this.statusList.find(data => data.id == statusSelected);
+                status = status ? status.kategory : '';
+
+                var events = [];
+                if (this.events) {
+                    this.events.forEach(function(item, index) {
+                        if ($.inArray(status, item.memberStatus) !== -1) {
+                            events.push(item);
+                        }
+                    });
+                }
+                return events;
             }
         },
         methods: {
@@ -470,14 +592,47 @@ $theme_path = base_url("themes/gigaland") . "/";
                     processData: false,
                     data: formData
                 }).done(function(res) {
-                    if (res.status == false && res.validation_error) {
+                    if (res.statusData == false && res.validation_error) {
                         app.validation_error = res.validation_error
-                    } else if (res.status == false && res.message) {
+                    } else if (res.statusData == false && res.message) {
                         Swal.fire('Fail', res.message, 'error');
                     } else {
-                        app.registered = true;
+                        app.page = 'payment';
+                        app.data = res.data;
                         app.transactions = res.transactions.cart;
-                        app.paymentBank = res.paymentBank.manual;
+                        // app.paymentBank = res.paymentBank.manual;
+                    }
+                }).fail(function(res) {
+                    Swal.fire('Fail', 'Server fail to response !', 'error');
+                }).always(function(res) {
+                    app.saving = false;
+                });
+            },
+            checkout() {
+                var formData = new FormData(this.$refs.form);
+                // var birthday = moment(formData.get('birthday')).format("Y-MM-DD");
+                var birthday = moment().format("Y-MM-DD");
+                formData.set("birthday", birthday);
+
+                // NOTE Data Event dan Payment
+                formData.append('data', JSON.stringify(app.data));
+                formData.append('selectedPaymentMethod', app.selectedPaymentMethod);
+
+                this.saving = true;
+                $.ajax({
+                    url: '<?= base_url('member/register/checkout'); ?>',
+                    type: 'POST',
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    data: formData
+                }).done(function(res) {
+                    if (res.statusData == false && res.validation_error) {
+                        app.validation_error = res.validation_error
+                    } else if (res.statusData == false && res.message) {
+                        Swal.fire('Fail', res.message, 'error');
+                    } else {
+                        app.page = 'registered';
                     }
                 }).fail(function(res) {
                     Swal.fire('Fail', 'Server fail to response !', 'error');
@@ -519,6 +674,30 @@ $theme_path = base_url("themes/gigaland") . "/";
             e.preventDefault();
             app.status_text = $("#status option:selected").text();
             app.eventAdded = [];
+        });
+
+        $(document).on('change', '.selectedPaymentMethod', function(e) {
+            e.preventDefault();
+            let selected = app.paymentMethod.find(data => data.key == app.selectedPaymentMethod);
+            console.log('mantap ', selected, app.selectedPaymentMethod, $(this).val());
+            if (selected && selected.key == "espay") {
+                $("#modal-select-payment").modal("show");
+
+                var invoiceID = app.data.id_invoice;
+                var apiKeyEspay = "<?= Settings_m::getEspay()['apiKey']; ?>";
+                var data = {
+                    key: apiKeyEspay,
+                    paymentId: invoiceID,
+                    backUrl: `<?= base_url('member/area'); ?>/redirect_client/billing/${invoiceID}`,
+                };
+                console.log(data);
+                if (typeof SGOSignature !== "undefined") {
+                    var sgoPlusIframe = document.getElementById("sgoplus-iframe");
+                    if (sgoPlusIframe !== null)
+                        sgoPlusIframe.src = SGOSignature.getIframeURL(data);
+                    SGOSignature.receiveForm();
+                }
+            }
         });
     });
 </script>

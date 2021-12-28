@@ -20,6 +20,7 @@ class Register extends MY_Controller
 	public function index()
 	{
 		$this->load->model('Category_member_m');
+		$this->load->model('Transaction_m');
 		$this->load->model('Univ_m');
 
 		$status = $this->Category_member_m->find()->select("id,kategory,need_verify")->where('is_hide', '0')->get()->result_array();
@@ -35,10 +36,11 @@ class Register extends MY_Controller
 			unset($data['eventAdded']);
 
 			$data['id'] = Uuid::v4();
+			$data['id_invoice'] = $this->Transaction_m->generateInvoiceID();
 			$univ = Univ_m::withKey($univ, "univ_id");
 			$status = Category_member_m::withKey($status, "id");
 			$need_verify = (isset($status[$data['status']]) && $status[$data['status']]['need_verify'] == "1");
-			if (($this->Member_m->validate($data) && $this->handlingProof('proof', $data['id'], $need_verify))) {
+			if (($this->Member_m->validate($data) && $this->handlingProof('proof', $data['id'], $need_verify)) && count($eventAdded) > 0) {
 				$data['username_account'] = $data['email'];
 				$data['verified_by_admin'] = !$need_verify;
 				$data['verified_email'] = 0;
@@ -62,32 +64,39 @@ class Register extends MY_Controller
 				/* -------------------------------------------------------------------------- */
 				/*                              NOTE Transactions                             */
 				/* -------------------------------------------------------------------------- */
-				$this->transactions($data, $eventAdded);
+				$transaction = $this->Transaction_m->findOne(['member_id' => $data['id'], 'checkout' => 0]);
+				if (!$transaction) {
+					$id = $data['id_invoice'];
+					$transaction = new Transaction_m();
+					$transaction->id = $id;
+					$transaction->checkout = 0;
+					$transaction->status_payment = Transaction_m::STATUS_WAITING;
+					$transaction->member_id = $data['id'];
+					$transaction->save();
+					$transaction->id = $id;
+				}
+				$this->transactions($data, $eventAdded, $transaction);
 				$error['transactions'] = $this->getTransactions($data);
 
-				/* -------------------------------------------------------------------------- */
-				/*                               NOTE Checkouot                               */
-				/* -------------------------------------------------------------------------- */
-				$error['paymentBank'] = $this->checkout($data);
-
 				$this->Member_m->getDB()->trans_complete();
-				$error['status'] = $this->Member_m->getDB()->trans_status();
+				$error['statusData'] = $this->Member_m->getDB()->trans_status();
 				$error['message'] = $this->Member_m->getDB()->error();
-				if ($error['status']) {
+				if ($error['statusData']) {
 					$email_message = $this->load->view('template/email_confirmation', ['token' => $token, 'name' => $data['fullname']], true);
 					$this->Notification_m->sendMessage($data['email'], 'Email Confirmation', $email_message);
 				}
 			} else {
-				$error['status'] = false;
+				$error['statusData'] = false;
 				$error['validation_error'] = array_merge(
 					$this->Member_m->getErrors(),
 					[
-						'proof' => (isset($this->upload) ? $this->upload->display_errors("", "") : null)
+						'proof' => (isset($this->upload) ? $this->upload->display_errors("", "") : null),
+						'eventAdded' => (count($eventAdded) == 0)  ? 'Choose at least 1 event' : '',
 					],
 				);
 			}
 			$this->output->set_content_type("application/json")
-				->set_output(json_encode($error));
+				->set_output(json_encode(array_merge($error, ['data' => $data])));
 		} else {
 			$this->load->helper("form");
 			$participantsCategory = Category_member_m::asList($status, 'id', 'kategory', 'Please Select your status');
@@ -103,6 +112,162 @@ class Register extends MY_Controller
 			];
 
 			$this->layout->render('member/' . $this->theme . '/register', $data);
+		}
+	}
+
+	public function group()
+	{
+		$this->load->model('Category_member_m');
+		$this->load->model('Univ_m');
+
+		$status = $this->Category_member_m->find()->select("id,kategory,need_verify")->where('is_hide', '0')->get()->result_array();
+		$univ = $this->Univ_m->find()->select("univ_id, univ_nama")->order_by('univ_id')->get()->result_array();
+		if ($this->input->post()) {
+
+			$eventAdded = json_decode($this->input->post('eventAdded'));
+
+			$this->load->model(['Member_m', 'User_account_m', 'Notification_m', 'Transaction_m']);
+			$this->load->library('form_validation');
+			$this->load->library('Uuid');
+
+			$data = $this->input->post();
+			unset($data['eventAdded']);
+
+			$data['id'] = Uuid::v4();
+			$univ = Univ_m::withKey($univ, "univ_id");
+			$status = Category_member_m::withKey($status, "id");
+			$need_verify = (isset($status[$data['status']]) && $status[$data['status']]['need_verify'] == "1");
+
+			$members = json_decode($data['members'], true);
+			$statusParticipant = $data['status'];
+			$id_invoice = $this->Transaction_m->generateInvoiceId();
+			$bill_to = "REGISTER-GROUP : {$data['bill_to']}";
+
+			$this->form_validation->set_rules('bill_to', 'Bill To', 'required');
+			$this->form_validation->set_rules('status', 'Status', 'required');
+
+			$validationError = false;
+			$model['validation_error'] = [];
+			// NOTE Validasi Bill To dan Status
+			if (!$this->form_validation->run()) {
+				$validationError = true;
+
+				$model['validation_error']['bill_to'] = form_error('bill_to');
+				$model['validation_error']['status'] = form_error('status');
+			}
+
+			// NOTE Validasi Jumlah Member
+			if (count($members) == 0) {
+				$validationError = true;
+				$model['validation_error']['members'] = 'Minimal 1 member';
+			}
+
+			// NOTE Validation Members
+			$count = 0;
+			foreach ($members as $key => $data) {
+				$members[$key]['id_invoice'] = $id_invoice;
+				$members[$key]['bill_to'] = $bill_to;
+				$members[$key]['id'] = Uuid::v4();
+				$members[$key]['password'] = strtoupper(substr(uniqid(), -5));
+				$members[$key]['confirm_password'] = $members[$key]['password'];
+				$members[$key]['phone'] = '0';
+				$members[$key]['birthday'] = date('Y-m-d');
+
+				$members[$key]['status'] = $statusParticipant;
+				if (!$this->Member_m->validate($members[$key]) || $this->handlingProof('proof', $data['id'], $need_verify)) {
+					if (count($this->Member_m->getErrors()) == 1 && isset($this->Member_m->getErrors()['selectedPaymentMethod'])) {
+					} else {
+						$members[$key]['validation_error'] = array_merge(
+							$this->Member_m->getErrors(),
+							[
+								'proof' => (isset($this->upload) ? $this->upload->display_errors("", "") : null),
+							]
+						);
+						$count += 1;
+					}
+				}
+			}
+
+			if ($count > 0 || $validationError) {
+				$status = false;
+			} else {
+				$status = true;
+
+				$transaction = $this->Transaction_m->findOne(['member_id' => $bill_to, 'checkout' => 0]);
+				if (!$transaction) {
+					$id = $id_invoice;
+					$transaction = new Transaction_m();
+					$transaction->id = $id;
+					$transaction->checkout = 0;
+					$transaction->status_payment = Transaction_m::STATUS_WAITING;
+					$transaction->member_id = $bill_to;
+					$transaction->save();
+					$transaction->id = $id;
+				}
+
+				foreach ($members as $key => $data) {
+					$data['username_account'] = $data['email'];
+					$data['verified_by_admin'] = !$need_verify;
+					$data['verified_email'] = 0;
+					$data['region'] = 0;
+					$data['country'] = 0;
+
+					$token = uniqid();
+					$this->Member_m->getDB()->trans_start();
+					if ($data['univ'] == Univ_m::UNIV_OTHER) {
+						$this->Univ_m->insert(['univ_nama' => strtoupper($data['other_institution'])]);
+						$data['univ'] = $this->Univ_m->last_insert_id;
+					}
+					$this->Member_m->insert(array_intersect_key($data, array_flip($this->Member_m->fillable)), false);
+					$this->User_account_m->insert([
+						'username' => $data['email'],
+						'password' => password_hash($data['password'], PASSWORD_DEFAULT),
+						'role' => 0,
+						'token_reset' => "verifyemail_" . $token
+					], false);
+
+					/* -------------------------------------------------------------------------- */
+					/*                              NOTE Transactions                             */
+					/* -------------------------------------------------------------------------- */
+					$this->transactions($data, $eventAdded, $transaction);
+					$error['transactions'] = $this->getTransactions($data);
+
+					$this->Member_m->getDB()->trans_complete();
+					$error['status'] = $this->Member_m->getDB()->trans_status();
+					$error['message'] = $this->Member_m->getDB()->error();
+					if ($error['status']) {
+						$email_message = $this->load->view('template/email_confirmation', ['token' => $token, 'name' => $data['fullname']], true);
+						$this->Notification_m->sendMessage($data['email'], 'Email Confirmation', $email_message);
+					}
+				}
+			}
+			$this->output->set_content_type("application/json")
+				->set_output(json_encode(
+					[
+						'status' => $status,
+						'data' => [
+							'members' => $members,
+							'validation_error' => array_merge($model['validation_error'], [
+								'eventAdded' => (count($eventAdded) == 0)  ? 'Choose at least 1 event' : '',
+							]),
+						]
+					]
+				));
+		} else {
+			$this->load->helper("form");
+			$participantsCategory = Category_member_m::asList($status, 'id', 'kategory', 'Please Select your status');
+			$participantsUniv = Univ_m::asList($univ, 'univ_id', 'univ_nama', 'Please Select your institution');
+
+			$data = [
+				'participantsCategory' => $participantsCategory,
+				'statusList' => $status,
+				'participantsUniv' => $participantsUniv,
+				'univlist' => $univ,
+				'events' => $this->getEvents(),
+				'paymentMethod' => Settings_m::getEnablePayment(),
+			];
+
+			$this->layout->render('member/' . $this->theme . '/register_group', $data);
 		}
 	}
 
@@ -149,7 +314,7 @@ class Register extends MY_Controller
 	public function getEvents()
 	{
 		$this->load->model("Event_m");
-		$events = $this->Event_m->eventVueModel();
+		$events = $this->Event_m->eventAvailableNow();
 		return $events;
 	}
 
@@ -160,24 +325,13 @@ class Register extends MY_Controller
 	 *
 	 * @return void
 	 */
-	private function transactions($data, $eventAdded)
+	private function transactions($data, $eventAdded, $transaction)
 	{
 		foreach ($eventAdded as $key => $event) {
 			$event = (array)$event;
 			$response = ['status' => true];
 			$this->load->model(["Transaction_m", "Transaction_detail_m", "Event_m"]);
-			$this->Transaction_m->getDB()->trans_start();
-			$transaction = $this->Transaction_m->findOne(['member_id' => $data['id'], 'checkout' => 0]);
-			if (!$transaction) {
-				$id = $this->Transaction_m->generateInvoiceID();
-				$transaction = new Transaction_m();
-				$transaction->id = $id;
-				$transaction->checkout = 0;
-				$transaction->status_payment = Transaction_m::STATUS_WAITING;
-				$transaction->member_id = $data['id'];
-				$transaction->save();
-				$transaction->id = $id;
-			}
+
 			$detail = $this->Transaction_detail_m->findOne(['transaction_id' => $transaction->id, 'event_pricing_id' => $event['id']]);
 			$fee = $this->Transaction_detail_m->findOne(['transaction_id' => $transaction->id, 'event_pricing_id' => 0]);
 			if (!$detail) {
@@ -214,14 +368,36 @@ class Register extends MY_Controller
 	}
 
 	/**
+	 * getData
+	 *
+	 * description
+	 *
+	 * @return void
+	 */
+	public function getData()
+	{
+
+		$this->load->model("Transaction_m");
+		$transaction = $this->Transaction_m->findOne(['member_id' => 'b97bfa4a-cce4-4d61-940a-361676d0b738', 'checkout' => 0]);
+		echo '<pre>';
+		print_r($transaction->details);
+		echo '</pre>';
+		exit;
+	}
+
+	/**
 	 * checkout
 	 *
 	 * description
 	 *
 	 * @return void
 	 */
-	private function checkout($data)
+	public function checkout($isGroup = false)
 	{
+		$post = $this->input->post();
+		$data = json_decode($post['data'], true);
+		$data['id'] = $isGroup ? $data['bill_to'] : $data['id'];
+
 		$this->load->model("Transaction_m");
 		if ($this->config->item("use_midtrans")) {
 			$transaction = $this->Transaction_m->findOne(['member_id' => $data['id'], 'checkout' => 0]);
@@ -334,7 +510,9 @@ class Register extends MY_Controller
 			$this->Notification_m->sendMessageWithAttachment($member->email, 'Invoice', "Terima kasih atas partisipasi anda berikut adalah invoice acara yang anda ikuti", $attc);
 		}
 
-		return $response;
+		$post['data'] = $data;
+		$this->output->set_content_type("application/json")
+			->set_output(json_encode(['data' => $post]));
 	}
 
 	/**
@@ -364,5 +542,10 @@ class Register extends MY_Controller
 			}
 		}
 		return $response;
+	}
+
+	public function redirect_client($name)
+	{
+		redirect(base_url("member/area#/$name"));
 	}
 }

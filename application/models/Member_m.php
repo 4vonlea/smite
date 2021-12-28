@@ -25,12 +25,13 @@ class Member_m extends MY_Model
 			['field' => 'univ', 'rules' => 'required'],
 			['field' => 'phone', 'rules' => 'required|numeric'],
 			['field' => 'birthday', 'rules' => 'required'],
-
-			['field' => 'selectedPaymentMethod', 'label' => 'Payment Method', 'rules' => 'required'],
-
 		];
 		if (isset($_POST['univ']) && $_POST['univ'] == Univ_m::UNIV_OTHER) {
 			$rules[] = ['field' => 'other_institution', 'label' => 'Other Institution', 'rules' => 'required'];
+		}
+
+		if (isset($_POST['selectedPaymentMethod'])) {
+			$rules[] = ['field' => 'selectedPaymentMethod', 'label' => 'Payment Method', 'rules' => 'required'];
 		}
 		return $rules;
 	}
