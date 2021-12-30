@@ -46,6 +46,7 @@ class Register extends MY_Controller
 				$data['verified_email'] = 0;
 				$data['region'] = 0;
 				$data['country'] = 0;
+				$data['isGroup'] = false;
 
 				$token = uniqid();
 				$this->Member_m->getDB()->trans_start();
@@ -76,7 +77,7 @@ class Register extends MY_Controller
 					$transaction->id = $id;
 				}
 				$this->transactions($data, $eventAdded, $transaction);
-				$error['transactions'] = $this->getTransactions($data);
+				$error['transactions'] = $this->getTransactions($transaction);
 
 				$this->Member_m->getDB()->trans_complete();
 				$error['statusData'] = $this->Member_m->getDB()->trans_status();
@@ -122,6 +123,8 @@ class Register extends MY_Controller
 
 		$status = $this->Category_member_m->find()->select("id,kategory,need_verify")->where('is_hide', '0')->get()->result_array();
 		$univ = $this->Univ_m->find()->select("univ_id, univ_nama")->order_by('univ_id')->get()->result_array();
+		$participantsCategory = Category_member_m::asList(Category_member_m::findAll(), 'id', 'kategory', 'Please Select your status');
+
 		if ($this->input->post()) {
 
 			$eventAdded = json_decode($this->input->post('eventAdded'));
@@ -142,6 +145,7 @@ class Register extends MY_Controller
 			$statusParticipant = $data['status'];
 			$id_invoice = $this->Transaction_m->generateInvoiceId();
 			$bill_to = "REGISTER-GROUP : {$data['bill_to']}";
+			$bill_to_input = $data['bill_to'];
 
 			$this->form_validation->set_rules('bill_to', 'Bill To', 'required');
 			$this->form_validation->set_rules('status', 'Status', 'required');
@@ -167,6 +171,7 @@ class Register extends MY_Controller
 			foreach ($members as $key => $data) {
 				$members[$key]['id_invoice'] = $id_invoice;
 				$members[$key]['bill_to'] = $bill_to;
+				$members[$key]['bill_to_input'] = $bill_to_input;
 				$members[$key]['id'] = Uuid::v4();
 				$members[$key]['password'] = strtoupper(substr(uniqid(), -5));
 				$members[$key]['confirm_password'] = $members[$key]['password'];
@@ -174,26 +179,25 @@ class Register extends MY_Controller
 				$members[$key]['birthday'] = date('Y-m-d');
 
 				$members[$key]['status'] = $statusParticipant;
-				if (!$this->Member_m->validate($members[$key]) || $this->handlingProof('proof', $data['id'], $need_verify)) {
-					if (count($this->Member_m->getErrors()) == 1 && isset($this->Member_m->getErrors()['selectedPaymentMethod'])) {
-					} else {
-						$members[$key]['validation_error'] = array_merge(
-							$this->Member_m->getErrors(),
-							[
-								'proof' => (isset($this->upload) ? $this->upload->display_errors("", "") : null),
-							]
-						);
-						$count += 1;
-					}
+				if (!$this->Member_m->validate($members[$key]) || !$this->handlingProof('proof', $members[$key]['id'], $need_verify)) {
+					$error['statusData'] = false;
+					$members[$key]['validation_error'] = array_merge(
+						$this->Member_m->getErrors(),
+						[
+							'proof' => (isset($this->upload) ? $this->upload->display_errors("", "") : null),
+						]
+					);
+					$count += 1;
 				}
 			}
 
+			$error = [];
 			if ($count > 0 || $validationError) {
 				$status = false;
 			} else {
 				$status = true;
 
-				$transaction = $this->Transaction_m->findOne(['member_id' => $bill_to, 'checkout' => 0]);
+				$transaction = $this->Transaction_m->findOne(['id' => $id_invoice, 'checkout' => 0]);
 				if (!$transaction) {
 					$id = $id_invoice;
 					$transaction = new Transaction_m();
@@ -211,6 +215,7 @@ class Register extends MY_Controller
 					$data['verified_email'] = 0;
 					$data['region'] = 0;
 					$data['country'] = 0;
+					$data['isGroup'] = true;
 
 					$token = uniqid();
 					$this->Member_m->getDB()->trans_start();
@@ -218,41 +223,90 @@ class Register extends MY_Controller
 						$this->Univ_m->insert(['univ_nama' => strtoupper($data['other_institution'])]);
 						$data['univ'] = $this->Univ_m->last_insert_id;
 					}
-					$this->Member_m->insert(array_intersect_key($data, array_flip($this->Member_m->fillable)), false);
-					$this->User_account_m->insert([
-						'username' => $data['email'],
-						'password' => password_hash($data['password'], PASSWORD_DEFAULT),
-						'role' => 0,
-						'token_reset' => "verifyemail_" . $token
-					], false);
+					// NOTE Insert Member
+					$dataMember = $this->Member_m->findOne(['email' => $data['email']]);
+					if ($dataMember) {
+						$dataMember = $dataMember->toArray();
+						$dataMember['fullname'] = $data['fullname'];
+						$dataMember['univ'] = $data['univ'];
+						$dataMember['sponsor'] = $data['sponsor'];
+						$this->Member_m->update($dataMember, $dataMember['id'], false);
+
+						$members[$key]['id'] = $data['id'] = $dataMember['id'];
+						// NOTE Accounts
+						$this->User_account_m->update([
+							'username' => $data['email'],
+							'password' => password_hash($data['password'], PASSWORD_DEFAULT),
+							'role' => 0,
+							'token_reset' => "verifyemail_" . $token
+						], $data['email'], false);
+					} else {
+						$this->Member_m->insert(array_intersect_key($data, array_flip($this->Member_m->fillable)), false);
+
+						// NOTE Accounts
+						$this->User_account_m->insert([
+							'username' => $data['email'],
+							'password' => password_hash($data['password'], PASSWORD_DEFAULT),
+							'role' => 0,
+							'token_reset' => "verifyemail_" . $token
+						], false);
+					}
 
 					/* -------------------------------------------------------------------------- */
 					/*                              NOTE Transactions                             */
 					/* -------------------------------------------------------------------------- */
 					$this->transactions($data, $eventAdded, $transaction);
-					$error['transactions'] = $this->getTransactions($data);
 
 					$this->Member_m->getDB()->trans_complete();
-					$error['status'] = $this->Member_m->getDB()->trans_status();
+					$error['statusData'] = $this->Member_m->getDB()->trans_status();
 					$error['message'] = $this->Member_m->getDB()->error();
-					if ($error['status']) {
-						$email_message = $this->load->view('template/email_confirmation', ['token' => $token, 'name' => $data['fullname']], true);
-						$this->Notification_m->sendMessage($data['email'], 'Email Confirmation', $email_message);
+					if ($error['statusData']) {
+						$tr = $this->Transaction_m->findOne($id_invoice);
+						$data['participantsCategory'] = $participantsCategory;
+						$email_message = $this->load->view('template/success_register_onsite', $data, true);
+						$attc = [
+							$data['fullname'] . '-invoice.pdf' => $tr->exportInvoice()->output(),
+							$data['fullname'] . '-bukti_registrasi.pdf' => $tr->exportPaymentProof()->output()
+						];
+						$details = $tr->detailsWithEvent();
+						foreach ($details as $row) {
+							if ($row->event_name) {
+								$event = [
+									'name' => $row->event_name,
+									'held_on' => $row->held_on,
+									'held_in' => $row->held_in,
+									'theme' => $row->theme
+								];
+								if (env('send_card_member', '1') == '1' && false) {
+									try {
+										$attc[$data['fullname'] . "_" . $row->event_name . ".pdf"] = $this->Member_m->getCard($row->event_id, $data)->output();
+									} catch (ErrorException $ex) {
+										log_message("error", $ex->getMessage());
+									}
+								}
+							}
+						}
+						$this->Notification_m->sendMessageWithAttachment($data['email'], 'Pendaftaran Berhasil', $email_message, $attc);
 					}
 				}
+
+				$error['transactions'] = $this->getTransactions($transaction);
 			}
 			$this->output->set_content_type("application/json")
-				->set_output(json_encode(
+				->set_output(json_encode(array_merge(
+					$error,
 					[
 						'status' => $status,
 						'data' => [
+							'bill_to' => $data['bill_to'],
+							'id_invoice' => $id_invoice,
 							'members' => $members,
 							'validation_error' => array_merge($model['validation_error'], [
 								'eventAdded' => (count($eventAdded) == 0)  ? 'Choose at least 1 event' : '',
 							]),
 						]
 					]
-				));
+				)));
 		} else {
 			$this->load->helper("form");
 			$participantsCategory = Category_member_m::asList($status, 'id', 'kategory', 'Please Select your status');
@@ -332,8 +386,8 @@ class Register extends MY_Controller
 			$response = ['status' => true];
 			$this->load->model(["Transaction_m", "Transaction_detail_m", "Event_m"]);
 
-			$detail = $this->Transaction_detail_m->findOne(['transaction_id' => $transaction->id, 'event_pricing_id' => $event['id']]);
-			$fee = $this->Transaction_detail_m->findOne(['transaction_id' => $transaction->id, 'event_pricing_id' => 0]);
+			$detail = $this->Transaction_detail_m->findOne(['transaction_id' => $transaction->id, 'member_id' => $data['id'], 'event_pricing_id' => $event['id']]);
+			$fee = $this->Transaction_detail_m->findOne(['transaction_id' => $transaction->id, 'member_id' => $data['id'],  'event_pricing_id' => 0]);
 			if (!$detail) {
 				$detail = new Transaction_detail_m();
 			}
@@ -352,12 +406,16 @@ class Register extends MY_Controller
 				$detail->product_name = "$event[event_name] ($event[member_status])";
 				$detail->save();
 				if ($event['price'] > 0 && $feeAlready == false) {
-					$fee->event_pricing_id = 0; //$event['id'];
-					$fee->transaction_id = $transaction->id;
-					$fee->price = rand(100, 500); //"6000";//$event['price'];
-					$fee->member_id = $data['id'];
-					$fee->product_name = "Unique Additional Price";
-					$fee->save();
+
+					$check = $data['isGroup'] ? $this->Transaction_detail_m->findOne(['transaction_id' => $transaction->id, 'member_id' => $data['bill_to'], 'product_name' => 'Unique Additional Price']) : false;
+					if (!$check) {
+						$fee->event_pricing_id = 0; //$event['id'];
+						$fee->transaction_id = $transaction->id;
+						$fee->price = rand(100, 500); //"6000";//$event['price'];
+						$fee->member_id = $data['isGroup'] ? $data['bill_to'] : $data['id'];
+						$fee->product_name = "Unique Additional Price";
+						$fee->save();
+					}
 				}
 			} else {
 				$response['status'] = false;
@@ -365,24 +423,6 @@ class Register extends MY_Controller
 			}
 			$this->Transaction_m->getDB()->trans_complete();
 		}
-	}
-
-	/**
-	 * getData
-	 *
-	 * description
-	 *
-	 * @return void
-	 */
-	public function getData()
-	{
-
-		$this->load->model("Transaction_m");
-		$transaction = $this->Transaction_m->findOne(['member_id' => 'b97bfa4a-cce4-4d61-940a-361676d0b738', 'checkout' => 0]);
-		echo '<pre>';
-		print_r($transaction->details);
-		echo '</pre>';
-		exit;
 	}
 
 	/**
@@ -396,11 +436,13 @@ class Register extends MY_Controller
 	{
 		$post = $this->input->post();
 		$data = json_decode($post['data'], true);
-		$data['id'] = $isGroup ? $data['bill_to'] : $data['id'];
+		// $data['id'] = $isGroup ? $data['bill_to'] : $data['id'];
+
+		$find = $isGroup ? ['id' => $data['id_invoice']] : ['member_id' => $data['id'], 'checkout' => 0];
 
 		$this->load->model("Transaction_m");
 		if ($this->config->item("use_midtrans")) {
-			$transaction = $this->Transaction_m->findOne(['member_id' => $data['id'], 'checkout' => 0]);
+			$transaction = $this->Transaction_m->findOne($find);
 			if ($transaction) {
 				$total_price = 0;
 				$item_details = [];
@@ -494,7 +536,7 @@ class Register extends MY_Controller
 			}
 		} else {
 			$manual_payment = json_decode(Settings_m::getSetting(Settings_m::MANUAL_PAYMENT), true);
-			$transaction = $this->Transaction_m->findOne(['member_id' => $data['id'], 'checkout' => 0]);
+			$transaction = $this->Transaction_m->findOne($find);
 			$transaction->checkout = 1;
 			$transaction->status_payment = Transaction_m::STATUS_PENDING;
 			$transaction->channel = "MANUAL TRANSFER";
@@ -503,16 +545,26 @@ class Register extends MY_Controller
 			$response['manual'] = $manual_payment;
 			$this->load->model(["Member_m", "Notification_m"]);
 
-			$member = $this->Member_m->findOne(['id' => $transaction->member_id]);
-			$attc = [
-				$member->fullname . '-invoice.pdf' => $transaction->exportInvoice()->output(),
-			];
-			$this->Notification_m->sendMessageWithAttachment($member->email, 'Invoice', "Terima kasih atas partisipasi anda berikut adalah invoice acara yang anda ikuti", $attc);
+			if ($isGroup) {
+				foreach ($data['members'] as $key => $value) {
+					$member = $this->Member_m->findOne(['id' => $value['id']]);
+					$attc = [
+						$member->fullname . '-invoice.pdf' => $transaction->exportInvoice()->output(),
+					];
+					$this->Notification_m->sendMessageWithAttachment($member->email, 'Invoice', "Terima kasih atas partisipasi anda berikut adalah invoice acara yang anda ikuti", $attc);
+				}
+			} else {
+				$member = $this->Member_m->findOne(['id' => $transaction->member_id]);
+				$attc = [
+					$member->fullname . '-invoice.pdf' => $transaction->exportInvoice()->output(),
+				];
+				$this->Notification_m->sendMessageWithAttachment($member->email, 'Invoice', "Terima kasih atas partisipasi anda berikut adalah invoice acara yang anda ikuti", $attc);
+			}
 		}
 
 		$post['data'] = $data;
 		$this->output->set_content_type("application/json")
-			->set_output(json_encode(['data' => $post]));
+			->set_output(json_encode(['data' => $post, 'response' => $response]));
 	}
 
 	/**
@@ -522,21 +574,20 @@ class Register extends MY_Controller
 	 *
 	 * @return void
 	 */
-	public function getTransactions($data)
+	public function getTransactions($transaction)
 	{
 		$this->load->model(["Transaction_m"]);
-		$transactions = $this->Transaction_m->findAll(['member_id' => $data['id']]);
+		$transactions = $this->Transaction_m->getTransactionGroup($transaction->id);
+		// $transactions = $this->Transaction_m->getTransactionGroup('INV-20211228-00011');
 		$response = ['status' => true, 'cart' => null, 'transaction' => null];
 		foreach ($transactions as $trans) {
 			if ($trans->checkout == 0) {
 				$response['current_invoice'] = $trans->id;
-				foreach ($trans->details as $row) {
-					$response['cart'][] = $row->toArray();
-				}
+				$response['cart'][] = $trans;
 			} else {
 				$detail = [];
 				foreach ($trans->details as $row) {
-					$detail[] = $row->toArray();
+					$detail[] = $trans;
 				}
 				$response['transaction'][] = array_merge($trans->toArray(), ['detail' => $detail]);
 			}
@@ -547,5 +598,101 @@ class Register extends MY_Controller
 	public function redirect_client($name)
 	{
 		redirect(base_url("member/area#/$name"));
+	}
+
+	/**
+	 * check_invoice
+	 *
+	 * Check Invoice Group
+	 *
+	 * @return void
+	 */
+	public function check_invoice()
+	{
+		if ($this->input->post()) {
+			$this->load->library('form_validation');
+			$this->form_validation->set_rules('invoice', 'Invoice', 'required');
+			if ($this->form_validation->run()) {
+				$this->load->model(['Transaction_m']);
+				$post = $this->input->post();
+				$transaction = $this->Transaction_m->findOne($post['invoice']);
+				if ($transaction) {
+					$transaction = $transaction->toArray();
+					$transaction['description'] = ucwords(Transaction_m::$transaction_status[$transaction['status_payment']]);
+
+					if ($transaction['status_payment'] == 'settlement') {
+						$transaction['status_payment'] = 'Finished';
+					} else {
+						$transaction['status_payment'] = ucwords($transaction['status_payment']);
+					}
+
+					$data['status'] = true;
+					$data['transaction'] = $transaction;
+					$data['message'] = '';
+				} else {
+					$data['status'] = false;
+					$data['transaction'] = null;
+					$data['message'] = 'No Transaction data';
+				}
+			} else {
+				$data['status'] = false;
+				$data['transaction'] = null;
+				$data['message'] = '';
+				$data['validation_error']['invoice'] = form_error('invoice');
+			}
+
+			$this->output->set_content_type("application/json")
+				->set_output(json_encode($data));
+		} else {
+			$this->layout->render('member/' . $this->theme . '/check_invoice');
+		}
+	}
+
+	public function upload_proof()
+	{
+		if ($this->input->method() != 'post')
+			show_404("Page Not Found !");
+
+		$post = $this->input->post();
+		$transaction = json_decode($post['transaction'], true);
+		$id = $transaction['id'];
+		$message = $post["message"];
+
+		$config['upload_path']          = APPPATH . 'uploads/proof/';
+		$config['allowed_types']        = 'jpg|png|jpeg|pdf';
+		$config['max_size']             = 2048;
+		$config['overwrite']             = true;
+		$config['file_name']        = $id;
+
+		$this->load->library('upload', $config);
+		if ($this->upload->do_upload('file_proof')) {
+			$data = $this->upload->data();
+
+			$this->load->model(["Transaction_m", "Notification_m", "Member_m"]);
+			$tran = $this->Transaction_m->findOne($id);
+			$tran->client_message = $message;
+			$tran->payment_proof =  $data['file_name'];
+			$tran->status_payment = Transaction_m::STATUS_NEED_VERIFY;
+			$data['status_payment'] =  Transaction_m::STATUS_NEED_VERIFY;
+			$mem = $this->Member_m->findOne($tran->member_id);
+			$response['status'] = $tran->save();
+			$response['data'] = $data;
+			if ($response['status'] && Settings_m::getSetting("email_receive") != "") {
+				$fullname = $mem ? $mem->fullname : $transaction['member_id'];
+
+				$email_message = "$fullname has upload a transfer proof with invoice id <b>$tran->id</b>";
+				$file[$data['file_name']] = file_get_contents(APPPATH . 'uploads/proof/' . $data['file_name']);
+				$emails = explode(",", Settings_m::getSetting("email_receive"));
+				foreach ($emails as $email) {
+					$this->Notification_m->sendMessageWithAttachment($email, 'Notification Upload Transfer Proof', $email_message, $file);
+				}
+			}
+		} else {
+			$response['status'] = false;
+			$response['message'] = $this->upload->display_errors("", "");
+		}
+		$this->output
+			->set_content_type("application/json")
+			->_display(json_encode($response));
 	}
 }

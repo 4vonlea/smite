@@ -11,9 +11,13 @@ class Member_m extends MY_Model
 	public function rules($insert = false)
 	{
 		$this->load->model("Univ_m");
+		$validations = '|is_unique[members.email]';
+		if (isset($_POST['group'])) {
+			$validations = '';
+		}
 		$rules = [
 			[
-				'field' => 'email', 'rules' => 'required|max_length[100]|valid_email|is_unique[members.email]',
+				'field' => 'email', 'rules' => "required|max_length[100]|valid_email{$validations}",
 				'errors' => ['is_unique' => 'This email already exist !']
 			],
 			['field' => 'password', 'rules' => 'required|max_length[100]'],
@@ -30,9 +34,9 @@ class Member_m extends MY_Model
 			$rules[] = ['field' => 'other_institution', 'label' => 'Other Institution', 'rules' => 'required'];
 		}
 
-		if (isset($_POST['selectedPaymentMethod'])) {
-			$rules[] = ['field' => 'selectedPaymentMethod', 'label' => 'Payment Method', 'rules' => 'required'];
-		}
+		// if (isset($_POST['selectedPaymentMethod'])) {
+		// 	$rules[] = ['field' => 'selectedPaymentMethod', 'label' => 'Payment Method', 'rules' => 'required'];
+		// }
 		return $rules;
 	}
 

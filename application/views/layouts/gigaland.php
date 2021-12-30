@@ -85,6 +85,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                                         <ul>
                                             <li><a href="<?= base_url('site/login'); ?>">Login</a></li>
                                             <li><a href="<?= base_url('member/register'); ?>">Registrasi</a></li>
+                                            <li><a href="<?= base_url('member/register/group'); ?>">Registrasi Group</a></li>
                                         </ul>
                                     </li>
                                 </ul>
