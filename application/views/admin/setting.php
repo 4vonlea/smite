@@ -507,7 +507,7 @@
 <script>
 	var banks = <?= $manual; ?>;
 	var emailReceive = "<?= Settings_m::getSetting("email_receive"); ?>";
-	var kurs_usd = <?= Settings_m::getSetting("kurs_usd"); ?>;
+	var kurs_usd = <?= Settings_m::getSetting("kurs_usd") ?? 0; ?>;
 	console.log(kurs_usd);
 	const toBase64 = file => new Promise((resolve, reject) => {
 		const reader = new FileReader();
