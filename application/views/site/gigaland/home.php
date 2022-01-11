@@ -303,9 +303,9 @@
                         </tr>
                         <tr>
                             <td>
-                            <form name="contactForm" id='contact_form' class="form-border" method="post" action="">
+                            <form name="contactForm" id='contact_form' class="form-border" method="post" action="<?=base_url('site/login');?>">
                                 <div class="field-set">
-                                <input type='text' name='email' id='email' class="form-control" placeholder="Email">
+                                <input type='text' name='username' id='email' class="form-control" placeholder="Email">
                                 </div>
 
                                 <div class="field-set">
@@ -313,7 +313,7 @@
                                 </div>
                                 <br><br>                                
                                 <div class="d-buttons">
-                                    <a href="" class="btn-main btn-fullwidth" style="background-color:#F4AD39; color:black;">Sign</a><br>
+                                    <button type="submit" class="btn-main btn-fullwidth" style="background-color:#F4AD39; color:black;">Sign</button><br>
                                 </div>
                             </form>
                             </td>
