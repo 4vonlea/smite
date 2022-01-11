@@ -65,18 +65,21 @@ $theme_path = base_url("themes/gigaland") . "/";
 
                             <div class="de-flex-col header-col-mid">
                                 <!-- mainmenu begin -->
+                                <?php
+                                    $isHome = $this->router->class == "Site" && $this->router->method == "home";
+                                ?>
                                 <ul id="mainmenu">
                                     <li>
-                                        <a href="#content" style="color:#F4AD39;">Home<span></span></a>
+                                        <a href="<?=$isHome ? '':base_url('site/home');?>#content" style="color:#F4AD39;">Home<span></span></a>
                                     </li>
                                     <li>
-                                        <a href="#sign" style="color:#F4AD39;">Sign In<span></span></a>
+                                        <a href="<?=$isHome ? '':base_url('site/home');?>#sign" style="color:#F4AD39;">Sign In<span></span></a>
                                     </li>
                                     <li>
-                                        <a href="#event" style="color:#F4AD39;">Event<span></span></a>
+                                        <a href="<?=$isHome ? '':base_url('site/home');?>#event" style="color:#F4AD39;">Event<span></span></a>
                                     </li>
                                     <li>
-                                        <a href="#abstract" style="color:#F4AD39;">Abstract<span></span></a>
+                                        <a href="<?=$isHome ? '':base_url('site/home');?>#abstract" style="color:#F4AD39;">Abstract<span></span></a>
                                     </li>
 
                                 </ul>
