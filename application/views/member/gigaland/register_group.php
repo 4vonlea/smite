@@ -21,7 +21,7 @@ $theme_path = base_url("themes/gigaland") . "/";
             <div class="row" style="background-size: cover;">
 
                 <div class="col-md-12 text-center" style="background-size: cover;">
-                    <h1>Registrasi Akun</h1>
+                    <h1>Registrasi Akun Group</h1>
                 </div>
                 <div class="clearfix" style="background-size: cover;"></div>
             </div>
@@ -46,6 +46,7 @@ $theme_path = base_url("themes/gigaland") . "/";
 <section id="app" class="custom-section-padding">
     <div class="container">
         <div class="row">
+
             <!-- NOTE Setelah Submmit -->
             <div v-if="page == 'registered'" class="col-lg-12 col-lg-offset-2">
                 <div class="alert alert-success">
@@ -81,36 +82,35 @@ $theme_path = base_url("themes/gigaland") . "/";
                             </tfoot>
                         </table>
                     </div>
-                </div>
 
-                <div class="col-sm-4 mt-2" v-for="account in paymentBank">
-                    <div class="card">
-                        <div class="card-body">
-                            <h3 class="card-title">{{ account.bank }}</h3>
-                            <p class="card-text">
-                            <table>
-                                <tr>
-                                    <th>Account Number</th>
-                                    <td>:</td>
-                                    <td>{{ account.no_rekening }}</td>
-                                </tr>
-                                <tr>
-                                    <th>Account Holder</th>
-                                    <td>:</td>
-                                    <td>{{ account.holder }}</td>
-                                </tr>
-                            </table>
-                            </p>
+                    <div class="col-sm-4 mt-2" v-for="account in paymentBank">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title">{{ account.bank }}</h3>
+                                <p class="card-text">
+                                <table>
+                                    <tr>
+                                        <th>Account Number</th>
+                                        <td>:</td>
+                                        <td>{{ account.no_rekening }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Account Holder</th>
+                                        <td>:</td>
+                                        <td>{{ account.holder }}</td>
+                                    </tr>
+                                </table>
+                                </p>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="alert alert-success mt-2">
-                    <h4><i class="fa fa-info"></i> Konfirmasi Pembayaran</h4>
-                    <p><strong>Untuk melakukan konfirmasi pembayaran silakan login, kemudian akses menu "Keranjang dan Pembayaran"</strong></p>
+                    <div class="alert alert-success mt-2">
+                        <h4><i class="fa fa-info"></i> Konfirmasi Pembayaran</h4>
+                        <p><strong>Untuk melakukan konfirmasi pembayaran silakan login, kemudian akses menu "Keranjang dan Pembayaran"</strong></p>
+                    </div>
                 </div>
             </div>
-
 
             <!-- NOTE Payment -->
             <div v-if="page == 'payment'" class="col-lg-12 col-lg-offset-2">
@@ -123,19 +123,9 @@ $theme_path = base_url("themes/gigaland") . "/";
                         <table class="table">
                             <tbody>
                                 <tr>
-                                    <td>Email</td>
+                                    <td>Bill To</td>
                                     <td>:</td>
-                                    <th>{{data.email}}</th>
-                                </tr>
-                                <tr>
-                                    <td>Nama</td>
-                                    <td>:</td>
-                                    <th>{{data.fullname}}</th>
-                                </tr>
-                                <tr>
-                                    <td>Member ID</td>
-                                    <td>:</td>
-                                    <th>{{data.id}}</th>
+                                    <th>{{data.bill_to_input}}</th>
                                 </tr>
                                 <tr>
                                     <td>Invoince ID</td>
@@ -198,6 +188,7 @@ $theme_path = base_url("themes/gigaland") . "/";
 
             <!-- NOTE Sebelum Submit -->
             <div v-if="page == 'register'" class="col-lg-12 col-lg-offset-2">
+
                 <div class="alert alert-info alert-dismissable alert-hotel mt-5">
                     <i class="fa fa-info"></i>
                     <b>Perhatian</b>
@@ -205,145 +196,18 @@ $theme_path = base_url("themes/gigaland") . "/";
                 </div>
                 <form id="form-register" ref="form">
                     <div class="form-group row mb-2">
-                        <label class="col-lg-3 control-label control-label-bold">Email*</label>
+                        <label class="col-lg-3 control-label control-label-bold">Bill To*</label>
                         <div class="col-lg-9">
-                            <input type="text" :class="{'is-invalid': validation_error.email}" class="form-control" name="email" value="bawaihi@ulm.ac.id" />
-                            <div v-if="validation_error.email" class="invalid-feedback">
-                                {{ validation_error.email }}
-                            </div>
+                            <input type="text" :class="{'is-invalid': validation_error.bill_to}" class="form-control" name="bill_to" value="bawaihi@ulm.ac.id" />
+                            <div v-if="validation_error.bill_to" class="invalid-feedback" v-html="validation_error.bill_to"></div>
                         </div>
                     </div>
-
-                    <div class="form-group row mb-2">
-                        <label class="col-lg-3 control-label">Password*</label>
-                        <div class="col-lg-9">
-                            <input type="password" :class="{ 'is-invalid':validation_error.password }" class="form-control" name="password" value="b" />
-                            <div v-if="validation_error.password" class="invalid-feedback">
-                                {{ validation_error.password }}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group row mb-2">
-                        <label class="col-lg-3 control-label">Confirm Password*</label>
-                        <div class="col-lg-9">
-                            <input type="password" :class="{ 'is-invalid': validation_error.confirm_password }" class="form-control" name="confirm_password" value="b" />
-                            <div v-if="validation_error.confirm_password" class="invalid-feedback">
-                                {{ validation_error.confirm_password }}
-                            </div>
-                        </div>
-                    </div>
-                    <hr />
 
                     <div class="form-group row mb-2">
                         <label class="col-lg-3 control-label">Status*</label>
                         <div class="col-lg-9">
                             <?= form_dropdown('status', $participantsCategory, '', [':class' => "{'is-invalid':validation_error.status}", 'id' => 'status', 'v-model' => 'status_selected', 'class' => 'form-control', 'placeholder' => 'Select your status !']); ?>
-                            <div v-if="validation_error.status" class="invalid-feedback">
-                                {{ validation_error.status }}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div v-if="needVerification" class="form-group row mb-2">
-                        <label class="col-lg-3 control-label">Mohon unggah bukti identitas anda* <small>(jpg,jpeg,png)</small></label>
-                        <div class="col-lg-9">
-                            <input type="file" name="proof" accept=".jpg,.png,.jpeg" :class="{'is-invalid':validation_error.proof}" class="form-control-file" />
-                            <div v-if="validation_error.proof" class="invalid-feedback d-block">
-                                {{ validation_error.proof }}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group row mb-2">
-                        <label class="col-lg-3 control-label">Nama Lengkap*</label>
-                        <div class="col-lg-9">
-                            <small>*Mohon mengisi nama dengan lengkap dan benar (beserta gelar) untuk sertifikat</small>
-                            <input type="text" :class="{'is-invalid':validation_error.fullname}" class="form-control" name="fullname" value="Muhammad Bawaihi" />
-                            <div v-if="validation_error.fullname" class="invalid-feedback">
-                                {{ validation_error.fullname }}
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="form-group row mb-2">
-                        <label class="col-lg-3 control-label">Alamat</label>
-                        <div class="col-lg-9">
-                            <textarea :class="{ 'is-invalid':validation_error.address }" class="form-control" name="address">-</textarea>
-                            <div class="invalid-feedback">
-                                {{ validation_error.address }}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group row mb-2">
-                        <label class="col-lg-3 control-label">Kota</label>
-                        <div class="col-lg-9">
-                            <input type="text" :class="{'is-invalid':validation_error.city}" class="form-control" name="city" value="Kota" />
-                            <div v-if="validation_error.city" class="invalid-feedback">
-                                {{ validation_error.city }}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group row mb-2">
-                        <label class="col-lg-3 control-label">Institusi*</label>
-                        <div class="col-lg-9">
-                            <?= form_dropdown('univ', $participantsUniv, '', [':class' => "{'is-invalid':validation_error.univ}", 'v-model' => 'univ_selected', 'class' => 'form-control chosen', 'placeholder' => 'Select your institution !']); ?>
-                            <div v-if="validation_error.univ" class="invalid-feedback">
-                                {{ validation_error.univ }}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div v-if="univ_selected == <?= Univ_m::UNIV_OTHER; ?>" class="form-group row mb-2">
-                        <label class="col-lg-3 control-label">Institusi lain</label>
-                        <div class="col-lg-9">
-                            <input type="text" :class="{ 'is-invalid':validation_error.other_institution}" class="form-control" name="other_institution" />
-                            <div v-if="validation_error.phone" class="invalid-feedback">
-                                {{ validation_error.other_institution }}
-                            </div>
-
-                        </div>
-                    </div>
-
-
-                    <div class="form-group row mb-2">
-                        <label class="col-lg-3 control-label">No HP/WA*</label>
-                        <div class="col-lg-9">
-                            <input type="text" :class="{ 'is-invalid':validation_error.phone}" @keypress="onlyNumber" class="form-control" name="phone" value="082153606887" />
-                            <div v-if="validation_error.phone" class="invalid-feedback">
-                                {{ validation_error.phone }}
-                            </div>
-
-                        </div>
-                    </div>
-
-
-                    <div class="form-group row mb-2">
-                        <label class="col-lg-3 control-label">Jenis Kelamin*</label>
-                        <div class="col-lg-9">
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="gender" checked value="M" /> Laki-laki
-                                </label>
-                            </div>
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="gender" value="F" /> Wanita
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group row mb-2">
-                        <label class="col-lg-3 control-label">Sponsor</label>
-                        <div class="col-lg-9">
-                            <input type="text" :class="{'is-invalid':validation_error.sponsor}" class="form-control" name="sponsor" value="-" />
-                            <div v-if="validation_error.sponsor" class="invalid-feedback">
-                                {{ validation_error.sponsor }}
-                            </div>
+                            <div v-if="validation_error.status" class="invalid-feedback" v-html="validation_error.status"></div>
                         </div>
                     </div>
 
@@ -414,27 +278,115 @@ $theme_path = base_url("themes/gigaland") . "/";
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card card-default mt-2">
+                                <!-- <div class="card card-default mt-2">
                                     <div class="card-header text-center">
                                         <b>{{ formatCurrency(total) }}</b>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div v-if="validation_error.eventAdded" style="font-size: .875em;color: #dc3545;">
                                     {{ validation_error.eventAdded }}
                                 </div>
-
-                                <!-- <div class="form-group mb-2">
-                                    <select name="selectedPaymentMethod" id="selectedPaymentMethod" :class="{ 'is-invalid':validation_error.selectedPaymentMethod}" class="form-control selectedPaymentMethod mt-2 text-center" v-model="selectedPaymentMethod">
-                                        <option v-for="(method,ind) in paymentMethod" :value="method.key">{{method.desc}}</option>
-                                    </select>
-                                    <div v-if="validation_error.selectedPaymentMethod" class="invalid-feedback">
-                                        {{ validation_error.selectedPaymentMethod }}
-                                    </div>
-                                </div> -->
                             </div>
                         </div>
                     </div>
                     <!-- NOTE End Events -->
+
+                    <!-- NOTE Members -->
+                    <div class="form-group">
+                        <hr />
+                        <label>Members
+                            <span v-if="validation_error.members">
+                                (<span style="color: red;" v-html="validation_error.members"></span>)
+                            </span>
+                        </label>
+                        <table class="table table-bordered">
+                            <thead class="text-center">
+                                <tr>
+                                    <th width="5%">No</th>
+                                    <th width="50%">Data Member</th>
+                                    <th width="10%">
+                                        <button @click="addMembers" type="button" class="btn btn-primary"><i class="fa fa-plus"></i>
+                                        </button>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-if="members.length == 0">
+                                    <td class="text-center" colspan="7">No Data</td>
+                                </tr>
+                                <tr v-for="(member,index) in members">
+                                    <td class="text-center">{{(index+1)}}</td>
+                                    <td>
+                                        <div class="row">
+                                            <div class="form-group col-6 p-2">
+                                                <label class="control-label">Email</label>
+                                                <input type="text" v-model="member.email" placeholder="Email" :class="{'is-invalid': member.validation_error.email}" class="form-control" name="email" />
+                                                <div v-if="member.validation_error.email" class="invalid-feedback">
+                                                    {{ member.validation_error.email }}
+                                                </div>
+                                            </div>
+                                            <div class="form-group col-6 p-2">
+                                                <label class="control-label">Full Name*</small>
+                                                </label>
+                                                <input type="text" v-model="member.fullname" placeholder="Full Name" :class="{'is-invalid':member.validation_error.fullname}" class="form-control" name="fullname" />
+                                                <div v-if="member.validation_error.fullname" class="invalid-feedback">
+                                                    {{ member.validation_error.fullname }}
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group col-6 p-2">
+                                                <label class="control-label">Institution</label>
+                                                <br>
+                                                <?= form_dropdown("univ", $participantsUniv, "", [
+                                                    ':name' => '`univ_${index}`',
+                                                    ':class' => "{ 'is-invalid':member.validation_error.univ}",
+                                                    "class" => 'form-control chosen',
+                                                    'placeholder' => 'Select your Institution !',
+                                                    ':data-index' => 'index',
+                                                    'v-model' => 'member.univ'
+                                                ]); ?>
+                                                <div v-if="member.validation_error.univ" class="invalid-feedback">
+                                                    {{ member.validation_error.univ }}
+                                                </div>
+
+                                                <div class="mt-2" v-if="member.univ == <?= Univ_m::UNIV_OTHER; ?>">
+                                                    <input type="text" v-model="member.other_institution" :class="{ 'is-invalid':member.validation_error.other_institution} " class="form-control" name="other_institution" />
+                                                    <div v-if="member.validation_error.other_institution" class="invalid-feedback">
+                                                        {{ member.validation_error.other_institution }}
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group col-6 p-2">
+                                                <label class="control-label">Sponsor</label>
+                                                <input type="text" v-model="member.sponsor" placeholder="Sponsor" :class="{'is-invalid': member.validation_error.sponsor}" class="form-control" name="sponsor" />
+                                                <div v-if="member.validation_error.sponsor" class="invalid-feedback">
+                                                    {{ member.validation_error.sponsor }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <!-- <td>
+											<div class="row" v-for="(event, indexEvent) in model.selected">
+												<div class="form-group col-6">
+													<label class="control-label">Price</label>
+													<input type="text" class="form-control" :value="formatCurrency(event[listStatus[model.status]] ? event[listStatus[model.status]].price : '0')" disabled />
+												</div>
+											</div>
+										</td> -->
+                                    <td class="text-center">
+                                        <button @click="members.splice(index,1)" type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <small class="col-12" for="">*PLEASE FILL YOUR NAME CORRECTLY FOR YOUR CERTIFICATE</small>
+                        <div class="card card-default mt-2">
+                            <div class="card-header text-center">
+                                <b>{{ formatCurrency(total) }}</b>
+                            </div>
+                        </div>
+                    </div>
 
                 </form>
                 <hr />
@@ -442,7 +394,9 @@ $theme_path = base_url("themes/gigaland") . "/";
                     <div class="col-lg-12 text-center">
                         <button :disabled="saving" type="button" @click="register" class="btn btn-primary custom-border-radius font-weight-semibold text-uppercase">
                             <i v-if="saving" class="fa fa-spin fa-spinner"></i>
-                            Next
+                            Submit
+                        </button>
+                        <button type="button" class="btn btn-danger custom-border-radius font-weight-semibold text-uppercase" id="resetBtn">Cancel
                         </button>
                     </div>
                 </div>
@@ -469,9 +423,6 @@ $theme_path = base_url("themes/gigaland") . "/";
 <script src="<?= base_url("themes/script/vuejs-datepicker.min.js"); ?>"></script>
 <script src="<?= base_url("themes/script/chosen/chosen.jquery.min.js"); ?>"></script>
 
-<?php if (isset(Settings_m::getEspay()['jsKitUrl'])) : ?>
-    <script src="<?= Settings_m::getEspay()['jsKitUrl']; ?>"></script>
-<?php endif; ?>
 <script>
     var app = new Vue({
         'el': "#app",
@@ -495,7 +446,7 @@ $theme_path = base_url("themes/gigaland") . "/";
             adding: false,
             transactions: null,
             paymentBank: null,
-
+            members: [],
             data: {},
         },
         mounted: function() {
@@ -547,6 +498,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                 this.eventAdded.forEach((item, index) => {
                     total += parseFloat(item.price);
                 })
+                total = total * this.members.length;
                 return total;
             },
             filteredEvent() {
@@ -581,11 +533,13 @@ $theme_path = base_url("themes/gigaland") . "/";
 
                 // NOTE Data Event dan Payment
                 formData.append('eventAdded', JSON.stringify(app.eventAdded));
-                formData.append('paymentMethod', app.paymentMethod);
+                formData.append('paymentMethod', JSON.stringify(app.paymentMethod));
+                formData.append('members', JSON.stringify(app.members));
+                formData.append('group', true);
 
                 this.saving = true;
                 $.ajax({
-                    url: '<?= base_url('member/register'); ?>',
+                    url: '<?= base_url('member/register/group'); ?>',
                     type: 'POST',
                     contentType: false,
                     cache: false,
@@ -599,7 +553,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                     } else {
                         app.page = 'payment';
                         app.data = res.data;
-                        app.transactions = res.transactions.cart;
+                        app.transactions = res.transactions ? res.transactions.cart : [];
                     }
                 }).fail(function(res) {
                     Swal.fire('Fail', 'Server fail to response !', 'error');
@@ -619,7 +573,7 @@ $theme_path = base_url("themes/gigaland") . "/";
 
                 this.saving = true;
                 $.ajax({
-                    url: '<?= base_url('member/register/checkout'); ?>',
+                    url: '<?= base_url('member/register/checkout/1'); ?>',
                     type: 'POST',
                     contentType: false,
                     cache: false,
@@ -662,11 +616,32 @@ $theme_path = base_url("themes/gigaland") . "/";
             formatDate(date) {
                 return moment(date).format("DD MMM YYYY, [At] HH:mm:ss");
             },
+            addMembers() {
+
+                this.members.push({
+                    email: '',
+                    fullname: '',
+                    univ: '',
+                    other_institution: '',
+                    sponsor: '',
+                    price: '',
+                    message_payment: '',
+                    validation_error: {}
+                });
+
+                Vue.nextTick(() => {
+                    $(".chosen").chosen({
+                        width: '100%'
+                    });
+                });
+            },
         }
     });
     $(function() {
-        $(".chosen").chosen().change(function() {
-            app.univ_selected = $(this).val();
+        $(document).on('change', '.chosen', function() {
+            // app.univ = $(this).data('index');
+            app.members[$(this).data('index')].univ = $(this).val();
+            console.log(app.members[$(this).data('index')].univ)
         });
 
         // NOTE Status change event set null

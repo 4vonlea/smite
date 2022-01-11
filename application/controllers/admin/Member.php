@@ -4,69 +4,68 @@
 class Member extends Admin_Controller
 {
 	protected $accessRule = [
-		'index'=>'view',
-		'card'=>'view',
-		'add_status'=>'insert',
-		'remove_status'=>'delete',
-		'verification_status'=>'update',
-		'verify'=>'update',
-		'get_proof'=>'view',
-		'send_certificate'=>'view',
-		'register'=>'insert',
-		'grid'=>'view',
-		'save_profile'=>'update',
-		'save_check'=>'update',
-		'get_event'=>'view',
-		'handlingImage'=>'insert',
-		'delete'=>'delete',
+		'index' => 'view',
+		'card' => 'view',
+		'add_status' => 'insert',
+		'remove_status' => 'delete',
+		'verification_status' => 'update',
+		'verify' => 'update',
+		'get_proof' => 'view',
+		'send_certificate' => 'view',
+		'register' => 'insert',
+		'grid' => 'view',
+		'save_profile' => 'update',
+		'save_check' => 'update',
+		'get_event' => 'view',
+		'handlingImage' => 'insert',
+		'delete' => 'delete',
 	];
 
 	public function index()
 	{
-		$this->load->model(['Category_member_m','Univ_m']);
+		$this->load->model(['Category_member_m', 'Univ_m']);
 		$this->load->helper("form");
 		$statusList = $this->Category_member_m->find()->select('*')->get()->result_array();
-		
-		$univList = $this->Univ_m->find()->order_by("univ_nama")->get();
-		$univDl = Univ_m::asList($univList->result_array(),"univ_id","univ_nama");
 
-		$this->layout->render('member', ['statusList' => $statusList,'univDl'=>$univDl]);
+		$univList = $this->Univ_m->find()->order_by("univ_nama")->get();
+		$univDl = Univ_m::asList($univList->result_array(), "univ_id", "univ_nama");
+
+		$this->layout->render('member', ['statusList' => $statusList, 'univDl' => $univDl]);
 	}
 
-	public function resend_verification(){
+	public function resend_verification()
+	{
 		$email = $this->input->post("email");
-		$this->load->model(["User_account_m","Notification_m"]);
+		$this->load->model(["User_account_m", "Notification_m"]);
 		$account = $this->User_account_m->findWithBiodata($email);
-		if($account){
-			$token = explode("_",$account['token_reset']);
-			if(count($token) == 0){
+		if ($account) {
+			$token = explode("_", $account['token_reset']);
+			if (count($token) == 0) {
 				$token[1] = uniqid();
 				$this->User_account_m->update([
 					'token_reset' => "verifyemail_" . $token
-				],['username'=>$email]);
+				], ['username' => $email]);
 			}
 			$email_message = $this->load->view('template/email_confirmation', ['token' => $token[1], 'name' => $account['fullname']], true);
 			$this->Notification_m->sendMessage($email, 'Email Confirmation', $email_message);
 			$this->output
-			->set_content_type("application/json")
-			->_display(json_encode(['status'=>true,'message'=>'Akun pengguna tidak ditemukan']));
-
-		}else{
+				->set_content_type("application/json")
+				->_display(json_encode(['status' => true, 'message' => 'Akun pengguna tidak ditemukan']));
+		} else {
 			$this->output
-			->set_content_type("application/json")
-			->_display(json_encode(['status'=>false,'message'=>'Akun pengguna tidak ditemukan']));
+				->set_content_type("application/json")
+				->_display(json_encode(['status' => false, 'message' => 'Akun pengguna tidak ditemukan']));
 		}
-
 	}
 
 
-	public function card($event_id,$member_id)
+	public function card($event_id, $member_id)
 	{
 		$this->load->model('Member_m');
 		$member = $this->Member_m->findOne($member_id);
-		try{
-			$member->getCard($event_id)->stream($member->fullname."-nametag.pdf", array("Attachment" => false));
-		}catch (ErrorException $ex){
+		try {
+			$member->getCard($event_id)->stream($member->fullname . "-nametag.pdf", array("Attachment" => false));
+		} catch (ErrorException $ex) {
 			show_error($ex->getMessage());
 		}
 	}
@@ -156,32 +155,32 @@ class Member extends Admin_Controller
 				break;
 			}
 		}
-
 	}
 
-	public function send_certificate(){
-		if($this->input->post()) {
+	public function send_certificate()
+	{
+		if ($this->input->post()) {
 			$this->load->model(["Notification_m", "Event_m"]);
 			$id = $this->input->post("id");
 			$member = $this->input->post();
-			if(file_exists(APPPATH."uploads/cert_template/$id.txt")) {
+			if (file_exists(APPPATH . "uploads/cert_template/$id.txt")) {
 				$member['status_member'] = "Peserta";
 				$cert = $this->Event_m->exportCertificate($member, $id)->output();
-				$status = $this->Notification_m->sendMessageWithAttachment($member['email'], "Certificate of Event", "Thank you for your participation <br/> Below is your certificate of '" . $member['event_name']."'", $cert, "CERTIFICATE.pdf");
+				$status = $this->Notification_m->sendMessageWithAttachment($member['email'], "Certificate of Event", "Thank you for your participation <br/> Below is your certificate of '" . $member['event_name'] . "'", $cert, "CERTIFICATE.pdf");
 				$this->output
 					->set_content_type("application/json")
 					->_display(json_encode($status));
-			}else{
+			} else {
 				$this->output
 					->set_content_type("application/json")
-					->_display(json_encode(['status' => false,'message'=>'Template Certificate is not found ! please set on Setting']));
+					->_display(json_encode(['status' => false, 'message' => 'Template Certificate is not found ! please set on Setting']));
 			}
 		}
 	}
 
 	public function register()
 	{
-		$this->load->model(["Category_member_m", "Event_m","Univ_m"]);
+		$this->load->model(["Category_member_m", "Event_m", "Univ_m"]);
 		$participantsCategory = Category_member_m::asList(Category_member_m::findAll(), 'id', 'kategory', 'Please Select your status');
 		if ($this->input->post()) {
 			$this->load->model(['Member_m', 'User_account_m', 'Notification_m', 'Transaction_m', 'Transaction_detail_m']);
@@ -195,7 +194,7 @@ class Member extends Admin_Controller
 
 			$uploadStatus = true;
 			$data['payment_proof'] = "-";
-			if(isset($_FILES['proof']) && is_uploaded_file($_FILES['proof']['tmp_name'])) {
+			if (isset($_FILES['proof']) && is_uploaded_file($_FILES['proof']['tmp_name'])) {
 				$config['upload_path'] = APPPATH . 'uploads/proof/';
 				$config['allowed_types'] = 'jpg|png|jpeg|pdf';
 				$config['max_size'] = 2048;
@@ -211,18 +210,18 @@ class Member extends Admin_Controller
 				}
 			}
 
-			if ($this->Member_m->validate($data) && $uploadStatus){// && $this->handlingImage('image', $data['id'])) {
+			if ($this->Member_m->validate($data) && $uploadStatus) { // && $this->handlingImage('image', $data['id'])) {
 				$data['username_account'] = $data['email'];
 				$data['verified_by_admin'] = 1;
 				$data['verified_email'] = 1;
 				$data['region'] = 0;
 				$data['country'] = 0;
-				$data['image'] = "";// $upl['file_name'];
+				$data['image'] = ""; // $upl['file_name'];
 
 				$token = uniqid();
 				$this->Member_m->getDB()->trans_start();
-				if($data['univ'] == Univ_m::UNIV_OTHER){
-					$this->Univ_m->insert(['univ_nama'=>strtoupper($data['other_institution'])]);
+				if ($data['univ'] == Univ_m::UNIV_OTHER) {
+					$this->Univ_m->insert(['univ_nama' => strtoupper($data['other_institution'])]);
 					$data['univ'] = $this->Univ_m->last_insert_id;
 				}
 
@@ -258,29 +257,30 @@ class Member extends Admin_Controller
 				$this->Member_m->getDB()->trans_complete();
 				$error['status'] = $this->Member_m->getDB()->trans_status();
 				$error['message'] = $this->Member_m->getDB()->error();
-				$error['url'] = base_url("admin/member/index?q=").$data['id'];
+				$error['url'] = base_url("admin/member/index?q=") . $data['id'];
 				$error['email'] = $data['email'];
 				if ($error['status']) {
 					$tr = $this->Transaction_m->findOne($id_invoice);
 					$data['participantsCategory'] = $participantsCategory;
 					$email_message = $this->load->view('template/success_register_onsite', $data, true);
 					$attc = [
-						$data['fullname'].'-invoice.pdf' => $tr->exportInvoice()->output(),
-						$data['fullname'].'-bukti_registrasi.pdf' => $tr->exportPaymentProof()->output()
+						$data['fullname'] . '-invoice.pdf' => $tr->exportInvoice()->output(),
+						$data['fullname'] . '-bukti_registrasi.pdf' => $tr->exportPaymentProof()->output()
 					];
 					$details = $tr->detailsWithEvent();
-					foreach($details as $row){
-						if($row->event_name) {
-							$event = ['name' => $row->event_name,
+					foreach ($details as $row) {
+						if ($row->event_name) {
+							$event = [
+								'name' => $row->event_name,
 								'held_on' => $row->held_on,
 								'held_in' => $row->held_in,
 								'theme' => $row->theme
 							];
-							if(env('send_card_member','1') == '1' && false) {
+							if (env('send_card_member', '1') == '1' && false) {
 								try {
 									$attc[$data['fullname'] . "_" . $row->event_name . ".pdf"] = $this->Member_m->getCard($row->event_id, $data)->output();
-								}catch (ErrorException $ex){
-								log_message("error",$ex->getMessage());
+								} catch (ErrorException $ex) {
+									log_message("error", $ex->getMessage());
 								}
 							}
 						}
@@ -290,21 +290,20 @@ class Member extends Admin_Controller
 			} else {
 				$error['status'] = false;
 				$error['validation_error'] = array_merge($this->Member_m->getErrors(), ['proof' => ($uploadStatus == false ? $this->upload->display_errors("", "") : null)]);
-//				$error['validation_error'] = $this->Member_m->getErrors();;
+				//				$error['validation_error'] = $this->Member_m->getErrors();;
 			}
 			$this->output->set_content_type("application/json")
 				->set_output(json_encode($error));
-
 		} else {
 			$this->load->model(["Category_member_m", "Event_m"]);
 			$this->load->helper("form");
 			$events = $this->Event_m->eventAvailableNow(true);
 			$univList = $this->Univ_m->find()->order_by("univ_id,univ_nama")->get();
-			$univDl = Univ_m::asList($univList->result_array(),"univ_id","univ_nama");
+			$univDl = Univ_m::asList($univList->result_array(), "univ_id", "univ_nama");
 			$this->layout->render("register", [
 				'participantsCategory' => $participantsCategory,
 				'events' => $events,
-				'univDl'=>$univDl
+				'univDl' => $univDl
 			]);
 		}
 	}
@@ -317,32 +316,32 @@ class Member extends Admin_Controller
 		$this->output
 			->set_content_type("application/json")
 			->_display(json_encode($grid));
-
 	}
 
-	public function save_profile(){
+	public function save_profile()
+	{
 		if ($this->input->method() != 'post')
 			show_404("Page Not Found !");
 
 		$this->load->model('Member_m');
 		$data = $this->input->post();
-		$model = $this->Member_m->findOne(['id'=>$data['id']]);
+		$model = $this->Member_m->findOne(['id' => $data['id']]);
 		$account = $model->account;
-		if($model->email != $data['email']){
-			if($account){
+		if ($model->email != $data['email']) {
+			if ($account) {
 				$account->username = $data['email'];
 				$check = $account->toArray();
 				$check['username'] = $data['email'];
-				if($account->validate($check)){
+				if ($account->validate($check)) {
 					$account->save();
 					$data['username_account'] = $data['email'];
-				}else{
+				} else {
 					$this->output
 						->set_content_type("application/json")
-						->_display(json_encode(['status'=>false,'message'=>"Username/Email sudah dipakai oleh member lain"]));
+						->_display(json_encode(['status' => false, 'message' => "Username/Email sudah dipakai oleh member lain"]));
 					exit;
 				}
-			}else{
+			} else {
 				$token = uniqid();
 				$this->User_account_m->insert([
 					'username' => $data['email'],
@@ -356,42 +355,43 @@ class Member extends Admin_Controller
 		$status = $model->save(false);
 		$this->output
 			->set_content_type("application/json")
-			->_display(json_encode(['status'=>$status,'message'=>$model->getErrors()]));
+			->_display(json_encode(['status' => $status, 'message' => $model->getErrors()]));
 	}
 
-	public function save_check(){
+	public function save_check()
+	{
 		if ($this->input->method() != 'post')
 			show_404("Page Not Found !");
 		$this->load->model('Transaction_detail_m');
 		$data = $this->input->post('transaction');
-		foreach($data as $row){
-			$this->Transaction_detail_m->update(['checklist'=>json_encode($row['checklist'])],['id'=>$row['id']]);
+		foreach ($data as $row) {
+			$this->Transaction_detail_m->update(['checklist' => json_encode($row['checklist'])], ['id' => $row['id']]);
 		}
 		$this->output
 			->set_content_type("application/json")
-			->_display(json_encode(['status'=>true]));
+			->_display(json_encode(['status' => true]));
 	}
 
-	public function get_event(){
+	public function get_event()
+	{
 		if ($this->input->method() != 'post')
 			show_404("Page Not Found !");
 		$this->load->model('Event_m');
 
 		$member_id = $this->input->post('id');
-		$result = $this->Event_m->getParticipant()->where('m.id',$member_id)->get();
+		$result = $this->Event_m->getParticipant()->where('m.id', $member_id)->get();
 		$return = [];
-		foreach($result->result_array() as $i=>$row){
-			if($row['checklist'] != "")
-				$row['checklist'] = json_decode($row['checklist'],true);
+		foreach ($result->result_array() as $i => $row) {
+			if ($row['checklist'] != "")
+				$row['checklist'] = json_decode($row['checklist'], true);
 			else
-				$row['checklist'] = ['nametag'=>false,'seminarkit'=>false,'taker'=>''];
+				$row['checklist'] = ['nametag' => false, 'seminarkit' => false, 'taker' => ''];
 			$return[$i] = $row;
 		}
 
 		$this->output
 			->set_content_type("application/json")
 			->_display(json_encode($return));
-
 	}
 	/**
 	 * @param $name
@@ -407,31 +407,30 @@ class Member extends Admin_Controller
 		$config['file_name'] = $filename;
 		$this->load->library('upload', $config);
 		return $this->upload->do_upload($name);
-
 	}
 
 	public function delete()
 	{
 		if ($this->input->method() != 'post')
 			show_404("Page Not Found !");
-		$this->load->model(["Member_m","Transaction_m","User_account_m"]);
+		$this->load->model(["Member_m", "Transaction_m", "User_account_m"]);
 		$post = $this->input->post();
-		$check = $this->Transaction_m->find()->select("count(*) as c")->where(['member_id'=>$post['id']])
+		$check = $this->Transaction_m->find()->select("count(*) as c")->where(['member_id' => $post['id']])
 			->get()->row_array();
-		$status = true;$message = "";
-		if($check['c'] > 0){
+		$status = true;
+		$message = "";
+		if ($check['c'] > 0) {
 			$status = false;
 			$message = "Cannot delete this member, The Member already have a transaction !";
-		}else{
+		} else {
 			$this->Member_m->getDB()->trans_start();
-			$this->Member_m->find()->where(['id'=>$post['id']])->delete();
-			$this->Transaction_m->find()->where(['member_id'=>$post['id']])->delete();
-			$this->User_account_m->find()->where(['username'=>$post['email']])->delete();
+			$this->Member_m->find()->where(['id' => $post['id']])->delete();
+			$this->Transaction_m->find()->where(['member_id' => $post['id']])->delete();
+			$this->User_account_m->find()->where(['username' => $post['email']])->delete();
 			$this->Member_m->getDB()->trans_complete();
 			$status = $this->Member_m->getDB()->trans_status();
-			if($status == false)
+			if ($status == false)
 				$message = "Failed to delete member, error on server !";
-
 		}
 
 		$this->output
@@ -439,4 +438,205 @@ class Member extends Admin_Controller
 			->_display(json_encode(['status' => $status, 'message' => $message]));
 	}
 
+	/* -------------------------------------------------------------------------- */
+	/*                             NOTE Register Group                            */
+	/* -------------------------------------------------------------------------- */
+	/**
+	 * register_group
+	 *
+	 * Manual Registrations Group
+	 *
+	 * @return void
+	 */
+	public function register_group()
+	{
+		$this->load->model(["Category_member_m", "Event_m", "Univ_m"]);
+		$this->load->library('form_validation');
+		$participantsCategory = Category_member_m::asList(Category_member_m::findAll(), 'id', 'kategory');
+		if ($this->input->post()) {
+
+			$this->load->model(['Member_m', 'User_account_m', 'Notification_m', 'Transaction_m', 'Transaction_detail_m']);
+			$this->load->library('Uuid');
+
+			$model = json_decode($this->input->post('model'), true);
+			$transaction = $this->input->post('transaction');
+			$bill_to = $this->input->post('bill_to');
+			$channel = 'CASH';
+			// $channel = $this->input->post('channel');
+			$id_invoice = $this->Transaction_m->generateInvoiceId();
+			$error = [];
+
+			$this->form_validation->set_rules('bill_to', 'Bill To', 'required');
+			$this->form_validation->set_rules('status', 'Status', 'required');
+
+			$validationError = false;
+			$model['validation_error'] = [];
+			// NOTE Validasi Bill To dan Status
+			if (!$this->form_validation->run()) {
+				$validationError = true;
+
+				$model['validation_error']['bill_to'] = form_error('bill_to');
+				$model['validation_error']['status'] = form_error('status');
+			}
+
+			// NOTE Validasi Jumlah Member
+			if (count($model['members']) == 0) {
+				$validationError = true;
+				$model['validation_error']['members'] = 'Minimal 1 member';
+			}
+
+			// NOTE Validation Members
+			$count = 0;
+			foreach ($model['members'] as $key => $data) {
+
+				$model['members'][$key]['id_invoice'] = $id_invoice;
+				$model['members'][$key]['id'] = Uuid::v4();
+				$model['members'][$key]['password'] = strtoupper(substr(uniqid(), -5));
+				$model['members'][$key]['confirm_password'] = $model['members'][$key]['password'];
+				$model['members'][$key]['phone'] = '0';
+				$model['members'][$key]['birthday'] = date('Y-m-d');
+
+				$uploadStatus = true;
+				$model['members'][$key]['payment_proof'] = "-";
+				if (isset($_FILES['proof']) && is_uploaded_file($_FILES['proof']['tmp_name'])) {
+					$config['upload_path'] = APPPATH . 'uploads/proof/';
+					$config['allowed_types'] = 'jpg|png|jpeg|pdf';
+					$config['max_size'] = 2048;
+					$config['overwrite'] = true;
+					$config['file_name'] = $id_invoice;
+
+					$this->load->library('upload', $config);
+					if ($this->upload->do_upload('proof')) {
+						$dataUpload = $this->upload->data();
+						$model['members'][$key]['payment_proof'] = $dataUpload['file_name'];
+					} else {
+						$uploadStatus = false;
+					}
+				}
+
+				$model['members'][$key]['status'] = $model['status'];
+				if (!$this->Member_m->validate($model['members'][$key]) || !$uploadStatus) {
+					$model['members'][$key]['validation_error'] = array_merge($this->Member_m->getErrors(), ['proof' => ($uploadStatus == false ? $this->upload->display_errors("", "") : null)]);
+					$count += 1;
+				}
+			}
+
+			if ($validationError || $count > 0) {
+				$status = false;
+			} else {
+				$status = true;
+
+				$this->Member_m->getDB()->trans_start();
+
+				// NOTE Data Transactions
+				$this->Transaction_m->insert([
+					'id' => $id_invoice,
+					'member_id' => "REGISTER-GROUP : {$bill_to}",
+					'checkout' => 1,
+					'message_payment' => '',
+					'channel' => $channel,
+					'status_payment' => Transaction_m::STATUS_FINISH,
+					'payment_proof' => $data['payment_proof']
+				]);
+
+				foreach ($model['members'] as $key => $data) {
+
+					// NOTE Data Member
+					$data['username_account'] = $data['email'];
+					$data['verified_by_admin'] = 1;
+					$data['verified_email'] = 1;
+					$data['region'] = 0;
+					$data['country'] = 0;
+					$data['image'] = ""; // $upl['file_name'];
+
+					$token = uniqid();
+					if ($data['univ'] == Univ_m::UNIV_OTHER) {
+						$this->Univ_m->insert(['univ_nama' => strtoupper($data['other_institution'])]);
+						$data['univ'] = $this->Univ_m->last_insert_id;
+					}
+
+					$this->Member_m->insert(array_intersect_key($data, array_flip($this->Member_m->fillable)), false);
+					$this->User_account_m->insert([
+						'username' => $data['email'],
+						'password' => password_hash($data['password'], PASSWORD_DEFAULT),
+						'role' => 0,
+						'token_reset' => "verifyemail_" . $token
+					], false);
+
+					// NOTE Data Detail Transactions
+					$details = [];
+					foreach ($model['selected'] as $keyEvent => $event) {
+						// $event = explode(",", $event);
+						$details[] = [
+							'member_id' => $data['id'],
+							'product_name' => $event[2],
+							'transaction_id' => $id_invoice,
+							'event_pricing_id' => $event[0],
+							'price' => $event[1],
+						];
+					}
+					$this->Transaction_detail_m->batchInsert($details);
+
+					// NOTE Send Message
+					$this->Member_m->getDB()->trans_complete();
+					$error['status'] = $this->Member_m->getDB()->trans_status();
+					$error['message'] = $this->Member_m->getDB()->error();
+					$error['url'] = base_url("admin/member/index?q=") . $data['id'];
+					$error['email'] = $data['email'];
+					if ($error['status']) {
+						$tr = $this->Transaction_m->findOne($id_invoice);
+						$data['participantsCategory'] = $participantsCategory;
+						$email_message = $this->load->view('template/success_register_onsite', $data, true);
+						$attc = [
+							$data['fullname'] . '-invoice.pdf' => $tr->exportInvoice()->output(),
+							$data['fullname'] . '-bukti_registrasi.pdf' => $tr->exportPaymentProof()->output()
+						];
+						$details = $tr->detailsWithEvent();
+						foreach ($details as $row) {
+							if ($row->event_name) {
+								$event = [
+									'name' => $row->event_name,
+									'held_on' => $row->held_on,
+									'held_in' => $row->held_in,
+									'theme' => $row->theme
+								];
+								if (env(
+									'send_card_member',
+									'1'
+								) == '1' && false) {
+									try {
+										$attc[$data['fullname'] . "_" . $row->event_name . ".pdf"] = $this->Member_m->getCard($row->event_id, $data)->output();
+									} catch (ErrorException $ex) {
+										log_message("error", $ex->getMessage());
+									}
+								}
+							}
+						}
+						$this->Notification_m->sendMessageWithAttachment($data['email'], 'Pendaftaran Berhasil', $email_message, $attc);
+					}
+				}
+			}
+			$this->output->set_content_type("application/json")
+				->set_output(json_encode(
+					[
+						'status' => $status,
+						'members' => $model['members'],
+						'validation_error' => $model['validation_error'],
+					]
+				));
+		} else {
+			$this->load->model(["Category_member_m", "Event_m"]);
+			$this->load->helper("form");
+			$events = $this->Event_m->eventAvailableNow();
+			$univList = $this->Univ_m->find()->order_by("univ_id,univ_nama")->get();
+			$univDl = Univ_m::asList($univList->result_array(), "univ_id", "univ_nama");
+
+			$data = [
+				'participantsCategory' => $participantsCategory,
+				'events' => $events,
+				'univDl' => $univDl
+			];
+			$this->layout->render("register_group", $data);
+		}
+	}
 }

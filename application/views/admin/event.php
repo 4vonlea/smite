@@ -194,6 +194,7 @@
                                                     <th>Show</th>
                                                     <th>Category Participant</th>
                                                     <th>Price</th>
+                                                    <th>Price in USD</th>
                                                     <!--													<td></td>-->
                                                 </tr>
                                             </thead>
@@ -211,6 +212,14 @@
                                                                 <span class="input-group-text">IDR</span>
                                                             </div>
                                                             <money :disabled="detailMode" v-model="cat.price" v-bind="money" class="form-control"></money>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="input-group input-group-alternative">
+                                                            <div class="input-group-prepend">
+                                                                <span class="input-group-text">USD</span>
+                                                            </div>
+                                                            <money :disabled="detailMode" v-model="cat.price_in_usd" v-bind="money" class="form-control"></money>
                                                         </div>
                                                     </td>
                                                     <!--												<td>-->
@@ -426,7 +435,7 @@
 <?php $this->layout->begin_head(); ?>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/vue-ctk-date-time-picker@2.5.0/dist/vue-ctk-date-time-picker.css">
 <style>
-   .pre-line{
+    .pre-line {
         white-space: inherit !important;
     }
 </style>

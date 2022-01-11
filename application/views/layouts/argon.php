@@ -253,6 +253,11 @@ function hideForRole($role, $listRole)
 							<i class="ni ni-spaceship text-green"></i> Manual Registration
 						</a>
 					</li>
+					<li class="nav-item  <?= hideForRole($role, ['3']); ?>">
+						<a class="nav-link" href="<?= base_url("admin/member/register_group"); ?>">
+							<i class="ni ni-spaceship text-green"></i> Manual Group Registration
+						</a>
+					</li>
 					<li class="nav-item  <?= hideForRole($role, ['3', '4']); ?>">
 						<a class="nav-link" href="<?= base_url("admin/presence"); ?>">
 							<i class="ni ni-bullet-list-67 text-green"></i> Presence check
