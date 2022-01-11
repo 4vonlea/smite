@@ -15,18 +15,19 @@ $theme_path = base_url("themes/gigaland") . "/";
 ?>
 <link href="<?= base_url(); ?>themes/script/chosen/chosen.css" rel="stylesheet">
 <?php $this->layout->end_head(); ?>
-<section id="subheader" class="text-light" data-bgimage="url(<?= $theme_path ?>/images/background/subheader.jpg) top">
-    <div class="center-y relative text-center" style="background-size: cover;">
-        <div class="container" style="background-size: cover;">
-            <div class="row" style="background-size: cover;">
-
-                <div class="col-md-12 text-center" style="background-size: cover;">
-                    <h1>Registrasi Akun</h1>
-                </div>
-                <div class="clearfix" style="background-size: cover;"></div>
-            </div>
-        </div>
-    </div>
+<section id="subheader" style="background-size: cover;">
+                    <div class="center-y relative text-center" style="background-size: cover;">
+                        <div class="container" style="background-size: cover;">
+                            <div class="row" style="background-size: cover;">
+                                
+                                <div class="col-md-12 text-center" style="background-size: cover;">
+									<h1 style="color:#F4AD39;">Registration</h1>
+                                </div>
+                                <div class="clearfix" style="background-size: cover;"></div>
+                            </div>
+                        </div>
+                    </div>
+            </section>
 
     <!-- <div class="container">
         <div class="row">
