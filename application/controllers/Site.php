@@ -28,6 +28,10 @@ class Site extends MY_Controller
 
     public function index()
     {
+        $this->load->view('site/' . $this->theme . '/index');
+    }
+
+    public function home(){
         $category       = $this->EventM->listcategory();
         $data['query']  = $category['data'];
         $news           = $this->NewsM->listnews();
@@ -42,7 +46,7 @@ class Site extends MY_Controller
         $data['eventcountdown'] = $eventcountdown;
         $papercountdown = $this->SettingM->papercountdown();
         $data['papercountdown'] = $papercountdown;
-        $this->layout->render('site/' . $this->theme . '/home', $data);
+        $this->load->view('site/' . $this->theme . '/home', $data);
     }
 
     public function certificate()
