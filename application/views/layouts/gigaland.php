@@ -9,9 +9,9 @@ $theme_path = base_url("themes/gigaland") . "/";
 <html lang="id">
 
 <head>
-    <title>Gigaland - NFT Marketplace Website Template</title>
-    <link rel="icon" href="<?= $theme_path; ?>images/icon.png" type="image/gif" sizes="16x16">
-    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <title><?= Settings_m::getSetting('site_title'); ?></title>
+    <link rel="icon" href="<?= base_url('themes/gigaland'); ?>/images/logowebrev.png" type="image/gif" sizes="16x16">
+   <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta content="Gigaland - NFT Marketplace Website Template" name="description" />
     <meta content="" name="keywords" />
