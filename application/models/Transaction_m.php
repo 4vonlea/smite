@@ -33,7 +33,7 @@ class Transaction_m extends MY_Model
 			'relationships' => [
 				'member' => ['members', 'member.id = member_id', 'left']
 			],
-			'select' => ['invoice' => 't.id', 't_id' => 't.id', 'fullname', 'status_payment', 't_updated_at' => 't.updated_at', 'm_id' => 'COALESCE(member.id,null)'],
+			'select' => ['invoice' => 't.id', 't_id' => 't.id', 'fullname' => 'COALESCE(fullname,t.member_id)', 'status_payment', 't_updated_at' => 't.updated_at', 'm_id' => 'member.id'],
 			//			'filter'=>['checkout'=>'1'],
 			'sort' => ['t.updated_at', 'desc']
 		];
@@ -101,6 +101,23 @@ class Transaction_m extends MY_Model
 	}
 
 	/**
+	 * getMemberGroup
+	 *
+	 * mengambil list member
+	 *
+	 * @return void
+	 */
+	public function getMemberGroup($id_invoice)
+	{
+		$rs = $this->db->select("m.*")
+			->join('`transaction_details` td', 'td.`transaction_id` = t.`id`')
+			->join('`members` m', 'm.`id` = td.`member_id`')
+			->where('t.`id`', $id_invoice)
+			->group_by('m.`id`')->get("{$this->table} t");
+		return $rs->result_array();
+	}
+
+	/**
 	 * @return Dompdf
 	 */
 	public function exportInvoice()
@@ -143,7 +160,7 @@ class Transaction_m extends MY_Model
 	{
 		$rs = $this->db->query("SELECT e.name as event_name,ev.* FROM events e
 			JOIN members m ON m.id = '$member_id'
-			JOIN kategory_members km ON km.id = m.status`
+			JOIN kategory_members km ON km.id = m.status
 			JOIN event_pricing ev ON ev.event_id = e.id AND ev.`condition` = km.kategory
 			WHERE ev.id NOT IN (
 			SELECT td.event_pricing_id FROM transaction_details td

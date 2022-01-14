@@ -14,121 +14,49 @@ $this->layout->begin_head();
 $theme_path = base_url("themes/gigaland") . "/";
 ?>
 <link href="<?= base_url(); ?>themes/script/chosen/chosen.css" rel="stylesheet">
+<link href="<?= $theme_path; ?>css/custom.css" rel="stylesheet">
 <?php $this->layout->end_head(); ?>
-<section id="subheader" class="text-light" data-bgimage="url(<?= $theme_path ?>/images/background/subheader.jpg) top">
+<section id="subheader" style="background-size: cover;">
     <div class="center-y relative text-center" style="background-size: cover;">
         <div class="container" style="background-size: cover;">
             <div class="row" style="background-size: cover;">
 
                 <div class="col-md-12 text-center" style="background-size: cover;">
-                    <h1>Registrasi Akun Group</h1>
+                    <h1 style="color:#F4AD39;">Registrasi Akun Group</h1>
                 </div>
                 <div class="clearfix" style="background-size: cover;"></div>
             </div>
         </div>
     </div>
-
-    <!-- <div class="container">
-        <div class="row">
-            <div class="col-md-8 order-2 order-md-1 align-self-center p-static">
-                <h1 class="text-color-dark font-weight-bold">Registrasi Akun</h1>
-            </div>
-            <div class="col-md-4 order-1 order-md-2 align-self-center">
-                <ul class="breadcrumb d-block text-md-right breadcrumb-dark">
-                    <li><a href="?= base_url('site/home'); ?>" class="text-color-dark">Beranda</a></li>
-                    <li class="active">Registrasi</li>
-                </ul>
-            </div>
-        </div>
-    </div> -->
 </section>
 
 <section id="app" class="custom-section-padding">
     <div class="container">
         <div class="row">
-
             <!-- NOTE Setelah Submmit -->
-            <div v-if="page == 'registered'" class="col-lg-12 col-lg-offset-2">
-                <div class="alert alert-success">
-                    <h4><i class="fa fa-info"></i> Akunmu berhasil dibuat</h4>
+            <div v-if="page == 'registered'" class="col-lg-8 offset-lg-2">
+                <div class="alert alert-success" style="background-color: #F5AC39;">
+                    <h4 class="text-dark"><i class="fa fa-info"></i> Akunmu berhasil dibuat</h4>
                     <p>Kami telah mengirim link konfirmasi ke alamat emailmu. Untuk melengkapi proses registrasi, Silahkan klik <i>confirmation link</i>.
-                        Jika tidak menerima email konfirmasi, silakan cek folder spam. Kemudian, mohon pastikan anda memasukan alamat email yg valid saat mengisi form pendaftaran. Jika perlu bantuan, silakan kontak kami.</p>
+                        Jika tidak menerima email konfirmasi, silakan cek folder spam. Kemudian, mohon pastikan anda memasukan alamat email yg valid saat mengisi form pendaftaran. Jika perlu bantuan, silakan kontak kami.<br>
+                        <strong>Sebagai informasi tambahan harap untuk mencatat Invoice ID anda untuk melakukan konfirmasi pembayaran</strong>
+                    </p>
                 </div>
 
                 <div class="card mt-2">
                     <div class="card-header text-center">
-                        <h4 class="m-0 p-0"><strong class="font-weight-extra-bold">Halaman untuk mengonfirmasi riwayat penagihan dan invoice display</strong></h4>
+                        <h5 class="m-0 p-0" style="color:#F4AD39;">Event</h5>
                     </div>
                     <div class="card-body">
-                        <table class="table">
-                            <thead>
-                                <th></th>
-                                <th>Event Name</th>
-                                <th>Pricing</th>
-                            </thead>
-                            <tbody>
-                                <tr v-for="item in transactionsSort">
-                                    <td></td>
-                                    <td>{{ item.product_name}}</td>
-                                    <td>{{ formatCurrency(item.price) }}</td>
-                                </tr>
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <td></td>
-                                    <td class="text-right font-weight-bold">Total :</td>
-                                    <td>{{ formatCurrency(totalPrice) }}</td>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    </div>
-
-                    <div class="col-sm-4 mt-2" v-for="account in paymentBank">
-                        <div class="card">
-                            <div class="card-body">
-                                <h3 class="card-title">{{ account.bank }}</h3>
-                                <p class="card-text">
-                                <table>
-                                    <tr>
-                                        <th>Account Number</th>
-                                        <td>:</td>
-                                        <td>{{ account.no_rekening }}</td>
-                                    </tr>
-                                    <tr>
-                                        <th>Account Holder</th>
-                                        <td>:</td>
-                                        <td>{{ account.holder }}</td>
-                                    </tr>
-                                </table>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="alert alert-success mt-2">
-                        <h4><i class="fa fa-info"></i> Konfirmasi Pembayaran</h4>
-                        <p><strong>Untuk melakukan konfirmasi pembayaran silakan login, kemudian akses menu "Keranjang dan Pembayaran"</strong></p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- NOTE Payment -->
-            <div v-if="page == 'payment'" class="col-lg-12 col-lg-offset-2">
-
-                <div class="card mt-2">
-                    <div class="card-header text-center">
-                        <h4 class="m-0 p-0"><strong class="font-weight-extra-bold">Data Akun</strong></h4>
-                    </div>
-                    <div class="card-body">
-                        <table class="table">
+                        <table class="table text-light">
                             <tbody>
                                 <tr>
                                     <td>Bill To</td>
                                     <td>:</td>
-                                    <th>{{data.bill_to_input}}</th>
+                                    <th>{{data.bill_to}}</th>
                                 </tr>
                                 <tr>
-                                    <td>Invoince ID</td>
+                                    <td>Invoice ID</td>
                                     <td>:</td>
                                     <th>{{data.id_invoice}}</th>
                                 </tr>
@@ -139,10 +67,10 @@ $theme_path = base_url("themes/gigaland") . "/";
 
                 <div class="card mt-2">
                     <div class="card-header text-center">
-                        <h4 class="m-0 p-0"><strong class="font-weight-extra-bold">Event</strong></h4>
+                        <h5 class="m-0 p-0" style="color:#F4AD39;">Halaman untuk mengonfirmasi riwayat penagihan dan invoice display</h5>
                     </div>
                     <div class="card-body">
-                        <table class="table">
+                        <table class="table text-light">
                             <thead>
                                 <th></th>
                                 <th>Event Name</th>
@@ -158,7 +86,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                             <tfoot>
                                 <tr>
                                     <td></td>
-                                    <td class="text-right font-weight-bold">Total :</td>
+                                    <td class="text-right font-weight-bold border-end">Total :</td>
                                     <td>{{ formatCurrency(totalPrice) }}</td>
                                 </tr>
                             </tfoot>
@@ -166,256 +94,321 @@ $theme_path = base_url("themes/gigaland") . "/";
                     </div>
                 </div>
 
-                <div class="form-group mb-2">
-                    <select name="selectedPaymentMethod" id="selectedPaymentMethod" :class="{ 'is-invalid':validation_error.selectedPaymentMethod}" class="form-control selectedPaymentMethod mt-2 text-center" v-model="selectedPaymentMethod">
-                        <option v-for="(method,ind) in paymentMethod" :value="method.key">{{method.desc}}</option>
-                    </select>
-                    <div v-if="validation_error.selectedPaymentMethod" class="invalid-feedback">
-                        {{ validation_error.selectedPaymentMethod }}
-                    </div>
-                </div>
-                <hr />
-                <div class="form-group row mb-2 mb-5">
-                    <div class="col-lg-12 text-center">
-                        <button :disabled="saving" type="button" @click="checkout" class="btn btn-primary custom-border-radius font-weight-semibold text-uppercase">
-                            <i v-if="saving" class="fa fa-spin fa-spinner"></i>
-                            Submit
-                        </button>
+                <div class="col-sm-4 mt-2" v-for="account in paymentBank">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title ">{{ account.bank }}</h3>
+                            <p class="card-text">
+                            <table style="color: #F5AC39;">
+                                <tr>
+                                    <th>Account Number</th>
+                                    <td>:</td>
+                                    <td>{{ account.no_rekening }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Account Holder</th>
+                                    <td>:</td>
+                                    <td>{{ account.holder }}</td>
+                                </tr>
+                            </table>
+                            </p>
+                        </div>
                     </div>
                 </div>
 
+                <div class="alert alert-success mt-2" style="background-color: #F5AC39;">
+                    <h4 class="text-dark"><i class="fa fa-info"></i> Konfirmasi Pembayaran</h4>
+                    <p><strong>Untuk melakukan konfirmasi pembayaran bisa dilakukan melalui halaman <a href="<?= base_url('member/register/check_invoice') ?>" style="color:#161D30;text-decoration: underline;" target="_BLANK">Check Invoice</a></strong></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- NOTE Payment -->
+        <div v-if="page == 'payment'" class="col-lg-8 offset-lg-2">
+            <div class="card mt-2">
+                <div class="card-header text-center">
+                    <h5 class="m-0 p-0" style="color:#F4AD39;">Data Akun</h5>
+                </div>
+                <div class="card-body">
+                    <table class="table text-light">
+                        <tbody>
+                            <tr>
+                                <td>Bill To</td>
+                                <td>:</td>
+                                <th>{{data.bill_to}}</th>
+                            </tr>
+                            <tr>
+                                <td>Invoice ID</td>
+                                <td>:</td>
+                                <th>{{data.id_invoice}}</th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
-            <!-- NOTE Sebelum Submit -->
-            <div v-if="page == 'register'" class="col-lg-12 col-lg-offset-2">
-
-                <div class="alert alert-info alert-dismissable alert-hotel mt-5">
-                    <i class="fa fa-info"></i>
-                    <b>Perhatian</b>
-                    Pastikan alamat email yang dimasukkan valid dan dapat anda akses, karena kami akan mengirimkan kode aktivasi melalui email tersebut. Akun anda tidak dapat digunakan sebelum diaktivasi terlebih dahulu.
+            <div class="card mt-2">
+                <div class="card-header text-center">
+                    <h5 class="m-0 p-0" style="color:#F4AD39;">Event</h5>
                 </div>
-                <form id="form-register" ref="form">
-                    <div class="form-group row mb-2">
-                        <label class="col-lg-3 control-label control-label-bold">Bill To*</label>
-                        <div class="col-lg-9">
-                            <input type="text" :class="{'is-invalid': validation_error.bill_to}" class="form-control" name="bill_to" value="bawaihi@ulm.ac.id" />
-                            <div v-if="validation_error.bill_to" class="invalid-feedback" v-html="validation_error.bill_to"></div>
-                        </div>
-                    </div>
+                <div class="card-body">
+                    <table class="table text-light">
+                        <thead>
+                            <th></th>
+                            <th>Event Name</th>
+                            <th>Pricing</th>
+                        </thead>
+                        <tbody>
+                            <tr v-for="item in transactionsSort">
+                                <td></td>
+                                <td>{{ item.product_name}}</td>
+                                <td>{{ formatCurrency(item.price) }}</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td></td>
+                                <td class="text-right font-weight-bold">Total :</td>
+                                <td>{{ formatCurrency(totalPrice) }}</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
 
-                    <div class="form-group row mb-2">
-                        <label class="col-lg-3 control-label">Status*</label>
-                        <div class="col-lg-9">
-                            <?= form_dropdown('status', $participantsCategory, '', [':class' => "{'is-invalid':validation_error.status}", 'id' => 'status', 'v-model' => 'status_selected', 'class' => 'form-control', 'placeholder' => 'Select your status !']); ?>
-                            <div v-if="validation_error.status" class="invalid-feedback" v-html="validation_error.status"></div>
-                        </div>
-                    </div>
+            <div class="form-group mb-2">
+                <select name="selectedPaymentMethod" id="selectedPaymentMethod" :class="{ 'is-invalid':validation_error.selectedPaymentMethod}" class="form-control selectedPaymentMethod mt-2 text-center text-light" style="background-color: #161C31" v-model="selectedPaymentMethod">
+                    <option v-for="(method,ind) in paymentMethod" :value="method.key" :selected="method.key == 'manualPayment'">{{method.desc}}</option>
+                </select>
+                <div v-if="validation_error.selectedPaymentMethod" class="invalid-feedback">
+                    {{ validation_error.selectedPaymentMethod }}
+                </div>
+            </div>
+            <hr />
+            <div class="col-lg-12 text-center">
+                <button :disabled="saving" type="button" @click="checkout" class="btn-main" style="background-color:#F4AD39; color:black;">
+                    <i v-if="saving" class="fa fa-spin fa-spinner"></i>
+                    Submit
+                </button>
+            </div>
 
-                    <!-- NOTE Events -->
-                    <div class="col-lg-12" v-if="status_selected">
-                        <hr />
-                        <div class="card">
-                            <div class="card-header text-center">
-                                <h2 class="m-0 p-0"><strong class="font-weight-extra-bold">Acara</strong></h2>
-                            </div>
-                            <div class="card-body text-center">
-                                Silakan pilih acara yang Anda inginkan. *Acara tersedia berdasarkan status dan tanggal Anda
-                            </div>
-                        </div>
-                        <!-- <div class="row">
-                            <div class="col-md-9">
-                                <div class="overflow-hidden mb-1">
-                                    <h2 class="font-weight-normal text-7 mb-0"><strong class="font-weight-extra-bold">Acara</strong></h2>
-                                </div>
-                                <div class="overflow-hidden mb-4 pb-3">
-                                    <p class="mb-0"></p>
-                                </div>
-                            </div>
-                            <div class="col-md-3"></div>
-                        </div> -->
+        </div>
 
-                        <div class="row">
-                            <div class="accordion accordion-quaternary col-md-12">
-                                <div v-for="(event, index) in filteredEvent" class="card card-default mt-2" v-bind:key="index">
-                                    <div class="card-header">
-                                        <h4 class="card-title m-0">
-                                            <a class="accordion-toggle" data-toggle="collapse" :href="'#accordion-'+index" aria-expanded="true">
-                                                {{ event.name }}
-                                            </a>
-                                        </h4>
+        <!-- NOTE Sebelum Submit -->
+        <div v-if="page == 'register'" class="col-lg-8 offset-lg-2">
+            <div class="alert alert-success mt-2" style="background-color: #F5AC39;">
+                <h4 class="text-dark"><i class="fa fa-info"></i> <b>Perhatian</b></h4>
+                <p>Pastikan alamat email yang dimasukkan valid dan dapat anda akses, karena kami akan mengirimkan kode aktivasi melalui email tersebut. Akun anda tidak dapat digunakan sebelum diaktivasi terlebih dahulu.</p>
+            </div>
+            <form id="form-register" class="form-border" ref="form">
+                <div class="de_tab tab_simple">
+                    <!-- <p>
+                        <i class="fa fa-info"></i> <b>Perhatian</b>
+                        Pastikan alamat email yang dimasukkan valid dan dapat anda akses, karena kami akan mengirimkan kode aktivasi melalui email tersebut. Akun anda tidak dapat digunakan sebelum diaktivasi terlebih dahulu.
+                    </p> -->
+                    <div class="de_tab_content">
+                        <div class="tab-1">
+                            <div class="row wow fadeIn">
+                                <div class="col-lg-12 mb-sm-20">
+
+                                    <div class="field-set" style="color:#F4AD39;">
+                                        <h5 style="color:#F4AD39;">Bill To*</h5>
+                                        <input type="text" :class="{'is-invalid': validation_error.bill_to}" class="form-control mb-0" name="bill_to" placeholder="Bill To" />
+                                        <div v-if="validation_error.bill_to" class="invalid-feedback" v-html="validation_error.bill_to"></div>
                                     </div>
-                                    <div :id="'accordion-'+index" class="collapse show table-responsive">
-                                        <div>
-                                            <div v-if="event.participant >= event.kouta" class="alert alert-warning text-center">
-                                                <h4>Maaf Kouta untuk acara ini penuh</h4>
+
+                                    <div class="spacer-20"></div>
+
+                                    <div class="field-set" style="color:#F4AD39;">
+                                        <h5 style="color:#F4AD39;">Status*</h5>
+                                        <?= form_dropdown('status', $participantsCategory, '', [':class' => "{'is-invalid':validation_error.status}", 'id' => 'status', 'v-model' => 'status_selected', 'class' => 'form-control mb-0', 'placeholder' => 'Select your status !', 'style' => 'background-color: #161C31']); ?>
+                                        <div v-if="validation_error.status" class="invalid-feedback" v-html="validation_error.status"></div>
+                                    </div>
+
+                                    <!-- NOTE EVENTS -->
+                                    <span v-if="status_selected">
+                                        <hr />
+                                        <div class="card">
+                                            <div class="card-header text-center">
+                                                <h2 class="m-0 p-0"><strong class="font-weight-extra-bold ">Acara</strong></h2>
                                             </div>
-                                            <table class="table">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Kategori</th>
-                                                        <th v-for="pricing in event.pricingName" class="text-center"><span v-html="pricing.title"></span></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr v-for="member in event.memberStatus">
-                                                        <td>{{ member }}</td>
-                                                        <td v-for="pricing in event.pricingName" class="text-center">
-                                                            <span v-if="pricing.pricing[member]">
-                                                                {{ formatCurrency(pricing.pricing[member].price) }}
-                                                                <div v-if="member == status_text" class="de-switch mt-2" style="background-size: cover;">
-                                                                    <input type="checkbox" :id="`switch-unlock_${member}_${event.name}`" :value="pricing.pricing[member].added" class="checkbox" v-model="pricing.pricing[member].added" @click="addEvent($event,pricing.pricing[member],member,event.name)">
-                                                                    <label :for="`switch-unlock_${member}_${event.name}`"></label>
-                                                                </div>
-                                                                <div v-else>
-                                                                    <button type="button" v-if="member != status_text" style="cursor:not-allowed;color:#fff;" aria-disabled="true" disabled class="btn btn-sm btn-danger">Not Available</button>
-                                                                </div>
-                                                                <!-- <button type="button" @click="addEvent(pricing.pricing[member],member,event.name)" v-if="member == status_text" :disabled="pricing.pricing[member].added" class="btn btn-sm btn-warning">Add Event</button> -->
-                                                            </span>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
+                                            <div class="card-body text-center" style="color:#F4AD39;">
+                                                Silakan pilih acara yang Anda inginkan. *Acara tersedia berdasarkan status dan tanggal Anda
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                                <!-- <div class="card card-default mt-2">
-                                    <div class="card-header text-center">
-                                        <b>{{ formatCurrency(total) }}</b>
-                                    </div>
-                                </div> -->
-                                <div v-if="validation_error.eventAdded" style="font-size: .875em;color: #dc3545;">
-                                    {{ validation_error.eventAdded }}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- NOTE End Events -->
-
-                    <!-- NOTE Members -->
-                    <div class="form-group">
-                        <hr />
-                        <label>Members
-                            <span v-if="validation_error.members">
-                                (<span style="color: red;" v-html="validation_error.members"></span>)
-                            </span>
-                        </label>
-                        <table class="table table-bordered">
-                            <thead class="text-center">
-                                <tr>
-                                    <th width="5%">No</th>
-                                    <th width="50%">Data Member</th>
-                                    <th width="10%">
-                                        <button @click="addMembers" type="button" class="btn btn-primary"><i class="fa fa-plus"></i>
-                                        </button>
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr v-if="members.length == 0">
-                                    <td class="text-center" colspan="7">No Data</td>
-                                </tr>
-                                <tr v-for="(member,index) in members">
-                                    <td class="text-center">{{(index+1)}}</td>
-                                    <td>
                                         <div class="row">
-                                            <div class="form-group col-6 p-2">
-                                                <label class="control-label">Email</label>
-                                                <input type="text" v-model="member.email" placeholder="Email" :class="{'is-invalid': member.validation_error.email}" class="form-control" name="email" />
-                                                <div v-if="member.validation_error.email" class="invalid-feedback">
-                                                    {{ member.validation_error.email }}
-                                                </div>
-                                            </div>
-                                            <div class="form-group col-6 p-2">
-                                                <label class="control-label">Full Name*</small>
-                                                </label>
-                                                <input type="text" v-model="member.fullname" placeholder="Full Name" :class="{'is-invalid':member.validation_error.fullname}" class="form-control" name="fullname" />
-                                                <div v-if="member.validation_error.fullname" class="invalid-feedback">
-                                                    {{ member.validation_error.fullname }}
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group col-6 p-2">
-                                                <label class="control-label">Institution</label>
-                                                <br>
-                                                <?= form_dropdown("univ", $participantsUniv, "", [
-                                                    ':name' => '`univ_${index}`',
-                                                    ':class' => "{ 'is-invalid':member.validation_error.univ}",
-                                                    "class" => 'form-control chosen',
-                                                    'placeholder' => 'Select your Institution !',
-                                                    ':data-index' => 'index',
-                                                    'v-model' => 'member.univ'
-                                                ]); ?>
-                                                <div v-if="member.validation_error.univ" class="invalid-feedback">
-                                                    {{ member.validation_error.univ }}
-                                                </div>
-
-                                                <div class="mt-2" v-if="member.univ == <?= Univ_m::UNIV_OTHER; ?>">
-                                                    <input type="text" v-model="member.other_institution" :class="{ 'is-invalid':member.validation_error.other_institution} " class="form-control" name="other_institution" />
-                                                    <div v-if="member.validation_error.other_institution" class="invalid-feedback">
-                                                        {{ member.validation_error.other_institution }}
+                                            <div class="accordion accordion-quaternary col-md-12">
+                                                <div v-for="(event, index) in filteredEvent" class="card card-default mt-2" v-bind:key="index">
+                                                    <div class="card-header">
+                                                        <h4 class="card-title m-0" style="color:#F5AC39">
+                                                            {{ event.name }}
+                                                        </h4>
+                                                    </div>
+                                                    <div :id="'accordion-'+index" class="collapse show table-responsive">
+                                                        <div>
+                                                            <div v-if="event.participant >= event.kouta" class="alert alert-warning text-center">
+                                                                <h4>Maaf Kouta untuk acara ini penuh</h4>
+                                                            </div>
+                                                            <table class="table text-light">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th class="border-end">Kategori</th>
+                                                                        <th v-for="pricing in event.pricingName" class="text-center"><span v-html="pricing.title"></span></th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr v-for="member in event.memberStatus">
+                                                                        <td class="border-end">{{ member }}</td>
+                                                                        <td v-for="pricing in event.pricingName" class="text-center">
+                                                                            <span v-if="pricing.pricing[member]">
+                                                                                {{ formatCurrency(pricing.pricing[member].price) }}
+                                                                                <div v-if="member == status_text" class="de-switch mt-2" style="background-size: cover;">
+                                                                                    <input type="checkbox" :id="`switch-unlock_${member}_${event.name}`" :value="pricing.pricing[member].added" class="checkbox" v-model="pricing.pricing[member].added" @click="addEvent($event,pricing.pricing[member],member,event.name)">
+                                                                                    <label :for="`switch-unlock_${member}_${event.name}`"></label>
+                                                                                </div>
+                                                                                <div v-else>
+                                                                                    <button type="button" v-if="member != status_text" style="cursor:not-allowed;color:#fff;" aria-disabled="true" disabled class="btn btn-sm btn-danger">Not Available</button>
+                                                                                </div>
+                                                                                <!-- <button type="button" @click="addEvent(pricing.pricing[member],member,event.name)" v-if="member == status_text" :disabled="pricing.pricing[member].added" class="btn btn-sm btn-warning">Add Event</button> -->
+                                                                            </span>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-
-                                            <div class="form-group col-6 p-2">
-                                                <label class="control-label">Sponsor</label>
-                                                <input type="text" v-model="member.sponsor" placeholder="Sponsor" :class="{'is-invalid': member.validation_error.sponsor}" class="form-control" name="sponsor" />
-                                                <div v-if="member.validation_error.sponsor" class="invalid-feedback">
-                                                    {{ member.validation_error.sponsor }}
+                                                <div v-if="validation_error.eventAdded" style="font-size: .875em;color: #dc3545;">
+                                                    {{ validation_error.eventAdded }}
                                                 </div>
                                             </div>
                                         </div>
-                                    </td>
-                                    <!-- <td>
-											<div class="row" v-for="(event, indexEvent) in model.selected">
-												<div class="form-group col-6">
-													<label class="control-label">Price</label>
-													<input type="text" class="form-control" :value="formatCurrency(event[listStatus[model.status]] ? event[listStatus[model.status]].price : '0')" disabled />
-												</div>
-											</div>
-										</td> -->
-                                    <td class="text-center">
-                                        <button @click="members.splice(index,1)" type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <small class="col-12" for="">*PLEASE FILL YOUR NAME CORRECTLY FOR YOUR CERTIFICATE</small>
-                        <div class="card card-default mt-2">
-                            <div class="card-header text-center">
-                                <b>{{ formatCurrency(total) }}</b>
+                                    </span>
+                                    <!-- NOTE GROUP -->
+                                    <div class="form-group">
+                                        <hr />
+                                        <h5 style="color:#F4AD39;">Members
+                                            <span v-if="validation_error.members">
+                                                (<span style="color: #F4AD39;" v-html="validation_error.members"></span>)
+                                            </span>
+                                        </h5>
+                                        <table class="table text-light border">
+                                            <thead class="text-center">
+                                                <tr>
+                                                    <th class="border-end" width="5%">
+                                                        <h5>No</h5>
+                                                    </th>
+                                                    <th class="border-end" width="50%">
+                                                        <h5>Data Member</h5>
+                                                    </th>
+                                                    <th class="border-end" width="10%">
+                                                        <button @click="addMembers" type="button" class="btn btn-primary" style="background-color:#F4AD39; color:black;"><i class="fa fa-plus"></i>
+                                                        </button>
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr v-if="members.length == 0">
+                                                    <td class="text-center" colspan="7">
+                                                        <h5>No Data</h5>
+                                                    </td>
+                                                </tr>
+                                                <tr v-for="(member,index) in members">
+                                                    <td class="text-center border-end">
+                                                        <h5>{{(index+1)}}</h5>
+                                                    </td>
+                                                    <td class="border-end">
+                                                        <div class="row m-1">
+                                                            <div class="form-group col-6 p-2">
+                                                                <label class="control-label" style="color:#F4AD39;">Email</label>
+                                                                <input type="text" v-model="member.email" placeholder="Email" :class="{'is-invalid': member.validation_error.email}" class="form-control mb-0" name="email" />
+                                                                <div v-if="member.validation_error.email" class="invalid-feedback">
+                                                                    {{ member.validation_error.email }}
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group col-6 p-2">
+                                                                <label class="control-label" style="color:#F4AD39;">Full Name*</label>
+                                                                <input type="text" v-model="member.fullname" placeholder="Full Name" :class="{'is-invalid':member.validation_error.fullname}" class="form-control mb-0" name="fullname" />
+                                                                <div v-if="member.validation_error.fullname" class="invalid-feedback">
+                                                                    {{ member.validation_error.fullname }}
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-group col-6 p-2 dark-select">
+                                                                <label class="control-label" style="color:#F4AD39;">Institution</label>
+                                                                <br>
+                                                                <?= form_dropdown("univ", $participantsUniv, "", [
+                                                                    ':name' => '`univ_${index}`',
+                                                                    ':class' => "{ 'is-invalid':member.validation_error.univ}",
+                                                                    "class" => 'form-control chosen mb-0',
+                                                                    'placeholder' => 'Select your Institution !',
+                                                                    ':data-index' => 'index',
+                                                                    'v-model' => 'member.univ'
+                                                                ]); ?>
+                                                                <div v-if="member.validation_error.univ" class="invalid-feedback">
+                                                                    {{ member.validation_error.univ }}
+                                                                </div>
+
+                                                                <div class="mt-2" v-if="member.univ == <?= Univ_m::UNIV_OTHER; ?>">
+                                                                    <input style="color:#F4AD39;" type="text" v-model="member.other_institution" :class="{ 'is-invalid':member.validation_error.other_institution} " class="form-control mb-0" name="other_institution" />
+                                                                    <div v-if="member.validation_error.other_institution" class="invalid-feedback">
+                                                                        {{ member.validation_error.other_institution }}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-group col-6 p-2">
+                                                                <label class="control-label" style="color:#F4AD39;">Sponsor</label>
+                                                                <input type="text" v-model="member.sponsor" placeholder="Sponsor" :class="{'is-invalid': member.validation_error.sponsor}" class="form-control mb-0" name="sponsor" />
+                                                                <div v-if="member.validation_error.sponsor" class="invalid-feedback">
+                                                                    {{ member.validation_error.sponsor }}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <button @click="members.splice(index,1)" type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <small class="col-12" for="" style="color:#F4AD39;">*PLEASE FILL YOUR NAME CORRECTLY FOR YOUR CERTIFICATE</small>
+                                        <div class="card card-default mt-2">
+                                            <div class="card-header text-center" style="color:#F5AC39">
+                                                <b>{{ formatCurrency(total) }}</b>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-
-                </form>
+                </div>
                 <hr />
-                <div class="form-group row mb-2 mb-5">
-                    <div class="col-lg-12 text-center">
-                        <button :disabled="saving" type="button" @click="register" class="btn btn-primary custom-border-radius font-weight-semibold text-uppercase">
-                            <i v-if="saving" class="fa fa-spin fa-spinner"></i>
-                            Submit
-                        </button>
-                        <button type="button" class="btn btn-danger custom-border-radius font-weight-semibold text-uppercase" id="resetBtn">Cancel
-                        </button>
-                    </div>
+                <div class="col-lg-12 text-center">
+                    <button :disabled="saving" type="button" @click="register" class="btn-main" style="background-color:#F4AD39; color:black;">
+                        <i v-if="saving" class="fa fa-spin fa-spinner"></i>
+                        Next
+                    </button>
                 </div>
-            </div>
-        </div>
+            </form>
 
-        <div class="modal" id="modal-select-payment">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Select Payment Method</h4>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <iframe id="sgoplus-iframe" style="width:100%"></iframe>
-                    </div>
+        </div>
+    </div>
+
+    <div class="modal" id="modal-select-payment">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Select Payment Method</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <iframe id="sgoplus-iframe" style="width:100%"></iframe>
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </section>
 <?php $this->layout->begin_script(); ?>
@@ -546,9 +539,10 @@ $theme_path = base_url("themes/gigaland") . "/";
                     processData: false,
                     data: formData
                 }).done(function(res) {
-                    if (res.statusData == false && res.validation_error) {
-                        app.validation_error = res.validation_error
-                    } else if (res.statusData == false && res.message) {
+                    if (res.status == false && res.data.validation_error) {
+                        app.validation_error = res.data.validation_error;
+                        app.members = res.data.members;
+                    } else if (res.status == false && res.message) {
                         Swal.fire('Fail', res.message, 'error');
                     } else {
                         app.page = 'payment';

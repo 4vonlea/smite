@@ -11,7 +11,7 @@ $theme_path = base_url("themes/gigaland") . "/";
 <head>
     <title><?= Settings_m::getSetting('site_title'); ?></title>
     <link rel="icon" href="<?= base_url('themes/gigaland'); ?>/images/logowebrev.png" type="image/gif" sizes="16x16">
-   <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <meta content="Gigaland - NFT Marketplace Website Template" name="description" />
     <meta content="" name="keywords" />
@@ -28,6 +28,8 @@ $theme_path = base_url("themes/gigaland") . "/";
     <link href="<?= $theme_path; ?>css/magnific-popup.css" rel="stylesheet" type="text/css" />
     <link href="<?= $theme_path; ?>css/jquery.countdown.css" rel="stylesheet" type="text/css" />
     <link href="<?= $theme_path; ?>css/style.css" rel="stylesheet" type="text/css" />
+    <link href="<?= $theme_path; ?>fonts/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css" />
+    <!-- <link href="<?= $theme_path; ?>css/style.css" rel="stylesheet" type="text/css" /> -->
     <!-- color scheme -->
     <link id="colors" href="<?= $theme_path; ?>css/colors/scheme-01.css" rel="stylesheet" type="text/css" />
     <link href="<?= $theme_path; ?>css/coloring.css" rel="stylesheet" type="text/css" />
@@ -63,32 +65,75 @@ $theme_path = base_url("themes/gigaland") . "/";
 
                             </div>
 
-                            <div class="de-flex-col header-col-mid">
-                                <!-- mainmenu begin -->
-                                <?php
-                                    $isHome = $this->router->class == "Site" && $this->router->method == "home";
-                                ?>
-                                <ul id="mainmenu">
-                                    <li>
-                                        <a href="<?=$isHome ? '':base_url('site/home');?>#content" style="color:#F4AD39;">Home<span></span></a>
-                                    </li>
-                                    <li>
-                                        <a href="<?=$isHome ? '':base_url('site/home');?>#sign" style="color:#F4AD39;">Sign In<span></span></a>
-                                    </li>
-                                    <li>
-                                        <a href="<?=$isHome ? '':base_url('site/home');?>#event" style="color:#F4AD39;">Event<span></span></a>
-                                    </li>
-                                    <li>
-                                        <a href="<?=$isHome ? '':base_url('site/home');?>#abstract" style="color:#F4AD39;">Abstract<span></span></a>
-                                    </li>
+                            <?php if (isset($isLogin)) { ?>
+                                <div class="de-flex-col header-col-mid">
+                                    <!-- mainmenu begin -->
+                                    <?php
+                                    $member = $this->router->class == "area";
+                                    $userDetail = array_merge($user->toArray(), ['status_member' => $user->status_member->kategory]);
+                                    ?>
+                                    <ul id="mainmenu">
+                                        <li>
+                                            <a href="<?= base_url('site/home'); ?>#content" style="color:#F4AD39;">Home<span></span></a>
+                                        </li>
+                                        <li>
+                                            <a href="<?= base_url('member/area'); ?>#/profile" style="color:#F4AD39;">Profil<span></span></a>
+                                        </li>
+                                        <li>
+                                            <a href="<?= base_url('member/area'); ?>#/paper" style="color:#F4AD39;">Kirim Manuskrip<span></span></a>
+                                        </li>
+                                        <li class="menu-item-has-children has-child">
+                                            <a href="#" style="color:#F4AD39;">Pembelian<span></span></a><span></span>
+                                            <ul>
+                                                <li><a href="<?= base_url('member/area'); ?>#/events">Pilih Acara</a></li>
+                                                <li><a href="<?= base_url('member/area'); ?>#/billing">Keranjang & Pembayaran</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="menu-item-has-children has-child">
+                                            <a href="#" style="color:#F4AD39;">On Event<span></span></a><span></span>
+                                            <ul>
+                                                <li><a href="<?= base_url('member/area'); ?>#/webminar">Webinar Link</a></li>
+                                                <?php if (in_array($userDetail['status'], $statusToUpload)) : ?>
+                                                    <li><a href="<?= base_url('member/area'); ?>#/material">Upload Materi/Bahan</a></li>
+                                                <?php endif; ?>
+                                                <li><a href="<?= base_url('member/area'); ?>#/sertifikat">Download Sertifikat</a></li>
+                                                <li><a href="<?= base_url('member/area'); ?>#/presentation">Daftar Presentasi Ilmiah</a></li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a href="<?= base_url('member/area/logout'); ?>" style="color:#F4AD39;">Logout<span></span></a>
+                                        </li>
 
-                                </ul>
-                                <!-- mainmenu close -->
-                                <div class="menu_side_area">
-                                    <a href="<?= base_url('member/register'); ?>" class="btn-main btn-tasks" style="background-color:#F4AD39; color:black;"><i class="icon_document"></i><span>Registration</span></a>
-                                    <span id="menu-btn"></span>
+                                    </ul>
                                 </div>
-                            </div>
+                            <?php } else { ?>
+                                <div class="de-flex-col header-col-mid">
+                                    <!-- mainmenu begin -->
+                                    <?php
+                                    $isHome = $this->router->class == "Site" && $this->router->method == "home";
+                                    ?>
+                                    <ul id="mainmenu">
+                                        <li>
+                                            <a href="<?= $isHome ? '' : base_url('site/home'); ?>#content" style="color:#F4AD39;">Home<span></span></a>
+                                        </li>
+                                        <li>
+                                            <a href="<?= $isHome ? '' : base_url('site/home'); ?>#sign" style="color:#F4AD39;">Sign In<span></span></a>
+                                        </li>
+                                        <li>
+                                            <a href="<?= $isHome ? '' : base_url('site/home'); ?>#event" style="color:#F4AD39;">Event<span></span></a>
+                                        </li>
+                                        <li>
+                                            <a href="<?= $isHome ? '' : base_url('site/home'); ?>#abstract" style="color:#F4AD39;">Abstract<span></span></a>
+                                        </li>
+
+                                    </ul>
+                                    <!-- mainmenu close -->
+                                    <div class="menu_side_area">
+                                        <a href="<?= base_url('member/register'); ?>" class="btn-main btn-tasks" style="background-color:#F4AD39; color:black;"><i class="icon_document"></i><span>Registration</span></a>
+                                        <span id="menu-btn"></span>
+                                    </div>
+                                </div>
+                            <?php } ?>
                         </div>
                     </div>
                 </div>

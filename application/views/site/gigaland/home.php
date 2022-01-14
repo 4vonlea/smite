@@ -327,6 +327,7 @@
                                 <div class="field-set">
                                     <input type='password' name='password' id='password' class="form-control" placeholder="Password">
                                 </div>
+                                <input type="hidden" name="login" value="login">
                                 <br><br>
                                 <div class="d-buttons">
                                     <button type="submit" class="btn-main btn-fullwidth" style="background-color:#F4AD39; color:black;">Sign</button><br>
