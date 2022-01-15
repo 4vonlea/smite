@@ -3,12 +3,14 @@
 /**
  * @var Member_m $user
  */
+$theme_path = base_url("themes/gigaland") . "/";
 $config = $this->config->item("midtrans");
 $client_key = $config['client_key'];
 $userDetail = array_merge($user->toArray(), ['status_member' => $user->status_member->kategory]);
 ?>
 <link href="<?= base_url(); ?>themes/script/chosen/chosen.css" rel="stylesheet">
 <link href="<?= base_url(); ?>themes/script/magnific/magnific.css" rel="stylesheet">
+<link href="<?= $theme_path; ?>css/custom.css" rel="stylesheet">
 <link href="https://vjs.zencdn.net/7.10.2/video-js.css" rel="stylesheet" />
 <style>
     .btn:disabled {
@@ -38,22 +40,50 @@ $userDetail = array_merge($user->toArray(), ['status_member' => $user->status_me
     </section>
     <div class="container py-2">
         <div class="row">
-            <div class="col-lg-3 mt-4 mt-lg-0">
+            <div class="col-lg-12 mt-4 mt-lg-0">
 
-                <div class="d-flex justify-content-center mb-4">
+                <!-- <div class="d-flex justify-content-center mb-4">
                     <div class="profile-image-outer-container">
-                        <div class="profile-image-inner-container bg-color-primary" onclick="$('#file-profile').click();">
-                            <img :src="image_link">
-                            <span class="profile-image-button bg-color-dark">
-                                <i class="fas fa-camera text-light"></i>
-                            </span>
+                        <div class="profile-image-outer-container text-center">
+                            <img :src="image_link" class="img img-thumbnail">
+                            <button class="gdlr-core-excerpt-read-more gdlr-core-button gdlr-core-rectangle" onclick="$('#file-profile').click();">
+                                Change Profile Photo
+                            </button>
+                            <input id="file-profile" accept="image/*" @change="uploadImage" type="file" ref="file" style="display: none">
                         </div>
-                        <input id="file-profile" style="width: 0px" accept="image/*" @change="uploadImage" type="file" ref="file" class="profile-image-input">
                     </div>
-                </div>
+                </div> -->
+                <form id="form-register" class="form-border" ref="form">
+                    <div class="de_tab tab_simple">
+                        <!-- <p>
+                            <i class="fa fa-info"></i> <b>Perhatian</b>
+                            Pastikan alamat email yang dimasukkan valid dan dapat anda akses, karena kami akan mengirimkan kode aktivasi melalui email tersebut. Akun anda tidak dapat digunakan sebelum diaktivasi terlebih dahulu.
+                        </p> -->
+                        <div class="de_tab_content">
+                            <div class="tab-1">
+                                <div class="row wow fadeIn">
+                                    <div class="col-lg-2">
+                                        <div class="field-set" style="color:#F4AD39;">
+                                            <img :src="image_link" id="click_profile_img" class="d-banner-img-edit img-fluid" alt="" onclick="$('#file-profile').click();">
+                                            <input id="file-profile" accept="image/*" @change="uploadImage" type="file" ref="file" style="display: none">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-10 mb-sm-20" style="background-size: cover;">
+                                        <div class="field-set" style="background-size: cover;">
 
-                <aside class="sidebar mt-2" id="sidebar">
-                    <ul class="nav nav-list flex-column mb-5">
+                                            <router-view active-class="active"></router-view>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+
+                <!-- <aside class="sidebar mt-2" id="sidebar"> -->
+                <!-- <ul class="nav nav-list flex-column mb-5">
 
                         <li class="nav-item">
                             <router-link active-class="active" class="nav-link text-dark" to="/profile">Profil</router-link>
@@ -80,12 +110,12 @@ $userDetail = array_merge($user->toArray(), ['status_member' => $user->status_me
                             <router-link active-class="active" class="nav-link text-dark" to="/webminar">Webinar Link
                             </router-link>
                         </li>
-                        <?php if (in_array($userDetail['status'], $statusToUpload)) : ?>
+                        ?php if (in_array($userDetail['status'], $statusToUpload)) : ?>
                             <li class="nav-item">
                                 <router-link active-class="active" class="nav-link text-dark" to="/material">Upload Materi/Bahan
                                 </router-link>
                             </li>
-                        <?php endif; ?>
+                        ?php endif; ?>
                         <li class="nav-item">
                             <router-link active-class="active" class="nav-link text-dark" to="/sertifikat">Download Sertifikat
                             </router-link>
@@ -94,13 +124,13 @@ $userDetail = array_merge($user->toArray(), ['status_member' => $user->status_me
                             <router-link active-class="active" class="nav-link text-dark" to="/presentation">Daftar Presentasi Ilmiah
                             </router-link>
                         </li>
-                        <li class="nav-item mt-4"><a class="nav-link text-dark" href="<?= base_url('member/area/logout'); ?>">Logout</a></li>
-                    </ul>
-                </aside>
+                        <li class="nav-item mt-4"><a class="nav-link text-dark" href="?= base_url('member/area/logout'); ?>">Logout</a></li>
+                    </ul> -->
+                <!-- </aside> -->
 
             </div>
 
-            <router-view active-class="active"></router-view>
+            <!-- <router-view active-class="active"></router-view> -->
         </div>
     </div>
 </div>
@@ -256,5 +286,12 @@ $userDetail = array_merge($user->toArray(), ['status_member' => $user->status_me
             }
         }
     }).$mount('#app');
+    $(document).ready(function() {
+        $(document).on('show.bs.modal', '.modal', function(event) {
+            setTimeout(function() {
+                $('.modal-backdrop').not('.modal-stack').css('z-index', '-1').addClass('modal-stack');
+            }, 0);
+        });
+    });
 </script>
 <?php $this->layout->end_script(); ?>

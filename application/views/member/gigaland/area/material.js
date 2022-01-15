@@ -15,7 +15,7 @@ export default Vue.component("Material", {
                 <p class="mb-0">Upload file materi/bahan untuk seminar</p>
             </div>
             <div class="row">
-                <table class="table table-bordered">
+                <table class="table text-light">
                     <thead>
                         <tr>
                             <th>Nama Bahan</th>

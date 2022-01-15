@@ -21,7 +21,7 @@ export default Vue.component("PageWebminar", {
                         Materi Presentasi dapat dilihat pada link
                         <a href="https://drive.google.com/drive/folders/1Wi7t64mOIq_WGD-v7GS7G3dL6CZo8DGr?usp=sharing" target="_blank">disini</a>
                     </p>
-                    <table class="table table-bordered">
+                    <table class="table text-light">
                         <tbody v-if="events.length == 0">
                             <tr>
                                 <td class="text-center" colspan="3">Anda belum berpartisipasi dalam acara apa pun </td>
@@ -46,7 +46,7 @@ export default Vue.component("PageWebminar", {
                             </tr>
                             <tr>
                                 <td class="tab-content" colspan="3">
-                                    <table v-for="(d,i) in groupDate(event.special_link)" :id="'tabs-'+event.id+'-'+d.index" class="table tab-pane fade">
+                                    <table v-for="(d,i) in groupDate(event.special_link)" :id="'tabs-'+event.id+'-'+d.index" class="table tab-pane fade text-light">
                                         <thead>
                                             <tr>
                                                 <th>Waktu Mulai</th>
@@ -100,11 +100,11 @@ export default Vue.component("PageWebminar", {
                     </table>
                 </div>
                 <div id="modal-ads" class="modal" tabindex="-1" role="dialog">
-                <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title">Sponsor Advertisement</h5>
-                            <button v-show="modalCloseButton" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <button v-show="modalCloseButton" type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                             <span style="font-size:100%" v-show="!modalCloseButton" class="badge badge-info">{{timer}}</span>
@@ -120,11 +120,11 @@ export default Vue.component("PageWebminar", {
                 </div>
             </div>    
             <div id="modal-recording" class="modal" tabindex="-1" role="dialog">
-                <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
                             <h5 class="modal-title">Rekaman : {{ recording.title }}</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>

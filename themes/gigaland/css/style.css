@@ -3445,6 +3445,7 @@ hr {
 }
 
 .form-border input[type=text],
+.form-border input[type=email],
 .form-border textarea,
 .form-underline input[type=email],
 .form-border input[type=password],
@@ -3466,6 +3467,7 @@ hr {
 }
 
 .dark-scheme .form-border input[type=text],
+.dark-scheme .form-border input[type=email],
 .dark-scheme .form-border textarea,
 .dark-scheme .form-underline input[type=email],
 .dark-scheme .form-border input[type=password],

@@ -101,3 +101,17 @@
 p{
     margin-bottom: 0px !important;
 }
+
+.modal-backdrop {
+    background-color: transparent !important;
+}
+
+table.table {
+    border: 1px solid #dee2e6!important;
+    color: #ffffff !important;
+}
+
+table.table th, table.table td{
+    border-right: 1px solid #dee2e6!important;
+    border-bottom: 1px solid #dee2e6!important;
+}
