@@ -25,10 +25,8 @@ export default Vue.component("PageEvents", {
 						<div class="accordion accordion-quaternary col-md-12">
 							<div  v-for="(event, index) in events" class="card card-default" v-bind:key="index">
 								<div class="card-header">
-									<h4 class="card-title m-0">
-										<a class="accordion-toggle" data-toggle="collapse" :href="'#accordion-'+index" aria-expanded="true">
-											{{ event.name }}
-										</a>
+									<h4 class="card-title m-0" style="color:#F5AC39">
+										{{ event.name }}
 									</h4>
 								</div>
 								<div :id="'accordion-'+index" class="collapse show table-responsive">
@@ -41,7 +39,7 @@ export default Vue.component("PageEvents", {
 											<div v-if="event.participant >= event.kouta" class="alert alert-warning text-center">
 												<h4>Maaf Kouta untuk acara ini penuh</h4>
 											</div>
-											<table class="table">
+											<table class="table text-light">
 												<thead>
 													<tr>
 														<th>Kategori</th>

@@ -14,22 +14,23 @@ $this->layout->begin_head();
 $theme_path = base_url("themes/gigaland") . "/";
 ?>
 <link href="<?= base_url(); ?>themes/script/chosen/chosen.css" rel="stylesheet">
+<link href="<?= $theme_path; ?>css/custom.css" rel="stylesheet">
 <?php $this->layout->end_head(); ?>
 <section id="subheader" style="background-size: cover;">
-                    <div class="center-y relative text-center" style="background-size: cover;">
-                        <div class="container" style="background-size: cover;">
-                            <div class="row" style="background-size: cover;">
-                                
-                                <div class="col-md-12 text-center" style="background-size: cover;">
-									<h1 style="color:#F4AD39;">Registration</h1>
-                                </div>
-                                <div class="clearfix" style="background-size: cover;"></div>
-                            </div>
-                        </div>
-                    </div>
-            </section>
+    <div class="center-y relative text-center" style="background-size: cover;">
+        <div class="container" style="background-size: cover;">
+            <div class="row" style="background-size: cover;">
 
-    <!-- <div class="container">
+                <div class="col-md-12 text-center" style="background-size: cover;">
+                    <h1 style="color:#F4AD39;">Registration</h1>
+                </div>
+                <div class="clearfix" style="background-size: cover;"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- <div class="container">
         <div class="row">
             <div class="col-md-8 order-2 order-md-1 align-self-center p-static">
                 <h1 class="text-color-dark font-weight-bold">Registrasi Akun</h1>
@@ -48,19 +49,19 @@ $theme_path = base_url("themes/gigaland") . "/";
     <div class="container">
         <div class="row">
             <!-- NOTE Setelah Submmit -->
-            <div v-if="page == 'registered'" class="col-lg-12 col-lg-offset-2">
-                <div class="alert alert-success">
-                    <h4><i class="fa fa-info"></i> Akunmu berhasil dibuat</h4>
+            <div v-if="page == 'registered'" class="col-lg-8 offset-lg-2">
+                <div class="alert alert-success" style="background-color: #F5AC39;">
+                    <h4 class="text-dark"><i class="fa fa-info"></i> Akunmu berhasil dibuat</h4>
                     <p>Kami telah mengirim link konfirmasi ke alamat emailmu. Untuk melengkapi proses registrasi, Silahkan klik <i>confirmation link</i>.
                         Jika tidak menerima email konfirmasi, silakan cek folder spam. Kemudian, mohon pastikan anda memasukan alamat email yg valid saat mengisi form pendaftaran. Jika perlu bantuan, silakan kontak kami.</p>
                 </div>
 
                 <div class="card mt-2">
                     <div class="card-header text-center">
-                        <h4 class="m-0 p-0"><strong class="font-weight-extra-bold">Halaman untuk mengonfirmasi riwayat penagihan dan invoice display</strong></h4>
+                        <h4 class="m-0 p-0"><strong class="font-weight-extra-bold ">Halaman untuk mengonfirmasi riwayat penagihan dan invoice display</strong></h4>
                     </div>
                     <div class="card-body">
-                        <table class="table">
+                        <table class="table text-light">
                             <thead>
                                 <th></th>
                                 <th>Event Name</th>
@@ -87,9 +88,9 @@ $theme_path = base_url("themes/gigaland") . "/";
                 <div class="col-sm-4 mt-2" v-for="account in paymentBank">
                     <div class="card">
                         <div class="card-body">
-                            <h3 class="card-title">{{ account.bank }}</h3>
+                            <h3 class="card-title ">{{ account.bank }}</h3>
                             <p class="card-text">
-                            <table>
+                            <table style="color: #F5AC39;">
                                 <tr>
                                     <th>Account Number</th>
                                     <td>:</td>
@@ -106,22 +107,22 @@ $theme_path = base_url("themes/gigaland") . "/";
                     </div>
                 </div>
 
-                <div class="alert alert-success mt-2">
-                    <h4><i class="fa fa-info"></i> Konfirmasi Pembayaran</h4>
+                <div class="alert alert-success mt-2" style="background-color: #F5AC39;">
+                    <h4 class="text-dark"><i class="fa fa-info"></i> Konfirmasi Pembayaran</h4>
                     <p><strong>Untuk melakukan konfirmasi pembayaran silakan login, kemudian akses menu "Keranjang dan Pembayaran"</strong></p>
                 </div>
             </div>
 
 
             <!-- NOTE Payment -->
-            <div v-if="page == 'payment'" class="col-lg-12 col-lg-offset-2">
+            <div v-if="page == 'payment'" class="col-lg-8 offset-lg-2">
 
                 <div class="card mt-2">
                     <div class="card-header text-center">
-                        <h4 class="m-0 p-0"><strong class="font-weight-extra-bold">Data Akun</strong></h4>
+                        <h4 class="m-0 p-0"><strong class="font-weight-extra-bold ">Data Akun</strong></h4>
                     </div>
                     <div class="card-body">
-                        <table class="table">
+                        <table class="table text-light">
                             <tbody>
                                 <tr>
                                     <td>Email</td>
@@ -139,7 +140,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                                     <th>{{data.id}}</th>
                                 </tr>
                                 <tr>
-                                    <td>Invoince ID</td>
+                                    <td>Invoice ID</td>
                                     <td>:</td>
                                     <th>{{data.id_invoice}}</th>
                                 </tr>
@@ -150,10 +151,10 @@ $theme_path = base_url("themes/gigaland") . "/";
 
                 <div class="card mt-2">
                     <div class="card-header text-center">
-                        <h4 class="m-0 p-0"><strong class="font-weight-extra-bold">Event</strong></h4>
+                        <h4 class="m-0 p-0"><strong class="font-weight-extra-bold ">Event</strong></h4>
                     </div>
                     <div class="card-body">
-                        <table class="table">
+                        <table class="table text-light">
                             <thead>
                                 <th></th>
                                 <th>Event Name</th>
@@ -178,275 +179,236 @@ $theme_path = base_url("themes/gigaland") . "/";
                 </div>
 
                 <div class="form-group mb-2">
-                    <select name="selectedPaymentMethod" id="selectedPaymentMethod" :class="{ 'is-invalid':validation_error.selectedPaymentMethod}" class="form-control selectedPaymentMethod mt-2 text-center" v-model="selectedPaymentMethod">
-                        <option v-for="(method,ind) in paymentMethod" :value="method.key">{{method.desc}}</option>
+                    <select name="selectedPaymentMethod" id="selectedPaymentMethod" :class="{ 'is-invalid':validation_error.selectedPaymentMethod}" class="form-control selectedPaymentMethod mt-2 text-center text-light" style="background-color: #161C31" v-model="selectedPaymentMethod">
+                        <option v-for="(method,ind) in paymentMethod" :value="method.key" :selected="method.key == 'manualPayment'">{{method.desc}}</option>
                     </select>
                     <div v-if="validation_error.selectedPaymentMethod" class="invalid-feedback">
                         {{ validation_error.selectedPaymentMethod }}
                     </div>
                 </div>
                 <hr />
-                <div class="form-group row mb-2 mb-5">
-                    <div class="col-lg-12 text-center">
-                        <button :disabled="saving" type="button" @click="checkout" class="btn btn-primary custom-border-radius font-weight-semibold text-uppercase">
-                            <i v-if="saving" class="fa fa-spin fa-spinner"></i>
-                            Submit
-                        </button>
-                    </div>
+                <div class="col-lg-12 text-center">
+                    <button :disabled="saving" type="button" @click="checkout" class="btn-main" style="background-color:#F4AD39; color:black;">
+                        <i v-if="saving" class="fa fa-spin fa-spinner"></i>
+                        Submit
+                    </button>
                 </div>
 
             </div>
 
             <!-- NOTE Sebelum Submit -->
-            <div v-if="page == 'register'" class="col-lg-12 col-lg-offset-2">
-                <div class="alert alert-info alert-dismissable alert-hotel mt-5">
-                    <i class="fa fa-info"></i>
-                    <b>Perhatian</b>
-                    Pastikan alamat email yang dimasukkan valid dan dapat anda akses, karena kami akan mengirimkan kode aktivasi melalui email tersebut. Akun anda tidak dapat digunakan sebelum diaktivasi terlebih dahulu.
+            <div v-if="page == 'register'" class="col-lg-8 offset-lg-2">
+                <div class="alert alert-success mt-2" style="background-color: #F5AC39;">
+                    <h4 class="text-dark"><i class="fa fa-info"></i> <b>Perhatian</b></h4>
+                    <p>Pastikan alamat email yang dimasukkan valid dan dapat anda akses, karena kami akan mengirimkan kode aktivasi melalui email tersebut. Akun anda tidak dapat digunakan sebelum diaktivasi terlebih dahulu.</p>
                 </div>
-                <form id="form-register" ref="form">
-                    <div class="form-group row mb-2">
-                        <label class="col-lg-3 control-label control-label-bold">Email*</label>
-                        <div class="col-lg-9">
-                            <input type="text" :class="{'is-invalid': validation_error.email}" class="form-control" name="email" value="bawaihi@ulm.ac.id" />
-                            <div v-if="validation_error.email" class="invalid-feedback">
-                                {{ validation_error.email }}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group row mb-2">
-                        <label class="col-lg-3 control-label">Password*</label>
-                        <div class="col-lg-9">
-                            <input type="password" :class="{ 'is-invalid':validation_error.password }" class="form-control" name="password" value="b" />
-                            <div v-if="validation_error.password" class="invalid-feedback">
-                                {{ validation_error.password }}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group row mb-2">
-                        <label class="col-lg-3 control-label">Confirm Password*</label>
-                        <div class="col-lg-9">
-                            <input type="password" :class="{ 'is-invalid': validation_error.confirm_password }" class="form-control" name="confirm_password" value="b" />
-                            <div v-if="validation_error.confirm_password" class="invalid-feedback">
-                                {{ validation_error.confirm_password }}
-                            </div>
-                        </div>
-                    </div>
-                    <hr />
-
-                    <div class="form-group row mb-2">
-                        <label class="col-lg-3 control-label">Status*</label>
-                        <div class="col-lg-9">
-                            <?= form_dropdown('status', $participantsCategory, '', [':class' => "{'is-invalid':validation_error.status}", 'id' => 'status', 'v-model' => 'status_selected', 'class' => 'form-control', 'placeholder' => 'Select your status !']); ?>
-                            <div v-if="validation_error.status" class="invalid-feedback">
-                                {{ validation_error.status }}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div v-if="needVerification" class="form-group row mb-2">
-                        <label class="col-lg-3 control-label">Mohon unggah bukti identitas anda* <small>(jpg,jpeg,png)</small></label>
-                        <div class="col-lg-9">
-                            <input type="file" name="proof" accept=".jpg,.png,.jpeg" :class="{'is-invalid':validation_error.proof}" class="form-control-file" />
-                            <div v-if="validation_error.proof" class="invalid-feedback d-block">
-                                {{ validation_error.proof }}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group row mb-2">
-                        <label class="col-lg-3 control-label">Nama Lengkap*</label>
-                        <div class="col-lg-9">
-                            <small>*Mohon mengisi nama dengan lengkap dan benar (beserta gelar) untuk sertifikat</small>
-                            <input type="text" :class="{'is-invalid':validation_error.fullname}" class="form-control" name="fullname" value="Muhammad Bawaihi" />
-                            <div v-if="validation_error.fullname" class="invalid-feedback">
-                                {{ validation_error.fullname }}
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="form-group row mb-2">
-                        <label class="col-lg-3 control-label">Alamat</label>
-                        <div class="col-lg-9">
-                            <textarea :class="{ 'is-invalid':validation_error.address }" class="form-control" name="address">-</textarea>
-                            <div class="invalid-feedback">
-                                {{ validation_error.address }}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group row mb-2">
-                        <label class="col-lg-3 control-label">Kota</label>
-                        <div class="col-lg-9">
-                            <input type="text" :class="{'is-invalid':validation_error.city}" class="form-control" name="city" value="Kota" />
-                            <div v-if="validation_error.city" class="invalid-feedback">
-                                {{ validation_error.city }}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group row mb-2">
-                        <label class="col-lg-3 control-label">Institusi*</label>
-                        <div class="col-lg-9">
-                            <?= form_dropdown('univ', $participantsUniv, '', [':class' => "{'is-invalid':validation_error.univ}", 'v-model' => 'univ_selected', 'class' => 'form-control chosen', 'placeholder' => 'Select your institution !']); ?>
-                            <div v-if="validation_error.univ" class="invalid-feedback">
-                                {{ validation_error.univ }}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div v-if="univ_selected == <?= Univ_m::UNIV_OTHER; ?>" class="form-group row mb-2">
-                        <label class="col-lg-3 control-label">Institusi lain</label>
-                        <div class="col-lg-9">
-                            <input type="text" :class="{ 'is-invalid':validation_error.other_institution}" class="form-control" name="other_institution" />
-                            <div v-if="validation_error.phone" class="invalid-feedback">
-                                {{ validation_error.other_institution }}
-                            </div>
-
-                        </div>
-                    </div>
-
-
-                    <div class="form-group row mb-2">
-                        <label class="col-lg-3 control-label">No HP/WA*</label>
-                        <div class="col-lg-9">
-                            <input type="text" :class="{ 'is-invalid':validation_error.phone}" @keypress="onlyNumber" class="form-control" name="phone" value="082153606887" />
-                            <div v-if="validation_error.phone" class="invalid-feedback">
-                                {{ validation_error.phone }}
-                            </div>
-
-                        </div>
-                    </div>
-
-
-                    <div class="form-group row mb-2">
-                        <label class="col-lg-3 control-label">Jenis Kelamin*</label>
-                        <div class="col-lg-9">
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="gender" checked value="M" /> Laki-laki
-                                </label>
-                            </div>
-                            <div class="radio">
-                                <label>
-                                    <input type="radio" name="gender" value="F" /> Wanita
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group row mb-2">
-                        <label class="col-lg-3 control-label">Sponsor</label>
-                        <div class="col-lg-9">
-                            <input type="text" :class="{'is-invalid':validation_error.sponsor}" class="form-control" name="sponsor" value="-" />
-                            <div v-if="validation_error.sponsor" class="invalid-feedback">
-                                {{ validation_error.sponsor }}
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- NOTE Events -->
-                    <div class="col-lg-12" v-if="status_selected">
-                        <hr />
-                        <div class="card">
-                            <div class="card-header text-center">
-                                <h2 class="m-0 p-0"><strong class="font-weight-extra-bold">Acara</strong></h2>
-                            </div>
-                            <div class="card-body text-center">
-                                Silakan pilih acara yang Anda inginkan. *Acara tersedia berdasarkan status dan tanggal Anda
-                            </div>
-                        </div>
-                        <!-- <div class="row">
-                            <div class="col-md-9">
-                                <div class="overflow-hidden mb-1">
-                                    <h2 class="font-weight-normal text-7 mb-0"><strong class="font-weight-extra-bold">Acara</strong></h2>
-                                </div>
-                                <div class="overflow-hidden mb-4 pb-3">
-                                    <p class="mb-0"></p>
-                                </div>
-                            </div>
-                            <div class="col-md-3"></div>
-                        </div> -->
-
-                        <div class="row">
-                            <div class="accordion accordion-quaternary col-md-12">
-                                <div v-for="(event, index) in filteredEvent" class="card card-default mt-2" v-bind:key="index">
-                                    <div class="card-header">
-                                        <h4 class="card-title m-0">
-                                            <a class="accordion-toggle" data-toggle="collapse" :href="'#accordion-'+index" aria-expanded="true">
-                                                {{ event.name }}
-                                            </a>
-                                        </h4>
-                                    </div>
-                                    <div :id="'accordion-'+index" class="collapse show table-responsive">
-                                        <div>
-                                            <div v-if="event.participant >= event.kouta" class="alert alert-warning text-center">
-                                                <h4>Maaf Kouta untuk acara ini penuh</h4>
+                <form id="form-register" class="form-border" ref="form">
+                    <div class="de_tab tab_simple">
+                        <!-- <p>
+                            <i class="fa fa-info"></i> <b>Perhatian</b>
+                            Pastikan alamat email yang dimasukkan valid dan dapat anda akses, karena kami akan mengirimkan kode aktivasi melalui email tersebut. Akun anda tidak dapat digunakan sebelum diaktivasi terlebih dahulu.
+                        </p> -->
+                        <div class="de_tab_content">
+                            <div class="tab-1">
+                                <div class="row wow fadeIn">
+                                    <div class="col-lg-12 mb-sm-20">
+                                        <div class="field-set" style="color:#F4AD39;">
+                                            <h5 style="color:#F4AD39;">Email*</h5>
+                                            <input type="text" :class="{'is-invalid': validation_error.email}" class="form-control mb-0" name="email" placeholder="Email" />
+                                            <div v-if="validation_error.email" class="invalid-feedback">
+                                                {{ validation_error.email }}
                                             </div>
-                                            <table class="table">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Kategori</th>
-                                                        <th v-for="pricing in event.pricingName" class="text-center"><span v-html="pricing.title"></span></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr v-for="member in event.memberStatus">
-                                                        <td>{{ member }}</td>
-                                                        <td v-for="pricing in event.pricingName" class="text-center">
-                                                            <span v-if="pricing.pricing[member]">
-                                                                {{ formatCurrency(pricing.pricing[member].price) }}
-                                                                <div v-if="member == status_text" class="de-switch mt-2" style="background-size: cover;">
-                                                                    <input type="checkbox" :id="`switch-unlock_${member}_${event.name}`" :value="pricing.pricing[member].added" class="checkbox" v-model="pricing.pricing[member].added" @click="addEvent($event,pricing.pricing[member],member,event.name)">
-                                                                    <label :for="`switch-unlock_${member}_${event.name}`"></label>
+
+                                            <div class="spacer-20"></div>
+
+                                            <h5 style="color:#F4AD39;">Password*</h5>
+                                            <input type="password" :class="{ 'is-invalid':validation_error.password }" class="form-control mb-0" name="password" placeholder="Password" />
+                                            <div v-if="validation_error.password" class="invalid-feedback">
+                                                {{ validation_error.password }}
+                                            </div>
+
+                                            <div class="spacer-20"></div>
+
+                                            <h5 style="color:#F4AD39;">Confirm Password*</h5>
+                                            <input type="password" :class="{ 'is-invalid': validation_error.confirm_password }" class="form-control mb-0" name="confirm_password" placeholder="Confirm Password" />
+                                            <div v-if="validation_error.confirm_password" class="invalid-feedback">
+                                                {{ validation_error.confirm_password }}
+                                            </div>
+
+                                            <div class="spacer-20"></div>
+
+                                            <h5 style="color:#F4AD39;">Your Status*</h5>
+                                            <?= form_dropdown('status', $participantsCategory, '', [':class' => "{'is-invalid':validation_error.status}", 'id' => 'status', 'v-model' => 'status_selected', 'class' => 'form-control mb-0', 'placeholder' => 'Select your status !', 'style' => 'background-color: #161C31']); ?>
+                                            <div v-if="validation_error.status" class="invalid-feedback">
+                                                {{ validation_error.status }}
+                                            </div>
+
+                                            <div class="spacer-20"></div>
+
+                                            <span v-if="needVerification">
+                                                <h5 style="color:#F4AD39;">Mohon unggah bukti identitas anda* <small>(jpg,jpeg,png)</small></h5>
+                                                <input type="file" name="proof" accept=".jpg,.png,.jpeg" :class="{'is-invalid':validation_error.proof}" class="form-control-file" />
+                                                <div v-if="validation_error.proof" class="invalid-feedback d-block">
+                                                    {{ validation_error.proof }}
+                                                </div>
+
+                                                <div class="spacer-20"></div>
+                                            </span>
+
+                                            <h5 style="color:#F4AD39;"> Full Name*</h5>
+                                            <small>*Mohon mengisi nama dengan lengkap dan benar (beserta gelar) untuk sertifikat</small>
+                                            <input type="text" :class="{'is-invalid':validation_error.fullname}" class="form-control mb-0" name="fullname" placeholder="Full Name" />
+                                            <div v-if="validation_error.fullname" class="invalid-feedback">
+                                                {{ validation_error.fullname }}
+                                            </div>
+
+                                            <div class="spacer-20"></div>
+
+                                            <h5 style="color:#F4AD39;"> Alamat*</h5>
+                                            <textarea :class="{ 'is-invalid':validation_error.address }" class="form-control mb-0" name="address" placeholder="Alamat"></textarea>
+                                            <div class="invalid-feedback">
+                                                {{ validation_error.address }}
+                                            </div>
+
+                                            <div class="spacer-20"></div>
+
+                                            <h5 style="color:#F4AD39;"> City*</h5>
+                                            <input type="text" :class="{'is-invalid':validation_error.city}" class="form-control mb-0" name="city" placeholder="City" />
+                                            <div v-if="validation_error.city" class="invalid-feedback">
+                                                {{ validation_error.city }}
+                                            </div>
+
+                                            <div class="spacer-20"></div>
+                                            <span class="dark-select">
+                                                <h5 style="color:#F4AD39;"> Your Institution*</h5>
+                                                <?= form_dropdown('univ', $participantsUniv, '', [':class' => "{'is-invalid':validation_error.univ}", 'v-model' => 'univ_selected', 'class' => 'form-control chosen mb-0', 'placeholder' => 'Select your institution !']); ?>
+                                                <div v-if="validation_error.univ" class="invalid-feedback">
+                                                    {{ validation_error.univ }}
+                                                </div>
+                                            </span>
+
+                                            <div class="spacer-20"></div>
+
+                                            <span v-if="univ_selected == <?= Univ_m::UNIV_OTHER; ?>">
+                                                <h5 style="color:#F4AD39;"> Other Institution*</h5>
+                                                <input type="text" :class="{ 'is-invalid':validation_error.other_institution}" class="form-control mb-0" name="other_institution" placeholder="Other Institution" />
+                                                <div v-if="validation_error.other_institution" class="invalid-feedback">
+                                                    {{ validation_error.other_institution }}
+                                                </div>
+
+                                                <div class="spacer-20"></div>
+                                            </span>
+
+                                            <h5 style="color:#F4AD39;">Phone/WA*</h5>
+                                            <input type="text" :class="{ 'is-invalid':validation_error.phone}" @keypress="onlyNumber" class="form-control mb-0" name="phone" placeholder="Phone/WA" />
+                                            <div v-if="validation_error.phone" class="invalid-feedback">
+                                                {{ validation_error.phone }}
+                                            </div>
+
+                                            <div class="spacer-20"></div>
+
+                                            <h5 style="color:#F4AD39;">Gender*</h5>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="gender" checked value="M" /> Laki-laki
+                                                </label>
+                                                <label>
+                                                    <input type="radio" name="gender" value="F" /> Wanita
+                                                </label>
+                                            </div>
+                                            <div v-if="validation_error.gender" class="invalid-feedback">
+                                                {{ validation_error.gender }}
+                                            </div>
+
+                                            <div class="spacer-20"></div>
+
+                                            <h5 style="color:#F4AD39;">Sponsor*</h5>
+                                            <input type="text" :class="{'is-invalid':validation_error.sponsor}" class="form-control mb-0" name="sponsor" placeholder="Sponsor" />
+                                            <div v-if="validation_error.sponsor" class="invalid-feedback">
+                                                {{ validation_error.sponsor }}
+                                            </div>
+
+                                            <!-- NOTE Events -->
+                                            <div class="col-lg-12" v-if="status_selected">
+                                                <hr />
+                                                <div class="card">
+                                                    <div class="card-header text-center">
+                                                        <h2 class="m-0 p-0"><strong class="font-weight-extra-bold ">Acara</strong></h2>
+                                                    </div>
+                                                    <div class="card-body text-center">
+                                                        Silakan pilih acara yang Anda inginkan. *Acara tersedia berdasarkan status dan tanggal Anda
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="accordion accordion-quaternary col-md-12">
+                                                        <div v-for="(event, index) in filteredEvent" class="card card-default mt-2" v-bind:key="index">
+                                                            <div class="card-header">
+                                                                <h4 class="card-title m-0" style="color:#F5AC39">
+                                                                    {{ event.name }}
+                                                                </h4>
+                                                            </div>
+                                                            <div :id="'accordion-'+index" class="collapse show table-responsive">
+                                                                <div>
+                                                                    <div v-if="event.participant >= event.kouta" class="alert alert-warning text-center">
+                                                                        <h4>Maaf Kouta untuk acara ini penuh</h4>
+                                                                    </div>
+                                                                    <table class="table text-light">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>Kategori</th>
+                                                                                <th v-for="pricing in event.pricingName" class="text-center"><span v-html="pricing.title"></span></th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr v-for="member in event.memberStatus">
+                                                                                <td>{{ member }}</td>
+                                                                                <td v-for="pricing in event.pricingName" class="text-center">
+                                                                                    <span v-if="pricing.pricing[member]">
+                                                                                        {{ formatCurrency(pricing.pricing[member].price) }}
+                                                                                        <div v-if="member == status_text" class="de-switch mt-2" style="background-size: cover;">
+                                                                                            <input type="checkbox" :id="`switch-unlock_${member}_${event.name}`" :value="pricing.pricing[member].added" class="checkbox" v-model="pricing.pricing[member].added" @click="addEvent($event,pricing.pricing[member],member,event.name)">
+                                                                                            <label :for="`switch-unlock_${member}_${event.name}`"></label>
+                                                                                        </div>
+                                                                                        <div v-else>
+                                                                                            <button type="button" v-if="member != status_text" style="cursor:not-allowed;color:#fff;" aria-disabled="true" disabled class="btn btn-sm btn-danger">Not Available</button>
+                                                                                        </div>
+                                                                                        <!-- <button type="button" @click="addEvent(pricing.pricing[member],member,event.name)" v-if="member == status_text" :disabled="pricing.pricing[member].added" class="btn btn-sm btn-warning">Add Event</button> -->
+                                                                                    </span>
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
                                                                 </div>
-                                                                <div v-else>
-                                                                    <button type="button" v-if="member != status_text" style="cursor:not-allowed;color:#fff;" aria-disabled="true" disabled class="btn btn-sm btn-danger">Not Available</button>
-                                                                </div>
-                                                                <!-- <button type="button" @click="addEvent(pricing.pricing[member],member,event.name)" v-if="member == status_text" :disabled="pricing.pricing[member].added" class="btn btn-sm btn-warning">Add Event</button> -->
-                                                            </span>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
+                                                            </div>
+                                                        </div>
+                                                        <div class="card card-default mt-2">
+                                                            <div class="card-header text-center" style="color:#F5AC39">
+                                                                <b>{{ formatCurrency(total) }}</b>
+                                                            </div>
+                                                        </div>
+                                                        <div v-if="validation_error.eventAdded" style="font-size: .875em;color: #dc3545;">
+                                                            {{ validation_error.eventAdded }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- NOTE End Events -->
                                         </div>
                                     </div>
                                 </div>
-                                <div class="card card-default mt-2">
-                                    <div class="card-header text-center">
-                                        <b>{{ formatCurrency(total) }}</b>
-                                    </div>
-                                </div>
-                                <div v-if="validation_error.eventAdded" style="font-size: .875em;color: #dc3545;">
-                                    {{ validation_error.eventAdded }}
-                                </div>
-
-                                <!-- <div class="form-group mb-2">
-                                    <select name="selectedPaymentMethod" id="selectedPaymentMethod" :class="{ 'is-invalid':validation_error.selectedPaymentMethod}" class="form-control selectedPaymentMethod mt-2 text-center" v-model="selectedPaymentMethod">
-                                        <option v-for="(method,ind) in paymentMethod" :value="method.key">{{method.desc}}</option>
-                                    </select>
-                                    <div v-if="validation_error.selectedPaymentMethod" class="invalid-feedback">
-                                        {{ validation_error.selectedPaymentMethod }}
-                                    </div>
-                                </div> -->
                             </div>
                         </div>
                     </div>
-                    <!-- NOTE End Events -->
 
-                </form>
-                <hr />
-                <div class="form-group row mb-2 mb-5">
+                    <hr />
                     <div class="col-lg-12 text-center">
-                        <button :disabled="saving" type="button" @click="register" class="btn btn-primary custom-border-radius font-weight-semibold text-uppercase">
+                        <button :disabled="saving" type="button" @click="register" class="btn-main" style="background-color:#F4AD39; color:black;">
                             <i v-if="saving" class="fa fa-spin fa-spinner"></i>
                             Next
                         </button>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
 

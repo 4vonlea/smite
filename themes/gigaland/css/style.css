@@ -3445,6 +3445,7 @@ hr {
 }
 
 .form-border input[type=text],
+.form-border input[type=email],
 .form-border textarea,
 .form-underline input[type=email],
 .form-border input[type=password],
@@ -3466,6 +3467,7 @@ hr {
 }
 
 .dark-scheme .form-border input[type=text],
+.dark-scheme .form-border input[type=email],
 .dark-scheme .form-border textarea,
 .dark-scheme .form-underline input[type=email],
 .dark-scheme .form-border input[type=password],
@@ -3650,7 +3652,7 @@ footer.footer-light h5 {
 }
 
 .dark-scheme h1,
-.dark-scheme h2,
+.dark-scheme h2:not(.swal2-title),
 .dark-scheme h4,
 .dark-scheme h3,
 .dark-scheme h5,
@@ -12711,7 +12713,8 @@ a.read_more i {
 }
 
 .dark-scheme .de-switch label {
-    background-color: rgba(255, 255, 255, .1);
+    /* background-color: rgba(255, 255, 255, .1); */
+    background-color: #626262;
 }
 
 .de-switch label:after {
