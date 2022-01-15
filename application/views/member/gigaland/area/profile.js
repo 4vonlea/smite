@@ -107,13 +107,7 @@ var PageProfile = Vue.component("PageProfile", {
                     <input :disabled="!editing" class="form-control" required="" type="text" v-model="user.sponsor">
                 </div>
             </div>
-
-            <div v-if="editing" class="form-group row mb-2">
-                <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2" >Alamat</label>
-                <div class="col-lg-9">
-                    <textarea :disabled="!editing" class="form-control" v-model="user.address" rows="4" style="background-color: transparent;"></textarea>
-                </div>
-            </div>
+            
             <div v-if="editing" class="form-group row mb-2">
                 <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2" ></label>
                 <div class="form-group col-lg-9">
