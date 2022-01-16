@@ -57,7 +57,8 @@
                                         </div>    
                                         <div class="spacer-10"></div>
                                         <div class="d-buttons" >
-                                            <a href="<?=base_url('site/home');?>" class="btn-main btn-lg" style="background-color:#F4AD39; color:black;">Enter</a>&nbsp;
+                                            <a href="#" class="btn-main btn-lg" style="background-color:#F4AD39; color:black;">This Site Under Maintenance</a>&nbsp;
+                                            <!--<a href="<?=base_url('site/home');?>" class="btn-main btn-lg" style="background-color:#F4AD39; color:black;">Enter</a>&nbsp;-->
                                         </div>
                                     </div>
                                 </div>
@@ -79,7 +80,7 @@
                             <div class="de-flex">
                                 <div class="de-flex-col">
                                     <a href="index">
-                                        <span class="copy" style="color:#F4AD39;">&copy; Copyright 2022 - Annual Scientific Meeting AOMC</span>
+                                        <span class="copy" style="color:#F4AD39;">&copy; Copyright 2022</span>
                                     </a>
                                 </div>
                                 <div class="de-flex-col">

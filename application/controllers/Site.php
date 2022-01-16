@@ -24,6 +24,7 @@ class Site extends MY_Controller
         $this->load->model('Settings_m', 'SettingM');
         $this->load->model('Upload_video_m', 'VideoM');
         $this->load->model('Transaction_m', 'TransactionM');
+	
     }
 
     public function index()
