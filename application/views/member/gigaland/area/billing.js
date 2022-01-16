@@ -1,6 +1,6 @@
 export default Vue.component("PageBilling", {
     template: `
-        <div class="col-lg-9">
+        <div class="col-lg-12">
             <page-loader :loading="loading" :fail="fail"></page-loader>
             <div v-if="!loading">
             	<div class="overflow-hidden mb-1">
@@ -11,7 +11,7 @@ export default Vue.component("PageBilling", {
 				</div>
 				<div class="row  table-responsive">
 					<h4>Transaction History</h4>
-					<table class="table table-bordered">
+					<table class="table text-light border">
 						<thead>
 							<th>Tanggal</th>
 							<th>No Invoice</th>
@@ -21,7 +21,7 @@ export default Vue.component("PageBilling", {
 						</thead>
 						<tbody v-if="!transaction">
 							<tr>
-								<td colspan="5" class="text-center">No Transaksi</td>
+								<td colspan="5" class="text-center border-top">No Transaksi</td>
 							</tr>
 						</tbody>
 						<tbody v-else>
@@ -31,19 +31,19 @@ export default Vue.component("PageBilling", {
 								<td>{{ item.status_payment.toUpperCase()}}</td>
 								<td>{{ sumPrice(item.detail)}}</td>
 								<td>
-									<button class="btn btn-default" @click="detailTransaction(item,$event)">Detil</button>
-									<button @click="modalProof(item)" v-if="item.status_payment == 'pending' && item.channel == 'MANUAL TRANSFER'" class="btn btn-default" >Unggah Bukti Transfer</button>
+									<button class="btn btn-primary" @click="detailTransaction(item,$event)">Detil</button>
+									<button @click="modalProof(item)" v-if="item.status_payment == 'pending' && item.channel == 'MANUAL TRANSFER'" class="btn btn-primary" >Unggah Bukti Transfer</button>
 								</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
-				<div class="row table-responsive">
+				<div class="row table-responsive mt-3">
 					<h4>Current Cart</h4>
 					<div v-if="!cart" class="col-md-12 alert alert-warning">
 						<p>Anda belum memilih acara yang akan ditambahkan</p>
 					</div>
-					<table v-else class="table">
+					<table v-else class="table text-light">
 						<thead>
 							<th></th>
 							<th>Event Name</th>
@@ -88,7 +88,7 @@ export default Vue.component("PageBilling", {
 				</div>
 			</div>
 			<div class="modal" id="modal-upload-proof">
-				<div class="modal-dialog">
+				<div class="modal-dialog modal-dialog-centered">
 					<div class="modal-content">
 						<div class="modal-header">
 							<h4 class="modal-title">Unggah Bukti Transfer</h4>
@@ -124,15 +124,15 @@ export default Vue.component("PageBilling", {
 					</div>
 				</div>
 			</div>
-			<div class="modal" id="modal-detail">
-				<div class="modal-dialog modal-lg">
+			<div class="modal" id="modal-detail" tabindex="1005" role="dialog">
+				<div class="modal-dialog modal-lg modal-dialog-centered">
 					<div class="modal-content">
 						<div class="modal-header">
 							<h4 class="modal-title">Detail Transaction</h4>
-							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<button type="button" class="close" data-bs-dismiss="modal">&times;</button>
 						</div>
 						<div class="modal-body table-responsive">
-							<table class="table table-bordered">
+							<table class="table text-light">
 								<tr>
 									<th>No Invoice</th>
 									<td>{{ detailModel.id }}</td>
@@ -173,75 +173,71 @@ export default Vue.component("PageBilling", {
 									<td colspan="2">{{ dt.product_name }}</td>
 									<td colspan="2">{{ formatCurrency(dt.price) }}</td>
 								</tr>
-								<tr v-if="detailModel.status_payment == 'pending'">
-									<th class="text-center" colspan="4">Info Transfer</th>
-								</tr>
-								<tr v-if="detailModel.status_payment == 'pending' && detailModel.channel == 'ESPAY'">
-									<td colspan="4">
-										<table v-if="detailEspay.product_value">
-											<tr>
-												<th>Bank/Vendor Name</th>
-												<td>
-													{{ detailEspay.bank_name }}
-												</td>
-											</tr>
-											<tr>
-												<th>Product Name</th>
-												<td>{{ detailEspay.product_name }}</td>
-											</tr>
-											<tr>
-												<th>Account Number</th>
-												<td>{{ detailEspay.product_value }}</td>
-											</tr>
-											<tr>
-												<th>Amount</th>
-												<td> 
-													{{ formatCurrency(detailEspay.amount) }} 
-													<br/>
-													<small>*Jumlah mungkin berbeda karena biaya tambahan dari Espay </small><br/>
-												</td>
-											</tr>
-										</table>
-										<h4 v-else>Informasi pembayaran bisa dilihat pada email yang dikirim oleh ESPAY</h4>
-										<p>Status pembayaran akan berubah otomatis ketika anda telah menyelesaikan pembayaran sesuai petunjuk ESPAY</p>
-									<small>
-										*Untuk pembayaran dengan menggunakan Kartu Kredit , tagihan yang akan tercetak di lembar tagihan kartu kredit pelanggan adalah atas nama ESPAY  
-									</small>
-									</td>
-								<tr>
-								<tr v-if="detailModel.status_payment == 'pending' && detailModel.channel == 'MANUAL TRANSFER'">
-									<td colspan="4">
-										<p>Silakan transfer <b>{{ amount }}</b> ke salah satu rekening bank berikut
-										<br/>Kemudian upload bukti pembayaran (tanda terima, screenshoot SMS banking, dll) pada Riwayat Transaksi </p>
-										<div class="row">
-											<div class="col-sm-6" v-for="account in detailModel.banks">
-												<div class="card">
-														<h3 class="card-title">{{ account.bank }}</h3>
-														<p class="card-text table-responsive">
-															<table>
-																<tr>
-																	<th>No Rekening</th>
-																	<td>:</td>
-																	<td>{{ account.no_rekening }}</td>
-																</tr>												
-																<tr>
-																	<th>Nama Pemegang Rekening</th>
-																	<td>:</td>
-																	<td>{{ account.holder }}</td>
-																</tr>												
-															</table>
-														</p>
-												</div>
-											</div>
-										</div>
-									</td>
-								</tr>
 							</table>
+							<br>
+							<h5 v-if="detailModel.status_payment == 'pending'">Info Transfer</h5>
+							<div v-if="detailModel.status_payment == 'pending' && detailModel.channel == 'ESPAY'">
+								<table v-if="detailEspay.product_value">
+									<tr>
+										<th>Bank/Vendor Name</th>
+										<td>
+											{{ detailEspay.bank_name }}
+										</td>
+									</tr>
+									<tr>
+										<th>Product Name</th>
+										<td>{{ detailEspay.product_name }}</td>
+									</tr>
+									<tr>
+										<th>Account Number</th>
+										<td>{{ detailEspay.product_value }}</td>
+									</tr>
+									<tr>
+										<th>Amount</th>
+										<td> 
+											{{ formatCurrency(detailEspay.amount) }} 
+											<br/>
+											<small>*Jumlah mungkin berbeda karena biaya tambahan dari Espay </small><br/>
+										</td>
+									</tr>
+								</table>
+								<h4 v-else>Informasi pembayaran bisa dilihat pada email yang dikirim oleh ESPAY</h4>
+								<p>Status pembayaran akan berubah otomatis ketika anda telah menyelesaikan pembayaran sesuai petunjuk ESPAY</p>
+								<small>
+									*Untuk pembayaran dengan menggunakan Kartu Kredit , tagihan yang akan tercetak di lembar tagihan kartu kredit pelanggan adalah atas nama ESPAY  
+								</small>
+							</div>
+							
+							<div v-if="detailModel.status_payment == 'pending' && detailModel.channel == 'MANUAL TRANSFER'">
+								<p>Silakan transfer <b>{{ amount }}</b> ke salah satu rekening bank berikut
+								<br/>Kemudian upload bukti pembayaran (tanda terima, screenshoot SMS banking, dll) pada Riwayat Transaksi </p>
+								<div class="row">
+									<div class="col-sm-6" v-for="account in detailModel.banks">
+										<div class="card p-2">
+												<h3 class="card-title">{{ account.bank }}</h3>
+												<p class="card-text table-responsive">
+													<table>
+														<tr>
+															<th>No Rekening</th>
+															<td>:</td>
+															<td>{{ account.no_rekening }}</td>
+														</tr>												
+														<tr>
+															<th>Nama Pemegang Rekening</th>
+															<td>:</td>
+															<td>{{ account.holder }}</td>
+														</tr>												
+													</table>
+												</p>
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
 						<div class="modal-footer">
 							<a :href="appUrl+'member/area/download/invoice/'+detailModel.id" target="_blank" class="btn btn-primary" >Download Invoice</a>
 							<a :href="appUrl+'member/area/download/proof/'+detailModel.id" target="_blank" v-if="detailModel.finish" class="btn btn-primary" >Download Bukti Registrasi</a>
-							<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>					
+							<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>					
 						</div>
 					</div>
 				</div>
@@ -251,7 +247,7 @@ export default Vue.component("PageBilling", {
 					<div class="modal-content">
 						<div class="modal-header">
 							<h4 class="modal-title">Select Payment Method</h4>
-							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<button type="button" class="close" data-bs-dismiss="modal">&times;</button>
 						</div>
 						<div class="modal-body">
 						<iframe id="sgoplus-iframe" style="width:100%"></iframe>
@@ -265,7 +261,7 @@ export default Vue.component("PageBilling", {
 					<div class="modal-content">
 						<div class="modal-header">
 							<h4 class="modal-title">Info Payment</h4>
-							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<button type="button" class="close" data-bs-dismiss="modal">&times;</button>
 						</div>
 						<div class="modal-body table-responsive">
 							<p>Please transfer <b>{{ formatCurrency(manual_payment.ammount) }}</b> to one of the following bank accounts
@@ -287,7 +283,7 @@ export default Vue.component("PageBilling", {
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>					
+							<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>					
 						</div>
 					</div>
 				</div>

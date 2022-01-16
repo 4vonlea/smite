@@ -13,8 +13,8 @@ class Area extends MY_Controller
 	{
 		parent::__construct();
 		if ($this->user_session_expired() && $this->router->method != "page")
-			redirect(base_url("site/login"));
-			
+			redirect(base_url("site/home"));
+
 		$this->theme = $this->config->item("theme");
 		$this->layout->setTheme($this->theme);
 		$this->layout->setLayout("layouts/$this->theme");
@@ -31,7 +31,13 @@ class Area extends MY_Controller
 		$user = Member_m::findOne(['username_account' => $this->session->user_session['username']]);
 		if (!$user)
 			show_error("Member not found in sistem or not registered yet !", 500, "Member not found");
-		$this->layout->render('index', ['user' => $user, 'statusToUpload' => json_decode(Settings_m::getSetting("status_to_upload"), true) ?? []]);
+
+		$data = [
+			'user' => $user,
+			'statusToUpload' => json_decode(Settings_m::getSetting("status_to_upload"), true) ?? [],
+			'isLogin' => $this->user_session_expired()
+		];
+		$this->layout->render('index', $data);
 	}
 
 	public function presentationList()
@@ -612,7 +618,7 @@ class Area extends MY_Controller
 
 		$this->output
 			->set_content_type("application/json")
-			->_display(json_encode(['status' => true, 'count' => $c, 'univ' => Univ_m::asList($univ->result_array(),'univ_id','univ_nama')]));
+			->_display(json_encode(['status' => true, 'count' => $c, 'univ' => Univ_m::asList($univ->result_array(), 'univ_id', 'univ_nama')]));
 	}
 
 	public function redirect_client($name)

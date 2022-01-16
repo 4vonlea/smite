@@ -120,11 +120,11 @@
 							<button @click="detail(props)" class="btn btn-info btn-sm">
 								<span class="fa fa-search"></span> Detail
 							</button>
-							<?php if($this->session->user_session['role'] == User_account_m::ROLE_SUPERADMIN):?>
-							<button @click="modify(props)" class="btn btn-info btn-sm">
-								<span class="fa fa-edit"></span> Modify
-							</button>
-							<?php endif;?>
+							<?php if ($this->session->user_session['role'] == User_account_m::ROLE_SUPERADMIN) : ?>
+								<button @click="modify(props)" class="btn btn-info btn-sm">
+									<span class="fa fa-edit"></span> Modify
+								</button>
+							<?php endif; ?>
 							<a class="btn btn-primary btn-sm" :href="'<?= base_url('admin/notification/index'); ?>/'+props.row.m_id" target="_blank">
 								<span class="fa fa-envelope"></span> Email
 							</a>
@@ -152,56 +152,58 @@
 						<th>Invoice Number</th>
 						<td>{{ detailModel.id }}</td>
 						<th>Invoice Date</th>
-						<td>{{ detailModel.updated_at }}</td>
+						<td :colspan="[isGroup? '2' : '1']">{{ detailModel.updated_at }}</td>
 					</tr>
 					<tr>
-						<th class="text-center" colspan="4">Billing Information</th>
+						<th class="text-center" :colspan="[isGroup? '5' : '4']">Billing Information</th>
 					</tr>
 					<tr>
 						<th>Bill To</th>
-						<td colspan="3">{{ detailModel.member.fullname }}</td>
+						<td :colspan="isGroup ? '4' : '3'">{{ detailModel.member.fullname }}</td>
 					</tr>
 					<tr>
 						<th>Address</th>
-						<td colspan="3">{{ detailModel.member.address+", "+detailModel.member.city }}</td>
+						<td :colspan="isGroup ? '4' : '3'">{{ detailModel.member.address+", "+detailModel.member.city }}</td>
 					</tr>
 					<tr>
 						<th>Amount</th>
-						<td colspan="3">{{ amount }}</td>
+						<td :colspan="isGroup ? '4' : '3'">{{ amount }}</td>
 					</tr>
 					<tr>
 						<th>Channel Payment</th>
-						<td colspan="3">{{ detailModel.channel }}</td>
+						<td :colspan="isGroup ? '4' : '3'">{{ detailModel.channel }}</td>
 					</tr>
 					<tr>
 						<th>Status</th>
-						<td colspan="3">{{ detailModel.status_payment.toUpperCase() }}</td>
+						<td :colspan="isGroup ? '4' : '3'">{{ detailModel.status_payment.toUpperCase() }}</td>
 					</tr>
 					<tr v-if="detailModel.channel != 'ESPAY'">
 						<th>{{ detailModel.channel == 'EDC' || detailModel.channel == 'MANUAL TRANSFER' ? 'Code Reference' : 'Additional Info' }}</th>
-						<td colspan="3">{{ detailModel.message_payment }}</td>
+						<td :colspan="isGroup ? '4' : '3'">{{ detailModel.message_payment }}</td>
 					</tr>
 
 					<tr v-if="detailModel.payment_proof">
 						<th>Transfer Proof</th>
-						<td colspan="3">
+						<td :colspan="isGroup ? '4' : '3'">
 							<a target="_blank" :href="'<?= base_url('admin/transaction/file'); ?>/'+detailModel.payment_proof">Click Here To View</a>
 						</td>
 					</tr>
 					<tr v-if="detailModel.client_message">
 						<th>Participant Message <br />(Upload Transfer Proof)</th>
-						<td colspan="3">
+						<td :colspan="isGroup ? '4' : '3'">
 							{{ detailModel.client_message }}
 						</td>
 					</tr>
 					<tr>
-						<th class="text-center" colspan="4">Details</th>
+						<th class="text-center" :colspan="[isGroup ? '5' : '4']">Details</th>
 					</tr>
 					<tr>
+						<th colspan="2" v-if="isGroup">Member Name</th>
 						<th colspan="2">Event Name</th>
 						<th colspan="2">Price</th>
 					</tr>
-					<tr v-for="(dt,ind) in detailModel.details">
+					<tr v-for="(dt,ind) in detailSort">
+						<td colspan="2" v-if="isGroup">{{ dt.member.fullname }}</td>
 						<td colspan="2">{{ dt.product_name }}</td>
 						<td colspan="2">
 							{{ editUniquePrice == false || dt.event_pricing_id != 0 ?  formatCurrency(dt.price) : "" }}
@@ -226,18 +228,18 @@
 			<!-- Modal footer -->
 			<div class="modal-footer">
 				<div class="btn-toolbar">
-				<button v-if="detailModel.status_payment == '<?= Transaction_m::STATUS_PENDING; ?>'" @click="expirePayment" type="button" class="btn btn-primary" :disabled="expiring">
-					<i v-if="verifying" class="fa fa-spin fa-spinner"></i>
-					Expire Payment
-				</button>
-				<button v-if="detailModel.status_payment != '<?= Transaction_m::STATUS_EXPIRE; ?>' && detailModel.status_payment != '<?= Transaction_m::STATUS_FINISH; ?>'" @click="verifyPayment" type="button" class="btn btn-primary" :disabled="verifying">
-					<i v-if="verifying" class="fa fa-spin fa-spinner"></i>
-					Verify Payment
-				</button>
-				<a :href="'<?= base_url('admin/transaction/download/invoice'); ?>/'+detailModel.id" target="_blank" class="btn btn-primary">Download Invoice</a>
-				<a :href="'<?= base_url('admin/transaction/download/proof'); ?>/'+detailModel.id" target="_blank" v-if="detailModel.status_payment == '<?= Transaction_m::STATUS_FINISH; ?>'" class="btn btn-primary">Download Bukti Registrasi</a>
-				<button :disabled="sendingProof" v-on:click="resendPaymentProof(detailModel)" v-if="detailModel.status_payment == '<?= Transaction_m::STATUS_FINISH; ?>'" class="btn btn-primary"><i v-if="sendingProof" class="fa fa-spin fa-spinner"></i> Resend Bukti Registrasi</button>
-				<button :disabled="sendingProof" type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+					<button v-if="detailModel.status_payment == '<?= Transaction_m::STATUS_PENDING; ?>'" @click="expirePayment" type="button" class="btn btn-primary" :disabled="expiring">
+						<i v-if="verifying" class="fa fa-spin fa-spinner"></i>
+						Expire Payment
+					</button>
+					<button v-if="detailModel.status_payment != '<?= Transaction_m::STATUS_EXPIRE; ?>' && detailModel.status_payment != '<?= Transaction_m::STATUS_FINISH; ?>'" @click="verifyPayment" type="button" class="btn btn-primary" :disabled="verifying">
+						<i v-if="verifying" class="fa fa-spin fa-spinner"></i>
+						Verify Payment
+					</button>
+					<a :href="'<?= base_url('admin/transaction/download/invoice'); ?>/'+detailModel.id" target="_blank" class="btn btn-primary">Download Invoice</a>
+					<a :href="'<?= base_url('admin/transaction/download/proof'); ?>/'+detailModel.id" target="_blank" v-if="detailModel.status_payment == '<?= Transaction_m::STATUS_FINISH; ?>'" class="btn btn-primary">Download Bukti Registrasi</a>
+					<button :disabled="sendingProof" v-on:click="resendPaymentProof(detailModel)" v-if="detailModel.status_payment == '<?= Transaction_m::STATUS_FINISH; ?>'" class="btn btn-primary"><i v-if="sendingProof" class="fa fa-spin fa-spinner"></i> Resend Bukti Registrasi</button>
+					<button :disabled="sendingProof" type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 				</div>
 
 			</div>
@@ -262,30 +264,30 @@
 						<th>Invoice Number</th>
 						<td>{{ modifyModel.id }}</td>
 						<th>Invoice Date</th>
-						<td>{{ modifyModel.updated_at }}</td>
+						<td :colspan="[isGroup? '2' : '1']">{{ modifyModel.updated_at }}</td>
 					</tr>
 					<tr>
-						<th class="text-center" colspan="4">Billing Information</th>
+						<th class="text-center" :colspan="[isGroup? '5' : '4']">Billing Information</th>
 					</tr>
 					<tr>
 						<th>Bill To</th>
-						<td colspan="3">{{ modifyModel.member.fullname }}</td>
+						<td :colspan="isGroup ? '4' : '3'">{{ modifyModel.member.fullname }}</td>
 					</tr>
 					<tr>
 						<th>Address</th>
-						<td colspan="3">{{ modifyModel.member.address+", "+modifyModel.member.city }}</td>
+						<td :colspan="isGroup ? '4' : '3'">{{ modifyModel.member.address+", "+modifyModel.member.city }}</td>
 					</tr>
 					<tr>
 						<th>Amount</th>
-						<td colspan="3">{{ amount }}</td>
+						<td :colspan="isGroup ? '4' : '3'">{{ amount }}</td>
 					</tr>
 					<tr>
 						<th>Channel Payment</th>
-						<td colspan="3">{{ modifyModel.channel }}</td>
+						<td :colspan="isGroup ? '4' : '3'">{{ modifyModel.channel }}</td>
 					</tr>
 					<tr>
 						<th>Status</th>
-						<td colspan="3">
+						<td :colspan="isGroup ? '4' : '3'">
 							<select class="form-control" v-model="modifyModel.status_payment">
 								<option value="<?= Transaction_m::STATUS_WAITING; ?>">Waiting Checkout</option>
 								<option value="<?= Transaction_m::STATUS_PENDING; ?>">Pending</option>
@@ -294,32 +296,34 @@
 							</select>
 						</td>
 					</tr>
-					<tr  v-if="detailModel.channel != 'ESPAY'">
+					<tr v-if="detailModel.channel != 'ESPAY'">
 						<th>{{ modifyModel.channel == 'EDC' || modifyModel.channel == 'MANUAL TRANSFER' ? 'Code Reference' : 'Additional Info' }}</th>
-						<td colspan="3">{{ modifyModel.message_payment }}</td>
+						<td :colspan="isGroup ? '4' : '3'">{{ modifyModel.message_payment }}</td>
 					</tr>
 
 					<tr v-if="modifyModel.payment_proof">
 						<th>Transfer Proof</th>
-						<td colspan="3">
+						<td :colspan="isGroup ? '4' : '3'">
 							<a target="_blank" :href="'<?= base_url('admin/transaction/file'); ?>/'+modifyModel.payment_proof">Click Here To View</a>
 						</td>
 					</tr>
 					<tr v-if="modifyModel.client_message">
 						<th>Participant Message <br />(Upload Transfer Proof)</th>
-						<td colspan="3">
+						<td :colspan="isGroup ? '4' : '3'">
 							{{ modifyModel.client_message }}
 						</td>
 					</tr>
 					<tr>
-						<th class="text-center" colspan="4">Details</th>
+						<th class="text-center" :colspan="[isGroup ? '5' : '4']">Details</th>
 					</tr>
 					<tr>
+						<th colspan="2" v-if="isGroup">Member Name</th>
 						<th colspan="2">Event Name</th>
-						<th>Price</th>
-						<th><button @click="modifyModel.details.push({member_id:modifyModel.member.id,transaction_id:modifyModel.id,event_pricing_id:0,product_name:'',price:0,isDeleted:0})" class="btn btn-primary btn-sm">Add Item</button></th>
+						<th :colspan="[isGroup ? '2' : '1']">Price</th>
+						<th v-if="!isGroup"><button @click="modifyModel.details.push({member_id:modifyModel.member.id,transaction_id:modifyModel.id,event_pricing_id:0,product_name:'',price:0,isDeleted:0})" class="btn btn-primary btn-sm">Add Item</button></th>
 					</tr>
-					<tr v-for="(dt,ind) in modifyModel.details" :class="{'bg-red':dt.isDeleted}">
+					<tr v-for="(dt,ind) in modifySort" :class="{'bg-red':dt.isDeleted}">
+						<td colspan="2" v-if="isGroup">{{ dt.member.fullname }}</td>
 						<td v-if="!dt.id" colspan="2">
 							<select class="form-control" @change="changeEvent($event,dt)" v-model="dt.event_pricing_id">
 								<option value="0">Select Event (Event filtered by status)</option>
@@ -347,7 +351,7 @@
 
 			<!-- Modal footer -->
 			<div class="modal-footer">
-				<button  type="button" class="btn btn-primary" @click="saveModify">Save</button>
+				<button type="button" class="btn btn-primary" @click="saveModify">Save</button>
 				<button :disabled="sendingProof" type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 			</div>
 
@@ -361,10 +365,12 @@
 		el: '#app',
 		data: {
 			info: info,
-			listEvent:[],
+			listEvent: [],
 			detailModel: {
 				member: {},
-				details: [],
+				details: [{
+					member: {}
+				}],
 				status_payment: ""
 			},
 			modifyModel: {
@@ -379,6 +385,8 @@
 			editUniquePrice: false,
 			inputUniquePrice: '',
 			sendingUniquePrice: false,
+
+			isGroup: false,
 		},
 		computed: {
 			amount() {
@@ -388,43 +396,55 @@
 						price += Number(this.detailModel.details[d].price);
 				}
 				return this.formatCurrency(price);
+			},
+			detailSort() {
+				return this.transactionsSort(this.detailModel.details);
+			},
+			modifySort() {
+				return this.transactionsSort(this.modifyModel.details);
 			}
 		},
 		methods: {
-			saveModify(event){
+
+			transactionsSort(data) {
+				return data.sort(function(a, b) {
+					return (a.event_pricing_id > b.event_pricing_id) ? -1 : 1;
+				})
+			},
+			saveModify(event) {
 				event.target.innerHTML = "<i class='fa fa-spin fa-spinner'></i>";
 				event.target.setAttribute("disabled", "disabled");
-				$.post("<?=base_url('admin/transaction/save_modify');?>",this.modifyModel,null,'JSON')
-				.done(function(res){
-					if(res.status && res.status == false){
-						Swal.fire("Failed", res.message, "error");						
-					}else{
-						app.modifyModel = res.model;
-						app.listEvent = res.listEvent;
-						app.modifyModel = res.model;
-						Swal.fire("Success", "Transaction Saved Successfully", "success");
-					}
-				}).always(function(){
-					event.target.innerHTML = "Save";
-					event.target.removeAttribute("disabled");
-				}).fail(function(){
-					Swal.fire("Failed", "Failed to save", "error");
-				});
+				$.post("<?= base_url('admin/transaction/save_modify'); ?>", this.modifyModel, null, 'JSON')
+					.done(function(res) {
+						if (res.status && res.status == false) {
+							Swal.fire("Failed", res.message, "error");
+						} else {
+							app.modifyModel = res.model;
+							app.listEvent = res.listEvent;
+							app.modifyModel = res.model;
+							Swal.fire("Success", "Transaction Saved Successfully", "success");
+						}
+					}).always(function() {
+						event.target.innerHTML = "Save";
+						event.target.removeAttribute("disabled");
+					}).fail(function() {
+						Swal.fire("Failed", "Failed to save", "error");
+					});
 
 			},
-			deleteItem(dt,ind){
-				if(dt.id){
+			deleteItem(dt, ind) {
+				if (dt.id) {
 					dt.isDeleted = 1;
-				}else{
-					this.modifyModel.details.splice(ind,1);
+				} else {
+					this.modifyModel.details.splice(ind, 1);
 				}
-				
+
 			},
-			changeEvent(event,dt){
+			changeEvent(event, dt) {
 				let options = event.target.options;
-				let selectedIndex =event.target.selectedIndex;
+				let selectedIndex = event.target.selectedIndex;
 				dt.price = options[selectedIndex].dataset.price;
-				dt.product_name =  options[selectedIndex].dataset.product_name;
+				dt.product_name = options[selectedIndex].dataset.product_name;
 			},
 			saveEditDetail(id, ind) {
 				app.sendingUniquePrice = true;
@@ -520,6 +540,7 @@
 					}, null, 'JSON')
 					.done(function(res) {
 						app.detailModel = res.model;
+						app.isGroup = $.isArray(app.detailModel.member);
 						$("#modal-detail").modal("show");
 					}).fail(function(xhr) {
 						var message = xhr.getResponseHeader("Message");
@@ -538,6 +559,7 @@
 					}, null, 'JSON')
 					.done(function(res) {
 						app.modifyModel = res.model;
+						app.isGroup = $.isArray(app.modifyModel.member);
 						app.listEvent = res.listEvent;
 						$("#modal-modify").modal("show");
 					}).fail(function(xhr) {

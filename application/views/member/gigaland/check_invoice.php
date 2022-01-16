@@ -14,33 +14,20 @@ $this->layout->begin_head();
 $theme_path = base_url("themes/gigaland") . "/";
 ?>
 <link href="<?= base_url(); ?>themes/script/chosen/chosen.css" rel="stylesheet">
+<link href="<?= $theme_path; ?>css/custom.css" rel="stylesheet">
 <?php $this->layout->end_head(); ?>
-<section id="subheader" class="text-light" data-bgimage="url(<?= $theme_path ?>/images/background/subheader.jpg) top">
+<section id="subheader" style="background-size: cover;">
     <div class="center-y relative text-center" style="background-size: cover;">
         <div class="container" style="background-size: cover;">
             <div class="row" style="background-size: cover;">
 
                 <div class="col-md-12 text-center" style="background-size: cover;">
-                    <h1>Check Invoice</h1>
+                    <h1 style="color:#F4AD39;">Check Invoice</h1>
                 </div>
                 <div class="clearfix" style="background-size: cover;"></div>
             </div>
         </div>
     </div>
-
-    <!-- <div class="container">
-        <div class="row">
-            <div class="col-md-8 order-2 order-md-1 align-self-center p-static">
-                <h1 class="text-color-dark font-weight-bold">Registrasi Akun</h1>
-            </div>
-            <div class="col-md-4 order-1 order-md-2 align-self-center">
-                <ul class="breadcrumb d-block text-md-right breadcrumb-dark">
-                    <li><a href="?= base_url('site/home'); ?>" class="text-color-dark">Beranda</a></li>
-                    <li class="active">Registrasi</li>
-                </ul>
-            </div>
-        </div>
-    </div> -->
 </section>
 
 <section id="app" class="custom-section-padding">
@@ -48,55 +35,65 @@ $theme_path = base_url("themes/gigaland") . "/";
         <div class="row">
 
             <!-- NOTE Sebelum Submit -->
-            <div class="col-lg-12 col-lg-offset-2">
-                <form id="form-register" ref="form">
-                    <div class="form-group row mb-2">
-                        <label class="col-lg-3 control-label control-label-bold">Masukkan ID Invoice</label>
-                        <div class="col-lg-6">
-                            <input type="text" :class="{'is-invalid': validation_error.invoice}" class="form-control" name="invoice" value="INV-20211229-00016" />
-                            <div v-if="validation_error.invoice" class="invalid-feedback" v-html="validation_error.invoice"></div>
+            <div class="col-lg-8 offset-lg-2">
+                <form id="form-register" class="form-border" ref="form">
+                    <div class="de_tab tab_simple">
+                        <div class="de_tab_content">
+                            <div class="tab-1">
+                                <div class="row wow fadeIn">
+                                    <div class="col-lg-12 mb-sm-20">
+                                        <div class="field-set" style="color:#F4AD39;">
+                                            <h5 style="color:#F4AD39;">ID Invoice*</h5>
+                                            <input type="text" :class="{'is-invalid': validation_error.invoice}" class="form-control mb-0" name="invoice" placeholder="ID Invoice" />
+                                            <div v-if="validation_error.invoice" class="invalid-feedback" v-html="validation_error.invoice"></div>
+                                            <!-- <button type="button" class="btn-main" style="background-color:#F4AD39; color:black;" @click="checkInvoice">Check</button> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-lg-2">
-                            <button type="button" class="btn btn-primary" @click="checkInvoice">Check</button>
-                        </div>
+                    </div>
+                    <hr class="mb-4 mt-4">
+                    <div class="col-lg-12 text-center">
+                        <button type="button" class="btn-main" style="background-color:#F4AD39; color:black;" @click="checkInvoice">Check</button>
                     </div>
                 </form>
                 <div v-if="model.id">
                     <hr>
-                    <div class="alert" :class="[model.status_payment == 'Pending' ? 'alert-danger' : 'alert-success']">
-                        <h4><i class="fa fa-info"></i> Payment {{model.status_payment}}</h4>
+                    <div class="alert alert-success" style="background-color: #F5AC39;">
+                        <h4 class="text-dark"><i class="fa fa-info"></i> Payment {{model.status_payment}}</h4>
                         <p>{{model.description}}</p>
                     </div>
                     <div v-if="mode == 'upload'">
-                        <p>Untuk menyelesaikan pembayaran silakan upload bukti pembayaran anda pada form berikut:</p>
-                        <form ref="formUpload">
-                            <div class="form-group row mb-2">
-                                <label class="col-lg-3 control-label control-label-bold">Proof Transfer(png,jpg,jpeg,pdf)</label>
-                                <div class="col-lg-6">
-                                    <div class="custom-file">
-                                        <input name="file_proof" type="file" accept=".png,.jpg,.jpeg,.pdf" :class="{'is-invalid':upload_validation.invalid}" class="custom-file-input" />
-                                        <!-- <label ref="labelFile" class="custom-file-label" for="validatedCustomFile">Choose file...</label> -->
-                                        <div v-if="upload_validation.invalid" class="invalid-feedback">{{ upload_validation.invalid }}</div>
+                        <h5 class="text-light">Untuk menyelesaikan pembayaran silakan upload bukti pembayaran anda pada form berikut:</h5>
+                        <form id="form-upload" class="form-border" ref="formUpload">
+                            <div class="de_tab tab_simple">
+                                <div class="de_tab_content">
+                                    <div class="tab-1">
+                                        <div class="row wow fadeIn">
+                                            <div class="col-lg-12 mb-sm-20">
+                                                <div class="field-set" style="color:#F4AD39;">
+                                                    <h5 style="color:#F4AD39;">Proof Transfer(png,jpg,jpeg,pdf)</h5>
+                                                    <input name="file_proof" type="file" accept=".png,.jpg,.jpeg,.pdf" :class="{'is-invalid':upload_validation.invalid}" class="custom-file-input" />
+                                                    <div v-if="upload_validation.invalid" class="invalid-feedback">{{ upload_validation.invalid }}</div>
+
+                                                    <div class="spacer-20"></div>
+
+                                                    <h5 style="color:#F4AD39;">Message</h5>
+                                                    <textarea name="message" class="form-control" placeholder="Message"></textarea>
+
+                                                    <button type="button" class="btn-main" style="background-color:#F4AD39; color:black;" @click="uploadProof($event,upload)">Upload</button>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="form-group row mb-2">
-                                <label class="col-lg-3 control-label control-label-bold">Message</label>
-                                <div class="col-lg-6">
-                                    <textarea name="message" class="form-control"></textarea>
-                                </div>
-                            </div>
-                            <div class="form-group row mb-2">
-                                <label class="col-lg-3 control-label control-label-bold"></label>
-                                <div class="col-lg-6">
-                                    <button @click="uploadProof($event,upload)" type="button" class="btn btn-primary">Upload</button>
                                 </div>
                             </div>
                         </form>
                     </div>
                     <div v-if="mode == 'upload_success'">
-                        <div class="alert alert-success">
-                            <h4><i class="fa fa-info"></i> Upload Bukti Pembayaran berhasil</h4>
+                        <div class="alert alert-success" style="background-color: #F5AC39;">
+                            <h4 class="text-dark"><i class="fa fa-info"></i> Upload Bukti Pembayaran berhasil</h4>
                         </div>
                     </div>
                 </div>
@@ -122,6 +119,7 @@ $theme_path = base_url("themes/gigaland") . "/";
             model: {
                 status_payment: 'Pending',
                 description: 'Payment Transaction Has Not Been Processed And Is Waiting To Be Completed.',
+                // id: '1',
             },
             upload_validation: {
                 invalid: ""

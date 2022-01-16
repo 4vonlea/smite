@@ -298,7 +298,7 @@ class Register extends MY_Controller
 					[
 						'status' => $status,
 						'data' => [
-							'bill_to' => $data['bill_to'],
+							'bill_to' => $bill_to_input,
 							'id_invoice' => $id_invoice,
 							'members' => $members,
 							'validation_error' => array_merge($model['validation_error'], [
@@ -623,7 +623,7 @@ class Register extends MY_Controller
 					if ($transaction['status_payment'] == 'settlement') {
 						$transaction['status_payment'] = 'Finished';
 					} else {
-						$transaction['status_payment'] = ucwords($transaction['status_payment']);
+						$transaction['status_payment'] = ucwords(str_replace('_', ' ', $transaction['status_payment']));
 					}
 
 					$data['status'] = true;

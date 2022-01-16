@@ -304,49 +304,36 @@
         </div>
     </section>
     <section id="sign" class="pt30 pb30">
-
         <div class="container">
             <div class="nft__item_lg feature-box f-boxed style-3">
-                <table border="0" width="100%" height="400px" class="wow fadeInRight" data-wow-delay=".5s">
-                    <tr>
-                        <th width="50%">
-                            <h1 style="color:#F4AD39;">Sign In</h1>
-                        </th>
-                        <th width="5%"></th>
-                        <th>
-                            <h1 style="color:#F4AD39;">How to Register</h1>
-                        </th>
-                    </tr>
-                    <tr>
-                        <td>
-                            <form name="contactForm" id='contact_form' class="form-border" method="post" action="<?= base_url('site/login'); ?>">
-                                <div class="field-set">
-                                    <input type='text' name='username' id='email' class="form-control" placeholder="Email">
-                                </div>
-
-                                <div class="field-set">
-                                    <input type='password' name='password' id='password' class="form-control" placeholder="Password">
-                                </div>
-                                <br><br>
-                                <div class="d-buttons">
-                                    <button type="submit" class="btn-main btn-fullwidth" style="background-color:#F4AD39; color:black;">Sign</button><br>
-                                </div>
-                            </form>
-                        </td>
-                        <td></td>
-                        <td>
-                            <p class="lead" style="color:#F4AD39;">
-                                1. Click <b>Register</b>, and fill your profile <br>
-                                2. Choose you event(and or submit your abstract)<br>
-                                3. Pay via our online banking payment<br>
-                                4. Download your registration proof, and See your<br>
-                                <li style="color:#F4AD39;">1 Account 1 email per user</li>
-                                <li style="color:#F4AD39;">E-Certificate will be delivered to registered email</li>
-                                <a href="registration" class="btn-main btn-fullwidth" style="background-color:#F4AD39; color:black;"><b>Don't have account? Click Here to Register</b></a>
-                            </p>
-                        </td>
-                    </tr>
-                </table>
+                <div class="row col-lg-12">
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <h1 style="color:#F4AD39;">Sign In</h1>
+                        <form name="contactForm" id='contact_form' class="form-border" method="post" action="<?= base_url('site/login'); ?>">
+                            <div class="field-set">
+                                <input type='text' name='username' id='email' class="form-control" placeholder="Email">
+                            </div>
+                            <div class="field-set">
+                                <input type='password' name='password' id='password' class="form-control" placeholder="Password">
+                            </div>
+                            <div class="d-buttons">
+                                <button type="submit" class="btn-main btn-fullwidth" style="background-color:#F4AD39; color:black;">Sign</button><br>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                        <h1 style="color:#F4AD39;">How to Register</h1>
+                        <p class="lead" style="color:#F4AD39;">
+                            1. Click <b>Register</b>, and fill your profile <br>
+                            2. Choose you event(and or submit your abstract)<br>
+                            3. Pay via our online banking payment<br>
+                            4. Download your registration proof, and See your<br>
+                            <li style="color:#F4AD39;">1 Account 1 email per user</li>
+                            <li style="color:#F4AD39;">E-Certificate will be delivered to registered email</li>
+                            <a href="registration" class="btn-main btn-fullwidth" style="background-color:#F4AD39; color:black;"><b>Don't have account? Click Here to Register</b></a>
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -354,72 +341,75 @@
     <!-- ======= Features Section ======= -->
     <section id="event" class="event">
         <div class="container">
+            <div class="col-lg-12">
+                <div class="row wow fadeInRight" data-wow-delay=".5s">
+                    <div class="col-lg-6 mt-2 mb-tg-0 order-1 order-lg-1">
+                        <ul class="nav nav-tabs flex-column">
+                            <li class="nav-item" data-aos="fade-up">
+                                <a class="nav-link active show" data-bs-toggle="tab" href="#tab-1">
+                                    <h4 style="color:#F4AD39;">Important Date</h4>
+                                </a>
+                            </li>
+                            <li class="nav-item mt-2" data-aos="fade-up" data-aos-delay="100">
+                                <a class="nav-link" data-bs-toggle="tab" href="#tab-2">
+                                    <h4 style="color:#F4AD39;">FAQ</h4>
+                                </a>
+                            </li>
+                            <li class="nav-item mt-2" data-aos="fade-up" data-aos-delay="100">
+                                <a class="nav-link" data-bs-toggle="tab" href="#tab-3">
+                                    <h4 style="color:#F4AD39;">Scientific Template : Abstract Template, Fullpaper Template, and PPT Template, also Guidline</h4>
+                                </a>
+                            </li>
+                            <li class="nav-item mt-2" data-aos="fade-up" data-aos-delay="100">
+                                <a class="nav-link" data-bs-toggle="tab" href="#tab-4">
+                                    <h4 style="color:#F4AD39;">Remarks Chairman of the committee</h4>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-6 order-2 order-lg-2" data-aos="zoom-in">
+                        <div class="tab-content">
+                            <div class="tab-pane active show" id="tab-1">
+                                <figure>
+                                    <iframe src="<?= base_url('themes/gigaland'); ?>/images/event_small.pdf" width="100%" height="500px"></iframe>
+                                </figure>
+                            </div>
 
-            <div class="row wow fadeInRight" data-wow-delay=".5s">
-                <div class="col-lg-6 mt-2 mb-tg-0 order-2 order-lg-1">
-                    <ul class="nav nav-tabs flex-column">
-                        <li class="nav-item" data-aos="fade-up">
-                            <a class="nav-link active show" data-bs-toggle="tab" href="#tab-1">
-                                <h4 style="color:#F4AD39;">Important Date</h4>
-                            </a>
-                        </li>
-                        <li class="nav-item mt-2" data-aos="fade-up" data-aos-delay="100">
-                            <a class="nav-link" data-bs-toggle="tab" href="#tab-2">
-                                <h4 style="color:#F4AD39;">FAQ</h4>
-                            </a>
-                        </li>
-                        <li class="nav-item mt-2" data-aos="fade-up" data-aos-delay="100">
-                            <a class="nav-link" data-bs-toggle="tab" href="#tab-3">
-                                <h4 style="color:#F4AD39;">Scientific Template : Abstract Template, Fullpaper Template, and PPT Template, also Guidline</h4>
-                            </a>
-                        </li>
-                        <li class="nav-item mt-2" data-aos="fade-up" data-aos-delay="100">
-                            <a class="nav-link" data-bs-toggle="tab" href="#tab-4">
-                                <h4 style="color:#F4AD39;">Remarks Chairman of the committee</h4>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="col-lg-6 order-1 order-lg-2" data-aos="zoom-in">
-                    <div class="tab-content">
-                        <div class="tab-pane active show" id="tab-1">
-                            <figure>
-                                <iframe src="<?= base_url('themes/gigaland'); ?>/images/event_small.pdf" width="100%" height="500px"></iframe>
-                            </figure>
-                        </div>
+                            <div class="tab-pane" id="tab-2">
+                                <figure>
+                                    <div class="col-lg-12 col-md-6 footer-links text-left">
+                                        <h4>FAQ</h4>
 
-                        <div class="tab-pane" id="tab-2">
-                            <figure>
-                                <div class="col-lg-12 col-md-6 footer-links text-left">
-                                    <h4>FAQ</h4>
+                                    </div>
+                                </figure>
+                            </div>
 
-                                </div>
-                            </figure>
-                        </div>
+                            <div class="tab-pane" id="tab-3">
+                                <figure>
+                                    <div class="col-lg-12 col-md-6 footer-links text-left">
+                                        <h4>Scientific Template : Abstract Template, Fullpaper Template, and PPT Template, also Guidline</h4>
 
-                        <div class="tab-pane" id="tab-3">
-                            <figure>
-                                <div class="col-lg-12 col-md-6 footer-links text-left">
-                                    <h4>Scientific Template : Abstract Template, Fullpaper Template, and PPT Template, also Guidline</h4>
+                                    </div>
+                                </figure>
+                            </div>
 
-                                </div>
-                            </figure>
-                        </div>
+                            <div class="tab-pane" id="tab-4">
+                                <figure>
+                                    <iframe src="<?= base_url('themes/gigaland'); ?>/images/commitee_small.pdf" width="100%" height="500px"></iframe>
+                                </figure>
+                            </div>
 
-                        <div class="tab-pane" id="tab-4">
-                            <figure>
-                                <iframe src="<?= base_url('themes/gigaland'); ?>/images/commitee_small.pdf" width="100%" height="500px"></iframe>
-                            </figure>
-                        </div>
+                            <div class="tab-pane" id="tab-5">
+                                <figure>
 
-                        <div class="tab-pane" id="tab-5">
-                            <figure>
-
-                            </figure>
+                                </figure>
+                            </div>
                         </div>
                     </div>
                 </div>
+
             </div>
+
 
         </div>
     </section><!-- End Features Section -->
