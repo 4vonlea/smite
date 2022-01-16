@@ -57,7 +57,7 @@
                                         </div>    
                                         <div class="spacer-10"></div>
                                         <div class="d-buttons" >
-                                            <a href="#" class="btn-main btn-lg" style="background-color:#F4AD39; color:black;">This Site Under Maintenance 2</a>&nbsp;
+                                            <a href="#" class="btn-main btn-lg" style="background-color:#F4AD39; color:black;">This Site Under Maintenance</a>&nbsp;
                                             <!--<a href="<?=base_url('site/home');?>" class="btn-main btn-lg" style="background-color:#F4AD39; color:black;">Enter</a>&nbsp;-->
                                         </div>
                                     </div>
