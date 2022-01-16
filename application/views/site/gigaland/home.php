@@ -2,13 +2,13 @@
 <html lang="zxx">
 
 <head>
-    <title>Annual Scientific Meeting AOMC</title>
+    <title><?= Settings_m::getSetting('site_title'); ?></title>
     <link rel="icon" href="<?= base_url('themes/gigaland'); ?>/images/logowebrev.png" type="image/gif" sizes="16x16">
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <meta content="Annual Scientific Meeting AOMC" name="description" />
-    <meta content="" name="keywords" />
-    <meta content="" name="author" />
+    <meta content="<?= Settings_m::getSetting('site_title'); ?>" name="description" />
+    <meta content="<?= Settings_m::getSetting('site_title'); ?>,Smite" name="keywords" />
+    <meta content="smite" name="author" />
     <!-- CSS Files
     ================================================== -->
     <link id="bootstrap" href="<?= base_url('themes/gigaland'); ?>/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
