@@ -505,9 +505,10 @@
 <script src="<?= base_url("themes/script/v-money.js"); ?>"></script>
 
 <script>
+	
 	var banks = <?= $manual; ?>;
 	var emailReceive = "<?= Settings_m::getSetting("email_receive"); ?>";
-	var kurs_usd = <?= Settings_m::getSetting("kurs_usd") ?? 0; ?>;
+	var kurs_usd = <?= $kursUsd = Settings_m::getSetting("kurs_usd") == "" ? 0 : $kursUsd; ?>;
 	console.log(kurs_usd);
 	const toBase64 = file => new Promise((resolve, reject) => {
 		const reader = new FileReader();
