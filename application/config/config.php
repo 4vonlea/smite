@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = env ('base_url', 'http://localhost/seminar-dokter/');
+$config['base_url'] = env('base_url', 'http://seminar-dokter.wai/');
 
 /*
 |--------------------------------------------------------------------------
@@ -378,9 +378,9 @@ $config['encryption_key'] = '';
 |
 */
 $config['sess_driver'] = 'files';
-$config['sess_cookie_name'] = env('sess_cookie_name','seminar_dokter');
-$config['sess_expiration'] =60*60*24*30;
-$config['sess_save_path'] =  env('sess_path',NULL);//NULL;//APPPATH."cache/";
+$config['sess_cookie_name'] = env('sess_cookie_name', 'seminar_dokter');
+$config['sess_expiration'] = 60 * 60 * 24 * 30;
+$config['sess_save_path'] =  env('sess_path', NULL); //NULL;//APPPATH."cache/";
 $config['sess_match_ip'] = FALSE;
 $config['sess_time_to_update'] = 300;
 $config['sess_regenerate_destroy'] = FALSE;
@@ -402,7 +402,7 @@ $config['sess_regenerate_destroy'] = FALSE;
 */
 $config['cookie_prefix']	= '';
 $config['cookie_domain']	= '';
-$config['cookie_path']		= env('cookie_path','/');
+$config['cookie_path']		= env('cookie_path', '/');
 $config['cookie_secure']	= FALSE;
 $config['cookie_httponly'] 	= FALSE;
 
@@ -521,15 +521,15 @@ $config['rewrite_short_tags'] = FALSE;
 | Array:		array('10.0.1.200', '192.168.5.0/24')
 */
 $config['proxy_ips'] = '';
-$config['using_midtrans'] = false;
-$config['theme'] = env("THEME","porto");
-if(ENVIRONMENT === 'development') {
+$config['using_midtrans'] = true;
+$config['theme'] = env("THEME", "gigaland");
+if (ENVIRONMENT === 'development') {
 	$config['midtrans'] = [
 		'merchant_id' => 'G988409790',
 		'client_key' => 'SB-Mid-client-xvjGCOR3oMsI2xU-',
 		'server_key' => 'SB-Mid-server-sBfDKSeL1EPEJnqSCf702Fnp'
 	];
-}elseif(ENVIRONMENT === 'production'){
+} elseif (ENVIRONMENT === 'production') {
 	$config['midtrans'] = [
 		'merchant_id' => 'G988409790',
 		'client_key' => 'Mid-client-4KQFkV0WDI7Z7Ngk',
