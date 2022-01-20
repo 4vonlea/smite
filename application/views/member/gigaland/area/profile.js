@@ -4,9 +4,18 @@ var PageProfile = Vue.component("PageProfile", {
     <page-loader :loading="loading" :fail="fail"></page-loader>
     <div v-if="!loading && !fail">
         <div class="row">
-            <div class="col-md-7">
+            <div class="col-md-1">
+                <div class="field-set" style="color:#F4AD39;">
+                    <img :src="image_link" id="click_profile_img" style="height:100px" class="d-banner-img-edit img-fluid" alt="" onclick="$('#file-profile').click();">
+                    <input id="file-profile" accept="image/*" @change="uploadImage" type="file" ref="file" style="display: none">
+                </div>
+            </div>
+            <div class="col-md-6">
                 <div class="overflow-hidden mb-1">
                     <h2 class="font-weight-normal text-7 mb-0"><strong class="font-weight-extra-bold">Profil Ku</strong></h2>
+                </div>
+                <div class="overflow-hidden mb-4 pb-3">
+                    <p class="mb-0">Profil Anda saat ini, Anda dapat mengedit profil Anda dengan mengklik tombol edit.</p>
                 </div>
             </div>
             <div class="col-md-5 text-right">
@@ -15,15 +24,11 @@ var PageProfile = Vue.component("PageProfile", {
                 </button>
                 <button data-toggle="modal" data-target="#reset-password" class="btn btn-secondary"><i class="fa fa-key"></i> Ganti Password</button>
             </div>
-            <div class="col-md-12">
-                <div class="overflow-hidden mb-4 pb-3">
-                    <p class="mb-0">Profil Anda saat ini, Anda dapat mengedit profil Anda dengan mengklik tombol edit.</p>
-                </div>
-            </div>
         </div>
         <div v-if="countFollowed == 0" class="alert alert-info text-center">
-            <h4 class="mb-0 text-dark">Anda harus memilih sebuah acara</h4>
+            <h4 class="mb-0 text-dark">Anda harus belum mengikuti sebuah acara</h4>
         </div>
+        
          <div v-if="user.verified_by_admin == 0" class="alert alert-info">
             <h4>Status Anda sedang ditinjau</h4>
             <p>Administrator saat ini perlu meninjau dan menyetujui status Anda. Silakan kembali untuk memeriksa status Anda nanti.
@@ -210,6 +215,29 @@ var PageProfile = Vue.component("PageProfile", {
                 Swal.fire('Fail', "Failed to save your profile", 'error');
             }).always(function () {
                 page.loading = false;
+            });
+        },
+        uploadImage() {
+            var file_data = this.$refs.file.files[0];
+            var form_data = new FormData();
+            form_data.append('file', file_data);
+            $.ajax({
+                url: this.baseUrl+'upload_image', // point to server-side controller method
+                dataType: 'JSON', // what to expect back from the server
+                cache: false,
+                contentType: false,
+                processData: false,
+                data: form_data,
+                type: 'post',
+                success: function(response) {
+                    if (response.status)
+                        app.image_link = response.link+`?t=${new Date().getTime()}`;
+                    else
+                        Swal.fire('Failed', response.message, 'warning');
+                },
+                error: function(response) {
+                    Swal.fire('Failed', response.message, 'error');
+                }
             });
         },
         resetPassword() {
