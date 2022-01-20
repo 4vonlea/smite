@@ -4,7 +4,7 @@ export default Vue.component("PageWebminar", {
             <page-loader :loading="loading" :fail="fail"></page-loader>
             <div v-if="!loading">
             	<div class="overflow-hidden mb-1">
-                    <h2 class="font-weight-normal text-7 mb-0"><strong class="font-weight-extra-bold">Webinar Link</strong></h2>
+                    <h2 class="font-weight-normal color-heading text-7 mb-0"><strong class="font-weight-extra-bold">Webinar Link</strong></h2>
                     <div class="overflow-hidden mb-4 pb-3">
                         <p class="mb-0">Silakan hadiri acara yang Anda ikuti melalui link di bawah ini</p>
                     </div>

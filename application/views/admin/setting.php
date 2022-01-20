@@ -508,7 +508,7 @@
 	
 	var banks = <?= $manual; ?>;
 	var emailReceive = "<?= Settings_m::getSetting("email_receive"); ?>";
-	var kurs_usd = <?= $kursUsd = Settings_m::getSetting("kurs_usd") == "" ? '{using_api:false,value:0}' : $kursUsd; ?>;
+	var kurs_usd = <?= $kursUsd = (Settings_m::getSetting("kurs_usd") ?? "") == "" ? '{using_api:false,value:0}' : $kursUsd; ?>;
 	const toBase64 = file => new Promise((resolve, reject) => {
 		const reader = new FileReader();
 		if (file) {

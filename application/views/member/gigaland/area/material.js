@@ -9,7 +9,7 @@ export default Vue.component("Material", {
         <page-loader :loading="loading" :fail="fail"></page-loader>
         <div v-if="!loading">
             <div class="overflow-hidden mb-1">
-                <h2 class="font-weight-normal text-7 mb-0"><strong class="font-weight-extra-bold">Upload Materi</strong></h2>
+                <h2 class="font-weight-normal color-heading text-7 mb-0"><strong class="font-weight-extra-bold">Upload Materi</strong></h2>
             </div>
             <div class="overflow-hidden mb-4 pb-3">
                 <p class="mb-0">Upload file materi/bahan untuk seminar</p>
