@@ -20,21 +20,15 @@ $userDetail = array_merge($user->toArray(), ['status_member' => $user->status_me
     .tab-content>table.active {
         display: table;
     }
+
+    .color-heading{
+        color:#F4AD39 !important;
+    }
 </style>
 <div id="app">
-    <section id="subheader" style="background-size: cover;">
-        <div class="center-y relative text-center" style="background-size: cover;">
-            <div class="container" style="background-size: cover;">
-                <div class="row" style="background-size: cover;">
-                    <div class="col-md-12 text-center" style="background-size: cover;">
-                        <h2 style="color:#F4AD39;">Member Area > {{ $route.meta.title }}</h2>
-                    </div>
-                    <div class="clearfix" style="background-size: cover;"></div>
-                </div>
-            </div>
-        </div>
+    <section id="subheader" style="background-size: cover;" class="pb-5">
     </section>
-    <div class="container py-2" id="content">
+    <div class="container py-2 mb-5" id="content">
         <div class="row">
             <div class="col-lg-12 mt-4 mt-lg-0">
                 <div class="de_tab tab_simple">
