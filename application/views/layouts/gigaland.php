@@ -69,8 +69,8 @@ $theme_path = base_url("themes/gigaland") . "/";
                                 <div class="de-flex-col header-col-mid">
                                     <!-- mainmenu begin -->
                                     <?php
-                                    $member = $this->router->class == "area";
-                                    $userDetail = array_merge($user->toArray(), ['status_member' => $user->status_member->kategory]);
+                                        $member = $this->router->class == "area";
+                                        $userDetail = array_merge($user->toArray(), ['status_member' => $user->status_member->kategory]);
                                     ?>
                                     <ul id="mainmenu">
                                         <li>

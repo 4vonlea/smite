@@ -38,10 +38,9 @@ $userDetail = array_merge($user->toArray(), ['status_member' => $user->status_me
             </div>
         </div>
     </section>
-    <div class="container py-2">
+    <div class="container py-2" id="content">
         <div class="row">
             <div class="col-lg-12 mt-4 mt-lg-0">
-
                 <!-- <div class="d-flex justify-content-center mb-4">
                     <div class="profile-image-outer-container">
                         <div class="profile-image-outer-container text-center">
