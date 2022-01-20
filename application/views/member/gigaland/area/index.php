@@ -52,7 +52,6 @@ $userDetail = array_merge($user->toArray(), ['status_member' => $user->status_me
                         </div>
                     </div>
                 </div> -->
-                <form id="form-register" class="form-border" ref="form">
                     <div class="de_tab tab_simple">
                         <!-- <p>
                             <i class="fa fa-info"></i> <b>Perhatian</b>
@@ -78,7 +77,6 @@ $userDetail = array_merge($user->toArray(), ['status_member' => $user->status_me
                             </div>
                         </div>
                     </div>
-                </form>
 
 
                 <!-- <aside class="sidebar mt-2" id="sidebar"> -->
