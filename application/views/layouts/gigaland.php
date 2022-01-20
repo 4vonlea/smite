@@ -13,9 +13,9 @@ $theme_path = base_url("themes/gigaland") . "/";
     <link rel="icon" href="<?= base_url('themes/gigaland'); ?>/images/logowebrev.png" type="image/gif" sizes="16x16">
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <meta content="Gigaland - NFT Marketplace Website Template" name="description" />
-    <meta content="" name="keywords" />
-    <meta content="" name="author" />
+    <meta content="<?= Settings_m::getSetting('site_title'); ?>" name="description" />
+    <meta content="<?= Settings_m::getSetting('site_title'); ?>,Smite" name="keywords" />
+    <meta content="smite" name="author" />
     <!-- CSS Files
     ================================================== -->
     <link id="bootstrap" href="<?= $theme_path; ?>css/bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -69,8 +69,8 @@ $theme_path = base_url("themes/gigaland") . "/";
                                 <div class="de-flex-col header-col-mid">
                                     <!-- mainmenu begin -->
                                     <?php
-                                    $member = $this->router->class == "area";
-                                    $userDetail = array_merge($user->toArray(), ['status_member' => $user->status_member->kategory]);
+                                        $member = $this->router->class == "area";
+                                        $userDetail = array_merge($user->toArray(), ['status_member' => $user->status_member->kategory]);
                                     ?>
                                     <ul id="mainmenu">
                                         <li>

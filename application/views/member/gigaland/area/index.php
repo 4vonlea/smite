@@ -20,117 +20,37 @@ $userDetail = array_merge($user->toArray(), ['status_member' => $user->status_me
     .tab-content>table.active {
         display: table;
     }
+
+    .color-heading{
+        color:#F4AD39 !important;
+    }
 </style>
 <div id="app">
-    <section class="page-header page-header-modern bg-color-quaternary page-header-md custom-page-header">
-        <div class="container pt-5">
-            <div class="row mt-3">
-                <div class="col-md-8 order-2 order-md-1 align-self-center p-static">
-                    <h1>Member Area</h1>
-                </div>
-                <div class="col-md-4 order-1 order-md-2 align-self-center">
-                    <ul class="breadcrumb d-block text-md-right breadcrumb-light">
-                        <li><a href="<?= base_url('site'); ?>">Home</a></li>
-                        <li>Member Area</li>
-                        <li class="active">{{ $route.meta.title }}</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+    <section id="subheader" style="background-size: cover;" class="pb-5">
     </section>
-    <div class="container py-2">
+    <div class="container py-2 mb-5" id="content">
         <div class="row">
             <div class="col-lg-12 mt-4 mt-lg-0">
-
-                <!-- <div class="d-flex justify-content-center mb-4">
-                    <div class="profile-image-outer-container">
-                        <div class="profile-image-outer-container text-center">
-                            <img :src="image_link" class="img img-thumbnail">
-                            <button class="gdlr-core-excerpt-read-more gdlr-core-button gdlr-core-rectangle" onclick="$('#file-profile').click();">
-                                Change Profile Photo
-                            </button>
-                            <input id="file-profile" accept="image/*" @change="uploadImage" type="file" ref="file" style="display: none">
-                        </div>
-                    </div>
-                </div> -->
-                <form id="form-register" class="form-border" ref="form">
-                    <div class="de_tab tab_simple">
-                        <!-- <p>
-                            <i class="fa fa-info"></i> <b>Perhatian</b>
-                            Pastikan alamat email yang dimasukkan valid dan dapat anda akses, karena kami akan mengirimkan kode aktivasi melalui email tersebut. Akun anda tidak dapat digunakan sebelum diaktivasi terlebih dahulu.
-                        </p> -->
-                        <div class="de_tab_content">
-                            <div class="tab-1">
-                                <div class="row wow fadeIn">
-                                    <div class="col-lg-2">
-                                        <div class="field-set" style="color:#F4AD39;">
-                                            <img :src="image_link" id="click_profile_img" class="d-banner-img-edit img-fluid" alt="" onclick="$('#file-profile').click();">
-                                            <input id="file-profile" accept="image/*" @change="uploadImage" type="file" ref="file" style="display: none">
-                                        </div>
+                <div class="de_tab tab_simple">
+                    <div class="de_tab_content">
+                        <div class="tab-1">
+                            <div class="row wow fadeIn">
+                            <!-- <div class="col-lg-2">
+                                    <div class="field-set" style="color:#F4AD39;">
+                                        <img :src="image_link" id="click_profile_img" class="d-banner-img-edit img-fluid" alt="" onclick="$('#file-profile').click();">
+                                        <input id="file-profile" accept="image/*" @change="uploadImage" type="file" ref="file" style="display: none">
                                     </div>
-                                    <div class="col-lg-10 mb-sm-20" style="background-size: cover;">
-                                        <div class="field-set" style="background-size: cover;">
-
-                                            <router-view active-class="active"></router-view>
-
-                                        </div>
+                                </div> -->
+                                <div class="col-lg-12 mb-sm-20" style="background-size: cover;">
+                                    <div class="field-set" style="background-size: cover;">
+                                        <router-view active-class="active"></router-view>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </form>
-
-
-                <!-- <aside class="sidebar mt-2" id="sidebar"> -->
-                <!-- <ul class="nav nav-list flex-column mb-5">
-
-                        <li class="nav-item">
-                            <router-link active-class="active" class="nav-link text-dark" to="/profile">Profil</router-link>
-                        </li>
-                        <li class="nav-item">
-                            <router-link active-class="active" class="nav-link text-dark" to="/paper">Kirim Manuskrip
-                            </router-link>
-                        </li>
-                        <h6 class="sidebar-heading d-flex justify-content-between align-items-center mt-2 pl-2 mb-1 text-muted">
-                            <span>Pembelian</span>
-                        </h6>
-                        <li class="nav-item">
-                            <router-link active-class="active" class="nav-link text-dark" to="/events">Pilih Acara
-                            </router-link>
-                        </li>
-                        <li class="nav-item">
-                            <router-link active-class="active" class="nav-link text-dark" to="/billing">Keranjang & Pembayaran
-                            </router-link>
-                        </li>
-                        <h6 class="sidebar-heading d-flex justify-content-between align-items-center mt-2 pl-2 mb-1 text-muted">
-                            <span>On Event</span>
-                        </h6>
-                        <li class="nav-item">
-                            <router-link active-class="active" class="nav-link text-dark" to="/webminar">Webinar Link
-                            </router-link>
-                        </li>
-                        ?php if (in_array($userDetail['status'], $statusToUpload)) : ?>
-                            <li class="nav-item">
-                                <router-link active-class="active" class="nav-link text-dark" to="/material">Upload Materi/Bahan
-                                </router-link>
-                            </li>
-                        ?php endif; ?>
-                        <li class="nav-item">
-                            <router-link active-class="active" class="nav-link text-dark" to="/sertifikat">Download Sertifikat
-                            </router-link>
-                        </li>
-                        <li class="nav-item">
-                            <router-link active-class="active" class="nav-link text-dark" to="/presentation">Daftar Presentasi Ilmiah
-                            </router-link>
-                        </li>
-                        <li class="nav-item mt-4"><a class="nav-link text-dark" href="?= base_url('member/area/logout'); ?>">Logout</a></li>
-                    </ul> -->
-                <!-- </aside> -->
-
+                </div>
             </div>
-
-            <!-- <router-view active-class="active"></router-view> -->
         </div>
     </div>
 </div>
@@ -250,6 +170,8 @@ $userDetail = array_merge($user->toArray(), ['status_member' => $user->status_me
                 baseUrl: "<?= base_url('member/area'); ?>/",
                 user: userD,
                 apiKeyEspay: "<?= Settings_m::getEspay()['apiKey']; ?>",
+                image_link: "<?= $user->getImageLink(); ?>",
+
             }
         }
     })
@@ -257,9 +179,6 @@ $userDetail = array_merge($user->toArray(), ['status_member' => $user->status_me
     var app = new Vue({
         router,
         'el': '#app',
-        data: {
-            image_link: "<?= $user->getImageLink(); ?>",
-        },
         methods: {
             uploadImage() {
                 var file_data = this.$refs.file.files[0];

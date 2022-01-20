@@ -4,7 +4,7 @@ export default Vue.component("PageBilling", {
             <page-loader :loading="loading" :fail="fail"></page-loader>
             <div v-if="!loading">
             	<div class="overflow-hidden mb-1">
-                	<h2 class="font-weight-normal text-7 mb-0"><strong class="font-weight-extra-bold">Transaksi & Keranjang</strong></h2>
+                	<h2 class="font-weight-normal color-heading text-7 mb-0"><strong class="font-weight-extra-bold">Transaksi & Keranjang</strong></h2>
 				</div>
 				<div class="overflow-hidden mb-4 pb-3">
 					<p class="mb-0">Halaman untuk mengonfirmasi riwayat penagihan dan invoice display </p>
@@ -73,7 +73,7 @@ export default Vue.component("PageBilling", {
 										</button>
 										<div class="dropdown-menu">
 											<span v-for="(method,ind) in paymentMethod">
-											<button v-if="ind > 0" class="dropdown-item" href="#" @click="selectedPaymentMethod=ind;return false;"> {{ method.desc }}</button>
+											<button v-if="ind > 0" class="dropdown-item" @click="selectedPaymentMethod=ind;return false;"> {{ method.desc }}</button>
 											</span>
 										</div>
 									</div>

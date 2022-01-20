@@ -10,11 +10,11 @@ class Migration_event_price_usd extends CI_Migration
 
     public function up(){
 		$this->dbforge->add_column("event_pricing",[
-			'price_usd'=>['type'=>'decimal(10,0)'],
+			'price_in_usd'=>['type'=>'decimal(10,0)'],
 		]);
 	}
 
 	public function down(){
-		$this->dbforge->drop_column("event_pricing","price_usd");
+		$this->dbforge->drop_column("event_pricing","price_in_usd");
 	}
 }

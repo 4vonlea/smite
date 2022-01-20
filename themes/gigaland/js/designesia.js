@@ -25,6 +25,18 @@
      $('#de-submenu-profile').hide();
      $('#de-submenu-notification').hide();
 
+     function isValidSelector(selector) {
+        if (typeof(selector) !== 'string') {
+            return false;
+        }
+        try {
+            var $element = $(selector);
+        } catch(error) {
+            return false;
+        }
+        return true;
+    }
+
      /* --------------------------------------------------
       * header | sticky
       * --------------------------------------------------*/
@@ -1974,7 +1986,7 @@
                  if (this.href.indexOf('#') != -1) {
                      var href = jQuery(this).attr('href');
 					if (location.hash!=="") {
-						 if (jQuery(window).scrollTop() > jQuery(href).offset().top - 140) {
+						 if (isValidSelector(href) && jQuery(window).scrollTop() > jQuery(href).offset().top - 140) {
 							 clearTimeout($.data(this, "scrollCheck"));
 							 $.data(this, "scrollCheck", setTimeout(function() {
 								 jQuery('#mainmenu li a').removeClass('active');
@@ -2002,8 +2014,6 @@
 					$this.next().slideToggle(350);
 				}
 			});
-
-
 
          });
          $(function() {

@@ -3,13 +3,13 @@
     
 
 <head>
-    <title>Annual Scientific Meeting AOMC</title>
+    <title><?= Settings_m::getSetting('site_title'); ?></title>
     <link rel="icon" href="<?=base_url('themes/gigaland');?>/images/logowebrev.png" type="image/gif" sizes="16x16">
     <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <meta content="Annual Scientific Meeting AOMC" name="description" />
-    <meta content="" name="keywords" />
-    <meta content="" name="author" />
+    <meta content="<?= Settings_m::getSetting('site_title'); ?>" name="description" />
+    <meta content="<?= Settings_m::getSetting('site_title'); ?>,Smite" name="keywords" />
+    <meta content="smite" name="author" />
     <!-- CSS Files
     ================================================== -->
     <link id="bootstrap" href="<?=base_url('themes/gigaland');?>/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -57,7 +57,8 @@
                                         </div>    
                                         <div class="spacer-10"></div>
                                         <div class="d-buttons" >
-                                            <a href="<?=base_url('site/home');?>" class="btn-main btn-lg" style="background-color:#F4AD39; color:black;">Enter</a>&nbsp;
+                                            <a href="#" class="btn-main btn-lg" style="background-color:#F4AD39; color:black;">This Site Under Maintenance</a>&nbsp;
+                                            <!--<a href="<?=base_url('site/home');?>" class="btn-main btn-lg" style="background-color:#F4AD39; color:black;">Enter</a>&nbsp;-->
                                         </div>
                                     </div>
                                 </div>
@@ -79,7 +80,7 @@
                             <div class="de-flex">
                                 <div class="de-flex-col">
                                     <a href="index">
-                                        <span class="copy" style="color:#F4AD39;">&copy; Copyright 2022 - Annual Scientific Meeting AOMC</span>
+                                        <span class="copy" style="color:#F4AD39;">&copy; Copyright 2022</span>
                                     </a>
                                 </div>
                                 <div class="de-flex-col">

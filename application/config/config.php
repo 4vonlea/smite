@@ -521,7 +521,7 @@ $config['rewrite_short_tags'] = FALSE;
 | Array:		array('10.0.1.200', '192.168.5.0/24')
 */
 $config['proxy_ips'] = '';
-$config['using_midtrans'] = true;
+$config['using_midtrans'] = false;
 $config['theme'] = env("THEME", "gigaland");
 if (ENVIRONMENT === 'development') {
 	$config['midtrans'] = [
