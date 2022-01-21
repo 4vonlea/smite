@@ -19,7 +19,7 @@
 	table,th,td{
 		text-align: left;
 		border: 1px solid black;
-	},
+	}
 	tr, td , th {
 		padding: 10px 10px;
 	}

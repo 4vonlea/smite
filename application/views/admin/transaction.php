@@ -182,6 +182,7 @@
 						<td :colspan="isGroup ? '4' : '3'">{{ detailModel.message_payment }}</td>
 					</tr>
 
+
 					<tr v-if="detailModel.payment_proof">
 						<th>Transfer Proof</th>
 						<td :colspan="isGroup ? '4' : '3'">
