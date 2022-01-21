@@ -325,7 +325,7 @@ class Payment extends MY_Controller
 			$tr = $this->Transaction_m->findOne(['id'=>$order_id]);
 			if($tr){
 				$status = $tr->status_payment;
-				if(isset($status['tx_status'])){
+				if(isset($resJson['tx_status'])){
 					if($resJson['tx_status'] == "S"){
 						$status = Transaction_m::STATUS_FINISH;
 					}elseif($resJson['tx_status'] == "F"){
