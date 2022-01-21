@@ -323,25 +323,27 @@ class Payment extends MY_Controller
 			$this->log("check_status",$response,$invoice);
 			$resJson = json_decode($response,true);
 			$tr = $this->Transaction_m->findOne(['id'=>$order_id]);
-			$status = $tr->status_payment;
-			if(isset($status['tx_status'])){
-				if($resJson['tx_status'] == "S"){
-					$status = Transaction_m::STATUS_FINISH;
-				}elseif($resJson['tx_status'] == "F"){
-					$status = Transaction_m::STATUS_EXPIRE;
-				}else{
-					if(strtolower($resJson['tx_reason']) == strtolower('expired'))
+			if($tr){
+				$status = $tr->status_payment;
+				if(isset($status['tx_status'])){
+					if($resJson['tx_status'] == "S"){
+						$status = Transaction_m::STATUS_FINISH;
+					}elseif($resJson['tx_status'] == "F"){
 						$status = Transaction_m::STATUS_EXPIRE;
-					else
-						$status = Transaction_m::STATUS_PENDING;
+					}else{
+						if(strtolower($resJson['tx_reason']) == strtolower('expired'))
+							$status = Transaction_m::STATUS_EXPIRE;
+						else
+							$status = Transaction_m::STATUS_PENDING;
+					}
+					
+					if($tr->status_payment == Transaction_m::STATUS_FINISH){
+						$status =  Transaction_m::STATUS_FINISH;
+					}
+					$this->Transaction_m->update(['midtrans_data'=>$response,'status_payment'=>$status],$order_id);
 				}
-				
-				if($tr->status_payment == Transaction_m::STATUS_FINISH){
-					$status =  Transaction_m::STATUS_FINISH;
-				}
-				$this->Transaction_m->update(['midtrans_data'=>$response,'status_payment'=>$status],$order_id);
+				// file_put_contents(APPPATH."logs/".$order_id."_status.json",$response);
 			}
-			file_put_contents(APPPATH."logs/".$order_id."_status.json",$response);
 		}
 	}
 
