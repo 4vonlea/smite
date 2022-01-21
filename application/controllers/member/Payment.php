@@ -258,8 +258,8 @@ class Payment extends MY_Controller
 			];
 			$this->Notification_m->sendMessageWithAttachment($member->email, 'Invoice', "Terima kasih atas partisipasi anda berikut adalah invoice acara yang anda ikuti", $attc);
 
-			$this->log("inquiry");
-			file_put_contents(APPPATH."logs/".$order_id."_inquiry.json",json_encode($data));
+			$this->log("inquiry",[$error_code,$error_message,$order_id,$amount,$ccy,$description,$date]);
+			// file_put_contents(APPPATH."logs/".$order_id."_inquiry.json",json_encode($data));
 			echo implode(";",[$error_code,$error_message,$order_id,$amount,$ccy,$description,$date]);
 		}
 	}
@@ -290,6 +290,7 @@ class Payment extends MY_Controller
 		if(in_array($this->input->ip_address(),["::1","127.0.0.1","139.255.109.146","116.90.162.173"])){
 			$status = $this->Transaction_m->update(['message_payment'=>$message_payment,'status_payment'=>Transaction_m::STATUS_FINISH],$order_id);
 		}
+		$this->check_payment($order_id);
 		$this->log("notif".$status);
 		echo implode(", ",[$success_flag,$error_message,$reconcile_id ,$order_id,$reconcile_datetime]);
 	}
@@ -336,7 +337,6 @@ class Payment extends MY_Controller
 						else
 							$status = Transaction_m::STATUS_PENDING;
 					}
-					
 					if($tr->status_payment == Transaction_m::STATUS_FINISH){
 						$status =  Transaction_m::STATUS_FINISH;
 					}

@@ -12,6 +12,7 @@ class Event_pricing_m extends MY_Model
             ['field' => 'condition[]', 'label' => 'Pricing Category Participant', 'rules' => 'required'],
             ['field' => 'condition_date[]', 'label' => 'Price Date Applies', 'rules' => 'required'],
             ['field' => 'price[]', 'label' => 'Price', 'rules' => 'required'],
+            ['field' => 'price_in_usd[]', 'label' => 'Price in USD', 'rules' => 'required'],
         ];
     }
 
@@ -75,6 +76,7 @@ class Event_pricing_m extends MY_Model
                     'id' => $row['id'],
                     'condition' => $row['condition'], //(isset($participantsCategory[$row['condition']])?$participantsCategory[$row['condition']]:"-"),
                     'price' => $row['price'],
+                    'price_in_usd' => $row['price_in_usd'],
                     'show' => ($row['show'] == 1)
                 ];
                 $temp[$row['name'] . 'price'][] = $row['condition'];

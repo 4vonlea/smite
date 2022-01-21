@@ -262,6 +262,7 @@ $this->layout->begin_head();
 				// var birthday = moment().format("Y-MM-DD");
 				// formData.set("birthday", birthday);
 				formData.append('model', JSON.stringify(this.model));
+				formData.append('group', true);
 				this.saving = true;
 				app.postRegister = {
 					show: false,
