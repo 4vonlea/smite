@@ -257,11 +257,17 @@ class Payment extends MY_Controller
 				$member->fullname.'-invoice.pdf' => $tr->exportInvoice()->output(),
 			];
 			$this->Notification_m->sendMessageWithAttachment($member->email, 'Invoice', "Terima kasih atas partisipasi anda berikut adalah invoice acara yang anda ikuti", $attc);
-
-			$this->log("inquiry",[$error_code,$error_message,$order_id,$amount,$ccy,$description,$date]);
-			// file_put_contents(APPPATH."logs/".$order_id."_inquiry.json",json_encode($data));
-			echo implode(";",[$error_code,$error_message,$order_id,$amount,$ccy,$description,$date]);
+		}else{
+			$error_code = 1;
+			$error_message = "Invalid Order ID";
+			$order_id = "";
+			$amount = "";
+			$ccy = "";
+			$description = "";
+			$date = "";
 		}
+		$this->log("inquiry",[$error_code,$error_message,$order_id,$amount,$ccy,$description,$date]);
+		echo implode(";",[$error_code,$error_message,$order_id,$amount,$ccy,$description,$date]);
 	}
 
 	public function log($type, $response = [],$invoice_id = "-"){
@@ -291,7 +297,7 @@ class Payment extends MY_Controller
 			$status = $this->Transaction_m->update(['message_payment'=>$message_payment,'status_payment'=>Transaction_m::STATUS_FINISH],$order_id);
 		}
 		$this->check_payment($order_id);
-		$this->log("notif".$status);
+		$this->log("notif".$status,[$success_flag,$error_message,$reconcile_id ,$order_id,$reconcile_datetime]);
 		echo implode(", ",[$success_flag,$error_message,$reconcile_id ,$order_id,$reconcile_datetime]);
 	}
 

@@ -29,7 +29,8 @@ $theme_path = base_url("themes/gigaland") . "/";
     <link href="<?= $theme_path; ?>css/jquery.countdown.css" rel="stylesheet" type="text/css" />
     <link href="<?= $theme_path; ?>css/style.css" rel="stylesheet" type="text/css" />
     <link href="<?= $theme_path; ?>fonts/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css" />
-    <!-- <link href="<?= $theme_path; ?>css/style.css" rel="stylesheet" type="text/css" /> -->
+    <link href="<?= $theme_path; ?>css/style.css" rel="stylesheet" type="text/css" />
+    <link href="<?= $theme_path; ?>css/de-grey.css" rel="stylesheet" type="text/css" />
     <!-- color scheme -->
     <link id="colors" href="<?= $theme_path; ?>css/colors/scheme-01.css" rel="stylesheet" type="text/css" />
     <link href="<?= $theme_path; ?>css/coloring.css" rel="stylesheet" type="text/css" />
