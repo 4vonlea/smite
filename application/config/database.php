@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /*
 | -------------------------------------------------------------------
@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => env('DB_HOSTNAME','localhost'),
-	'username' => env('DB_USERNAME','root'),
-	'password' => env('DB_PASSWORD',''),
-	'database' => env('DB_NAME','seminar_dokter'),
+	'hostname' => env('DB_HOSTNAME', 'localhost'),
+	'username' => env('DB_USERNAME', 'root'),
+	'password' => env('DB_PASSWORD', ''),
+	'database' => env('DB_NAME', 'seminar-dokter'),
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
