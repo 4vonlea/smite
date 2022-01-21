@@ -44,7 +44,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                                     <div class="col-lg-12 mb-sm-20">
                                         <div class="field-set" style="color:#F4AD39;">
                                             <h5 style="color:#F4AD39;">ID Invoice*</h5>
-                                            <input type="text" :class="{'is-invalid': validation_error.invoice}" class="form-control mb-0" name="invoice" placeholder="ID Invoice" />
+                                            <input type="text" :class="{'is-invalid': validation_error.invoice}" class="form-control mb-0" name="invoice" placeholder="ID Invoice" value="<?= $id_invoice ?>" />
                                             <div v-if="validation_error.invoice" class="invalid-feedback" v-html="validation_error.invoice"></div>
                                             <!-- <button type="button" class="btn-main" style="background-color:#F4AD39; color:black;" @click="checkInvoice">Check</button> -->
                                         </div>
@@ -194,7 +194,9 @@ $theme_path = base_url("themes/gigaland") . "/";
         }
     });
     $(function() {
-
+        <?php if ($id_invoice != '') { ?>
+            app.checkInvoice();
+        <?php } ?>
     });
 </script>
 <?php $this->layout->end_script(); ?>

@@ -63,22 +63,19 @@ $theme_path = base_url("themes/gigaland") . "/";
                     <div class="card-body">
                         <table class="table text-light">
                             <thead>
-                                <th></th>
                                 <th>Event Name</th>
                                 <th>Pricing</th>
                             </thead>
                             <tbody>
                                 <tr v-for="item in transactionsSort">
-                                    <td></td>
                                     <td>{{ item.product_name}}</td>
                                     <td>{{ formatCurrency(item.price) }}</td>
                                 </tr>
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <td></td>
                                     <td class="text-right font-weight-bold">Total :</td>
-                                    <td>{{ formatCurrency(totalPrice) }}</td>
+                                    <td>{{ formatCurrency(totalPrice()) }}</td>
                                 </tr>
                             </tfoot>
                         </table>
@@ -126,22 +123,22 @@ $theme_path = base_url("themes/gigaland") . "/";
                             <tbody>
                                 <tr>
                                     <td>Email</td>
-                                    <td>:</td>
+                                    <td class="text-center">:</td>
                                     <th>{{data.email}}</th>
                                 </tr>
                                 <tr>
                                     <td>Nama</td>
-                                    <td>:</td>
+                                    <td class="text-center">:</td>
                                     <th>{{data.fullname}}</th>
                                 </tr>
                                 <tr>
                                     <td>Member ID</td>
-                                    <td>:</td>
+                                    <td class="text-center">:</td>
                                     <th>{{data.id}}</th>
                                 </tr>
                                 <tr>
                                     <td>Invoice ID</td>
-                                    <td>:</td>
+                                    <td class="text-center">:</td>
                                     <th>{{data.id_invoice}}</th>
                                 </tr>
                             </tbody>
@@ -171,7 +168,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                                 <tr>
                                     <td></td>
                                     <td class="text-right font-weight-bold">Total :</td>
-                                    <td>{{ formatCurrency(totalPrice) }}</td>
+                                    <td>{{ formatCurrency(totalPrice()) }}</td>
                                 </tr>
                             </tfoot>
                         </table>
@@ -190,7 +187,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                 <div class="col-lg-12 text-center">
                     <button :disabled="saving" type="button" @click="checkout" class="btn-main" style="background-color:#F4AD39; color:black;">
                         <i v-if="saving" class="fa fa-spin fa-spinner"></i>
-                        Submit
+                        Checkout
                     </button>
                 </div>
 
@@ -264,13 +261,33 @@ $theme_path = base_url("themes/gigaland") . "/";
 
                                             <div class="spacer-20"></div>
 
-                                            <h5 style="color:#F4AD39;"> Alamat*</h5>
+                                            <!-- <h5 style="color:#F4AD39;"> Alamat*</h5>
                                             <textarea :class="{ 'is-invalid':validation_error.address }" class="form-control mb-0" name="address" placeholder="Alamat"></textarea>
                                             <div class="invalid-feedback">
                                                 {{ validation_error.address }}
                                             </div>
 
+                                            <div class="spacer-20"></div> -->
+
+                                            <span class="dark-select">
+                                                <h5 style="color:#F4AD39;"> Country*</h5>
+                                                <?= form_dropdown('country', $participantsCountry, '', [':class' => "{'is-invalid':validation_error.country}", 'v-model' => 'country_selected', 'class' => 'form-control country_selected chosen mb-0', 'placeholder' => 'Select your institution !']); ?>
+                                                <div v-if="validation_error.country" class="invalid-feedback">
+                                                    {{ validation_error.country }}
+                                                </div>
+                                            </span>
+
                                             <div class="spacer-20"></div>
+
+                                            <span v-if="country_selected == <?= Country_m::COUNTRY_OTHER; ?>">
+                                                <h5 style="color:#F4AD39;"> Other Country*</h5>
+                                                <input type="text" :class="{ 'is-invalid':validation_error.other_country}" class="form-control mb-0" name="other_country" placeholder="Other Country" />
+                                                <div v-if="validation_error.other_country" class="invalid-feedback">
+                                                    {{ validation_error.other_country }}
+                                                </div>
+
+                                                <div class="spacer-20"></div>
+                                            </span>
 
                                             <h5 style="color:#F4AD39;"> City*</h5>
                                             <input type="text" :class="{'is-invalid':validation_error.city}" class="form-control mb-0" name="city" placeholder="City" />
@@ -281,7 +298,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                                             <div class="spacer-20"></div>
                                             <span class="dark-select">
                                                 <h5 style="color:#F4AD39;"> Your Institution*</h5>
-                                                <?= form_dropdown('univ', $participantsUniv, '', [':class' => "{'is-invalid':validation_error.univ}", 'v-model' => 'univ_selected', 'class' => 'form-control chosen mb-0', 'placeholder' => 'Select your institution !']); ?>
+                                                <?= form_dropdown('univ', $participantsUniv, '', [':class' => "{'is-invalid':validation_error.univ}", 'v-model' => 'univ_selected', 'class' => 'form-control univ_selected chosen mb-0', 'placeholder' => 'Select your institution !']); ?>
                                                 <div v-if="validation_error.univ" class="invalid-feedback">
                                                     {{ validation_error.univ }}
                                                 </div>
@@ -307,7 +324,7 @@ $theme_path = base_url("themes/gigaland") . "/";
 
                                             <div class="spacer-20"></div>
 
-                                            <h5 style="color:#F4AD39;">Gender*</h5>
+                                            <!-- <h5 style="color:#F4AD39;">Gender*</h5>
                                             <div class="radio">
                                                 <label>
                                                     <input type="radio" name="gender" checked value="M" /> Laki-laki
@@ -320,7 +337,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                                                 {{ validation_error.gender }}
                                             </div>
 
-                                            <div class="spacer-20"></div>
+                                            <div class="spacer-20"></div> -->
 
                                             <h5 style="color:#F4AD39;">Sponsor*</h5>
                                             <input type="text" :class="{'is-invalid':validation_error.sponsor}" class="form-control mb-0" name="sponsor" placeholder="Sponsor" />
@@ -365,7 +382,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                                                                                 <td>{{ member }}</td>
                                                                                 <td v-for="pricing in event.pricingName" class="text-center">
                                                                                     <span v-if="pricing.pricing[member]">
-                                                                                        {{ formatCurrency(pricing.pricing[member].price) }}
+                                                                                        {{ formatCurrency(pricing.pricing[member].price) }} / {{formatCurrency(pricing.pricing[member].price_in_usd, 'USD')}}
                                                                                         <div v-if="member == status_text" class="de-switch mt-2" style="background-size: cover;">
                                                                                             <input type="checkbox" :id="`switch-unlock_${member}_${event.name}`" :value="pricing.pricing[member].added" class="checkbox" v-model="pricing.pricing[member].added" @click="addEvent($event,pricing.pricing[member],member,event.name)">
                                                                                             <label :for="`switch-unlock_${member}_${event.name}`"></label>
@@ -384,7 +401,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                                                         </div>
                                                         <div class="card card-default mt-2">
                                                             <div class="card-header text-center" style="color:#F5AC39">
-                                                                <b>{{ formatCurrency(total) }}</b>
+                                                                <b>{{ formatCurrency(total()) }}</b>
                                                             </div>
                                                         </div>
                                                         <div v-if="validation_error.eventAdded" style="font-size: .875em;color: #dc3545;">
@@ -445,8 +462,10 @@ $theme_path = base_url("themes/gigaland") . "/";
             statusList: <?= json_encode($statusList); ?>,
             status_selected: "",
             status_text: "",
-            univList: <?= json_encode($statusList); ?>,
+            univList: <?= json_encode($participantsUniv); ?>,
             univ_selected: "",
+            countryList: <?= json_encode($participantsCountry); ?>,
+            country_selected: "",
             saving: false,
             validation_error: {},
             page: 'register',
@@ -492,25 +511,10 @@ $theme_path = base_url("themes/gigaland") . "/";
                 });
                 return ret;
             },
-            totalPrice() {
-                var total = 0;
-                for (var i in this.transactions) {
-                    total += Number(this.transactions[i].price);
-                }
-                return total;
-            },
             transactionsSort() {
                 return this.transactions.sort(function(a, b) {
                     return (a.event_pricing_id > b.event_pricing_id) ? -1 : 1;
                 })
-            },
-
-            total() {
-                var total = 0;
-                this.eventAdded.forEach((item, index) => {
-                    total += parseFloat(item.price);
-                })
-                return total;
             },
             filteredEvent() {
                 var statusSelected = this.status_selected;
@@ -529,6 +533,28 @@ $theme_path = base_url("themes/gigaland") . "/";
             }
         },
         methods: {
+            totalPrice(idr = true) {
+                var total = 0;
+                for (var i in this.transactions) {
+                    if (idr) {
+                        total += parseFloat(this.transactions[i].price);
+                    } else {
+                        total += parseFloat(this.transactions[i].price_in_usd);
+                    }
+                }
+                return total;
+            },
+            total(idr = true) {
+                var total = 0;
+                this.eventAdded.forEach((item, index) => {
+                    if (idr) {
+                        total += parseFloat(item.price);
+                    } else {
+                        total += parseFloat(item.price_in_usd);
+                    }
+                })
+                return total;
+            },
             onlyNumber($event) {
                 //console.log($event.keyCode); //keyCodes value
                 let keyCode = ($event.keyCode ? $event.keyCode : $event.which);
@@ -603,10 +629,10 @@ $theme_path = base_url("themes/gigaland") . "/";
                     app.saving = false;
                 });
             },
-            formatCurrency(price) {
+            formatCurrency(price, currency = 'IDR') {
                 return new Intl.NumberFormat("id-ID", {
                     style: 'currency',
-                    currency: "IDR"
+                    currency: currency
                 }).format(price);
             },
             // NOTE Menambah dan Menghapus Event
@@ -628,8 +654,12 @@ $theme_path = base_url("themes/gigaland") . "/";
         }
     });
     $(function() {
-        $(".chosen").chosen().change(function() {
+        $(".univ_selected").chosen().change(function() {
             app.univ_selected = $(this).val();
+        });
+
+        $(".country_selected").chosen().change(function() {
+            app.country_selected = $(this).val();
         });
 
         // NOTE Status change event set null
@@ -651,7 +681,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                 var data = {
                     key: apiKeyEspay,
                     paymentId: invoiceID,
-                    backUrl: `<?= base_url('member/area'); ?>/redirect_client/billing/${invoiceID}`,
+                    backUrl: `<?= base_url('member/register/check_invoice'); ?>/${invoiceID}`,
                 };
                 console.log(data);
                 if (typeof SGOSignature !== "undefined") {

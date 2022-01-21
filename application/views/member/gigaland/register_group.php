@@ -41,7 +41,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                         Jika tidak menerima email konfirmasi, silakan cek folder spam. Jika perlu bantuan, silakan kontak kami.<br>
                     </p>
                     <p><strong>Sebagai informasi tambahan harap untuk mencatat Invoice ID anda untuk melakukan konfirmasi pembayaran, Untuk melakukan konfirmasi pembayaran bisa dilakukan melalui halaman <a href="<?= base_url('member/register/check_invoice') ?>" style="color:#161D30;text-decoration: underline;" target="_BLANK">Check Invoice</a></strong></p>
-             
+
                 </div>
 
                 <div class="card mt-2">
@@ -53,12 +53,12 @@ $theme_path = base_url("themes/gigaland") . "/";
                             <tbody>
                                 <tr>
                                     <td>Bill To</td>
-                                    <td>:</td>
+                                    <td class="text-center">:</td>
                                     <th>{{data.bill_to}}</th>
                                 </tr>
                                 <tr>
                                     <td>Invoice ID</td>
-                                    <td>:</td>
+                                    <td class="text-center">:</td>
                                     <th>{{data.id_invoice}}</th>
                                 </tr>
                             </tbody>
@@ -73,22 +73,19 @@ $theme_path = base_url("themes/gigaland") . "/";
                     <div class="card-body">
                         <table class="table text-light">
                             <thead>
-                                <th></th>
                                 <th>Event Name</th>
                                 <th>Pricing</th>
                             </thead>
                             <tbody>
                                 <tr v-for="item in transactionsSort">
-                                    <td></td>
                                     <td>{{ item.product_name}}</td>
                                     <td>{{ formatCurrency(item.price) }}</td>
                                 </tr>
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <td></td>
                                     <td class="text-right font-weight-bold border-end">Total :</td>
-                                    <td>{{ formatCurrency(totalPrice) }}</td>
+                                    <td>{{ formatCurrency(totalPrice()) }}</td>
                                 </tr>
                             </tfoot>
                         </table>
@@ -135,12 +132,12 @@ $theme_path = base_url("themes/gigaland") . "/";
                         <tbody>
                             <tr>
                                 <td>Bill To</td>
-                                <td>:</td>
+                                <td class="text-center">:</td>
                                 <th>{{data.bill_to}}</th>
                             </tr>
                             <tr>
                                 <td>Invoice ID</td>
-                                <td>:</td>
+                                <td class="text-center">:</td>
                                 <th>{{data.id_invoice}}</th>
                             </tr>
                         </tbody>
@@ -155,22 +152,19 @@ $theme_path = base_url("themes/gigaland") . "/";
                 <div class="card-body">
                     <table class="table text-light">
                         <thead>
-                            <th></th>
                             <th>Event Name</th>
                             <th>Pricing</th>
                         </thead>
                         <tbody>
                             <tr v-for="item in transactionsSort">
-                                <td></td>
                                 <td>{{ item.product_name}}</td>
                                 <td>{{ formatCurrency(item.price) }}</td>
                             </tr>
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td></td>
                                 <td class="text-right font-weight-bold">Total :</td>
-                                <td>{{ formatCurrency(totalPrice) }}</td>
+                                <td>{{ formatCurrency(totalPrice()) }}</td>
                             </tr>
                         </tfoot>
                     </table>
@@ -189,7 +183,7 @@ $theme_path = base_url("themes/gigaland") . "/";
             <div class="col-lg-12 text-center">
                 <button :disabled="saving" type="button" @click="checkout" class="btn-main" style="background-color:#F4AD39; color:black;">
                     <i v-if="saving" class="fa fa-spin fa-spinner"></i>
-                    Submit
+                    Checkout
                 </button>
             </div>
 
@@ -262,7 +256,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                                                                         <td class="border-end">{{ member }}</td>
                                                                         <td v-for="pricing in event.pricingName" class="text-center">
                                                                             <span v-if="pricing.pricing[member]">
-                                                                                {{ formatCurrency(pricing.pricing[member].price) }}
+                                                                                {{ formatCurrency(pricing.pricing[member].price) }} / {{formatCurrency(pricing.pricing[member].price_in_usd, 'USD')}}
                                                                                 <div v-if="member == status_text" class="de-switch mt-2" style="background-size: cover;">
                                                                                     <input type="checkbox" :id="`switch-unlock_${member}_${event.name}`" :value="pricing.pricing[member].added" class="checkbox" v-model="pricing.pricing[member].added" @click="addEvent($event,pricing.pricing[member],member,event.name)">
                                                                                     <label :for="`switch-unlock_${member}_${event.name}`"></label>
@@ -376,7 +370,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                                         <small class="col-12" for="" style="color:#F4AD39;">*PLEASE FILL YOUR NAME CORRECTLY FOR YOUR CERTIFICATE</small>
                                         <div class="card card-default mt-2">
                                             <div class="card-header text-center" style="color:#F5AC39">
-                                                <b>{{ formatCurrency(total) }}</b>
+                                                <b>{{ formatCurrency(total()) }}</b>
                                             </div>
                                         </div>
                                     </div>
@@ -474,26 +468,10 @@ $theme_path = base_url("themes/gigaland") . "/";
                 });
                 return ret;
             },
-            totalPrice() {
-                var total = 0;
-                for (var i in this.transactions) {
-                    total += Number(this.transactions[i].price);
-                }
-                return total;
-            },
             transactionsSort() {
                 return this.transactions.sort(function(a, b) {
                     return (a.event_pricing_id > b.event_pricing_id) ? -1 : 1;
                 })
-            },
-
-            total() {
-                var total = 0;
-                this.eventAdded.forEach((item, index) => {
-                    total += parseFloat(item.price);
-                })
-                total = total * this.members.length;
-                return total;
             },
             filteredEvent() {
                 var statusSelected = this.status_selected;
@@ -512,6 +490,29 @@ $theme_path = base_url("themes/gigaland") . "/";
             }
         },
         methods: {
+            totalPrice(idr = true) {
+                var total = 0;
+                for (var i in this.transactions) {
+                    if (idr) {
+                        total += parseFloat(this.transactions[i].price);
+                    } else {
+                        total += parseFloat(this.transactions[i].price_in_usd);
+                    }
+                }
+                return total;
+            },
+            total(idr = true) {
+                var total = 0;
+                this.eventAdded.forEach((item, index) => {
+                    if (idr) {
+                        total += parseFloat(item.price);
+                    } else {
+                        total += parseFloat(item.price_in_usd);
+                    }
+                })
+                total = total * this.members.length;
+                return total;
+            },
             onlyNumber($event) {
                 //console.log($event.keyCode); //keyCodes value
                 let keyCode = ($event.keyCode ? $event.keyCode : $event.which);
@@ -589,10 +590,10 @@ $theme_path = base_url("themes/gigaland") . "/";
                     app.saving = false;
                 });
             },
-            formatCurrency(price) {
+            formatCurrency(price, currency = 'IDR') {
                 return new Intl.NumberFormat("id-ID", {
                     style: 'currency',
-                    currency: "IDR"
+                    currency: currency
                 }).format(price);
             },
             // NOTE Menambah dan Menghapus Event
@@ -658,7 +659,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                 var data = {
                     key: apiKeyEspay,
                     paymentId: invoiceID,
-                    backUrl: `<?= base_url('member/area'); ?>/redirect_client/billing/${invoiceID}`,
+                    backUrl: `<?= base_url('member/register/check_invoice'); ?>/${invoiceID}`,
                 };
                 console.log(data);
                 if (typeof SGOSignature !== "undefined") {
