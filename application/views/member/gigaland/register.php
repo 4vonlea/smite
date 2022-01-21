@@ -683,7 +683,6 @@ $theme_path = base_url("themes/gigaland") . "/";
                     paymentId: invoiceID,
                     backUrl: `<?= base_url('member/register/check_invoice'); ?>/${invoiceID}`,
                 };
-                console.log(data);
                 if (typeof SGOSignature !== "undefined") {
                     var sgoPlusIframe = document.getElementById("sgoplus-iframe");
                     if (sgoPlusIframe !== null)
