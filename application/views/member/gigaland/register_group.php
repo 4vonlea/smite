@@ -34,13 +34,14 @@ $theme_path = base_url("themes/gigaland") . "/";
     <div class="container">
         <div class="row">
             <!-- NOTE Setelah Submmit -->
-            <div v-if="page == 'registered'" class="col-lg-8 offset-lg-2">
+            <div v-if="page == 'registered'" class="col-lg-12">
                 <div class="alert alert-success" style="background-color: #F5AC39;">
                     <h4 class="text-dark"><i class="fa fa-info"></i> Akunmu berhasil dibuat</h4>
-                    <p>Kami telah mengirim link konfirmasi ke alamat emailmu. Untuk melengkapi proses registrasi, Silahkan klik <i>confirmation link</i>.
-                        Jika tidak menerima email konfirmasi, silakan cek folder spam. Kemudian, mohon pastikan anda memasukan alamat email yg valid saat mengisi form pendaftaran. Jika perlu bantuan, silakan kontak kami.<br>
-                        <strong>Sebagai informasi tambahan harap untuk mencatat Invoice ID anda untuk melakukan konfirmasi pembayaran</strong>
+                    <p>Kami telah mengirim informasi akun ke alamat email peserta. Untuk melengkapi proses registrasi mohon diinformasik ke peserta, untuk menekan <i>confirmation link</i> yang kami kirim via email.
+                        Jika tidak menerima email konfirmasi, silakan cek folder spam. Jika perlu bantuan, silakan kontak kami.<br>
                     </p>
+                    <p><strong>Sebagai informasi tambahan harap untuk mencatat Invoice ID anda untuk melakukan konfirmasi pembayaran, Untuk melakukan konfirmasi pembayaran bisa dilakukan melalui halaman <a href="<?= base_url('member/register/check_invoice') ?>" style="color:#161D30;text-decoration: underline;" target="_BLANK">Check Invoice</a></strong></p>
+             
                 </div>
 
                 <div class="card mt-2">
@@ -67,7 +68,7 @@ $theme_path = base_url("themes/gigaland") . "/";
 
                 <div class="card mt-2">
                     <div class="card-header text-center">
-                        <h5 class="m-0 p-0" style="color:#F4AD39;">Halaman untuk mengonfirmasi riwayat penagihan dan invoice display</h5>
+                        <h5 class="m-0 p-0" style="color:#F4AD39;">Informasi Tagihan</h5>
                     </div>
                     <div class="card-body">
                         <table class="table text-light">

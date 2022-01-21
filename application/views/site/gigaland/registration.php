@@ -57,8 +57,6 @@
                                     <li>
                                         <a href="home" style="color:#F4AD39;">Home<span></span></a>
                                     </li>
-
-
                                 </ul>
                                 <!-- mainmenu close -->
                                 <div class="menu_side_area">
