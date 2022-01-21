@@ -38,7 +38,7 @@ $payment = Settings_m::manualPayment(false);
 	<tbody>
 	<tr>
 		<td height="30" style="text-align:center">
-		<img src="<?= $header_image; ?>" style="width:100%"/>
+		<img src="<?= $header_image; ?>" style="width:100%" alt="<?=$header_image;?>"/>
 		</td>
 	</tr>
 	<tr>
@@ -201,17 +201,14 @@ $payment = Settings_m::manualPayment(false);
 				<tbody>
 				<tr style="font-size:14px">
 					<td>
-
 						<p style="text-align:justify;text-justify:inter-word;font-size:20px">
 							Pembayaran yang tidak sesuai atau transaksi palsu akan secara otomatis terhapus oleh sistem,
 							dan peserta harus melakukan registrasi ulang. Terimakasih
 						</p>
 						<p></p>
-						<p style="text-align:right;font-size: 20px;font-weight: bold">Salam hormat,<br/> 
-						Ketua Panitia <br/><br/>
-							 <img width="200px" height="100px" class="" src="<?=base_url("themes/uploads/ttd_cap.jpg");?>"> <br/>
-							<?=Settings_m::getSetting('ketua_panitia');?>
-						</p>
+						<?php
+							$this->load->view("template/invoice_payment_signature");
+						?>
 					</td>
 				</tr>
 				</tbody>

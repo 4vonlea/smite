@@ -36,7 +36,7 @@ header('Content-Type: text/html');
 <table border="0" cellpadding="0" cellspacing="0" style="width: 700px;margin-right: auto;margin-left: auto">
 	<tr>
 		<td>
-			<img src="<?= $header_image; ?>" style="width:700px"/>
+			<img src="<?= $header_image; ?>" style="width:700px" alt="<?=$header_image;?>"/>
 		</td>
 	</tr>
 	<tr style="height:30px">
@@ -132,17 +132,13 @@ header('Content-Type: text/html');
 		</td>
 	</tr>
 	<tr >
-		<td >
+		<td>
 			<div style="bottom: 80px;left:0px;position: absolute">
 				<img style="margin: auto" src="data:image/png;base64,<?= $qr; ?>"/>
 			</div>
-			<div style="float: right;width: 70%;height: 100%;">
-				<p style="text-align:right;font-size: 18px;font-weight: bold">Salam hormat,<br/>
-					Ketua Panitia <br/><br/>
-					<img width="200px" height="100px" class="" src="<?=base_url("themes/uploads/ttd_cap.jpg");?>"> <br/>
-					<?=Settings_m::getSetting('ketua_panitia');?>
-				</p>
-			</div>
-		</td>
+			<?php
+				$this->load->view("template/invoice_payment_signature");
+			?>
+	</td>
 	</tr>
 </table>
