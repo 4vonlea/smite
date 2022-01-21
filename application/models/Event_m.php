@@ -54,7 +54,7 @@ class Event_m extends MY_Model
 
 		$filter = ($isManual ? [] : ['show' => '1']);
 		$this->load->model("Transaction_m");
-		$result = $this->setAlias("t")->find()->select("t.name as event_name,event_pricing.name as name_pricing,event_pricing.price as price_r,event_pricing.id as id_price,")
+		$result = $this->setAlias("t")->find()->select("t.name as event_name,event_pricing.name as name_pricing,event_pricing.price as price_r,event_pricing.price_in_usd as price_in_usd,event_pricing.id as id_price,")
 			->select("condition,condition_date,kategory")
 			->where($filter)
 			->join("event_pricing", "t.id = event_id")
@@ -98,7 +98,14 @@ class Event_m extends MY_Model
 						[
 							'name' => $row['name_pricing'],
 							'title' => $title,
-							'pricing' => [$row['condition'] => ['id' => $row['id_price'], 'price' => $row['price_r'], 'available' => $avalaible]]
+							'pricing' => [
+								$row['condition'] => [
+									'id' => $row['id_price'],
+									'price' => $row['price_r'],
+									'price_in_usd' => $row['price_in_usd'],
+									'available' => $avalaible
+								]
+							]
 						]
 					],
 					'memberStatus' => [$row['condition']]
@@ -114,11 +121,23 @@ class Event_m extends MY_Model
 					$return[$index]['pricingName'][$pId] = [
 						'name' => $row['name_pricing'],
 						'title' => $title,
-						'pricing' => [$row['condition'] => ['id' => $row['id_price'], 'price' => $row['price_r'], 'available' => $avalaible]]
+						'pricing' => [
+							$row['condition'] => [
+								'id' => $row['id_price'],
+								'price' => $row['price_r'],
+								'price_in_usd' => $row['price_in_usd'],
+								'available' => $avalaible
+							]
+						]
 					];
 					$tempPricing = $row['name_pricing'];
 				} else {
-					$return[$index]['pricingName'][$pId]['pricing'][$row['condition']] = ['id' => $row['id_price'], 'price' => $row['price_r'], 'available' => $avalaible];
+					$return[$index]['pricingName'][$pId]['pricing'][$row['condition']] = [
+						'id' => $row['id_price'],
+						'price' => $row['price_r'],
+						'price_in_usd' => $row['price_in_usd'],
+						'available' => $avalaible
+					];
 				}
 			}
 		}
