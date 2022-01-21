@@ -558,37 +558,57 @@ $theme_path = base_url("themes/gigaland") . "/";
                 });
             },
             checkout() {
-                var formData = new FormData(this.$refs.form);
-                // var birthday = moment(formData.get('birthday')).format("Y-MM-DD");
-                var birthday = moment().format("Y-MM-DD");
-                formData.set("birthday", birthday);
+                let selected = app.paymentMethod.find(data => data.key == app.selectedPaymentMethod);
+                if (selected && selected.key == "espay") {
+                    $("#modal-select-payment").modal("show");
 
-                // NOTE Data Event dan Payment
-                formData.append('data', JSON.stringify(app.data));
-                formData.append('selectedPaymentMethod', app.selectedPaymentMethod);
-
-                this.saving = true;
-                $.ajax({
-                    url: '<?= base_url('member/register/checkout/1'); ?>',
-                    type: 'POST',
-                    contentType: false,
-                    cache: false,
-                    processData: false,
-                    data: formData
-                }).done(function(res) {
-                    if (res.statusData == false && res.validation_error) {
-                        app.validation_error = res.validation_error
-                    } else if (res.statusData == false && res.message) {
-                        Swal.fire('Fail', res.message, 'error');
-                    } else {
-                        app.page = 'registered';
-                        app.paymentBank = res.response.manual;
+                    var invoiceID = app.data.id_invoice;
+                    var apiKeyEspay = "<?= Settings_m::getEspay()['apiKey']; ?>";
+                    var data = {
+                        key: apiKeyEspay,
+                        paymentId: invoiceID,
+                        backUrl: `<?= base_url('member/register/check_invoice'); ?>/${invoiceID}`,
+                    };
+                    console.log(data);
+                    if (typeof SGOSignature !== "undefined") {
+                        var sgoPlusIframe = document.getElementById("sgoplus-iframe");
+                        if (sgoPlusIframe !== null)
+                            sgoPlusIframe.src = SGOSignature.getIframeURL(data);
+                        SGOSignature.receiveForm();
                     }
-                }).fail(function(res) {
-                    Swal.fire('Fail', 'Server fail to response !', 'error');
-                }).always(function(res) {
-                    app.saving = false;
-                });
+                } else {
+                    var formData = new FormData(this.$refs.form);
+                    // var birthday = moment(formData.get('birthday')).format("Y-MM-DD");
+                    var birthday = moment().format("Y-MM-DD");
+                    formData.set("birthday", birthday);
+
+                    // NOTE Data Event dan Payment
+                    formData.append('data', JSON.stringify(app.data));
+                    formData.append('selectedPaymentMethod', app.selectedPaymentMethod);
+
+                    this.saving = true;
+                    $.ajax({
+                        url: '<?= base_url('member/register/checkout/1'); ?>',
+                        type: 'POST',
+                        contentType: false,
+                        cache: false,
+                        processData: false,
+                        data: formData
+                    }).done(function(res) {
+                        if (res.statusData == false && res.validation_error) {
+                            app.validation_error = res.validation_error
+                        } else if (res.statusData == false && res.message) {
+                            Swal.fire('Fail', res.message, 'error');
+                        } else {
+                            app.page = 'registered';
+                            app.paymentBank = res.response.manual;
+                        }
+                    }).fail(function(res) {
+                        Swal.fire('Fail', 'Server fail to response !', 'error');
+                    }).always(function(res) {
+                        app.saving = false;
+                    });
+                }
             },
             formatCurrency(price, currency = 'IDR') {
                 return new Intl.NumberFormat("id-ID", {
