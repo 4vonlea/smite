@@ -231,6 +231,7 @@ class Payment extends MY_Controller
 	public function check_ip(){
 		echo $this->request("https://git.ulm.ac.id/ip.php",[]);
 	}
+
 	public function inquiry_espay(){
 		$error_code = 0;
 		$error_message = "";
@@ -257,17 +258,23 @@ class Payment extends MY_Controller
 			];
 			$this->Notification_m->sendMessageWithAttachment($member->email, 'Invoice', "Terima kasih atas partisipasi anda berikut adalah invoice acara yang anda ikuti", $attc);
 
-
+			$this->log("inquiry");
 			file_put_contents(APPPATH."logs/".$order_id."_inquiry.json",json_encode($data));
 			echo implode(";",[$error_code,$error_message,$order_id,$amount,$ccy,$description,$date]);
 		}
 	}
 
-	public function log($type){
-		$data = $this->input->post();
+	public function log($type, $response = [],$invoice_id = "-"){
+		$data = array_merge($this->input->post(),$this->input->get());
 		$data['ip_address'] = $this->input->ip_address();
-		$name = ($this->input->post("order_id") ?$this->input->post("order_id"):date("Ymdhis") );
-		file_put_contents(APPPATH."logs/".$name."_$type.json",json_encode($data));
+		$this->db->insert("log_payment",[
+			'invoice'=>$data['order_id'] ?? $response['order_id'] ?? $data['invoice'] ?? $invoice_id,
+			'action'=>$type,
+			'request'=>json_encode($data),
+			'response'=>is_string($response) ? $response : json_encode($response),
+		]);
+		// $name = ($this->input->post("order_id") ? $this->input->post("order_id"):date("Ymdhis") );
+		// file_put_contents(APPPATH."logs/".$name."_$type.json",json_encode($data));
 	}
 
 	public function notification_espay()
@@ -313,25 +320,27 @@ class Payment extends MY_Controller
 				'signature'=>$signature,
 				'order_id'=>$order_id
 			]);
+			$this->log("check_status",$response,$invoice);
 			$resJson = json_decode($response,true);
 			$tr = $this->Transaction_m->findOne(['id'=>$order_id]);
 			$status = $tr->status_payment;
-			if($resJson['tx_status'] == "S"){
-				$status = Transaction_m::STATUS_FINISH;
-			}elseif($resJson['tx_status'] == "F"){
-				$status = Transaction_m::STATUS_EXPIRE;
-			}else{
-				if(strtolower($resJson['tx_reason']) == strtolower('expired'))
+			if(isset($status['tx_status'])){
+				if($resJson['tx_status'] == "S"){
+					$status = Transaction_m::STATUS_FINISH;
+				}elseif($resJson['tx_status'] == "F"){
 					$status = Transaction_m::STATUS_EXPIRE;
-				else
-					$status = Transaction_m::STATUS_PENDING;
+				}else{
+					if(strtolower($resJson['tx_reason']) == strtolower('expired'))
+						$status = Transaction_m::STATUS_EXPIRE;
+					else
+						$status = Transaction_m::STATUS_PENDING;
+				}
+				
+				if($tr->status_payment == Transaction_m::STATUS_FINISH){
+					$status =  Transaction_m::STATUS_FINISH;
+				}
+				$this->Transaction_m->update(['midtrans_data'=>$response,'status_payment'=>$status],$order_id);
 			}
-			
-			if($tr->status_payment == Transaction_m::STATUS_FINISH){
-				$status =  Transaction_m::STATUS_FINISH;
-			}
-			$this->Transaction_m->update(['midtrans_data'=>$response,'status_payment'=>$status],$order_id);
-
 			file_put_contents(APPPATH."logs/".$order_id."_status.json",$response);
 		}
 	}
