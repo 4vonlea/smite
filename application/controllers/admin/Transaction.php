@@ -3,7 +3,6 @@
 
 class Transaction extends Admin_Controller
 {
-
 	protected $accessRule = [
 		'index' => 'view',
 		'resend' => 'insert',
@@ -131,6 +130,7 @@ class Transaction extends Admin_Controller
 
 	public function detail()
 	{
+
 		if ($this->input->method() != 'post')
 			show_404("Page Not Found !");
 
@@ -139,15 +139,18 @@ class Transaction extends Admin_Controller
 		$detail = $this->Transaction_m->findOne($id);
 		if ($detail) {
 			$response['model'] = $detail->toArray();
-			$response['model']['member'] = $detail->member->toArray();
+			$response['model']['member'] = $detail->member ? $detail->member->toArray() : [];
+			$group = $detail->member ? false : true;
 			$response['model']['details'] = [];
 			foreach ($detail->details as $row) {
 				$temp =  $row->toArray();
 				$temp['isDeleted'] = 0;
-				$response['model']['details'][] = $temp;
+				$response['model']['details'][] = array_merge(['member' => $row->member->toArray()], $temp);
 			}
 		}
-		$response['listEvent'] = $this->Transaction_m->getNotFollowedEvent($response['model']['member']['id']);
+		$member_id = $group ? current($response['model']['details'])['member_id'] : $response['model']['member']['id'];
+		$response['listEvent'] = $this->Transaction_m->getNotFollowedEvent($member_id);
+
 		$this->output
 			->set_content_type("application/json")
 			->_display(json_encode($response));

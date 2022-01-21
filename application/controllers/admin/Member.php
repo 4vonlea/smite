@@ -485,9 +485,31 @@ class Member extends Admin_Controller
 				$model['validation_error']['members'] = 'Minimal 1 member';
 			}
 
+			$data['payment_proof'] = "-";
+			if (isset($_FILES['proof']) && is_uploaded_file($_FILES['proof']['tmp_name'])) {
+				$config['upload_path'] = APPPATH . 'uploads/proof/';
+				$config['allowed_types'] = 'jpg|png|jpeg|pdf';
+				$config['max_size'] = 2048;
+				$config['overwrite'] = true;
+				$config['file_name'] = $id_invoice;
+
+				$this->load->library('upload', $config);
+				if ($this->upload->do_upload('proof')) {
+					$dataUpload = $this->upload->data();
+					$data['payment_proof'] = $dataUpload['file_name'];
+				} else {
+					$uploadStatus = false;
+				}
+			}
+
+			// echo '<pre>';
+			// print_r($_POST);
+			// echo '</pre>';
+			// exit;
+
 			// NOTE Validation Members
 			$count = 0;
-			foreach ($model['members'] as $key => $data) {
+			foreach ($model['members'] as $key => $val) {
 
 				$model['members'][$key]['id_invoice'] = $id_invoice;
 				$model['members'][$key]['id'] = Uuid::v4();
@@ -497,22 +519,6 @@ class Member extends Admin_Controller
 				$model['members'][$key]['birthday'] = date('Y-m-d');
 
 				$uploadStatus = true;
-				$model['members'][$key]['payment_proof'] = "-";
-				if (isset($_FILES['proof']) && is_uploaded_file($_FILES['proof']['tmp_name'])) {
-					$config['upload_path'] = APPPATH . 'uploads/proof/';
-					$config['allowed_types'] = 'jpg|png|jpeg|pdf';
-					$config['max_size'] = 2048;
-					$config['overwrite'] = true;
-					$config['file_name'] = $id_invoice;
-
-					$this->load->library('upload', $config);
-					if ($this->upload->do_upload('proof')) {
-						$dataUpload = $this->upload->data();
-						$model['members'][$key]['payment_proof'] = $dataUpload['file_name'];
-					} else {
-						$uploadStatus = false;
-					}
-				}
 
 				$model['members'][$key]['status'] = $model['status'];
 				if (!$this->Member_m->validate($model['members'][$key]) || !$uploadStatus) {
@@ -555,13 +561,33 @@ class Member extends Admin_Controller
 						$data['univ'] = $this->Univ_m->last_insert_id;
 					}
 
-					$this->Member_m->insert(array_intersect_key($data, array_flip($this->Member_m->fillable)), false);
-					$this->User_account_m->insert([
-						'username' => $data['email'],
-						'password' => password_hash($data['password'], PASSWORD_DEFAULT),
-						'role' => 0,
-						'token_reset' => "verifyemail_" . $token
-					], false);
+					$dataMember = $this->Member_m->findOne(['email' => $data['email']]);
+					if ($dataMember) {
+						$dataMember = $dataMember->toArray();
+						$dataMember['fullname'] = $data['fullname'];
+						$dataMember['univ'] = $data['univ'];
+						$dataMember['sponsor'] = $data['sponsor'];
+						$this->Member_m->update($dataMember, $dataMember['id'], false);
+
+						$members[$key]['id'] = $data['id'] = $dataMember['id'];
+						// NOTE Accounts
+						$this->User_account_m->update([
+							'username' => $data['email'],
+							'password' => password_hash($data['password'], PASSWORD_DEFAULT),
+							'role' => 0,
+							'token_reset' => "verifyemail_" . $token
+						], $data['email'], false);
+					} else {
+						$this->Member_m->insert(array_intersect_key($data, array_flip($this->Member_m->fillable)), false);
+
+						// NOTE Accounts
+						$this->User_account_m->insert([
+							'username' => $data['email'],
+							'password' => password_hash($data['password'], PASSWORD_DEFAULT),
+							'role' => 0,
+							'token_reset' => "verifyemail_" . $token
+						], false);
+					}
 
 					// NOTE Data Detail Transactions
 					$details = [];
