@@ -55,7 +55,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                     </div>
                     <hr class="mb-4 mt-4">
                     <div class="col-lg-12 text-center">
-                        <button type="button" class="btn-main" style="background-color:#F4AD39; color:black;" @click="checkInvoice">Check</button>
+                        <button type="button" class="btn-main" style="background-color:#F4AD39; color:black;" @click="checkInvoice" :disabled="saving"><i v-if="saving" class="fa fa-spin fa-spinner"></i> Check</button>
                     </div>
                 </form>
                 <div v-if="model.id">
