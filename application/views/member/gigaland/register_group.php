@@ -37,11 +37,10 @@ $theme_path = base_url("themes/gigaland") . "/";
             <div v-if="page == 'registered'" class="col-lg-12">
                 <div class="alert alert-success" style="background-color: #F5AC39;">
                     <h4 class="text-dark"><i class="fa fa-info"></i> Akunmu berhasil dibuat</h4>
-                    <p>Kami telah mengirim informasi akun ke alamat email peserta. Untuk melengkapi proses registrasi mohon diinformasik ke peserta, untuk menekan <i>confirmation link</i> yang kami kirim via email.
-                        Jika tidak menerima email konfirmasi, silakan cek folder spam. Jika perlu bantuan, silakan kontak kami.<br>
-                    </p>
-                    <p><strong>Sebagai informasi tambahan harap untuk mencatat Invoice ID anda untuk melakukan konfirmasi pembayaran, Untuk melakukan konfirmasi pembayaran bisa dilakukan melalui halaman <a href="<?= base_url('member/register/check_invoice') ?>" style="color:#161D30;text-decoration: underline;" target="_BLANK">Check Invoice</a></strong></p>
-
+                    <p>We have sent a confirmation link to your email address. To complete the registration process, please click <i>confirmation link</i>.
+                        If you don't receive a confirmation email, please check your spam. Then, please make sure you enter a valid email address when filling out the registration form. If you need help, please contact us.</p>
+                    <!-- <p><strong>Sebagai informasi tambahan harap untuk mencatat Invoice ID anda untuk melakukan konfirmasi pembayaran, Untuk melakukan konfirmasi pembayaran bisa dilakukan melalui halaman <a href="<?= base_url('member/register/check_invoice') ?>" style="color:#161D30;text-decoration: underline;" target="_BLANK">Check Invoice</a></strong></p> -->
+                    <p><strong>For additional information, please note your Invoice ID to confirm payment. Payment confirmation can be done through the <a href="<?= base_url('member/register/check_invoice') ?>" style="color:#161D30;text-decoration: underline;" target="_BLANK">Check Invoice</a> page</strong></p>
                 </div>
 
                 <div class="card mt-2">
@@ -68,7 +67,7 @@ $theme_path = base_url("themes/gigaland") . "/";
 
                 <div class="card mt-2">
                     <div class="card-header text-center">
-                        <h5 class="m-0 p-0" style="color:#F4AD39;">Informasi Tagihan</h5>
+                        <h5 class="m-0 p-0" style="color:#F4AD39;">Billing Information</h5>
                     </div>
                     <div class="card-body">
                         <table class="table text-light">
@@ -115,8 +114,9 @@ $theme_path = base_url("themes/gigaland") . "/";
                 </div>
 
                 <div class="alert alert-success mt-2" style="background-color: #F5AC39;">
-                    <h4 class="text-dark"><i class="fa fa-info"></i> Konfirmasi Pembayaran</h4>
-                    <p><strong>Untuk melakukan konfirmasi pembayaran bisa dilakukan melalui halaman <a href="<?= base_url('member/register/check_invoice') ?>" style="color:#161D30;text-decoration: underline;" target="_BLANK">Check Invoice</a></strong></p>
+                    <h4 class="text-dark"><i class="fa fa-info"></i> Payment confirmation</h4>
+                    <!-- <p><strong>Untuk melakukan konfirmasi pembayaran bisa dilakukan melalui halaman <a href="<?= base_url('member/register/check_invoice') ?>" style="color:#161D30;text-decoration: underline;" target="_BLANK">Check Invoice</a></strong></p> -->
+                    <p><strong>Payment confirmation can be done through the <a href="<?= base_url('member/register/check_invoice') ?>" style="color:#161D30;text-decoration: underline;" target="_BLANK">Check Invoice</a> page</strong></p>
                 </div>
             </div>
         </div>
@@ -125,7 +125,7 @@ $theme_path = base_url("themes/gigaland") . "/";
         <div v-if="page == 'payment'" class="col-lg-8 offset-lg-2">
             <div class="card mt-2">
                 <div class="card-header text-center">
-                    <h5 class="m-0 p-0" style="color:#F4AD39;">Data Akun</h5>
+                    <h5 class="m-0 p-0" style="color:#F4AD39;">Account</h5>
                 </div>
                 <div class="card-body">
                     <table class="table text-light">
@@ -192,8 +192,8 @@ $theme_path = base_url("themes/gigaland") . "/";
         <!-- NOTE Sebelum Submit -->
         <div v-if="page == 'register'" class="col-lg-8 offset-lg-2">
             <div class="alert alert-success mt-2" style="background-color: #F5AC39;">
-                <h4 class="text-dark"><i class="fa fa-info"></i> <b>Perhatian</b></h4>
-                <p>Pastikan alamat email yang dimasukkan valid dan dapat anda akses, karena kami akan mengirimkan kode aktivasi melalui email tersebut. Akun anda tidak dapat digunakan sebelum diaktivasi terlebih dahulu.</p>
+                <h4 class="text-dark"><i class="fa fa-info"></i> <b>Attention</b></h4>
+                <p>Make sure the email address entered is valid and you can access it because we will send an activation code via that email. Your account cannot be used until it is activated first.</p>
             </div>
             <form id="form-register" class="form-border" ref="form">
                 <div class="de_tab tab_simple">
@@ -225,10 +225,10 @@ $theme_path = base_url("themes/gigaland") . "/";
                                         <hr />
                                         <div class="card">
                                             <div class="card-header text-center">
-                                                <h2 class="m-0 p-0"><strong class="font-weight-extra-bold ">Acara</strong></h2>
+                                                <h2 class="m-0 p-0"><strong class="font-weight-extra-bold ">Event</strong></h2>
                                             </div>
                                             <div class="card-body text-center" style="color:#F4AD39;">
-                                                Silakan pilih acara yang Anda inginkan. *Acara tersedia berdasarkan status dan tanggal Anda
+                                                Please select the event you want. *Events are available based on your status and date
                                             </div>
                                         </div>
                                         <div class="row">
@@ -242,12 +242,12 @@ $theme_path = base_url("themes/gigaland") . "/";
                                                     <div :id="'accordion-'+index" class="collapse show table-responsive">
                                                         <div>
                                                             <div v-if="event.participant >= event.kouta" class="alert alert-warning text-center">
-                                                                <h4>Maaf Kouta untuk acara ini penuh</h4>
+                                                                <h4>Sorry, quota for this event is full</h4>
                                                             </div>
                                                             <table class="table text-light">
                                                                 <thead>
                                                                     <tr>
-                                                                        <th class="border-end">Kategori</th>
+                                                                        <th class="border-end">Category</th>
                                                                         <th v-for="pricing in event.pricingName" class="text-center"><span v-html="pricing.title"></span></th>
                                                                     </tr>
                                                                 </thead>
@@ -294,7 +294,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                                                         <h5>No</h5>
                                                     </th>
                                                     <th class="border-end" width="50%">
-                                                        <h5>Data Member</h5>
+                                                        <h5>Data Members</h5>
                                                     </th>
                                                     <th class="border-end" width="10%">
                                                         <button @click="addMembers" type="button" class="btn btn-primary" style="background-color:#F4AD39; color:black;"><i class="fa fa-plus"></i>
@@ -544,6 +544,13 @@ $theme_path = base_url("themes/gigaland") . "/";
                     if (res.status == false && res.data.validation_error) {
                         app.validation_error = res.data.validation_error;
                         app.members = res.data.members;
+                        Swal.fire('Fail', 'Some fields are invalid', 'error').then((result) => {
+                            if (result) {
+                                $("html, body").animate({
+                                    scrollTop: 0
+                                }, 1);
+                            }
+                        });
                     } else if (res.status == false && res.message) {
                         Swal.fire('Fail', res.message, 'error');
                     } else {
@@ -667,29 +674,29 @@ $theme_path = base_url("themes/gigaland") . "/";
             app.eventAdded = [];
         });
 
-        $(document).on('change', '.selectedPaymentMethod', function(e) {
-            e.preventDefault();
-            let selected = app.paymentMethod.find(data => data.key == app.selectedPaymentMethod);
-            console.log('mantap ', selected, app.selectedPaymentMethod, $(this).val());
-            if (selected && selected.key == "espay") {
-                $("#modal-select-payment").modal("show");
+        // $(document).on('change', '.selectedPaymentMethod', function(e) {
+        //     e.preventDefault();
+        //     let selected = app.paymentMethod.find(data => data.key == app.selectedPaymentMethod);
+        //     console.log('mantap ', selected, app.selectedPaymentMethod, $(this).val());
+        //     if (selected && selected.key == "espay") {
+        //         $("#modal-select-payment").modal("show");
 
-                var invoiceID = app.data.id_invoice;
-                var apiKeyEspay = "<?= Settings_m::getEspay()['apiKey']; ?>";
-                var data = {
-                    key: apiKeyEspay,
-                    paymentId: invoiceID,
-                    backUrl: `<?= base_url('member/register/check_invoice'); ?>/${invoiceID}`,
-                };
-                console.log(data);
-                if (typeof SGOSignature !== "undefined") {
-                    var sgoPlusIframe = document.getElementById("sgoplus-iframe");
-                    if (sgoPlusIframe !== null)
-                        sgoPlusIframe.src = SGOSignature.getIframeURL(data);
-                    SGOSignature.receiveForm();
-                }
-            }
-        });
+        //         var invoiceID = app.data.id_invoice;
+        //         var apiKeyEspay = "?= Settings_m::getEspay()['apiKey']; ?>";
+        //         var data = {
+        //             key: apiKeyEspay,
+        //             paymentId: invoiceID,
+        //             backUrl: `?= base_url('member/register/check_invoice'); ?>/${invoiceID}`,
+        //         };
+        //         console.log(data);
+        //         if (typeof SGOSignature !== "undefined") {
+        //             var sgoPlusIframe = document.getElementById("sgoplus-iframe");
+        //             if (sgoPlusIframe !== null)
+        //                 sgoPlusIframe.src = SGOSignature.getIframeURL(data);
+        //             SGOSignature.receiveForm();
+        //         }
+        //     }
+        // });
     });
 </script>
 <?php $this->layout->end_script(); ?>
