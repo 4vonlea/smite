@@ -65,13 +65,13 @@ $payment = Settings_m::manualPayment(false);
 					<tbody>
 						<tr>
 							<td>
-								<p>Yth. <?= $member->sponsor; ?></p>
-								<p style="text-align:justify;text-justify:inter-word;">Berikut kami kirimkan tagihan pembayaran sebagai bentuk keterangan resmi. Mohon segera melunasi pembayaran ini
+								<p>Dear <?= $member->sponsor; ?></p>
+								<p style="text-align:justify;text-justify:inter-word;">Here we send the bill of payment as a form of official statement. Please pay off this payment immediately
 
 									<?php if (is_array($payment) && count($payment) == 1 && $transaction->channel == "MANUAL TRANSFER") : ?>
-										melalui Bank <?= $payment[0]['bank']; ?> No <?= $payment[0]['no_rekening']; ?> a.n <?= $payment[0]['holder']; ?>
+										via Bank <?= $payment[0]['bank']; ?> No <?= $payment[0]['no_rekening']; ?> a.n <?= $payment[0]['holder']; ?>
 									<?php elseif (is_array($payment) && count($payment) > 1) : ?>
-										melalui :
+										via :
 								<ul>
 									<?php foreach ($payment as $list) : ?>
 										<li>Bank <?= $list['bank']; ?> No <?= $list['no_rekening']; ?> a.n <?= $list['holder']; ?></li>
@@ -87,7 +87,7 @@ $payment = Settings_m::manualPayment(false);
 									<tbody>
 										<tr>
 											<td style="padding:5px!important" valign="top" width="170">
-												Tanggal
+												Order Date
 											</td>
 											<td width="10">:</td>
 											<td style="padding:5px!important">
@@ -109,7 +109,7 @@ $payment = Settings_m::manualPayment(false);
 										</tr>
 										<tr>
 											<td style="padding:5px!important" valign="top" width="170">
-												Nama Peserta
+												Name
 											</td>
 											<td>:</td>
 											<td style="padding:5px!important">
@@ -158,7 +158,7 @@ $payment = Settings_m::manualPayment(false);
 										<?php endif; ?>
 										<tr>
 											<td style="padding:5px!important" valign="top" width="170">
-												Acara yang diikuti
+												Followed event
 											</td>
 											<td>:</td>
 											<td style="padding:5px!important;vertical-align: top">
@@ -176,7 +176,7 @@ $payment = Settings_m::manualPayment(false);
 										</tr>
 										<tr>
 											<td style="padding:5px!important" valign="top" width="170">
-												Total Harga
+												Amount Price
 											</td>
 											<td>:</td>
 											<td style="padding:5px!important">
@@ -185,7 +185,7 @@ $payment = Settings_m::manualPayment(false);
 										</tr>
 										<tr>
 											<td style="padding:5px!important" valign="top" width="170">
-												Metode Pembayaran
+												Payment Method
 											</td>
 											<td>:</td>
 											<td style="padding:5px!important">
@@ -194,7 +194,7 @@ $payment = Settings_m::manualPayment(false);
 										</tr>
 										<tr>
 											<td colspan="3">
-												<span style="font-size:9pt">*Total Harga diatas belum termasuk biaya administrasi payment online bank</small>
+												<span style="font-size:9pt">*The amount price above does not include online bank payment administration fees</small>
 											</td>
 										</tr>
 									</tbody>
@@ -209,8 +209,7 @@ $payment = Settings_m::manualPayment(false);
 						<tr style="font-size:14px">
 							<td>
 								<p style="text-align:justify;text-justify:inter-word;font-size:20px">
-									Pembayaran yang tidak sesuai atau transaksi palsu akan secara otomatis terhapus oleh sistem,
-									dan peserta harus melakukan registrasi ulang. Terimakasih
+									Inappropriate payments or fake transactions will be automatically deleted by the system,and participants must re-register. Thank you
 								</p>
 								<p></p>
 								<?php

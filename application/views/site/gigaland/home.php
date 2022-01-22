@@ -281,9 +281,9 @@
                 <div class="row align-items-center wow fadeInRight" data-wow-delay=".5s">
                     <div class="col-lg-6">
                         <h2 style="color:#F4AD39;">Abstract Countdown<br>
-                            <h5 style="color:#F4AD39;">(November 16, 2021)</h5>
+                            <h5 style="color:#F4AD39;">(<?= date_format($papercountdown,"F d, Y") ;?>)</h5>
                         </h2>
-                        <div class="de_countdown text-center" data-year="2022" data-month="1" data-day="16" data-hour="8"></div>
+                        <div class="de_countdown text-center" data-year="<?= date_format($papercountdown,"Y") ;?>" data-month="<?= date_format($papercountdown,"m") ;?>" data-day="<?= date_format($papercountdown,"d") ;?>" data-hour="<?= date_format($papercountdown,"H") ;?>"></div>
                         <div class="spacer-10"></div>
                         <div class="d-buttons">
                             <a href="#" class="btn-main" data-bs-toggle="modal" data-bs-target="#place_a_bid" style="background-color:#F4AD39; color:black;">Template Journal</a>
@@ -291,9 +291,9 @@
                     </div>
                     <div class="col-lg-6">
                         <h2 style="color:#F4AD39;">Event Coundown<br>
-                            <h5 style="color:#F4AD39;">(November 16, 2021)</h5>
+                            <h5 style="color:#F4AD39;">(<?= date_format($eventcountdown,"F d, Y") ;?>)</h5>
                         </h2>
-                        <div class="de_countdown text-center" data-year="2022" data-month="1" data-day="16" data-hour="8"></div>
+                        <div class="de_countdown text-center"  data-year="<?= date_format($eventcountdown,"Y") ;?>" data-month="<?= date_format($eventcountdown,"m") ;?>" data-day="<?= date_format($eventcountdown,"d") ;?>" data-hour="<?= date_format($eventcountdown,"H") ;?>"></div>
                         <div class="spacer-10"></div>
                         <div class="d-buttons">
                             <a href="#" class="btn-main" data-bs-toggle="modal" data-bs-target="#place_a_bid" style="background-color:#F4AD39; color:black;">Event Schedule</a>

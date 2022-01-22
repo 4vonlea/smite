@@ -4,6 +4,6 @@
 	<?= Settings_m::getSetting('ketua_panitia'); ?>
 </p> -->
 <p style="font-size: 18px;text-align:center">
-	Hormat Kami,<br />
+	Yours truly,<br />
 	<img style="width:;height:200px" src="<?= base_url("themes/uploads/ttd_cap.jpg"); ?>">
 </p>

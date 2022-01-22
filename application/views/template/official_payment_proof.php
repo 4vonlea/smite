@@ -52,16 +52,16 @@ header('Content-Type: text/html');
 	<tr style="height:30px">
 		<td style="text-align:center;height:30px">
 			<p>
-				<span style="font-family:times new roman,times,serif;font-size:12pt"><strong>BUKTI REGISTRASI - KUITANSI</strong></span>
+				<span style="font-family:times new roman,times,serif;font-size:12pt"><strong>PAYMENT AND REGISTRATION PROOF - RECEIPT</strong></span>
 			</p>
 			<p style="text-align:right">
 				<span style="font-family:times new roman,times,serif;font-size:12pt;text-align:start;background-color:#ffffff"><?= date("d F Y", strtotime($transaction->updated_at)); ?></span>
 			</p>
 			<p style="text-align:left">
-				Yth. <?= $member->sponsor; ?>
+				Dear. <?= $member->sponsor; ?>
 			</p>
 			<p style="text-align:justify;text-justify:inter-word;">
-				Terimakasih atas registrasi dan pembayaran yang dilakukan untuk berpartisipasi dalam acara <?= Settings_m::getSetting("text_payment_proof"); ?>. Berikut adalah rincian registrasi dan pembayaran:
+				Thank you for your registration and participation in the event <?= Settings_m::getSetting("text_payment_proof"); ?>. Here are the registration and payment details:
 			</p>
 		</td>
 	</tr>
@@ -74,7 +74,7 @@ header('Content-Type: text/html');
 					<td><?= $transaction->id; ?></td>
 				</tr>
 				<tr>
-					<th>Nama Peserta</th>
+					<th>Name</th>
 					<td>:</td>
 					<td><?= $member->fullname; ?></td>
 				</tr>
@@ -96,7 +96,7 @@ header('Content-Type: text/html');
 					</tr>
 				<?php endif; ?>
 				<tr>
-					<th>Acara yang diikuti</th>
+					<th>Followed Event</th>
 					<td>:</td>
 					<td>
 						<ul style="margin: 0px;padding-left:15px">
@@ -111,13 +111,13 @@ header('Content-Type: text/html');
 					</td>
 				</tr>
 				<tr>
-					<th>Total Harga</th>
+					<th>Amount Price</th>
 					<td>:</td>
 					<td>Rp <?= number_format($total, 2, ",", "."); ?>*</td>
 				</tr>
 				<tr>
 					<th>
-						Metode Pembayaran
+						Payment Method
 					</th>
 					<td>:</td>
 					<td>
@@ -126,7 +126,7 @@ header('Content-Type: text/html');
 				</tr>
 				<tr>
 					<td colspan="3">
-						<span style="font-size:9pt">*Total Harga diatas belum termasuk biaya administrasi payment online bank</small>
+						<span style="font-size:9pt">*The amount price above does not include online bank payment administration fees</small>
 					</td>
 				</tr>
 			</table>
@@ -135,8 +135,7 @@ header('Content-Type: text/html');
 	<tr style="height:20px">
 		<td style="height:20px">
 			<p style="text-align:justify;text-justify:inter-word;">
-				Bukti pembayaran (kuitansi) ini merupakan tanda bukti yang sah dan dipergunakan sebagaimana mestinya. Peserta wajib menunjukkan kuitansi ini kepada panitia pada saat registrasi ulang. Terimakasih
-			</p> <br /><br />
+			This payment proof (receipt) is a valid proof and is used properly. Participants must show this receipt to the committee at the time of re-registration. Thank you</p> <br /><br />
 		</td>
 	</tr>
 	<tr>
