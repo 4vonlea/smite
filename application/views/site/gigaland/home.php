@@ -236,7 +236,7 @@
                         <i class="wow fadeInUp bg-color-2 i-boxed icon_group" style="background-color:#F4AD39; color:black;"></i>
                         <div class="text">
                             <h4 class="wow fadeInUp" style="color:#F4AD39;">Speaker</h4>
-                            <h1 class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39;">6</h1>
+                            <h1 class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39;">tba</h1>
                         </div>
                         <i class="wm icon_group" style="color:#F4AD39;"></i>
                     </div>
@@ -246,7 +246,7 @@
                         <i class="wow fadeInUp bg-color-2 i-boxed icon_group" style="background-color:white; color:black;"></i>
                         <div class="text">
                             <h4 class="wow fadeInUp" style="color:white;">Moderator</h4>
-                            <h1 class="wow fadeInUp" data-wow-delay=".25s" style="color:white;">8</h1>
+                            <h1 class="wow fadeInUp" data-wow-delay=".25s" style="color:white;">tba</h1>
                         </div>
                         <i class="wm icon_group" style="color:white;"></i>
                     </div>
@@ -256,7 +256,7 @@
                         <i class="wow fadeInUp bg-color-2 i-boxed icon_group" style="background-color:red; color:black;"></i>
                         <div class="text">
                             <h4 class="wow fadeInUp" style="color:red;">Participant</h4>
-                            <h1 class="wow fadeInUp" data-wow-delay=".25s" style="color:red;">108</h1>
+                            <h1 class="wow fadeInUp" data-wow-delay=".25s" style="color:red;"><?php echo $participant; ?></h1>
                         </div>
                         <i class="wm icon_group" style="color:red;"></i>
                     </div>
@@ -266,7 +266,7 @@
                         <i class="wow fadeInUp bg-color-2 i-boxed icon_document" style="background-color:green; color:black;"></i>
                         <div class="text">
                             <h4 class="wow fadeInUp" style="color:green;">Abstract</h4>
-                            <h1 class="wow fadeInUp" data-wow-delay=".25s" style="color:green;">37</h1>
+                            <h1 class="wow fadeInUp" data-wow-delay=".25s" style="color:green;"><?php echo $paper; ?></h1>
                         </div>
                         <i class="wm icon_document" style="color:green;"></i>
                     </div>
