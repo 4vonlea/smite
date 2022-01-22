@@ -176,7 +176,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                 </div>
 
                 <div class="form-group mb-2">
-                    <select name="selectedPaymentMethod" id="selectedPaymentMethod" :class="{ 'is-invalid':validation_error.selectedPaymentMethod}" class="form-control selectedPaymentMethod mt-2 text-center text-light" style="background-color: #161C31" v-model="selectedPaymentMethod">
+                    <select name="selectedPaymentMethod" id="selectedPaymentMethod" :class="{ 'is-invalid':validation_error.selectedPaymentMethod}" class="form-control selectedPaymentMethod mt-2 text-center text-light" style="background-color: #202429" v-model="selectedPaymentMethod">
                         <option v-for="(method,ind) in paymentMethod" :value="method.key" :selected="method.key == 'manualPayment'">{{method.desc}}</option>
                     </select>
                     <div v-if="validation_error.selectedPaymentMethod" class="invalid-feedback">
@@ -235,7 +235,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                                             <div class="spacer-20"></div>
 
                                             <h5 style="color:#F4AD39;">Your Status*</h5>
-                                            <?= form_dropdown('status', $participantsCategory, '', [':class' => "{'is-invalid':validation_error.status}", 'id' => 'status', 'v-model' => 'status_selected', 'class' => 'form-control mb-0', 'placeholder' => 'Select your status !', 'style' => 'background-color: #161C31']); ?>
+                                            <?= form_dropdown('status', $participantsCategory, '', [':class' => "{'is-invalid':validation_error.status}", 'id' => 'status', 'v-model' => 'status_selected', 'class' => 'form-control mb-0', 'placeholder' => 'Select your status !', 'style' => 'background-color: #202429']); ?>
                                             <div v-if="validation_error.status" class="invalid-feedback">
                                                 {{ validation_error.status }}
                                             </div>
