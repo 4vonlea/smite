@@ -330,7 +330,7 @@
                             4. Download your registration proof, and See your<br>
                             <li style="color:#F4AD39;">1 Account 1 email per user</li>
                             <li style="color:#F4AD39;">E-Certificate will be delivered to registered email</li>
-                            <a href="registration" class="btn-main btn-fullwidth" style="background-color:#F4AD39; color:black;"><b>Don't have account? Click Here to Register</b></a>
+                            <a href="<?=base_url('member/register');?>" class="btn-main btn-fullwidth" style="background-color:#F4AD39; color:black;"><b>Don't have account? Click Here to Register</b></a>
                         </p>
                     </div>
                 </div>
