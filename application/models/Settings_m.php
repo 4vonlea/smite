@@ -124,7 +124,7 @@ class Settings_m extends MY_Model
         $this->db->select('*');
         $this->db->from('settings');
         $this->db->where('name', 'event_countdown');
-        $result = $this->db->get()->result();
+        $result = $this->db->get()->row();
         return $result;
     }
 
@@ -133,7 +133,7 @@ class Settings_m extends MY_Model
         $this->db->select('*');
         $this->db->from('settings');
         $this->db->where('name', 'paper_deadline');
-        $result = $this->db->get()->result();
+        $result = $this->db->get()->row();
         return $result;
     }
 }

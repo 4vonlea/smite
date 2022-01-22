@@ -130,14 +130,14 @@
                                 <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/collections/coll-1.jpg" class="lazy img-fluid" alt=""></a>
                             </div>
                             <div class="nft_coll_pp">
-                                <a href="03_grey-collection.html"><img class="lazy pp-coll" src="<?= base_url('themes/gigaland'); ?>/images/author/author-1.jpg" alt=""></a>
+                                <a href="03_grey-collection.html"><img class="lazy pp-coll" src="<?= base_url('themes/gigaland'); ?>/images/speaker.png" alt=""></a>
                                 <i class="fa fa-check"></i>
                             </div>
                             <div class="nft_coll_info">
-                                <a href="03_grey-collection.html">
-                                    <h4>Abstraction</h4>
+                                <a href="">
+                                    <h4>Speaker 1</h4>
                                 </a>
-                                <span>ERC-192</span>
+                                <span>"Materi"</span>
                             </div>
                         </div>
 
@@ -146,78 +146,78 @@
                                 <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/collections/coll-2.jpg" class="lazy img-fluid" alt=""></a>
                             </div>
                             <div class="nft_coll_pp">
-                                <a href="03_grey-collection.html"><img class="lazy pp-coll" src="<?= base_url('themes/gigaland'); ?>/images/author/author-2.jpg" alt=""></a>
+                                <a href="03_grey-collection.html"><img class="lazy pp-coll" src="<?= base_url('themes/gigaland'); ?>/images/speaker.png" alt=""></a>
                                 <i class="fa fa-check"></i>
                             </div>
                             <div class="nft_coll_info">
-                                <a href="03_grey-collection.html">
-                                    <h4>Patternlicious</h4>
+                                <a href="">
+                                    <h4>Speaker 2</h4>
                                 </a>
-                                <span>ERC-61</span>
+                                <span>"Materi"</span>
                             </div>
                         </div>
 
                         <div class="nft_coll">
                             <div class="nft_wrap">
-                                <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/collections/coll-3.jpg" class="lazy img-fluid" alt=""></a>
+                                <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/collections/coll-1.jpg" class="lazy img-fluid" alt=""></a>
                             </div>
                             <div class="nft_coll_pp">
-                                <a href="03_grey-collection.html"><img class="lazy pp-coll" src="<?= base_url('themes/gigaland'); ?>/images/author/author-3.jpg" alt=""></a>
+                                <a href="03_grey-collection.html"><img class="lazy pp-coll" src="<?= base_url('themes/gigaland'); ?>/images/speaker.png" alt=""></a>
                                 <i class="fa fa-check"></i>
                             </div>
                             <div class="nft_coll_info">
-                                <a href="03_grey-collection.html">
-                                    <h4>Skecthify</h4>
+                                <a href="">
+                                    <h4>Speaker 3</h4>
                                 </a>
-                                <span>ERC-126</span>
+                                <span>"Materi"</span>
                             </div>
                         </div>
 
                         <div class="nft_coll">
                             <div class="nft_wrap">
-                                <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/collections/coll-4.jpg" class="lazy img-fluid" alt=""></a>
+                                <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/collections/coll-2.jpg" class="lazy img-fluid" alt=""></a>
                             </div>
                             <div class="nft_coll_pp">
-                                <a href="03_grey-collection.html"><img class="lazy pp-coll" src="<?= base_url('themes/gigaland'); ?>/images/author/author-4.jpg" alt=""></a>
+                                <a href="03_grey-collection.html"><img class="lazy pp-coll" src="<?= base_url('themes/gigaland'); ?>/images/speaker.png" alt=""></a>
                                 <i class="fa fa-check"></i>
                             </div>
                             <div class="nft_coll_info">
-                                <a href="03_grey-collection.html">
-                                    <h4>Cartoonism</h4>
+                                <a href="">
+                                    <h4>Speaker 4</h4>
                                 </a>
-                                <span>ERC-73</span>
+                                <span>"Materi"</span>
                             </div>
                         </div>
 
                         <div class="nft_coll">
                             <div class="nft_wrap">
-                                <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/collections/coll-5.jpg" class="lazy img-fluid" alt=""></a>
+                                <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/collections/coll-1.jpg" class="lazy img-fluid" alt=""></a>
                             </div>
                             <div class="nft_coll_pp">
-                                <a href="03_grey-collection.html"><img class="lazy pp-coll" src="<?= base_url('themes/gigaland'); ?>/images/author/author-5.jpg" alt=""></a>
+                                <a href="03_grey-collection.html"><img class="lazy pp-coll" src="<?= base_url('themes/gigaland'); ?>/images/speaker.png" alt=""></a>
                                 <i class="fa fa-check"></i>
                             </div>
                             <div class="nft_coll_info">
-                                <a href="03_grey-collection.html">
-                                    <h4>Virtuland</h4>
+                                <a href="">
+                                    <h4>Speaker 5</h4>
                                 </a>
-                                <span>ERC-85</span>
+                                <span>"Materi"</span>
                             </div>
                         </div>
 
                         <div class="nft_coll">
                             <div class="nft_wrap">
-                                <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/collections/coll-6.jpg" class="lazy img-fluid" alt=""></a>
+                                <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/collections/coll-2.jpg" class="lazy img-fluid" alt=""></a>
                             </div>
                             <div class="nft_coll_pp">
-                                <a href="03_grey-collection.html"><img class="lazy pp-coll" src="<?= base_url('themes/gigaland'); ?>/images/author/author-6.jpg" alt=""></a>
+                                <a href="03_grey-collection.html"><img class="lazy pp-coll" src="<?= base_url('themes/gigaland'); ?>/images/speaker.png" alt=""></a>
                                 <i class="fa fa-check"></i>
                             </div>
                             <div class="nft_coll_info">
-                                <a href="03_grey-collection.html">
-                                    <h4>Papercut</h4>
+                                <a href="">
+                                    <h4>Speaker 6</h4>
                                 </a>
-                                <span>ERC-42</span>
+                                <span>"Materi"</span>
                             </div>
                         </div>
 
@@ -236,7 +236,7 @@
                         <i class="wow fadeInUp bg-color-2 i-boxed icon_group" style="background-color:#F4AD39; color:black;"></i>
                         <div class="text">
                             <h4 class="wow fadeInUp" style="color:#F4AD39;">Speaker</h4>
-                            <h1 class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39;">6</h1>
+                            <h1 class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39;">tba</h1>
                         </div>
                         <i class="wm icon_group" style="color:#F4AD39;"></i>
                     </div>
@@ -246,7 +246,7 @@
                         <i class="wow fadeInUp bg-color-2 i-boxed icon_group" style="background-color:white; color:black;"></i>
                         <div class="text">
                             <h4 class="wow fadeInUp" style="color:white;">Moderator</h4>
-                            <h1 class="wow fadeInUp" data-wow-delay=".25s" style="color:white;">8</h1>
+                            <h1 class="wow fadeInUp" data-wow-delay=".25s" style="color:white;">tba</h1>
                         </div>
                         <i class="wm icon_group" style="color:white;"></i>
                     </div>
@@ -256,7 +256,7 @@
                         <i class="wow fadeInUp bg-color-2 i-boxed icon_group" style="background-color:red; color:black;"></i>
                         <div class="text">
                             <h4 class="wow fadeInUp" style="color:red;">Participant</h4>
-                            <h1 class="wow fadeInUp" data-wow-delay=".25s" style="color:red;">108</h1>
+                            <h1 class="wow fadeInUp" data-wow-delay=".25s" style="color:red;"><?php echo $participant; ?></h1>
                         </div>
                         <i class="wm icon_group" style="color:red;"></i>
                     </div>
@@ -266,7 +266,7 @@
                         <i class="wow fadeInUp bg-color-2 i-boxed icon_document" style="background-color:green; color:black;"></i>
                         <div class="text">
                             <h4 class="wow fadeInUp" style="color:green;">Abstract</h4>
-                            <h1 class="wow fadeInUp" data-wow-delay=".25s" style="color:green;">37</h1>
+                            <h1 class="wow fadeInUp" data-wow-delay=".25s" style="color:green;"><?php echo $paper; ?></h1>
                         </div>
                         <i class="wm icon_document" style="color:green;"></i>
                     </div>
@@ -281,9 +281,9 @@
                 <div class="row align-items-center wow fadeInRight" data-wow-delay=".5s">
                     <div class="col-lg-6">
                         <h2 style="color:#F4AD39;">Abstract Countdown<br>
-                            <h5 style="color:#F4AD39;">(November 16, 2021)</h5>
+                            <h5 style="color:#F4AD39;">(<?= date_format($papercountdown, "F d, Y"); ?>)</h5>
                         </h2>
-                        <div class="de_countdown text-center" data-year="2022" data-month="1" data-day="16" data-hour="8"></div>
+                        <div class="de_countdown text-center" data-year="<?= date_format($papercountdown, "Y"); ?>" data-month="<?= date_format($papercountdown, "m"); ?>" data-day="<?= date_format($papercountdown, "d"); ?>" data-hour="<?= date_format($papercountdown, "H"); ?>"></div>
                         <div class="spacer-10"></div>
                         <div class="d-buttons">
                             <a href="#" class="btn-main" data-bs-toggle="modal" data-bs-target="#place_a_bid" style="background-color:#F4AD39; color:black;">Template Journal</a>
@@ -291,9 +291,9 @@
                     </div>
                     <div class="col-lg-6">
                         <h2 style="color:#F4AD39;">Event Coundown<br>
-                            <h5 style="color:#F4AD39;">(November 16, 2021)</h5>
+                            <h5 style="color:#F4AD39;">(<?= date_format($eventcountdown, "F d, Y"); ?>)</h5>
                         </h2>
-                        <div class="de_countdown text-center" data-year="2022" data-month="1" data-day="16" data-hour="8"></div>
+                        <div class="de_countdown text-center" data-year="<?= date_format($eventcountdown, "Y"); ?>" data-month="<?= date_format($eventcountdown, "m"); ?>" data-day="<?= date_format($eventcountdown, "d"); ?>" data-hour="<?= date_format($eventcountdown, "H"); ?>"></div>
                         <div class="spacer-10"></div>
                         <div class="d-buttons">
                             <a href="#" class="btn-main" data-bs-toggle="modal" data-bs-target="#place_a_bid" style="background-color:#F4AD39; color:black;">Event Schedule</a>
@@ -305,37 +305,39 @@
     </section>
     <section id="sign" class="pt30 pb30">
         <div class="container">
-            <div class="nft__item_lg feature-box f-boxed style-3">
-                <div class="row col-lg-12">
-                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="nft__item_lg text-center feature-box f-boxed style-3">
+                <div class="row align-items-center wow fadeInRight" data-wow-delay=".5s">
+                    <div class="col-lg-6">
                         <h1 style="color:#F4AD39;">Sign In</h1>
                         <form name="contactForm" id='contact_form' class="form-border" method="post" action="<?= base_url('site/login'); ?>">
                             <div class="field-set">
-                                <input type='text' name='username' id='email' class="form-control" placeholder="Email">
+                                <input type='text' name='email' id='email' class="form-control" placeholder="Email">
                             </div>
+
                             <div class="field-set">
                                 <input type='password' name='password' id='password' class="form-control" placeholder="Password">
                             </div>
                             <div class="d-buttons">
-                                <button type="submit" class="btn-main btn-fullwidth" style="background-color:#F4AD39; color:black;">Sign</button><br>
+                                <a href="" class="btn-main btn-fullwidth" style="background-color:#F4AD39; color:black;">Sign</a><br>
                             </div>
                         </form>
                     </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                        <h1 style="color:#F4AD39;">How to Register</h1>
-                        <p class="lead" style="color:#F4AD39;">
-                            1. Click <b>Register</b>, and fill your profile <br>
-                            2. Choose you event(and or submit your abstract)<br>
-                            3. Pay via our online banking payment<br>
-                            4. Download your registration proof, and See your<br>
-                            <li style="color:#F4AD39;">1 Account 1 email per user</li>
-                            <li style="color:#F4AD39;">E-Certificate will be delivered to registered email</li>
-                            <a href="registration" class="btn-main btn-fullwidth" style="background-color:#F4AD39; color:black;"><b>Don't have account? Click Here to Register</b></a>
-                        </p>
+                    <div class="col-lg-6">
+                        <h1 style="color:#F4AD39; margin-top:10px;">How to Register</h1>
+                        <td>
+                            <p class="" style="color:#F4AD39; font-size:14px; text-align:left;">
+                                1. Click <b>Register</b>, and fill your profile <br>
+                                2. Choose you event(and or submit your abstract)<br>
+                                3. Pay via our online banking payment<br>
+                                4. Download your registration proof, and See your<br>
+                                <li style="color:#F4AD39; text-align:left; font-size:14px;">1 Account 1 email per user</li>
+                                <li style="color:#F4AD39; text-align:left; font-size:14px;">E-Certificate will be delivered to registered email</li><br>
+                                <a href="<?= base_url('member/register'); ?>" class="btn-main btn-fullwidth" style="background-color:#F4AD39; color:black;"><b>Don't have account? Click Here to Register</b></a>
+                            </p>
+                        </td>
                     </div>
                 </div>
             </div>
-        </div>
     </section>
 
     <!-- ======= Features Section ======= -->
@@ -365,13 +367,18 @@
                                     <h4 style="color:#F4AD39;">Remarks Chairman of the committee</h4>
                                 </a>
                             </li>
+                            <li class="nav-item mt-2" data-aos="fade-up" data-aos-delay="100">
+                                <a class="nav-link" data-bs-toggle="tab" href="#tab-5">
+                                    <h4 style="color:#F4AD39;">Committee</h4>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                     <div class="col-lg-6 order-2 order-lg-2" data-aos="zoom-in">
                         <div class="tab-content">
                             <div class="tab-pane active show" id="tab-1">
                                 <figure>
-                                    <iframe src="<?= base_url('themes/gigaland'); ?>/images/event_small.pdf" width="100%" height="500px"></iframe>
+                                    <iframe src="<?= base_url('themes/gigaland'); ?>/images/event.pdf" width="100%" height="500px"></iframe>
                                 </figure>
                             </div>
 
@@ -395,13 +402,13 @@
 
                             <div class="tab-pane" id="tab-4">
                                 <figure>
-                                    <iframe src="<?= base_url('themes/gigaland'); ?>/images/commitee_small.pdf" width="100%" height="500px"></iframe>
+                                    <iframe src="<?= base_url('themes/gigaland'); ?>/images/remark.pdf" width="100%" height="500px"></iframe>
                                 </figure>
                             </div>
 
                             <div class="tab-pane" id="tab-5">
                                 <figure>
-
+                                    <iframe src="<?= base_url('themes/gigaland'); ?>/images/commitee.pdf" width="100%" height="500px"></iframe>
                                 </figure>
                             </div>
                         </div>
@@ -426,27 +433,30 @@
                     <div class="feature-box f-boxed style-3">
                         <img src="<?= base_url('themes/gigaland'); ?>/images/helpdesk4.png" class="lazy img-fluid" alt="">
                         <div class="text">
-                            <h1 class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39;">1</h1>
+                            <h3 class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39;">Rida Sieseria, MD</h3>
                         </div>
-                        <a target="blank" href="https://wa.me/62XXXXXXXX"><i class="fa fa-whatsapp" style="background-color:#F4AD39; color:black;"></i></a>
+                        <a target="blank" href="https://wa.me/6285163683209"><i class="fa fa-whatsapp" style="background-color:#F4AD39; color:black;"></i></a><br>
+                        <p class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39; font-size:14px;">admin@aomc-pinbanjarmasin2022.com</p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 mb-sm-30 text-center">
                     <div class="feature-box f-boxed style-3">
                         <img src="<?= base_url('themes/gigaland'); ?>/images/helpdesk1.png" class="lazy img-fluid" alt="">
                         <div class="text">
-                            <h1 class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39;">2</h1>
+                            <h3 class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39;">Fachrurrazy, MD</h3>
                         </div>
-                        <a target="blank" href="https://wa.me/62XXXXXXXX"><i class="fa fa-whatsapp" style="background-color:#F4AD39; color:black;"></i></a>
+                        <a target="blank" href="https://wa.me/628179400579"><i class="fa fa-whatsapp" style="background-color:#F4AD39; color:black;"></i></a><br>
+                        <p class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39; font-size:14px;">scientific@aomc-pinbanjarmasin2022.com</p>
                     </div>
                 </div>
                 <div class="col-lg-4 col-md-6 mb-sm-30 text-center">
                     <div class="feature-box f-boxed style-3">
                         <img src="<?= base_url('themes/gigaland'); ?>/images/helpdesk5.png" class="lazy img-fluid" alt="">
                         <div class="text">
-                            <h1 class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39;">3</h1>
+                            <h3 class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39;">Asnelia Devicaesaria, MD</h3>
                         </div>
-                        <a target="blank" href="https://wa.me/62XXXXXXXX"><i class="fa fa-whatsapp" style="background-color:#F4AD39; color:black;"></i></a>
+                        <a target="blank" href="https://wa.me/6285888885010"><i class="fa fa-whatsapp" style="background-color:#F4AD39; color:black;"></i></a><br>
+                        <p class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39; font-size:14px;">sponsor@aomc-pinbanjarmasin2022.com</p>
                     </div>
                 </div>
             </div>
@@ -465,16 +475,16 @@
                         <br>
                         <div class="row text-center">
                             <div class="col-lg-3">
-                                <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/author/author-9.jpg" style="width:100%;" alt="">
+                                <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/ann.jpeg" style="width:100%;" alt="">
                             </div>
                             <div class="col-lg-3">
-                                <img class="lazy wow fadeInRight" data-wow-delay=".6s" src="<?= base_url('themes/gigaland'); ?>/images/author/author-9.jpg" style="width:100%;" alt="">
+                                <img class="lazy wow fadeInRight" data-wow-delay=".6s" src="<?= base_url('themes/gigaland'); ?>/images/ann.jpeg" style="width:100%;" alt="">
                             </div>
                             <div class="col-lg-3">
-                                <img class="lazy wow fadeInRight" data-wow-delay=".4s" src="<?= base_url('themes/gigaland'); ?>/images/author/author-9.jpg" style="width:100%;" alt="">
+                                <img class="lazy wow fadeInRight" data-wow-delay=".4s" src="<?= base_url('themes/gigaland'); ?>/images/ann.jpeg" style="width:100%;" alt="">
                             </div>
                             <div class="col-lg-3">
-                                <img class="lazy wow fadeInRight" data-wow-delay=".2s" src="<?= base_url('themes/gigaland'); ?>/images/author/author-9.jpg" style="width:100%;" alt="">
+                                <img class="lazy wow fadeInRight" data-wow-delay=".2s" src="<?= base_url('themes/gigaland'); ?>/images/ann.jpeg" style="width:100%;" alt="">
                             </div>
                         </div>
                     </div>
@@ -482,65 +492,81 @@
                         <h3 class="style-2 wow fadeInRight" data-wow-delay=".5s" style="color:#F4AD39;">Gold</h3>
                         <br>
                         <div class="row text-center">
-                            <div class="col-lg-2">
-                                <img class="lazy wow fadeInRight" data-wow-delay=".7s" src="<?= base_url('themes/gigaland'); ?>/images/author/author-11.jpg" style="width:100%;" alt="">
+                            <div class="col-lg-4">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/ann.jpeg" style="width:100%;" alt="">
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/ann.jpeg" style="width:100%;" alt="">
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-lg-2">
-                                <img class="lazy wow fadeInRight" data-wow-delay=".6s" src="<?= base_url('themes/gigaland'); ?>/images/author/author-11.jpg" style="width:100%;" alt="">
+                            <div class="col-lg-4">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/ann.jpeg" style="width:100%;" alt="">
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/ann.jpeg" style="width:100%;" alt="">
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-lg-2">
-                                <img class="lazy wow fadeInRight" data-wow-delay=".5s" src="<?= base_url('themes/gigaland'); ?>/images/author/author-11.jpg" style="width:100%;" alt="">
+                            <div class="col-lg-4">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/ann.jpeg" style="width:100%;" alt="">
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/ann.jpeg" style="width:100%;" alt="">
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-lg-2">
-                                <img class="lazy wow fadeInRight" data-wow-delay=".4s" src="<?= base_url('themes/gigaland'); ?>/images/author/author-11.jpg" style="width:100%;" alt="">
-                            </div>
-                            <div class="col-lg-2">
-                                <img class="lazy wow fadeInRight" data-wow-delay=".3s" src="<?= base_url('themes/gigaland'); ?>/images/author/author-11.jpg" style="width:100%;" alt="">
-                            </div>
-                            <div class="col-lg-2">
-                                <img class="lazy wow fadeInRight" data-wow-delay=".2s" src="<?= base_url('themes/gigaland'); ?>/images/author/author-11.jpg" style="width:100%;" alt="">
-                            </div>
+
                         </div>
                     </div>
                     <div class="col-lg-12">
                         <h3 class="style-2 wow fadeInRight" data-wow-delay=".5s" style="color:#F4AD39;">Bronze</h3>
                         <br>
                         <div class="row text-center">
-                            <div class="col-lg-1">
-                                <img class="lazy wow fadeInRight" data-wow-delay=".13s" src="<?= base_url('themes/gigaland'); ?>/images/author/author-2.jpg" style="width:100%;" alt="">
+                            <div class="col-lg-4">
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/ann.jpeg" style="width:100%;" alt="">
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/ann.jpeg" style="width:100%;" alt="">
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/ann.jpeg" style="width:100%;" alt="">
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-lg-1">
-                                <img class="lazy wow fadeInRight" data-wow-delay=".12s" src="<?= base_url('themes/gigaland'); ?>/images/author/author-2.jpg" style="width:100%;" alt="">
+                            <div class="col-lg-4">
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/ann.jpeg" style="width:100%;" alt="">
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/ann.jpeg" style="width:100%;" alt="">
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/ann.jpeg" style="width:100%;" alt="">
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-lg-1">
-                                <img class="lazy wow fadeInRight" data-wow-delay=".11s" src="<?= base_url('themes/gigaland'); ?>/images/author/author-2.jpg" style="width:100%;" alt="">
-                            </div>
-                            <div class="col-lg-1">
-                                <img class="lazy wow fadeInRight" data-wow-delay=".10s" src="<?= base_url('themes/gigaland'); ?>/images/author/author-2.jpg" style="width:100%;" alt="">
-                            </div>
-                            <div class="col-lg-1">
-                                <img class="lazy wow fadeInRight" data-wow-delay=".9s" src="<?= base_url('themes/gigaland'); ?>/images/author/author-2.jpg" style="width:100%;" alt="">
-                            </div>
-                            <div class="col-lg-1">
-                                <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/author/author-2.jpg" style="width:100%;" alt="">
-                            </div>
-                            <div class="col-lg-1">
-                                <img class="lazy wow fadeInRight" data-wow-delay=".7s" src="<?= base_url('themes/gigaland'); ?>/images/author/author-2.jpg" style="width:100%;" alt="">
-                            </div>
-                            <div class="col-lg-1">
-                                <img class="lazy wow fadeInRight" data-wow-delay=".6s" src="<?= base_url('themes/gigaland'); ?>/images/author/author-2.jpg" style="width:100%;" alt="">
-                            </div>
-                            <div class="col-lg-1">
-                                <img class="lazy wow fadeInRight" data-wow-delay=".5s" src="<?= base_url('themes/gigaland'); ?>/images/author/author-2.jpg" style="width:100%;" alt="">
-                            </div>
-                            <div class="col-lg-1">
-                                <img class="lazy wow fadeInRight" data-wow-delay=".4s" src="<?= base_url('themes/gigaland'); ?>/images/author/author-2.jpg" style="width:100%;" alt="">
-                            </div>
-                            <div class="col-lg-1">
-                                <img class="lazy wow fadeInRight" data-wow-delay=".3s" src="<?= base_url('themes/gigaland'); ?>/images/author/author-2.jpg" style="width:100%;" alt="">
-                            </div>
-                            <div class="col-lg-1">
-                                <img class="lazy wow fadeInRight" data-wow-delay=".2s" src="<?= base_url('themes/gigaland'); ?>/images/author/author-2.jpg" style="width:100%;" alt="">
+                            <div class="col-lg-4">
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/ann.jpeg" style="width:100%;" alt="">
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/ann.jpeg" style="width:100%;" alt="">
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/ann.jpeg" style="width:100%;" alt="">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -549,7 +575,6 @@
             </div>
         </div>
     </section>
-
 
 
 
@@ -564,9 +589,14 @@
                         <h5 style="color:#F4AD39;">AOMC</h5>
                         <ul>
                             <li><u href="#">Contact Person</u></li>
-                            <li><a href="#">Name : Is Me (+62############)</a></li>
-                            <li><a href="#">Name : Is Me (+62############)</a></li>
-                            <li><a href="#">Email : email@email.com</a></li>
+                            <li><a href="https://wa.me/6285163683209" target="blank">Rida Sieseria, MD : 085163683209 (Registration and Information)</a></li>
+                            <li><a href="#" target="blank">Email : admin@aomc-pinbanjarmasin2022.com</a></li>
+                            <hr>
+                            <li><a href="https://wa.me/628179400579" target="blank">Fachrurrazy, MD : 08179400579 (Scientific Affair)</a></li>
+                            <li><a href="#" target="blank">Email : scientific@aomc-pinbanjarmasin2022.com</a></li>
+                            <hr>
+                            <li><a href="https://wa.me/6285888885010" target="blank">Asnelia Devicaesaria, MD : 085888885010 (Sponsorship Affair)</a></li>
+                            <li><a href="#" target="blank">Email : sponsor@aomc-pinbanjarmasin2022.com</a></li>
                         </ul>
                     </div>
                 </div>
@@ -576,9 +606,9 @@
                         <ul>
                             <li><b href="#"><u>Domestic Participant (IDR):</u></b></li>
                             <li><a href="#">- Participant</a></li>
-                            <li><a href="#">1. Specialist : 1000000(Early Bird) / 1250000(After 16 May 22)</a></li>
-                            <li><a href="#">2. General Practioner : 500000(Early Bird) / 700000(After 16 May 22)</a></li>
-                            <li><a href="#">3. Resident : 500000(Early Bird) / 700000(After 16 May 22)</a></li>
+                            <li><a href="#">1. Specialist : Rp. 1.000.000(Early Bird) / Rp. 1.250.000(After 16 May 22)</a></li>
+                            <li><a href="#">2. General Practioner : Rp. 500.000(Early Bird) / Rp. 700.000(After 16 May 22)</a></li>
+                            <li><a href="#">3. Resident : Rp. 500.000(Early Bird) / Rp. 700.000(After 16 May 22)</a></li>
                         </ul>
                     </div>
                 </div>

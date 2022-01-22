@@ -45,7 +45,7 @@ function hideForRole($role, $listRole)
    that is currently Firefox-only */
 		* {
 			scrollbar-width: thin;
-			scrollbar-color: #5e72e4 #e9ecef;
+			scrollbar-color: #5603ad #e9ecef;
 		}
 
 		/* Works on Chrome/Edge/Safari */
@@ -58,7 +58,7 @@ function hideForRole($role, $listRole)
 		}
 
 		*::-webkit-scrollbar-thumb {
-			background-color: #5e72e4;
+			background-color: #5603ad;
 			border-radius: 20px;
 			border: 3px solid #e9ecef;
 		}
@@ -89,15 +89,15 @@ function hideForRole($role, $listRole)
 		}
 
 		.table-grid th {
-			background-color: #f6f9fc;
+			background-color: #5603ad;
 			color: #8898aa;
 			border-color: #e9ecef;
 		}
 
 		.pagination .active {
 			color: #fff !important;
-			border-color: #5e72e4;
-			background-color: #5e72e4;
+			border-color: #5603ad;
+			background-color: #5603ad;
 		}
 
 		.action-th {
@@ -319,7 +319,7 @@ function hideForRole($role, $listRole)
 				<div class="row align-items-center justify-content-xl-between">
 					<div class="col-xl-12">
 						<div class="copyright text-center text-xl-left text-muted">
-							&copy; 2020 <a href="https://www.smiteweb.com" class="font-weight-bold ml-1" target="_blank">Design and Created by SMITE App of CV Metamedika</a>
+							&copy; 2021 <a href="https://www.smiteweb.com" class="font-weight-bold ml-1" target="_blank">Design and Created by SMITE App of CV Metamedika</a>
 						</div>
 					</div>
 				</div>
