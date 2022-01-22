@@ -144,8 +144,10 @@ class Transaction extends Admin_Controller
 			$response['model']['details'] = [];
 			foreach ($detail->details as $row) {
 				$temp =  $row->toArray();
+				$member = $temp['product_name'] == 'Unique Additional Price' ? [] : $row->member->toArray();
+
 				$temp['isDeleted'] = 0;
-				$response['model']['details'][] = array_merge(['member' => $row->member->toArray()], $temp);
+				$response['model']['details'][] = array_merge(['member' => $member], $temp);
 			}
 		}
 		$member_id = $group ? current($response['model']['details'])['member_id'] : $response['model']['member']['id'];

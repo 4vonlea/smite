@@ -180,7 +180,7 @@ class Member extends Admin_Controller
 
 	public function register()
 	{
-		$this->load->model(["Category_member_m", "Event_m", "Univ_m"]);
+		$this->load->model(["Category_member_m", "Event_m", "Univ_m", "Country_m"]);
 		$participantsCategory = Category_member_m::asList(Category_member_m::findAll(), 'id', 'kategory', 'Please Select your status');
 		if ($this->input->post()) {
 			$this->load->model(['Member_m', 'User_account_m', 'Notification_m', 'Transaction_m', 'Transaction_detail_m']);
@@ -215,14 +215,20 @@ class Member extends Admin_Controller
 				$data['verified_by_admin'] = 1;
 				$data['verified_email'] = 1;
 				$data['region'] = 0;
-				$data['country'] = 0;
 				$data['image'] = ""; // $upl['file_name'];
 
 				$token = uniqid();
 				$this->Member_m->getDB()->trans_start();
+
+				// NOTE Institution Other
 				if ($data['univ'] == Univ_m::UNIV_OTHER) {
 					$this->Univ_m->insert(['univ_nama' => strtoupper($data['other_institution'])]);
 					$data['univ'] = $this->Univ_m->last_insert_id;
+				}
+				// NOTE Country Other
+				if ($data['country'] == Country_m::COUNTRY_OTHER) {
+					$this->Country_m->insert(['name' => strtoupper($data['other_country'])]);
+					$data['country'] = $this->Country_m->last_insert_id;
 				}
 
 				$this->Member_m->insert(array_intersect_key($data, array_flip($this->Member_m->fillable)), false);
@@ -298,13 +304,24 @@ class Member extends Admin_Controller
 			$this->load->model(["Category_member_m", "Event_m"]);
 			$this->load->helper("form");
 			$events = $this->Event_m->eventAvailableNow(true);
+			// NOTE Univ
 			$univList = $this->Univ_m->find()->order_by("univ_id,univ_nama")->get();
 			$univDl = Univ_m::asList($univList->result_array(), "univ_id", "univ_nama");
-			$this->layout->render("register", [
+			// NOTE Country
+			$countryList = $this->Country_m->find()->order_by("id,name")->get();
+			$countryDl = Univ_m::asList($countryList->result_array(), "id", "name");
+
+			$data = [
 				'participantsCategory' => $participantsCategory,
 				'events' => $events,
-				'univDl' => $univDl
-			]);
+				'univDl' => $univDl,
+				'countryDl' => $countryDl,
+			];
+			// echo '<pre>';
+			// print_r($data);
+			// echo '</pre>';
+			// exit;
+			$this->layout->render("register", $data);
 		}
 	}
 
@@ -450,7 +467,7 @@ class Member extends Admin_Controller
 	 */
 	public function register_group()
 	{
-		$this->load->model(["Category_member_m", "Event_m", "Univ_m"]);
+		$this->load->model(["Category_member_m", "Event_m", "Univ_m", "Country_m"]);
 		$this->load->library('form_validation');
 		$participantsCategory = Category_member_m::asList(Category_member_m::findAll(), 'id', 'kategory');
 		if ($this->input->post()) {
@@ -516,6 +533,7 @@ class Member extends Admin_Controller
 				$model['members'][$key]['password'] = strtoupper(substr(uniqid(), -5));
 				$model['members'][$key]['confirm_password'] = $model['members'][$key]['password'];
 				$model['members'][$key]['phone'] = '0';
+				$model['members'][$key]['country'] = '0';
 				$model['members'][$key]['birthday'] = date('Y-m-d');
 
 				$uploadStatus = true;
@@ -552,13 +570,20 @@ class Member extends Admin_Controller
 					$data['verified_by_admin'] = 1;
 					$data['verified_email'] = 1;
 					$data['region'] = 0;
-					$data['country'] = 0;
 					$data['image'] = ""; // $upl['file_name'];
 
 					$token = uniqid();
+					// NOTE Institution Other
 					if ($data['univ'] == Univ_m::UNIV_OTHER) {
+						$_POST['univ'] = $data['univ'];
 						$this->Univ_m->insert(['univ_nama' => strtoupper($data['other_institution'])]);
 						$data['univ'] = $this->Univ_m->last_insert_id;
+					}
+					// NOTE Country Other
+					if ($data['country'] == Country_m::COUNTRY_OTHER) {
+						$_POST['country'] = $data['country'];
+						$this->Country_m->insert(['name' => strtoupper($data['other_country'])]);
+						$data['country'] = $this->Country_m->last_insert_id;
 					}
 
 					$dataMember = $this->Member_m->findOne(['email' => $data['email']]);
