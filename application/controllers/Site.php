@@ -24,7 +24,6 @@ class Site extends MY_Controller
         $this->load->model('Settings_m', 'SettingM');
         $this->load->model('Upload_video_m', 'VideoM');
         $this->load->model('Transaction_m', 'TransactionM');
-	
     }
 
     public function index()
@@ -32,7 +31,8 @@ class Site extends MY_Controller
         $this->load->view('site/' . $this->theme . '/index');
     }
 
-    public function home(){
+    public function home()
+    {
         $category       = $this->EventM->listcategory();
         $data['query']  = $category['data'];
         $news           = $this->NewsM->listnews();
@@ -42,6 +42,8 @@ class Site extends MY_Controller
 
         $countparticipant = $this->TransactionM->count_participant();
         $data['participant'] = $countparticipant;
+        $countpaper = $this->TransactionM->count_paper();
+        $data['paper'] = $countpaper;
 
         $eventcountdown = $this->SettingM->eventcountdown();
         $data['eventcountdown'] = $eventcountdown ? date_create($eventcountdown->value) : date("Y-m-d H:i:s");
