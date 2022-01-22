@@ -174,9 +174,14 @@
                         <h5 style="color:#F4AD39;">AOMC</h5>
                         <ul>
                             <li><u href="#">Contact Person</u></li>
-                            <li><a href="#">Name : Is Me (+62############)</a></li>
-                            <li><a href="#">Name : Is Me (+62############)</a></li>
-                            <li><a href="#">Email : email@email.com</a></li>
+                            <li><a href="https://wa.me/6285163683209" target="blank">Rida Sieseria, MD : 085163683209 (Registration and Information)</a></li>
+                            <li><a href="#" target="blank">Email : admin@aomc-pinbanjarmasin2022.com</a></li>
+                            <hr>
+                            <li><a href="https://wa.me/628179400579" target="blank">Fachrurrazy, MD : 08179400579 (Scientific Affair)</a></li>
+                            <li><a href="#" target="blank">Email : scientific@aomc-pinbanjarmasin2022.com</a></li>
+                            <hr>
+                            <li><a href="https://wa.me/6285888885010" target="blank">Asnelia Devicaesaria, MD : 085888885010 (Sponsorship Affair)</a></li>
+                            <li><a href="#" target="blank">Email : sponsor@aomc-pinbanjarmasin2022.com</a></li>
                         </ul>
                     </div>
                 </div>
@@ -186,9 +191,9 @@
                         <ul>
                             <li><b href="#"><u>Domestic Participant (IDR):</u></b></li>
                             <li><a href="#">- Participant</a></li>
-                            <li><a href="#">1. Specialist : 1000000(Early Bird) / 1250000(After 16 May 22)</a></li>
-                            <li><a href="#">2. General Practioner : 500000(Early Bird) / 700000(After 16 May 22)</a></li>
-                            <li><a href="#">3. Resident : 500000(Early Bird) / 700000(After 16 May 22)</a></li>
+                            <li><a href="#">1. Specialist : Rp. 1.000.000(Early Bird) / Rp. 1.250.000(After 16 May 22)</a></li>
+                            <li><a href="#">2. General Practioner : Rp. 500.000(Early Bird) / Rp. 700.000(After 16 May 22)</a></li>
+                            <li><a href="#">3. Resident : Rp. 500.000(Early Bird) / Rp. 700.000(After 16 May 22)</a></li>
                         </ul>
                     </div>
                 </div>

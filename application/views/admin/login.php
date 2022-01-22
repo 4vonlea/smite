@@ -29,13 +29,13 @@
 <body>
 <div class="main-content">
     <!-- Header -->
-    <div class="header bg-info py-3 py-lg-3">
-        <div class="container">
-            <div class="header-body text-center mb-7">
-                <div class="row justify-content-center">
-                    <div class="col-lg-5 col-md-6">
+    <div class="header bg-gradient-primary py-7 py-lg-8 pt-lg-9">
+      <div class="container">
+        <div class="header-body text-center mb-7">
+          <div class="row justify-content-center">
+            <div class="col-xl-5 col-lg-6 col-md-8 px-5">
                         <h1 class="text-white">Welcome!</h1>
-                        <p class="text-lead text-light">Login using your email and password you have.</p>
+                        <p class="text-lead text-white">Login using your email and password you have.</p>
                     </div>
                 </div>
             </div>
@@ -102,8 +102,8 @@
             <div class="col-xl-6">
                 <div class="copyright text-center text-xl-left text-muted">
                     Design By
-                    &copy; 2018 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">Creative
-                        Tim</a>
+                    &copy; 2021 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">
+                        by SMITE App of CV Metamedika</a>
                 </div>
             </div>
         </div>
