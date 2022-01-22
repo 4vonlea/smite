@@ -22,9 +22,11 @@ class Register extends MY_Controller
 		$this->load->model('Category_member_m');
 		$this->load->model('Transaction_m');
 		$this->load->model('Univ_m');
+		$this->load->model('Country_m');
 
 		$status = $this->Category_member_m->find()->select("id,kategory,need_verify")->where('is_hide', '0')->get()->result_array();
 		$univ = $this->Univ_m->find()->select("univ_id, univ_nama")->order_by('univ_id')->get()->result_array();
+		$country = $this->Country_m->find()->select("id, name")->order_by('id')->get()->result_array();
 		if ($this->input->post()) {
 
 			$eventAdded = json_decode($this->input->post('eventAdded'));
@@ -45,14 +47,19 @@ class Register extends MY_Controller
 				$data['verified_by_admin'] = !$need_verify;
 				$data['verified_email'] = 0;
 				$data['region'] = 0;
-				$data['country'] = 0;
 				$data['isGroup'] = false;
 
 				$token = uniqid();
 				$this->Member_m->getDB()->trans_start();
+				// NOTE Institution Other
 				if ($data['univ'] == Univ_m::UNIV_OTHER) {
 					$this->Univ_m->insert(['univ_nama' => strtoupper($data['other_institution'])]);
 					$data['univ'] = $this->Univ_m->last_insert_id;
+				}
+				// NOTE Country Other
+				if ($data['country'] == Country_m::COUNTRY_OTHER) {
+					$this->Country_m->insert(['name' => strtoupper($data['other_country'])]);
+					$data['country'] = $this->Country_m->last_insert_id;
 				}
 				$this->Member_m->insert(array_intersect_key($data, array_flip($this->Member_m->fillable)), false);
 				$this->User_account_m->insert([
@@ -102,16 +109,21 @@ class Register extends MY_Controller
 			$this->load->helper("form");
 			$participantsCategory = Category_member_m::asList($status, 'id', 'kategory', 'Please Select your status');
 			$participantsUniv = Univ_m::asList($univ, 'univ_id', 'univ_nama', 'Please Select your institution');
+			$participantsCountry = Country_m::asList($country, 'id', 'name', 'Please Select your country');
 
 			$data = [
 				'participantsCategory' => $participantsCategory,
-				'statusList' => $status,
 				'participantsUniv' => $participantsUniv,
+				'participantsCountry' => $participantsCountry,
+				'statusList' => $status,
 				'univlist' => $univ,
 				'events' => $this->getEvents(),
 				'paymentMethod' => Settings_m::getEnablePayment(),
 			];
-
+			// echo '<pre>';
+			// print_r($data);
+			// echo '</pre>';
+			// exit;
 			$this->layout->render('member/' . $this->theme . '/register', $data);
 		}
 	}
@@ -120,6 +132,7 @@ class Register extends MY_Controller
 	{
 		$this->load->model('Category_member_m');
 		$this->load->model('Univ_m');
+		$this->load->model('Country_m');
 
 		$status = $this->Category_member_m->find()->select("id,kategory,need_verify")->where('is_hide', '0')->get()->result_array();
 		$univ = $this->Univ_m->find()->select("univ_id, univ_nama")->order_by('univ_id')->get()->result_array();
@@ -176,6 +189,8 @@ class Register extends MY_Controller
 				$members[$key]['password'] = strtoupper(substr(uniqid(), -5));
 				$members[$key]['confirm_password'] = $members[$key]['password'];
 				$members[$key]['phone'] = '0';
+				$members[$key]['region'] = '0';
+				$members[$key]['country'] = '0';
 				$members[$key]['birthday'] = date('Y-m-d');
 
 				$members[$key]['status'] = $statusParticipant;
@@ -214,14 +229,23 @@ class Register extends MY_Controller
 					$data['verified_by_admin'] = !$need_verify;
 					$data['verified_email'] = 0;
 					$data['region'] = 0;
-					$data['country'] = 0;
+					// $data['country'] = 0;
 					$data['isGroup'] = true;
 
 					$token = uniqid();
 					$this->Member_m->getDB()->trans_start();
+
+					// NOTE Institution Other
 					if ($data['univ'] == Univ_m::UNIV_OTHER) {
+						$_POST['univ'] = $data['univ'];
 						$this->Univ_m->insert(['univ_nama' => strtoupper($data['other_institution'])]);
 						$data['univ'] = $this->Univ_m->last_insert_id;
+					}
+					// NOTE Country Other
+					if ($data['country'] == Country_m::COUNTRY_OTHER) {
+						$_POST['country'] = $data['country'];
+						$this->Country_m->insert(['name' => strtoupper($data['other_country'])]);
+						$data['country'] = $this->Country_m->last_insert_id;
 					}
 					// NOTE Insert Member
 					$dataMember = $this->Member_m->findOne(['email' => $data['email']]);
@@ -607,7 +631,7 @@ class Register extends MY_Controller
 	 *
 	 * @return void
 	 */
-	public function check_invoice()
+	public function check_invoice($id_invoice = '')
 	{
 		if ($this->input->post()) {
 			$this->load->library('form_validation');
@@ -644,7 +668,10 @@ class Register extends MY_Controller
 			$this->output->set_content_type("application/json")
 				->set_output(json_encode($data));
 		} else {
-			$this->layout->render('member/' . $this->theme . '/check_invoice');
+			$data = [
+				'id_invoice' => $id_invoice,
+			];
+			$this->layout->render('member/' . $this->theme . '/check_invoice', $data);
 		}
 	}
 

@@ -27,11 +27,15 @@ class Member_m extends MY_Model
 			//			['field' => 'address', 'rules' => 'required'],
 			//			['field' => 'city', 'rules' => 'required'],
 			['field' => 'univ', 'rules' => 'required'],
+			['field' => 'country', 'rules' => 'required'],
 			['field' => 'phone', 'rules' => 'required|numeric'],
 			['field' => 'birthday', 'rules' => 'required'],
 		];
 		if (isset($_POST['univ']) && $_POST['univ'] == Univ_m::UNIV_OTHER) {
 			$rules[] = ['field' => 'other_institution', 'label' => 'Other Institution', 'rules' => 'required'];
+		}
+		if (isset($_POST['country']) && $_POST['country'] == Country_m::COUNTRY_OTHER) {
+			$rules[] = ['field' => 'other_country', 'label' => 'Other Country', 'rules' => 'required'];
 		}
 
 		// if (isset($_POST['selectedPaymentMethod'])) {
