@@ -612,13 +612,19 @@ class Area extends MY_Controller
 
 	public function count_followed_events()
 	{
-		$this->load->model(['Transaction_m', 'Member_m', 'Univ_m']);
+		$this->load->model(['Transaction_m', 'Member_m', 'Univ_m', 'Country_m']);
 		$c = $this->Member_m->countFollowedEvent($this->session->user_session['id']);
 		$univ = $this->Univ_m->find()->order_by("univ_nama")->get();
+		$country = $this->Country_m->find()->order_by("name")->get();
 
 		$this->output
 			->set_content_type("application/json")
-			->_display(json_encode(['status' => true, 'count' => $c, 'univ' => Univ_m::asList($univ->result_array(), 'univ_id', 'univ_nama')]));
+			->_display(json_encode([
+				'status' => true,
+				'count' => $c,
+				'univ' => Univ_m::asList($univ->result_array(), 'univ_id', 'univ_nama'),
+				'country' => Country_m::asList($country->result_array(), 'id', 'name')
+			]));
 	}
 
 	public function redirect_client($name)
