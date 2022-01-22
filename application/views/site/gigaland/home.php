@@ -325,16 +325,16 @@
                     <div class="col-lg-6">
                     <h1 style="color:#F4AD39; margin-top:10px;">How to Register</h1>
                     <td>
-                            <p class="" style="color:#F4AD39; font-size:14px; text-align:left;">
-                                1. Click <b>Register</b>, and fill your profile <br>
-                                2. Choose you event(and or submit your abstract)<br>
-                                3. Pay via our online banking payment<br>
-                                4. Download your registration proof, and See your<br>
-                                <li style="color:#F4AD39; text-align:left; font-size:14px;">1 Account 1 email per user</li>
-                                <li style="color:#F4AD39; text-align:left; font-size:14px;">E-Certificate will be delivered to registered email</li><br>
-                                <a href="registration" class="btn-main btn-fullwidth" style="background-color:#F4AD39; color:black;"><b>Don't have account? Click Here to Register</b></a>
-                            </p>
-                        </td>
+                      <p class="" style="color:#F4AD39; font-size:14px; text-align:left;">
+                        1. Click <b>Register</b>, and fill your profile <br>
+                        2. Choose you event(and or submit your abstract)<br>
+                        3. Pay via our online banking payment<br>
+                        4. Download your registration proof, and See your<br>
+                        <li style="color:#F4AD39; text-align:left; font-size:14px;">1 Account 1 email per user</li>
+                        <li style="color:#F4AD39; text-align:left; font-size:14px;">E-Certificate will be delivered to registered email</li><br>
+                        <a href="<?=base_url('member/register');?>" class="btn-main btn-fullwidth" style="background-color:#F4AD39; color:black;"><b>Don't have account? Click Here to Register</b></a>
+                      </p>
+                    </td>
                 </div>
             </div>
         </div>

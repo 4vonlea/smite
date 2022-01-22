@@ -24,9 +24,9 @@
 		padding: 10px 10px;
 	}
 </style>
-<p>Yth, <?=$fullname;?></p>
+<p>Dear, <?=$fullname;?></p>
 <p>
-	Terlampir akun anda serta invoice dan bukti registrasi pada kegiatan <?=Settings_m::getSetting('text_payment_proof');?>.
+	Attached is your account as well as invoice and proof of registration for the event <?=Settings_m::getSetting('text_payment_proof');?>.
 </p>
 	<table>
 		<tr>
@@ -38,23 +38,23 @@
 			<td><?=$password;?></td>
 		</tr>
 		<tr>
-			<th>Nama</th>
+			<th>Name</th>
 			<td><?=$fullname;?></td>
 		</tr>
 		<tr>
 			<th>Status</th>
 			<td><?=$participantsCategory[$status];?></td>
 		</tr>
-		<tr>
+		<!-- <tr>
 			<th>Jenis Kelamin</th>
 			<td><?=$gender == "M" ? "Laki-Laki":"Perempuan";?></td>
-		</tr>
+		</tr> -->
 		<tr>
-			<th>Kota</th>
+			<th>City</th>
 			<td><?=$city?></td>
 		</tr>
 		<tr>
-			<th>Alamat</th>
+			<th>Adress</th>
 			<td><?=$address?></td>
 		</tr>
 </table>
