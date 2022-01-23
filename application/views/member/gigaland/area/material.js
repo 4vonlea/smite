@@ -5,7 +5,7 @@ Vue.filter('formatDate', function(value) {
 });
 export default Vue.component("Material", {
     template:`
-    <div class="col-lg-9">
+    <div class="col-lg-12">
         <page-loader :loading="loading" :fail="fail"></page-loader>
         <div v-if="!loading">
             <div class="overflow-hidden mb-1">

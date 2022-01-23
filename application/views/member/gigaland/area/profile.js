@@ -36,19 +36,19 @@ var PageProfile = Vue.component("PageProfile", {
         </div>
         <form role="form" class="needs-validation" method="post">
             <div class="form-group row mb-2">
-                <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2" >Status Anda Sebagi</label>
+                <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 color-heading" >Status Anda Sebagi</label>
                 <div class="col-lg-9">
                     <input disabled="true" class="form-control"  type="text" :value="user.status_member">
                 </div>
             </div>
             <div class="form-group row mb-2">
-                <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 required">Nama</label>
+                <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 required color-heading">Nama</label>
                 <div class="col-lg-9">
                     <input :disabled="!editing" class="form-control" readonly required="" type="text" v-model="user.fullname">
                 </div>
             </div>
             <div class="form-group row mb-2">
-                <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 required">Jenis Kelamin</label>
+                <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 required color-heading">Jenis Kelamin</label>
                 <div class="col-lg-5">
                     <div class="radio">
                         <label>
@@ -63,7 +63,7 @@ var PageProfile = Vue.component("PageProfile", {
                 </div>
             </div>
             <div class="form-group row mb-2">
-                <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 required">Tangga Lahir</label>
+                <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 required color-heading">Tangga Lahir</label>
                 <div class="col-lg-9">
                     <vuejs-datepicker :disabled="!editing" input-class="form-control"
                                     v-model="user.birthday"
@@ -72,42 +72,49 @@ var PageProfile = Vue.component("PageProfile", {
                 </div>
             </div>
             <div class="form-group row mb-2">
-                <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 required">No Handphone/WA</label>
+                <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 required color-heading">No Handphone/WA</label>
                 <div class="col-lg-9">
                     <input :disabled="!editing" type="text" v-model="user.phone" class="form-control" name="phone"/>
                 </div>
             </div>
 
             <div class="form-group row mb-2">
-                <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 required">Email</label>
+                <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 required color-heading">Email</label>
                 <div class="col-lg-9">
                     <input :disabled="!editing" class="form-control" required="" type="email" v-model="user.email">
                 </div>
             </div>
 
             <div class="form-group row mb-2">
-                <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2" >Kota Tempat Tinggal</label>
+                <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 color-heading" >Negara</label>
+                <div class="col-lg-9 dark-select">
+                    <vue-chosen :disabled="!editing"  v-model="user.country" :options="country_list" placeholder="Pilih Negara"></vue-chosen>
+                </div>
+            </div>
+
+            <div class="form-group row mb-2">
+                <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 color-heading" >Kota Tempat Tinggal</label>
                 <div class="col-lg-9">
                     <input :disabled="!editing" class="form-control" type="text" v-model="user.city" placeholder="City">
                 </div>
             </div>
 
             <div class="form-group row mb-2">
-                <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2" >Institusi</label>
+                <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 color-heading" >Institusi</label>
                 <div class="col-lg-9 dark-select">
                     <vue-chosen :disabled="!editing"  v-model="user.univ" :options="univ_list" placeholder="Pilih Institusi"></vue-chosen>
                 </div>
             </div>
 
             <div class="form-group row mb-2">
-                <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2" >Alamat</label>
+                <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 color-heading" >Alamat</label>
                 <div class="col-lg-9">
                     <textarea :disabled="!editing" class="form-control" v-model="user.address" rows="4" style="background-color: transparent;"></textarea>
                 </div>
             </div>
 
             <div class="form-group row mb-2">
-                <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 required">Sponsor</label>
+                <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 required color-heading">Sponsor</label>
                 <div class="col-lg-9">
                     <input :disabled="!editing" class="form-control" required="" type="text" v-model="user.sponsor">
                 </div>
@@ -178,6 +185,7 @@ var PageProfile = Vue.component("PageProfile", {
             reset: {},
             countFollowed: 0,
             univ_list: [],
+            country_list: [],
         }
     },
     created() {
@@ -195,6 +203,7 @@ var PageProfile = Vue.component("PageProfile", {
                 if (res.status) {
                     page.countFollowed = res.count;
                     page.univ_list = res.univ;
+                    page.country_list = res.country;
                 } else {
                     page.fail = true;
                 }

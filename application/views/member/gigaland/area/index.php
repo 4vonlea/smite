@@ -21,8 +21,13 @@ $userDetail = array_merge($user->toArray(), ['status_member' => $user->status_me
         display: table;
     }
 
-    .color-heading{
-        color:#F4AD39 !important;
+    .color-heading {
+        color: #F4AD39 !important;
+    }
+
+    input.form-control {
+        background-color: transparent !important;
+        color: white;
     }
 </style>
 <div id="app">
@@ -35,7 +40,7 @@ $userDetail = array_merge($user->toArray(), ['status_member' => $user->status_me
                     <div class="de_tab_content">
                         <div class="tab-1">
                             <div class="row wow fadeIn">
-                            <!-- <div class="col-lg-2">
+                                <!-- <div class="col-lg-2">
                                     <div class="field-set" style="color:#F4AD39;">
                                         <img :src="image_link" id="click_profile_img" class="d-banner-img-edit img-fluid" alt="" onclick="$('#file-profile').click();">
                                         <input id="file-profile" accept="image/*" @change="uploadImage" type="file" ref="file" style="display: none">

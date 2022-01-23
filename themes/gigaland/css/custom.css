@@ -11,9 +11,9 @@
 
 /* Some IE 7-9 fun with this next one - filter likes to override background */
 .dark-select .chosen-container-single .chosen-single {
-    background-color: #161C31;
+    background-color: #212428;
     background-image: none;
-    background: #161C31 none top left no-repeat;
+    background: #212428 none top left no-repeat;
     filter: none;
     border: none;
     display: block;
@@ -22,19 +22,19 @@
 }
 
 .dark-select .chosen-container .chosen-drop {
-    border: 1px solid #121212;
+    border: 1px solid white;
 }
 
 .dark-select .chosen-container-single .chosen-single div {
     background-image: -webkit-gradient(linear, left bottom, left top,
-            color-stop(0, #161C31), color-stop(0.6, #121212));
-    background-image: -webkit-linear-gradient(center bottom, #161C31 0%, #121212 60%);
-    background-image: -moz-linear-gradient(center bottom, #161C31 0%, #121212 60%);
-    background-image: -o-linear-gradient(bottom, #161C31 0%, #121212 60%);
-    background-image: -ms-linear-gradient(top, #161C31 0%, #121212 60%);
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#161C31',
+            color-stop(0, #212428), color-stop(0.6, #121212));
+    background-image: -webkit-linear-gradient(center bottom, #212428 0%, #121212 60%);
+    background-image: -moz-linear-gradient(center bottom, #212428 0%, #121212 60%);
+    background-image: -o-linear-gradient(bottom, #212428 0%, #121212 60%);
+    background-image: -ms-linear-gradient(top, #212428 0%, #121212 60%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#212428',
             endColorstr='#121212', GradientType=0);
-    background-image: linear-gradient(top, #161C31 0%, #121212 60%);
+    background-image: linear-gradient(top, #212428 0%, #121212 60%);
     border-left: 1px solid #252525;
 }
 
@@ -43,12 +43,12 @@
 }
 
 .dark-select .chosen-container .chosen-results .highlighted {
-    background: #161C31;
+    background: #212428;
     color: #eeeeee;
 }
 
 .dark-select .chosen-container .chosen-results .no-results {
-    background: #161C31;
+    background: #212428;
 }
 
 .dark-select .chosen-container .chosen-results li em {
@@ -67,9 +67,9 @@
 
 .dark-select .chosen-container-single .chosen-search input,
 .dark-select .chosen-rtl .chosen-search input {
-    background: #161C31 url('https://www.exratione.com/assets/chosen-sprite-dark.png') no-repeat 100% -22px;
+    background: #212428 url('https://www.exratione.com/assets/chosen-sprite-dark.png') no-repeat 100% -22px;
     color: white;
-    border: 1px solid #555555;
+    border: 1px solid white;
 }
 
 .dark-select .chosen-container-multi .chosen-choices .search-choice .search-choice-close {
@@ -86,7 +86,7 @@
 }
 
 .card {
-    background-color: #161C31 !important;
+    background-color: #212428 !important;
     border: 1px solid white !important;
 }
 

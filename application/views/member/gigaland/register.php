@@ -51,14 +51,14 @@ $theme_path = base_url("themes/gigaland") . "/";
             <!-- NOTE Setelah Submmit -->
             <div v-if="page == 'registered'" class="col-lg-8 offset-lg-2">
                 <div class="alert alert-success" style="background-color: #F5AC39;">
-                    <h4 class="text-dark"><i class="fa fa-info"></i> Akunmu berhasil dibuat</h4>
-                    <p>Kami telah mengirim link konfirmasi ke alamat emailmu. Untuk melengkapi proses registrasi, Silahkan klik <i>confirmation link</i>.
-                        Jika tidak menerima email konfirmasi, silakan cek folder spam. Kemudian, mohon pastikan anda memasukan alamat email yg valid saat mengisi form pendaftaran. Jika perlu bantuan, silakan kontak kami.</p>
+                    <h4 class="text-dark"><i class="fa fa-info"></i> Your account has been created</h4>
+                    <p>We have sent a confirmation link to your email address. To complete the registration process, please click <i>confirmation link</i>.
+                        If you don't receive a confirmation email, please check your spam. Then, please make sure you enter a valid email address when filling out the registration form. If you need help, please contact us.</p>
                 </div>
 
                 <div class="card mt-2">
                     <div class="card-header text-center">
-                        <h4 class="m-0 p-0"><strong class="font-weight-extra-bold ">Halaman untuk mengonfirmasi riwayat penagihan dan invoice display</strong></h4>
+                        <h4 class="m-0 p-0"><strong class="font-weight-extra-bold ">Billing Information</strong></h4>
                     </div>
                     <div class="card-body">
                         <table class="table text-light">
@@ -105,8 +105,8 @@ $theme_path = base_url("themes/gigaland") . "/";
                 </div>
 
                 <div class="alert alert-success mt-2" style="background-color: #F5AC39;">
-                    <h4 class="text-dark"><i class="fa fa-info"></i> Konfirmasi Pembayaran</h4>
-                    <p><strong>Untuk melakukan konfirmasi pembayaran silakan login, kemudian akses menu "Keranjang dan Pembayaran"</strong></p>
+                    <h4 class="text-dark"><i class="fa fa-info"></i> Payment confirmation</h4>
+                    <p><strong>To confirm payment, please log in, then access "Keranjang dan Pembayaran"</strong></p>
                 </div>
             </div>
 
@@ -116,7 +116,7 @@ $theme_path = base_url("themes/gigaland") . "/";
 
                 <div class="card mt-2">
                     <div class="card-header text-center">
-                        <h4 class="m-0 p-0"><strong class="font-weight-extra-bold ">Data Akun</strong></h4>
+                        <h4 class="m-0 p-0"><strong class="font-weight-extra-bold ">Account</strong></h4>
                     </div>
                     <div class="card-body">
                         <table class="table text-light">
@@ -127,7 +127,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                                     <th>{{data.email}}</th>
                                 </tr>
                                 <tr>
-                                    <td>Nama</td>
+                                    <td>Name</td>
                                     <td class="text-center">:</td>
                                     <th>{{data.fullname}}</th>
                                 </tr>
@@ -176,7 +176,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                 </div>
 
                 <div class="form-group mb-2">
-                    <select name="selectedPaymentMethod" id="selectedPaymentMethod" :class="{ 'is-invalid':validation_error.selectedPaymentMethod}" class="form-control selectedPaymentMethod mt-2 text-center text-light" style="background-color: #161C31" v-model="selectedPaymentMethod">
+                    <select name="selectedPaymentMethod" id="selectedPaymentMethod" :class="{ 'is-invalid':validation_error.selectedPaymentMethod}" class="form-control selectedPaymentMethod mt-2 text-center text-light" style="background-color: #202429" v-model="selectedPaymentMethod">
                         <option v-for="(method,ind) in paymentMethod" :value="method.key" :selected="method.key == 'manualPayment'">{{method.desc}}</option>
                     </select>
                     <div v-if="validation_error.selectedPaymentMethod" class="invalid-feedback">
@@ -196,8 +196,8 @@ $theme_path = base_url("themes/gigaland") . "/";
             <!-- NOTE Sebelum Submit -->
             <div v-if="page == 'register'" class="col-lg-8 offset-lg-2">
                 <div class="alert alert-success mt-2" style="background-color: #F5AC39;">
-                    <h4 class="text-dark"><i class="fa fa-info"></i> <b>Perhatian</b></h4>
-                    <p>Pastikan alamat email yang dimasukkan valid dan dapat anda akses, karena kami akan mengirimkan kode aktivasi melalui email tersebut. Akun anda tidak dapat digunakan sebelum diaktivasi terlebih dahulu.</p>
+                    <h4 class="text-dark"><i class="fa fa-info"></i> <b>Attention</b></h4>
+                    <p>Make sure the email address entered is valid and you can access it because we will send an activation code via that email. Your account cannot be used until it is activated first.</p>
                 </div>
                 <form id="form-register" class="form-border" ref="form">
                     <div class="de_tab tab_simple">
@@ -235,7 +235,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                                             <div class="spacer-20"></div>
 
                                             <h5 style="color:#F4AD39;">Your Status*</h5>
-                                            <?= form_dropdown('status', $participantsCategory, '', [':class' => "{'is-invalid':validation_error.status}", 'id' => 'status', 'v-model' => 'status_selected', 'class' => 'form-control mb-0', 'placeholder' => 'Select your status !', 'style' => 'background-color: #161C31']); ?>
+                                            <?= form_dropdown('status', $participantsCategory, '', [':class' => "{'is-invalid':validation_error.status}", 'id' => 'status', 'v-model' => 'status_selected', 'class' => 'form-control mb-0', 'placeholder' => 'Select your status !', 'style' => 'background-color: #202429']); ?>
                                             <div v-if="validation_error.status" class="invalid-feedback">
                                                 {{ validation_error.status }}
                                             </div>
@@ -243,7 +243,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                                             <div class="spacer-20"></div>
 
                                             <span v-if="needVerification">
-                                                <h5 style="color:#F4AD39;">Mohon unggah bukti identitas anda* <small>(jpg,jpeg,png)</small></h5>
+                                                <h5 style="color:#F4AD39;">Please upload your proof identity* <small>(jpg,jpeg,png)</small></h5>
                                                 <input type="file" name="proof" accept=".jpg,.png,.jpeg" :class="{'is-invalid':validation_error.proof}" class="form-control-file" />
                                                 <div v-if="validation_error.proof" class="invalid-feedback d-block">
                                                     {{ validation_error.proof }}
@@ -253,7 +253,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                                             </span>
 
                                             <h5 style="color:#F4AD39;"> Full Name*</h5>
-                                            <small>*Mohon mengisi nama dengan lengkap dan benar (beserta gelar) untuk sertifikat</small>
+                                            <small>*Please fill the name completely and correctly (along with your title) for the certificate</small>
                                             <input type="text" :class="{'is-invalid':validation_error.fullname}" class="form-control mb-0" name="fullname" placeholder="Full Name" />
                                             <div v-if="validation_error.fullname" class="invalid-feedback">
                                                 {{ validation_error.fullname }}
@@ -350,10 +350,10 @@ $theme_path = base_url("themes/gigaland") . "/";
                                                 <hr />
                                                 <div class="card">
                                                     <div class="card-header text-center">
-                                                        <h2 class="m-0 p-0"><strong class="font-weight-extra-bold ">Acara</strong></h2>
+                                                        <h2 class="m-0 p-0"><strong class="font-weight-extra-bold ">Event</strong></h2>
                                                     </div>
                                                     <div class="card-body text-center">
-                                                        Silakan pilih acara yang Anda inginkan. *Acara tersedia berdasarkan status dan tanggal Anda
+                                                        Please select the event you want. *Events are available based on your status and date
                                                     </div>
                                                 </div>
 
@@ -368,12 +368,12 @@ $theme_path = base_url("themes/gigaland") . "/";
                                                             <div :id="'accordion-'+index" class="collapse show table-responsive">
                                                                 <div>
                                                                     <div v-if="event.participant >= event.kouta" class="alert alert-warning text-center">
-                                                                        <h4>Maaf Kouta untuk acara ini penuh</h4>
+                                                                        <h4>Sorry, quota for this event is full</h4>
                                                                     </div>
                                                                     <table class="table text-light">
                                                                         <thead>
                                                                             <tr>
-                                                                                <th>Kategori</th>
+                                                                                <th>Category</th>
                                                                                 <th v-for="pricing in event.pricingName" class="text-center"><span v-html="pricing.title"></span></th>
                                                                             </tr>
                                                                         </thead>
@@ -583,6 +583,13 @@ $theme_path = base_url("themes/gigaland") . "/";
                 }).done(function(res) {
                     if (res.statusData == false && res.validation_error) {
                         app.validation_error = res.validation_error
+                        Swal.fire('Fail', 'Some fields are invalid', 'error').then((result) => {
+                            if (result) {
+                                $("html, body").animate({
+                                    scrollTop: 0
+                                }, 1);
+                            }
+                        });
                     } else if (res.statusData == false && res.message) {
                         Swal.fire('Fail', res.message, 'error');
                     } else {
@@ -696,11 +703,11 @@ $theme_path = base_url("themes/gigaland") . "/";
         //         $("#modal-select-payment").modal("show");
 
         //         var invoiceID = app.data.id_invoice;
-        //         var apiKeyEspay = "<?= Settings_m::getEspay()['apiKey']; ?>";
+        //         var apiKeyEspay = "?= Settings_m::getEspay()['apiKey']; ?>";
         //         var data = {
         //             key: apiKeyEspay,
         //             paymentId: invoiceID,
-        //             backUrl: `<?= base_url('member/register/check_invoice'); ?>/${invoiceID}`,
+        //             backUrl: `?= base_url('member/register/check_invoice'); ?>/${invoiceID}`,
         //         };
         //         if (typeof SGOSignature !== "undefined") {
         //             var sgoPlusIframe = document.getElementById("sgoplus-iframe");

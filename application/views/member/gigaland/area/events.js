@@ -1,6 +1,6 @@
 export default Vue.component("PageEvents", {
 	template: `
-        <div class="col-lg-9">
+        <div class="col-lg-12">
             <page-loader :loading="loading" :fail="fail"></page-loader>
             <div v-if="!fail">            
 				<div v-if="user.verified_by_admin == 0" class="alert alert-info">
