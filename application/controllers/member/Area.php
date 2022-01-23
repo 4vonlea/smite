@@ -241,7 +241,7 @@ class Area extends MY_Controller
 	{
 		if ($this->input->method() !== 'post')
 			show_404("Page not found !");
-		$this->load->model("Papers_m");
+		$this->load->model(["Papers_m", "Category_paper_m"]);
 		$papers = Papers_m::findAll(['member_id' => $this->session->user_session['id']]);
 		$response['abstractType'] = Papers_m::$typeAbstract;
 		$response['status'] = Papers_m::$status;
@@ -255,6 +255,10 @@ class Area extends MY_Controller
 			'presentation_deadline' => Settings_m::getSetting('presentation_deadline'),
 			'presentation_cutoff' => Settings_m::getSetting('presentation_cutoff'),
 		];
+		// NOTE Category Paper
+		$categoryPaper = $this->Category_paper_m->find()->order_by("name")->get();
+		$response['categoryPaper'] = Category_paper_m::asList($categoryPaper->result_array(), "id", "name");
+
 		$response['data'] = [];
 		$formatId = Settings_m::getSetting("format_id_paper");
 		foreach ($papers as $paper) {
@@ -266,8 +270,8 @@ class Area extends MY_Controller
 				$temp['type_study_other'] = trim($methods[1]);
 			}
 			$temp['co_author'] = json_decode($temp['co_author'], true);
-
-			$response['data'][] = $temp;
+			$category_paper = $paper->category_paper ? $paper->category_paper->toArray() : [];
+			$response['data'][] = array_merge($temp, ['category_paper' => $category_paper]);
 		}
 		$this->output->set_content_type("application/json")
 			->_display(json_encode($response));
@@ -315,7 +319,7 @@ class Area extends MY_Controller
 			if ($data['price'] > 0 && $feeAlready == false) {
 				$fee->event_pricing_id = 0; //$data['id'];
 				$fee->transaction_id = $transaction->id;
-				$fee->price = 5000+rand(100, 500); //"6000";//$data['price'];
+				$fee->price = 5000 + rand(100, 500); //"6000";//$data['price'];
 				$fee->member_id = $this->session->user_session['id'];
 				$fee->product_name = "Unique Additional Price + Admin Fee";
 				$fee->save();
@@ -471,6 +475,7 @@ class Area extends MY_Controller
 			$paper->type = $this->input->post('type');
 			$paper->introduction = $this->input->post('introduction');
 			$paper->methods = $this->input->post('methods');
+			$paper->category = $this->input->post('category');
 			if ($this->input->post("type_study_other")) {
 				$paper->methods = $paper->methods . ": " . $this->input->post("type_study_other");
 			}
