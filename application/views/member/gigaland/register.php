@@ -596,6 +596,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                         app.page = 'payment';
                         app.data = res.data;
                         app.transactions = res.transactions.cart;
+                        app.initEspayFrame();
                     }
                 }).fail(function(res) {
                     Swal.fire('Fail', 'Server fail to response !', 'error');
@@ -603,12 +604,8 @@ $theme_path = base_url("themes/gigaland") . "/";
                     app.saving = false;
                 });
             },
-            checkout() {
-                let selected = app.paymentMethod.find(data => data.key == app.selectedPaymentMethod);
-                if (selected && selected.key == "espay") {
-                    $("#modal-select-payment").modal("show");
-
-                    var invoiceID = app.data.id_invoice;
+            initEspayFrame(){
+                var invoiceID = app.data.id_invoice;
                     var apiKeyEspay = "<?= Settings_m::getEspay()['apiKey']; ?>";
                     var data = {
                         key: apiKeyEspay,
@@ -621,6 +618,11 @@ $theme_path = base_url("themes/gigaland") . "/";
                             sgoPlusIframe.src = SGOSignature.getIframeURL(data);
                         SGOSignature.receiveForm();
                     }
+            },
+            checkout() {
+                let selected = app.paymentMethod.find(data => data.key == app.selectedPaymentMethod);
+                if (selected && selected.key == "espay") {
+                    $("#modal-select-payment").modal("show");
                 } else {
                     var formData = new FormData(this.$refs.form);
                     // var birthday = moment(formData.get('birthday')).format("Y-MM-DD");

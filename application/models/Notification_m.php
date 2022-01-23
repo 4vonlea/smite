@@ -88,7 +88,6 @@ class Notification_m extends MY_Model{
      * 
      */
     public function sendMessage($to,$subject,$message){
-       return true;
             $message = "#DO NOT REPLY THIS AUTOMATED MESSAGE#<br/>If reply, sent to admin@aomc-pinbanjarmasin2022.com <br/><br/><hr/>".$message;
             $message.="<br/>Best Regards,<br/>AOMC & PIN PERDOSSI 2022<br/>";
             $message.="<br/>Or Contact via WA:";
@@ -104,7 +103,6 @@ class Notification_m extends MY_Model{
      * 
      */
     public function sendMessageWithAttachment($to,$subject,$message,$attachment,$fname = ""){
-        return true;
         $message = "#DO NOT REPLY THIS AUTOMATED MESSAGE#<br/>If reply, sent to admin@aomc-pinbanjarmasin2022.com<br/><br/><hr/>".$message;
         $message.="<br/>Best Regards,<br/>AOMC & PIN PERDOSSI 2022<br/>";
         $message.="<br/>Or Contact via WA:";
