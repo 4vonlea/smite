@@ -88,22 +88,12 @@ class Notification_m extends MY_Model{
      * 
      */
     public function sendMessage($to,$subject,$message){
-        // if($this->getType() == self::TYPE_WA){
-        //     $message = "#DO NOT REPLY THIS AUTOMATED MESSAGE#\nIf reply, sent to panitia.pinv.perdossi@gmail.com\n\n".$message;
-        //     $message.="\n\nBest Regards,\nPanitia PIN PERDOSSI VIRTUAL 2020\n";
-        //     $message.="\nAtau Hubungi via WA:";
-        //     $message.="\ndr. Rahmi Sp.S (081575099960)";
-        //     $message.="\ndr. Putri Sp.S (082274309675)";
-        //     $message.="\ndr. Ade Sp.S (081285856801)";    
-        // }else{
-            $message = "#DO NOT REPLY THIS AUTOMATED MESSAGE#<br/>If reply, sent to panitia.pinv.perdossi@gmail.com <br/><br/><hr/>".$message;
-            $message.="<br/>Best Regards,<br/>Panitia PIN PERDOSSI VIRTUAL 2020<br/>";
-            $message.="<br/>Atau Hubungi via WA:";
-            $message.="<br/>dr. Rahmi Sp.S (081575099960)";
-            $message.="<br/>dr. Putri Sp.S (082274309675)";
-            $message.="<br/>dr. Ade Sp.S (081285856801)";    
-        // }
-
+            $message = "#DO NOT REPLY THIS AUTOMATED MESSAGE#<br/>If reply, sent to admin@aomc-pinbanjarmasin2022.com <br/><br/><hr/>".$message;
+            $message.="<br/>Best Regards,<br/>AOMC & PIN PERDOSSI 2022<br/>";
+            $message.="<br/>Or Contact via WA:";
+            $message.="<br/>Rida Sieseria, MD (085163683209) - Registration and information";
+            $message.="<br/>Fachrurrazy, MD (08179400579) - Scientific Affair";
+            $message.="<br/>Asnelia Devicaesaria, MD (085888885010) - Sponsorship Affair";    
         $class = $this->getClass();
         if($class)
             return $class->sendMessage($to,$subject,$message);
@@ -113,12 +103,12 @@ class Notification_m extends MY_Model{
      * 
      */
     public function sendMessageWithAttachment($to,$subject,$message,$attachment,$fname = ""){
-        $message = "#DO NOT REPLY THIS AUTOMATED MESSAGE#<br/>If reply, sent to panitia.pinv.perdossi@gmail.com <br/><br/><hr/>".$message;
-        $message.="<br/>Best Regards,<br/>Panitia PIN PERDOSSI VIRTUAL 2020<br/>";
-        $message.="<br/>Atau Hubungi via WA:";
-        $message.="<br/>dr. Rahmi Sp.S (081575099960)";
-        $message.="<br/>dr. Putri Sp.S (082274309675)";
-        $message.="<br/>dr. Ade Sp.S (081285856801)";
+        $message = "#DO NOT REPLY THIS AUTOMATED MESSAGE#<br/>If reply, sent to admin@aomc-pinbanjarmasin2022.com<br/><br/><hr/>".$message;
+        $message.="<br/>Best Regards,<br/>AOMC & PIN PERDOSSI 2022<br/>";
+        $message.="<br/>Or Contact via WA:";
+        $message.="<br/>Rida Sieseria, MD (085163683209) - Registration and information";
+        $message.="<br/>Fachrurrazy, MD (08179400579) - Scientific Affair";
+        $message.="<br/>Asnelia Devicaesaria, MD (085888885010) - Sponsorship Affair";
 
         $class = $this->getClass();
         if($class)

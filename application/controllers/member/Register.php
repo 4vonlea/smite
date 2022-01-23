@@ -27,6 +27,7 @@ class Register extends MY_Controller
 		$status = $this->Category_member_m->find()->select("id,kategory,need_verify")->where('is_hide', '0')->get()->result_array();
 		$univ = $this->Univ_m->find()->select("univ_id, univ_nama")->order_by('univ_id')->get()->result_array();
 		$country = $this->Country_m->find()->select("id, name")->order_by('id')->get()->result_array();
+		$country[] = ['id'=>Country_m::COUNTRY_OTHER,'name'=>'Other Country'];
 		if ($this->input->post()) {
 
 			$eventAdded = json_decode($this->input->post('eventAdded'));
@@ -644,7 +645,7 @@ class Register extends MY_Controller
 					$transaction = $transaction->toArray();
 					$transaction['description'] = ucwords(Transaction_m::$transaction_status[$transaction['status_payment']]);
 
-					if ($transaction['status_payment'] == 'settlement') {
+					if ($transaction['status_payment'] == Transaction_m::STATUS_FINISH) {
 						$transaction['status_payment'] = 'Finished';
 					} else {
 						$transaction['status_payment'] = ucwords(str_replace('_', ' ', $transaction['status_payment']));

@@ -294,11 +294,15 @@ class Payment extends MY_Controller
 		$message_payment = json_encode($this->input->post());
 		$status = '5';
 		if(in_array($this->input->ip_address(),["::1","127.0.0.1","139.255.109.146","116.90.162.173"])){
-			$status = $this->Transaction_m->update(['message_payment'=>$message_payment,'status_payment'=>Transaction_m::STATUS_FINISH],$order_id);
+			$signature = $this->input->post("signature");
+			if($this->check_signature($signature,$order_id,"PAYMENTREPORT",$this->input->post("rq_datetime"))){
+				$statusPayment = $this->input->post("tx_status") == "S" ? Transaction_m::STATUS_FINISH : Transaction_m::STATUS_NEED_VERIFY;
+				$status = $this->Transaction_m->update(['message_payment'=>$message_payment,'status_payment'=>$statusPayment],$order_id);
+			}
 		}
 		$this->check_payment($order_id);
-		$this->log("notif".$status,[$success_flag,$error_message,$reconcile_id ,$order_id,$reconcile_datetime]);
-		echo implode(", ",[$success_flag,$error_message,$reconcile_id ,$order_id,$reconcile_datetime]);
+		$this->log("notif",[$success_flag,$error_message,$reconcile_id ,$order_id,$reconcile_datetime]);
+		echo implode(",",[$success_flag,$error_message,$reconcile_id ,$order_id,$reconcile_datetime]);
 	}
 
 	public function check_payment($invoice = null){
@@ -359,6 +363,14 @@ class Payment extends MY_Controller
 		}
 		$sign = strtoupper($sign);
 		return hash("sha256",$sign);
+	}
+
+	protected function check_signature($signatureToValidate,$order_id,$service_name,$rq_datetime){
+		$espayConfig = Settings_m::getEspay();
+		$keySignature = $espayConfig['signature'];
+		$sign = "##$keySignature##$rq_datetime##$order_id##$service_name##";
+		$sign = strtoupper($sign);
+		return $signatureToValidate == hash("sha256",$sign);
 	}
 
 	public function settlement_espay()
