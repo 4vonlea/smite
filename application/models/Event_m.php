@@ -54,8 +54,15 @@ class Event_m extends MY_Model
 
 		$filter = ($isManual ? [] : ['show' => '1']);
 		$this->load->model("Transaction_m");
-		$result = $this->setAlias("t")->find()->select("t.name as event_name,event_pricing.name as name_pricing,event_pricing.price as price_r,event_pricing.price_in_usd as price_in_usd,event_pricing.id as id_price,")
-			->select("condition,condition_date,kategory")
+		$result = $this->setAlias("t")->find()->select("t.name as event_name,
+				event_pricing.name as name_pricing,
+				event_pricing.price as price_r,
+				event_pricing.price_in_usd as price_in_usd,
+				event_pricing.id as id_price,
+			")
+			->select("condition,
+				condition_date,
+				kategory")
 			->where($filter)
 			->join("event_pricing", "t.id = event_id")
 			->order_by("t.id,event_pricing.name,event_pricing.condition_date")->get();
@@ -148,8 +155,21 @@ class Event_m extends MY_Model
 	{
 		$filter = array_merge($filter, ['show' => '1']);
 		$this->load->model("Transaction_m");
-		$result = $this->setAlias("t")->find()->select("t.id as id_event,t.kouta,t.name as event_name,event_pricing.name as name_pricing,event_pricing.price as price_r,event_pricing.id as id_price,td.id as followed,COALESCE(checkout,0) as checkout,tr.status_payment")
-			->select("condition,condition_date,kategory,t.special_link")
+		$result = $this->setAlias("t")->find()->select("t.id as id_event,
+				t.kouta,
+				t.name as event_name,
+				event_pricing.name as name_pricing,
+				event_pricing.price as price_r,
+				event_pricing.price_in_usd as price_in_usd,
+				event_pricing.id as id_price,
+				td.id as followed,
+				COALESCE(checkout,0) as checkout,
+				tr.status_payment
+			")
+			->select("condition,
+				condition_date,
+				kategory,
+				t.special_link")
 			->where($filter)
 			->join("event_pricing", "t.id = event_id")
 			->join("transaction_details td", "td.event_pricing_id = event_pricing.id AND td.member_id = '$member_id'", "left")
@@ -210,6 +230,7 @@ class Event_m extends MY_Model
 								$row['condition'] => [
 									'id' => $row['id_price'],
 									'price' => $row['price_r'],
+									'price_in_usd' => $row['price_in_usd'],
 									'available' => $avalaible,
 									'added' => $added,
 									'waiting_payment' => $waiting_payment
@@ -233,12 +254,28 @@ class Event_m extends MY_Model
 					$return[$index]['pricingName'][$pId] = [
 						'name' => $row['name_pricing'],
 						'title' => $title,
-						'pricing' => [$row['condition'] => ['id' => $row['id_price'], 'price' => $row['price_r'], 'available' => $avalaible, 'added' => $added, 'waiting_payment' => $waiting_payment]]
+						'pricing' => [
+							$row['condition'] => [
+								'id' => $row['id_price'],
+								'price' => $row['price_r'],
+								'price_in_usd' => $row['price_in_usd'],
+								'available' => $avalaible,
+								'added' => $added,
+								'waiting_payment' => $waiting_payment
+							]
+						]
 					];
 					$tempPricing = $row['name_pricing'];
 				} else {
 					if ($row['checkout'] == 0 || $waiting_payment || in_array($row['status_payment'], [Transaction_m::STATUS_EXPIRE, Transaction_m::STATUS_DENY]))
-						$return[$index]['pricingName'][$pId]['pricing'][$row['condition']] = ['id' => $row['id_price'], 'price' => $row['price_r'], 'available' => $avalaible, 'added' => $added, 'waiting_payment' => $waiting_payment];
+						$return[$index]['pricingName'][$pId]['pricing'][$row['condition']] = [
+							'id' => $row['id_price'],
+							'price' => $row['price_r'],
+							'price_in_usd' => $row['price_in_usd'],
+							'available' => $avalaible,
+							'added' => $added,
+							'waiting_payment' => $waiting_payment
+						];
 				}
 			}
 		}

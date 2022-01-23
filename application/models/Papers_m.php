@@ -53,6 +53,7 @@ class Papers_m extends MY_Model
 			]], 'errors' => ['max_word' => '{field} Maksimal 300 Kata']],
 			//			['field' => 'aims', 'label' => 'aims', 'rules' => 'required'],
 			['field' => 'methods', 'label' => 'Type Of Study', 'rules' => 'required'],
+			['field' => 'category', 'label' => 'Category Paper', 'rules' => 'required'],
 			//			['field' => 'result', 'label' => 'result', 'rules' => 'required'],
 			//			['field' => 'conclusion', 'label' => 'conclusion', 'rules' => 'required'],
 			//			['field' => 'type_presence', 'label' => 'Mode Of Presentation', 'rules' => 'required'],
@@ -64,11 +65,38 @@ class Papers_m extends MY_Model
 		$default =  [
 			'relationships' => [
 				'member' => ['members', 'member.id = member_id'],
+				'category_paper' => ['category_paper', 'category_paper.id = category', 'left'],
 				'st' => ['settings', 'st.name = "format_id_paper"', "left"]
 			],
 			'select' => [
-				'id_paper' => 'CONCAT(st.value,LPAD(t.id,3,0))', 't_id' => 't.id', 'fullname', 'title', 'status' => 't.status', 't_created_at' => 't.created_at', 'm_id' => 'member.id', 'author' => 'member.fullname', 'filename', 'reviewer', 'introduction', 'aims', 'methods', 'conclusion', 'co_author', 'result', 'message', 'feedback', 'type_presence', 'fullpaper', 'poster',
-				"status_fullpaper", "status_presentasi", "feedback_file_fullpaper", "feedback_fullpaper", "feedback_presentasi", "feedback_file_presentasi",
+				'id_paper' => 'CONCAT(st.value,LPAD(t.id,3,0))',
+				't_id' => 't.id', 'fullname',
+				'title',
+				'status' => 't.status',
+				't_created_at' => 't.created_at',
+				'm_id' => 'member.id',
+				'author' => 'member.fullname',
+				'category_name' => 'category_paper.name',
+				'category_id' => 'category_paper.id',
+				'filename',
+				'reviewer',
+				'introduction',
+				'aims',
+				'methods',
+				'conclusion',
+				'co_author',
+				'result',
+				'message',
+				'feedback',
+				'type_presence',
+				'fullpaper',
+				'poster',
+				"status_fullpaper",
+				"status_presentasi",
+				"feedback_file_fullpaper",
+				"feedback_fullpaper",
+				"feedback_presentasi",
+				"feedback_file_presentasi",
 				'score'
 			]
 		];
@@ -182,5 +210,10 @@ class Papers_m extends MY_Model
 		$this->db->where('status', '2');
 		$result = $this->db->get();
 		return $result->num_rows();
+	}
+
+	public function category_paper()
+	{
+		return $this->hasOne("Category_paper_m", "id", "category");
 	}
 }
