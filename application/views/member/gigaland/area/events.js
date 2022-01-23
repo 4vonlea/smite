@@ -51,7 +51,7 @@ export default Vue.component("PageEvents", {
 														<td>{{ member }}</td>
 														<td v-for="pricing in event.pricingName" class="text-center">
 															<span v-if="pricing.pricing[member]">
-															{{ formatCurrency(pricing.pricing[member].price) }}<br/>
+															{{ formatCurrency(pricing.pricing[member].price) }} / {{ formatCurrency(pricing.pricing[member].price_in_usd, 'USD') }}<br/>
 															<button @click="addToCart(pricing.pricing[member],member,event.name)" v-if="pricing.pricing[member].available && !pricing.pricing[member].added && !pricing.pricing[member].waiting_payment" :disabled="adding"  class="btn btn-sm btn-warning"><i v-if="adding" class="fa fa-spin fa-spinner"></i> Add To Cart</button>
 															<button v-if="!pricing.pricing[member].available" style="cursor:not-allowed;color:#fff;" aria-disabled="true"  disabled class="btn btn-sm btn-danger">Not Available</button>
 															<button v-if="pricing.pricing[member].waiting_payment" style="cursor:not-allowed;color:#fff;" aria-disabled="true"  disabled class="btn btn-sm btn-info">Waiting Payment</button>
@@ -139,8 +139,11 @@ export default Vue.component("PageEvents", {
 				page.loading = false;
 			});
 		},
-		formatCurrency(price){
-			return new Intl.NumberFormat("id-ID",{ style: 'currency',currency:"IDR"} ).format(price);
+		formatCurrency(price, currency = 'IDR'){
+			return new Intl.NumberFormat("id-ID",{ 
+				style: 'currency',
+				currency: currency
+			}).format(price);
 		}
 	}
 });
