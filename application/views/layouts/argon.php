@@ -45,7 +45,7 @@ function hideForRole($role, $listRole)
    that is currently Firefox-only */
 		* {
 			scrollbar-width: thin;
-			scrollbar-color: #5603ad #e9ecef;
+			scrollbar-color: #ced4da #e9ecef;
 		}
 
 		/* Works on Chrome/Edge/Safari */
@@ -58,7 +58,7 @@ function hideForRole($role, $listRole)
 		}
 
 		*::-webkit-scrollbar-thumb {
-			background-color: #5603ad;
+			background-color: #ced4da;
 			border-radius: 20px;
 			border: 3px solid #e9ecef;
 		}
@@ -89,7 +89,7 @@ function hideForRole($role, $listRole)
 		}
 
 		.table-grid th {
-			background-color: #5603ad;
+			background-color: #ced4da;
 			color: #8898aa;
 			border-color: #e9ecef;
 		}
@@ -97,7 +97,7 @@ function hideForRole($role, $listRole)
 		.pagination .active {
 			color: #fff !important;
 			border-color: #5603ad;
-			background-color: #5603ad;
+			background-color: #ced4da;
 		}
 
 		.action-th {
@@ -250,12 +250,12 @@ function hideForRole($role, $listRole)
 				<ul class="navbar-nav mb-md-3">
 					<li class="nav-item  <?= hideForRole($role, ['3']); ?>">
 						<a class="nav-link" href="<?= base_url("admin/member/register"); ?>">
-							<i class="ni ni-spaceship text-green"></i> Manual Registration
+							<i class="ni ni-spaceship text-green"></i> Individual Registration
 						</a>
 					</li>
 					<li class="nav-item  <?= hideForRole($role, ['3']); ?>">
 						<a class="nav-link" href="<?= base_url("admin/member/register_group"); ?>">
-							<i class="ni ni-spaceship text-green"></i> Manual Group Registration
+							<i class="ni ni-spaceship text-green"></i> Group Registration
 						</a>
 					</li>
 					<li class="nav-item  <?= hideForRole($role, ['3', '4']); ?>">
@@ -319,7 +319,7 @@ function hideForRole($role, $listRole)
 				<div class="row align-items-center justify-content-xl-between">
 					<div class="col-xl-12">
 						<div class="copyright text-center text-xl-left text-muted">
-							&copy; 2021 <a href="https://www.smiteweb.com" class="font-weight-bold ml-1" target="_blank">Design and Created by SMITE App of CV Metamedika</a>
+							&copy; 2022 <a href="https://www.smiteweb.com" class="font-weight-bold ml-1" target="_blank">Design and Created by SMITE App of CV Metamedika</a>
 						</div>
 					</div>
 				</div>

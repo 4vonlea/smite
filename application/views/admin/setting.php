@@ -11,7 +11,7 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/vue-ctk-date-time-picker@2.5.0/dist/vue-ctk-date-time-picker.css">
 <?php $this->layout->end_head(); ?>
 
-<div class="header bg-info pb-8 pt-5 pt-md-7"></div>
+<div class="header bg-primary pb-8 pt-5 pt-md-7"></div>
 <div class="container-fluid mt--7">
 	<div class="row mb-2">
 		<div class="col">

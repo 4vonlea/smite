@@ -10,7 +10,7 @@ $this->layout->begin_head();
 <link href="<?= base_url(); ?>themes/script/chosen/chosen.css" rel="stylesheet">
 <?php $this->layout->end_head(); ?>
 
-<div class="header bg-info pb-8 pt-5 pt-md-8" xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml"></div>
+<div class="header bg-primary pb-8 pt-5 pt-md-8" xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml"></div>
 <div class="container-fluid mt--7">
 	<div class="row">
 		<div class="col-md-12">
@@ -66,7 +66,6 @@ $this->layout->begin_head();
 									<th>d</th>
 									<th>Events Name</th>
 									<th>Price</th>
-									<th>Price In USD</th>
 								</tr>
 								<tr v-for="(ev,index) in filteredEvents">
 									<td>
@@ -74,7 +73,6 @@ $this->layout->begin_head();
 									</td>
 									<td>{{ index }}</td>
 									<td>{{ formatCurrency(ev.price) }}</td>
-									<td>{{ formatCurrency(ev.price_in_usd, 'USD') }}</td>
 								</tr>
 								<!-- <tfoot>
 									<th colspan="2">Total Price</th>
@@ -170,17 +168,12 @@ $this->layout->begin_head();
 											</div>
 										</td> -->
 										<td class="text-center">
-											<button @click="model.members.splice(index,1)" type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+											<button @click="members.splice(index,1)" type="button" class="btn btn-danger"><i class="fa fa-trash"></i></button>
 										</td>
 									</tr>
 								</tbody>
 							</table>
 							<small class="row col-12" for="">*PLEASE FILL YOUR NAME CORRECTLY FOR YOUR CERTIFICATE</small>
-							<table class="table table-bordered">
-								<tr>
-									<td class="text-center">{{ formatCurrency(total) }}</td>
-								</tr>
-							</table>
 						</div>
 
 
@@ -235,7 +228,6 @@ $this->layout->begin_head();
 						total += parseFloat(events[key].price);
 					}
 				});
-				total = total * this.model.members.length;
 				return total;
 			},
 			filteredEvents() {
@@ -311,10 +303,10 @@ $this->layout->begin_head();
 					app.saving = false;
 				});
 			},
-			formatCurrency(price, currency = 'IDR') {
+			formatCurrency(price) {
 				return new Intl.NumberFormat("id-ID", {
 					style: 'currency',
-					currency: currency
+					currency: "IDR"
 				}).format(price);
 			},
 			addMembers() {

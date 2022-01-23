@@ -444,7 +444,7 @@
                 </div>
                 <div class="col-lg-4 col-md-6 mb-sm-30 text-center">
                     <div class="feature-box f-boxed style-3">
-                        <img src="<?= base_url('themes/gigaland'); ?>/images/helpdesk7.png" class="lazy img-fluid" style="width:600px;" alt="">
+                        <img src="<?= base_url('themes/gigaland'); ?>/images/helpdesk7.png" class="lazy img-fluid" style="width:600px;" alt=""><br><br>
                         <div class="text">
                             <h3 class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39;">Fachrurrazy, MD</h3>
                         </div>

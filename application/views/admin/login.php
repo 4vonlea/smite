@@ -29,11 +29,11 @@
 <body>
 <div class="main-content">
     <!-- Header -->
-    <div class="header bg-gradient-primary py-7 py-lg-8 pt-lg-9">
+    <div class="header bg-gradient-primary py-3 py-lg-6 pt-lg-7">
       <div class="container">
-        <div class="header-body text-center mb-7">
+        <div class="header-body text-center mb-5">
           <div class="row justify-content-center">
-            <div class="col-xl-5 col-lg-6 col-md-8 px-5">
+            <div class="col-xl-3 col-lg-4 col-md-4 px-3">
                         <h1 class="text-white">Welcome!</h1>
                         <p class="text-lead text-white">Login using your email and password you have.</p>
                     </div>
@@ -96,14 +96,14 @@
     </div>
 </div>
 <!-- Footer -->
-<footer class="py-5">
+<footer class="py-5" id="footer-main">
     <div class="container">
         <div class="row align-items-center justify-content-xl-between">
             <div class="col-xl-6">
                 <div class="copyright text-center text-xl-left text-muted">
-                    Design By
-                    &copy; 2021 <a href="https://www.creative-tim.com" class="font-weight-bold ml-1" target="_blank">
-                        by SMITE App of CV Metamedika</a>
+                    Design
+                    &copy; 2022 <a href="https://www.smiteweb.com/" class="font-weight-bold ml-1" target="_blank">
+                        By SMITE App of CV Metamedika</a>
                 </div>
             </div>
         </div>

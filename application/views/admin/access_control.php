@@ -1,4 +1,4 @@
-<div class="header bg-info pb-8 pt-5 pt-md-8" xmlns:v-bind="http://www.w3.org/1999/xhtml"
+<div class="header bg-primary pb-8 pt-5 pt-md-8" xmlns:v-bind="http://www.w3.org/1999/xhtml"
 	 xmlns:v-bind="http://www.w3.org/1999/xhtml"></div>
 <div class="container-fluid mt--7">
 	<div class="col-xl-12">
