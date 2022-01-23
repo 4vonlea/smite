@@ -432,13 +432,13 @@ class Register extends MY_Controller
 				$detail->save();
 				if ($event['price'] > 0 && $feeAlready == false) {
 
-					$check = $data['isGroup'] ? $this->Transaction_detail_m->findOne(['transaction_id' => $transaction->id, 'member_id' => $data['bill_to'], 'product_name' => 'Unique Additional Price']) : false;
+					$check = $data['isGroup'] ? $this->Transaction_detail_m->findOne(['transaction_id' => $transaction->id, 'member_id' => $data['bill_to'], 'product_name' => 'Unique Additional Price + Admin Fee']) : false;
 					if (!$check) {
 						$fee->event_pricing_id = 0; //$event['id'];
 						$fee->transaction_id = $transaction->id;
-						$fee->price = rand(100, 500); //"6000";//$event['price'];
+						$fee->price = 5000+rand(100, 500); //"6000";//$event['price'];
 						$fee->member_id = $data['isGroup'] ? $data['bill_to'] : $data['id'];
-						$fee->product_name = "Unique Additional Price";
+						$fee->product_name = "Unique Additional Price + Admin Fee";
 						$fee->save();
 					}
 				}

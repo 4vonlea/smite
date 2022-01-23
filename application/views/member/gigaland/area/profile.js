@@ -12,29 +12,29 @@ var PageProfile = Vue.component("PageProfile", {
             </div>
             <div class="col-md-6">
                 <div class="overflow-hidden mb-1">
-                    <h2 class="font-weight-normal color-heading text-7 mb-0"><strong class="font-weight-extra-bold">Profil Ku</strong></h2>
+                    <h2 class="font-weight-normal color-heading text-7 mb-0"><strong class="font-weight-extra-bold">My Profile</strong></h2>
                 </div>
                 <div class="overflow-hidden mb-4 pb-3">
-                    <p class="mb-0">Profil Anda saat ini, Anda dapat mengedit profil Anda dengan mengklik tombol edit.</p>
+                    <p class="mb-0">Your current profile, you can edit your profile by clicking the edit button.</p>
                 </div>
             </div>
             <div class="col-md-5 text-right">
                 <button @click="[editing = !editing]" class="btn btn-secondary">
-                      <i class="fa fa-edit"></i> {{ editing ? 'Batal Edit':'Edit Profil' }}
+                      <i class="fa fa-edit"></i> {{ editing ? 'Undo Changes':'Edit Profile' }}
                 </button>
-                <button data-toggle="modal" data-target="#reset-password" class="btn btn-secondary"><i class="fa fa-key"></i> Ganti Password</button>
+                <button data-bs-toggle="modal" data-bs-target="#reset-password" class="btn btn-secondary"><i class="fa fa-key"></i> Change Password</button>
             </div>
         </div>
         <div v-if="countFollowed == 0" class="alert alert-info text-center">
-            <h4 class="mb-0 text-dark">Anda harus belum mengikuti sebuah acara</h4>
+            <h4 class="mb-0 text-dark">There are no events that you follow</h4>
         </div>
         
          <div v-if="user.verified_by_admin == 0" class="alert alert-info">
-            <h4>Status Anda sedang ditinjau</h4>
-            <p>Administrator saat ini perlu meninjau dan menyetujui status Anda. Silakan kembali untuk memeriksa status Anda nanti.
-            Anda akan dikirimi email ketika keputusan telah dibuat, dan anda <strong> anda tidak dapat mengikuti acara sebelum status anda diterima</strong></p>
+            <h4>Your status is being reviewed</h4>
+            <p>The current administrator needs to review and approve your status. Please come back to check your status later.
+            You will be sent an email when a decision has been made, and you <strong> you cannot participate in the event until your status is accepted</strong></p>
         </div>
-        <form role="form" class="needs-validation" method="post">
+        <form role="form" class="needs-validation form-border" method="post">
             <div class="form-group row mb-2">
                 <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 color-heading" >Status Anda Sebagi</label>
                 <div class="col-lg-9">
@@ -42,28 +42,28 @@ var PageProfile = Vue.component("PageProfile", {
                 </div>
             </div>
             <div class="form-group row mb-2">
-                <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 required color-heading">Nama</label>
+                <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 required color-heading">Name</label>
                 <div class="col-lg-9">
                     <input :disabled="!editing" class="form-control" readonly required="" type="text" v-model="user.fullname">
                 </div>
             </div>
             <div class="form-group row mb-2">
-                <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 required color-heading">Jenis Kelamin</label>
+                <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 required color-heading">Gender</label>
                 <div class="col-lg-5">
                     <div class="radio">
                         <label>
-                            <input :disabled="!editing" type="radio" name="gender" v-model="user.gender" value="M"/> Laki-Laki
+                            <input :disabled="!editing" type="radio" name="gender" v-model="user.gender" value="M"/> Male
                         </label>
                     </div>
                     <div class="radio">
                         <label>
-                            <input :disabled="!editing" type="radio" name="gender" v-model="user.gender" value="F"/> Perempuan
+                            <input :disabled="!editing" type="radio" name="gender" v-model="user.gender" value="F"/> Female
                         </label>
                     </div>
                 </div>
             </div>
             <div class="form-group row mb-2">
-                <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 required color-heading">Tangga Lahir</label>
+                <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 required color-heading">Date of birth</label>
                 <div class="col-lg-9">
                     <vuejs-datepicker :disabled="!editing" input-class="form-control"
                                     v-model="user.birthday"
@@ -72,7 +72,7 @@ var PageProfile = Vue.component("PageProfile", {
                 </div>
             </div>
             <div class="form-group row mb-2">
-                <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 required color-heading">No Handphone/WA</label>
+                <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 required color-heading">Phone/WA Number</label>
                 <div class="col-lg-9">
                     <input :disabled="!editing" type="text" v-model="user.phone" class="form-control" name="phone"/>
                 </div>
@@ -86,28 +86,28 @@ var PageProfile = Vue.component("PageProfile", {
             </div>
 
             <div class="form-group row mb-2">
-                <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 color-heading" >Negara</label>
+                <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 color-heading" >Country</label>
                 <div class="col-lg-9 dark-select">
-                    <vue-chosen :disabled="!editing"  v-model="user.country" :options="country_list" placeholder="Pilih Negara"></vue-chosen>
+                    <vue-chosen :disabled="!editing"  v-model="user.country" :options="country_list" placeholder="Choose Country"></vue-chosen>
                 </div>
             </div>
 
             <div class="form-group row mb-2">
-                <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 color-heading" >Kota Tempat Tinggal</label>
+                <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 color-heading" >Residential City</label>
                 <div class="col-lg-9">
                     <input :disabled="!editing" class="form-control" type="text" v-model="user.city" placeholder="City">
                 </div>
             </div>
 
             <div class="form-group row mb-2">
-                <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 color-heading" >Institusi</label>
+                <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 color-heading" >Yours Institution</label>
                 <div class="col-lg-9 dark-select">
-                    <vue-chosen :disabled="!editing"  v-model="user.univ" :options="univ_list" placeholder="Pilih Institusi"></vue-chosen>
+                    <vue-chosen :disabled="!editing"  v-model="user.univ" :options="univ_list" placeholder="Choose Institution"></vue-chosen>
                 </div>
             </div>
 
             <div class="form-group row mb-2">
-                <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 color-heading" >Alamat</label>
+                <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 color-heading" >Address</label>
                 <div class="col-lg-9">
                     <textarea :disabled="!editing" class="form-control" v-model="user.address" rows="4" style="background-color: transparent;"></textarea>
                 </div>
@@ -123,8 +123,8 @@ var PageProfile = Vue.component("PageProfile", {
             <div v-if="editing" class="form-group row mb-2">
                 <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2" ></label>
                 <div class="form-group col-lg-9">
-                    <button @click="[editing = false]"  type="button" class="btn btn-secondary"> Batal</button>
-                    <button v-if="editing" @click="saveProfile" type="button" class="btn btn-primary" style="margin-right: 5px;"> Simpan</button>
+                    <button @click="[editing = false]"  type="button" class="btn btn-secondary"> Cancel</button>
+                    <button v-if="editing" @click="saveProfile" type="button" class="btn btn-primary" style="margin-right: 5px;"> Save</button>
                 </div>
             </div>
             
@@ -136,12 +136,11 @@ var PageProfile = Vue.component("PageProfile", {
 		</div>
         <div id="reset-password" class="modal fade" role="dialog">
             <div class="modal-dialog modal-dialog-centered">
-        
                 <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title">Reset Password</h4>
-                        <button type="button" class="close" ddata-bs-dismiss="modal">&times;</button>
+                        <button type="button" class="btn btn-sm btn-secondary" data-bs-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body">
                         <form id="form-reset">

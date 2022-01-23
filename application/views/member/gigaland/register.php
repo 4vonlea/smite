@@ -7,7 +7,6 @@
  * @var array $univList;
  */
 $this->layout->begin_head();
-
 /**
  * @var $content
  */
@@ -29,22 +28,6 @@ $theme_path = base_url("themes/gigaland") . "/";
         </div>
     </div>
 </section>
-
-<!-- <div class="container">
-        <div class="row">
-            <div class="col-md-8 order-2 order-md-1 align-self-center p-static">
-                <h1 class="text-color-dark font-weight-bold">Registrasi Akun</h1>
-            </div>
-            <div class="col-md-4 order-1 order-md-2 align-self-center">
-                <ul class="breadcrumb d-block text-md-right breadcrumb-dark">
-                    <li><a href="?= base_url('site/home'); ?>" class="text-color-dark">Beranda</a></li>
-                    <li class="active">Registrasi</li>
-                </ul>
-            </div>
-        </div>
-    </div> -->
-</section>
-
 <section id="app" class="custom-section-padding">
     <div class="container">
         <div class="row">
@@ -106,7 +89,7 @@ $theme_path = base_url("themes/gigaland") . "/";
 
                 <div class="alert alert-success mt-2" style="background-color: #F5AC39;">
                     <h4 class="text-dark"><i class="fa fa-info"></i> Payment confirmation</h4>
-                    <p><strong>To confirm payment, please log in, then access "Keranjang dan Pembayaran"</strong></p>
+                    <p><strong>To confirm payment, please log in, then access "Cart and Payment"</strong></p>
                 </div>
             </div>
 
@@ -604,20 +587,20 @@ $theme_path = base_url("themes/gigaland") . "/";
                     app.saving = false;
                 });
             },
-            initEspayFrame(){
+            initEspayFrame() {
                 var invoiceID = app.data.id_invoice;
-                    var apiKeyEspay = "<?= Settings_m::getEspay()['apiKey']; ?>";
-                    var data = {
-                        key: apiKeyEspay,
-                        paymentId: invoiceID,
-                        backUrl: `<?= base_url('member/register/check_invoice'); ?>/${invoiceID}`,
-                    };
-                    if (typeof SGOSignature !== "undefined") {
-                        var sgoPlusIframe = document.getElementById("sgoplus-iframe");
-                        if (sgoPlusIframe !== null)
-                            sgoPlusIframe.src = SGOSignature.getIframeURL(data);
-                        SGOSignature.receiveForm();
-                    }
+                var apiKeyEspay = "<?= Settings_m::getEspay()['apiKey']; ?>";
+                var data = {
+                    key: apiKeyEspay,
+                    paymentId: invoiceID,
+                    backUrl: `<?= base_url('member/register/check_invoice'); ?>/${invoiceID}`,
+                };
+                if (typeof SGOSignature !== "undefined") {
+                    var sgoPlusIframe = document.getElementById("sgoplus-iframe");
+                    if (sgoPlusIframe !== null)
+                        sgoPlusIframe.src = SGOSignature.getIframeURL(data);
+                    SGOSignature.receiveForm();
+                }
             },
             checkout() {
                 let selected = app.paymentMethod.find(data => data.key == app.selectedPaymentMethod);

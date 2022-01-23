@@ -6,25 +6,25 @@ export default Vue.component("PageWebminar", {
             	<div class="overflow-hidden mb-1">
                     <h2 class="font-weight-normal color-heading text-7 mb-0"><strong class="font-weight-extra-bold">Webinar Link</strong></h2>
                     <div class="overflow-hidden mb-4 pb-3">
-                        <p class="mb-0">Silakan hadiri acara yang Anda ikuti melalui link di bawah ini</p>
+                        <p class="mb-0">Please attend the event you are participating in via the link below</p>
                     </div>
                 </div>
                 <div class="row table-responsive">
                     <p class="font-weight-bold h5">
-                        *Tombol gabung tidak dapat diklik hingga 5 menit sebelum waktu mulai
-                        dan tidak dapat diklik kecuali Anda telah menonton sponsor
+                        *Join button cannot be clicked until 5 minutes before start time
+                        and is not clickable unless you have watched the sponsor
                         <br/>
-                        *<span class="badge badge-success h4" style="font-size:14px">{{ jam }}</span> WIB (GMT +7) 
+                        *<span class="badge badge-success h4" style="font-size:14px">{{ jam }}</span> (GMT +7) 
                     </p>
-                    <p class="font-weight-bold h5">Bila simposium telah memenuhi kuota, mohon untuk pindah ke simposium yang lain</p>
-                    <p class="font-weight-bold h5">
+                    <p class="font-weight-bold h5">When the symposium has met the quota, please move to another symposium</p>
+                    <!--<p class="font-weight-bold h5">
                         Materi Presentasi dapat dilihat pada link
                         <a href="https://drive.google.com/drive/folders/1Wi7t64mOIq_WGD-v7GS7G3dL6CZo8DGr?usp=sharing" target="_blank">disini</a>
-                    </p>
+                    </p>-->
                     <table class="table text-light">
                         <tbody v-if="events.length == 0">
                             <tr>
-                                <td class="text-center" colspan="3">Anda belum berpartisipasi dalam acara apa pun </td>
+                                <td class="text-center" colspan="3">You haven't participated in any events yet </td>
                             </tr>
                         </tbody>
                         <template v-for="event in events">
@@ -49,7 +49,7 @@ export default Vue.component("PageWebminar", {
                                     <table v-for="(d,i) in groupDate(event.special_link)" :id="'tabs-'+event.id+'-'+d.index" class="table tab-pane fade text-light">
                                         <thead>
                                             <tr>
-                                                <th>Waktu Mulai</th>
+                                                <th>Start Time</th>
                                                 <th>Room</th>
                                                 <th width="20%">Link</th>
                                             </tr>
@@ -67,13 +67,13 @@ export default Vue.component("PageWebminar", {
                                                 </td>
                                                 <td :rowspan="2" class="" style="white-space: nowrap;">
                                                     <button :disabled="(link.finishWatch == '0' && link.advertisement) || link.url == '#' || link.timeReady " v-on:click="join(link.url)" class="btn btn-primary btn-block">
-                                                    {{ link.showingClass == 'badge badge-success' ? 'Live Now' : 'Gabung Sekarang' }}
+                                                    {{ link.showingClass == 'badge badge-success' ? 'Live Now' : 'Join Now' }}
                                                     </button>
                                                     <button v-show="link.urlRecording" @click="showRecording(link)" class="btn btn-primary btn-block">
-                                                        Lihat Rekaman
+                                                    View Recordings
                                                     </button>
                                                     <button v-for="(ads,index) in link.advertisement" class="btn btn-block" :class="[ads.watch == '1' ? 'btn-primary':'btn-default']" v-on:click="showAds(index,link,indSpl)">
-                                                        Lihat Sponsor {{ index+1}}
+                                                        View Sponsor {{ index+1}}
                                                     </button>
                                                 </td>
                                             </tr>
@@ -123,7 +123,7 @@ export default Vue.component("PageWebminar", {
                 <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">Rekaman : {{ recording.title }}</h5>
+                            <h5 class="modal-title">Recording : {{ recording.title }}</h5>
                             <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>

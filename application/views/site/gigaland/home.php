@@ -526,10 +526,7 @@
                                         <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/ann.jpeg" style="width:100%;" alt="">
                                     </div>
                                 </div>
-
                             </div> -->
-
-
                         </div>
                     </div>
                     <div class="col-lg-12">

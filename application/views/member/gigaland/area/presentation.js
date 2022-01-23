@@ -4,14 +4,14 @@ export default Vue.component("Presentation", {
         <page-loader :loading="loading" :fail="fail"></page-loader>
         <div v-if="!loading">
             <div class="overflow-hidden mb-1">
-                <h2 class="font-weight-normal color-heading text-7 mb-0"><strong class="font-weight-extra-bold">Presentasi</strong></h2>
+                <h2 class="font-weight-normal color-heading text-7 mb-0"><strong class="font-weight-extra-bold">Presetation</strong></h2>
             </div>
             <div class="overflow-hidden mb-4 pb-3">
-                <p class="mb-0">Menampilkan file poster atau presentasi yang diunggah oleh peserta paper</p>
+                <p class="mb-0">Displaying poster or presentation files uploaded by paper participants</p>
             </div>
             <div class="row">
             <div class="col-md-6 col-sm-12">
-                <input type="text" v-model="globalFilter" class="form-control" placeholder="Silakan ketik untuk pencarian...." @change="doFilter" @keyup="doFilter"/>
+                <input type="text" v-model="globalFilter" class="form-control" placeholder="Please type for search...." @change="doFilter" @keyup="doFilter"/>
             </div>
             <vuetable-pagination 
             ref="pagination"

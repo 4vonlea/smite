@@ -12,13 +12,13 @@ export default Vue.component("Material", {
                 <h2 class="font-weight-normal color-heading text-7 mb-0"><strong class="font-weight-extra-bold">Upload Materi</strong></h2>
             </div>
             <div class="overflow-hidden mb-4 pb-3">
-                <p class="mb-0">Upload file materi/bahan untuk seminar</p>
+                <p class="mb-0">Upload material files/materials for seminars</p>
             </div>
             <div class="row">
                 <table class="table text-light">
                     <thead>
                         <tr>
-                            <th>Nama Bahan</th>
+                            <th>Material Title</th>
                             <th>Upload/Link</th>
                             <th>Deadline/Countdown</th>
                         </tr>
@@ -27,11 +27,11 @@ export default Vue.component("Material", {
                         <tr v-for="(m,index) in listMaterial">
                             <td>
                                 {{ m.title }}
-                                <span v-if="m.filename" class="badge badge-success">Telah ditambahkan</span>
-                                <span v-else class="badge badge-danger">Belum ditambahkan</span>
+                                <span v-if="m.filename" class="badge badge-success">Has been added</span>
+                                <span v-else class="badge badge-danger">Not added yet</span>
                             </td>
                             <td>
-                                <a target="_blank" v-if="m.filename" :href="m.type == 1 ? m.filename : baseUrl+'file_material/'+m.filename+'/'+m.title" class="btn btn-primary">Lihat Bahan</a>
+                                <a target="_blank" v-if="m.filename" :href="m.type == 1 ? m.filename : baseUrl+'file_material/'+m.filename+'/'+m.title" class="btn btn-primary">View Material</a>
                                 <hr/>
                                 <div class="custom-control custom-radio custom-control-inline">
                                     <input :id="'radio_file'+index" type="radio" v-model="m.type" value="2" class="custom-control-input">
@@ -42,7 +42,7 @@ export default Vue.component("Material", {
                                     <label class="custom-control-label" :for="'radio_link'+index" >Link</label>
                                 </div>
                                 <div v-if="m.type == 1" class="input-group mb-3">
-                                    <input type="text" :ref="'reflink_'+index" :value="m.filename" class="form-control" placeholder="Link (max 250 karakter)" aria-label="URL" aria-describedby="basic-addon2">
+                                    <input type="text" :ref="'reflink_'+index" :value="m.filename" class="form-control" placeholder="Link (max 250 character)" aria-label="URL" aria-describedby="basic-addon2">
                                     <div class="input-group-append">
                                         <button class="btn btn-outline-secondary" @click="saveMaterial(m,index,$event)" type="button">Simpan</button>
                                     </div>

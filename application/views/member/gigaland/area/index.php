@@ -7,6 +7,7 @@ $theme_path = base_url("themes/gigaland") . "/";
 $config = $this->config->item("midtrans");
 $client_key = $config['client_key'];
 $userDetail = array_merge($user->toArray(), ['status_member' => $user->status_member->kategory]);
+$this->layout->begin_head();
 ?>
 <link href="<?= base_url(); ?>themes/script/chosen/chosen.css" rel="stylesheet">
 <link href="<?= base_url(); ?>themes/script/magnific/magnific.css" rel="stylesheet">
@@ -24,12 +25,9 @@ $userDetail = array_merge($user->toArray(), ['status_member' => $user->status_me
     .color-heading {
         color: #F4AD39 !important;
     }
-
-    input.form-control {
-        background-color: transparent !important;
-        color: white;
-    }
 </style>
+<?php $this->layout->end_head(); ?>
+
 <div id="app">
     <section id="subheader" style="background-size: cover;" class="pb-5">
     </section>

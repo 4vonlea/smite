@@ -144,7 +144,7 @@ class Transaction extends Admin_Controller
 			$response['model']['details'] = [];
 			foreach ($detail->details as $row) {
 				$temp =  $row->toArray();
-				$member = $temp['product_name'] == 'Unique Additional Price' ? [] : $row->member->toArray();
+				$member = $temp['product_name'] == 'Unique Additional Price + Admin Fee' ? [] : $row->member->toArray();
 
 				$temp['isDeleted'] = 0;
 				$response['model']['details'][] = array_merge(['member' => $member], $temp);

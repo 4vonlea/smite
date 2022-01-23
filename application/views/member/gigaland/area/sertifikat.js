@@ -4,9 +4,9 @@ export default Vue.component("PageSertifikat",{
             <page-loader :loading="loading" :fail="fail"></page-loader>
             <div v-if="!loading">
             	<div class="overflow-hidden mb-1">
-                    <h2 class="font-weight-normal color-heading text-7 mb-0"><strong class="font-weight-extra-bold">Download Sertifikat</strong></h2>
+                    <h2 class="font-weight-normal color-heading text-7 mb-0"><strong class="font-weight-extra-bold">Download Certificate</strong></h2>
                     <div class="overflow-hidden mb-4 pb-3">
-                        <p class="mb-0">Silakan download sertifikat anda</p>
+                        <p class="mb-0">Please download your certificate</p>
                     </div>
                 </div>
                 
@@ -14,19 +14,19 @@ export default Vue.component("PageSertifikat",{
                     <!--
                     <div class="alert alert-success text-center">
                         <h4>
-                            Mohon berkenan mengisi kuesioner melalui link berikut<br/><br/>
+                            Please fill out the questionnaire via the following link<br/><br/>
                             <a @click="klikKuesioner = 1" target="_blank" href="https://forms.gle/TWuc3ubh9nCQfKrp8">Isi Kuesioner</a>
                         </h4>
-                        <p>Tombol download sertifikat dapat diklik setelah mengisi kuesioner</p>
+                        <p>The certificate download button can be clicked after filling out the questionnaire</p>
                     </div>
                     -->
                     <div class="card-group col-md-12">
                         <div v-for="event in events" :key="event.id" class="card w-50">
                             <div class="card-body text-center">
                                 <h5 class="card-title">{{ event.name }}</h5>
-                                <p class="card-text">Terima kasih atas partisipasi anda, Silakan download sertifikat anda dengan menekan tombol dibawah</p>
-                                <button disabled v-if="klikKuesioner == 0" class="btn btn-default">Download Sertifikat</button>
-                                <a v-if="klikKuesioner == 1" class="btn btn-primary" :href="'<?=base_url('member/area/certificate');?>/'+event.id+'/'+user.id" target="_blank">Download Sertifikat</a>
+                                <p class="card-text">Thank you for your participation. Please download your certificate by pressing the button below</p>
+                                <button disabled v-if="klikKuesioner == 0" class="btn btn-default">Download Certificate</button>
+                                <a v-if="klikKuesioner == 1" class="btn btn-primary" :href="'<?=base_url('member/area/certificate');?>/'+event.id+'/'+user.id" target="_blank">Download Certificate</a>
                             </div>
                         </div>
                     </div>

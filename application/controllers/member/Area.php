@@ -315,9 +315,9 @@ class Area extends MY_Controller
 			if ($data['price'] > 0 && $feeAlready == false) {
 				$fee->event_pricing_id = 0; //$data['id'];
 				$fee->transaction_id = $transaction->id;
-				$fee->price = rand(100, 500); //"6000";//$data['price'];
+				$fee->price = 5000+rand(100, 500); //"6000";//$data['price'];
 				$fee->member_id = $this->session->user_session['id'];
-				$fee->product_name = "Unique Additional Price";
+				$fee->product_name = "Unique Additional Price + Admin Fee";
 				$fee->save();
 			}
 		} else {

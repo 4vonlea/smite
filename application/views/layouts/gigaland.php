@@ -78,16 +78,16 @@ $theme_path = base_url("themes/gigaland") . "/";
                                             <a href="<?= base_url('site/home'); ?>#content" style="color:#F4AD39;">Home<span></span></a>
                                         </li>
                                         <li>
-                                            <a href="<?= base_url('member/area'); ?>#/profile" style="color:#F4AD39;">Profil<span></span></a>
+                                            <a href="<?= base_url('member/area'); ?>#/profile" style="color:#F4AD39;">Profile<span></span></a>
                                         </li>
                                         <li>
-                                            <a href="<?= base_url('member/area'); ?>#/paper" style="color:#F4AD39;">Kirim Manuskrip<span></span></a>
+                                            <a href="<?= base_url('member/area'); ?>#/paper" style="color:#F4AD39;">Send Paper<span></span></a>
                                         </li>
                                         <li class="menu-item-has-children has-child">
-                                            <a href="#" style="color:#F4AD39;">Pembelian<span></span></a><span></span>
+                                            <a href="#" style="color:#F4AD39;">Purchase<span></span></a><span></span>
                                             <ul>
-                                                <li><a href="<?= base_url('member/area'); ?>#/events">Pilih Acara</a></li>
-                                                <li><a href="<?= base_url('member/area'); ?>#/billing">Keranjang & Pembayaran</a></li>
+                                                <li><a href="<?= base_url('member/area'); ?>#/events">Events</a></li>
+                                                <li><a href="<?= base_url('member/area'); ?>#/billing">Cart & Payment</a></li>
                                             </ul>
                                         </li>
                                         <li class="menu-item-has-children has-child">
@@ -95,10 +95,10 @@ $theme_path = base_url("themes/gigaland") . "/";
                                             <ul>
                                                 <li><a href="<?= base_url('member/area'); ?>#/webminar">Webinar Link</a></li>
                                                 <?php if (in_array($userDetail['status'], $statusToUpload)) : ?>
-                                                    <li><a href="<?= base_url('member/area'); ?>#/material">Upload Materi/Bahan</a></li>
+                                                    <li><a href="<?= base_url('member/area'); ?>#/material">Upload Material</a></li>
                                                 <?php endif; ?>
-                                                <li><a href="<?= base_url('member/area'); ?>#/sertifikat">Download Sertifikat</a></li>
-                                                <li><a href="<?= base_url('member/area'); ?>#/presentation">Daftar Presentasi Ilmiah</a></li>
+                                                <li><a href="<?= base_url('member/area'); ?>#/sertifikat">Download Certificate</a></li>
+                                                <li><a href="<?= base_url('member/area'); ?>#/presentation">List of Scientific Presentations</a></li>
                                             </ul>
                                         </li>
                                         <li>

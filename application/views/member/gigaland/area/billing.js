@@ -4,24 +4,24 @@ export default Vue.component("PageBilling", {
             <page-loader :loading="loading" :fail="fail"></page-loader>
             <div v-if="!loading">
             	<div class="overflow-hidden mb-1">
-                	<h2 class="font-weight-normal color-heading text-7 mb-0"><strong class="font-weight-extra-bold">Transaksi & Keranjang</strong></h2>
+                	<h2 class="font-weight-normal color-heading text-7 mb-0"><strong class="font-weight-extra-bold">Cart & Payment</strong></h2>
 				</div>
 				<div class="overflow-hidden mb-4 pb-3">
-					<p class="mb-0">Halaman untuk mengonfirmasi riwayat penagihan dan invoice display </p>
+					<p class="mb-0">Page to confirm billing history and invoice display</p>
 				</div>
 				<div class="row  table-responsive">
 					<h4>Transaction History</h4>
 					<table class="table text-light border">
 						<thead>
-							<th>Tanggal</th>
-							<th>No Invoice</th>
+							<th>Order Date</th>
+							<th>Invoice</th>
 							<th>Status</th>
-							<th>Total Harga</th>
+							<th>Amount price</th>
 							<th></th>
 						</thead>
 						<tbody v-if="!transaction">
 							<tr>
-								<td colspan="5" class="text-center border-top">No Transaksi</td>
+								<td colspan="5" class="text-center border-top">No Transaction</td>
 							</tr>
 						</tbody>
 						<tbody v-else>
@@ -41,7 +41,7 @@ export default Vue.component("PageBilling", {
 				<div class="row table-responsive mt-3">
 					<h4>Current Cart</h4>
 					<div v-if="!cart" class="col-md-12 alert alert-warning">
-						<p>Anda belum memilih acara yang akan ditambahkan</p>
+						<p>You haven't selected an event to add</p>
 					</div>
 					<table v-else class="table text-light">
 						<thead>
@@ -91,7 +91,7 @@ export default Vue.component("PageBilling", {
 				<div class="modal-dialog modal-dialog-centered">
 					<div class="modal-content">
 						<div class="modal-header">
-							<h4 class="modal-title">Unggah Bukti Transfer</h4>
+							<h4 class="modal-title">Upload Payment Proof</h4>
 						</div>
 						<div class="modal-body">
 							<form ref="formUpload">
@@ -104,7 +104,7 @@ export default Vue.component("PageBilling", {
 									<input type="text" :value="sumPrice(upload.detail)" readonly class="form-control" />
 								</div>
 								<div class="form-group">
-									<label class="form-control-label">Proof Transfer(png,jpg,jpeg,pdf)</label>
+									<label class="form-control-label">Payment Proof(png,jpg,jpeg,pdf)</label>
 									<div class="custom-file">
 										<input @change="fileChange" name="file_proof" type="file" accept=".png,.jpg,.jpeg,.pdf" :class="{'is-invalid':upload_validation.invalid}" class="custom-file-input" />									
 										<label ref="labelFile" class="custom-file-label" for="validatedCustomFile">Choose file...</label>
@@ -129,12 +129,12 @@ export default Vue.component("PageBilling", {
 					<div class="modal-content">
 						<div class="modal-header">
 							<h4 class="modal-title">Detail Transaction</h4>
-							<button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">&times;</button>
 						</div>
 						<div class="modal-body table-responsive">
 							<table class="table text-light">
 								<tr>
-									<th>No Invoice</th>
+									<th>Invoice</th>
 									<td>{{ detailModel.id }}</td>
 									<th>Tanggal Invoice</th>
 									<td>{{ detailModel.updated_at }}</td>
@@ -143,19 +143,19 @@ export default Vue.component("PageBilling", {
 									<th class="text-center" colspan="4">Billing Information</th>
 								</tr>
 								<tr>
-									<th>Penagihan Ke</th>
+									<th>Bill To</th>
 									<td colspan="3">{{ user.fullname }}</td>
 								</tr>
 								<tr>
-									<th>Alamat</th>
+									<th>Adrress</th>
 									<td colspan="3">{{ user.address+", "+user.city }}</td>
 								</tr>
 								<tr>
-									<th>Jumlah</th>
+									<th>Amount</th>
 									<td colspan="3">{{ amount }}</td>
 								</tr>
 								<tr>
-									<th>Metode Pembayaran</th>
+									<th>Payment Method</th>
 									<td colspan="3">{{ detailModel.channel }}</td>
 								</tr>
 								<tr>
@@ -163,11 +163,11 @@ export default Vue.component("PageBilling", {
 									<td colspan="3">{{ detailModel.status_payment.toUpperCase() }}</td>
 								</tr>
 								<tr>
-									<th class="text-center" colspan="4">Detil</th>
+									<th class="text-center" colspan="4">Detail</th>
 								</tr>
 								<tr>
-									<th colspan="2">Nama Acara</th>
-									<th colspan="2">Harga</th>
+									<th colspan="2">Event Name</th>
+									<th colspan="2">Price</th>
 								</tr>
 								<tr v-for="dt in detailModel.details">
 									<td colspan="2">{{ dt.product_name }}</td>
@@ -175,7 +175,7 @@ export default Vue.component("PageBilling", {
 								</tr>
 							</table>
 							<br>
-							<h5 v-if="detailModel.status_payment == 'pending'">Info Transfer</h5>
+							<h5 v-if="detailModel.status_payment == 'pending'">Transfer Information</h5>
 							<div v-if="detailModel.status_payment == 'pending' && detailModel.channel == 'ESPAY'">
 								<table v-if="detailEspay.product_value">
 									<tr>
@@ -197,20 +197,20 @@ export default Vue.component("PageBilling", {
 										<td> 
 											{{ formatCurrency(detailEspay.amount) }} 
 											<br/>
-											<small>*Jumlah mungkin berbeda karena biaya tambahan dari Espay </small><br/>
+											<small>*Amount may differ due to additional fees from Espay</small><br/>
 										</td>
 									</tr>
 								</table>
-								<h4 v-else>Informasi pembayaran bisa dilihat pada email yang dikirim oleh ESPAY</h4>
-								<p>Status pembayaran akan berubah otomatis ketika anda telah menyelesaikan pembayaran sesuai petunjuk ESPAY</p>
+								<h4 v-else>Payment information can be seen in the email sent by ESPAY</h4>
+								<p>The payment status will change automatically when you have completed the payment according to the instructions ESPAY</p>
 								<small>
-									*Untuk pembayaran dengan menggunakan Kartu Kredit , tagihan yang akan tercetak di lembar tagihan kartu kredit pelanggan adalah atas nama ESPAY  
+									*For payments using a credit card, the bill that will be printed on the customer's credit card billing statement is in the name ofESPAY  
 								</small>
 							</div>
 							
 							<div v-if="detailModel.status_payment == 'pending' && detailModel.channel == 'MANUAL TRANSFER'">
-								<p>Silakan transfer <b>{{ amount }}</b> ke salah satu rekening bank berikut
-								<br/>Kemudian upload bukti pembayaran (tanda terima, screenshoot SMS banking, dll) pada Riwayat Transaksi </p>
+								<p>Please transfer <b>{{ amount }}</b> to one of the following bank accounts
+								<br/>Then upload proof of payment (receipts, screenshots of SMS banking, etc.) in the Transaction History </p>
 								<div class="row">
 									<div class="col-sm-6" v-for="account in detailModel.banks">
 										<div class="card p-2">
@@ -218,12 +218,12 @@ export default Vue.component("PageBilling", {
 												<p class="card-text table-responsive">
 													<table>
 														<tr>
-															<th>No Rekening</th>
+															<th>Account Number</th>
 															<td>:</td>
 															<td>{{ account.no_rekening }}</td>
 														</tr>												
 														<tr>
-															<th>Nama Pemegang Rekening</th>
+															<th>Account holder's name</th>
 															<td>:</td>
 															<td>{{ account.holder }}</td>
 														</tr>												
@@ -247,7 +247,7 @@ export default Vue.component("PageBilling", {
 					<div class="modal-content">
 						<div class="modal-header">
 							<h4 class="modal-title">Select Payment Method</h4>
-							<button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">&times;</button>
 						</div>
 						<div class="modal-body">
 						<iframe id="sgoplus-iframe" style="width:100%"></iframe>
@@ -261,7 +261,7 @@ export default Vue.component("PageBilling", {
 					<div class="modal-content">
 						<div class="modal-header">
 							<h4 class="modal-title">Info Payment</h4>
-							<button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">&times;</button>
 						</div>
 						<div class="modal-body table-responsive">
 							<p>Please transfer <b>{{ formatCurrency(manual_payment.ammount) }}</b> to one of the following bank accounts
