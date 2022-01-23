@@ -13,11 +13,11 @@ export default Vue.component("PageBilling", {
 					<h4>Transaction History</h4>
 					<table class="table text-light border">
 						<thead>
-							<th>Order Date</th>
-							<th>Invoice</th>
-							<th>Status</th>
-							<th>Amount price</th>
-							<th></th>
+							<th class="color-heading">Order Date</th>
+							<th class="color-heading">Invoice</th>
+							<th class="color-heading">Status</th>
+							<th class="color-heading">Amount price</th>
+							<th class="color-heading"></th>
 						</thead>
 						<tbody v-if="!transaction">
 							<tr>
