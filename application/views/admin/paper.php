@@ -159,10 +159,10 @@ $this->layout->end_head();
 		<div class="card shadow">
 			<div class="card-header">
 				<div class="row">
-					<div class="col-md-3 col-sm-12">
-						<h3>Papers</h3>
+					<div class="col-md-6 col-sm-12">
+						<h3>Papers <span v-if="filteredPaper != ''">( filtered by <span class="badge badge-info" style="text-transform:none">{{ filteredPaper }}</span> )</span></h3>
 					</div>
-					<div class="col-md-9 col-sm-12 text-right">
+					<div class="col-md-6 col-sm-12 text-right">
 						<div class="dropdown">
 							<button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								Download All File
@@ -175,20 +175,13 @@ $this->layout->end_head();
 						</div>
 						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-setting"><i class="fa fa-book"></i> Setting Due Date & Cut Off
 						</button>
-						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-category-paper"><i class="fa fa-book"></i> Category Paper
-							List
-						</button>
 						<div class="dropdown">
 							<button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								Filter by Category Paper
 							</button>
 							<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-								<li class="list-group-item d-flex justify-content-between align-items-center" @click="filterGrid('all')">
-									All Category
-								</li>
-								<li v-for="(cat,index) in categoryPaper" class="list-group-item d-flex justify-content-between align-items-center" @click="filterGrid(cat.id)">
-									{{ cat.name }}
-								</li>
+								<a class="dropdown-item" href="#" @click="filterGrid('all')">All Category</a>
+								<a v-for="(cat,index) in categoryPaper" class="dropdown-item" href="#" @click="filterGrid(cat.id)">{{ cat.name }}</a>
 								<li>
 									<button type="button" class="btn btn-primary m-2" data-toggle="modal" data-target="#modal-category-paper"><i class="fa fa-book"></i> Add Category Paper
 									</button>
@@ -710,6 +703,7 @@ $this->layout->end_head();
 			},
 			new_category_paper: '',
 			categoryPaper: <?= json_encode($categoryPaper); ?>,
+			filteredPaper: "",
 		},
 		filters: {
 			formatDate: function(val) {
@@ -719,7 +713,15 @@ $this->layout->end_head();
 		methods: {
 
 			filterGrid: function(index) {
-				this.apiUrl = index != 'all' ? this.apiUrl = `${apiUrlDefault}/${index}` : apiUrlDefault;
+				if (index != 'all') {
+					var find = app.categoryPaper.find(data => data.id == index);
+					this.filteredPaper = find.name;
+					this.apiUrl = `${apiUrlDefault}/${index}`;
+				} else {
+					this.filteredPaper = '';
+					this.apiUrl = apiUrlDefault;
+				}
+				console.log(this.filteredPaper);
 				app.$refs.datagrid.refresh();
 			},
 
