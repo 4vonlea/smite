@@ -159,27 +159,58 @@ $this->layout->end_head();
 		<div class="card shadow">
 			<div class="card-header">
 				<div class="row">
-					<div class="col-md-6 col-sm-12">
+					<div class="col-md-3 col-sm-12">
 						<h3>Papers</h3>
 					</div>
-					<div class="col-md-6 col-sm-12 text-right">
+					<div class="col-md-9 col-sm-12 text-right">
 						<div class="dropdown">
 							<button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								Download All File
 							</button>
 							<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-								<a class="dropdown-item" href="<?=base_url('admin/paper/download_all_files/abstract');?>">Abstract</a>
-								<a class="dropdown-item" href="<?=base_url('admin/paper/download_all_files/fullpaper');?>">Fullpaper</a>
-								<a class="dropdown-item" href="<?=base_url('admin/paper/download_all_files/presentation');?>">Presentation</a>
+								<a class="dropdown-item" href="<?= base_url('admin/paper/download_all_files/abstract'); ?>">Abstract</a>
+								<a class="dropdown-item" href="<?= base_url('admin/paper/download_all_files/fullpaper'); ?>">Fullpaper</a>
+								<a class="dropdown-item" href="<?= base_url('admin/paper/download_all_files/presentation'); ?>">Presentation</a>
 							</div>
 						</div>
 						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-setting"><i class="fa fa-book"></i> Setting Due Date & Cut Off
 						</button>
+						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-category-paper"><i class="fa fa-book"></i> Category Paper
+							List
+						</button>
+						<div class="dropdown">
+							<button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Filter by Category Paper
+							</button>
+							<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+								<li class="list-group-item d-flex justify-content-between align-items-center" @click="filterGrid('all')">
+									All Category
+								</li>
+								<li v-for="(cat,index) in categoryPaper" class="list-group-item d-flex justify-content-between align-items-center" @click="filterGrid(cat.id)">
+									{{ cat.name }}
+								</li>
+								<li>
+									<button type="button" class="btn btn-primary m-2" data-toggle="modal" data-target="#modal-category-paper"><i class="fa fa-book"></i> Add Category Paper
+									</button>
+								</li>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 			<div class="table-responsive">
-				<datagrid @loaded_data="loadedGrid" ref="datagrid" api-url="<?= base_url('admin/paper/grid'); ?>" :fields="[{name:'id_paper',sortField:'id_paper','title':'ID Paper'},{name:'fullname',sortField:'fullname','title':'Member Name'},{name:'score','sortField':'score'},{name:'status','sortField':'status','title':'Status Abstract'},{name:'status_fullpaper','sortField':'status_fullpaper','title':'status_fullpaper'},{name:'status_presentasi','sortField':'status_presentasi','title':'Status Presentation'},{name:'type_presence','sortField':'type_presence','title':'Presentation'},{name:'t_created_at',sortField:'t_created_at',title:'Submit On'},{name:'t_id','title':'Aksi'}]">
+				<datagrid @loaded_data="loadedGrid" ref="datagrid" :api-url="apiUrl" :fields="[
+						{name:'id_paper',sortField:'id_paper','title':'ID Paper'},
+						{name:'category_name',sortField:'category_name','title':'Category Paper'},
+						{name:'fullname',sortField:'fullname','title':'Member Name'},
+						{name:'score','sortField':'score'},
+						{name:'status','sortField':'status','title':'Status Abstract'},
+						{name:'status_fullpaper','sortField':'status_fullpaper','title':'status_fullpaper'},
+						{name:'status_presentasi','sortField':'status_presentasi','title':'Status Presentation'},
+						{name:'type_presence','sortField':'type_presence','title':'Presentation'},
+						{name:'t_created_at',sortField:'t_created_at',title:'Submit On'},
+						{name:'t_id','title':'Aksi'}
+					]">
 					<?php if ($this->session->user_session['role'] == User_account_m::ROLE_ADMIN_PAPER) : ?>
 						<template slot="fullname" slot-scope="props">
 							Hidden
@@ -275,6 +306,10 @@ $this->layout->end_head();
 						<td>{{ reviewModel.id_paper }}</td>
 					</tr>
 					<tr>
+						<th>Category Paper</th>
+						<td>{{ reviewModel.category_name }}</td>
+					</tr>
+					<tr>
 						<th style="width: 30%">Author Name</th>
 						<td>{{ reviewModel.author }}</td>
 					</tr>
@@ -341,6 +376,10 @@ $this->layout->end_head();
 								<td>{{ reviewModel.id_paper }}</td>
 							</tr>
 							<tr>
+								<th>Category Paper</th>
+								<td>{{ reviewModel.category_name }}</td>
+							</tr>
+							<tr>
 								<th>Submitted On</th>
 								<td>{{ formatDate(reviewModel.t_created_at) }}</td>
 							</tr>
@@ -357,7 +396,7 @@ $this->layout->end_head();
 								<th>Status</th>
 								<td>{{ status[reviewModel.status] }}</td>
 							</tr> -->
-						
+
 							<tr v-if="detailMode == 1">
 								<th>Mode Of Presentation</th>
 								<td>{{ reviewModel.type_presence }}</td>
@@ -585,6 +624,44 @@ $this->layout->end_head();
 		</div>
 	</div>
 </div>
+
+<!-- NOTE Category Paper -->
+<div class="modal" id="modal-category-paper">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+
+			<!-- Modal Header -->
+			<div class="modal-header">
+				<h4 class="modal-title">Category Paper</h4>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+
+			<!-- Modal body -->
+			<div class="modal-body">
+				<div class="form-group">
+					<div class="input-group">
+						<input v-model="new_category_paper" type="text" class="form-control" @keyup.enter="addCategoryPaper" placeholder="New Category Paper" />
+						<div class="input-group-append">
+							<button type="button" class="btn btn-primary" @click="addCategoryPaper"><i class="fa fa-plus"></i> </button>
+						</div>
+					</div>
+				</div>
+				<ul class="list-group">
+					<li v-for="(cat,index) in categoryPaper" class="list-group-item d-flex justify-content-between align-items-center">
+						{{ cat.name }}
+						<button @click="removeCategoryPaper(index)" class="btn badge badge-primary badge-pill"><i class="fa fa-times"></i></button>
+					</li>
+				</ul>
+			</div>
+
+			<!-- Modal footer -->
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+
+		</div>
+	</div>
+</div>
 <?php $this->layout->begin_script(); ?>
 <script src="https://cdn.jsdelivr.net/npm/vue-ctk-date-time-picker@2.5.0/dist/vue-ctk-date-time-picker.umd.js" charset="utf-8"></script>
 
@@ -600,10 +677,21 @@ $this->layout->end_head();
 		reader.onerror = error => reject(error);
 	});
 
+	// NOTE Category Paper
+	const apiUrlDefault = "<?= base_url('admin/paper/grid'); ?>";
+	var tempCategoryPaper = <?= json_encode($categoryPaper); ?>;
+
+	function postCategoryPaper(cat) {
+		return $.post('<?= base_url('admin/paper/addCategoryPaper'); ?>', {
+			value: cat
+		});
+	}
+
 	Vue.component('vue-ctk-date-time-picker', window['vue-ctk-date-time-picker']);
 	var app = new Vue({
 		el: '#app',
 		data: {
+			apiUrl: apiUrlDefault,
 			status: <?= json_encode(Papers_m::$status); ?>,
 			pagination: {},
 			reviewModel: {},
@@ -619,7 +707,9 @@ $this->layout->end_head();
 				fullpaper_cutoff: "<?= Settings_m::getSetting('fullpaper_cutoff'); ?>",
 				presentation_deadline: "<?= Settings_m::getSetting('presentation_deadline'); ?>",
 				presentation_cutoff: "<?= Settings_m::getSetting('presentation_cutoff'); ?>",
-			}
+			},
+			new_category_paper: '',
+			categoryPaper: <?= json_encode($categoryPaper); ?>,
 		},
 		filters: {
 			formatDate: function(val) {
@@ -627,6 +717,47 @@ $this->layout->end_head();
 			}
 		},
 		methods: {
+
+			filterGrid: function(index) {
+				this.apiUrl = index != 'all' ? this.apiUrl = `${apiUrlDefault}/${index}` : apiUrlDefault;
+				app.$refs.datagrid.refresh();
+			},
+
+			// NOTE Category Paper
+			addCategoryPaper: function() {
+				if (this.new_status != "") {
+					tempCategoryPaper.push({
+						"name": this.new_category_paper
+					});
+					postCategoryPaper(tempCategoryPaper).done(function(res) {
+						app.statusList = res;
+						app.categoryPaper = tempCategoryPaper = JSON.parse(JSON.stringify(res));
+						app.new_category_paper = "";
+					}).fail(function(xhr) {
+						tempCategoryPaper.pop();
+						var message = xhr.getResponseHeader("Message");
+						if (!message)
+							message = 'Server fail to response !';
+						Swal.fire('Fail', message, 'error');
+					});
+				}
+			},
+			removeCategoryPaper: function(index) {
+				var value = this.categoryPaper[index];
+				$.post("<?= base_url('admin/paper/removeCategoryPaper'); ?>", {
+					id: value.id
+				}, function(res) {
+					if (res.status)
+						app.categoryPaper.splice(index, 1);
+				}, 'JSON').fail(function(xhr) {
+					var message = xhr.getResponseHeader("Message");
+					if (!message)
+						message = 'Server fail to response !';
+					Swal.fire('Fail', message, 'error');
+				});
+			},
+			// NOTE END Category Paper
+
 			loadedGrid: function(data) {
 				this.pagination = data;
 			},
@@ -726,9 +857,9 @@ $this->layout->end_head();
 				this.validation = null;
 				this.detailMode = 0;
 				var inH = event.target.innerHTML;
-				this.$refs.feedbackFile.value = "";//files[0].name;
-				this.$refs.feedbackFileFullpaper.value = "";//files[0].name;
-				this.$refs.feedbackFilePresentasi.value = "";//files[0].name;
+				this.$refs.feedbackFile.value = ""; //files[0].name;
+				this.$refs.feedbackFileFullpaper.value = ""; //files[0].name;
+				this.$refs.feedbackFilePresentasi.value = ""; //files[0].name;
 
 				event.target.innerHTML = "<span class='fa fa-spin fa-spinner'></span>";
 				try {

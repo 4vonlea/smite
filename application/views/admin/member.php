@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @var array $statusList
  * @var array $univDl
@@ -7,7 +8,7 @@ $this->layout->begin_head();
 ?>
 <link href="<?= base_url(); ?>themes/script/chosen/chosen.css" rel="stylesheet">
 
-<?php $this->layout->end_head();?>
+<?php $this->layout->end_head(); ?>
 <div class="header bg-primary pb-8 pt-5 pt-md-8">
 	<div class="container-fluid">
 		<div class="header-body">
@@ -63,35 +64,28 @@ $this->layout->begin_head();
 							<h3>Members</h3>
 						</div>
 						<div class="col-6 text-right">
-							<button type="button" class="btn btn-primary" data-toggle="modal"
-									data-target="#modal-particant-status"><i class="fa fa-book"></i> Member Status
+							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-particant-status"><i class="fa fa-book"></i> Member Status
 								List
 							</button>
 						</div>
 					</div>
 				</div>
 				<div class="table-responsive">
-					<datagrid
-						@loaded_data="loadedGrid"
-						ref="datagrid"
-						api-url="<?= base_url('admin/member/grid'); ?>"
-						:fields="[{name:'fullname',sortField:'fullname'}, {name:'email',sortField:'email'}, {name:'username_account',sortField:'username_account',title:'Username Account'},{name:'verified_by_admin',sortField:'verified_by_admin',title:'Verification'},{name:'created_at',title:'Registered At',sortField:'created_at'},{name:'id',title:'Actions',titleClass:'action-th'}]">
+					<datagrid @loaded_data="loadedGrid" ref="datagrid" api-url="<?= base_url('admin/member/grid'); ?>" :fields="[{name:'fullname',sortField:'fullname'}, {name:'email',sortField:'email'}, {name:'username_account',sortField:'username_account',title:'Username Account'},{name:'verified_by_admin',sortField:'verified_by_admin',title:'Verification'},{name:'created_at',title:'Registered At',sortField:'created_at'},{name:'id',title:'Actions',titleClass:'action-th'}]">
 						<template slot="email" slot-scope="prop">
 							{{ prop.row.email }}
-						<span v-if="prop.row.verified_email == 0" class="badge badge-warning">Unverified</span>
-						<button @click="resendVerification(prop.row.email)" v-if="prop.row.verified_email == 0" class="badge badge-info">Resend Verification</button>
+							<span v-if="prop.row.verified_email == 0" class="badge badge-warning">Unverified</span>
+							<button @click="resendVerification(prop.row.email)" v-if="prop.row.verified_email == 0" class="badge badge-info">Resend Verification</button>
 						</template>
 						<template slot="verified_by_admin" slot-scope="prop">
-						<span :class="[(prop.row.verified_by_admin == 1 ?'badge-success':'badge-warning')]"
-							  class="badge">{{ (prop.row.verified_by_admin == 1 ?'Verified':'Unverified') }}</span>
+							<span :class="[(prop.row.verified_by_admin == 1 ?'badge-success':'badge-warning')]" class="badge">{{ (prop.row.verified_by_admin == 1 ?'Verified':'Unverified') }}</span>
 						</template>
 						<template slot="created_at" slot-scope="prop">
 							{{ formatDate(prop.row.created_at) }}
 						</template>
 						<template slot="id" slot-scope="props">
 							<div class="table-button-container">
-								<button v-if="props.row.verified_by_admin == 0" @click="openVerifyModal(props)"
-										class="btn btn-warning btn-sm">
+								<button v-if="props.row.verified_by_admin == 0" @click="openVerifyModal(props)" class="btn btn-warning btn-sm">
 									<span class="fa fa-pen"></span> Verify
 								</button>
 								<button class="btn btn-primary btn-sm" @click="detail(props.row,$event)">
@@ -103,7 +97,7 @@ $this->layout->begin_head();
 								<button class="btn btn-danger btn-sm" @click="deleteMember(props,$event)">
 									<span class="fa fa-trash"></span> Delete
 								</button>
-								<a class="btn btn-primary btn-sm" :href="'<?=base_url('admin/notification/index');?>/'+props.row.id" target="_blank">
+								<a class="btn btn-primary btn-sm" :href="'<?= base_url('admin/notification/index'); ?>/'+props.row.id" target="_blank">
 									<span class="fa fa-envelope"></span> Email
 								</a>
 							</div>
@@ -122,7 +116,7 @@ $this->layout->begin_head();
 				<div class="card-body">
 					<div class="form-group">
 						<label class="form-check-label">Email</label>
-						<input type="text" class="form-control" v-model="profile.email"/>
+						<input type="text" class="form-control" v-model="profile.email" />
 					</div>
 					<div class="form-group">
 						<label class="form-check-label">Status</label>
@@ -132,30 +126,30 @@ $this->layout->begin_head();
 					</div>
 					<div class="form-group">
 						<label class="form-check-label">Alternatif Status (Optional)</label>
-						<input type="text" class="form-control" v-model="profile.alternatif_status"/>
+						<input type="text" class="form-control" v-model="profile.alternatif_status" />
 					</div>
 					<div class="form-group">
 						<label class="form-check-label">Fullname</label>
-						<input type="text" class="form-control" v-model="profile.fullname"/>
+						<input type="text" class="form-control" v-model="profile.fullname" />
 					</div>
 					<div class="form-group">
 						<label class="form-check-label">Gender</label>
 						<div class="radio">
 							<label>
-								<input type="radio" name="gender" v-model="profile.gender" value="M"/> Male
+								<input type="radio" name="gender" v-model="profile.gender" value="M" /> Male
 							</label>
 							<label>
-								<input type="radio" name="gender" v-model="profile.gender" value="F"/> Female
+								<input type="radio" name="gender" v-model="profile.gender" value="F" /> Female
 							</label>
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="form-check-label">Phone</label>
-						<input type="text" class="form-control" v-model="profile.phone"/>
+						<input type="text" class="form-control" v-model="profile.phone" />
 					</div>
 					<div class="form-group">
 						<label class="form-check-label">City</label>
-						<input type="text" class="form-control" v-model="profile.city"/>
+						<input type="text" class="form-control" v-model="profile.city" />
 					</div>
 					<div class="form-group">
 						<label class="form-check-label">Address</label>
@@ -191,7 +185,7 @@ $this->layout->begin_head();
 						<th>Status As</th>
 						<td colspan="2">{{ profile.statusName }}</td>
 						<td rowspan="3">
-							<img class="img img-thumbnail" :src="profile.imageLink" style="max-height: 200px"/>
+							<img class="img img-thumbnail" :src="profile.imageLink" style="max-height: 200px" />
 						</td>
 					</tr>
 					<tr>
@@ -251,24 +245,20 @@ $this->layout->begin_head();
 								</tr>
 								<tr v-for="ev in profile.event">
 									<td>
-										{{ ev.event_name }} <br/>
-										<a :href="'<?= base_url('admin/member/card'); ?>/'+ev.event_id+'/'+profile.id"
-										   target="_blank">Download Name Tag</a> <button :disabled="sendingCertificate" v-on:click="sendCertificate(ev)" class="btn btn-primary btn-sm"><i v-if="sendingCertificate" class="fa fa-spin fa-spinner"></i>Send Certificate</button>
+										{{ ev.event_name }} <br />
+										<a :href="'<?= base_url('admin/member/card'); ?>/'+ev.event_id+'/'+profile.id" target="_blank">Download Name Tag</a> <button :disabled="sendingCertificate" v-on:click="sendCertificate(ev)" class="btn btn-primary btn-sm"><i v-if="sendingCertificate" class="fa fa-spin fa-spinner"></i>Send Certificate</button>
 									</td>
 									<td>
-										<input type="checkbox" v-model="ev.checklist.nametag" true-value="true"
-											   false-value="false"/>
+										<input type="checkbox" v-model="ev.checklist.nametag" true-value="true" false-value="false" />
 									</td>
 									<td>
-										<input type="checkbox" v-model="ev.checklist.seminarkit" true-value="true"
-											   false-value="false"/>
+										<input type="checkbox" v-model="ev.checklist.seminarkit" true-value="true" false-value="false" />
 									</td>
 									<td>
-										<input type="checkbox" v-model="ev.checklist.certificate" true-value="true"
-											   false-value="false"/>
+										<input type="checkbox" v-model="ev.checklist.certificate" true-value="true" false-value="false" />
 									</td>
 									<td>
-										<input type="text" v-model="ev.checklist.taker" class="form-control"/>
+										<input type="text" v-model="ev.checklist.taker" class="form-control" />
 									</td>
 								</tr>
 							</table>
@@ -301,8 +291,7 @@ $this->layout->begin_head();
 			<div class="modal-body">
 				<div class="form-group">
 					<div class="input-group">
-						<input v-model="new_status" type="text" class="form-control" @keyup.enter="addStatus"
-							   placeholder="New Member Status"/>
+						<input v-model="new_status" type="text" class="form-control" @keyup.enter="addStatus" placeholder="New Member Status" />
 						<div class="input-group-append">
 							<button type="button" class="btn btn-primary" @click="addStatus"><i class="fa fa-plus"></i>
 							</button>
@@ -311,29 +300,28 @@ $this->layout->begin_head();
 				</div>
 				<table class="table">
 					<thead>
-					<tr>
-						<th>Need Verification</th>
-						<th>Is Hide</th>
-						<th>Status Name</th>
-						<th></th>
-					</tr>
+						<tr>
+							<th>Need Verification</th>
+							<th>Is Hide</th>
+							<th>Status Name</th>
+							<th></th>
+						</tr>
 					</thead>
 					<tbody>
-					<tr v-for="(cat,index) in statusList">
-						<td>
-							<input type="checkbox" v-model="cat.need_verify" true-value="1" false-value="0"  @click="needVerification(index)"/>
-						</td>
-						<td>
-							<input type="checkbox" v-model="cat.is_hide" true-value="1" false-value="0"  @click="hideStatus(index)"/>
-						</td>
-						<td>
-							{{ cat.kategory }}
-						</td>
-						<td>
-							<button @click="removeStatus(index)" class="btn btn-danger btn-sm"><i
-									class="fa fa-times"></i></button>
-						</td>
-					</tr>
+						<tr v-for="(cat,index) in statusList">
+							<td>
+								<input type="checkbox" v-model="cat.need_verify" true-value="1" false-value="0" @click="needVerification(index)" />
+							</td>
+							<td>
+								<input type="checkbox" v-model="cat.is_hide" true-value="1" false-value="0" @click="hideStatus(index)" />
+							</td>
+							<td>
+								{{ cat.kategory }}
+							</td>
+							<td>
+								<button @click="removeStatus(index)" class="btn btn-danger btn-sm"><i class="fa fa-times"></i></button>
+							</td>
+						</tr>
 					</tbody>
 				</table>
 
@@ -377,13 +365,11 @@ $this->layout->begin_head();
 					<th>Your Response</th>
 					<td>
 						<div class="form-check">
-							<input type="radio" name="response" value="1" class="form-check-input"
-								   v-model="verifyModel.response"/>
+							<input type="radio" name="response" value="1" class="form-check-input" v-model="verifyModel.response" />
 							<label class="form-check-label">Agree</label>
 						</div>
 						<div class="form-check">
-							<input type="radio" name="response" value="0" class="form-check-input"
-								   v-model="verifyModel.response"/>
+							<input type="radio" name="response" value="0" class="form-check-input" v-model="verifyModel.response" />
 							<label class="form-check-label">Disagree</label>
 						</div>
 					</td>
@@ -409,267 +395,279 @@ $this->layout->begin_head();
 </div>
 
 <?php $this->layout->begin_script(); ?>
-<script src="<?=base_url("themes/script/chosen/chosen.jquery.min.js");?>"></script>
-<script src="<?=base_url("themes/script/chosen/vue-chosen.js");?>"></script>
+<script src="<?= base_url("themes/script/chosen/chosen.jquery.min.js"); ?>"></script>
+<script src="<?= base_url("themes/script/chosen/vue-chosen.js"); ?>"></script>
 
 <script>
-    var tempStatus = <?=json_encode($statusList);?>;
+	var tempStatus = <?= json_encode($statusList); ?>;
 
-    function postStatus(cat) {
-        return $.post('<?=base_url('admin/member/add_status');?>', {value: cat});
-    }
+	function postStatus(cat) {
+		return $.post('<?= base_url('admin/member/add_status'); ?>', {
+			value: cat
+		});
+	}
 
-    var app = new Vue({
-        el: '#app',
-        data: {
-            new_status: '',
-            statusList:<?=json_encode($statusList);?>,
-            institutionList:<?=json_encode($univDl);?>,
-            verifyModel: {},
-            verifying: false,
-            verifyMessage: null,
-            pagination: {},
-            profileMode: 0,
-            profile: {},
-            savingCheck: false,
-            savingProfile: false,
-			sendingCertificate:false,
-        },
-        methods: {
+	var app = new Vue({
+		el: '#app',
+		data: {
+			new_status: '',
+			statusList: <?= json_encode($statusList); ?>,
+			institutionList: <?= json_encode($univDl); ?>,
+			verifyModel: {},
+			verifying: false,
+			verifyMessage: null,
+			pagination: {},
+			profileMode: 0,
+			profile: {},
+			savingCheck: false,
+			savingProfile: false,
+			sendingCertificate: false,
+		},
+		methods: {
 			formatDate(date) {
 				return moment(date).format("DD MMM YYYY, [At] HH:mm:ss");
 			},
-			resendVerification(email){
-				$.post("<?=base_url("admin/member/resend_verification");?>", {email:email}, function (res) {
-					if(res.status)
-						Swal.fire("Success", "Verification email sent !", "success");				
+			resendVerification(email) {
+				$.post("<?= base_url("admin/member/resend_verification"); ?>", {
+					email: email
+				}, function(res) {
+					if (res.status)
+						Swal.fire("Success", "Verification email sent !", "success");
 					else
 						Swal.fire('Fail', res.message, 'error');
-				}, "JSON").fail(function (xhr) {
+				}, "JSON").fail(function(xhr) {
 					Swal.fire('Fail', "Server gagal memproses !", 'error');
-				}).always(function () {
+				}).always(function() {
 					app.sendingCertificate = false;
 				});
 			},
-			sendCertificate(event){
+			sendCertificate(event) {
 				app.sendingCertificate = true;
 				var data = {
-					fullname:event.fullname,
-					email:event.email,
-					gender:event.gender,
-					status_member:event.member_status,
-					id:event.event_id,
-					event_name:event.event_name,
-					alternatif_status:event.alternatif_status
+					fullname: event.fullname,
+					email: event.email,
+					gender: event.gender,
+					status_member: event.member_status,
+					id: event.event_id,
+					event_name: event.event_name,
+					alternatif_status: event.alternatif_status
 				}
-				$.post("<?=base_url("admin/member/send_certificate");?>", data, function (res) {
+				$.post("<?= base_url("admin/member/send_certificate"); ?>", data, function(res) {
 					if (res.status)
 						Swal.fire("Success", "Certificate sended !", "success");
 					else
 						Swal.fire("Failed", res.message, "error");
-				}, "JSON").fail(function (xhr) {
-					var message =  xhr.getResponseHeader("Message");
-					if(!message)
+				}, "JSON").fail(function(xhr) {
+					var message = xhr.getResponseHeader("Message");
+					if (!message)
 						message = 'Server fail to response !';
 					Swal.fire('Fail', message, 'error');
-				}).always(function () {
+				}).always(function() {
 					app.sendingCertificate = false;
 				});
 			},
-            saveProfile() {
-                app.savingProfile = true;
-                $.post("<?=base_url("admin/member/save_profile");?>", app.profile, function (res) {
-                    if (res.status)
-                        Swal.fire("Success", "Profile Saved !", "success");
-                    else
-                        Swal.fire("Failed", (res.message ? res.message : "Failed to save data !"), "error");
-                }, "JSON").fail(function (xhr) {
-					var message =  xhr.getResponseHeader("Message");
-					if(!message)
+			saveProfile() {
+				app.savingProfile = true;
+				$.post("<?= base_url("admin/member/save_profile"); ?>", app.profile, function(res) {
+					if (res.status)
+						Swal.fire("Success", "Profile Saved !", "success");
+					else
+						Swal.fire("Failed", (res.message ? res.message : "Failed to save data !"), "error");
+				}, "JSON").fail(function(xhr) {
+					var message = xhr.getResponseHeader("Message");
+					if (!message)
 						message = 'Server fail to response !';
 					Swal.fire('Fail', message, 'error');
-                }).always(function () {
-                    app.savingProfile = false;
-                });
-            },
-            deleteMember(prop,event) {
-                var btn = event.currentTarget;
-                Swal.fire({
-                    title: "Are you sure ?",
-                    text: `You will delete "${prop.row.fullname}" From member`,
-                    type: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                    if (result.value) {
-                        btn.innerHTML = "<i class='fa fa-spin fa-spinner'></i>";
-                        btn.setAttribute("disabled",true);
-                        $.post("<?=base_url("admin/member/delete");?>", prop.row, function (res) {
-                            if (res.status) {
-                                Swal.fire("Success", "Member deleted successfully", "success");
-                                app.$refs.datagrid.refresh();
-                            }else
-                                Swal.fire("Failed", res.message, "error");
-                        }, "JSON").fail(function (xhr) {
-							var message =  xhr.getResponseHeader("Message");
-							if(!message)
+				}).always(function() {
+					app.savingProfile = false;
+				});
+			},
+			deleteMember(prop, event) {
+				var btn = event.currentTarget;
+				Swal.fire({
+					title: "Are you sure ?",
+					text: `You will delete "${prop.row.fullname}" From member`,
+					type: 'warning',
+					showCancelButton: true,
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+					confirmButtonText: 'Yes, delete it!'
+				}).then((result) => {
+					if (result.value) {
+						btn.innerHTML = "<i class='fa fa-spin fa-spinner'></i>";
+						btn.setAttribute("disabled", true);
+						$.post("<?= base_url("admin/member/delete"); ?>", prop.row, function(res) {
+							if (res.status) {
+								Swal.fire("Success", "Member deleted successfully", "success");
+								app.$refs.datagrid.refresh();
+							} else
+								Swal.fire("Failed", res.message, "error");
+						}, "JSON").fail(function(xhr) {
+							var message = xhr.getResponseHeader("Message");
+							if (!message)
 								message = 'Server fail to response !';
 							Swal.fire('Fail', message, 'error');
-                        }).always(function () {
-                            btn.innerHTML = '<i class="fa fa-trash"></i> Delete';
-                            btn.removeAttribute("disabled");
-                        });
-                    }
-                });
-            },
-            edit(prop) {
-                this.profile = prop.row;
-                this.profileMode = 3;
-            },
-            saveChecklist() {
-                app.savingCheck = true;
-                var data = [];
-                $.each(app.profile.event, function (i, r) {
-                    var t = r.checklist;
-                    data.push({
-                        id: r.td_id,
-                        checklist: t
-                    });
-                });
+						}).always(function() {
+							btn.innerHTML = '<i class="fa fa-trash"></i> Delete';
+							btn.removeAttribute("disabled");
+						});
+					}
+				});
+			},
+			edit(prop) {
+				this.profile = prop.row;
+				this.profileMode = 3;
+			},
+			saveChecklist() {
+				app.savingCheck = true;
+				var data = [];
+				$.each(app.profile.event, function(i, r) {
+					var t = r.checklist;
+					data.push({
+						id: r.td_id,
+						checklist: t
+					});
+				});
 
-                $.post("<?=base_url("admin/member/save_check");?>", {transaction: data}, function (res) {
-                    Swal.fire("Success", "Checklist saved !", "success");
-                }, "JSON").fail(function (xhr) {
-					var message =  xhr.getResponseHeader("Message");
-					if(!message)
+				$.post("<?= base_url("admin/member/save_check"); ?>", {
+					transaction: data
+				}, function(res) {
+					Swal.fire("Success", "Checklist saved !", "success");
+				}, "JSON").fail(function(xhr) {
+					var message = xhr.getResponseHeader("Message");
+					if (!message)
 						message = 'Server fail to response !';
 					Swal.fire('Fail', message, 'error');
-                }).always(function () {
-                    app.savingCheck = false;
-                });
-            },
-            detail(profile, event, institution) {
-                $.each(this.statusList, function (i, v) {
-                    if (v.id == profile.status)
-                        profile.statusName = v.kategory;
-                });
-                if (profile.image) {
-                    profile.imageLink = `<?=base_url('themes/uploads/profile');?>/${profile.image}`;
-                } else {
-                    profile.imageLink = `<?=base_url('themes/uploads/people.jpg');?>`;
-                }
-                event.target.innerHtml = "<i class='fa fa-spin fa-spinner'></i>Loading...";
+				}).always(function() {
+					app.savingCheck = false;
+				});
+			},
+			detail(profile, event, institution) {
+				$.each(this.statusList, function(i, v) {
+					if (v.id == profile.status)
+						profile.statusName = v.kategory;
+				});
+				if (profile.image) {
+					profile.imageLink = `<?= base_url('themes/uploads/profile'); ?>/${profile.image}`;
+				} else {
+					profile.imageLink = `<?= base_url('themes/uploads/people.jpg'); ?>`;
+				}
+				event.target.innerHtml = "<i class='fa fa-spin fa-spinner'></i>Loading...";
 
-                $.post("<?=base_url("admin/member/get_event");?>", {id: profile.id}, function (res) {
-                    profile.event = res;
-                    profile.birthdayFormatted = moment(profile.birthday).format('DD MMM YYYY');
-                    app.profileMode = 1;
-                    app.profile = profile;
-                }, "JSON").fail(function (xhr) {
-					var message =  xhr.getResponseHeader("Message");
-					if(!message)
+				$.post("<?= base_url("admin/member/get_event"); ?>", {
+					id: profile.id
+				}, function(res) {
+					profile.event = res;
+					profile.birthdayFormatted = moment(profile.birthday).format('DD MMM YYYY');
+					app.profileMode = 1;
+					app.profile = profile;
+				}, "JSON").fail(function(xhr) {
+					var message = xhr.getResponseHeader("Message");
+					if (!message)
 						message = 'Server fail to response !';
 					Swal.fire('Fail', message, 'error');
-                }).always(function () {
-                    event.target.innerHtml = "Detail";
-                });
-            },
-            verify() {
-                this.verifying = true;
-                $.post("<?=base_url('admin/member/verify');?>", this.verifyModel, function (res) {
-                    if (res.status) {
-                        $("#modal-verification").modal("hide");
-                        Swal.fire("Success", "Member has been verified !", "success");
-                        app.$refs.datagrid.refresh();
-                    } else
-                        app.verifyMessage = res.message;
-                }, 'JSON').fail(function (xhr) {
-					var message =  xhr.getResponseHeader("Message");
-					if(!message)
+				}).always(function() {
+					event.target.innerHtml = "Detail";
+				});
+			},
+			verify() {
+				this.verifying = true;
+				$.post("<?= base_url('admin/member/verify'); ?>", this.verifyModel, function(res) {
+					if (res.status) {
+						$("#modal-verification").modal("hide");
+						Swal.fire("Success", "Member has been verified !", "success");
+						app.$refs.datagrid.refresh();
+					} else
+						app.verifyMessage = res.message;
+				}, 'JSON').fail(function(xhr) {
+					var message = xhr.getResponseHeader("Message");
+					if (!message)
 						message = 'Server fail to response !';
 					Swal.fire('Fail', message, 'error');
-                    $("#modal-verification").modal("hide");
-                }).always(function () {
-                    app.verifying = false;
-                });
-            },
-            openVerifyModal(prop) {
-                this.verifyMessage = null;
-                $.each(this.statusList, function (i, v) {
-                    if (v.id == prop.row.status)
-                        prop.row.statusSubmitted = v.kategory;
-                });
-                prop.row.proofLink = "<?=base_url('admin/member/get_proof');?>/" + prop.row.id;
-                this.verifyModel = prop.row;
-                $("#modal-verification").modal("show");
-            },
-            addStatus: function () {
-                if (this.new_status != "") {
-                    tempStatus.push({"kategory": this.new_status});
-                    postStatus(tempStatus).done(function (res) {
-                        app.statusList = res;
-                        tempStatus = JSON.parse(JSON.stringify(res));
-                        app.new_status = "";
-                    }).fail(function (xhr) {
-                        tempStatus.pop();
-						var message =  xhr.getResponseHeader("Message");
-						if(!message)
+					$("#modal-verification").modal("hide");
+				}).always(function() {
+					app.verifying = false;
+				});
+			},
+			openVerifyModal(prop) {
+				this.verifyMessage = null;
+				$.each(this.statusList, function(i, v) {
+					if (v.id == prop.row.status)
+						prop.row.statusSubmitted = v.kategory;
+				});
+				prop.row.proofLink = "<?= base_url('admin/member/get_proof'); ?>/" + prop.row.id;
+				this.verifyModel = prop.row;
+				$("#modal-verification").modal("show");
+			},
+			addStatus: function() {
+				if (this.new_status != "") {
+					tempStatus.push({
+						"kategory": this.new_status
+					});
+					postStatus(tempStatus).done(function(res) {
+						app.statusList = res;
+						tempStatus = JSON.parse(JSON.stringify(res));
+						app.new_status = "";
+					}).fail(function(xhr) {
+						tempStatus.pop();
+						var message = xhr.getResponseHeader("Message");
+						if (!message)
 							message = 'Server fail to response !';
 						Swal.fire('Fail', message, 'error');
-                    });
-                }
+					});
+				}
 
-            },
-            removeStatus: function (index) {
-                var value = this.statusList[index];
-                $.post("<?=base_url('admin/member/remove_status');?>", {id: value.id}, function (res) {
-                    if (res.status)
-                        app.statusList.splice(index, 1);
-                }, 'JSON').fail(function (xhr) {
-					var message =  xhr.getResponseHeader("Message");
-					if(!message)
-						message = 'Server fail to response !';
-					Swal.fire('Fail', message, 'error');
-                });
 			},
-			hideStatus: function (index) {
-                var value = this.statusList[index];
-                value.is_hide = (value.is_hide == 1 ? 0:1);
-                $.post("<?=base_url('admin/member/verification_status');?>", value, function (res) {
-
-                }, 'JSON').fail(function (xhr) {
-                    value.is_hide = (value.is_hide == 1 ? 0:1);
-					var message =  xhr.getResponseHeader("Message");
-					if(!message)
+			removeStatus: function(index) {
+				var value = this.statusList[index];
+				$.post("<?= base_url('admin/member/remove_status'); ?>", {
+					id: value.id
+				}, function(res) {
+					if (res.status)
+						app.statusList.splice(index, 1);
+				}, 'JSON').fail(function(xhr) {
+					var message = xhr.getResponseHeader("Message");
+					if (!message)
 						message = 'Server fail to response !';
 					Swal.fire('Fail', message, 'error');
-                });
-            },
-            needVerification: function (index) {
-                var value = this.statusList[index];
-                value.need_verify = (value.need_verify == 1 ? 0:1);
-                $.post("<?=base_url('admin/member/verification_status');?>", value, function (res) {
+				});
+			},
+			hideStatus: function(index) {
+				var value = this.statusList[index];
+				value.is_hide = (value.is_hide == 1 ? 0 : 1);
+				$.post("<?= base_url('admin/member/verification_status'); ?>", value, function(res) {
 
-                }, 'JSON').fail(function (xhr) {
-                    value.need_verify = (value.need_verify == 1 ? 0:1);
-					var message =  xhr.getResponseHeader("Message");
-					if(!message)
+				}, 'JSON').fail(function(xhr) {
+					value.is_hide = (value.is_hide == 1 ? 0 : 1);
+					var message = xhr.getResponseHeader("Message");
+					if (!message)
 						message = 'Server fail to response !';
 					Swal.fire('Fail', message, 'error');
-                });
-            },
-            loadedGrid: function (data) {
-                this.pagination = data;
-            }
-        },
-        mounted() {
-			<?php if(isset($_GET['q'])):?>
-            this.$refs.datagrid.globalFilter = "<?=$_GET['q'];?>";
-            this.$refs.datagrid.doFilter();
-			<?php endif;?>
-        }
-    });
+				});
+			},
+			needVerification: function(index) {
+				var value = this.statusList[index];
+				value.need_verify = (value.need_verify == 1 ? 0 : 1);
+				$.post("<?= base_url('admin/member/verification_status'); ?>", value, function(res) {
+
+				}, 'JSON').fail(function(xhr) {
+					value.need_verify = (value.need_verify == 1 ? 0 : 1);
+					var message = xhr.getResponseHeader("Message");
+					if (!message)
+						message = 'Server fail to response !';
+					Swal.fire('Fail', message, 'error');
+				});
+			},
+			loadedGrid: function(data) {
+				this.pagination = data;
+			}
+		},
+		mounted() {
+			<?php if (isset($_GET['q'])) : ?>
+				this.$refs.datagrid.globalFilter = "<?= $_GET['q']; ?>";
+				this.$refs.datagrid.doFilter();
+			<?php endif; ?>
+		}
+	});
 </script>
 <?php $this->layout->end_script(); ?>
