@@ -36,13 +36,13 @@ var PageProfile = Vue.component("PageProfile", {
         </div>
         <form role="form" class="needs-validation form-border" method="post">
             <div class="form-group row mb-2">
-                <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 color-heading" >Status Anda Sebagi</label>
+                <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 color-heading" >Status As (Read Only)</label>
                 <div class="col-lg-9">
                     <input disabled="true" class="form-control"  type="text" :value="user.status_member">
                 </div>
             </div>
             <div class="form-group row mb-2">
-                <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 required color-heading">Name</label>
+                <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 required color-heading">Name (Read Only)</label>
                 <div class="col-lg-9">
                     <input :disabled="!editing" class="form-control" readonly required="" type="text" v-model="user.fullname">
                 </div>
