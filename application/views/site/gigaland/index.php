@@ -70,7 +70,7 @@
                                                 <div class="col-lg-6">
                                                    
                                                     <h3 style="color:#F4AD39;">Sign In</h3><br>
-                                                    <form name="contactForm" id='contact_form' class="form-border" method="post" action="">
+                                                    <form name="contactForm" id='contact_form' class="form-border" method="post" action="<?= base_url('site/login'); ?>">
                                                         <div class="field-set">
                                                         	<input type='text' name='username' id='email' class="form-control" placeholder="Email">
                           							   </div>
