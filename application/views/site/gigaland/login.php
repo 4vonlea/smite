@@ -42,7 +42,7 @@
                                                         <input type='password' name='password' id='password' class="form-control" placeholder="Password">
                                                     </div>
                                                     <div class="d-buttons">
-                                                        <button href="" class="btn-main btn-fullwidth" name="login" style="background-color:#F4AD39; color:black;">Sign</button><br>
+                                                        <input type="submit" name="login" value="Sign" class="btn-main btn-fullwidth" name="login" style="background-color:#F4AD39; color:black;"/><br>
                                                     </div>
                                                 </div>
                                             </div>
