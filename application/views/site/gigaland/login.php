@@ -35,7 +35,7 @@
                                                 </div>
                                                 <div class="field-set" style="color:#F4AD39;">
                                                     <div class="field-set">
-                                                        <input type='text' name='email' id='email' class="form-control" placeholder="Email">
+                                                        <input type='text' name='username' id='email' class="form-control" placeholder="Email">
                                                     </div>
 
                                                     <div class="field-set">
