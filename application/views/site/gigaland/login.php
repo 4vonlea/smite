@@ -19,7 +19,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-8 offset-lg-2">
-                        <form id="form-create-item" class="form-border" method="post" action="<?base_url("site/login");?>">
+                        <form id="form-create-item" class="form-border" method="post" action="<?=base_url("site/login");?>">
                             <div class="de_tab tab_simple">
                                 <h4 style="color:#F4AD39;"><i class="fa fa-home"></i> Login</h4>
                                 <div class="de_tab_content">
