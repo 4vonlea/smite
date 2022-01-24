@@ -43,7 +43,7 @@
                         <div class="nft__item_lg">
                             <div class="row align-items-center">
                                 <div class="col-lg-6 wow fadeInRight" data-wow-delay=".5s">
-                                    <img src="<?= base_url('themes/gigaland'); ?>/images/webposterrev.jpg" style="width:500px; height:620px; text-align:right; margin-left:auto;" class="img-fluid" alt="">
+                                    <!-- <img src="<?= base_url('themes/gigaland'); ?>/images/webposterrev.jpg" style="width:500px; height:620px; text-align:right; margin-left:auto;" class="img-fluid" alt=""> -->
                                 </div>
                                 <div class="col-lg-6 wow fadeInRight" data-wow-delay=".5s">
                                     <div class="d-desc">
