@@ -151,33 +151,38 @@ $theme_path = base_url("themes/gigaland") . "/";
     <a href="#" id="back-to-top"></a>
     <!-- footer begin -->
     <footer style="color:#F4AD39;">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3 col-sm-6 col-xs-1">
-                    <div class="widget">
+        <div class="container" style="background-size: cover;">
+            <div class="row" style="background-size: cover;">
+                <div class="col-md-3 col-sm-6 col-xs-1" style="background-size: cover;">
+                    <div class="widget" style="background-size: cover;">
                         <h5 style="color:#F4AD39;">AOMC</h5>
                         <ul>
                             <li><u href="#">Contact Person</u></li>
-                            <li><a href="#">Name : Is Me (+62############)</a></li>
-                            <li><a href="#">Name : Is Me (+62############)</a></li>
-                            <li><a href="#">Email : email@email.com</a></li>
+                            <li><a href="https://wa.me/6285163683209" target="blank">Rida Sieseria, MD : 085163683209 (Registration and Information)</a></li>
+                            <li><a href="#" target="blank">Email : admin@aomc-pinbanjarmasin2022.com</a></li>
+                            <hr>
+                            <li><a href="https://wa.me/628179400579" target="blank">Fachrurrazy, MD : 08179400579 (Scientific Affair)</a></li>
+                            <li><a href="#" target="blank">Email : scientific@aomc-pinbanjarmasin2022.com</a></li>
+                            <hr>
+                            <li><a href="https://wa.me/6285888885010" target="blank">Asnelia Devicaesaria, MD : 085888885010 (Sponsorship Affair)</a></li>
+                            <li><a href="#" target="blank">Email : sponsor@aomc-pinbanjarmasin2022.com</a></li>
                         </ul>
                     </div>
                 </div>
-                <div class="col-md-3 col-sm-6 col-xs-1">
-                    <div class="widget">
+                <div class="col-md-3 col-sm-6 col-xs-1" style="background-size: cover;">
+                    <div class="widget" style="background-size: cover;">
                         <h5 style="color:#F4AD39;">Registration Fee</h5>
                         <ul>
                             <li><b href="#"><u>Domestic Participant (IDR):</u></b></li>
                             <li><a href="#">- Participant</a></li>
-                            <li><a href="#">1. Specialist : 1000000(Early Bird) / 1250000(After 16 May 22)</a></li>
-                            <li><a href="#">2. General Practioner : 500000(Early Bird) / 700000(After 16 May 22)</a></li>
-                            <li><a href="#">3. Resident : 500000(Early Bird) / 700000(After 16 May 22)</a></li>
+                            <li><a href="#">1. Specialist : Rp. 1.000.000(Early Bird) / Rp. 1.250.000(After 16 May 22)</a></li>
+                            <li><a href="#">2. General Practioner : Rp. 500.000(Early Bird) / Rp. 700.000(After 16 May 22)</a></li>
+                            <li><a href="#">3. Resident : Rp. 500.000(Early Bird) / Rp. 700.000(After 16 May 22)</a></li>
                         </ul>
                     </div>
                 </div>
-                <div class="col-md-3 col-sm-6 col-xs-1">
-                    <div class="widget">
+                <div class="col-md-3 col-sm-6 col-xs-1" style="background-size: cover;">
+                    <div class="widget" style="background-size: cover;">
                         <h5 style="color:#F4AD39;">Registration Fee</h5>
                         <ul>
                             <li><b href="#"><u>International Participant ($US):</u></b></li>
@@ -188,8 +193,8 @@ $theme_path = base_url("themes/gigaland") . "/";
                         </ul>
                     </div>
                 </div>
-                <div class="col-md-3 col-sm-6 col-xs-1">
-                    <div class="widget">
+                <div class="col-md-3 col-sm-6 col-xs-1" style="background-size: cover;">
+                    <div class="widget" style="background-size: cover;">
                         <h5 style="color:#F4AD39;">Note</h5>
                         <p>Note : <br>
                             - Workshop / Teaching Course participant must be registered as symposium participant<br>
@@ -200,17 +205,17 @@ $theme_path = base_url("themes/gigaland") . "/";
                 </div>
             </div>
         </div>
-        <div class="subfooter">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="de-flex">
-                            <div class="de-flex-col">
+        <div class="subfooter" style="background-size: cover;">
+            <div class="container" style="background-size: cover;">
+                <div class="row" style="background-size: cover;">
+                    <div class="col-md-12" style="background-size: cover;">
+                        <div class="de-flex" style="background-size: cover;">
+                            <div class="de-flex-col" style="background-size: cover;">
                                 <a href="03_grey-index.html">
-                                    <span class="copy" style="color:#F4AD39;">&copy; Copyright 2022 - Annual Scientific Meeting AOMC</span>
+                                    <span class="copy" style="color:#F4AD39;">© Copyright 2022 - Annual Scientific Meeting AOMC</span>
                                 </a>
                             </div>
-                            <div class="de-flex-col">
+                            <div class="de-flex-col" style="background-size: cover;">
 
                             </div>
                         </div>

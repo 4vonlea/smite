@@ -84,26 +84,23 @@
     <!-- content begin -->
     <div class="no-bottom no-top" id="content">
         <div id="top"></div>
-        <section id="section-hero" class="no-bottom" data-bgimage="url(<?= base_url('themes/gigaland'); ?>/images/background/13.jpg) bottom">
-            <div class="container">
+        <section id="section-hero" class="no-bottom" data-bgimage="url(<?= base_url('themes/gigaland'); ?>/images/background/13-1.jpg) bottom">
+            <div class="container" style="height: 800px;">
                 <div id="items-carousel-big" class="owl-carousel">
                     <!-- carousel item -->
                     <div class="nft__item_lg">
                         <div class="row align-items-center">
-                            <div class="col-lg-6 wow fadeInRight" data-wow-delay=".5s">
-                                <img src="<?= base_url('themes/gigaland'); ?>/images/webposterrev.jpg" style="width:500px; height:620px; text-align:right; margin-left:auto;" class="img-fluid" alt="">
-                            </div>
-                            <div class="col-lg-6 wow fadeInRight" data-wow-delay=".5s">
-                                <div class="d-desc">
-                                    <h3 style="color:#F4AD39;">20<sup>th</sup> Asian Oceanian Myology Center Meeting in Conjunction with National Scientific Meeting PERDOSSI 2022</h3><br>
-                                    <div class="row">
-                                        <img src="<?= base_url('themes/gigaland'); ?>/images/logowebrev.png" style="width:100px;" alt="">
-                                        <img src="<?= base_url('themes/gigaland'); ?>/images/aomccm.png" style="width:170px;" alt="">
-                                        <img src="<?= base_url('themes/gigaland'); ?>/images/AOMC.png" style="width:100px;" alt="">
-                                        <img src="<?= base_url('themes/gigaland'); ?>/images/perdossi.png" style="width:100px;" alt="">
-                                        <img src="<?= base_url('themes/gigaland'); ?>/images/idi.png" style="width:100px;" alt="">
+                            <div class="col-lg-12 wow fadeInRight" data-wow-delay=".5s">
+                                <div class="d-desc text-center">
+                                    <img style="text-align: center;" src="<?= base_url('themes/gigaland'); ?>/images/all-logo.png" style="width:600px;" alt="">
+                                    <h1 style="color:#F4AD39; text-shadow: 3px 2px 1px black;">20<sup>th</sup> Asian Oceanian Myology Center Meeting in Conjunction with National Scientific Meeting PERDOSSI 2022</h1><br>
+
+                                    <a href="<?= base_url('themes/gigaland'); ?>/images/1staomcpin.pdf" target="blank" class="btn-main btn-lg" style="background-color:#F4AD39; color:black;">1 <sup>st</sup> Announcement</a>&nbsp;
+                                    <div class="spacer-10">
+                                        <div class="d-buttons">
+
+                                        </div>
                                     </div>
-                                    <div class="spacer-10"></div>
                                 </div>
                             </div>
                         </div>
@@ -284,20 +281,20 @@
                             <h5 style="color:#F4AD39;">(<?= date_format($papercountdown, "F d, Y"); ?>)</h5>
                         </h2>
                         <div class="de_countdown text-center" data-year="<?= date_format($papercountdown, "Y"); ?>" data-month="<?= date_format($papercountdown, "m"); ?>" data-day="<?= date_format($papercountdown, "d"); ?>" data-hour="<?= date_format($papercountdown, "H"); ?>"></div>
-                        <div class="spacer-10"></div>
+                        <!-- <div class="spacer-10"></div>
                         <div class="d-buttons">
                             <a href="#" class="btn-main" data-bs-toggle="modal" data-bs-target="#place_a_bid" style="background-color:#F4AD39; color:black;">Template Journal</a>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="col-lg-6">
                         <h2 style="color:#F4AD39;">Event Coundown<br>
                             <h5 style="color:#F4AD39;">(<?= date_format($eventcountdown, "F d, Y"); ?>)</h5>
                         </h2>
                         <div class="de_countdown text-center" data-year="<?= date_format($eventcountdown, "Y"); ?>" data-month="<?= date_format($eventcountdown, "m"); ?>" data-day="<?= date_format($eventcountdown, "d"); ?>" data-hour="<?= date_format($eventcountdown, "H"); ?>"></div>
-                        <div class="spacer-10"></div>
+                        <!-- <div class="spacer-10"></div>
                         <div class="d-buttons">
                             <a href="#" class="btn-main" data-bs-toggle="modal" data-bs-target="#place_a_bid" style="background-color:#F4AD39; color:black;">Event Schedule</a>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -311,14 +308,14 @@
                         <h1 style="color:#F4AD39;">Sign In</h1>
                         <form name="contactForm" id='contact_form' class="form-border" method="post" action="<?= base_url('site/login'); ?>">
                             <div class="field-set">
-                                <input type='text' name='email' id='email' class="form-control" placeholder="Email">
+                                <input type='text' name='username' id='email' class="form-control" placeholder="Email">
                             </div>
 
                             <div class="field-set">
                                 <input type='password' name='password' id='password' class="form-control" placeholder="Password">
                             </div>
                             <div class="d-buttons">
-                                <a href="" class="btn-main btn-fullwidth" style="background-color:#F4AD39; color:black;">Sign</a><br>
+                                <input type="submit" name="login" class="btn-main btn-fullwidth" value="Sign" style="background-color:#F4AD39; color:black;"><br>
                             </div>
                         </form>
                     </div>
@@ -359,7 +356,7 @@
                             </li>
                             <li class="nav-item mt-2" data-aos="fade-up" data-aos-delay="100">
                                 <a class="nav-link" data-bs-toggle="tab" href="#tab-3">
-                                    <h4 style="color:#F4AD39;">Scientific Template : Abstract Template, Fullpaper Template, and PPT Template, also Guidline</h4>
+                                    <h4 style="color:#F4AD39;">Scientific Template : Abstract Template, Fullpaper Template, and PPT Template, also Guideline</h4>
                                 </a>
                             </li>
                             <li class="nav-item mt-2" data-aos="fade-up" data-aos-delay="100">
@@ -426,25 +423,88 @@
     <section id="cp" class="pt30 pb30">
         <div class="container">
             <div class="col-lg-12">
-                <h2 class="style-2 wow fadeInRight" data-wow-delay=".5s" style="color:#F4AD39;">Contact Person</h2>
+                <h2 class="style-2 wow fadeInRight" data-wow-delay=".5s" style="color:#F4AD39;">Contact Person AOMC</h2>
             </div>
             <div class="row wow fadeInRight" data-wow-delay=".5s">
-                <div class="col-lg-4 col-md-6 mb-sm-30 text-center">
-                    <div class="feature-box f-boxed style-3">
-                        <img src="<?= base_url('themes/gigaland'); ?>/images/helpdesk4.png" class="lazy img-fluid" alt="">
+                <div class="col-lg-3 col-md-6 mb-sm-30 text-center">
+                    <div class="feature-box f-boxed style-3" style="height: 550px;">
+                        <img src="<?= base_url('themes/gigaland'); ?>/images/helpdesk1.png" class="lazy img-fluid" alt="">
+                        <div class="text">
+                            <h3 class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39; font-size: 16px;">Nurul Fadli, MD, Neurologist</h3>
+                        </div>
+                        <p class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39; font-size:15px;">(Registration and Information)</p>
+                        <!-- <a target="blank" href="https://wa.me/6285163683209"><i class="fa fa-whatsapp" style="background-color:#F4AD39; color:black;"></i></a> -->
                         <br>
+                        <p class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39; font-size:14px;">admin@aomc-pinbanjarmasin2022.com</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-sm-30 text-center">
+                    <div class="feature-box f-boxed style-3" style="height: 550px;">
+                        <img src="<?= base_url('themes/gigaland'); ?>/images/helpdesk1.png" class="lazy img-fluid" alt="">
+                        <div class="text">
+                            <h3 class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39; font-size: 19px;">Desva Nurafivah, BMS</h3>
+                        </div>
+                        <p class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39; font-size:15px;">(Registration and Information)</p>
+                        <!-- <a target="blank" href="https://wa.me/6285163683209"><i class="fa fa-whatsapp" style="background-color:#F4AD39; color:black;"></i></a> -->
                         <br>
+                        <p class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39; font-size:14px;">admin@aomc-pinbanjarmasin2022.com</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-sm-30 text-center">
+                    <div class="feature-box f-boxed style-3" style="height: 550px;">
+                        <img src="<?= base_url('themes/gigaland'); ?>/images/helpdesk5.png" class="lazy img-fluid" alt="">
+                        <div class="text">
+                            <h3 class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39; font-size: 15px;">Luh Ari Indrawati, MD, Neurologist, Consultant Neurologist</h3>
+                        </div>
+                        <p class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39; font-size:15px;">(Scientific Affair)</p>
+                        <!-- <a target="blank" href="https://wa.me/628179400579"><i class="fa fa-whatsapp" style="background-color:#F4AD39; color:black;"></i></a> -->
+                        <br>
+                        <p class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39; font-size:14px;">scientific@aomc-pinbanjarmasin2022.com</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-sm-30 text-center">
+                    <div class="feature-box f-boxed style-3" style="height: 550px;">
+                        <img src="<?= base_url('themes/gigaland'); ?>/images/helpdesk7.png" class="lazy img-fluid" alt="">
+                        <div class="text">
+                            <h3 class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39; font-size: 15px;">Ahmad Yanuar Safri, MD, Neurologist, Consultant Neurologist</h3>
+                        </div>
+                        <p class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39; font-size:15px;">(Sponsorship Affair)</p>
+                        <!-- <a target="blank" href="https://wa.me/628179400579"><i class="fa fa-whatsapp" style="background-color:#F4AD39; color:black;"></i></a> -->
+                        <br>
+                        <p class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39; font-size:14px;">sponsor@aomc-pinbanjarmasin2022.com</p>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="col-lg-12">
+                <h2 class="style-2 wow fadeInRight" data-wow-delay=".5s" style="color:#F4AD39;">Contact Person for PIN</h2>
+            </div>
+            <div class="row wow fadeInRight" data-wow-delay=".5s">
+                <div class="col-lg-3 col-md-6 mb-sm-30 text-center">
+                    <div class="feature-box f-boxed style-3" style="height: 500px;">
+                        <img src="<?= base_url('themes/gigaland'); ?>/images/helpdesk2.png" class="lazy img-fluid" alt="">
                         <div class="text">
                             <h3 class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39;">Rida Sieseria, MD</h3>
                         </div>
-                        <p class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39; font-size:15px;">(Registration and Information)</p>
+                        <p class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39; font-size:12px;">(Registration and Information)</p>
                         <a target="blank" href="https://wa.me/6285163683209"><i class="fa fa-whatsapp" style="background-color:#F4AD39; color:black;"></i></a><br>
                         <p class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39; font-size:14px;">admin@aomc-pinbanjarmasin2022.com</p>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 mb-sm-30 text-center">
-                    <div class="feature-box f-boxed style-3">
-                        <img src="<?= base_url('themes/gigaland'); ?>/images/helpdesk7.png" class="lazy img-fluid" style="width:600px;" alt=""><br><br>
+                <div class="col-lg-3 col-md-6 mb-sm-30 text-center">
+                    <div class="feature-box f-boxed style-3" style="height: 500px;">
+                        <img src="<?= base_url('themes/gigaland'); ?>/images/helpdesk4.png" class="lazy img-fluid" alt="">
+                        <div class="text">
+                            <h3 class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39;">Margaret, MD</h3>
+                        </div>
+                        <p class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39; font-size:15px;">(Scientific Affair)</p>
+                        <a target="blank" href="https://wa.me/628179400579"><i class="fa fa-whatsapp" style="background-color:#F4AD39; color:black;"></i></a><br>
+                        <p class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39; font-size:14px;">scientific@aomc-pinbanjarmasin2022.com</p>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 mb-sm-30 text-center">
+                    <div class="feature-box f-boxed style-3" style="height: 500px;">
+                        <img src="<?= base_url('themes/gigaland'); ?>/images/helpdesk7.png" class="lazy img-fluid" alt="">
                         <div class="text">
                             <h3 class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39;">Fachrurrazy, MD</h3>
                         </div>
@@ -453,11 +513,11 @@
                         <p class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39; font-size:14px;">scientific@aomc-pinbanjarmasin2022.com</p>
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 mb-sm-30 text-center">
-                    <div class="feature-box f-boxed style-3">
-                        <img src="<?= base_url('themes/gigaland'); ?>/images/helpdesk5.png" class="lazy img-fluid" alt=""><br><br>
+                <div class="col-lg-3 col-md-6 mb-sm-30 text-center">
+                    <div class="feature-box f-boxed style-3" style="height: 500px;">
+                        <img src="<?= base_url('themes/gigaland'); ?>/images/helpdesk5.png" class="lazy img-fluid" alt="">
                         <div class="text">
-                            <h3 class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39;">Asnelia Devicaesaria, MD</h3>
+                            <h3 class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39; font-size:16px;">Asnelia Devicaesaria, MD</h3>
                         </div>
                         <p class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39; font: size 15px;">(Sponsorship Affair)</p>
                         <a target="blank" href="https://wa.me/6285888885010"><i class="fa fa-whatsapp" style="background-color:#F4AD39; color:black;"></i></a><br>
