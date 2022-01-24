@@ -185,6 +185,9 @@ $theme_path = base_url("themes/gigaland") . "/";
                     <i v-if="saving" class="fa fa-spin fa-spinner"></i>
                     Checkout
                 </button>
+                <button type="button" @click="page = 'register'" class="btn-main" style="background-color:#F4AD39; color:black;">
+                    Back
+                </button>
             </div>
 
         </div>
@@ -256,7 +259,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                                                                         <td class="border-end">{{ member }}</td>
                                                                         <td v-for="pricing in event.pricingName" class="text-center">
                                                                             <span v-if="pricing.pricing[member]">
-                                                                                {{ formatCurrency(pricing.pricing[member].price) }} / {{formatCurrency(pricing.pricing[member].price_in_usd, 'USD')}}
+                                                                                <span v-if="pricing.pricing[member].price != 0">{{ formatCurrency(pricing.pricing[member].price) }} /</span> {{formatCurrency(pricing.pricing[member].price_in_usd, 'USD')}}
                                                                                 <div v-if="member == status_text" class="de-switch mt-2" style="background-size: cover;">
                                                                                     <input type="checkbox" :id="`switch-unlock_${member}_${event.name}`" :value="pricing.pricing[member].added" class="checkbox" v-model="pricing.pricing[member].added" @click="addEvent($event,pricing.pricing[member],member,event.name)">
                                                                                     <label :for="`switch-unlock_${member}_${event.name}`"></label>
@@ -493,10 +496,11 @@ $theme_path = base_url("themes/gigaland") . "/";
             totalPrice(idr = true) {
                 var total = 0;
                 for (var i in this.transactions) {
-                    if (idr) {
+                    if (idr && this.transactions[i].price != 0) {
                         total += parseFloat(this.transactions[i].price);
                     } else {
-                        total += parseFloat(this.transactions[i].price_in_usd);
+                        kurs_usd = <?= json_encode(json_decode(Settings_m::getSetting('kurs_usd'), true)); ?>;
+                        total += (parseFloat(item.price_in_usd) * kurs_usd.value);
                     }
                 }
                 return total;
@@ -504,10 +508,11 @@ $theme_path = base_url("themes/gigaland") . "/";
             total(idr = true) {
                 var total = 0;
                 this.eventAdded.forEach((item, index) => {
-                    if (idr) {
+                    if (idr && item.price != 0) {
                         total += parseFloat(item.price);
                     } else {
-                        total += parseFloat(item.price_in_usd);
+                        kurs_usd = <?= json_encode(json_decode(Settings_m::getSetting('kurs_usd'), true)); ?>;
+                        total += (parseFloat(item.price_in_usd) * kurs_usd.value);
                     }
                 })
                 total = total * this.members.length;
@@ -565,21 +570,21 @@ $theme_path = base_url("themes/gigaland") . "/";
                     app.saving = false;
                 });
             },
-            initEspayFrame(){
+            initEspayFrame() {
                 var invoiceID = app.data.id_invoice;
-                    var apiKeyEspay = "<?= Settings_m::getEspay()['apiKey']; ?>";
-                    var data = {
-                        key: apiKeyEspay,
-                        paymentId: invoiceID,
-                        backUrl: `<?= base_url('member/register/check_invoice'); ?>/${invoiceID}`,
-                    };
-                    console.log(data);
-                    if (typeof SGOSignature !== "undefined") {
-                        var sgoPlusIframe = document.getElementById("sgoplus-iframe");
-                        if (sgoPlusIframe !== null)
-                            sgoPlusIframe.src = SGOSignature.getIframeURL(data);
-                        SGOSignature.receiveForm();
-                    }
+                var apiKeyEspay = "<?= Settings_m::getEspay()['apiKey']; ?>";
+                var data = {
+                    key: apiKeyEspay,
+                    paymentId: invoiceID,
+                    backUrl: `<?= base_url('member/register/check_invoice'); ?>/${invoiceID}`,
+                };
+                console.log(data);
+                if (typeof SGOSignature !== "undefined") {
+                    var sgoPlusIframe = document.getElementById("sgoplus-iframe");
+                    if (sgoPlusIframe !== null)
+                        sgoPlusIframe.src = SGOSignature.getIframeURL(data);
+                    SGOSignature.receiveForm();
+                }
             },
             checkout() {
                 let selected = app.paymentMethod.find(data => data.key == app.selectedPaymentMethod);

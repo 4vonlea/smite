@@ -69,10 +69,12 @@ $this->layout->begin_head();
 								</tr>
 								<tr v-for="(ev,index) in filteredEvents">
 									<td>
-										<input type="checkbox" v-model="model.selected" name="transaction[event][]" :value="[ev.id,ev.price,ev.product_name]" />
+										<input type="checkbox" v-model="model.selected" name="transaction[event][]" :value="[ev.id,ev.price,ev.price_in_usd,ev.product_name,ev.status]" />
 									</td>
 									<td>{{ index }}</td>
-									<td>{{ formatCurrency(ev.price) }}</td>
+									<td>
+										<span v-if="ev.price != 0">{{ formatCurrency(ev.price) }} /</span> {{formatCurrency(ev.price_in_usd, 'USD')}}
+									</td>
 								</tr>
 								<!-- <tfoot>
 									<th colspan="2">Total Price</th>
@@ -174,9 +176,12 @@ $this->layout->begin_head();
 								</tbody>
 							</table>
 							<small class="row col-12" for="">*PLEASE FILL YOUR NAME CORRECTLY FOR YOUR CERTIFICATE</small>
+							<table class="table table-bordered">
+								<tr>
+									<td class="text-center">{{ formatCurrency(total()) }}</td>
+								</tr>
+							</table>
 						</div>
-
-
 					</form>
 					<hr />
 					<div class="form-group row">
@@ -216,20 +221,6 @@ $this->layout->begin_head();
 			events: <?= json_encode($events); ?>
 		},
 		computed: {
-			total() {
-				var total = 0;
-				var selected = [];
-				this.model.selected.forEach(function(item) {
-					selected.push(item[0]);
-				});
-				var events = this.filteredEvents;
-				Object.keys(events).forEach(function(key) {
-					if (selected.indexOf(events[key].id) >= 0) {
-						total += parseFloat(events[key].price);
-					}
-				});
-				return total;
-			},
 			filteredEvents() {
 				var rt = {};
 				var status = this.listStatus[this.model.status];
@@ -240,6 +231,7 @@ $this->layout->begin_head();
 								if (key == status) {
 									rt[item.name] = item.pricingName[0].pricing[key];
 									rt[item.name].product_name = `${item.name} (${status})`;
+									rt[item.name].status = `${status}`;
 								}
 							})
 						}
@@ -249,6 +241,26 @@ $this->layout->begin_head();
 			}
 		},
 		methods: {
+			total(idr = true) {
+				var total = 0;
+				var selected = [];
+				this.model.selected.forEach(function(item) {
+					selected.push(item[0]);
+				});
+				var events = this.filteredEvents;
+				Object.keys(events).forEach(function(key) {
+					if (selected.indexOf(events[key].id) >= 0) {
+						if (idr && events[key].price != 0) {
+							total += parseFloat(events[key].price);
+						} else {
+							kurs_usd = <?= json_encode(json_decode(Settings_m::getSetting('kurs_usd'), true)); ?>;
+							total += (parseFloat(events[key].price_in_usd) * kurs_usd.value);
+						}
+					}
+				});
+				total = total * this.model.members.length;
+				return total;
+			},
 			onlyNumber($event) {
 				//console.log($event.keyCode); //keyCodes value
 				let keyCode = ($event.keyCode ? $event.keyCode : $event.which);
@@ -303,10 +315,10 @@ $this->layout->begin_head();
 					app.saving = false;
 				});
 			},
-			formatCurrency(price) {
+			formatCurrency(price, currency = 'IDR') {
 				return new Intl.NumberFormat("id-ID", {
 					style: 'currency',
-					currency: "IDR"
+					currency: currency
 				}).format(price);
 			},
 			addMembers() {

@@ -172,12 +172,14 @@ $theme_path = base_url("themes/gigaland") . "/";
                         <i v-if="saving" class="fa fa-spin fa-spinner"></i>
                         Checkout
                     </button>
+                    <button type="button" @click="page = 'register'" class="btn-main" style="background-color:#F4AD39; color:black;">
+                        Back
+                    </button>
                 </div>
-
             </div>
 
             <!-- NOTE Sebelum Submit -->
-            <div v-if="page == 'register'" class="col-lg-8 offset-lg-2">
+            <div v-if="page == 'register' || page == 'regis'" class="col-lg-8 offset-lg-2">
                 <div class="alert alert-success mt-2" style="background-color: #F5AC39;">
                     <h4 class="text-dark"><i class="fa fa-info"></i> <b>Attention</b></h4>
                     <p>Make sure the email address entered is valid and you can access it because we will send an activation code via that email. Your account cannot be used until it is activated first.</p>
@@ -365,7 +367,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                                                                                 <td>{{ member }}</td>
                                                                                 <td v-for="pricing in event.pricingName" class="text-center">
                                                                                     <span v-if="pricing.pricing[member]">
-                                                                                        {{ formatCurrency(pricing.pricing[member].price) }} / {{formatCurrency(pricing.pricing[member].price_in_usd, 'USD')}}
+                                                                                        <span v-if="pricing.pricing[member].price != 0">{{ formatCurrency(pricing.pricing[member].price) }} /</span> {{formatCurrency(pricing.pricing[member].price_in_usd, 'USD')}}
                                                                                         <div v-if="member == status_text" class="de-switch mt-2" style="background-size: cover;">
                                                                                             <input type="checkbox" :id="`switch-unlock_${member}_${event.name}`" :value="pricing.pricing[member].added" class="checkbox" v-model="pricing.pricing[member].added" @click="addEvent($event,pricing.pricing[member],member,event.name)">
                                                                                             <label :for="`switch-unlock_${member}_${event.name}`"></label>
@@ -519,21 +521,25 @@ $theme_path = base_url("themes/gigaland") . "/";
             totalPrice(idr = true) {
                 var total = 0;
                 for (var i in this.transactions) {
-                    if (idr) {
+                    if (idr && this.transactions[i].price != 0) {
                         total += parseFloat(this.transactions[i].price);
                     } else {
-                        total += parseFloat(this.transactions[i].price_in_usd);
+                        kurs_usd = <?= json_encode(json_decode(Settings_m::getSetting('kurs_usd'), true)); ?>;
+                        total += (parseFloat(item.price_in_usd) * kurs_usd.value);
                     }
                 }
                 return total;
             },
             total(idr = true) {
                 var total = 0;
+                // var total_usd = 0;
                 this.eventAdded.forEach((item, index) => {
-                    if (idr) {
+                    if (idr && item.price != 0) {
                         total += parseFloat(item.price);
                     } else {
-                        total += parseFloat(item.price_in_usd);
+                        kurs_usd = <?= json_encode(json_decode(Settings_m::getSetting('kurs_usd'), true)); ?>;
+                        total += (parseFloat(item.price_in_usd) * kurs_usd.value);
+                        // total_usd += parseFloat(item.price_in_usd);
                     }
                 })
                 return total;
@@ -665,6 +671,7 @@ $theme_path = base_url("themes/gigaland") . "/";
         }
     });
     $(function() {
+
         $(".univ_selected").chosen().change(function() {
             app.univ_selected = $(this).val();
         });

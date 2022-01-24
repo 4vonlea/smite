@@ -180,13 +180,15 @@ class Member extends Admin_Controller
 
 	public function register()
 	{
-		$this->load->model(["Category_member_m", "Event_m", "Univ_m", "Country_m"]);
+		$this->load->model(["Category_member_m", "Event_m", "Univ_m", "Country_m", "Event_pricing_m"]);
 		$participantsCategory = Category_member_m::asList(Category_member_m::findAll(), 'id', 'kategory', 'Please Select your status');
 		if ($this->input->post()) {
+
 			$this->load->model(['Member_m', 'User_account_m', 'Notification_m', 'Transaction_m', 'Transaction_detail_m']);
 			$this->load->library('Uuid');
 
 			$data = $this->input->post();
+
 			$id_invoice = $this->Transaction_m->generateInvoiceId();
 			$data['id'] = Uuid::v4();
 			$data['password'] = strtoupper(substr(uniqid(), -5));
@@ -249,10 +251,21 @@ class Member extends Admin_Controller
 				]);
 				$details = [];
 				foreach ($data['transaction']['event'] as $tr) {
+					// NOTE Index 0 = id pricing, 1 = price, 2 = price in usd, 3 = product name, 4 = status
 					$t = explode(",", $tr);
+
+					// NOTE Harga sesuai dengan database
+					$price = $this->Event_pricing_m->findOne(['id' => $t[0], 'condition' => $t[4]]);
+					if ($price->price != 0) {
+						$t['1'] = $price->price;
+					} else {
+						$kurs_usd = json_decode(Settings_m::getSetting('kurs_usd'), true);
+						$t['1'] = ($price->price_in_usd * $kurs_usd['value']);
+					}
+
 					$details[] = [
 						'member_id' => $data['id'],
-						'product_name' => $t[2],
+						'product_name' => $t[3],
 						'transaction_id' => $id_invoice,
 						'event_pricing_id' => $t[0],
 						'price' => $t[1],
@@ -472,10 +485,11 @@ class Member extends Admin_Controller
 		$participantsCategory = Category_member_m::asList(Category_member_m::findAll(), 'id', 'kategory');
 		if ($this->input->post()) {
 
-			$this->load->model(['Member_m', 'User_account_m', 'Notification_m', 'Transaction_m', 'Transaction_detail_m']);
+			$this->load->model(['Member_m', 'User_account_m', 'Notification_m', 'Transaction_m', 'Transaction_detail_m', 'Event_pricing_m']);
 			$this->load->library('Uuid');
 
 			$model = json_decode($this->input->post('model'), true);
+
 			$transaction = $this->input->post('transaction');
 			$bill_to = $this->input->post('bill_to');
 			$channel = 'CASH';
@@ -615,12 +629,22 @@ class Member extends Admin_Controller
 					}
 
 					// NOTE Data Detail Transactions
+					// NOTE Index 0 = id pricing, 1 = price, 2 = price in usd, 3 = product name, 4 = status
 					$details = [];
 					foreach ($model['selected'] as $keyEvent => $event) {
-						// $event = explode(",", $event);
+
+						// NOTE Harga sesuai dengan database
+						$price = $this->Event_pricing_m->findOne(['id' => $event[0], 'condition' => $event[4]]);
+						if ($price->price != 0) {
+							$event['1'] = $price->price;
+						} else {
+							$kurs_usd = json_decode(Settings_m::getSetting('kurs_usd'), true);
+							$event['1'] = ($price->price_in_usd * $kurs_usd['value']);
+						}
+
 						$details[] = [
 							'member_id' => $data['id'],
-							'product_name' => $event[2],
+							'product_name' => $event[3],
 							'transaction_id' => $id_invoice,
 							'event_pricing_id' => $event[0],
 							'price' => $event[1],

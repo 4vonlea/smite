@@ -284,7 +284,7 @@ class Area extends MY_Controller
 
 		$response = ['status' => true];
 		$data = $this->input->post();
-		$this->load->model(["Transaction_m", "Transaction_detail_m", "Event_m"]);
+		$this->load->model(["Transaction_m", "Transaction_detail_m", "Event_m", "Event_pricing_m"]);
 		$this->Transaction_m->getDB()->trans_start();
 		$transaction = $this->Transaction_m->findOne(['member_id' => $this->session->user_session['id'], 'checkout' => 0]);
 		if (!$transaction) {
@@ -310,6 +310,16 @@ class Area extends MY_Controller
 		}
 
 		if ($this->Event_m->validateFollowing($data['id'], $this->session->user_session['status_name'])) {
+
+			// NOTE Harga sesuai dengan database
+			$price = $this->Event_pricing_m->findOne(['id' => $data['id'], 'condition' => $this->session->user_session['status_name']]);
+			if ($price->price != 0) {
+				$data['price'] = $price->price;
+			} else {
+				$kurs_usd = json_decode(Settings_m::getSetting('kurs_usd'), true);
+				$data['price'] = ($price->price_in_usd * $kurs_usd['value']);
+			}
+
 			$detail->event_pricing_id = $data['id'];
 			$detail->transaction_id = $transaction->id;
 			$detail->price = $data['price'];

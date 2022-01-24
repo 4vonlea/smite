@@ -88,12 +88,32 @@ $this->layout->begin_head();
 						</div>
 
 
-						<div class="form-group row">
+						<!-- <div class="form-group row">
 							<label class="col-lg-3 control-label">Address</label>
 							<div class="col-lg-5">
 								<textarea :class="{ 'is-invalid':validation_error.address }" class="form-control" name="address"></textarea>
 								<div class="invalid-feedback">
 									{{ validation_error.address }}
+								</div>
+							</div>
+						</div> -->
+
+
+						<div class="form-group row">
+							<label class="col-lg-3 control-label">Country</label>
+							<div class="col-lg-5">
+								<?= form_dropdown("country", $countryDl, "", [':class' => "{ 'is-invalid':validation_error.country}", "class" => 'form-control selectedCountry chosen', 'v-model' => 'selectedCountry']); ?>
+								<div v-if="validation_error.country" class="invalid-feedback">
+									{{ validation_error.country }}
+								</div>
+							</div>
+						</div>
+						<div v-if="selectedCountry == <?= Country_m::COUNTRY_OTHER; ?>" class="form-group row">
+							<label class="col-lg-3 control-label">Other Country</label>
+							<div class="col-lg-5">
+								<input type="text" :class="{ 'is-invalid':validation_error.other_country} " class="form-control" name="other_country" />
+								<div v-if="validation_error.other_country" class="invalid-feedback">
+									{{ validation_error.other_country }}
 								</div>
 							</div>
 						</div>
@@ -120,8 +140,8 @@ $this->layout->begin_head();
 						<div class="form-group row">
 							<label class="col-lg-3 control-label">Institution</label>
 							<div class="col-lg-5">
-								<?= form_dropdown("univ", $univDl, "", [':class' => "{ 'is-invalid':validation_error.univ}", "class" => 'form-control chosen', 'v-model' => 'selectedInstitution']); ?>
-								<div v-if="validation_error.phone" class="invalid-feedback">
+								<?= form_dropdown("univ", $univDl, "", [':class' => "{ 'is-invalid':validation_error.univ}", "class" => 'form-control selectedInstitution chosen', 'v-model' => 'selectedInstitution']); ?>
+								<div v-if="validation_error.univ" class="invalid-feedback">
 									{{ validation_error.univ }}
 								</div>
 							</div>
@@ -135,7 +155,7 @@ $this->layout->begin_head();
 								</div>
 							</div>
 						</div>
-						<div class="form-group row">
+						<!-- <div class="form-group row">
 							<label class="col-lg-3 control-label">Gender</label>
 							<div class="col-lg-5">
 								<div class="radio form-check-inline">
@@ -149,7 +169,7 @@ $this->layout->begin_head();
 									</label>
 								</div>
 							</div>
-						</div>
+						</div> -->
 
 						<div class="form-group row">
 							<label class="col-lg-3 control-label">Sponsor</label>
@@ -196,16 +216,18 @@ $this->layout->begin_head();
 								</tr>
 								<tr v-for="(ev,index) in filteredEvents">
 									<td>
-										<input type="checkbox" v-model="selected" name="transaction[event][]" :value="[ev.id,ev.price,ev.product_name]" />
+										<input type="checkbox" v-model="selected" name="transaction[event][]" :value="[ev.id,ev.price,ev.price_in_usd,ev.product_name,ev.status]" />
 									</td>
 									<td>{{ index }}</td>
-									<td>{{ formatCurrency(ev.price) }}</td>
+									<td>
+										<span v-if="ev.price != 0">{{ formatCurrency(ev.price) }} /</span> {{formatCurrency(ev.price_in_usd, 'USD')}}
+									</td>
 								</tr>
 								<tfoot>
 									<th colspan="2">Total Price</th>
 									<th>
-										{{ formatCurrency(total) }}
-										<input type="text" hidden name="transaction[total_price]" v-model="total" />
+										{{ formatCurrency(total()) }}
+										<input type="text" hidden name="transaction[total_price]" v-model="total()" />
 									</th>
 								</tfoot>
 							</table>
@@ -235,6 +257,7 @@ $this->layout->begin_head();
 		data: {
 			selected: [],
 			selectedInstitution: "",
+			selectedCountry: "",
 			listStatus: <?= json_encode($participantsCategory); ?>,
 			status_participant: '',
 			channel: 'CASH',
@@ -243,20 +266,6 @@ $this->layout->begin_head();
 			events: <?= json_encode($events); ?>
 		},
 		computed: {
-			total() {
-				var total = 0;
-				var selected = [];
-				this.selected.forEach(function(item) {
-					selected.push(item[0]);
-				});
-				var events = this.filteredEvents;
-				Object.keys(events).forEach(function(key) {
-					if (selected.indexOf(events[key].id) >= 0) {
-						total += parseFloat(events[key].price);
-					}
-				});
-				return total;
-			},
 			filteredEvents() {
 				var rt = {};
 				var status = this.listStatus[this.status_participant];
@@ -267,6 +276,7 @@ $this->layout->begin_head();
 								if (key == status) {
 									rt[item.name] = item.pricingName[0].pricing[key];
 									rt[item.name].product_name = `${item.name} (${status})`;
+									rt[item.name].status = `${status}`;
 								}
 							})
 						}
@@ -276,6 +286,25 @@ $this->layout->begin_head();
 			}
 		},
 		methods: {
+			total(idr = true) {
+				var total = 0;
+				var selected = [];
+				this.selected.forEach(function(item) {
+					selected.push(item[0]);
+				});
+				var events = this.filteredEvents;
+				Object.keys(events).forEach(function(key) {
+					if (selected.indexOf(events[key].id) >= 0) {
+						if (idr && events[key].price != 0) {
+							total += parseFloat(events[key].price);
+						} else {
+							kurs_usd = <?= json_encode(json_decode(Settings_m::getSetting('kurs_usd'), true)); ?>;
+							total += (parseFloat(events[key].price_in_usd) * kurs_usd.value);
+						}
+					}
+				});
+				return total;
+			},
 			onlyNumber($event) {
 				//console.log($event.keyCode); //keyCodes value
 				let keyCode = ($event.keyCode ? $event.keyCode : $event.which);
@@ -327,16 +356,20 @@ $this->layout->begin_head();
 					app.saving = false;
 				});
 			},
-			formatCurrency(price) {
+			formatCurrency(price, currency = 'IDR') {
 				return new Intl.NumberFormat("id-ID", {
 					style: 'currency',
-					currency: "IDR"
+					currency: currency
 				}).format(price);
-			}
+			},
 		}
 	});
 	$(function() {
-		$(".chosen").chosen().change(function() {
+		$(".selectedCountry").chosen().change(function() {
+			app.selectedCountry = $(this).val();
+		});
+
+		$(".selectedInstitution").chosen().change(function() {
 			app.selectedInstitution = $(this).val();
 		});
 	});

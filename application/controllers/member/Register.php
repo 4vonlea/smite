@@ -23,11 +23,12 @@ class Register extends MY_Controller
 		$this->load->model('Transaction_m');
 		$this->load->model('Univ_m');
 		$this->load->model('Country_m');
+		$this->load->model('Event_pricing_m');
 
 		$status = $this->Category_member_m->find()->select("id,kategory,need_verify")->where('is_hide', '0')->get()->result_array();
 		$univ = $this->Univ_m->find()->select("univ_id, univ_nama")->order_by('univ_id')->get()->result_array();
 		$country = $this->Country_m->find()->select("id, name")->order_by('id')->get()->result_array();
-		$country[] = ['id'=>Country_m::COUNTRY_OTHER,'name'=>'Other Country'];
+		$country[] = ['id' => Country_m::COUNTRY_OTHER, 'name' => 'Other Country'];
 		if ($this->input->post()) {
 
 			$eventAdded = json_decode($this->input->post('eventAdded'));
@@ -424,6 +425,16 @@ class Register extends MY_Controller
 			}
 
 			if ($this->Event_m->validateFollowing($event['id'], $event['member_status'])) {
+
+				// NOTE Harga sesuai dengan database
+				$price = $this->Event_pricing_m->findOne(['id' => $event['id'], 'condition' => $event['member_status']]);
+				if ($price->price != 0) {
+					$event['price'] = $price->price;
+				} else {
+					$kurs_usd = json_decode(Settings_m::getSetting('kurs_usd'), true);
+					$event['price'] = ($price->price_in_usd * $kurs_usd['value']);
+				}
+
 				$detail->event_pricing_id = $event['id'];
 				$detail->transaction_id = $transaction->id;
 				$detail->price = $event['price'];
@@ -436,7 +447,7 @@ class Register extends MY_Controller
 					if (!$check) {
 						$fee->event_pricing_id = 0; //$event['id'];
 						$fee->transaction_id = $transaction->id;
-						$fee->price = 5000+rand(100, 500); //"6000";//$event['price'];
+						$fee->price = 5000 + rand(100, 500); //"6000";//$event['price'];
 						$fee->member_id = $data['isGroup'] ? $data['bill_to'] : $data['id'];
 						$fee->product_name = "Unique Additional Price + Admin Fee";
 						$fee->save();
