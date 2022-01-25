@@ -182,7 +182,7 @@ $theme_path = base_url("themes/gigaland") . "/";
             <div v-if="page == 'register' || page == 'regis'" class="col-lg-8 offset-lg-2">
                 <div class="alert alert-success mt-2" style="background-color: #F5AC39;">
                     <h4 class="text-dark"><i class="fa fa-info"></i> <b>Attention</b></h4>
-                    <p>Make sure the email address entered is valid and you can access it because we will send an activation code via that email. Your account cannot be used until it is activated first.</p>
+                    <p class="text-dark"> <b>Make sure you enter a valid and accessible email address. A code will be sent to the entered email to activate your account.</b></p>
                 </div>
                 <form id="form-register" class="form-border" ref="form">
                     <div class="de_tab tab_simple">
@@ -238,7 +238,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                                             </span>
 
                                             <h5 style="color:#F4AD39;"> Full Name*</h5>
-                                            <small>*Please fill the name completely and correctly (along with your title) for the certificate</small>
+                                            <small>*Please fill your name completely and correctly (along with your title) for the certificate</small>
                                             <input type="text" :class="{'is-invalid':validation_error.fullname}" class="form-control mb-0" name="fullname" placeholder="Full Name" />
                                             <div v-if="validation_error.fullname" class="invalid-feedback">
                                                 {{ validation_error.fullname }}
@@ -282,7 +282,7 @@ $theme_path = base_url("themes/gigaland") . "/";
 
                                             <div class="spacer-20"></div>
                                             <span class="dark-select">
-                                                <h5 style="color:#F4AD39;"> Your Institution*</h5>
+                                                <h5 style="color:#F4AD39;"> Institution / Affiliation*</h5>
                                                 <?= form_dropdown('univ', $participantsUniv, '', [':class' => "{'is-invalid':validation_error.univ}", 'v-model' => 'univ_selected', 'class' => 'form-control univ_selected chosen mb-0', 'placeholder' => 'Select your institution !']); ?>
                                                 <div v-if="validation_error.univ" class="invalid-feedback">
                                                     {{ validation_error.univ }}
@@ -301,7 +301,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                                                 <div class="spacer-20"></div>
                                             </span>
 
-                                            <h5 style="color:#F4AD39;">Phone/WA*</h5>
+                                            <h5 style="color:#F4AD39;">Phone/ Whats App No*</h5>
                                             <input type="text" :class="{ 'is-invalid':validation_error.phone}" @keypress="onlyNumber" class="form-control mb-0" name="phone" placeholder="Phone/WA" />
                                             <div v-if="validation_error.phone" class="invalid-feedback">
                                                 {{ validation_error.phone }}

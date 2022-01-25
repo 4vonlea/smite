@@ -63,9 +63,6 @@
                                     <li>
                                         <a href="#event" style="color:#F4AD39;">Event<span></span></a>
                                     </li>
-                                    <li>
-                                        <a href="#abstract" style="color:#F4AD39;">Abstract<span></span></a>
-                                    </li>
 
                                 </ul>
                                 <!-- mainmenu close -->
@@ -84,7 +81,7 @@
     <!-- content begin -->
     <div class="no-bottom no-top" id="content">
         <div id="top"></div>
-        <section id="section-hero" class="no-bottom" data-bgimage="url(<?= base_url('themes/gigaland'); ?>/images/background/13-1.jpg) bottom">
+        <section id="section-hero" class="no-bottom" data-bgimage="url(<?= base_url('themes/gigaland'); ?>/images/background/13.jpg) bottom">
             <div class="container" style="height: 800px;">
                 <div id="items-carousel-big" class="owl-carousel">
                     <!-- carousel item -->
@@ -92,10 +89,14 @@
                         <div class="row align-items-center">
                             <div class="col-lg-12 wow fadeInRight" data-wow-delay=".5s">
                                 <div class="d-desc text-center">
-                                    <img style="text-align: center;" src="<?= base_url('themes/gigaland'); ?>/images/all-logo.png" style="width:600px;" alt="">
-                                    <h1 style="color:#F4AD39; text-shadow: 3px 2px 1px black;">20<sup>th</sup> Asian Oceanian Myology Center Meeting in Conjunction with National Scientific Meeting PERDOSSI 2022</h1><br>
-
-                                    <a href="<?= base_url('themes/gigaland'); ?>/images/1staomcpin.pdf" target="blank" class="btn-main btn-lg" style="background-color:#F4AD39; color:black;">1 <sup>st</sup> Announcement</a>&nbsp;
+                                    <img style="text-align: center;" src="<?= base_url('themes/gigaland'); ?>/images/all-logo.png" style="width:800px;" alt="">
+                                    <div class="col-md-12">
+                                        <h2 style="color:#F4AD39; text-shadow: 3px 2px 1px black;">20<sup>th</sup> Asian Oceanian Myology Center Meeting in Conjunction with National Scientific Meeting <br>
+                                            PERDOSSI 2022<br>
+                                        </h2>
+                                        <p style="color:#F4AD39; text-shadow: 3px 2px 1px black; font-size: 25px;">June 9<sup>th</sup> - 12<sup>th</sup> , 2022 Virtual Meeting</p>
+                                    </div>
+                                    <a href="<?= base_url('themes/gigaland'); ?>/images/1staomcpin.pdf" target="blank" class="btn-main btn-lg" style="background-color:#F4AD39; color:black;">Download 1 <sup>st</sup> Announcement here</a>&nbsp;
                                     <div class="spacer-10">
                                         <div class="d-buttons">
 
@@ -323,12 +324,12 @@
                         <h1 style="color:#F4AD39; margin-top:10px;">How to Register</h1>
                         <td>
                             <p class="" style="color:#F4AD39; font-size:14px; text-align:left;">
-                                1. Click <b>Register</b>, and fill your profile <br>
-                                2. Choose you event(and or submit your abstract)<br>
-                                3. Pay via our online banking payment<br>
-                                4. Download your registration proof, and See your<br>
-                                <li style="color:#F4AD39; text-align:left; font-size:14px;">1 Account 1 email per user</li>
-                                <li style="color:#F4AD39; text-align:left; font-size:14px;">E-Certificate will be delivered to registered email</li><br>
+                                1. Click <b>Register</b>, and fill in your profile <br>
+                                2. Choose your event (and or submit your abstract)<br>
+                                3. Pay via our online payment gateway<br>
+                                4. Download your registration receipt, and See you on the date<br>
+                                <li style="color:#F4AD39; text-align:left; font-size:14px;">1 email per account</li>
+                                <li style="color:#F4AD39; text-align:left; font-size:14px;">E-certificate will be sent to the registered email</li><br>
                                 <a href="<?= base_url('member/register'); ?>" class="btn-main btn-fullwidth" style="background-color:#F4AD39; color:black;"><b>Don't have account? Click Here to Register</b></a>
                             </p>
                         </td>
@@ -356,12 +357,12 @@
                             </li>
                             <li class="nav-item mt-2" data-aos="fade-up" data-aos-delay="100">
                                 <a class="nav-link" data-bs-toggle="tab" href="#tab-3">
-                                    <h4 style="color:#F4AD39;">Scientific Template : Abstract Template, Fullpaper Template, and PPT Template, also Guideline</h4>
+                                    <h4 style="color:#F4AD39;">Scientific Guideline</h4>
                                 </a>
                             </li>
                             <li class="nav-item mt-2" data-aos="fade-up" data-aos-delay="100">
                                 <a class="nav-link" data-bs-toggle="tab" href="#tab-4">
-                                    <h4 style="color:#F4AD39;">Remarks Chairman of the committee</h4>
+                                    <h4 style="color:#F4AD39;">Remarks from Chairmans </h4>
                                 </a>
                             </li>
                             <li class="nav-item mt-2" data-aos="fade-up" data-aos-delay="100">
@@ -383,7 +384,36 @@
                                 <figure>
                                     <div class="col-lg-12 col-md-6 footer-links text-left">
                                         <h4>FAQ</h4>
-
+                                        <ul style="text-align: justify;">
+                                            <li>
+                                                Is this conference held online or offline?<br>
+                                                - This conference will be held online using Zoom Application.
+                                            </li>
+                                            <li>
+                                                How to login?<br>
+                                                - Login using the user email that has been registered on the web https://aomc-pinbanjarmasin2022.com/ and passwords respectively.
+                                            </li>
+                                            <li>
+                                                What if I forget my password?<br>
+                                                - If you forget your password, please click the “Forgot Password section on the login page, and enter your registered email, then click Reset. The new password will be sent to the email that was entered during the reset process. Or you can also just click:
+                                            </li>
+                                            <li>
+                                                Where is the zoom link?<br>
+                                                - The event link is available in the “Webinar Links” section of the Member Area page, to the left of the page. https://aomc-pinbanjarmasin2022.com/
+                                            </li>
+                                            <li>
+                                                What if I enter the wrong user's email?<br>
+                                                - Please search in your email inbox, with keywords: to find out your username notification
+                                            </li>
+                                            <li>
+                                                I was registered by the sponsor, what should I do to login?<br>
+                                                - Please contact your sponsor directly for your account information.
+                                            </li>
+                                            <li>
+                                                I am not a participant in this event, but I am a speaker/moderator/judge at this event, how do I login?<br>
+                                                - For speakers, moderators and judges, we have sent account access autogenerated to your doctor's email. Please check your inbox/spam and try to access our website with that account.
+                                            </li>
+                                        </ul>
                                     </div>
                                 </figure>
                             </div>
@@ -391,7 +421,7 @@
                             <div class="tab-pane" id="tab-3">
                                 <figure>
                                     <div class="col-lg-12 col-md-6 footer-links text-left">
-                                        <h4>Scientific Template : Abstract Template, Fullpaper Template, and PPT Template, also Guidline</h4>
+                                        <h4>Scientific Guideline</h4>
 
                                     </div>
                                 </figure>
@@ -423,7 +453,7 @@
     <section id="cp" class="pt30 pb30">
         <div class="container">
             <div class="col-lg-12">
-                <h2 class="style-2 wow fadeInRight" data-wow-delay=".5s" style="color:#F4AD39;">Contact Person AOMC</h2>
+                <h2 class="style-2 wow fadeInRight" data-wow-delay=".5s" style="color:#F4AD39;">Contact Person for 20th AOMC Event</h2>
             </div>
             <div class="row wow fadeInRight" data-wow-delay=".5s">
                 <div class="col-lg-3 col-md-6 mb-sm-30 text-center">
@@ -477,7 +507,7 @@
             </div>
             <hr>
             <div class="col-lg-12">
-                <h2 class="style-2 wow fadeInRight" data-wow-delay=".5s" style="color:#F4AD39;">Contact Person for PIN</h2>
+                <h2 class="style-2 wow fadeInRight" data-wow-delay=".5s" style="color:#F4AD39;">Contact Person for PIN Banjarmasin 2022</h2>
             </div>
             <div class="row wow fadeInRight" data-wow-delay=".5s">
                 <div class="col-lg-3 col-md-6 mb-sm-30 text-center">
@@ -495,10 +525,10 @@
                     <div class="feature-box f-boxed style-3" style="height: 500px;">
                         <img src="<?= base_url('themes/gigaland'); ?>/images/helpdesk4.png" class="lazy img-fluid" alt="">
                         <div class="text">
-                            <h3 class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39;">Margaret, MD</h3>
+                            <h3 class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39;">Margaret, MD, Neurologist</h3>
                         </div>
                         <p class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39; font-size:15px;">(Scientific Affair)</p>
-                        <a target="blank" href="https://wa.me/628179400579"><i class="fa fa-whatsapp" style="background-color:#F4AD39; color:black;"></i></a><br>
+                        <a target="blank" href="https://wa.me/6285249999911"><i class="fa fa-whatsapp" style="background-color:#F4AD39; color:black;"></i></a><br>
                         <p class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39; font-size:14px;">scientific@aomc-pinbanjarmasin2022.com</p>
                     </div>
                 </div>
@@ -506,7 +536,7 @@
                     <div class="feature-box f-boxed style-3" style="height: 500px;">
                         <img src="<?= base_url('themes/gigaland'); ?>/images/helpdesk7.png" class="lazy img-fluid" alt="">
                         <div class="text">
-                            <h3 class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39;">Fachrurrazy, MD</h3>
+                            <h3 class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39;">Fachrurrazy, MD, Neurologist</h3>
                         </div>
                         <p class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39; font-size:15px;">(Scientific Affair)</p>
                         <a target="blank" href="https://wa.me/628179400579"><i class="fa fa-whatsapp" style="background-color:#F4AD39; color:black;"></i></a><br>
@@ -517,7 +547,7 @@
                     <div class="feature-box f-boxed style-3" style="height: 500px;">
                         <img src="<?= base_url('themes/gigaland'); ?>/images/helpdesk5.png" class="lazy img-fluid" alt="">
                         <div class="text">
-                            <h3 class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39; font-size:16px;">Asnelia Devicaesaria, MD</h3>
+                            <h3 class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39; font-size:16px;">Asnelia Devicaesaria, MD, Neurologist</h3>
                         </div>
                         <p class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39; font: size 15px;">(Sponsorship Affair)</p>
                         <a target="blank" href="https://wa.me/6285888885010"><i class="fa fa-whatsapp" style="background-color:#F4AD39; color:black;"></i></a><br>
@@ -656,17 +686,9 @@
             <div class="row">
                 <div class="col-md-3 col-sm-6 col-xs-1">
                     <div class="widget">
-                        <h5 style="color:#F4AD39;">AOMC</h5>
+                        <h5 style="color:#F4AD39;">Important Dates</h5>
                         <ul>
-                            <li><u href="#">Contact Person</u></li>
-                            <li><a href="https://wa.me/6285163683209" target="blank">Rida Sieseria, MD : 085163683209 (Registration and Information)</a></li>
-                            <li><a href="#" target="blank">Email : admin@aomc-pinbanjarmasin2022.com</a></li>
-                            <hr>
-                            <li><a href="https://wa.me/628179400579" target="blank">Fachrurrazy, MD : 08179400579 (Scientific Affair)</a></li>
-                            <li><a href="#" target="blank">Email : scientific@aomc-pinbanjarmasin2022.com</a></li>
-                            <hr>
-                            <li><a href="https://wa.me/6285888885010" target="blank">Asnelia Devicaesaria, MD : 085888885010 (Sponsorship Affair)</a></li>
-                            <li><a href="#" target="blank">Email : sponsor@aomc-pinbanjarmasin2022.com</a></li>
+                            <li><u href="#">To be announced</u></li>
                         </ul>
                     </div>
                 </div>
@@ -674,10 +696,10 @@
                     <div class="widget">
                         <h5 style="color:#F4AD39;">Registration Fee</h5>
                         <ul>
-                            <li><b href="#"><u>Domestic Participant (IDR):</u></b></li>
+                            <li><b href="#"><u>Indonesian Participant (IDR):</u></b></li>
                             <li><a href="#">- Participant</a></li>
-                            <li><a href="#">1. Specialist : Rp. 1.000.000(Early Bird) / Rp. 1.250.000(After 16 May 22)</a></li>
-                            <li><a href="#">2. General Practioner : Rp. 500.000(Early Bird) / Rp. 700.000(After 16 May 22)</a></li>
+                            <li><a href="#">1. Specialist : Rp. 1.000.000 (Early Bird) / Rp. 1.250.000 (After 16 May 22)</a></li>
+                            <li><a href="#">2. General Practitioner : Rp. 500.000 (Early Bird) / Rp. 700.000 (After 16 May 22)</a></li>
                             <li><a href="#">3. Resident : Rp. 500.000(Early Bird) / Rp. 700.000(After 16 May 22)</a></li>
                         </ul>
                     </div>
@@ -686,10 +708,10 @@
                     <div class="widget">
                         <h5 style="color:#F4AD39;">Registration Fee</h5>
                         <ul>
-                            <li><b href="#"><u>International Participant ($US):</u></b></li>
+                            <li><b href="#"><u>International Participant (USD):</u></b></li>
                             <li><a href="#">- Participant</a></li>
-                            <li><a href="#">1. Specialist : $50(Early Bird) / $70(After 16 May 22)</a></li>
-                            <li><a href="#">2. Trainee : $35(Early Bird) / $50(After 16 May 22)</a></li>
+                            <li><a href="#">1. Specialist : $50 (Early Bird) / $70 (After 16 May 22)</a></li>
+                            <li><a href="#">2. Trainee : $35 (Early Bird) / $50 (After 16 May 22)</a></li>
 
                         </ul>
                     </div>
@@ -700,7 +722,7 @@
                         <p>Note : <br>
                             - Workshop / Teaching Course participant must be registered as symposium participant<br>
                             - All registration fee should be paid by payment gateway in our
-                            website: <a href="www.aomc-pinbanjarmasin2022.com">www.aomc-pinbanjarmasin2022.com</a>
+                            website: <a href="https://aomc-pinbanjarmasin2022.com">www.aomc-pinbanjarmasin2022.com</a>
                         </p>
                     </div>
                 </div>
@@ -713,7 +735,7 @@
                         <div class="de-flex">
                             <div class="de-flex-col">
                                 <a href="03_grey-index.html">
-                                    <span class="copy" style="color:#F4AD39;">&copy; Copyright 2022 - Annual Scientific Meeting AOMC</span>
+                                    <span class="copy" style="color:#F4AD39;">&copy; Copyright - 20th AOMC and PIN 2022 </span>
                                 </a>
                             </div>
                             <div class="de-flex-col">
