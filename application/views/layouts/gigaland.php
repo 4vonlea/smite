@@ -123,10 +123,6 @@ $theme_path = base_url("themes/gigaland") . "/";
                                         <li>
                                             <a href="<?= $isHome ? '' : base_url('site/home'); ?>#event" style="color:#F4AD39;">Event<span></span></a>
                                         </li>
-                                        <li>
-                                            <a href="<?= $isHome ? '' : base_url('site/home'); ?>#abstract" style="color:#F4AD39;">Abstract<span></span></a>
-                                        </li>
-
                                     </ul>
                                     <!-- mainmenu close -->
                                     <div class="menu_side_area">
@@ -155,17 +151,9 @@ $theme_path = base_url("themes/gigaland") . "/";
             <div class="row" style="background-size: cover;">
                 <div class="col-md-3 col-sm-6 col-xs-1" style="background-size: cover;">
                     <div class="widget" style="background-size: cover;">
-                        <h5 style="color:#F4AD39;">AOMC</h5>
+                        <h5 style="color:#F4AD39;">Important Dates</h5>
                         <ul>
-                            <li><u href="#">Contact Person</u></li>
-                            <li><a href="https://wa.me/6285163683209" target="blank">Rida Sieseria, MD : 085163683209 (Registration and Information)</a></li>
-                            <li><a href="#" target="blank">Email : admin@aomc-pinbanjarmasin2022.com</a></li>
-                            <hr>
-                            <li><a href="https://wa.me/628179400579" target="blank">Fachrurrazy, MD : 08179400579 (Scientific Affair)</a></li>
-                            <li><a href="#" target="blank">Email : scientific@aomc-pinbanjarmasin2022.com</a></li>
-                            <hr>
-                            <li><a href="https://wa.me/6285888885010" target="blank">Asnelia Devicaesaria, MD : 085888885010 (Sponsorship Affair)</a></li>
-                            <li><a href="#" target="blank">Email : sponsor@aomc-pinbanjarmasin2022.com</a></li>
+                            <li><u href="#">To be announced</u></li>
                         </ul>
                     </div>
                 </div>
@@ -173,11 +161,11 @@ $theme_path = base_url("themes/gigaland") . "/";
                     <div class="widget" style="background-size: cover;">
                         <h5 style="color:#F4AD39;">Registration Fee</h5>
                         <ul>
-                            <li><b href="#"><u>Domestic Participant (IDR):</u></b></li>
+                            <li><b href="#"><u>Indonesian Participant (IDR):</u></b></li>
                             <li><a href="#">- Participant</a></li>
-                            <li><a href="#">1. Specialist : Rp. 1.000.000(Early Bird) / Rp. 1.250.000(After 16 May 22)</a></li>
-                            <li><a href="#">2. General Practioner : Rp. 500.000(Early Bird) / Rp. 700.000(After 16 May 22)</a></li>
-                            <li><a href="#">3. Resident : Rp. 500.000(Early Bird) / Rp. 700.000(After 16 May 22)</a></li>
+                            <li><a href="#">1. Specialist : Rp. 1.000.000 (Early Bird) / Rp. 1.250.000 (After 16 May 22)</a></li>
+                            <li><a href="#">2. General Practioner : Rp. 500.000 (Early Bird) / Rp. 700.000 (After 16 May 22)</a></li>
+                            <li><a href="#">3. Resident : Rp. 500.000 (Early Bird) / Rp. 700.000 (After 16 May 22)</a></li>
                         </ul>
                     </div>
                 </div>
@@ -185,11 +173,10 @@ $theme_path = base_url("themes/gigaland") . "/";
                     <div class="widget" style="background-size: cover;">
                         <h5 style="color:#F4AD39;">Registration Fee</h5>
                         <ul>
-                            <li><b href="#"><u>International Participant ($US):</u></b></li>
+                            <li><b href="#"><u>International Participant (USD):</u></b></li>
                             <li><a href="#">- Participant</a></li>
-                            <li><a href="#">1. Specialist : $50(Early Bird) / $70(After 16 May 22)</a></li>
-                            <li><a href="#">2. Trainee : $35(Early Bird) / $50(After 16 May 22)</a></li>
-
+                            <li><a href="#">1. Specialist : $50 (Early Bird) / $70 (After 16 May 22)</a></li>
+                            <li><a href="#">2. Trainee : $35 (Early Bird) / $50 (After 16 May 22)</a></li>
                         </ul>
                     </div>
                 </div>
@@ -199,7 +186,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                         <p>Note : <br>
                             - Workshop / Teaching Course participant must be registered as symposium participant<br>
                             - All registration fee should be paid by payment gateway in our
-                            website: <a href="www.aomc-pinbanjarmasin2022.com">www.aomc-pinbanjarmasin2022.com</a>
+                            website: <a href="https://aomc-pinbanjarmasin2022.com">www.aomc-pinbanjarmasin2022.com</a>
                         </p>
                     </div>
                 </div>
@@ -212,7 +199,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                         <div class="de-flex" style="background-size: cover;">
                             <div class="de-flex-col" style="background-size: cover;">
                                 <a href="03_grey-index.html">
-                                    <span class="copy" style="color:#F4AD39;">© Copyright 2022 - Annual Scientific Meeting AOMC</span>
+                                    <span class="copy" style="color:#F4AD39;"> Copyright - 20th AOMC - PIN 2022</span>
                                 </a>
                             </div>
                             <div class="de-flex-col" style="background-size: cover;">
