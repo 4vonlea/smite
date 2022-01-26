@@ -4,7 +4,7 @@ export default Vue.component("Presentation", {
         <page-loader :loading="loading" :fail="fail"></page-loader>
         <div v-if="!loading">
             <div class="overflow-hidden mb-1">
-                <h2 class="font-weight-normal color-heading text-7 mb-0"><strong class="font-weight-extra-bold">Presetation</strong></h2>
+                <h2 class="font-weight-normal color-heading text-7 mb-0"><strong class="font-weight-extra-bold">Presentation</strong></h2>
             </div>
             <div class="overflow-hidden mb-4 pb-3">
                 <p class="mb-0">Displaying poster or presentation files uploaded by paper participants</p>
@@ -26,10 +26,12 @@ export default Vue.component("Presentation", {
                 pagination-path="pagination"
                 @vuetable:pagination-data="onPaginationData">
                     <template slot="poster" slot-scope="props">
-                        <a v-if="isImage(props.rowData.poster)" target="_blank" :href="baseUrl+'file_presentation/'+props.rowData.poster+'/'+props.rowData.id"  class='btn btn-primary magnific'>Lihat
+                        <a v-if="isImage(props.rowData.poster)" target="_blank" :href="baseUrl+'file_presentation/'+props.rowData.poster+'/'+props.rowData.id"  class='magnific'>
+                            <img class="img img-thumbnail" width="160" :src="baseUrl+'file_presentation/'+props.rowData.poster+'/'+props.rowData.id" />
                         </a>
                         <span v-else>
-                        <a target="_blank" :href="baseUrl+'file_presentation/'+props.rowData.poster+'/'+props.rowData.id"  class='btn btn-primary'>Lihat
+                        <a target="_blank" :href="baseUrl+'file_presentation/'+props.rowData.poster+'/'+props.rowData.id"  class='btn btn-primary'>
+                            Show File
                         </a>
                         </span>
                     </template>
@@ -43,7 +45,7 @@ export default Vue.component("Presentation", {
 	},
     data:function(){
         return {
-            fields:[{name:'poster','title':'File Presentasi'},{name:'fullname',title:'Nama Peunggah'},{name:'title',title:'Judul'},{name:'type',title:'Jenis'}],
+            fields:[{name:'poster','title':'Presentation File'},{name:'fullname',title:'Uploader'},{name:'title',title:'Title'},{name:'type',title:'Type'}],
             loading: false,
             perPage:5,
             fail:false,

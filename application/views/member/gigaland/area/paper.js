@@ -18,8 +18,7 @@ export default Vue.component("PagePaper", {
 									<label>{{ formFullpaper.title}}</label>
 								</div>
 								<div class="form-group">
-									<label class="font-weight-bold form-control-label text-2 color-heading">Presentation on{{
-										formFullpaper.type_presence}}</label>
+									<label class="font-weight-bold form-control-label text-2 color-heading">Presentation on {{formFullpaper.type_presence}}</label>
 								</div>
 								<hr />
 								<div v-if="formFullpaper.status == 2 && formFullpaper.status_fullpaper != 2 && !isAfter(paper.deadline.fullpaper_cutoff)"
@@ -146,9 +145,9 @@ export default Vue.component("PagePaper", {
 
 									<span v-if="pap.status == 2">
 										<hr />
-										<i class="fa" :class="[pap.fullpaper?'fa-check':'fa-times']"></i>File Fullpaper<br />
+										<i class="fa" :class="[pap.fullpaper?'fa-check':'fa-times']"></i>Fullpaper File<br />
 										<i v-if="pap.status_fullpaper" class="fa"
-											:class="[pap.poster?'fa-check':'fa-times']"></i>File Presentasi / Gambar ({{
+											:class="[pap.poster?'fa-check':'fa-times']"></i>Presentation Image/File ({{
 										pap.type_presence }})<br />
 									</span>
 								</td>

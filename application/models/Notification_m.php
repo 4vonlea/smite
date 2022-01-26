@@ -88,12 +88,7 @@ class Notification_m extends MY_Model{
      * 
      */
     public function sendMessage($to,$subject,$message){
-            $message = "#DO NOT REPLY THIS AUTOMATED MESSAGE#<br/>If reply, sent to admin@aomc-pinbanjarmasin2022.com <br/><br/><hr/>".$message;
-            $message.="<br/>Best Regards,<br/>AOMC & PIN PERDOSSI 2022<br/>";
-            $message.="<br/>Or Contact via WA:";
-            $message.="<br/>Rida Sieseria, MD (085163683209) - Registration and information";
-            $message.="<br/>Fachrurrazy, MD (08179400579) - Scientific Affair";
-            $message.="<br/>Asnelia Devicaesaria, MD (085888885010) - Sponsorship Affair";    
+        $message = $this->wrapMessage($message);
         $class = $this->getClass();
         if($class)
             return $class->sendMessage($to,$subject,$message);
@@ -103,16 +98,20 @@ class Notification_m extends MY_Model{
      * 
      */
     public function sendMessageWithAttachment($to,$subject,$message,$attachment,$fname = ""){
-        $message = "#DO NOT REPLY THIS AUTOMATED MESSAGE#<br/>If reply, sent to admin@aomc-pinbanjarmasin2022.com<br/><br/><hr/>".$message;
-        $message.="<br/>Best Regards,<br/>AOMC & PIN PERDOSSI 2022<br/>";
-        $message.="<br/>Or Contact via WA:";
-        $message.="<br/>Rida Sieseria, MD (085163683209) - Registration and information";
-        $message.="<br/>Fachrurrazy, MD (08179400579) - Scientific Affair";
-        $message.="<br/>Asnelia Devicaesaria, MD (085888885010) - Sponsorship Affair";
-
+        $message = $this->wrapMessage($message);
         $class = $this->getClass();
         if($class)
             return $class->sendMessageWithAttachment($to,$subject,$message,$attachment,$fname);
         return ['status'=>false,'code'=>'0','message'=>'Failed to initialized class'];
+    }
+
+    protected function wrapMessage($message){
+        $wrapperMessage = "#DO NOT REPLY THIS AUTOMATED MESSAGE#<br/>If reply, sent to admin@aomc-pinbanjarmasin2022.com<br/><br/><hr/>".$message;
+        $wrapperMessage.="<br/>Best Regards,<br/>AOMC & PIN PERDOSSI 2022<br/>";
+        $wrapperMessage.="<br/>Or Contact via WA:";
+        $wrapperMessage.="<br/>Rida Sieseria, MD (085163683209) - Registration and information";
+        $wrapperMessage.="<br/>Fachrurrazy, MD (08179400579) - Scientific Affair";
+        $wrapperMessage.="<br/>Asnelia Devicaesaria, MD (085888885010) - Sponsorship Affair";
+        return $wrapperMessage;
     }
 }
