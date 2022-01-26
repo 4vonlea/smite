@@ -47,7 +47,13 @@ $theme_path = base_url("themes/gigaland") . "/";
                         <table class="table text-light">
                             <thead>
                                 <th>Event Name</th>
-                                <th>Pricing</th>
+                                <th>
+                                    <p>Pricing
+                                        <span v-show="isUsd">
+                                            (<span style="color:#F4AD39">After converting to rupiah</span>)
+                                        </span>
+                                    </p>
+                                </th>
                             </thead>
                             <tbody>
                                 <tr v-for="item in transactionsSort">
@@ -138,7 +144,13 @@ $theme_path = base_url("themes/gigaland") . "/";
                             <thead>
                                 <th></th>
                                 <th>Event Name</th>
-                                <th>Pricing</th>
+                                <th>
+                                    <p>Pricing
+                                        <span v-show="isUsd">
+                                            (<span style="color:#F4AD39">After converting to rupiah</span>)
+                                        </span>
+                                    </p>
+                                </th>
                             </thead>
                             <tbody>
                                 <tr v-for="item in transactionsSort">
@@ -179,7 +191,7 @@ $theme_path = base_url("themes/gigaland") . "/";
             </div>
 
             <!-- NOTE Sebelum Submit -->
-            <div v-if="page == 'register' || page == 'regis'" class="col-lg-8 offset-lg-2">
+            <div v-show="page == 'register'" class="col-lg-8 offset-lg-2">
                 <div class="alert alert-success mt-2" style="background-color: #F5AC39;">
                     <h4 class="text-dark"><i class="fa fa-info"></i> <b>Attention</b></h4>
                     <p class="text-dark"> <b>Make sure you enter a valid and accessible email address. A code will be sent to the entered email to activate your account.</b></p>
@@ -196,7 +208,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                                     <div class="col-lg-12 mb-sm-20">
                                         <div class="field-set" style="color:#F4AD39;">
                                             <h5 style="color:#F4AD39;">Email*</h5>
-                                            <input type="text" :class="{'is-invalid': validation_error.email}" class="form-control mb-0" name="email" placeholder="Email" />
+                                            <input type="text" :class="{'is-invalid': validation_error.email}" class="form-control mb-0" name="email" placeholder="Email" :disabled="isEmail" />
                                             <div v-if="validation_error.email" class="invalid-feedback">
                                                 {{ validation_error.email }}
                                             </div>
@@ -324,11 +336,28 @@ $theme_path = base_url("themes/gigaland") . "/";
 
                                             <div class="spacer-20"></div> -->
 
-                                            <h5 style="color:#F4AD39;">Sponsor*</h5>
-                                            <input type="text" :class="{'is-invalid':validation_error.sponsor}" class="form-control mb-0" name="sponsor" placeholder="Sponsor" />
-                                            <div v-if="validation_error.sponsor" class="invalid-feedback">
-                                                {{ validation_error.sponsor }}
+                                            <h5 style="color:#F4AD39;">Do you have a sponsor?*</h5>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="haveSponsor" value="1" v-model="haveSponsor" /> Yes
+                                                </label>
+                                                <label>
+                                                    <input type="radio" name="haveSponsor" value="0" v-model="haveSponsor" /> No
+                                                </label>
                                             </div>
+                                            <!-- <div v-if="validation_error.gender" class="invalid-feedback">
+                                                {{ validation_error.gender }}
+                                            </div> -->
+
+                                            <span v-if="haveSponsor == '1'">
+                                                <div class="spacer-20"></div>
+
+                                                <h5 style="color:#F4AD39;">Sponsor*</h5>
+                                                <input type="text" :class="{'is-invalid':validation_error.sponsor}" class="form-control mb-0" name="sponsor" placeholder="Sponsor" />
+                                                <div v-if="validation_error.sponsor" class="invalid-feedback">
+                                                    {{ validation_error.sponsor }}
+                                                </div>
+                                            </span>
 
                                             <!-- NOTE Events -->
                                             <div class="col-lg-12" v-if="status_selected">
@@ -367,7 +396,11 @@ $theme_path = base_url("themes/gigaland") . "/";
                                                                                 <td>{{ member }}</td>
                                                                                 <td v-for="pricing in event.pricingName" class="text-center">
                                                                                     <span v-if="pricing.pricing[member]">
-                                                                                        <span v-if="pricing.pricing[member].price != 0">{{ formatCurrency(pricing.pricing[member].price) }} /</span> {{formatCurrency(pricing.pricing[member].price_in_usd, 'USD')}}
+
+                                                                                        <span v-show="pricing.pricing[member].price != 0">{{ formatCurrency(pricing.pricing[member].price) }}</span>
+                                                                                        <span v-show="pricing.pricing[member].price != 0 && pricing.pricing[member].price_in_usd != 0"> / </span>
+                                                                                        <span v-show="pricing.pricing[member].price_in_usd != 0">{{formatCurrency(pricing.pricing[member].price_in_usd, 'USD')}}</span>
+
                                                                                         <div v-if="member == status_text" class="de-switch mt-2" style="background-size: cover;">
                                                                                             <input type="checkbox" :id="`switch-unlock_${member}_${event.name}`" :value="pricing.pricing[member].added" class="checkbox" v-model="pricing.pricing[member].added" @click="addEvent($event,pricing.pricing[member],member,event.name)">
                                                                                             <label :for="`switch-unlock_${member}_${event.name}`"></label>
@@ -387,9 +420,13 @@ $theme_path = base_url("themes/gigaland") . "/";
                                                         <div class="card card-default mt-2">
                                                             <div class="card-header text-center" style="color:#F5AC39">
                                                                 <b>{{ formatCurrency(total()) }}</b>
+                                                                <span v-show="isUsd">
+                                                                    <br>
+                                                                    <p>After converting to rupiah</p>
+                                                                </span>
                                                             </div>
                                                         </div>
-                                                        <div v-if="validation_error.eventAdded" style="font-size: .875em;color: #dc3545;">
+                                                        <div v-if="validation_error.eventAdded" style="font-size: 1em;color: #F2AC38;">
                                                             {{ validation_error.eventAdded }}
                                                         </div>
                                                     </div>
@@ -463,7 +500,10 @@ $theme_path = base_url("themes/gigaland") . "/";
             transactions: null,
             paymentBank: null,
 
+            haveSponsor: '',
+            isEmail: false,
             data: {},
+            isUsd: false,
         },
         mounted: function() {
 
@@ -520,28 +560,33 @@ $theme_path = base_url("themes/gigaland") . "/";
         methods: {
             totalPrice(idr = true) {
                 var total = 0;
+                var isUsd = 0;
                 for (var i in this.transactions) {
                     if (idr && this.transactions[i].price != 0) {
                         total += parseFloat(this.transactions[i].price);
                     } else {
+                        isUsd += 1;
                         kurs_usd = <?= json_encode(json_decode(Settings_m::getSetting('kurs_usd'), true)); ?>;
                         total += (parseFloat(item.price_in_usd) * kurs_usd.value);
                     }
                 }
+                this.isUsd = isUsd > 0 ? true : false;
                 return total;
             },
-            total(idr = true) {
+            total() {
                 var total = 0;
-                // var total_usd = 0;
+                var isUsd = 0;
                 this.eventAdded.forEach((item, index) => {
                     if (idr && item.price != 0) {
                         total += parseFloat(item.price);
                     } else {
+                        isUsd += 1;
+
                         kurs_usd = <?= json_encode(json_decode(Settings_m::getSetting('kurs_usd'), true)); ?>;
                         total += (parseFloat(item.price_in_usd) * kurs_usd.value);
-                        // total_usd += parseFloat(item.price_in_usd);
                     }
                 })
+                this.isUsd = isUsd > 0 ? true : false;
                 return total;
             },
             onlyNumber($event) {
@@ -559,6 +604,7 @@ $theme_path = base_url("themes/gigaland") . "/";
 
                 // NOTE Data Event dan Payment
                 formData.append('eventAdded', JSON.stringify(app.eventAdded));
+                formData.append('data', JSON.stringify(app.data));
                 formData.append('paymentMethod', app.paymentMethod);
 
                 this.saving = true;
@@ -584,6 +630,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                     } else {
                         app.page = 'payment';
                         app.data = res.data;
+                        app.isEmail = app.data.email != '' ? true : false;
                         app.transactions = res.transactions.cart;
                         app.initEspayFrame();
                     }
