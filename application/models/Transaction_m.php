@@ -11,7 +11,7 @@ class Transaction_m extends MY_Model
 	public static $transaction_status = [
 		'capture' => 'Transaction is accepted and ready to for settlement.',
 		'cancel' => 'Transaction is cancelled and will not proceed to settlement.',
-		'settlement' => "Funds from the transaction has moved from customer to merchant's account.",
+		'settlement' => "Payment has been successfully confirmed.",
 		'deny' => "Transaction is denied by the bank or Midtrans Fraud Detection System.",
 		"pending" => "payment transaction has not been processed and is waiting to be completed.",
 		"expired" => "Transaction has not been completed by the expiry date.",

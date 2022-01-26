@@ -47,7 +47,7 @@
                                 </div>
                                 <div class="col-lg-6 wow fadeInRight" data-wow-delay=".5s">
                                     <div class="d-desc">
-                                        <h3 style="color:#F4AD39;">20<sup>th</sup> Asian Oceanian Myology Center Meeting in Conjunction with National Scientific Meeting PERDOSSI 2022</h3><br>
+                                        <h3 style="color:#F4AD39; text-shadow: 3px 2px 1px black; ">20<sup>th</sup> Asian Oceanian Myology Center Meeting in Conjunction with National Scientific Meeting PERDOSSI Banjarmasin 2022</h3><br>
                                         <div class="row">
                                             <img src="<?= base_url('themes/gigaland'); ?>/images/logowebrev.png" style="width:100px;" alt="">
                                             <img src="<?= base_url('themes/gigaland'); ?>/images/aomccm.png" style="width:170px;" alt="">
@@ -59,8 +59,8 @@
                                         <div class="d-buttons">
                                             <!--<a href="#" class="btn-main btn-lg" style="background-color:#F4AD39; color:black;">This Site Under Maintenance</a>&nbsp;-->
 
-                                            <a href="<?= base_url('site/home'); ?>" class="btn-main btn-sm" style="background-color:#F4AD39; color:black;">Enter the Website</a>&nbsp;
-                                            <a href="<?= base_url('member/register'); ?>" class="btn-main btn-sm" style="background-color:#F4AD39; color:black;">For Registration Click Here</a>&nbsp;
+                                            <a href="<?= base_url('site/home'); ?>" class="btn-main btn-sm" style="background-color:#F4AD39; color:black;">Visit our Website here</a>&nbsp;
+                                            <a href="<?= base_url('member/register'); ?>" class="btn-main btn-sm" style="background-color:#F4AD39; color:black;">Click here For Registration</a>&nbsp;
 
                                             <!--<a href="" class="btn-main btn-lg" style="background-color:#F4AD39; color:black;">Enter</a>&nbsp;-->
                                         </div>
@@ -105,7 +105,7 @@
                         <div class="de-flex">
                             <div class="de-flex-col">
                                 <a href="index">
-                                    <span class="copy" style="color:#F4AD39;">&copy; Copyright 2022</span>
+                                    <span class="copy" style="color:#F4AD39;">&copy; Copyright - 20th AOMC and PIN 2022</span>
                                 </a>
                             </div>
                             <div class="de-flex-col">
