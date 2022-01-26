@@ -162,7 +162,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                         <h5 style="color:#F4AD39;">Registration Fee</h5>
                         <ul>
                             <li><b href="#"><u>Indonesian Participant (IDR):</u></b></li>
-                            <li><a href="#">- Participant</a></li>
+                            <li><a href="#">- Participant (both access to AOMC and PIN meeting) </a></li>
                             <li><a href="#">1. Specialist : Rp. 1.000.000 (Early Bird) / Rp. 1.250.000 (After 16 May 22)</a></li>
                             <li><a href="#">2. General Practioner : Rp. 500.000 (Early Bird) / Rp. 700.000 (After 16 May 22)</a></li>
                             <li><a href="#">3. Resident : Rp. 500.000 (Early Bird) / Rp. 700.000 (After 16 May 22)</a></li>
@@ -174,7 +174,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                         <h5 style="color:#F4AD39;">Registration Fee</h5>
                         <ul>
                             <li><b href="#"><u>International Participant (USD):</u></b></li>
-                            <li><a href="#">- Participant</a></li>
+                            <li><a href="#">- Participant (access to AOMC meeting only)</a></li>
                             <li><a href="#">1. Specialist : $50 (Early Bird) / $70 (After 16 May 22)</a></li>
                             <li><a href="#">2. Trainee : $35 (Early Bird) / $50 (After 16 May 22)</a></li>
                         </ul>
