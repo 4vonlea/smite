@@ -12,27 +12,30 @@ class Member_m extends MY_Model
 	{
 		$this->load->model("Univ_m");
 		$validations = '|is_unique[members.email]';
-		if (isset($_POST['group'])) {
+		if (isset($_POST['group']) || isset($_POST['update'])) {
 			$validations = '';
 		}
 		$rules = [
 			[
-				'field' => 'email', 'rules' => "required|max_length[100]|valid_email{$validations}",
+				'field' => 'email', 'label' => 'Email', 'rules' => "required|max_length[100]|valid_email{$validations}",
 				'errors' => ['is_unique' => 'This email already exist !']
 			],
-			['field' => 'password', 'rules' => 'required|max_length[100]'],
-			['field' => 'confirm_password', 'rules' => 'required|matches[password]'],
-			['field' => 'status', 'rules' => 'required'],
-			['field' => 'fullname', 'rules' => 'required|max_length[100]'],
+			['field' => 'password', 'label' => 'Password', 'rules' => 'required|max_length[100]'],
+			['field' => 'confirm_password', 'label' => 'Confirm Password', 'rules' => 'required|matches[password]'],
+			['field' => 'status', 'label' => 'Status', 'rules' => 'required'],
+			['field' => 'fullname', 'label' => 'Full Name', 'rules' => 'required|max_length[100]'],
 			//			['field' => 'address', 'rules' => 'required'],
 			//			['field' => 'city', 'rules' => 'required'],
-			['field' => 'univ', 'rules' => 'required'],
-			['field' => 'country', 'rules' => 'required'],
-			['field' => 'phone', 'rules' => 'required|numeric'],
-			['field' => 'birthday', 'rules' => 'required'],
+			['field' => 'univ', 'label' => 'Institution', 'rules' => 'required'],
+			['field' => 'country', 'label' => 'Country', 'rules' => 'required'],
+			['field' => 'phone', 'label' => 'Phone/WA', 'rules' => 'required|numeric'],
+			['field' => 'birthday', 'label' => 'Birthday', 'rules' => 'required'],
 		];
 		if (isset($_POST['univ']) && $_POST['univ'] == Univ_m::UNIV_OTHER) {
 			$rules[] = ['field' => 'other_institution', 'label' => 'Other Institution', 'rules' => 'required'];
+		}
+		if (isset($_POST['haveSponsor']) && $_POST['haveSponsor'] == 1) {
+			$rules[] = ['field' => 'sponsor', 'label' => 'Sponsor', 'rules' => 'required'];
 		}
 		if (isset($_POST['country']) && $_POST['country'] == Country_m::COUNTRY_OTHER) {
 			$rules[] = ['field' => 'other_country', 'label' => 'Other Country', 'rules' => 'required'];

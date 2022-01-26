@@ -73,7 +73,13 @@ $theme_path = base_url("themes/gigaland") . "/";
                         <table class="table text-light">
                             <thead>
                                 <th>Event Name</th>
-                                <th>Pricing</th>
+                                <th>
+                                    <p>Pricing
+                                        <span v-show="isUsd">
+                                            (<span style="color:#F4AD39">After converting to rupiah</span>)
+                                        </span>
+                                    </p>
+                                </th>
                             </thead>
                             <tbody>
                                 <tr v-for="item in transactionsSort">
@@ -153,7 +159,13 @@ $theme_path = base_url("themes/gigaland") . "/";
                     <table class="table text-light">
                         <thead>
                             <th>Event Name</th>
-                            <th>Pricing</th>
+                            <th>
+                                <p>Pricing
+                                    <span v-show="isUsd">
+                                        (<span style="color:#F4AD39">After converting to rupiah</span>)
+                                    </span>
+                                </p>
+                            </th>
                         </thead>
                         <tbody>
                             <tr v-for="item in transactionsSort">
@@ -164,7 +176,13 @@ $theme_path = base_url("themes/gigaland") . "/";
                         <tfoot>
                             <tr>
                                 <td class="text-right font-weight-bold">Total :</td>
-                                <td>{{ formatCurrency(totalPrice()) }}</td>
+                                <td>
+                                    {{ formatCurrency(totalPrice()) }}
+                                    <span v-show="isUsd">
+                                        <br>
+                                        <p>After converting to rupiah</p>
+                                    </span>
+                                </td>
                             </tr>
                         </tfoot>
                     </table>
@@ -211,7 +229,7 @@ $theme_path = base_url("themes/gigaland") . "/";
 
                                     <div class="field-set" style="color:#F4AD39;">
                                         <h5 style="color:#F4AD39;">Bill To*</h5>
-                                        <input type="text" :class="{'is-invalid': validation_error.bill_to}" class="form-control mb-0" name="bill_to" placeholder="Bill To" />
+                                        <input type="text" :class="{'is-invalid': validation_error.bill_to}" class="form-control mb-0" name="bill_to" placeholder="Bill To" v-model="data.bill_to" />
                                         <div v-if="validation_error.bill_to" class="invalid-feedback" v-html="validation_error.bill_to"></div>
                                     </div>
 
@@ -259,7 +277,12 @@ $theme_path = base_url("themes/gigaland") . "/";
                                                                         <td class="border-end">{{ member }}</td>
                                                                         <td v-for="pricing in event.pricingName" class="text-center">
                                                                             <span v-if="pricing.pricing[member]">
-                                                                                <span v-if="pricing.pricing[member].price != 0">{{ formatCurrency(pricing.pricing[member].price) }} /</span> {{formatCurrency(pricing.pricing[member].price_in_usd, 'USD')}}
+
+                                                                                <span v-if="pricing.pricing[member].price != 0">{{ formatCurrency(pricing.pricing[member].price) }}</span>
+                                                                                <span v-if="pricing.pricing[member].price != 0 && pricing.pricing[member].price_in_usd != 0"> / </span>
+                                                                                <span v-if="pricing.pricing[member].price_in_usd != 0">{{formatCurrency(pricing.pricing[member].price_in_usd, 'USD')}}</span>
+
+
                                                                                 <div v-if="member == status_text" class="de-switch mt-2" style="background-size: cover;">
                                                                                     <input type="checkbox" :id="`switch-unlock_${member}_${event.name}`" :value="pricing.pricing[member].added" class="checkbox" v-model="pricing.pricing[member].added" @click="addEvent($event,pricing.pricing[member],member,event.name)">
                                                                                     <label :for="`switch-unlock_${member}_${event.name}`"></label>
@@ -347,19 +370,27 @@ $theme_path = base_url("themes/gigaland") . "/";
                                                                     {{ member.validation_error.univ }}
                                                                 </div>
 
-                                                                <div class="mt-2" v-if="member.univ == <?= Univ_m::UNIV_OTHER; ?>">
+                                                                <!-- <div class="mt-2" v-if="member.univ == <?= Univ_m::UNIV_OTHER; ?>">
                                                                     <input style="color:#F4AD39;" type="text" v-model="member.other_institution" :class="{ 'is-invalid':member.validation_error.other_institution} " class="form-control mb-0" name="other_institution" />
                                                                     <div v-if="member.validation_error.other_institution" class="invalid-feedback">
                                                                         {{ member.validation_error.other_institution }}
                                                                     </div>
-                                                                </div>
+                                                                </div> -->
                                                             </div>
 
-                                                            <div class="form-group col-6 p-2">
+                                                            <!-- <div class="form-group col-6 p-2">
                                                                 <label class="control-label" style="color:#F4AD39;">Sponsor</label>
                                                                 <input type="text" v-model="member.sponsor" placeholder="Sponsor" :class="{'is-invalid': member.validation_error.sponsor}" class="form-control mb-0" name="sponsor" />
                                                                 <div v-if="member.validation_error.sponsor" class="invalid-feedback">
                                                                     {{ member.validation_error.sponsor }}
+                                                                </div>
+                                                            </div> -->
+
+                                                            <div class="form-group col-6 p-2" v-if="member.univ == <?= Univ_m::UNIV_OTHER; ?>">
+                                                                <label class="control-label" style="color:#F4AD39;">Other Institution*</label>
+                                                                <input style="color:#F4AD39;" type="text" v-model="member.other_institution" :class="{ 'is-invalid':member.validation_error.other_institution} " class="form-control mb-0" name="other_institution" />
+                                                                <div v-if="member.validation_error.other_institution" class="invalid-feedback">
+                                                                    {{ member.validation_error.other_institution }}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -374,6 +405,10 @@ $theme_path = base_url("themes/gigaland") . "/";
                                         <div class="card card-default mt-2">
                                             <div class="card-header text-center" style="color:#F5AC39">
                                                 <b>{{ formatCurrency(total()) }}</b>
+                                                <span v-show="isUsd">
+                                                    <br>
+                                                    <p>After converting to rupiah</p>
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
@@ -439,6 +474,7 @@ $theme_path = base_url("themes/gigaland") . "/";
             paymentBank: null,
             members: [],
             data: {},
+            isUsd: false,
         },
         mounted: function() {
 
@@ -495,27 +531,35 @@ $theme_path = base_url("themes/gigaland") . "/";
         methods: {
             totalPrice(idr = true) {
                 var total = 0;
+                var isUsd = 0;
                 for (var i in this.transactions) {
                     if (idr && this.transactions[i].price != 0) {
                         total += parseFloat(this.transactions[i].price);
                     } else {
+                        isUsd += 1;
                         kurs_usd = <?= json_encode(json_decode(Settings_m::getSetting('kurs_usd'), true)); ?>;
                         total += (parseFloat(item.price_in_usd) * kurs_usd.value);
                     }
                 }
+                this.isUsd = isUsd > 0 ? true : false;
                 return total;
             },
             total(idr = true) {
                 var total = 0;
+                var isUsd = 0;
                 this.eventAdded.forEach((item, index) => {
                     if (idr && item.price != 0) {
                         total += parseFloat(item.price);
                     } else {
+                        isUsd += 1;
+
                         kurs_usd = <?= json_encode(json_decode(Settings_m::getSetting('kurs_usd'), true)); ?>;
                         total += (parseFloat(item.price_in_usd) * kurs_usd.value);
                     }
                 })
                 total = total * this.members.length;
+
+                this.isUsd = isUsd > 0 ? true : false;
                 return total;
             },
             onlyNumber($event) {
@@ -535,6 +579,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                 formData.append('eventAdded', JSON.stringify(app.eventAdded));
                 formData.append('paymentMethod', JSON.stringify(app.paymentMethod));
                 formData.append('members', JSON.stringify(app.members));
+                formData.append('data', JSON.stringify(app.data));
                 formData.append('group', true);
 
                 this.saving = true;
@@ -560,7 +605,8 @@ $theme_path = base_url("themes/gigaland") . "/";
                         Swal.fire('Fail', res.message, 'error');
                     } else {
                         app.page = 'payment';
-                        app.data = res.data;
+                        app.data = JSON.parse(JSON.stringify(res.data));
+                        app.members = JSON.parse(JSON.stringify(res.data.members))
                         app.transactions = res.transactions ? res.transactions.cart : [];
                         app.initEspayFrame();
                     }

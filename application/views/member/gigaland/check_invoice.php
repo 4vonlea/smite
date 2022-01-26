@@ -137,6 +137,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                 var formData = new FormData(this.$refs.form);
                 app.validation_error = {};
                 app.saving = true;
+                app.mode = '';
                 $.ajax({
                     url: '<?= current_url(); ?>',
                     type: 'POST',
@@ -169,6 +170,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                 var formData = new FormData(page.$refs.formUpload);
                 formData.append('transaction', JSON.stringify(app.model));
 
+                app.mode = '';
                 $.ajax({
                     url: '<?= base_url('member/register/upload_proof') ?>',
                     cache: false,

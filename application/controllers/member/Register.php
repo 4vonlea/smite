@@ -24,6 +24,7 @@ class Register extends MY_Controller
 		$this->load->model('Univ_m');
 		$this->load->model('Country_m');
 		$this->load->model('Event_pricing_m');
+		$this->load->model('Transaction_detail_m');
 
 		$status = $this->Category_member_m->find()->select("id,kategory,need_verify")->where('is_hide', '0')->get()->result_array();
 		$univ = $this->Univ_m->find()->select("univ_id, univ_nama")->order_by('univ_id')->get()->result_array();
@@ -38,9 +39,25 @@ class Register extends MY_Controller
 
 			$data = $this->input->post();
 			unset($data['eventAdded']);
+			unset($data['data']);
+			unset($data['paymentMethod']);
 
-			$data['id'] = Uuid::v4();
-			$data['id_invoice'] = $this->Transaction_m->generateInvoiceID();
+			$dataSebelumnya = json_decode($this->input->post('data'));
+			$dataSebelumnya = (array)$dataSebelumnya;
+			if (isset($dataSebelumnya['email']) && $dataSebelumnya['email'] != '') {
+				$_POST['update'] = true;
+				$data['email'] = $dataSebelumnya['email'];
+			}
+			// NOTE Hapus Transactions Detail jika sudah dikirim id_invoice
+			if (isset($dataSebelumnya['id_invoice']) && $dataSebelumnya['id_invoice'] != '') {
+				$this->Transaction_detail_m->delete(['transaction_id' => $dataSebelumnya['id_invoice']]);
+			}
+
+			$data['id'] = (isset($dataSebelumnya['id']) && $dataSebelumnya['id'] != '') ? $dataSebelumnya['id'] : Uuid::v4();
+			$data['id_invoice'] = (isset($dataSebelumnya['id_invoice']) && $dataSebelumnya['id_invoice'] != '') ? $dataSebelumnya['id_invoice'] : $this->Transaction_m->generateInvoiceID();
+
+			$data['sponsor'] = $data['haveSponsor'] ? $data['sponsor'] : '';
+
 			$univ = Univ_m::withKey($univ, "univ_id");
 			$status = Category_member_m::withKey($status, "id");
 			$need_verify = (isset($status[$data['status']]) && $status[$data['status']]['need_verify'] == "1");
@@ -63,13 +80,37 @@ class Register extends MY_Controller
 					$this->Country_m->insert(['name' => strtoupper($data['other_country'])]);
 					$data['country'] = $this->Country_m->last_insert_id;
 				}
-				$this->Member_m->insert(array_intersect_key($data, array_flip($this->Member_m->fillable)), false);
-				$this->User_account_m->insert([
-					'username' => $data['email'],
-					'password' => password_hash($data['password'], PASSWORD_DEFAULT),
-					'role' => 0,
-					'token_reset' => "verifyemail_" . $token
-				], false);
+
+				// NOTE Insert or Update Member
+				$dataMember = $this->Member_m->findOne(['email' => $data['email']]);
+				if ($dataMember) {
+					$id = $dataMember->id;
+					$dataMember = $dataMember->toArray();
+					foreach ($dataMember as $key => $value) {
+						if (isset($data[$key])) {
+							$dataMember[$key] = $data[$key];
+						}
+					}
+					$this->Member_m->update($dataMember, $id, false);
+
+					// NOTE Accounts
+					$this->User_account_m->update([
+						'username' => $data['email'],
+						'password' => password_hash($data['password'], PASSWORD_DEFAULT),
+						'role' => 0,
+						'token_reset' => "verifyemail_" . $token
+					], $data['email'], false);
+				} else {
+					$this->Member_m->insert(array_intersect_key($data, array_flip($this->Member_m->fillable)), false);
+
+					// NOTE Accounts
+					$this->User_account_m->insert([
+						'username' => $data['email'],
+						'password' => password_hash($data['password'], PASSWORD_DEFAULT),
+						'role' => 0,
+						'token_reset' => "verifyemail_" . $token
+					], false);
+				}
 
 				/* -------------------------------------------------------------------------- */
 				/*                              NOTE Transactions                             */
@@ -122,10 +163,6 @@ class Register extends MY_Controller
 				'events' => $this->getEvents(),
 				'paymentMethod' => Settings_m::getEnablePayment(),
 			];
-			// echo '<pre>';
-			// print_r($data);
-			// echo '</pre>';
-			// exit;
 			$this->layout->render('member/' . $this->theme . '/register', $data);
 		}
 	}
@@ -144,7 +181,7 @@ class Register extends MY_Controller
 
 			$eventAdded = json_decode($this->input->post('eventAdded'));
 
-			$this->load->model(['Member_m', 'User_account_m', 'Notification_m', 'Transaction_m']);
+			$this->load->model(['Member_m', 'User_account_m', 'Notification_m', 'Transaction_m', 'Transaction_detail_m']);
 			$this->load->library('form_validation');
 			$this->load->library('Uuid');
 
@@ -156,9 +193,31 @@ class Register extends MY_Controller
 			$status = Category_member_m::withKey($status, "id");
 			$need_verify = (isset($status[$data['status']]) && $status[$data['status']]['need_verify'] == "1");
 
+			// NOTE Data Members
 			$members = json_decode($data['members'], true);
+
+			// NOTE Data Sebelumnya
+			$dataSebelumnya = json_decode($data['data'], true);
+
+			// NOTE Delete Member
+			if (isset($dataSebelumnya['members'])) {
+				foreach ($dataSebelumnya['members'] as $key => $value) {
+					$find = array_search($value['email'], array_column($members, 'email'));
+					if ($find === false) {
+						$this->Member_m->delete(['email' => $value['email']]);
+						$this->User_account_m->delete($value['email']);
+					}
+				}
+			}
+
+			// NOTE Hapus Transactions Detail jika sudah dikirim id_invoice
+			if (isset($dataSebelumnya['id_invoice']) && $dataSebelumnya['id_invoice'] != '') {
+				$this->Transaction_detail_m->delete(['transaction_id' => $dataSebelumnya['id_invoice']]);
+			}
+
+			$id_invoice = (isset($dataSebelumnya['id_invoice']) && $dataSebelumnya['id_invoice'] != '') ? $dataSebelumnya['id_invoice'] : $this->Transaction_m->generateInvoiceId();
+
 			$statusParticipant = $data['status'];
-			$id_invoice = $this->Transaction_m->generateInvoiceId();
 			$bill_to = "REGISTER-GROUP : {$data['bill_to']}";
 			$bill_to_input = $data['bill_to'];
 
@@ -188,12 +247,13 @@ class Register extends MY_Controller
 				$members[$key]['bill_to'] = $bill_to;
 				$members[$key]['bill_to_input'] = $bill_to_input;
 				$members[$key]['id'] = Uuid::v4();
-				$members[$key]['password'] = strtoupper(substr(uniqid(), -5));
+				$members[$key]['password'] = isset($data['password']) ? $data['password'] : strtoupper(substr(uniqid(), -5));
 				$members[$key]['confirm_password'] = $members[$key]['password'];
 				$members[$key]['phone'] = '0';
 				$members[$key]['region'] = '0';
 				$members[$key]['country'] = '0';
 				$members[$key]['birthday'] = date('Y-m-d');
+				$members[$key]['sponsor'] = $bill_to_input;
 
 				$members[$key]['status'] = $statusParticipant;
 				if (!$this->Member_m->validate($members[$key]) || !$this->handlingProof('proof', $members[$key]['id'], $need_verify)) {
@@ -214,6 +274,7 @@ class Register extends MY_Controller
 			} else {
 				$status = true;
 
+				// NOTE Insert atau Update Transaction
 				$transaction = $this->Transaction_m->findOne(['id' => $id_invoice, 'checkout' => 0]);
 				if (!$transaction) {
 					$id = $id_invoice;
@@ -312,7 +373,10 @@ class Register extends MY_Controller
 								}
 							}
 						}
-						$this->Notification_m->sendMessageWithAttachment($data['email'], 'Pendaftaran Berhasil', $email_message, $attc);
+
+						if (!$dataMember) {
+							$this->Notification_m->sendMessageWithAttachment($data['email'], 'Pendaftaran Berhasil', $email_message, $attc);
+						}
 					}
 				}
 
@@ -407,10 +471,10 @@ class Register extends MY_Controller
 	 */
 	private function transactions($data, $eventAdded, $transaction)
 	{
+		$this->load->model(["Transaction_m", "Transaction_detail_m", "Event_m"]);
 		foreach ($eventAdded as $key => $event) {
 			$event = (array)$event;
 			$response = ['status' => true];
-			$this->load->model(["Transaction_m", "Transaction_detail_m", "Event_m"]);
 
 			$detail = $this->Transaction_detail_m->findOne(['transaction_id' => $transaction->id, 'member_id' => $data['id'], 'event_pricing_id' => $event['id']]);
 			$fee = $this->Transaction_detail_m->findOne(['transaction_id' => $transaction->id, 'member_id' => $data['id'],  'event_pricing_id' => 0]);
