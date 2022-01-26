@@ -500,7 +500,7 @@ $theme_path = base_url("themes/gigaland") . "/";
             transactions: null,
             paymentBank: null,
 
-            haveSponsor: '',
+            haveSponsor: '0',
             isEmail: false,
             data: {},
             isUsd: false,
