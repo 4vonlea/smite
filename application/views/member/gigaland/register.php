@@ -573,7 +573,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                 this.isUsd = isUsd > 0 ? true : false;
                 return total;
             },
-            total() {
+            total(idr = true) {
                 var total = 0;
                 var isUsd = 0;
                 this.eventAdded.forEach((item, index) => {
