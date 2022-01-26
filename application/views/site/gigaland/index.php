@@ -47,7 +47,7 @@
                                 </div>
                                 <div class="col-lg-6 wow fadeInRight" data-wow-delay=".5s">
                                     <div class="d-desc">
-                                        <h3 style="color:#F4AD39; text-shadow: 3px 2px 1px black; ">20<sup>th</sup> Asian Oceanian Myology Center Meeting in Conjunction with National Scientific Meeting PERDOSSI Banjarmasin 2022</h3><br>
+                                        <h3 style="color:#F4AD39; text-shadow: 3px 2px 1px black; ">20<sup>th</sup> Asian Oceanian Myology Center Meeting in Conjunction with National Scientific Meeting PERDOSSI, Banjarmasin, June 9th -12th, 2022</h3><br>
                                         <div class="row">
                                             <img src="<?= base_url('themes/gigaland'); ?>/images/logowebrev.png" style="width:100px;" alt="">
                                             <img src="<?= base_url('themes/gigaland'); ?>/images/aomccm.png" style="width:170px;" alt="">

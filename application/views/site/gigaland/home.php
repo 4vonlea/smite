@@ -92,9 +92,9 @@
                                     <img style="text-align: center;" src="<?= base_url('themes/gigaland'); ?>/images/all-logo.png" style="width:800px;" alt="">
                                     <div class="col-md-12">
                                         <h2 style="color:#F4AD39; text-shadow: 3px 2px 1px black;">20<sup>th</sup> Asian Oceanian Myology Center Meeting in Conjunction with National Scientific Meeting <br>
-                                            PERDOSSI 2022<br>
+                                            PERDOSSI, BANJARMASIN 2022<br>
                                         </h2>
-                                        <p style="color:#F4AD39; text-shadow: 3px 2px 1px black; font-size: 25px;">June 9<sup>th</sup> - 12<sup>th</sup> , 2022 Virtual Meeting</p>
+                                        <p style="color:#F4AD39; text-shadow: 3px 2px 1px black; font-size: 25px;">June 9<sup>th</sup> - 12<sup>th</sup>, 2022 on Virtual Meeting</p>
                                     </div>
                                     <a href="<?= base_url('themes/gigaland'); ?>/images/1staomcpin.pdf" target="blank" class="btn-main btn-lg" style="background-color:#F4AD39; color:black;">Download 1 <sup>st</sup> Announcement here</a>&nbsp;
                                     <div class="spacer-10">
@@ -697,7 +697,7 @@
                         <h5 style="color:#F4AD39;">Registration Fee</h5>
                         <ul>
                             <li><b href="#"><u>Indonesian Participant (IDR):</u></b></li>
-                            <li><a href="#">- Participant</a></li>
+                            <li><a href="#">- Participant (both access to AOMC and PIN meeting)</a></li>
                             <li><a href="#">1. Specialist : Rp. 1.000.000 (Early Bird) / Rp. 1.250.000 (After 16 May 22)</a></li>
                             <li><a href="#">2. General Practitioner : Rp. 500.000 (Early Bird) / Rp. 700.000 (After 16 May 22)</a></li>
                             <li><a href="#">3. Resident : Rp. 500.000(Early Bird) / Rp. 700.000(After 16 May 22)</a></li>
@@ -709,7 +709,7 @@
                         <h5 style="color:#F4AD39;">Registration Fee</h5>
                         <ul>
                             <li><b href="#"><u>International Participant (USD):</u></b></li>
-                            <li><a href="#">- Participant</a></li>
+                            <li><a href="#">- Participant (access to AOMC meeting only)</a></li>
                             <li><a href="#">1. Specialist : $50 (Early Bird) / $70 (After 16 May 22)</a></li>
                             <li><a href="#">2. Trainee : $35 (Early Bird) / $50 (After 16 May 22)</a></li>
 
