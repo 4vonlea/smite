@@ -160,7 +160,7 @@ class Paper extends Admin_Controller
 					$paperid = $this->Papers_m->getIdPaper($model->id);
 					$message = "<p>Dear $member->fullname</p>
 						<p>ID Paper : $paperid</p>
-						<p>Mohon login ke akun untuk melihat komentar / file feedback lebih rinci. Mohon untuk melakukan revisi sebelum batas akhir waktu. Terimakasih<p>";
+						<p>Please login to your account to view more detailed comments/feedback files. Please make revisions before the deadline. Thank you<p>";
 					$this->Notification_m->sendMessage($member->email, "Result Of Paper Review", $message);
 				} elseif ($data['status'] == Papers_m::ACCEPTED || $data['status_fullpaper'] == Papers_m::ACCEPTED || $data['status'] == Papers_m::REJECTED) {
 					$member = $model->member;

@@ -50,7 +50,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                                 <th>
                                     <p>Pricing
                                         <span v-show="isUsd">
-                                            (<span style="color:#F4AD39">After converting to rupiah</span>)
+                                            (<span style="color:#F4AD39;font-size:12px">Converted to rupiah</span>)
                                         </span>
                                     </p>
                                 </th>
@@ -147,7 +147,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                                 <th>
                                     <p>Pricing
                                         <span v-show="isUsd">
-                                            (<span style="color:#F4AD39">After converting to rupiah</span>)
+                                            (<span style="color:#F4AD39">Converted to rupiah</span>)
                                         </span>
                                     </p>
                                 </th>
@@ -422,7 +422,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                                                                 <b>{{ formatCurrency(total()) }}</b>
                                                                 <span v-show="isUsd">
                                                                     <br>
-                                                                    <p>After converting to rupiah</p>
+                                                                    <p style="font-size: 12px;">(Converted to rupiah)</p>
                                                                 </span>
                                                             </div>
                                                         </div>
