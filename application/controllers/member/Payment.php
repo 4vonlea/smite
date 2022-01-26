@@ -253,10 +253,12 @@ class Payment extends MY_Controller
 			$this->Transaction_m->update(['checkout'=>1,'channel'=>'ESPAY','status_payment'=>Transaction_m::STATUS_PENDING],$order_id);
 			$tr = $this->Transaction_m->findOne(['id'=>$order_id]);
 			$member = $this->Member_m->findOne(['id'=>$tr->member_id]);
-			$attc = [
-				$member->fullname.'-invoice.pdf' => $tr->exportInvoice()->output(),
-			];
-			$this->Notification_m->sendMessageWithAttachment($member->email, 'Invoice', "Terima kasih atas partisipasi anda berikut adalah invoice acara yang anda ikuti", $attc);
+			if($member){
+				$attc = [
+					$member->fullname.'-invoice.pdf' => $tr->exportInvoice()->output(),
+				];
+				$this->Notification_m->sendMessageWithAttachment($member->email, 'Invoice', "Thank you for your participation, the following is an invoice for the event you participated in", $attc);
+			}
 		}else{
 			$error_code = 1;
 			$error_message = "Invalid Order ID";
