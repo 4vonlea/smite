@@ -158,9 +158,7 @@ class Payment extends MY_Controller
 						'last_name' => $lastname,
 						'address' => $user['address'],
 						'city' => $user['city'],
-//			'postal_code'   => "",
 						'phone' => $user['phone'],
-//			'country_code'  => 'IDN'
 					);
 
 					$customer_details = array(
@@ -218,7 +216,7 @@ class Payment extends MY_Controller
 			$attc = [
 				$member->fullname.'-invoice.pdf' => $transaction->exportInvoice()->output(),
 			];
-			$this->Notification_m->sendMessageWithAttachment($member->email, 'Invoice', "Terima kasih atas partisipasi anda berikut adalah invoice acara yang anda ikuti", $attc);
+			$this->Notification_m->sendMessageWithAttachment($member->email, 'Invoice', "Thank you for your participation, the following is an invoice for the event you participated in", $attc);
 	
 		}
 		$this->output->set_content_type("application/json")
@@ -294,12 +292,19 @@ class Payment extends MY_Controller
 		$reconcile_id = "SC$order_id";
 		$reconcile_datetime = date("Y-m-d H:i:s");
 		$message_payment = json_encode($this->input->post());
-		$status = '5';
 		if(in_array($this->input->ip_address(),["::1","127.0.0.1","139.255.109.146","116.90.162.173"])){
 			$signature = $this->input->post("signature");
 			if($this->check_signature($signature,$order_id,"PAYMENTREPORT",$this->input->post("rq_datetime"))){
 				$statusPayment = $this->input->post("tx_status") == "S" ? Transaction_m::STATUS_FINISH : Transaction_m::STATUS_NEED_VERIFY;
-				$status = $this->Transaction_m->update(['message_payment'=>$message_payment,'status_payment'=>$statusPayment],$order_id);
+				$this->Transaction_m->update(['message_payment'=>$message_payment,'status_payment'=>$statusPayment],$order_id);
+				if($statusPayment == Transaction_m::STATUS_FINISH){
+					$tr = $this->Transaction_m->findOne($order_id);
+					$member = $tr->member;
+					if($member){
+						$file['Registration Proof'] = $tr->exportPaymentProof()->output();
+						$this->Notification_m->sendMessageWithAttachment($member->email,"Official Registration Proof","Thank you for registering and fulfilling your payment, below is offical Registration Proof",$file,"REGISTRATION_PROOF.pdf");
+					}
+				}
 			}
 		}
 		$this->check_payment($order_id);

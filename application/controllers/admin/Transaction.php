@@ -36,7 +36,7 @@ class Transaction extends Admin_Controller
 					<p>Thank you for participating in the event. Please download your 'Registration Proof' here.</p>
 					<p>Best regards.<br/>
 					Committee of " . Settings_m::getSetting('site_title') . "</p>";
-		$result = $this->Notification_m->sendMessageWithAttachment($member->email, 'Kirim Ulang : Bukti Registrasi', $message, [$filename => $file->output()]);
+		$result = $this->Notification_m->sendMessageWithAttachment($member->email, 'Resend : Registration Proof', $message, [$filename => $file->output()]);
 		$this->output
 			->set_content_type("application/json")
 			->_display(json_encode(['status' => $result]));
@@ -50,7 +50,7 @@ class Transaction extends Admin_Controller
 		if ($type == "invoice")
 			$tr->exportInvoice()->stream($member->fullname . "-Invoice.pdf", array("Attachment" => false));
 		elseif ($type == "proof")
-			$tr->exportPaymentProof()->stream($member->fullname . "-Bukti_Registrasi.pdf", array("Attachment" => false));
+			$tr->exportPaymentProof()->stream($member->fullname . "-Registration_proof.pdf", array("Attachment" => false));
 		else
 			show_404();
 	}
@@ -187,7 +187,7 @@ class Transaction extends Admin_Controller
 			$member = $this->Member_m->findOne(['id' => $detail->member_id]);
 			$attc = [
 				$member->fullname . '-invoice.pdf' => $detail->exportInvoice()->output(),
-				$member->fullname . '-bukti_registrasi.pdf' => $detail->exportPaymentProof()->output()
+				$member->fullname . '-registration_proof.pdf' => $detail->exportPaymentProof()->output()
 			];
 			$details = $detail->detailsWithEvent();
 			foreach ($details as $row) {
