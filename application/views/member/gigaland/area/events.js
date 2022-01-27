@@ -5,8 +5,8 @@ export default Vue.component("PageEvents", {
             <div v-if="!fail">            
 				<div v-if="user.verified_by_admin == 0" class="alert alert-info">
 					<h4>Your status is being reviewed</h4>
-					<p>The administrator needs to review and approve your status. Please come back to check your status later.
-					You will be sent an email when a decision has been made, and you <strong> you cannot participate in the event until your status is accepted</strong></p>
+					<p>The administrator needs to review and approve your status. Please come back later to check your status.
+					You will receive an email when a decision has been made, and <strong> you cannot participate in the event until your status is accepted</strong></p>
 				</div>
 				<div v-else >
 					<div class="row">

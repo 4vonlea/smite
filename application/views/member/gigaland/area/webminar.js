@@ -6,20 +6,20 @@ export default Vue.component("PageWebminar", {
             	<div class="overflow-hidden mb-1">
                     <h2 class="font-weight-normal color-heading text-7 mb-0"><strong class="font-weight-extra-bold">Webinar Link</strong></h2>
                     <div class="overflow-hidden mb-4 pb-3">
-                        <p class="mb-0">Please attend the event you are participating in via the link below</p>
+                        <p class="mb-0">Please attend the event you participate via the link below</p>
                     </div>
                 </div>
                 <div class="row table-responsive">
                     <p class="font-weight-bold h5">
                         *Join button cannot be clicked until 5 minutes before start time
-                        and is not clickable unless you have watched the sponsor
+                        and not clickable unless you have watched the sponsor
                         <br/>
                         *<span class="badge badge-success h4" style="font-size:14px">{{ jam }}</span> (GMT +7) 
                     </p>
                     <p class="font-weight-bold h5">When the symposium has met the quota, please move to another symposium</p>
                     <!--<p class="font-weight-bold h5">
-                        Materi Presentasi dapat dilihat pada link
-                        <a href="https://drive.google.com/drive/folders/1Wi7t64mOIq_WGD-v7GS7G3dL6CZo8DGr?usp=sharing" target="_blank">disini</a>
+                        Presentation Material can be access here:
+                        <a href="https://drive.google.com/drive/folders/1Wi7t64mOIq_WGD-v7GS7G3dL6CZo8DGr?usp=sharing" target="_blank">heree</a>
                     </p>-->
                     <table class="table text-light">
                         <tbody v-if="events.length == 0">

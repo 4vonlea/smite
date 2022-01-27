@@ -7,16 +7,16 @@ export default Vue.component("PageBilling", {
                 	<h2 class="font-weight-normal color-heading text-7 mb-0"><strong class="font-weight-extra-bold">Cart & Payment</strong></h2>
 				</div>
 				<div class="overflow-hidden mb-4 pb-3">
-					<p class="mb-0">Page to confirm billing history and invoice display</p>
+					<p class="mb-0">Page to displayand your payment history </p>
 				</div>
 				<div class="row  table-responsive">
 					<h4>Transaction History</h4>
 					<table class="table text-light border">
 						<thead>
 							<th class="color-heading">Order Date</th>
-							<th class="color-heading">Invoice</th>
+							<th class="color-heading">Invoice ID</th>
 							<th class="color-heading">Status</th>
-							<th class="color-heading">Amount price</th>
+							<th class="color-heading">Total price</th>
 							<th class="color-heading"></th>
 						</thead>
 						<tbody v-if="!transaction">
@@ -31,7 +31,7 @@ export default Vue.component("PageBilling", {
 								<td>{{ item.status_payment.toUpperCase()}}</td>
 								<td>{{ sumPrice(item.detail)}}</td>
 								<td>
-									<button class="btn btn-primary" @click="detailTransaction(item,$event)">Detil</button>
+									<button class="btn btn-primary" @click="detailTransaction(item,$event)">Click for detail</button>
 									<button @click="modalProof(item)" v-if="item.status_payment == 'pending' && item.channel == 'MANUAL TRANSFER'" class="btn btn-primary" >Unggah Bukti Transfer</button>
 								</td>
 							</tr>
@@ -134,9 +134,9 @@ export default Vue.component("PageBilling", {
 						<div class="modal-body table-responsive">
 							<table class="table text-light">
 								<tr>
-									<th>Invoice</th>
+									<th>Invoice ID</th>
 									<td>{{ detailModel.id }}</td>
-									<th>Tanggal Invoice</th>
+									<th>Invoice Date</th>
 									<td>{{ detailModel.updated_at }}</td>
 								</tr>
 								<tr>
@@ -147,11 +147,11 @@ export default Vue.component("PageBilling", {
 									<td colspan="3">{{ user.fullname }}</td>
 								</tr>
 								<tr>
-									<th>Adrress</th>
+									<th>Address</th>
 									<td colspan="3">{{ user.address+", "+user.city }}</td>
 								</tr>
 								<tr>
-									<th>Amount</th>
+									<th>Total Price</th>
 									<td colspan="3">{{ amount }}</td>
 								</tr>
 								<tr>
@@ -236,7 +236,7 @@ export default Vue.component("PageBilling", {
 						</div>
 						<div class="modal-footer">
 							<a :href="appUrl+'member/area/download/invoice/'+detailModel.id" target="_blank" class="btn btn-primary" >Download Invoice</a>
-							<a :href="appUrl+'member/area/download/proof/'+detailModel.id" target="_blank" v-if="detailModel.finish" class="btn btn-primary" >Download Bukti Registrasi</a>
+							<a :href="appUrl+'member/area/download/proof/'+detailModel.id" target="_blank" v-if="detailModel.finish" class="btn btn-primary" >Download Payment Receipt</a>
 							<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>					
 						</div>
 					</div>

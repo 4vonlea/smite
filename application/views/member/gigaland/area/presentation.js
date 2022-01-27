@@ -4,10 +4,10 @@ export default Vue.component("Presentation", {
         <page-loader :loading="loading" :fail="fail"></page-loader>
         <div v-if="!loading">
             <div class="overflow-hidden mb-1">
-                <h2 class="font-weight-normal color-heading text-7 mb-0"><strong class="font-weight-extra-bold">Presentation</strong></h2>
+                <h2 class="font-weight-normal color-heading text-7 mb-0"><strong class="font-weight-extra-bold">Presentation Gallery</strong></h2>
             </div>
             <div class="overflow-hidden mb-4 pb-3">
-                <p class="mb-0">Displaying poster or presentation files uploaded by paper participants</p>
+                <p class="mb-0">Displaying poster or presentation files uploaded by call for paper's participant</p>
             </div>
             <div class="row">
             <div class="col-md-6 col-sm-12">
@@ -45,7 +45,7 @@ export default Vue.component("Presentation", {
 	},
     data:function(){
         return {
-            fields:[{name:'poster','title':'Presentation File'},{name:'fullname',title:'Uploader'},{name:'title',title:'Title'},{name:'type',title:'Type'}],
+            fields:[{name:'poster','title':'Presentation File'},{name:'fullname',title:'Author'},{name:'title',title:'Title'},{name:'type',title:'Type'}],
             loading: false,
             perPage:5,
             fail:false,
