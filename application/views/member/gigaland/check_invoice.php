@@ -22,7 +22,7 @@ $theme_path = base_url("themes/gigaland") . "/";
             <div class="row" style="background-size: cover;">
 
                 <div class="col-md-12 text-center" style="background-size: cover;">
-                    <h1 style="color:#F4AD39;">Check Invoice</h1>
+                    <h1 style="color:#F4AD39;">Check Invoice Status</h1>
                 </div>
                 <div class="clearfix" style="background-size: cover;"></div>
             </div>
@@ -43,7 +43,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                                 <div class="row wow fadeIn">
                                     <div class="col-lg-12 mb-sm-20">
                                         <div class="field-set" style="color:#F4AD39;">
-                                            <h5 style="color:#F4AD39;">ID Invoice*</h5>
+                                            <h5 style="color:#F4AD39;">Invoice ID*</h5>
                                             <input type="text" :class="{'is-invalid': validation_error.invoice}" class="form-control mb-0" name="invoice" placeholder="ID Invoice" value="<?= $id_invoice ?>" />
                                             <div v-if="validation_error.invoice" class="invalid-feedback" v-html="validation_error.invoice"></div>
                                             <!-- <button type="button" class="btn-main" style="background-color:#F4AD39; color:black;" @click="checkInvoice">Check</button> -->
@@ -65,7 +65,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                         <p>{{model.description}}</p>
                     </div>
                     <div v-if="mode == 'upload'">
-                        <h5 class="text-light">Untuk menyelesaikan pembayaran silakan upload bukti pembayaran anda pada form berikut:</h5>
+                        <h5 class="text-light">Your payment will be automatically settle after your payment is received, but you may provide bank transfer receipt as support in the form below</h5>
                         <form id="form-upload" class="form-border" ref="formUpload">
                             <div class="de_tab tab_simple">
                                 <div class="de_tab_content">
@@ -73,13 +73,13 @@ $theme_path = base_url("themes/gigaland") . "/";
                                         <div class="row wow fadeIn">
                                             <div class="col-lg-12 mb-sm-20">
                                                 <div class="field-set" style="color:#F4AD39;">
-                                                    <h5 style="color:#F4AD39;">Proof Transfer(png,jpg,jpeg,pdf)</h5>
+                                                    <h5 style="color:#F4AD39;">Bank Transfer Proof(png,jpg,jpeg,pdf)</h5>
                                                     <input name="file_proof" type="file" accept=".png,.jpg,.jpeg,.pdf" :class="{'is-invalid':upload_validation.invalid}" class="custom-file-input" />
                                                     <div v-if="upload_validation.invalid" class="invalid-feedback">{{ upload_validation.invalid }}</div>
 
                                                     <div class="spacer-20"></div>
 
-                                                    <h5 style="color:#F4AD39;">Message</h5>
+                                                    <h5 style="color:#F4AD39;">Type your message (if any)</h5>
                                                     <textarea name="message" class="form-control" placeholder="Message"></textarea>
 
                                                     <button type="button" class="btn-main" style="background-color:#F4AD39; color:black;" @click="uploadProof($event,upload)">Upload</button>
@@ -93,7 +93,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                     </div>
                     <div v-if="mode == 'upload_success'">
                         <div class="alert alert-success" style="background-color: #F5AC39;">
-                            <h4 class="text-dark"><i class="fa fa-info"></i> Upload Bukti Pembayaran berhasil</h4>
+                            <h4 class="text-dark"><i class="fa fa-info"></i> Upload Succeed</h4>
                         </div>
                     </div>
                 </div>
@@ -118,7 +118,7 @@ $theme_path = base_url("themes/gigaland") . "/";
             saving: false,
             model: {
                 status_payment: 'Pending',
-                description: 'Payment Transaction Has Not Been Processed And Is Waiting To Be Completed.',
+                description: 'Your payment has not been received. Please make it before the time limit elapse',
                 // id: '1',
             },
             upload_validation: {
@@ -157,7 +157,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                         app.validation_error = res.validation_error;
                     }
                 }).fail(function(res) {
-                    Swal.fire('Fail', 'Server fail to response !', 'error');
+                    Swal.fire('Fail', 'Server fail to response ! Please try again', 'error');
                 }).always(function(res) {
                     app.saving = false;
                 });

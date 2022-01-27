@@ -9,14 +9,14 @@ class Transaction_m extends MY_Model
 	protected $table = "transaction";
 
 	public static $transaction_status = [
-		'capture' => 'Transaction is accepted and ready to for settlement.',
-		'cancel' => 'Transaction is cancelled and will not proceed to settlement.',
-		'settlement' => "Payment has been successfully confirmed.",
-		'deny' => "Transaction is denied by the bank or Midtrans Fraud Detection System.",
-		"pending" => "payment transaction has not been processed and is waiting to be completed.",
-		"expired" => "Transaction has not been completed by the expiry date.",
-		"waiting" => "Waiting costumer to checkout process payment.",
-		self::STATUS_NEED_VERIFY => 'Payment waiting verification from admin'
+		'capture' => 'Transaction is accepted and ready for settlement.',
+		'cancel' => 'Your Transaction is cancelled and will not be proceed to settlement.',
+		'settlement' => "Your payment has successfully confirmed.",
+		'deny' => "Your payment is denied by the bank or Online Payment Fraud Detection System.",
+		"pending" => "Your payment has not been received. Please make it before the time limit elapse",
+		"expired" => "Transfer due date has elapsed. Please re-choose event(s) and re-checkout",
+		"waiting" => "Waiting costumer to choose event(s) and checkout.",
+		self::STATUS_NEED_VERIFY => 'Your payment is waiting for verification from the admin'
 	];
 
 	const STATUS_FINISH = "settlement";

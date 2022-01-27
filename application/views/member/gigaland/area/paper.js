@@ -7,14 +7,14 @@ export default Vue.component("PagePaper", {
 					<div class="modal-content">
 						<!-- Modal Header -->
 						<div class="modal-header">
-							<h4 class="modal-title">Upload Full Paper</h4>
+							<h4 class="modal-title">Upload your Full Paper</h4>
 						</div>
 						<!-- Modal body -->
 						<div class="modal-body">
 							<form ref="formFullpaper" enctype="multipart/form-data">
 								<input type="hidden" name="id" :value="formFullpaper.id" />
 								<div class="form-group">
-									<label class="font-weight-bold form-control-label text-2 color-heading">Paper Title</label>
+									<label class="font-weight-bold form-control-label text-2 color-heading">Manuscript Title</label>
 									<label>{{ formFullpaper.title}}</label>
 								</div>
 								<div class="form-group">
@@ -34,7 +34,7 @@ export default Vue.component("PagePaper", {
 								</div>
 								<div v-if="formFullpaper.status_fullpaper == 2 && formFullpaper.status_presentasi != 2 && !isAfter(paper.deadline.presentation_cutoff)"
 									class="form-group">
-									<label class="font-weight-bold form-control-label text-2 color-heading">Presentation/Poster File
+									<label class="font-weight-bold form-control-label text-2 color-heading">Presentation /Poster File
 										(jpg,png,jpeg,ppt,pptx)</label>
 									<input :class="{'is-invalid':error_fullpaper.presentation}" type="file"
 										class="form-control-file" name="presentation" accept=".jpg,.jpeg,.png,.ppt,.pptx">
@@ -42,7 +42,7 @@ export default Vue.component("PagePaper", {
 										error_fullpaper.presentation }}</div>
 								</div>
 								<div v-if="isAfter(paper.deadline.presentation_cutoff)" class="alert alert-danger">
-									You are no longer allowed to upload presentations, because the time limit has passed
+									You are no longer allowed to upload a presentation file, because the time limit has passed
 								</div>
 							</form>
 						</div>
@@ -61,10 +61,10 @@ export default Vue.component("PagePaper", {
 			<div v-if="!loading && !fail">
 				<div class="overflow-hidden mb-1">
 					<h2 class="font-weight-normal color-heading text-7 mb-0"><strong class="font-weight-extra-bold">Send
-							Paper</strong></h2>
+							Manuscript</strong></h2>
 				</div>
 				<div class="overflow-hidden mb-4 pb-3">
-					<p class="mb-0">Want to participate in the paper, please upload your abstract .</p>
+					<p class="mb-0">If you want to participate, please upload your manuscript.</p>
 				</div>
 				<ul class="list-group list-group-horizontal flex-fill mb-2 ">
 					<li class="list-group-item text-light border color-heading" style="background-color: transparent;">Deadline Abstract <span
@@ -74,7 +74,7 @@ export default Vue.component("PagePaper", {
 					<li class="list-group-item text-light border color-heading" style="background-color: transparent;">Deadline Presentasi
 						<span class='badge badge-info'>{{ paper.deadline.presentation_deadline | formatDate }}</span></li>
 				</ul>
-				<p class="mb-0">*<small class="font-weight-bold">You can change/reupload your fullpaper or presentation/poster
+				<p class="mb-0">*<small class="font-weight-bold">You can change/ reupload your fullpaper or presentation/ poster
 						file, on detail page (magnifying glass icon)</small></p>
 				<p class="mb-0">*<small class="font-weight-bold">Note: the abstract that has been submitted cannot be deleted,
 						please make sure to fill in correctly</small></p>
@@ -129,14 +129,14 @@ export default Vue.component("PagePaper", {
 									</ul>
 									<div class="text-center pt-2">
 										<h5 class="badge badge-info" v-if="pap.status == 0">
-											Please correct abstract <br /><small>(Press Details then Edit)</small>
+											Please correct your abstract <br /><small>(Press Details then Edit)</small>
 										</h5>
 										<h5 class="badge badge-info" v-if="pap.status == 2 && pap.status_fullpaper == 0">
-											Please correct the fullpaper <br /><small>(View Details)</small>
+											Please correct your fullpaper <br /><small>(View Details)</small>
 										</h5>
 										<h5 class="badge badge-info"
 											v-if="pap.status_fullpaper == 2 && pap.status_presentasi == 0">
-											Please correct abstract <br /><small>(View Details)</small>
+											Please correct your abstract <br /><small>(View Details)</small>
 										</h5>
 										<span v-if="pap.status_fullpaper == 2">
 											<h5 class="badge badge-info">(Presentation on {{ pap.type_presence }})</h5>
@@ -147,7 +147,7 @@ export default Vue.component("PagePaper", {
 										<hr />
 										<i class="fa" :class="[pap.fullpaper?'fa-check':'fa-times']"></i>Fullpaper File<br />
 										<i v-if="pap.status_fullpaper" class="fa"
-											:class="[pap.poster?'fa-check':'fa-times']"></i>Presentation Image/File ({{
+											:class="[pap.poster?'fa-check':'fa-times']"></i>Presentation Image/ File ({{
 										pap.type_presence }})<br />
 									</span>
 								</td>
@@ -166,7 +166,7 @@ export default Vue.component("PagePaper", {
 					<form ref="form" enctype="multipart/form-data" class="form-border">
 						<input type="hidden" name="id" v-model="form.id" />
 						<div v-if="detail" class="form-group row mb-2">
-							<label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 color-heading">ID Paper</label>
+							<label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 color-heading">Manuscsript ID</label>
 							<div class="col-lg-9">
 								<label>{{ form.id_paper }}</label>
 							</div>
@@ -216,8 +216,8 @@ export default Vue.component("PagePaper", {
 							<label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 color-heading">Fullpaper
 								Link</label>
 							<div class="col-lg-9">
-								<span v-if="form.fullpaper"><a :href="paperUrl(form.fullpaper)">Click Here</a> | </span>
-								<a v-if="form.status_fullpaper != 2" href="#" @click.prevent="modalFullpaper(form)">Ubah/Upload
+								<span v-if="form.fullpaper"><a :href="paperUrl(form.fullpaper)">Click here</a> | </span>
+								<a v-if="form.status_fullpaper != 2" href="#" @click.prevent="modalFullpaper(form)">Change/ Upload
 									Fullpaper </a>
 							</div>
 						</div>
@@ -228,7 +228,7 @@ export default Vue.component("PagePaper", {
 							<label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 color-heading">File Presentation
 								Feedback</label>
 							<div class="col-lg-9">
-								<a :href="feedbackUrl(form.feedback_file_presentasi)">Click Here</a>
+								<a :href="feedbackUrl(form.feedback_file_presentasi)">Click here</a>
 							</div>
 						</div>
 						<div v-if="detail && form.status_presentasi == 0 && form.feedback_fullpaper"
@@ -243,13 +243,13 @@ export default Vue.component("PagePaper", {
 							<label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 color-heading">Presentation
 								Link</label>
 							<div class="col-lg-9">
-								<span v-if="form.poster"><a :href="paperUrl(form.poster)">Click Here</a> | </span>
+								<span v-if="form.poster"><a :href="paperUrl(form.poster)">Click here</a> | </span>
 								<a v-if="form.status_presentasi != 2" href="#"
-									@click.prevent="modalFullpaper(form)">Change/Upload Presentation File</a>
+									@click.prevent="modalFullpaper(form)">Change/ Upload Presentation File</a>
 							</div>
 						</div>
 						<div class="form-group row mb-2">
-							<label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 color-heading">Category Paper*</label>
+							<label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 color-heading">Manuscript Category*</label>
 							<div class="col-lg-9">
 								<select :disabled="detail" class="form-control text-light" v-model="form.category" name="category"
 									style="background-color: #202429" :class="{'is-invalid':error_upload.category}">
@@ -273,11 +273,11 @@ export default Vue.component("PagePaper", {
 							<div class="col-lg-9">
 								<select :disabled="detail" class="form-control text-light" v-model="form.methods" name="methods"
 									style="background-color: #202429" :class="{'is-invalid':error_upload.methods}">
-									<option disabled value="">Please Select</option>
+									<option disabled value="">Please select</option>
 									<option v-for="(type,key) in paper.typeStudy" :value="key">{{ type }}</option>
 								</select>
 								<input :disabled="form.methods != 'Other' || detail"
-									placeholder="If the type of study is other than the list above, please describe it here"
+									placeholder="If the study type is other than the list above, please describe it here"
 									:class="[{'is-invalid':error_upload.methods}, form.methods != 'Other' ? 'd-none':'']"
 									class="form-control mt-1" name="type_study_other" type="text"
 									v-model="form.type_study_other" value="">
@@ -300,7 +300,7 @@ export default Vue.component("PagePaper", {
 									class="form-control" name="introduction" style="background-color: transparent;">
 										</textarea>
 								<div v-if="error_upload.title" class="invalid-feedback">{{ error_upload.introduction }}</div>
-								<small>{{ wordCountIntroduction }} Kata (Maksimal 300)</small>
+								<small>{{ wordCountIntroduction }} Word (250 maximum)</small>
 							</div>
 						</div>
 						<!--
@@ -379,7 +379,7 @@ export default Vue.component("PagePaper", {
 						</div>
 						<div class="form-group row mb-2">
 							<label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 color-heading">Co-Author
-								<small>(if exits)</small></label>
+								<small>(if any)</small></label>
 							<div class="col-lg-9 text-right">
 								<button v-if="!detail" type="button" class="btn btn-primary" @click="addCoAuthor">Add
 									Co-Author</button>
@@ -507,7 +507,7 @@ export default Vue.component("PagePaper", {
 				success: function (response) {
 					if (response.status) {
 						$("#modal-fullpaper").modal("hide");
-						Swal.fire('Success', "Fullpaper or Presentation/Poster File uploaded successfully !", 'success');
+						Swal.fire('Success', "Fullpaper or Presentation/ Poster File uploaded successfully !", 'success');
 						if (response.data.fullpaper){
 							page.formFullpaper.fullpaper = response.data.fullpaper;
 							page.form.status_fullpaper = 1;
@@ -555,7 +555,7 @@ export default Vue.component("PagePaper", {
 			var app = this;
 			Swal.fire({
 				title: "Are you sure ?",
-				text: `You will delete paper with title "${paper.title}"`,
+				text: `You will delete manuscript with title "${paper.title}"`,
 				type: 'warning',
 				showCancelButton: true,
 				confirmButtonColor: '#3085d6',
@@ -608,7 +608,7 @@ export default Vue.component("PagePaper", {
 					Swal.fire('Fail', "Failed to process !", 'error');
 				});
 			}else{
-				Swal.fire('Info', "Pernyataan tentang paper wajib dicentang !", 'warning');
+				Swal.fire('Info', "Please agree to manuscript term and condition above!", 'warning');
 			}
 		},
 		detailPaper(row) {

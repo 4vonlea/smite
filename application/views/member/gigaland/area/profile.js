@@ -15,7 +15,7 @@ var PageProfile = Vue.component("PageProfile", {
                     <h2 class="font-weight-normal color-heading text-7 mb-0"><strong class="font-weight-extra-bold">My Profile</strong></h2>
                 </div>
                 <div class="overflow-hidden mb-4 pb-3">
-                    <p class="mb-0">Your current profile, you can edit your profile by clicking the edit button.</p>
+                    <p class="mb-0">Your current profile. You can edit your profile by clicking the "edit profile" button.</p>
                 </div>
             </div>
             <div class="col-md-5 text-right">
@@ -36,13 +36,13 @@ var PageProfile = Vue.component("PageProfile", {
         </div>
         <form role="form" class="needs-validation form-border" method="post">
             <div class="form-group row mb-2">
-                <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 color-heading" >Status As (Read Only)</label>
+                <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 color-heading" >Status as (read only)</label>
                 <div class="col-lg-9">
                     <input disabled="true" class="form-control"  type="text" :value="user.status_member">
                 </div>
             </div>
             <div class="form-group row mb-2">
-                <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 required color-heading">Name (Read Only)</label>
+                <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 required color-heading">Full Name (read only)</label>
                 <div class="col-lg-9">
                     <input :disabled="!editing" class="form-control" readonly required="" type="text" v-model="user.fullname">
                 </div>
@@ -72,7 +72,7 @@ var PageProfile = Vue.component("PageProfile", {
                 </div>
             </div> -->
             <div class="form-group row mb-2">
-                <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 required color-heading">Phone/WA Number</label>
+                <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 required color-heading">Phone/ Whats App Number</label>
                 <div class="col-lg-9">
                     <input :disabled="!editing" type="text" v-model="user.phone" class="form-control" name="phone"/>
                 </div>
@@ -93,16 +93,16 @@ var PageProfile = Vue.component("PageProfile", {
             </div>
 
             <div class="form-group row mb-2">
-                <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 color-heading" >Residential City</label>
+                <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 color-heading" >City</label>
                 <div class="col-lg-9">
                     <input :disabled="!editing" class="form-control" type="text" v-model="user.city" placeholder="City">
                 </div>
             </div>
 
             <div class="form-group row mb-2">
-                <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 color-heading" >Yours Institution</label>
+                <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 color-heading" >Institution/ Affiliation</label>
                 <div class="col-lg-9 dark-select">
-                    <vue-chosen :disabled="!editing"  v-model="user.univ" :options="univ_list" placeholder="Choose Institution"></vue-chosen>
+                    <vue-chosen :disabled="!editing"  v-model="user.univ" :options="univ_list" placeholder="Choose one"></vue-chosen>
                 </div>
             </div>
 
@@ -114,7 +114,7 @@ var PageProfile = Vue.component("PageProfile", {
             </div> -->  
 
             <div class="form-group row mb-2">
-                <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 required color-heading">Sponsor</label>
+                <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 required color-heading">Sponsor (if any)</label>
                 <div class="col-lg-9">
                     <input :disabled="!editing" class="form-control" required="" type="text" v-model="user.sponsor">
                 </div>
@@ -131,7 +131,7 @@ var PageProfile = Vue.component("PageProfile", {
         </form>
         <div v-if="countFollowed == 0" class="row">
         	<div class="col-md-12 text-right">    	
-				<router-link active-class="active" class="btn btn-primary" to="/events">Choose your event participation</router-link>            
+				<router-link active-class="active" class="btn btn-primary" to="/events">Click here to choose your event participation</router-link>            
 			</div>
 		</div>
         <div id="reset-password" class="modal fade" role="dialog">

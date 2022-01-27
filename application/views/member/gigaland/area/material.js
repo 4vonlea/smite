@@ -9,18 +9,18 @@ export default Vue.component("Material", {
         <page-loader :loading="loading" :fail="fail"></page-loader>
         <div v-if="!loading">
             <div class="overflow-hidden mb-1">
-                <h2 class="font-weight-normal color-heading text-7 mb-0"><strong class="font-weight-extra-bold">Upload Materi</strong></h2>
+                <h2 class="font-weight-normal color-heading text-7 mb-0"><strong class="font-weight-extra-bold">Upload Material</strong></h2>
             </div>
             <div class="overflow-hidden mb-4 pb-3">
-                <p class="mb-0">Upload material files/materials for seminars</p>
+                <p class="mb-0">Upload material files/ materials for seminars</p>
             </div>
             <div class="row">
                 <table class="table text-light">
                     <thead>
                         <tr>
                             <th>Material Title</th>
-                            <th>Upload/Link</th>
-                            <th>Deadline/Countdown</th>
+                            <th>Upload/ Link</th>
+                            <th>Deadline/ Countdown</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -44,7 +44,7 @@ export default Vue.component("Material", {
                                 <div v-if="m.type == 1" class="input-group mb-3">
                                     <input type="text" :ref="'reflink_'+index" :value="m.filename" class="form-control" placeholder="Link (max 250 character)" aria-label="URL" aria-describedby="basic-addon2">
                                     <div class="input-group-append">
-                                        <button class="btn btn-outline-secondary" @click="saveMaterial(m,index,$event)" type="button">Simpan</button>
+                                        <button class="btn btn-outline-secondary" @click="saveMaterial(m,index,$event)" type="button">Save</button>
                                     </div>
                                 </div>
                                 <div v-else>
@@ -54,7 +54,7 @@ export default Vue.component("Material", {
                                             <label class="custom-file-label" >{{ m.tempname ? m.tempname : 'Pilih File' }}</label>
                                         </div>
                                         <div class="input-group-append"  style="height:35px">
-                                            <button class="btn btn-outline-secondary" @click="saveMaterial(m,index,$event)" type="button">Simpan</button>
+                                            <button class="btn btn-outline-secondary" @click="saveMaterial(m,index,$event)" type="button">Save</button>
                                         </div>
                                     </div>
                                     <small>*ekstensi file 'doc|docx|jpg|jpeg|png|bmp|ppt|pdf|mp4|ppt|pptx'</small>
@@ -130,7 +130,7 @@ export default Vue.component("Material", {
                 let value = this.$refs['reflink_'+index][0].value;
                 if(value.length > 250){
                     valid = false;
-                    Swal.fire('Peringatan',"Panjang karakter maksimal 250",'warning');
+                    Swal.fire('Warning',"Maximum limit only for 250 characters",'warning');
                 }
                 formData.append("filename",value);
             }else{
@@ -139,7 +139,7 @@ export default Vue.component("Material", {
                     formData.append("filename",refFile.files[0]);
                 }else{
                     valid = false;
-                    Swal.fire('Peringatan',"Pilih file baru sebelum melakukan upload",'warning');
+                    Swal.fire('Warning',"Please choose a new file before uploading",'warning');
                 }
             }
             formData.append("ref_upload_id",row.id);
@@ -158,13 +158,13 @@ export default Vue.component("Material", {
                         if(res.status){
                             page.fetchData();
                         }else{
-                            Swal.fire('Peringatan',res.message,'warning');
+                            Swal.fire('Warning',res.message,'warning');
                         }
                     }
                 }).fail(function () {
-                    Swal.fire('Gagal',"Server gagal memproses silakan coba lagi",'error');
+                    Swal.fire('Failed',"Server failed to process, please try again",'error');
                 }).always(function () {
-                    evt.target.innerHTML = "Simpan";
+                    evt.target.innerHTML = "Save";
                     evt.target.removeAttribute("disabled");
                 });
             }

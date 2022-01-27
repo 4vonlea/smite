@@ -36,7 +36,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                 <div class="alert alert-success" style="background-color: #F5AC39;">
                     <h4 class="text-dark"><i class="fa fa-info"></i> Your account has been created</h4>
                     <p>We have sent a confirmation link to your email address. To complete the registration process, please click <i>confirmation link</i>.
-                        If you don't receive a confirmation email, please check your spam. Then, please make sure you enter a valid email address when filling out the registration form. If you need help, please contact us.</p>
+                        If you don't receive a confirmation email, please check your spam. If you need help, please contact us.</p>
                 </div>
 
                 <div class="card mt-2">
