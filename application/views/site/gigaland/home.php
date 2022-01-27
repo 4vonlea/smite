@@ -306,17 +306,21 @@
             <div class="nft__item_lg text-center feature-box f-boxed style-3">
                 <div class="row align-items-center wow fadeInRight" data-wow-delay=".5s">
                     <div class="col-lg-6">
-                        <h1 style="color:#F4AD39;">Sign In</h1>
+                        <?php if (!$hasSession) : ?>
+                            <h1 style="color:#F4AD39;">Sign In</h1>
+                        <?php endif;?>
                         <form name="contactForm" id='contact_form' class="form-border" method="post" action="<?= base_url('site/login'); ?>">
-                            <div class="field-set">
-                                <input type='text' name='username' id='email' class="form-control" placeholder="Email">
-                            </div>
+                            <?php if (!$hasSession) : ?>
+                                <div class="field-set">
+                                    <input type='text' name='username' id='email' class="form-control" placeholder="Email">
+                                </div>
 
-                            <div class="field-set">
-                                <input type='password' name='password' id='password' class="form-control" placeholder="Password">
-                            </div>
+                                <div class="field-set">
+                                    <input type='password' name='password' id='password' class="form-control" placeholder="Password">
+                                </div>
+                            <?php endif; ?>
                             <div class="d-buttons">
-                                <input type="submit" name="login" class="btn-main btn-fullwidth" value="Sign" style="background-color:#F4AD39; color:black;"><br>
+                                <input type="submit" name="login" class="btn-main btn-fullwidth" value="<?= $hasSession ? "Back To Member Area" : "Sign"; ?>" style="background-color:#F4AD39; color:black;"><br>
                             </div>
                         </form>
                     </div>

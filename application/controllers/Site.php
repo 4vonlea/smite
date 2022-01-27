@@ -29,7 +29,9 @@ class Site extends MY_Controller
 
     public function index()
     {
-        $this->load->view('site/' . $this->theme . '/index');
+        $this->load->view('site/' . $this->theme . '/index',[
+            'hasSession'=>$this->session->has_userdata("user_session"),
+        ]);
     }
 
     public function home()
@@ -49,7 +51,8 @@ class Site extends MY_Controller
         $eventcountdown = $this->SettingM->eventcountdown();
         $data['eventcountdown'] = $eventcountdown ? date_create($eventcountdown->value) : date("Y-m-d H:i:s");
         $papercountdown = $this->SettingM->papercountdown();
-        $data['papercountdown'] = $papercountdown ? date_create($papercountdown->value) : date("Y-m-d H:i:s");;
+        $data['papercountdown'] = $papercountdown ? date_create($papercountdown->value) : date("Y-m-d H:i:s");
+        $data['hasSession'] = $this->session->has_userdata("user_session");
         $this->load->view('site/' . $this->theme . '/home', $data);
     }
 

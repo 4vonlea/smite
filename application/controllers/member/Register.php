@@ -747,6 +747,7 @@ class Register extends MY_Controller
 		} else {
 			$data = [
 				'id_invoice' => $id_invoice,
+				'hasSession' => $this->session->has_userdata("user_session"),
 			];
 			$this->layout->render('member/' . $this->theme . '/check_invoice', $data);
 		}

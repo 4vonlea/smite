@@ -33,7 +33,6 @@ $theme_path = base_url("themes/gigaland") . "/";
 <section id="app" class="custom-section-padding">
     <div class="container">
         <div class="row">
-
             <!-- NOTE Sebelum Submit -->
             <div class="col-lg-8 offset-lg-2">
                 <form id="form-register" class="form-border" ref="form">
@@ -97,6 +96,30 @@ $theme_path = base_url("themes/gigaland") . "/";
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2 col-sm-12">
+
+                <?php if (!$hasSession) : ?>
+
+                    <h3 style="color:#F4AD39;">Sign In</h3>
+                <?php endif; ?>
+                <form name="contactForm" id='contact_form' class="form-border" method="post" action="<?= base_url('site/login'); ?>">
+                    <?php if (!$hasSession) : ?>
+                        <div class="field-set">
+                            <input type='text' name='username' id='email' class="form-control" placeholder="Email">
+                        </div>
+
+                        <div class="field-set">
+                            <input type='password' name='password' id='password' class="form-control" placeholder="Password">
+                        </div>
+                    <?php endif; ?>
+                    <div class="d-buttons">
+                        <input type="submit" name="login" class="btn-main btn-fullwidth" value="<?= $hasSession ? "Back To Member Area" : "Sign"; ?>" style="background-color:#F4AD39; color:black;"><br>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
