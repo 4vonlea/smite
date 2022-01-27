@@ -165,7 +165,7 @@
 									<?php if ($this->session->user_session['role'] == User_account_m::ROLE_SUPERADMIN) : ?>
 										<td>{{ formatCurrency(p.fund_collected) }}</td>
 									<?php endif; ?>
-									<td>
+									<td  v-if="p.id_event != '0'">
 										<button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 											Download Participants
 										</button>

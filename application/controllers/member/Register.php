@@ -502,18 +502,19 @@ class Register extends MY_Controller
 				$detail->event_pricing_id = $event['id'];
 				$detail->transaction_id = $transaction->id;
 				$detail->price = $event['price'];
+				$detail->price_usd = $price->price_in_usd;
 				$detail->member_id = $data['id'];
 				$detail->product_name = "$event[event_name] ($event[member_status])";
 				$detail->save();
 				if ($event['price'] > 0 && $feeAlready == false) {
 
-					$check = $data['isGroup'] ? $this->Transaction_detail_m->findOne(['transaction_id' => $transaction->id, 'member_id' => $data['bill_to'], 'product_name' => 'Unique Additional Price + Admin Fee']) : false;
+					$check = $data['isGroup'] ? $this->Transaction_detail_m->findOne(['transaction_id' => $transaction->id, 'member_id' => $data['bill_to'], 'event_pricing_id' => 0]) : false;
 					if (!$check) {
 						$fee->event_pricing_id = 0; //$event['id'];
 						$fee->transaction_id = $transaction->id;
 						$fee->price = 5000 + rand(100, 500); //"6000";//$event['price'];
 						$fee->member_id = $data['isGroup'] ? $data['bill_to'] : $data['id'];
-						$fee->product_name = "Unique Additional Price + Admin Fee";
+						$fee->product_name = "Admin Fee";
 						$fee->save();
 					}
 				}

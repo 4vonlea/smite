@@ -34,7 +34,6 @@ class Dashboard_m extends CI_Model
 			$rs = $this->db->select("t.id as id_event,t.kouta,name,COALESCE(number_participant,0) as number_participant,nametag,seminarkit,certificate")
 				->join("( $queryTemp ) as c", "c.id_event = t.id", "left")
 				->from("events t")->get();
-
 		}
 
 		$countByStatus = $this->db->query("SELECT ev.id as event_id, t.kategory as status,ev.name as event, COUNT(m.id) AS jumlah FROM kategory_members t
@@ -53,10 +52,18 @@ class Dashboard_m extends CI_Model
 				$chartResult[$row['event_id']]['data']['datasets'][0]['backgroundColor'] = '#f87979';
 				$chartResult[$row['event_id']]['data']['datasets'][0]['data'][] =$row['jumlah'];
 			}
-		}									
-
+		}					
+		$participantEvent = $rs->result_array();		
+		$adminfee = $this->db->select("0 as id_event,'-'  as kouta,'Admin Fee' as name,SUM(price) as fund_collected, COUNT(dt.id) as number_participant,'-' as nametag,'-' as seminarkit,'-' as certificate")
+				->join("transaction t","t.id = dt.transaction_id")
+				->where("t.status_payment",Transaction_m::STATUS_FINISH)
+				->where("dt.event_pricing_id","0")
+				->from("transaction_details dt")->get()->row_array();
+		if($adminfee){
+			$participantEvent[] = $adminfee;
+		}
 		$return['charts'] = $chartResult;
-		$return['participants_event'] = $rs->result_array();
+		$return['participants_event'] = $participantEvent;
 		return $return;
 	}
 
@@ -80,13 +87,13 @@ class Dashboard_m extends CI_Model
 	{
 		$this->load->model("Member_m");
 		$this->load->model("Transaction_m");
-		$result = $this->db->select("t.id as no_invoice, m.id as member_id, m.fullname as nama, e.name as acara, td.product_name, ep.name, td.price as harga, t.updated_at as waktu_transaksi, t.status_payment as status_pembayaran, t.message_payment as ket ")
+		$result = $this->db->select("t.id as no_invoice, m.id as member_id, m.fullname as nama, COALESCE(e.name,'-') as acara, COALESCE(td.product_name,'-') as product_name, ep.name, td.price as harga, t.updated_at as waktu_transaksi, t.status_payment as status_pembayaran, t.message_payment as ket ")
 			->select("m.sponsor")
 			->from("transaction t")
 			->join("members m", "m.id = t.member_id")
 			->join("transaction_details td", "t.id = td.transaction_id", "left")
 			->join("event_pricing ep", "ep.id = td.event_pricing_id", "left")
-			->join("events e", "e.id = ep.event_id")
+			->join("events e", "e.id = ep.event_id","left")
 			->order_by("t.id, m.id")
 			->get()->result_array();
 		return $result;

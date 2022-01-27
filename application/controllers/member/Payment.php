@@ -274,7 +274,7 @@ class Payment extends MY_Controller
 		$data = array_merge($this->input->post(),$this->input->get());
 		$data['ip_address'] = $this->input->ip_address();
 		$this->db->insert("log_payment",[
-			'invoice'=>$data['order_id'] ?? $response['order_id'] ?? $data['invoice'] ?? $invoice_id,
+			'invoice'=>$data['order_id'] ?? $response['order_id'] ?? $data['invoice'] ?? $invoice_id ?? "-",
 			'action'=>$type,
 			'request'=>json_encode($data),
 			'response'=>is_string($response) ? $response : json_encode($response),
@@ -301,6 +301,7 @@ class Payment extends MY_Controller
 					$tr = $this->Transaction_m->findOne($order_id);
 					$member = $tr->member;
 					if($member){
+						$this->load->model("Notification_m");
 						$file['Registration Proof'] = $tr->exportPaymentProof()->output();
 						$this->Notification_m->sendMessageWithAttachment($member->email,"Official Registration Proof","Thank you for registering and fulfilling your payment, below is offical Registration Proof",$file,"REGISTRATION_PROOF.pdf");
 					}

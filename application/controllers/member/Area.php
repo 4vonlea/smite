@@ -323,6 +323,7 @@ class Area extends MY_Controller
 			$detail->event_pricing_id = $data['id'];
 			$detail->transaction_id = $transaction->id;
 			$detail->price = $data['price'];
+			$detail->price_usd = $price->price_in_usd;
 			$detail->member_id = $this->session->user_session['id'];
 			$detail->product_name = "$data[event_name] ($data[member_status])";
 			$detail->save();
@@ -331,7 +332,7 @@ class Area extends MY_Controller
 				$fee->transaction_id = $transaction->id;
 				$fee->price = 5000 + rand(100, 500); //"6000";//$data['price'];
 				$fee->member_id = $this->session->user_session['id'];
-				$fee->product_name = "Unique Additional Price + Admin Fee";
+				$fee->product_name = "Admin Fee";
 				$fee->save();
 			}
 		} else {

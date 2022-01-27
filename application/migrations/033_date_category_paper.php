@@ -8,8 +8,6 @@ class Migration_date_category_paper extends CI_Migration
 {
     public function up()
     {
-
-
         $this->dbforge->add_column(
             "category_paper",
             [

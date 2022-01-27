@@ -168,7 +168,11 @@ $payment = Settings_m::manualPayment(false);
 													$total = 0;
 													foreach ($transaction->detailsWithEvent() as $d) {
 														$total += $d->price;
-														echo "<li>$d->product_name : <br/>Rp " . number_format($d->price, 2, ",", ".") . "</li>";
+														if($d->price_usd > 0){
+															echo "<li>$d->product_name :  <br/>USD " . $d->price_usd . "</li>";
+														}else{
+															echo "<li>$d->product_name :  <br/>Rp " . number_format($d->price, 2, ",", ".") . "</li>";
+														}
 													};
 													?>
 												</ul>

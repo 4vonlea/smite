@@ -648,6 +648,7 @@ class Member extends Admin_Controller
 							'transaction_id' => $id_invoice,
 							'event_pricing_id' => $event[0],
 							'price' => $event[1],
+							'price_usd' => $price->price_in_usd,
 						];
 					}
 					$this->Transaction_detail_m->batchInsert($details);
