@@ -719,10 +719,10 @@ class Register extends MY_Controller
 				$transaction = $this->Transaction_m->findOne($post['invoice']);
 				if ($transaction) {
 					$transaction = $transaction->toArray();
-					$transaction['description'] = ucwords(Transaction_m::$transaction_status[$transaction['status_payment']]);
+					$transaction['description'] = Transaction_m::$transaction_status[$transaction['status_payment']];
 
 					if ($transaction['status_payment'] == Transaction_m::STATUS_FINISH) {
-						$transaction['status_payment'] = 'Finished';
+						$transaction['status_payment'] = 'Completed';
 					} else {
 						$transaction['status_payment'] = ucwords(str_replace('_', ' ', $transaction['status_payment']));
 					}
@@ -776,8 +776,12 @@ class Register extends MY_Controller
 			$tran = $this->Transaction_m->findOne($id);
 			$tran->client_message = $message;
 			$tran->payment_proof =  $data['file_name'];
-			$tran->status_payment = Transaction_m::STATUS_NEED_VERIFY;
-			$data['status_payment'] =  Transaction_m::STATUS_NEED_VERIFY;
+			if($tran->status_payment == Transaction_m::STATUS_PENDING){
+				$tran->status_payment = Transaction_m::STATUS_NEED_VERIFY;
+				$data['status_payment'] =  Transaction_m::STATUS_NEED_VERIFY;
+			}else{
+				$data['status_payment'] = $tran->status_payment;
+			}
 			$mem = $this->Member_m->findOne($tran->member_id);
 			$response['status'] = $tran->save();
 			$response['data'] = $data;

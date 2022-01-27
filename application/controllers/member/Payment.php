@@ -231,16 +231,19 @@ class Payment extends MY_Controller
 	}
 
 	public function inquiry_espay(){
-		$error_code = 0;
-		$error_message = "";
-		$ccy = "IDR";
 		$description = "";
-		$date = date("d/m/y H:i:s");
+		$date = date("Y-m-d H:i:s");
 		$amount = 0;
 
 		$order_id = $this->input->post("order_id");
 		$this->load->model(["Transaction_m","Notification_m","Member_m"]);
 		$trx = $this->Transaction_m->findOne(['id'=>$order_id]);
+		$espayConfig = Settings_m::getEspay();
+
+		$response['rq_uuid'] = $this->input->post("rq_uuid");
+		$response['rs_datetime'] = $date;
+		$response['order_id'] = $this->input->post("order_id");
+		$response['ccy'] = "IDR";
 		if($trx){
 			foreach($trx->detailsWithEvent() as $row){
 				$amount += $row->price;
@@ -251,23 +254,33 @@ class Payment extends MY_Controller
 			$this->Transaction_m->update(['checkout'=>1,'channel'=>'ESPAY','status_payment'=>Transaction_m::STATUS_PENDING],$order_id);
 			$tr = $this->Transaction_m->findOne(['id'=>$order_id]);
 			$member = $this->Member_m->findOne(['id'=>$tr->member_id]);
+
+			$response['error_code'] = "0000";
+			$response['error_message'] = "Success";
+			$response['description'] = $description;
+			$response['amount'] = $amount;
+			$response['trx_date'] = $date;
+			$response['installment_period'] = "30D";
 			if($member){
+				$response['customer_details'] = [
+					'firstname'=>$member->fullname,
+					'phone_number'=>$member->phone,
+					'email'=>$member->email,
+				];
 				$attc = [
 					$member->fullname.'-invoice.pdf' => $tr->exportInvoice()->output(),
 				];
 				$this->Notification_m->sendMessageWithAttachment($member->email, 'Invoice', "Thank you for your participation, the following is an invoice for the event you participated in", $attc);
 			}
 		}else{
-			$error_code = 1;
-			$error_message = "Invalid Order ID";
-			$order_id = "";
-			$amount = "";
-			$ccy = "";
-			$description = "";
-			$date = "";
+			$response['error_code'] = 1;
+			$response['error_message'] = "Invalid Order ID";
 		}
-		$this->log("inquiry",[$error_code,$error_message,$order_id,$amount,$ccy,$description,$date]);
-		echo implode(";",[$error_code,$error_message,$order_id,$amount,$ccy,$description,$date]);
+		$response['signature'] = $this->create_signature_espay($espayConfig['signature'],$order_id,"INQUIRY-RS",$date,$this->input->post("rq_uuid"),$response['error_code']);
+
+		$this->log("inquiry",$response);
+		$this->output->set_header("content-type: application/json")->set_output(json_encode($response));
+//		echo implode(";",[$error_code,$error_message,$order_id,$amount,$ccy,$description,$date]);
 	}
 
 	public function log($type, $response = [],$invoice_id = "-"){
@@ -365,8 +378,11 @@ class Payment extends MY_Controller
 		}
 	}
 
-	protected function create_signature_espay($keySignature,$order_id,$service_name,$rq_datetime){
-		if($service_name == "CHECKSTATUS"){
+	protected function create_signature_espay($keySignature,$order_id,$service_name,$rq_datetime ,$rq_uuid = "",$error_code = ""){
+		$sign = "";
+		if($service_name == "INQUIRY-RS"){
+			$sign = "##$keySignature##$rq_uuid##$rq_datetime##$order_id##$error_code##$service_name##";
+		}else{
 			$sign = "##$keySignature##$rq_datetime##$order_id##$service_name##";
 		}
 		$sign = strtoupper($sign);

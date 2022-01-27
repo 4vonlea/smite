@@ -440,7 +440,7 @@
 							<div class="row">
 								<div class="col">Espay Payment Gateway</div>
 								<div class="form-check">
-									<input class="form-check-input" type="checkbox" v-model="enablePayment" value="espay;Espay Payment Gateway" id="enableEspay">
+									<input class="form-check-input" type="checkbox" v-model="enablePayment" value="espay;Online Payment" id="enableEspay">
 									<label class="form-check-label" for="enableEspay">
 										Enable Espay Payment
 									</label>

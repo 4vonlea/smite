@@ -207,7 +207,7 @@ class Setting extends Admin_Controller
 		Settings_m::saveSetting("email_receive", $email);
 		Settings_m::saveSetting("kurs_usd", $kurs_usd);
 
-		if (isset($espay) && in_array("espay;Espay Payment Gateway", $enablePayment)) {
+		if (isset($espay) && in_array("espay;Online Payment", $enablePayment)) {
 			$this->load->library("form_validation");
 			$this->form_validation->set_rules("apiLink", "Api Link", "required")
 				->set_rules("jsKitUrl", "JS KIT URL", "required")
