@@ -80,9 +80,11 @@ $theme_path = base_url("themes/gigaland") . "/";
                                         <li>
                                             <a href="<?= base_url('member/area'); ?>#/profile" style="color:#F4AD39;">Profile<span></span></a>
                                         </li>
+                                      	<!--
                                         <li>
                                             <a href="<?= base_url('member/area'); ?>#/paper" style="color:#F4AD39;">Send Paper<span></span></a>
                                         </li>
+										-->
                                         <li class="menu-item-has-children has-child">
                                             <a href="#" style="color:#F4AD39;">Purchase<span></span></a><span></span>
                                             <ul>
