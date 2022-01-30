@@ -94,7 +94,7 @@ class Transaction extends Admin_Controller
 			$this->db->insert("log_payment",[
 				'invoice'=>$data['id'],
 				'action'=>"save_modify",
-				'request'=>json_encode($data),
+				'request'=>json_encode(array_intersect_key($data,array_flip(['id','status_payment','checkout','client_message']))),
 				'response'=>"",
 			]);
 			$trans->status_payment = $data['status_payment'];
