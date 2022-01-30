@@ -360,7 +360,7 @@ class Payment extends MY_Controller
 				if(isset($resJson['tx_status'])){
 					if($resJson['tx_status'] == "S"){
 						$status = Transaction_m::STATUS_FINISH;
-					}elseif($resJson['tx_status'] == "F"){
+					}elseif($resJson['tx_status'] == "F" || $resJson['tx_status'] == "EX"){
 						$status = Transaction_m::STATUS_EXPIRE;
 					}else{
 						if(strtolower($resJson['tx_reason']) == strtolower('expired'))
