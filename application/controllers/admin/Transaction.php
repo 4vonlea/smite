@@ -95,7 +95,7 @@ class Transaction extends Admin_Controller
 				'invoice'=>$data['id'],
 				'action'=>"save_modify",
 				'request'=>json_encode($data),
-				'response'=>[],
+				'response'=>"",
 			]);
 			$trans->status_payment = $data['status_payment'];
 			if ($trans->status_payment != Transaction_m::STATUS_WAITING) {
@@ -195,7 +195,7 @@ class Transaction extends Admin_Controller
 				'invoice'=>$id,
 				'action'=>"verify",
 				'request'=>json_encode($this->input->post()),
-				'response'=>[],
+				'response'=>"",
 			]);
 			$attc = [
 				$member->fullname . '-invoice.pdf' => $detail->exportInvoice()->output(),
