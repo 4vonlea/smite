@@ -95,7 +95,7 @@ class Transaction extends Admin_Controller
 				'invoice'=>$data['id'],
 				'action'=>"save_modify",
 				'request'=>json_encode(array_intersect_key($data,array_flip(['id','status_payment','checkout','client_message']))),
-				'response'=>"",
+				'response'=>"[]",
 			]);
 			$trans->status_payment = $data['status_payment'];
 			if ($trans->status_payment != Transaction_m::STATUS_WAITING) {
@@ -173,6 +173,12 @@ class Transaction extends Admin_Controller
 		$detail = $this->Transaction_m->findOne($id);
 		$detail->status_payment = Transaction_m::STATUS_EXPIRE;
 		$status = $detail->save();
+		$this->db->insert("log_payment",[
+			'invoice'=>$id,
+			'action'=>"set_expire",
+			'request'=>json_encode(array_intersect_key($this->input->post(),array_flip(['id','status_payment','checkout','client_message']))),
+			'response'=>"[]",
+		]);
 		$this->output
 			->set_content_type("application/json")
 			->_display(json_encode(['status' => $status]));
@@ -194,8 +200,8 @@ class Transaction extends Admin_Controller
 			$this->db->insert("log_payment",[
 				'invoice'=>$id,
 				'action'=>"verify",
-				'request'=>json_encode($this->input->post()),
-				'response'=>"",
+				'request'=>json_encode(array_intersect_key($this->input->post(),array_flip(['id','status_payment','checkout','client_message']))),
+				'response'=>"[]",
 			]);
 			$attc = [
 				$member->fullname . '-invoice.pdf' => $detail->exportInvoice()->output(),
