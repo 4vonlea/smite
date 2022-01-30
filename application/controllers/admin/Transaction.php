@@ -91,6 +91,12 @@ class Transaction extends Admin_Controller
 		$trans = $this->Transaction_m->findOne(['id' => $data['id']]);
 		$status = false;
 		if ($trans) {
+			$this->db->insert("log_payment",[
+				'invoice'=>$data['id'],
+				'action'=>"save_modify",
+				'request'=>json_encode($data),
+				'response'=>[],
+			]);
 			$trans->status_payment = $data['status_payment'];
 			if ($trans->status_payment != Transaction_m::STATUS_WAITING) {
 				$trans->checkout = 1;
@@ -185,6 +191,12 @@ class Transaction extends Admin_Controller
 		$status = $detail->save();
 		if ($status) {
 			$member = $this->Member_m->findOne(['id' => $detail->member_id]);
+			$this->db->insert("log_payment",[
+				'invoice'=>$id,
+				'action'=>"verify",
+				'request'=>json_encode($this->input->post()),
+				'response'=>[],
+			]);
 			$attc = [
 				$member->fullname . '-invoice.pdf' => $detail->exportInvoice()->output(),
 				$member->fullname . '-registration_proof.pdf' => $detail->exportPaymentProof()->output()
