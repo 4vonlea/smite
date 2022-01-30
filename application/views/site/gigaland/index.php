@@ -62,10 +62,11 @@
                                             <a href="<?= base_url('site/home'); ?>" class="btn-main btn-sm" style="background-color:#F4AD39; color:black;">Visit our Website here</a>&nbsp;
                                             <a href="<?= base_url('member/register'); ?>" class="btn-main btn-sm" style="background-color:#F4AD39; color:black;">Click here For Registration</a>&nbsp;
 
-                                            <!--<a href="" class="btn-main btn-lg" style="background-color:#F4AD39; color:black;">Enter</a>&nbsp;-->
+                                            <!--<a href="" class="btn-main btn-lg" style="background-color:#F4AD39; color:black;">Enter</a>&nbsp;-->											
                                         </div>
                                         <hr>
                                         <div class="container">
+											<h4 style="color:#F4AD39;">Submission for Abstract is opened on February 14th, 2022</h4><br>
                                             <div class="row align-items-center wow fadeInRight" data-wow-delay=".5s">
                                                 <div class="col-lg-6">
                                                     <?php if (!$hasSession) : ?>
