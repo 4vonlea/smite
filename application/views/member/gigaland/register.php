@@ -250,7 +250,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                                             </span>
 
                                             <h5 style="color:#F4AD39;"> Full Name*</h5>
-                                            <small>*Please fill your name completely and correctly (along with your title) for the certificate</small>
+                                            <small>*Rename isn't allowed after submission. Fill your name completely (include title) for the certificate</small>
                                             <input type="text" :class="{'is-invalid':validation_error.fullname}" class="form-control mb-0" name="fullname" placeholder="Full Name" />
                                             <div v-if="validation_error.fullname" class="invalid-feedback">
                                                 {{ validation_error.fullname }}
@@ -313,7 +313,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                                                 <div class="spacer-20"></div>
                                             </span>
 
-                                            <h5 style="color:#F4AD39;">Phone/ Whats App No*</h5>
+                                            <h5 style="color:#F4AD39;">Phone/ Whats App No (optional, for rapid communication)*</h5>
                                             <input type="text" :class="{ 'is-invalid':validation_error.phone}" @keypress="onlyNumber" class="form-control mb-0" name="phone" placeholder="Phone/WA" />
                                             <div v-if="validation_error.phone" class="invalid-feedback">
                                                 {{ validation_error.phone }}
@@ -367,7 +367,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                                                         <h2 class="m-0 p-0"><strong class="font-weight-extra-bold ">Event</strong></h2>
                                                     </div>
                                                     <div class="card-body text-center">
-                                                        Please select the event you want. *Events are available based on your status and date
+                                                        Please select the event you want. *the price exclude administration fee
                                                     </div>
                                                 </div>
 
