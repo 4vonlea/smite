@@ -28,7 +28,7 @@ class Member_m extends MY_Model
 			//			['field' => 'city', 'rules' => 'required'],
 			['field' => 'univ', 'label' => 'Institution', 'rules' => 'required'],
 			['field' => 'country', 'label' => 'Country', 'rules' => 'required'],
-			['field' => 'phone', 'label' => 'Phone/WA', 'rules' => 'required|numeric'],
+			['field' => 'phone', 'label' => 'Phone/WA', 'rules' => 'numeric'],
 			['field' => 'birthday', 'label' => 'Birthday', 'rules' => 'required'],
 		];
 		if (isset($_POST['univ']) && $_POST['univ'] == Univ_m::UNIV_OTHER) {
