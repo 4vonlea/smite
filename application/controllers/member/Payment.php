@@ -336,6 +336,20 @@ class Payment extends MY_Controller
 				foreach($rs->result_array() as $row){
 					$orders[] = $row['id'];
 				}
+		}else if($invoice == null){
+			$sql = "SELECT 
+					t.id,t.status_payment,
+					t.channel,
+					NOW(), 
+					STR_TO_DATE(JSON_EXTRACT(l.response,\"$.expired\"),'\"%Y-%m-%d %H:%i:%s\"') AS ex,
+					JSON_EXTRACT(l.response,\"$.expired\") AS ex_string 
+				FROM transaction t
+				LEFT JOIN log_payment l  ON t.id = l.invoice AND l.`action` = \"check_status\"
+				WHERE t.channel = \"ESPAY\" AND t.status_payment = \"pending\" AND (l.id IS NULL OR NOW() >= STR_TO_DATE(JSON_EXTRACT(l.response,\"$.expired\"),'\"%Y-%m-%d %H:%i:%s\"'))";
+			$rs = $this->db->query($sql);
+			foreach($rs->result_array() as $row){
+				$orders[] = $row['id'];
+			}
 		}else{
 			$orders[] = urldecode($invoice);
 		}
@@ -352,7 +366,7 @@ class Payment extends MY_Controller
 				'signature'=>$signature,
 				'order_id'=>$order_id
 			]);
-			$this->log("check_status",$response,$invoice);
+			$this->log("check_status",$response,$order_id);
 			$resJson = json_decode($response,true);
 			$tr = $this->Transaction_m->findOne(['id'=>$order_id]);
 			if($tr){
