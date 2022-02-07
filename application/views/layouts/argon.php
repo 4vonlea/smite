@@ -35,7 +35,7 @@ function hideForRole($role, $listRole)
 	<!-- Argon CSS -->
 	<link type="text/css" href="<?= base_url(); ?>themes/argon/css/argon.min.css" rel="stylesheet">
 	<?php if (ENVIRONMENT == "production") : ?>
-		<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+		<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
 	<?php else : ?>
 		<script src="<?= base_url('themes/script/vue.js'); ?>"></script>
 	<?php endif; ?>

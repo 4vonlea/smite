@@ -36,7 +36,7 @@ $theme_path = base_url("themes/gigaland") . "/";
     <link href="<?= $theme_path; ?>css/coloring.css" rel="stylesheet" type="text/css" />
 
     <?php if (ENVIRONMENT == "production") : ?>
-        <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
     <?php else : ?>
         <script src="<?= base_url('themes/script/vue.js'); ?>"></script>
     <?php endif; ?>

@@ -27,7 +27,7 @@ $theme_path = base_url("themes/kingster") . "/";
 	<script type='text/javascript' src='<?=$theme_path;?>js/jquery/jquery-migrate.min.js'></script>
 
 	<?php if (ENVIRONMENT == "production"): ?>
-		<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+		<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
 	<?php else: ?>
 		<script src="<?= base_url('themes/script/vue.js'); ?>"></script>
 	<?php endif; ?>
