@@ -173,6 +173,11 @@ class Transaction extends Admin_Controller
 		$detail = $this->Transaction_m->findOne($id);
 		$detail->status_payment = Transaction_m::STATUS_EXPIRE;
 		$status = $detail->save();
+		$member = $detail->member;
+		if($member){
+			$message = $this->load->view("template/email/expired_transaction",['nama'=>$member->fullname],true);
+			$this->Notification_m->sendMEssage($member->email, 'Transaction Expired : '.$id, $message);
+		}
 		$this->db->insert("log_payment",[
 			'invoice'=>$id,
 			'action'=>"set_expire",

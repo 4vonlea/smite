@@ -3,6 +3,10 @@
 	.card {
 		min-height: 115px
 	}
+
+	.table td, .table th {
+		white-space: initial !important;
+	}
 </style>
 <?php $this->layout->end_head(); ?>
 <div class="header bg-primary pb-8 pt-5 pt-md-8">
@@ -162,6 +166,10 @@
 						<td :colspan="isGroup ? '4' : '3'">{{ isGroup ? detailModel.member_id : detailModel.member.fullname }}</td>
 					</tr>
 					<tr v-if="!isGroup">
+						<th>Email</th>
+						<td :colspan="isGroup ? '4' : '3'">{{ detailModel.member.email }}</td>
+					</tr>
+					<tr v-if="!isGroup">
 						<th>Address</th>
 						<td :colspan="isGroup ? '4' : '3'">{{ detailModel.member.address+", "+detailModel.member.city }}</td>
 					</tr>
@@ -273,6 +281,10 @@
 					<tr>
 						<th>Bill To</th>
 						<td :colspan="isGroup ? '4' : '3'">{{ modifyModel.member.fullname }}</td>
+					</tr>
+					<tr v-if="modifyModel.member.email">
+						<th>Email</th>
+						<td :colspan="isGroup ? '4' : '3'">{{ modifyModel.member.email }}</td>
 					</tr>
 					<tr>
 						<th>Address</th>

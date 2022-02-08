@@ -386,6 +386,13 @@ class Payment extends MY_Controller
 						$status =  Transaction_m::STATUS_FINISH;
 					}
 					$this->Transaction_m->update(['midtrans_data'=>$response,'status_payment'=>$status],$order_id);
+					if($status == Transaction_m::STATUS_EXPIRE && $tr->status_payment != Transaction_m::STATUS_EXPIRE){
+						$member = $tr->member;
+						if($member){
+							$message = $this->load->view("template/email/expired_transaction",['nama'=>$member->fullname],true);
+							$this->Notification_m->sendMEssage($member->email, 'Transaction Expired : '.$order_id, $message);
+						}
+					}
 				}
 				// file_put_contents(APPPATH."logs/".$order_id."_status.json",$response);
 			}
