@@ -342,6 +342,43 @@
             </div>
     </section>
 
+<!-- ======= Features Section ======= -->
+<section id="tutor" class="tutor">
+    <div class="container">
+        <div class="col-md-12 wow fadeInRight" data-wow-delay=".5s">
+            <h3 style="color:#F4AD39;">Video Tutorial</h3>
+            <div class=" accordion accordion-flush" id="accordionFlushExample">
+
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingOne" style="color:#F4AD39;">
+                        <button style="color:#F4AD39; background-color:white; font-size: 18px;" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="true" aria-controls="flush-collapseOne">
+                            Registration
+                        </button>
+                    </h2>
+                    <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body" style="background-color: #212428;">
+                            <iframe src="https://drive.google.com/file/d/1vcjARtKSn_vSL0B-ZCn_bVsIQDvNDhgh/preview" width="100%" height="600" align="center" allow="autoplay"></iframe>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="flush-headingTwo" style="color:#F4AD39;">
+                        <button style="color:#F4AD39; background-color:white; font-size: 18px;" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="true" aria-controls="flush-collapseTwo">
+                            Video 2
+                        </button>
+                    </h2>
+                    <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body" style="background-color: #212428;">
+                            Video 2
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</section><!-- End Features Section -->
     <!-- ======= Features Section ======= -->
     <section id="event" class="event">
         <div class="container">
