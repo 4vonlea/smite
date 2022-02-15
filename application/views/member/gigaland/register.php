@@ -659,7 +659,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                 let selected = app.paymentMethod.find(data => data.key == app.selectedPaymentMethod);
                 if (selected && selected.key == "espay") {
                     $("#modal-select-payment").modal("show");
-                } else {
+                } else if(selected && selected.key == "manualPayment") {
                     var formData = new FormData(this.$refs.form);
                     // var birthday = moment(formData.get('birthday')).format("Y-MM-DD");
                     var birthday = moment().format("Y-MM-DD");
@@ -691,6 +691,8 @@ $theme_path = base_url("themes/gigaland") . "/";
                     }).always(function(res) {
                         app.saving = false;
                     });
+                } else{
+    				Swal.fire('Info',"Please Select Payment method !",'warning');
                 }
             },
             formatCurrency(price, currency = 'IDR') {
