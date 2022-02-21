@@ -243,9 +243,9 @@ class Area extends MY_Controller
 			show_404("Page not found !");
 		$this->load->model(["Papers_m", "Category_paper_m"]);
 		$papers = Papers_m::findAll(['member_id' => $this->session->user_session['id']]);
-		$response['abstractType'] = Papers_m::$typeAbstract;
+		// $response['abstractType'] = Papers_m::$typeAbstract;
 		$response['status'] = Papers_m::$status;
-		$response['typeStudy'] = Papers_m::$typeStudy;
+		// $response['typeStudy'] = Papers_m::$typeStudy;
 		$response['typePresention'] = Papers_m::$typePresentation;
 		$response['deadline'] = [
 			'paper_deadline' => Settings_m::getSetting('paper_deadline'),
@@ -257,7 +257,12 @@ class Area extends MY_Controller
 		];
 		// NOTE Category Paper
 		$categoryPaper = $this->Category_paper_m->find()->order_by("name")->get();
-		$response['categoryPaper'] = Category_paper_m::asList($categoryPaper->result_array(), "id", "name");
+		$categoryPaper = $categoryPaper->result_array();
+		$response['categoryPaper'] = Category_paper_m::asList($categoryPaper, "id", "name");
+		foreach ($categoryPaper as $key => $value) {
+			$treePaper[$value['name']] = json_decode($value['tree'], true);
+		}
+		$response['treePaper'] = $treePaper;
 
 		$response['data'] = [];
 		$formatId = Settings_m::getSetting("format_id_paper");
@@ -391,14 +396,34 @@ class Area extends MY_Controller
 			->_display('{"status":true}');
 	}
 
-	public function file($name)
+	public function file($name, $id, $type = 'Abstract')
 	{
 		$name = basename($name);
 		$filepath = APPPATH . "uploads/papers/" . $name;
+		$this->load->model("Papers_m");
+		$paper = $this->Papers_m->findOne($id);
+
+		if ($type == 'Voice Recording') {
+			$type = 'Voice';
+		} else if (in_array($type, ['Moderated Poster', 'Viewed Poster', 'Oral'])) {
+			$type = "Present";
+		}
+
 		if (file_exists($filepath)) {
+
+			list(, $ext) = explode(".", $name);
+
+			$dataTitle = explode(" ", $paper->title);
+			$title = count($dataTitle) > 3 ? "{$dataTitle[0]} {$dataTitle[1]} {$dataTitle[2]}" : implode(" ", $dataTitle);
+
+			$member = $paper->member;
+
+			// $filename = $type . '-' . $paper->getIdPaper() . '-' . $member->fullname . '.' . $ext;
+			$filename = "{$paper->getIdPaper()}-{$type}-{$member->fullname}-{$title}.{$ext}";
+
 			header('Content-Description: File Transfer');
 			header('Content-Type: ' . mime_content_type($filepath));
-			header('Content-Disposition: attachment; filename="' . $name . '"');
+			header('Content-Disposition: attachment; filename="' . $filename . '"');
 			header('Expires: 0');
 			header('Cache-Control: must-revalidate');
 			header('Pragma: public');
@@ -414,6 +439,14 @@ class Area extends MY_Controller
 		$response = [];
 		$this->load->library('upload');
 
+		$type = $this->input->post('type_presence');
+		$ext = 'mp3|m4a';
+		if ($type == 'Oral') {
+			$ext = 'ppt|pptx|pdf';
+		} else if ($type == 'Moderated Poster' || $type == 'Viewed Poster') {
+			$ext = 'jpg|png|jpeg|ppt';
+		}
+
 		$configFullpaper = [
 			'upload_path' => APPPATH . 'uploads/papers/',
 			'allowed_types' => 'doc|docx|ods',
@@ -422,18 +455,20 @@ class Area extends MY_Controller
 		];
 		$configPresentation = [
 			'upload_path' => APPPATH . 'uploads/papers/',
-			'allowed_types' => 'jpg|jpeg|png|ppt|pptx',
-			'max_size' => 20480,
+			'allowed_types' => $ext,
+			'max_size' => 5000,
 			'file_name' => 'presentation_' . date("Ymdhis"),
 		];
 		$this->upload->initialize($configFullpaper);
 		$statusFullpaper = $this->upload->do_upload('fullpaper');
 		$dataFullpaper = $this->upload->data();
 		$errorFullpaper = $this->upload->display_errors("", "");
+
 		$this->upload->initialize($configPresentation);
 		$statusPresentation = $this->upload->do_upload('presentation');
 		$dataPresentation = $this->upload->data();
 		$errorPresentation = $this->upload->display_errors("", "");
+
 		if ($statusFullpaper || $statusPresentation) {
 			$this->load->model("Papers_m");
 			$paper = $this->Papers_m->findOne($this->input->post("id"));
@@ -478,6 +513,10 @@ class Area extends MY_Controller
 			$paper = Papers_m::findOne(['id' => $this->input->post('id')]);
 			if (!$paper)
 				$paper = new Papers_m();
+
+			$this->load->model(["Category_paper_m"]);
+			$category = $this->Category_paper_m->find()->where('name', $this->input->post('category'))->get()->row_array();
+
 			$data = $this->upload->data();
 			$paper->member_id = $this->session->user_session['id'];
 			$paper->filename = $data['file_name'];
@@ -486,7 +525,7 @@ class Area extends MY_Controller
 			$paper->type = $this->input->post('type');
 			$paper->introduction = $this->input->post('introduction');
 			$paper->methods = $this->input->post('methods');
-			$paper->category = $this->input->post('category');
+			$paper->category = $category['id'];
 			if ($this->input->post("type_study_other")) {
 				$paper->methods = $paper->methods . ": " . $this->input->post("type_study_other");
 			}

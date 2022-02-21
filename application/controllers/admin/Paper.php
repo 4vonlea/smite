@@ -189,12 +189,26 @@ class Paper extends Admin_Controller
 		$filepath = APPPATH . "uploads/papers/" . $name;
 		$this->load->model("Papers_m");
 		$paper = $this->Papers_m->findOne($id);
+
+		if ($type == 'Voice Recording') {
+			$type = 'Voice';
+		} else if (in_array($type, ['Moderated Poster', 'Viewed Poster', 'Oral'])) {
+			$type = "Present";
+		}
+
 		if (file_exists($filepath)) {
 			list(, $ext) = explode(".", $name);
+
+			$dataTitle = explode(" ", $paper->title);
+			$title = count($dataTitle) > 3 ? "{$dataTitle[0]} {$dataTitle[1]} {$dataTitle[2]}" : implode(" ", $dataTitle);
+
 			$member = $paper->member;
+
+			// $filename = $type . '-' . $paper->getIdPaper() . '-' . $member->fullname . '.' . $ext;
+			$filename = "{$paper->getIdPaper()}-{$type}-{$member->fullname}-{$title}.{$ext}";
 			header('Content-Description: File Transfer');
 			header('Content-Type: ' . mime_content_type($filepath));
-			header('Content-Disposition: attachment; filename="' . $type . '-' . $paper->getIdPaper() . '-' . $member->fullname . '.' . $ext . '"');
+			header('Content-Disposition: attachment; filename="' . $filename . '"');
 			header('Expires: 0');
 			header('Cache-Control: must-revalidate');
 			header('Pragma: public');

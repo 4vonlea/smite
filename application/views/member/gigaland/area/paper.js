@@ -1,5 +1,5 @@
 export default Vue.component("PagePaper", {
-	template: `
+    template: `
         <div class="col-lg-12">
 			<page-loader :loading="loading" :fail="fail"></page-loader>
 			<div class="modal" data-backdrop="static" id="modal-fullpaper">
@@ -34,10 +34,8 @@ export default Vue.component("PagePaper", {
 								</div>
 								<div v-if="formFullpaper.status_fullpaper == 2 && formFullpaper.status_presentasi != 2 && !isAfter(paper.deadline.presentation_cutoff)"
 									class="form-group">
-									<label class="font-weight-bold form-control-label text-2 color-heading">Presentation /Poster File
-										(jpg,png,jpeg,ppt,pptx)</label>
-									<input :class="{'is-invalid':error_fullpaper.presentation}" type="file"
-										class="form-control-file" name="presentation" accept=".jpg,.jpeg,.png,.ppt,.pptx">
+									<label class="font-weight-bold form-control-label text-2 color-heading">{{ form.type_presence }} ({{ form.ext }})</label>
+									<input :class="{'is-invalid':error_fullpaper.presentation}" type="file" class="form-control-file" id="presentation_upload" name="presentation" :accept="form.ext">
 									<div v-if="error_fullpaper.presentation" class="invalid-feedback">{{
 										error_fullpaper.presentation }}</div>
 								</div>
@@ -216,7 +214,7 @@ export default Vue.component("PagePaper", {
 							<label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 color-heading">Fullpaper
 								Link</label>
 							<div class="col-lg-9">
-								<span v-if="form.fullpaper"><a :href="paperUrl(form.fullpaper)">Click here</a> | </span>
+								<span v-if="form.fullpaper"><a :href="paperUrl(form.fullpaper, form.id_paper, 'Fullpaper')">Click here</a> | </span>
 								<a v-if="form.status_fullpaper != 2" href="#" @click.prevent="modalFullpaper(form)">Change/ Upload
 									Fullpaper </a>
 							</div>
@@ -243,7 +241,7 @@ export default Vue.component("PagePaper", {
 							<label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 color-heading">Presentation
 								Link</label>
 							<div class="col-lg-9">
-								<span v-if="form.poster"><a :href="paperUrl(form.poster)">Click here</a> | </span>
+								<span v-if="form.poster"><a :href="paperUrl(form.poster, form.id_paper, form.type_presence)">Click here</a> | </span>
 								<a v-if="form.status_presentasi != 2" href="#"
 									@click.prevent="modalFullpaper(form)">Change/ Upload Presentation File</a>
 							</div>
@@ -253,7 +251,7 @@ export default Vue.component("PagePaper", {
 							<div class="col-lg-9">
 								<select :disabled="detail" class="form-control text-light" v-model="form.category" name="category"
 									style="background-color: #202429" :class="{'is-invalid':error_upload.category}">
-									<option v-for="(category,key) in paper.categoryPaper" :value="key">{{ category }}</option>
+									<option v-for="(category,key) in paper.categoryPaper" :value="category">{{ category }}</option>
 								</select>
 								<div v-if="error_upload.category" class="invalid-feedback">{{ error_upload.category }}</div>
 							</div>
@@ -263,7 +261,7 @@ export default Vue.component("PagePaper", {
 							<div class="col-lg-9">
 								<select :disabled="detail" class="form-control text-light" v-model="form.type" name="type"
 									style="background-color: #202429" :class="{'is-invalid':error_upload.type}">
-									<option v-for="(type,key) in paper.abstractType" :value="key">{{ type }}</option>
+									<option v-for="(type,key) in paper.treePaper[form.category]" :value="key">{{ key }}</option>
 								</select>
 								<div v-if="error_upload.type" class="invalid-feedback">{{ error_upload.type }}</div>
 							</div>
@@ -273,8 +271,7 @@ export default Vue.component("PagePaper", {
 							<div class="col-lg-9">
 								<select :disabled="detail" class="form-control text-light" v-model="form.methods" name="methods"
 									style="background-color: #202429" :class="{'is-invalid':error_upload.methods}">
-									<option disabled value="">Please select</option>
-									<option v-for="(type,key) in paper.typeStudy" :value="key">{{ type }}</option>
+									<option v-for="(type,key) in form.category && form.type ? paper.treePaper[form.category][form.type] : []" :value="key">{{ key }}</option>
 								</select>
 								<input :disabled="form.methods != 'Other' || detail"
 									placeholder="If the study type is other than the list above, please describe it here"
@@ -360,7 +357,7 @@ export default Vue.component("PagePaper", {
 							<label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 color-heading">Abstract
 								Link</label>
 							<div class="col-lg-9">
-								<a :href="paperUrl(form.filename)">Click Here</a>
+								<a :href="paperUrl(form.filename, form.id_paper)">Click Here</a>
 							</div>
 						</div>
 						<div v-if="detail && form.status == 0 && form.feedback" class="form-group row mb-2">
@@ -377,7 +374,7 @@ export default Vue.component("PagePaper", {
 								<span>{{ form.message }}</span>
 							</div>
 						</div>
-						<div class="form-group row mb-2">
+						<!-- <div class="form-group row mb-2">
 							<label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 color-heading">Co-Author
 								<small>(if any)</small></label>
 							<div class="col-lg-9 text-right">
@@ -407,7 +404,7 @@ export default Vue.component("PagePaper", {
 									</tr>
 								</table>
 							</div>
-						</div>
+						</div> -->
 						<div v-if="!detail" class="form-group">
 							<div class="form-check">
 								<input type="checkbox" v-model="form.check" class="form-check-input" id="exampleCheck1">
@@ -424,6 +421,8 @@ export default Vue.component("PagePaper", {
 
 									<span v-if="form.methods == 'Systematic Review / Meta Analysis'">I hereby declared that this
 										submitted review has made according to PRISMA Statement</span>
+
+									<span v-else="">I understand</span>
 								</label>
 							</div>
 						</div>
@@ -441,196 +440,211 @@ export default Vue.component("PagePaper", {
 			</div>
 		</div>
     `,
-	data: function () {
-		return {
-			mode: 0,
-			detail: false,
-			loading: false,
-			fail: false,
-			paper: {deadline:{}},
-			error_upload: {},
-			uploading: false,
-			form: { co_author: [], type: 'Free Paper' },
-			formFullpaper: {},
-			uploadingFullpaper: false,
-			error_fullpaper: {},
-		}
-	},
-	filters: {
-		formatDate: function (val) {
-			return moment(val).format("DD MMMM YYYY [At] HH:mm");
-		}
-	},
-	created() {
-		this.fetchData()
-	},
-	watch: {
-		'$route': 'fetchData'
-	},
-	computed: {
-		wordCountIntroduction() {
-			return (this.form.introduction ? this.form.introduction.trim().split(" ").length : 0);
-		}
-	},
-	methods: {
-		isAfter(date){
-			return moment().isAfter(date);
-		},
-		reduceWord() {
-			if (this.form.introduction && this.form.introduction.trim().split(" ").length > 300) {
-				let temp = this.form.introduction.split(" ");
-				temp.splice(300, temp.length - 300);
-				this.form.introduction = temp.join(" ");
-			}
-		},
-		wordCount(evt) {
-			if (evt.keyCode != 8 &&
-				evt.keyCode != 37 &&
-				evt.keyCode != 38 &&
-				evt.keyCode != 39 &&
-				evt.keyCode != 40 &&
-				this.form.introduction && this.form.introduction.split(" ").length > 300) {
-				evt.preventDefault();
-			}
-		},
-		uploadFullpaper() {
-			var page = this;
-			var fd = new FormData(this.$refs.formFullpaper);
-			page.uploadingFullpaper = true;
-			$.ajax({
-				url: this.baseUrl + "upload_fullpaper",
-				type: 'post',
-				data: fd,
-				contentType: false,
-				processData: false,
-				dataType: 'JSON',
-				success: function (response) {
-					if (response.status) {
-						$("#modal-fullpaper").modal("hide");
-						Swal.fire('Success', "Fullpaper or Presentation/ Poster File uploaded successfully !", 'success');
-						if (response.data.fullpaper){
-							page.formFullpaper.fullpaper = response.data.fullpaper;
-							page.form.status_fullpaper = 1;
-						}
-						if (response.data.poster){
-							page.formFullpaper.poster = response.data.poster;
-							page.form.status_presentasi = 1;
-						}
-						page.fetchData();
-					} else {
-						page.error_fullpaper = response.message;
-					}
-				},
-			}).always(function () {
-				page.uploadingFullpaper = false;
-			}).fail(function () {
-				Swal.fire('Fail', "Failed to process !", 'error');
-			});
-		},
-		modalFullpaper(paper) {
-			this.$refs.formFullpaper.reset();
-			this.formFullpaper = paper;
-			this.error_fullpaper = {};
-			$("#modal-fullpaper").modal("show");
-		},
-		removeAuthor(i) {
-			this.form.co_author.splice(i, 1);
-		},
-		addCoAuthor() {
-			this.form.co_author.push({ 'fullname': '', 'email': '', 'phone': '', 'affilition': '' });
-		},
-		fetchData() {
-			var page = this;
-			page.loading = true;
-			$.post(this.baseUrl + "get_paper", function (res) {
-				page.paper = res;
-			}, "JSON").fail(function () {
-				page.fail = true;
-			}).always(function () {
-				page.loading = false;
-			});
-		},
-		deletePaper(paper, event) {
-			var btn = event.currentTarget;
-			var app = this;
-			Swal.fire({
-				title: "Are you sure ?",
-				text: `You will delete manuscript with title "${paper.title}"`,
-				type: 'warning',
-				showCancelButton: true,
-				confirmButtonColor: '#3085d6',
-				cancelButtonColor: '#d33',
-				confirmButtonText: 'Yes, delete it!'
-			}).then((result) => {
-				if (result.value) {
-					btn.innerHTML = "<i class='fa fa-spin fa-spinner'></i>";
-					btn.setAttribute("disabled", true);
-					$.post(this.baseUrl + "delete_paper", paper, function (res) {
-						if (res.status) {
-							app.fetchData();
-						} else {
-							Swal.fire('Fail', "Failed to delete !", 'error');
-						}
-					}).fail(function () {
-						Swal.fire('Fail', "Failed to delete !", 'error');
-					}).always(function () {
-						btn.innerHTML = "<i class='fa fa-trash'></i>";
-						btn.removeAttribute("disabled");
-					});
-				}
-			});
-		},
-		uploadPaper() {
-			var page = this;
-			if(this.form.check){
-				var fd = new FormData(this.$refs.form);
-				fd.append('file', this.$refs.file.files[0]);
-				// fd.append('title', this.$refs.title.value);
-				page.uploading = true;
-				$.ajax({
-					url: this.baseUrl + "upload_paper",
-					type: 'post',
-					data: fd,
-					contentType: false,
-					processData: false,
-					dataType: 'JSON',
-					success: function (response) {
-						if (response.status) {
-							page.fetchData();
-							page.mode = 0;
-						} else {
-							page.error_upload = response.message;
-						}
-					},
-				}).always(function () {
-					page.uploading = false;
-				}).fail(function () {
-					Swal.fire('Fail', "Failed to process !", 'error');
-				});
-			}else{
-				Swal.fire('Info', "Please agree to manuscript term and condition above!", 'warning');
-			}
-		},
-		detailPaper(row) {
-			this.mode = 1;
-			this.form = row;
-			this.detail = true;
-			this.error_upload = {};
-		},
-		formatDate(date) {
-			return moment(date).format("DD MMM YYYY, [At] HH:mm:ss")
-		},
-		paperUrl(filename) {
-			if (filename) {
-				return this.baseUrl + "file/" + filename;
-			}
-			return "#";
-		},
-		feedbackUrl(feedback) {
-			if (feedback) {
-				return this.baseUrl + "file/" + feedback;
-			}
-			return null;
-		}
-	}
+    data: function() {
+        return {
+            mode: 0,
+            detail: false,
+            loading: false,
+            fail: false,
+            paper: { deadline: {} },
+            error_upload: {},
+            uploading: false,
+            form: { co_author: [], category: 'AOMC', type: 'ePoster' },
+            formFullpaper: {},
+            uploadingFullpaper: false,
+            error_fullpaper: {},
+        }
+    },
+    filters: {
+        formatDate: function(val) {
+            return moment(val).format("DD MMMM YYYY [At] HH:mm");
+        }
+    },
+    created() {
+        this.fetchData()
+    },
+    watch: {
+        '$route': 'fetchData'
+    },
+    computed: {
+        wordCountIntroduction() {
+            return (this.form.introduction ? this.form.introduction.trim().split(" ").length : 0);
+        }
+    },
+    methods: {
+        isAfter(date) {
+            return moment().isAfter(date);
+        },
+        reduceWord() {
+            if (this.form.introduction && this.form.introduction.trim().split(" ").length > 300) {
+                let temp = this.form.introduction.split(" ");
+                temp.splice(300, temp.length - 300);
+                this.form.introduction = temp.join(" ");
+            }
+        },
+        wordCount(evt) {
+            if (evt.keyCode != 8 &&
+                evt.keyCode != 37 &&
+                evt.keyCode != 38 &&
+                evt.keyCode != 39 &&
+                evt.keyCode != 40 &&
+                this.form.introduction && this.form.introduction.split(" ").length > 300) {
+                evt.preventDefault();
+            }
+        },
+        uploadFullpaper() {
+            var page = this;
+            var fd = new FormData(this.$refs.formFullpaper);
+            fd.append('type_presence', this.form.type_presence);
+            fd.append('ext', this.form.ext);
+            page.uploadingFullpaper = true;
+            $.ajax({
+                url: this.baseUrl + "upload_fullpaper",
+                type: 'post',
+                data: fd,
+                contentType: false,
+                processData: false,
+                dataType: 'JSON',
+                success: function(response) {
+                    if (response.status) {
+                        $("#modal-fullpaper").modal("hide");
+                        Swal.fire('Success', "Fullpaper or Presentation/ Poster File uploaded successfully !", 'success');
+                        if (response.data.fullpaper) {
+                            page.formFullpaper.fullpaper = response.data.fullpaper;
+                            page.form.status_fullpaper = 1;
+                        }
+                        if (response.data.poster) {
+                            page.formFullpaper.poster = response.data.poster;
+                            page.form.status_presentasi = 1;
+                        }
+                        page.fetchData();
+                    } else {
+                        page.error_fullpaper = response.message;
+                    }
+                },
+            }).always(function() {
+                page.uploadingFullpaper = false;
+            }).fail(function() {
+                Swal.fire('Fail', "Failed to process !", 'error');
+            });
+        },
+        modalFullpaper(paper) {
+            this.$refs.formFullpaper.reset();
+            this.formFullpaper = paper;
+            this.error_fullpaper = {};
+            $("#modal-fullpaper").modal("show");
+        },
+        removeAuthor(i) {
+            this.form.co_author.splice(i, 1);
+        },
+        addCoAuthor() {
+            this.form.co_author.push({ 'fullname': '', 'email': '', 'phone': '', 'affilition': '' });
+        },
+        fetchData() {
+            var page = this;
+            page.loading = true;
+            $.post(this.baseUrl + "get_paper", function(res) {
+                page.paper = res;
+            }, "JSON").fail(function() {
+                page.fail = true;
+            }).always(function() {
+                page.loading = false;
+            });
+        },
+        deletePaper(paper, event) {
+            var btn = event.currentTarget;
+            var app = this;
+            Swal.fire({
+                title: "Are you sure ?",
+                text: `You will delete manuscript with title "${paper.title}"`,
+                type: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.value) {
+                    btn.innerHTML = "<i class='fa fa-spin fa-spinner'></i>";
+                    btn.setAttribute("disabled", true);
+                    $.post(this.baseUrl + "delete_paper", paper, function(res) {
+                        if (res.status) {
+                            app.fetchData();
+                        } else {
+                            Swal.fire('Fail', "Failed to delete !", 'error');
+                        }
+                    }).fail(function() {
+                        Swal.fire('Fail', "Failed to delete !", 'error');
+                    }).always(function() {
+                        btn.innerHTML = "<i class='fa fa-trash'></i>";
+                        btn.removeAttribute("disabled");
+                    });
+                }
+            });
+        },
+        uploadPaper() {
+            var page = this;
+            if (this.form.check) {
+                var fd = new FormData(this.$refs.form);
+                fd.append('file', this.$refs.file.files[0]);
+                // fd.append('title', this.$refs.title.value);
+                page.uploading = true;
+                $.ajax({
+                    url: this.baseUrl + "upload_paper",
+                    type: 'post',
+                    data: fd,
+                    contentType: false,
+                    processData: false,
+                    dataType: 'JSON',
+                    success: function(response) {
+                        if (response.status) {
+                            page.fetchData();
+                            page.mode = 0;
+                        } else {
+                            page.error_upload = response.message;
+                        }
+                    },
+                }).always(function() {
+                    page.uploading = false;
+                }).fail(function() {
+                    Swal.fire('Fail', "Failed to process !", 'error');
+                });
+            } else {
+                Swal.fire('Info', "Please agree to manuscript term and condition above!", 'warning');
+            }
+        },
+        detailPaper(row) {
+            this.mode = 1;
+            this.form = row;
+            this.form.category = row.category_paper.name;
+            if (this.form.type_presence == 'Oral') {
+                this.form.ext = '.ppt, .pptx, .pdf'
+            } else if (this.form.type_presence == 'Viewed Poster' || this.form.type_presence == 'Moderated Poster') {
+                this.form.ext = '.jpg, .png, .jpeg, .ppt'
+            } else if (this.form.type_presence == 'Voice Recording') {
+                this.form.ext = '.mp3, .m4a';
+                console.log(this.form.ext);
+            }
+
+            $('#presentation_upload').attr('accept', this.form.ext);
+            console.log(this.form.ext);
+
+            this.detail = true;
+            this.error_upload = {};
+        },
+        formatDate(date) {
+            return moment(date).format("DD MMM YYYY, [At] HH:mm:ss")
+        },
+        paperUrl(filename, id, type = 'Abstract') {
+            if (filename) {
+                return `${this.baseUrl}file/${filename}/${id}/${type}`;
+            }
+            return "#";
+        },
+        feedbackUrl(feedback) {
+            if (feedback) {
+                return this.baseUrl + "file/" + feedback;
+            }
+            return null;
+        }
+    }
 });

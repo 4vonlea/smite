@@ -176,7 +176,7 @@ $this->layout->end_head();
 						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-setting"><i class="fa fa-book"></i> Setting Due Date & Cut Off
 						</button>
 						<button type="button" class="btn btn-primary m-2" data-toggle="modal" data-target="#modal-category-paper"><i class="fa fa-book"></i> Category Paper
-									</button>
+						</button>
 						<div class="dropdown">
 							<button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								Filter by Category Paper
@@ -558,7 +558,7 @@ $this->layout->end_head();
 							</tr>
 							<tr v-if="reviewModel.poster">
 								<th>Presentation/Poster Link</th>
-								<td><a :href="'<?= base_url('admin/paper/file'); ?>/'+reviewModel.poster+'/'+reviewModel.t_id+'/Presentation'" target="_blank">Click Here !</a></td>
+								<td><a :href="'<?= base_url('admin/paper/file'); ?>/'+reviewModel.poster+'/'+reviewModel.t_id+'/'+reviewModel.type_presence+''" target="_blank">Click Here !</a></td>
 							</tr>
 							<tr v-if="reviewModel.status_presentasi == 0">
 								<th>Feedback Message</th>

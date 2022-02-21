@@ -22,7 +22,8 @@ class Papers_m extends MY_Model
 	public static $typePresentation = [
 		'Oral' => 'Oral',
 		'Moderated Poster' => 'Moderated Poster',
-		'Viewed Poster' => 'Viewed Poster'
+		'Viewed Poster' => 'Viewed Poster',
+		'Voice Recording' => 'Voice Recording',
 	];
 
 	public static $typeAbstract = [
@@ -69,6 +70,7 @@ class Papers_m extends MY_Model
 				'st' => ['settings', 'st.name = "format_id_paper"', "left"]
 			],
 			'select' => [
+				'st_value' => 'st.value',
 				'id_paper' => 'CONCAT(st.value,LPAD(t.id,3,0))',
 				't_id' => 't.id', 'fullname',
 				'title',
