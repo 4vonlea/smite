@@ -16,18 +16,32 @@ class Notification extends Admin_Controller
 
 	public function index($send_to_person = null)
 	{
-		$this->load->model(["Event_m", "Member_m","Category_member_m"]);
+		$this->load->model(["Event_m", "Member_m", "Category_member_m", "Transaction_m"]);
 		$this->load->helper('form_helper');
 		$eventList = $this->Event_m->find()->select("id,name as label")->get()->result_array();
 		$statusList = $this->Category_member_m->find()->select("id,kategory as label")->get()->result_array();
 		$eventList[] = ['id' => 'Paper', 'label' => 'Paper Participant'];
 		$memberList = $this->Member_m->find()->select("id,CONCAT(fullname,' (',email,')') as label")->get()->result_array();
-		$this->layout->render("notification", [
+
+		$transactionStatus = [
+			$this->Transaction_m::STATUS_FINISH => str_replace("_", " ", ucwords($this->Transaction_m::STATUS_FINISH)),
+			$this->Transaction_m::STATUS_WAITING => str_replace("_", " ", ucwords($this->Transaction_m::STATUS_WAITING)),
+			$this->Transaction_m::STATUS_PENDING => str_replace("_", " ", ucwords($this->Transaction_m::STATUS_PENDING)),
+			$this->Transaction_m::STATUS_UNFINISH => str_replace("_", " ", ucwords($this->Transaction_m::STATUS_UNFINISH)),
+			$this->Transaction_m::STATUS_EXPIRE => str_replace("_", " ", ucwords($this->Transaction_m::STATUS_EXPIRE)),
+			$this->Transaction_m::STATUS_DENY => str_replace("_", " ", ucwords($this->Transaction_m::STATUS_DENY)),
+			$this->Transaction_m::STATUS_NEED_VERIFY => str_replace("_", " ", ucwords($this->Transaction_m::STATUS_NEED_VERIFY)),
+		];
+
+		$data = [
 			'event' => $eventList,
 			'memberList' => $memberList,
 			'statusList' => $statusList,
 			'send_to_person' => $send_to_person,
-		]);
+			'transactionStatus' => $transactionStatus,
+		];
+
+		$this->layout->render("notification", $data);
 	}
 
 	public function send_cert($preparing = null)
@@ -62,7 +76,6 @@ class Notification extends Admin_Controller
 				->set_content_type("application/json")
 				->_display(json_encode(['status' => true, 'log' => $status]));
 		}
-
 	}
 
 	public function send_cert_com($preparing = null)
@@ -75,10 +88,10 @@ class Notification extends Admin_Controller
 			$id = $this->input->post("id");
 			if (Settings_m::getSetting("config_cert_$id") != "" && file_exists(APPPATH . "uploads/cert_template/$id.txt")) {
 				$result = $this->Committee_attributes_m->find()
-				->join('committee','committee.id = committee_id')
-				->join("events","events.id = event_id")
-				->select('email,committee_attribute.id,events.name as event_name')
-				->where('event_id', $id)->get();
+					->join('committee', 'committee.id = committee_id')
+					->join("events", "events.id = event_id")
+					->select('email,committee_attribute.id,events.name as event_name')
+					->where('event_id', $id)->get();
 				$this->output
 					->set_content_type("application/json")
 					->_display(json_encode(['status' => true, 'data' => $result->result_array()]));
@@ -96,7 +109,6 @@ class Notification extends Admin_Controller
 				->set_content_type("application/json")
 				->_display(json_encode(['status' => true, 'log' => $status]));
 		}
-
 	}
 
 	public function send_material($preparing = null)
@@ -136,7 +148,6 @@ class Notification extends Admin_Controller
 				->set_content_type("application/json")
 				->_display(json_encode(['status' => true, 'log' => $status]));
 		}
-
 	}
 
 	public function get_file_material($name)
@@ -232,8 +243,9 @@ class Notification extends Admin_Controller
 			show_404("Page Not Found !");
 
 		$data = $this->input->post();
-		$data['text'] = $this->input->post('text',false);
-		$this->load->model("Member_m");
+
+		$data['text'] = $this->input->post('text', false);
+		$this->load->model(["Member_m", "Transaction_m"]);
 		$to = [];
 		$type = $this->input->post("target");
 		if ($data['target'] == "all") {
@@ -246,15 +258,18 @@ class Notification extends Admin_Controller
 				$this->load->model("Event_m");
 				$res = $this->Event_m->getParticipant()->where("t.id", $data['to'])->get();
 			}
-		}elseif($data['target'] == 'selected_status'){
-			$res = $this->Member_m->find()->where("status",$data['to'])->get();
-		}elseif ($data['target'] == 'member') {
+		} elseif ($data['target'] == 'selected_status') {
+			$res = $this->Member_m->find()->where("status", $data['to'])->get();
+		} elseif ($data['target'] == 'member') {
 			$res = $this->Member_m->findOne($data['to']);
 			$to['email'][] = $res->email;
 			$to['wa'][] = $res->phone;
 		} elseif ($data['target'] == "pooling") {
 			$to = $this->input->post("to");
+		} elseif ($data['target'] == "selected_transaction_status") {
+			$res = $this->Transaction_m->getMember(["status_payment" => $data['to']]);
 		}
+
 		$status = true;
 		$responseEmail = [];
 		if ($type == "member" || $type == "pooling") {
@@ -270,18 +285,17 @@ class Notification extends Admin_Controller
 			if (in_array("wa", $data['via'])) {
 				$this->Notification_m->setType(Notification_m::TYPE_WA);
 				foreach ($to['wa'] as $receiver) {
-					$responseWa =$this->Notification_m->sendMessage($receiver, $data['subject'], $data['text']);
+					$responseWa = $this->Notification_m->sendMessage($receiver, $data['subject'], $data['text']);
 				}
 			}
 			$status = ($responseEmail['status'] && $responseWa['status']);
 		} elseif (isset($res)) {
 			foreach ($res->result() as $row) {
-				$to[] = ['to' => ['email' => [$row->email], 'wa' => [$row->phone]], 'subject' => $data['subject'], 'text' => $data['text'], 'via' => $data['via'],'target'=>'pooling'];
+				$to[] = ['to' => ['email' => [$row->email], 'wa' => [$row->phone]], 'subject' => $data['subject'], 'text' => $data['text'], 'via' => $data['via'], 'target' => 'pooling'];
 			}
 		}
 		$this->output
 			->set_content_type("application/json")
-			->_display(json_encode(['status' => $status, 'type' => $type, 'data' => $to ,'detail'=>$responseEmail]));
+			->_display(json_encode(['status' => $status, 'type' => $type, 'data' => $to, 'detail' => $responseEmail]));
 	}
-
 }

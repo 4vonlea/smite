@@ -101,6 +101,18 @@ class Transaction_m extends MY_Model
 	}
 
 	/**
+	 * getMember
+	 *
+	 * Mengambil data member
+	 *
+	 * @return void
+	 */
+	public function getMember($where = [])
+	{
+		return $this->db->from('`transaction` t')->join('`members` m', 'm.`id` = t.`member_id`')->where($where)->get();
+	}
+
+	/**
 	 * getMemberGroup
 	 *
 	 * mengambil list member
