@@ -468,15 +468,8 @@
                             <div class="tab-pane" id="tab-3">
                                 <figure>
                                     <div class="col-lg-12 col-md-6 footer-links text-left">
-                                        <h4>Scientific Guideline for PIN's</h4>
-                                        <a href="<?= base_url('themes/gigaland'); ?>/images/callforabstract.pdf" target="blank" class="btn-main btn-sm" style="background-color:#F4AD39; color:black;">Guideline for PIN's abstract</a>&nbsp;<br><br>
-                                        <a href="<?= base_url('themes/gigaland'); ?>/images/TemplateAbstrakPINPerdossi2022.docx" target="blank" class="btn-main btn-sm" style="background-color:#F4AD39; color:black;">Template for PIN's Abstract</a>&nbsp;<br>
-                                        <hr>
-                                        <h4>Scientific Guideline for AOMC</h4>
-                                        <a href="<?= base_url('themes/gigaland'); ?>/images/aomc2022abstractsubfinal.pdf" target="blank" class="btn-main btn-sm" style="background-color:#F4AD39; color:black;">Guideline for AOMC abstract</a>&nbsp;<br><br>
-                                        <a href="<?= base_url('themes/gigaland'); ?>/images/AOMC 2022 Abstract Submission Form For Original Article.docx" target="blank" class="btn-main btn-sm" style="background-color:#F4AD39; color:black;">Click here for template for the original article</a>&nbsp;<br><br>
-                                        <a href="<?= base_url('themes/gigaland'); ?>/images/AOMC 2022 Abstract Submission Form For Case Report.docx" target="blank" class="btn-main btn-sm" style="background-color:#F4AD39; color:black;">Click here for template for case report</a>&nbsp;<br>
-
+                                        <h4>Scientific Guideline</h4>
+                                        <a href="<?= base_url('themes/gigaland'); ?>/images/abstract.pdf" class="btn-main btn-sm" style="background-color:#F4AD39; color:black;">Guideline for PIN</a>&nbsp;
                                     </div>
                                 </figure>
                             </div>
@@ -741,14 +734,8 @@
                 <div class="col-md-3 col-sm-6 col-xs-1">
                     <div class="widget">
                         <h5 style="color:#F4AD39;">Important Dates</h5>
-                        <ul style="font-size: 12px;">
-                            <li>15 February 2022 : Open Submission</li>
-                            <li>27 March 2022 : Submission Deadline for AOMC</li>
-                            <li>14 April 2022 : Submission Deadline for PIN</li>
-                            <li>22 April 2022 : Abstract Revision Deadline</li>
-                            <li>7 Mei 2022 : Full Manuscript Submission Deadline</li>
-                            <li>31 Mei 2022 : Presentation (poster/slide) Submission Deadline</li>
-                            <li>12 June 2022: Winner Announcement</li>
+                        <ul>
+                            <li><u href="#">To be announced</u></li>
                         </ul>
                     </div>
                 </div>
