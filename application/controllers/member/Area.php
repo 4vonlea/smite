@@ -259,6 +259,7 @@ class Area extends MY_Controller
 		$categoryPaper = $this->Category_paper_m->find()->order_by("name")->get();
 		$categoryPaper = $categoryPaper->result_array();
 		$response['categoryPaper'] = Category_paper_m::asList($categoryPaper, "id", "name");
+		$treePaper = [];
 		foreach ($categoryPaper as $key => $value) {
 			$treePaper[$value['name']] = json_decode($value['tree'], true);
 		}
