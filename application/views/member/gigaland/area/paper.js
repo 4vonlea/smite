@@ -81,8 +81,8 @@ export default Vue.component("PagePaper", {
 					<table class="table text-light border">
 						<thead>
 							<tr>
-								<th class="border-end color-heading" width="15%">Category</th>
-								<th class="border-end color-heading" width="15%">Type</th>
+								<th class="border-end color-heading" width="15%">Manuscript Section</th>
+								<th class="border-end color-heading" width="15%">Manuscript Category</th>
 								<th class="border-end color-heading">Title</th>
 								<th class="border-end color-heading">Status</th>
 								<th class="border-end color-heading" width="90px">
@@ -247,7 +247,7 @@ export default Vue.component("PagePaper", {
 							</div>
 						</div>
 						<div class="form-group row mb-2">
-							<label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 color-heading">Manuscript Category*</label>
+							<label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 color-heading">Manuscript Section*</label>
 							<div class="col-lg-9">
 								<select :disabled="detail" class="form-control text-light" v-model="form.category" name="category"
 									style="background-color: #202429" :class="{'is-invalid':error_upload.category}">
@@ -257,7 +257,7 @@ export default Vue.component("PagePaper", {
 							</div>
 						</div>
 						<div class="form-group row mb-2">
-							<label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 color-heading">Abstract Type*</label>
+							<label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 color-heading">Manuscript Category*</label>
 							<div class="col-lg-9">
 								<select :disabled="detail" class="form-control text-light" v-model="form.type" name="type"
 									style="background-color: #202429" :class="{'is-invalid':error_upload.type}">
@@ -267,7 +267,7 @@ export default Vue.component("PagePaper", {
 							</div>
 						</div>
 						<div class="form-group row mb-2">
-							<label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 color-heading">Study Type*</label>
+							<label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 color-heading">Manuscript Type*</label>
 							<div class="col-lg-9">
 								<select :disabled="detail" class="form-control text-light" v-model="form.methods" name="methods"
 									style="background-color: #202429" :class="{'is-invalid':error_upload.methods}">
