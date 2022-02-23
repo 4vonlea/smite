@@ -66,7 +66,7 @@ export default Vue.component("PageBilling", {
 							</tr>
 							<tr>
 								<td class="text-right" colspan="3">
-									<a :href="appUrl+'member/area/download/invoice/'+current_invoice" target="_blank" class="btn btn-primary" >Download Invoice</a>
+									<!--<a :href="appUrl+'member/area/download/invoice/'+current_invoice" target="_blank" class="btn btn-primary" >Download Invoice</a>-->
 									<div class="btn-group">
 										<button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 											{{ paymentMethod[selectedPaymentMethod].desc }} <span class="caret"></span>
