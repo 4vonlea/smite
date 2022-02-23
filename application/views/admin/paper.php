@@ -367,8 +367,16 @@ $this->layout->end_head();
 								<td>{{ reviewModel.id_paper }}</td>
 							</tr>
 							<tr>
-								<th>Category Paper</th>
+								<th>Manuscript Section</th>
 								<td>{{ reviewModel.category_name }}</td>
+							</tr>
+							<tr>
+								<th>Manuscript Category</th>
+								<td>{{ reviewModel.methods }}</td>
+							</tr>
+							<tr>
+								<th>Manuscript Type </th>
+								<td>{{ reviewModel.type }}</td>
 							</tr>
 							<tr>
 								<th>Submitted On</th>

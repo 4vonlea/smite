@@ -91,6 +91,7 @@ class Papers_m extends MY_Model
 				'message',
 				'feedback',
 				'type_presence',
+				'type',
 				'fullpaper',
 				'poster',
 				"status_fullpaper",

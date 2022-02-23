@@ -415,8 +415,7 @@
                     </div>
                     <ul class="list-group">
                         <li v-for="(cat,index) in eventCategory" class="list-group-item d-flex justify-content-between align-items-center">
-                            {{ cat }}
-                            <button @click="removeEventCategory(index)" class="btn badge badge-primary badge-pill"><i class="fa fa-times"></i></button>
+                            {{ cat }} <button @click="removeEventCategory(index)" class="btn badge badge-primary badge-pill"><i class="fa fa-times"></i></button>
                         </li>
                     </ul>
                 </div>
