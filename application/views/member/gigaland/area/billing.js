@@ -156,7 +156,19 @@ export default Vue.component("PageBilling", {
 								</tr>
 								<tr>
 									<th>Payment Method</th>
-									<td colspan="3">{{ detailModel.channel }}</td>
+									<td colspan="3">
+										{{ detailModel.channel }}
+										<div v-if="detailModel.paymentGatewayInfo.product" class="card mt-3">
+											<div class="card-body">
+												<h5 class="card-title">
+													Bank Info : {{ detailModel.paymentGatewayInfo.product }}
+												</h5>
+												<h5 class="card-text">
+													Account Number : {{ detailModel.paymentGatewayInfo.productNumber}}
+												</h5>
+											</div>
+										</div>
+									</td>
 								</tr>
 								<tr>
 									<th>Status</th>
@@ -298,7 +310,7 @@ export default Vue.component("PageBilling", {
 			checking_out: false,
 			cart: null,
 			transaction: null,
-			detailModel: {status_payment: ""},
+			detailModel: {status_payment: "",paymentGatewayInfo:{}},
 			manual_payment: {"banks":[{'bank': 'BNI', 'no_rekening': "0212", "holder": "Muhammad Zaien"}],"ammount":0},
 			upload:{},
 			paymentMethod:[{key:"0",desc:"Select Payment Method"}],

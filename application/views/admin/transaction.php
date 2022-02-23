@@ -179,7 +179,19 @@
 					</tr>
 					<tr>
 						<th>Channel Payment</th>
-						<td :colspan="isGroup ? '4' : '3'">{{ detailModel.channel }}</td>
+						<td :colspan="isGroup ? '4' : '3'">
+							{{ detailModel.channel }}
+							<div v-if="detailModel.paymentGatewayInfo.product" class="card mt-3">
+								<div class="card-body">
+									<h5 class="card-title">
+										Bank Info : {{ detailModel.paymentGatewayInfo.product }}
+									</h5>
+									<h5 class="card-text">
+										Account Number : {{ detailModel.paymentGatewayInfo.productNumber}}
+									</h5>
+								</div>
+							</div>
+						</td>
 					</tr>
 					<tr>
 						<th>Status</th>
@@ -384,6 +396,7 @@
 				details: [{
 					member: {}
 				}],
+				paymentGatewayInfo:{},
 				status_payment: ""
 			},
 			modifyModel: {
