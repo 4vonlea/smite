@@ -181,7 +181,7 @@
 						<th>Channel Payment</th>
 						<td :colspan="isGroup ? '4' : '3'">
 							{{ detailModel.channel }}
-							<div v-if="detailModel.status_payment == 'pending' && detailModel.paymentGatewayInfo.product" class="card mt-3">
+							<div v-if="detailModel.paymentGatewayInfo.product" class="card mt-3">
 								<div class="card-body">
 									<h5 class="card-title">
 										Bank Info : {{ detailModel.paymentGatewayInfo.product }}
