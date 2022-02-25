@@ -15,7 +15,7 @@ export default Vue.component("PageEvents", {
 							<h2 class="font-weight-normal color-heading text-7 mb-0"><strong class="font-weight-extra-bold">Events</strong></h2>
 						</div>
 						<div class="overflow-hidden mb-4 pb-3">
-							<p class="mb-0">Please select the event you want. *the price exclude administration fee</p>
+							<p class="mb-0">Please select the event you want. We suggest you to make a payment immediately (credit card or virtual account) after checkout. *the price exclude administration fee</p>
 						</div>
 						</div>
 						<div class="col-md-3"></div>

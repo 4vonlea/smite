@@ -7,7 +7,7 @@ export default Vue.component("PageBilling", {
                 	<h2 class="font-weight-normal color-heading text-7 mb-0"><strong class="font-weight-extra-bold">Cart & Payment</strong></h2>
 				</div>
 				<div class="overflow-hidden mb-4 pb-3">
-					<p class="mb-0">Page to displayand your payment history </p>
+					<p class="mb-0">Your payment information. We suggest you to make a payment immediately (credit card or virtual account) after click "checkout" below. </p>
 				</div>
 				<div class="row  table-responsive">
 					<h4>Transaction History</h4>

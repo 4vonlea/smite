@@ -367,7 +367,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                                                         <h2 class="m-0 p-0"><strong class="font-weight-extra-bold ">Event</strong></h2>
                                                     </div>
                                                     <div class="card-body text-center">
-                                                        Please select the event you want. *the price exclude administration fee
+                                                        Please select the event you want. We suggest you to make a payment immediately (credit card or virtual account) after checkout. *the price exclude administration fee
                                                     </div>
                                                 </div>
 
