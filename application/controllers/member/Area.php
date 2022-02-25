@@ -255,6 +255,7 @@ class Area extends MY_Controller
 			'presentation_deadline' => Settings_m::getSetting('presentation_deadline'),
 			'presentation_cutoff' => Settings_m::getSetting('presentation_cutoff'),
 		];
+		$response['declaration'] = Papers_m::$declaration;
 		// NOTE Category Paper
 		$categoryPaper = $this->Category_paper_m->find()->order_by("name")->get();
 		$categoryPaper = $categoryPaper->result_array();

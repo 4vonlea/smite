@@ -409,20 +409,13 @@ export default Vue.component("PagePaper", {
 							<div class="form-check">
 								<input type="checkbox" v-model="form.check" class="form-check-input" id="exampleCheck1">
 								<label class="form-check-label" for="exampleCheck1">
-									<span v-if="form.methods == 'Origninal Research'">I hereby declared that the mentioned study
-										has granted ethical clearance from an official ethical committee.
-										I will take any consequence for my action.</span>
 
-									<span v-if="form.methods == 'Case Report'">
-										I hereby declared that the mentioned case report has granted informed consent to be
-										published from the patient or the responsible caregiver and all possible effort to
-										obscure patient's identity has been taken.
-										I agree to take any consequence for my action.</span>
-
-									<span v-if="form.methods == 'Systematic Review / Meta Analysis'">I hereby declared that this
-										submitted review has made according to PRISMA Statement</span>
-
-									<span v-else="">I understand</span>
+									<span v-if="paper.declaration[form.methods]">
+											{{ paper.declaration[form.methods] }}
+									</span>
+									<span v-else>
+											I Understand
+									<span>
 								</label>
 							</div>
 						</div>
@@ -446,7 +439,7 @@ export default Vue.component("PagePaper", {
             detail: false,
             loading: false,
             fail: false,
-            paper: { deadline: {} },
+            paper: { deadline: {},declaration:{} },
             error_upload: {},
             uploading: false,
             form: { co_author: [], category: 'AOMC', type: 'ePoster' },
