@@ -193,7 +193,17 @@ $payment = Settings_m::manualPayment(false);
 											</td>
 											<td>:</td>
 											<td style="padding:5px!important">
-												<?= strtoupper($transaction->channel); ?>
+												<?= strtoupper($transaction->channel); ?> - 
+												<?php
+													$data = $transaction->toArray();
+													if($data['paymentGatewayInfo']['product']){ 
+														echo $data['paymentGatewayInfo']['product']."<br/>";
+													}
+													if($data['paymentGatewayInfo']['productNumber']){
+														echo "Account Number : ".$data['paymentGatewayInfo']['productNumber']."<br/>";
+
+													}					
+												?>
 											</td>
 										</tr>
 										<tr>

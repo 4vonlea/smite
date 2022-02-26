@@ -125,7 +125,17 @@ header('Content-Type: text/html');
 					</th>
 					<td>:</td>
 					<td>
-						<?= strtoupper($transaction->channel); ?>
+						<?= strtoupper($transaction->channel); ?> - 
+						<?php
+							$data = $transaction->toArray();
+							if($data['paymentGatewayInfo']['product']){ 
+								echo $data['paymentGatewayInfo']['product']."<br/>";
+							}
+							if($data['paymentGatewayInfo']['productNumber']){
+								echo "Account Number : ".$data['paymentGatewayInfo']['productNumber']."<br/>";
+
+							}					
+						?>
 					</td>
 				</tr>
 				<tr>
