@@ -247,7 +247,7 @@ export default Vue.component("PageBilling", {
 							</div>
 						</div>
 						<div class="modal-footer">
-							<a :href="appUrl+'member/area/download/invoice/'+detailModel.id" target="_blank" class="btn btn-primary" >Download Invoice</a>
+							<a v-if="detailModel.status_payment != 'expired'" :href="appUrl+'member/area/download/invoice/'+detailModel.id" target="_blank" class="btn btn-primary" >Download Invoice</a>
 							<a :href="appUrl+'member/area/download/proof/'+detailModel.id" target="_blank" v-if="detailModel.finish" class="btn btn-primary" >Download Payment Receipt</a>
 							<button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>					
 						</div>
