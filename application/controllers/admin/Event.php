@@ -14,6 +14,7 @@ class Event extends Admin_Controller
         'save' => 'insert',
         'delete_pricing' => 'delete',
     ];
+
     public function index()
     {
         $this->load->model('Category_member_m');
@@ -212,5 +213,12 @@ class Event extends Admin_Controller
 
         $this->output->set_content_type("application/json")
             ->_display(json_encode($response));
+    }
+
+    public function list_event(){
+        $this->load->model('Event_m');
+        $this->output->set_content_type("application/json")
+            ->_display(json_encode(['data'=>$this->Event_m->find()->get()->result_array()]));
+
     }
 }

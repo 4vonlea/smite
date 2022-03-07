@@ -90,6 +90,18 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <label>
+                                            Event Required to follow
+                                            <i v-if="loadEvent" class="fa fa-spin fa-spinner"></i>
+                                        </label>
+                                        <select :disabled="detailMode" name="kategory" class="form-control  form-control-alternative" v-model="form.model.event_required">
+                                            <option value="0">No Event</option>
+                                            <option v-for="ev in eventList" :value="ev.id">{{ ev.name }}</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                             <hr class="my-4">
                             <!-- Address -->
@@ -512,7 +524,23 @@
                 model: model()
             },
             loadedSpeaker: 0,
+            loadEvent:true,
+            eventList : [],
         },
+        watch:{
+            'form.show':function(newVal){
+                if(newVal){
+                    this.loadEvent = true;
+                    $.get("<?=base_url('admin/event/list_event');?>",function(res){
+                        app.eventList = res.data
+                    }).always(function(){
+                        app.loadEvent = false;
+                    })
+                }else{
+                    this.loadEvent = false;
+                }
+            }
+        },  
         methods: {
             sortingZoomLink() {
                 this.form.model.special_link.sort((a, b) => {
@@ -593,7 +621,6 @@
                         id: row.row.id
                     }, null, 'JSON')
                     .done(function(res) {
-
                         app.form.show = true;
                         app.form.model = res;
                         app.detailMode = true;
