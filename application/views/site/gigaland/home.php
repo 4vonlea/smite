@@ -96,7 +96,7 @@
                                         </h2>
                                         <p style="color:#F4AD39; text-shadow: 3px 2px 1px black; font-size: 25px;">June 9<sup>th</sup> - 12<sup>th</sup>, 2022 on Virtual Meeting</p>
                                     </div>
-                                    <a href="<?= base_url('themes/gigaland'); ?>/images/2ndaomcpinfinal.pdf" target="blank" class="btn-main btn-lg" style="background-color:#F4AD39; color:black;">Download 2 <sup>nd</sup> Announcement here</a>&nbsp;
+                                    <!-- <a href="<?= base_url('themes/gigaland'); ?>/images/2ndaomcpinfinal.pdf" target="blank" class="btn-main btn-lg" style="background-color:#F4AD39; color:black;">Download 2 <sup>nd</sup> Announcement here</a>&nbsp; -->
                                     <div class="spacer-10">
                                         <div class="d-buttons">
 
