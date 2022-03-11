@@ -42,10 +42,10 @@
                         <!-- carousel item -->
                         <div class="nft__item_lg">
                             <div class="row align-items-center">
-                                <div class="col-lg-6 wow fadeInRight" data-wow-delay=".5s">
+                                <div class="col-lg-3 wow fadeInRight" data-wow-delay=".5s">
                                     <!-- <img src="<?= base_url('themes/gigaland'); ?>/images/webposterrev.jpg" style="width:500px; height:620px; text-align:right; margin-left:auto;" class="img-fluid" alt=""> -->
                                 </div>
-                                <div class="col-lg-6 wow fadeInRight" data-wow-delay=".5s">
+                                <div class="col-lg-9 wow fadeInRight" data-wow-delay=".5s">
                                     <div class="d-desc">
                                         <h3 style="color:#F4AD39; text-shadow: 3px 2px 1px black; ">20<sup>th</sup> Asian Oceanian Myology Center Meeting in Conjunction with National Scientific Meeting PERDOSSI, Banjarmasin, June 9th -12th, 2022</h3><br>
                                         <div class="row">
@@ -60,7 +60,8 @@
                                             <!--<a href="#" class="btn-main btn-lg" style="background-color:#F4AD39; color:black;">This Site Under Maintenance</a>&nbsp;-->
 
                                             <a href="<?= base_url('site/home'); ?>" class="btn-main btn-sm" style="background-color:#F4AD39; color:black;">Visit our Website here</a>&nbsp;
-                                            <a href="<?= base_url('member/register'); ?>" class="btn-main btn-sm" style="background-color:#F4AD39; color:black;">Click here For Registration</a>&nbsp;
+                                            <a href="<?= base_url('member/register'); ?>" class="btn-main btn-sm" style="background-color:#F4AD39; color:black;">Click here For Individual Registration</a>&nbsp;
+                                            <a href="<?= base_url('member/group'); ?>" class="btn-main btn-sm" style="background-color:#F4AD39; color:black;">Click here for Group Registration</a>&nbsp;
 
                                             <!--<a href="" class="btn-main btn-lg" style="background-color:#F4AD39; color:black;">Enter</a>&nbsp;-->											
                                         </div>
