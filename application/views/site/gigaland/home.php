@@ -563,51 +563,91 @@
             <div class="col-lg-12">
                 <h2 class="style-2 wow fadeInRight" data-wow-delay=".5s" style="color:#F4AD39;">Contact Person for PIN Banjarmasin 2022</h2>
             </div>
+            <style>
+                .enampuluh {
+                    width: 60% !important;
+                }
+
+                .empatpuluh {
+                    width: 40% !important;
+                }
+
+                @media only screen and (max-width: 768px) {
+
+                    /* For mobile phones: */
+
+
+                    .enampuluh {
+                        width: 100% !important;
+                    }
+
+
+                    .empatpuluh {
+                        width: 100% !important;
+                    }
+                }
+            </style>
             <div class="row wow fadeInRight" data-wow-delay=".5s">
-                <div class="col-lg-3 col-md-6 mb-sm-30 text-center">
-                    <div class="feature-box f-boxed style-3" style="height: 500px;">
-                        <img src="<?= base_url('themes/gigaland'); ?>/images/helpdesk2.png" class="lazy img-fluid" alt="">
-                        <div class="text">
-                            <h3 class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39;">Rida Sieseria, MD</h3>
+                <div class="row enampuluh">
+                    <div class="col-lg-4 col-md-6 mb-sm-30 text-center">
+                        <div class="feature-box f-boxed style-3" style="height: 500px;">
+                            <img src="<?= base_url('themes/gigaland'); ?>/images/helpdesk2.png" class="lazy img-fluid" alt="">
+                            <div class="text">
+                                <h3 class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39;">Rida Sieseria, MD</h3>
+                            </div>
+                            <p class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39; font-size:12px;">(Registration and Information)</p>
+                            <a target="blank" href="https://wa.me/6285163683209"><i class="fa fa-whatsapp" style="background-color:#F4AD39; color:black;"></i></a><br>
+                            <p class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39; font-size:14px;">admin@aomc-pinbanjarmasin2022.com</p>
                         </div>
-                        <p class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39; font-size:12px;">(Registration and Information)</p>
-                        <a target="blank" href="https://wa.me/6285163683209"><i class="fa fa-whatsapp" style="background-color:#F4AD39; color:black;"></i></a><br>
-                        <p class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39; font-size:14px;">admin@aomc-pinbanjarmasin2022.com</p>
+                    </div>
+                    <div class="col-lg-4 col-md-6 mb-sm-30 text-center">
+                        <div class="feature-box f-boxed style-3" style="height: 500px;">
+                            <img src="<?= base_url('themes/gigaland'); ?>/images/helpdesk4.png" class="lazy img-fluid" alt="">
+                            <div class="text">
+                                <h3 class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39;">Margaret, MD, Neurologist</h3>
+                            </div>
+                            <p class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39; font-size:15px;">(Scientific Affair)</p>
+                            <a target="blank" href="https://wa.me/6285249999911"><i class="fa fa-whatsapp" style="background-color:#F4AD39; color:black;"></i></a><br>
+                            <p class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39; font-size:14px;">scientific@aomc-pinbanjarmasin2022.com</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 mb-sm-30 text-center">
+                        <div class="feature-box f-boxed style-3" style="height: 500px;">
+                            <img src="<?= base_url('themes/gigaland'); ?>/images/helpdesk7.png" class="lazy img-fluid" alt="">
+                            <div class="text">
+                                <h3 class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39;">Fachrurrazy, MD, Neurologist</h3>
+                            </div>
+                            <p class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39; font-size:15px;">(Scientific Affair)</p>
+                            <a target="blank" href="https://wa.me/628179400579"><i class="fa fa-whatsapp" style="background-color:#F4AD39; color:black;"></i></a><br>
+                            <p class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39; font-size:14px;">scientific@aomc-pinbanjarmasin2022.com</p>
+                        </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 mb-sm-30 text-center">
-                    <div class="feature-box f-boxed style-3" style="height: 500px;">
-                        <img src="<?= base_url('themes/gigaland'); ?>/images/helpdesk4.png" class="lazy img-fluid" alt="">
-                        <div class="text">
-                            <h3 class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39;">Margaret, MD, Neurologist</h3>
+                <div class="row empatpuluh">
+                    <div class="col-lg-6 col-md-6 mb-sm-30 text-center">
+                        <div class="feature-box f-boxed style-3" style="height: 500px;">
+                            <img src="<?= base_url('themes/gigaland'); ?>/images/helpdesk2.png" class="lazy img-fluid" alt="">
+                            <div class="text">
+                                <h3 class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39;">Rasdita Nurhidayati, MD</h3>
+                            </div>
+                            <p class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39; font-size:15px;">(Scientific Affair)</p>
+                            <a target="blank" href="https://wa.me/6281254064731"><i class="fa fa-whatsapp" style="background-color:#F4AD39; color:black;"></i></a><br>
+                            <p class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39; font-size:14px;">scientific@aomc-pinbanjarmasin2022.com</p>
                         </div>
-                        <p class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39; font-size:15px;">(Scientific Affair)</p>
-                        <a target="blank" href="https://wa.me/6285249999911"><i class="fa fa-whatsapp" style="background-color:#F4AD39; color:black;"></i></a><br>
-                        <p class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39; font-size:14px;">scientific@aomc-pinbanjarmasin2022.com</p>
+                    </div>
+                    <div class="col-lg-6 col-md-6 mb-sm-30 text-center">
+                        <div class="feature-box f-boxed style-3" style="height: 500px;">
+                            <img src="<?= base_url('themes/gigaland'); ?>/images/helpdesk5.png" class="lazy img-fluid" alt="">
+                            <div class="text">
+                                <h3 class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39; font-size:16px;">Asnelia Devicaesaria, MD, Neurologist</h3>
+                            </div>
+                            <p class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39; font: size 15px;">(Sponsorship Affair)</p>
+                            <a target="blank" href="https://wa.me/6285888885010"><i class="fa fa-whatsapp" style="background-color:#F4AD39; color:black;"></i></a><br>
+                            <p class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39; font-size:14px;">sponsor@aomc-pinbanjarmasin2022.com</p>
+                        </div>
                     </div>
                 </div>
-                <div class="col-lg-3 col-md-6 mb-sm-30 text-center">
-                    <div class="feature-box f-boxed style-3" style="height: 500px;">
-                        <img src="<?= base_url('themes/gigaland'); ?>/images/helpdesk7.png" class="lazy img-fluid" alt="">
-                        <div class="text">
-                            <h3 class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39;">Fachrurrazy, MD, Neurologist</h3>
-                        </div>
-                        <p class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39; font-size:15px;">(Scientific Affair)</p>
-                        <a target="blank" href="https://wa.me/628179400579"><i class="fa fa-whatsapp" style="background-color:#F4AD39; color:black;"></i></a><br>
-                        <p class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39; font-size:14px;">scientific@aomc-pinbanjarmasin2022.com</p>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-6 mb-sm-30 text-center">
-                    <div class="feature-box f-boxed style-3" style="height: 500px;">
-                        <img src="<?= base_url('themes/gigaland'); ?>/images/helpdesk5.png" class="lazy img-fluid" alt="">
-                        <div class="text">
-                            <h3 class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39; font-size:16px;">Asnelia Devicaesaria, MD, Neurologist</h3>
-                        </div>
-                        <p class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39; font: size 15px;">(Sponsorship Affair)</p>
-                        <a target="blank" href="https://wa.me/6285888885010"><i class="fa fa-whatsapp" style="background-color:#F4AD39; color:black;"></i></a><br>
-                        <p class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39; font-size:14px;">sponsor@aomc-pinbanjarmasin2022.com</p>
-                    </div>
-                </div>
+
             </div>
         </div>
     </section>
