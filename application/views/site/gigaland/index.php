@@ -61,7 +61,7 @@
 
                                             <a href="<?= base_url('site/home'); ?>" class="btn-main btn-sm" style="background-color:#F4AD39; color:black;">Visit our Website here</a>&nbsp;
                                             <a href="<?= base_url('member/register'); ?>" class="btn-main btn-sm" style="background-color:#F4AD39; color:black;">Click here For Individual Registration</a>&nbsp;
-                                            <a href="<?= base_url('member/group'); ?>" class="btn-main btn-sm" style="background-color:#F4AD39; color:black;">Click here for Group Registration</a>&nbsp;
+                                            <a href="<?= base_url('member/register/group'); ?>" class="btn-main btn-sm" style="background-color:#F4AD39; color:black;">Click here for Group Registration</a>&nbsp;
 
                                             <!--<a href="" class="btn-main btn-lg" style="background-color:#F4AD39; color:black;">Enter</a>&nbsp;-->											
                                         </div>
