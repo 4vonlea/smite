@@ -359,7 +359,7 @@ class Area extends MY_Controller
 			show_404("Page not found !");
 
 		$this->load->model(["Transaction_m"]);
-		$transactions = $this->Transaction_m->findAll(['member_id' => $this->session->user_session['id']]);
+		$transactions = $this->Transaction_m->findByDetail($this->session->user_session['id']);
 		$response = ['status' => true, 'cart' => null, 'transaction' => null];
 		foreach ($transactions as $trans) {
 			if ($trans->checkout == 0) {
@@ -641,7 +641,7 @@ class Area extends MY_Controller
 		$detail = $this->Transaction_m->findOne($id);
 		if ($detail) {
 			$response = $detail->toArray();
-			$response['member'] = $detail->member->toArray();
+			$response['member'] = $detail->member ?  $detail->member->toArray() : ['member_id'=>$detail->member_id];
 			$response['finish'] = $response['status_payment'] == Transaction_m::STATUS_FINISH;
 			foreach ($detail->details as $row) {
 				$response['details'][] = $row->toArray();
@@ -659,10 +659,12 @@ class Area extends MY_Controller
 		$this->load->model(['Transaction_m', 'Member_m']);
 		$tr = $this->Transaction_m->findOne(['id' => $id]);
 		$member = $this->Member_m->findOne(['id' => $tr->member_id]);
+		$filename = ($member ? $member->fullname : $tr->member_id);
+
 		if ($type == "invoice")
-			$tr->exportInvoice()->stream($member->fullname . "-Invoice.pdf", array("Attachment" => false));
+			$tr->exportInvoice()->stream($filename . "-Invoice.pdf", array("Attachment" => false));
 		elseif ($type == "proof")
-			$tr->exportPaymentProof()->stream($member->fullname . "-Bukti_Registrasi.pdf", array("Attachment" => false));
+			$tr->exportPaymentProof()->stream($filename . "-Bukti_Registrasi.pdf", array("Attachment" => false));
 		else
 			show_404();
 	}

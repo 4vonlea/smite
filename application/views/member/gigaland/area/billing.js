@@ -144,7 +144,7 @@ export default Vue.component("PageBilling", {
 								</tr>
 								<tr>
 									<th>Bill To</th>
-									<td colspan="3">{{ user.fullname }}</td>
+									<td colspan="3">{{ detailModel.member.member_id ? detailModel.member.member_id : user.fullname }}</td>
 								</tr>
 								<tr>
 									<th>Address</th>
@@ -310,7 +310,7 @@ export default Vue.component("PageBilling", {
 			checking_out: false,
 			cart: null,
 			transaction: null,
-			detailModel: {status_payment: "",paymentGatewayInfo:{}},
+			detailModel: {status_payment: "",paymentGatewayInfo:{},member:{}},
 			manual_payment: {"banks":[{'bank': 'BNI', 'no_rekening': "0212", "holder": "Muhammad Zaien"}],"ammount":0},
 			upload:{},
 			paymentMethod:[{key:"0",desc:"Select Payment Method"}],

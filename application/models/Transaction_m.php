@@ -169,6 +169,19 @@ class Transaction_m extends MY_Model
 		return $dompdf;
 	}
 
+	public function findByDetail($member_id){
+		$trIdList =  $this->db->select("t.id")
+			->from("transaction t")
+			->join("transaction_details td","t.id = td.transaction_id")
+			->where("td.member_id",$member_id)
+			->get()->result();
+		$trIdArray = [];
+		foreach($trIdList as $row){
+			$trIdArray[] = $row->id;
+		}
+		return $this->findAll(['id'=>$trIdArray]);
+	}
+
 	public function getNotFollowedEvent($member_id)
 	{
 		$rs = $this->db->query("SELECT e.name as event_name,ev.* FROM events e
@@ -217,9 +230,9 @@ class Transaction_m extends MY_Model
 		if($data['channel'] == "ESPAY"){
 			$paymentGatewayData = json_decode($data['midtrans_data'],true);
 			if(is_array($paymentGatewayData)){
-				$data['paymentGatewayInfo']['product'] = $paymentGatewayData['product_name'];
-				$data['paymentGatewayInfo']['productNumber'] = $paymentGatewayData['product_value'];
-				$data['paymentGatewayInfo']['expired'] = $paymentGatewayData['expired'];
+				$data['paymentGatewayInfo']['product'] = $paymentGatewayData['product_name'] ?? "";
+				$data['paymentGatewayInfo']['productNumber'] = $paymentGatewayData['product_value'] ?? ""; 
+				$data['paymentGatewayInfo']['expired'] = $paymentGatewayData['expired'] ?? "";
 			}
 		}
 		return $data;

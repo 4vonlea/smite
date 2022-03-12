@@ -137,8 +137,8 @@ class Member_m extends MY_Model
 			$id = $this->id;
 		$this->load->model("Transaction_m");
 		return $this->setAlias("t")->find()->select("count(*) as ev")
-			->join("transaction tr", "tr.member_id = t.id")
-			->join("transaction_details td", "td.transaction_id = tr.id")
+			->join("transaction_details td", "td.member_id = t.id")
+			->join("transaction tr", "tr.id = td.transaction_id")
 			->where("event_pricing_id > 0")
 			->where("t.id", $id)
 			->where("tr.status_payment", Transaction_m::STATUS_FINISH)
