@@ -20,6 +20,7 @@ $lang['cal_november']	= "November";
 $lang['cal_december']	= "Desember";
 setlocale(LC_TIME, 'id_ID');
 $payment = Settings_m::manualPayment(false);
+$isGroup = ($member == null);
 ?>
 <style>
 	.table th,
@@ -65,7 +66,7 @@ $payment = Settings_m::manualPayment(false);
 					<tbody>
 						<tr>
 							<td>
-								<p>Dear <?= $member->sponsor; ?></p>
+								<p>Dear <?= $member->sponsor ?? $transaction->member_id; ?></p>
 								<p style="text-align:justify;text-justify:inter-word;">Here we send the bill of payment as a form of official statement. Please pay off this payment immediately
 
 									<?php if (is_array($payment) && count($payment) == 1 && $transaction->channel == "MANUAL TRANSFER") : ?>
@@ -113,20 +114,23 @@ $payment = Settings_m::manualPayment(false);
 											</td>
 											<td>:</td>
 											<td style="padding:5px!important">
-												<?= $member->fullname; ?>
+												<?= $member->fullname ?? $transaction->member_id; ?>
 											</td>
 										</tr>
+										<?php if($member && $member->email):?>
 										<tr>
 											<td style="padding:5px!important" valign="top" width="170">
 												E-mail
 											</td>
 											<td>:</td>
 											<td style="padding:5px!important">
-												<a href="mailto:<?= $member->email; ?>" rel="noreferrer" target="_blank">
+												<a href="mailto:<?= $member->email ; ?>" rel="noreferrer" target="_blank">
 													<?= $member->email; ?>
 												</a>
 											</td>
 										</tr>
+										<?php endif;?>
+										<?php if($member && $member->username_account):?>
 										<tr>
 											<td style="padding:5px!important" valign="top" width="170">
 												Username
@@ -136,6 +140,9 @@ $payment = Settings_m::manualPayment(false);
 												<?= $member->username_account; ?>
 											</td>
 										</tr>
+										<?php endif ;?>
+										<?php if($member && $member->status):?>
+
 										<tr>
 											<td style="padding:5px!important" valign="top" width="170">
 												Status
@@ -145,6 +152,7 @@ $payment = Settings_m::manualPayment(false);
 												<?= $member->status_member->kategory; ?>
 											</td>
 										</tr>
+										<?php endif;?>
 										<?php if (isset($member->sponsor) && $member->sponsor != "") : ?>
 											<tr>
 												<td style="padding:5px!important" valign="top" width="170">
@@ -168,10 +176,11 @@ $payment = Settings_m::manualPayment(false);
 													$total = 0;
 													foreach ($transaction->detailsWithEvent() as $d) {
 														$total += $d->price;
+														$name = ($isGroup ? $d->member_name : "");
 														if($d->price_usd > 0){
-															echo "<li>$d->product_name :  <br/>USD " . $d->price_usd . "</li>";
+															echo "<li>$d->product_name  / $name :  <br/>USD " . $d->price_usd . "</li>";
 														}else{
-															echo "<li>$d->product_name :  <br/>Rp " . number_format($d->price, 2, ",", ".") . "</li>";
+															echo "<li>$d->product_name / $name :  <br/>Rp " . number_format($d->price, 2, ",", ".") . "</li>";
 														}
 													};
 													?>

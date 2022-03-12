@@ -84,9 +84,10 @@ class Transaction_m extends MY_Model
 	}
 	public function detailsWithEvent()
 	{
-		$rs = $this->db->select("t.*,e.id as event_id,e.name as event_name,e.theme, e.held_on,e.held_in,e.theme")
+		$rs = $this->db->select("t.*,e.id as event_id,e.name as event_name,e.theme, e.held_on,e.held_in,e.theme, m.fullname as member_name")
 			->join("event_pricing ep", "ep.id = t.event_pricing_id", "left")
 			->join("events e", "e.id = ep.event_id", "left")
+			->join("members m", "m.id = t.member_id", "left")
 			->where("transaction_id", $this->id)->get("transaction_details t");
 		return $rs->result();
 	}
@@ -138,7 +139,7 @@ class Transaction_m extends MY_Model
 		$domInvoice->setPaper('legal');
 		$html = $this->load->view("template/invoice", [
 			'transaction' => $this,
-		], true);
+		],true);
 
 		$option = new \Dompdf\Options();
 		$option->setIsRemoteEnabled(true);

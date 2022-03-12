@@ -5,6 +5,7 @@
  */
 $header_image = base_url('themes/uploads/header_kop.jpg');
 $member = $transaction->member;
+$isGroup = ($member == null);
 
 ob_start();
 QRCode::png("payment_proof;" . $transaction->id, false, QR_ECLEVEL_L, 4, 2);
@@ -58,7 +59,7 @@ header('Content-Type: text/html');
 				<span style="font-family:times new roman,times,serif;font-size:12pt;text-align:start;background-color:#ffffff"><?= date("d F Y", strtotime($transaction->updated_at)); ?></span>
 			</p>
 			<p style="text-align:left">
-				Dear. <?= $member->sponsor; ?>
+				Dear. <?= $member->sponsor ?? $transaction->member_id; ?>
 			</p>
 			<p style="text-align:justify;text-justify:inter-word;">
 				Thank you for your registration and participation in the event <?= Settings_m::getSetting("text_payment_proof"); ?>. Here are the registration and payment details:
@@ -76,8 +77,9 @@ header('Content-Type: text/html');
 				<tr>
 					<th>Name</th>
 					<td>:</td>
-					<td><?= $member->fullname; ?></td>
+					<td><?= $member->fullname ?? $transaction->member_id; ?></td>
 				</tr>
+				<?php if($member):?>
 				<tr>
 					<th>Status</th>
 					<td>:</td>
@@ -88,6 +90,7 @@ header('Content-Type: text/html');
 					<td>:</td>
 					<td><?= $member->username_account; ?></td>
 				</tr>
+				<?php endif;?>
 				<?php if (isset($member->sponsor) && $member->sponsor != "") : ?>
 					<tr>
 						<th>Sponsor</th>

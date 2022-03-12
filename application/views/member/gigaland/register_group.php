@@ -36,7 +36,7 @@ $theme_path = base_url("themes/gigaland") . "/";
             <!-- NOTE Setelah Submmit -->
             <div v-if="page == 'registered'" class="col-lg-12">
                 <div class="alert alert-success" style="background-color: #F5AC39;">
-                    <h4 class="text-dark"><i class="fa fa-info"></i> Akunmu berhasil dibuat</h4>
+                    <h4 class="text-dark"><i class="fa fa-info"></i> Registration Success</h4>
                     <p>We have sent a confirmation link to your email address. To complete the registration process, please click <i>confirmation link</i>.
                         If you don't receive a confirmation email, please check your spam. Then, please make sure you enter a valid email address when filling out the registration form. If you need help, please contact us.</p>
                     <!-- <p><strong>Sebagai informasi tambahan harap untuk mencatat Invoice ID anda untuk melakukan konfirmasi pembayaran, Untuk melakukan konfirmasi pembayaran bisa dilakukan melalui halaman <a href="<?= base_url('member/register/check_invoice') ?>" style="color:#161D30;text-decoration: underline;" target="_BLANK">Check Invoice</a></strong></p> -->
@@ -636,7 +636,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                 let selected = app.paymentMethod.find(data => data.key == app.selectedPaymentMethod);
                 if (selected && selected.key == "espay") {
                     $("#modal-select-payment").modal("show");
-                } else {
+                } else if (selected && selected.key == "manualPayment") {
                     var formData = new FormData(this.$refs.form);
                     // var birthday = moment(formData.get('birthday')).format("Y-MM-DD");
                     var birthday = moment().format("Y-MM-DD");
@@ -668,6 +668,8 @@ $theme_path = base_url("themes/gigaland") . "/";
                     }).always(function(res) {
                         app.saving = false;
                     });
+                }else{
+    				Swal.fire('Info',"Please Select Payment method !",'warning');
                 }
             },
             formatCurrency(price, currency = 'IDR') {

@@ -47,10 +47,11 @@ class Transaction extends Admin_Controller
 		$this->load->model(['Transaction_m', 'Member_m']);
 		$tr = $this->Transaction_m->findOne(['id' => $id]);
 		$member = $this->Member_m->findOne(['id' => $tr->member_id]);
+		$filename = ($member ? $member->fullname : $tr->member_id);
 		if ($type == "invoice")
-			$tr->exportInvoice()->stream($member->fullname . "-Invoice.pdf", array("Attachment" => false));
+			$tr->exportInvoice()->stream($filename . "-Invoice.pdf", array("Attachment" => false));
 		elseif ($type == "proof")
-			$tr->exportPaymentProof()->stream($member->fullname . "-Registration_proof.pdf", array("Attachment" => false));
+			$tr->exportPaymentProof()->stream($filename . "-Registration_proof.pdf", array("Attachment" => false));
 		else
 			show_404();
 	}
@@ -202,6 +203,7 @@ class Transaction extends Admin_Controller
 		$status = $detail->save();
 		if ($status) {
 			$member = $this->Member_m->findOne(['id' => $detail->member_id]);
+			$filename = ($member ? $member->fullname : $detail->member_id);
 			$this->db->insert("log_payment",[
 				'invoice'=>$id,
 				'action'=>"verify",
@@ -209,8 +211,8 @@ class Transaction extends Admin_Controller
 				'response'=>"[]",
 			]);
 			$attc = [
-				$member->fullname . '-invoice.pdf' => $detail->exportInvoice()->output(),
-				$member->fullname . '-registration_proof.pdf' => $detail->exportPaymentProof()->output()
+				$filename . '-invoice.pdf' => $detail->exportInvoice()->output(),
+				$filename . '-registration_proof.pdf' => $detail->exportPaymentProof()->output()
 			];
 			$details = $detail->detailsWithEvent();
 			foreach ($details as $row) {
@@ -223,14 +225,16 @@ class Transaction extends Admin_Controller
 					];
 					if (env('send_card_member', '1') == '1' && false) {
 						try {
-							$attc[$member->fullname . "_" . $row->event_name . ".pdf"] = $member->getCard($row->event_id)->output();
+							$attc[$filename . "_" . $row->event_name . ".pdf"] = $member->getCard($row->event_id)->output();
 						} catch (ErrorException $exception) {
 							log_message("error", $exception->getMessage());
 						}
 					}
 				}
 			}
-			$this->Notification_m->sendMessageWithAttachment($member->email, 'Invoice, Payment Proof', "Thank you for registering and fulfilling your payment, below is your invoice and official Payment Proof", $attc);
+			if($member){
+				$this->Notification_m->sendMessageWithAttachment($member->email, 'Invoice, Payment Proof', "Thank you for registering and fulfilling your payment, below is your invoice and official Payment Proof", $attc);
+			}
 		}
 		$this->output
 			->set_content_type("application/json")
