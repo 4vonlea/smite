@@ -96,7 +96,7 @@
                                         </h2>
                                         <p style="color:#F4AD39; text-shadow: 3px 2px 1px black; font-size: 25px;">June 9<sup>th</sup> - 12<sup>th</sup>, 2022 on Virtual Meeting</p>
                                     </div>
-                                    <!-- <a href="<?= base_url('themes/gigaland'); ?>/images/2ndaomcpinfinal.pdf" target="blank" class="btn-main btn-lg" style="background-color:#F4AD39; color:black;">Download 2 <sup>nd</sup> Announcement here</a>&nbsp; -->
+                                    <a href="<?= base_url('themes/gigaland'); ?>/images/2ndaomcpinfinal.pdf" target="blank" class="btn-main btn-lg" style="background-color:#F4AD39; color:black;">Download 2 <sup>nd</sup> Announcement here</a>&nbsp;
                                     <div class="spacer-10">
                                         <div class="d-buttons">
 
@@ -334,8 +334,8 @@
                                 4. Download your registration receipt, and See you on the date<br>
                                 <li style="color:#F4AD39; text-align:left; font-size:14px;">1 email per account</li>
                                 <li style="color:#F4AD39; text-align:left; font-size:14px;">E-certificate will be sent to the registered email</li><br>
-                                <a href="<?= base_url('member/register'); ?>" class="btn-main btn-fullwidth" style="background-color:#F4AD39; color:black;"><b>Click Here to Individual Registration</b></a>
-                                <a href="<?= base_url('member/register/group'); ?>" class="btn-main btn-fullwidth mt-2" style="background-color:#F4AD39; color:black;"><b>Click Here to Group Registration</b></a>
+                                <a href="<?= base_url('member/register'); ?>" class="btn-main btn-fullwidth" style="background-color:#F4AD39; color:black;"><b>Click Here for Individual Registration</b></a><br>
+                                <a href="<?= base_url('member/register/group'); ?>" class="btn-main btn-fullwidth" style="background-color:#F4AD39; color:black;"><b>Click Here for Group Registration</b></a><br>
                             </p>
                         </td>
                     </div>
@@ -362,18 +362,30 @@
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="accordion-item">
+                    <div class="accordion-item">
                         <h2 class="accordion-header" id="flush-headingTwo" style="color:#F4AD39;">
                             <button style="color:#F4AD39; background-color:white; font-size: 18px;" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="true" aria-controls="flush-collapseTwo">
-                                Video 2
+                                How to register by using credit card (esp International Participant)
                             </button>
                         </h2>
                         <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
                             <div class="accordion-body" style="background-color: #212428;">
-                                Video 2
+                                <iframe src="https://drive.google.com/file/d/1bNVsIiJTbLy7WJtV7rhU9dLravUDhm5D/preview" width="100%" height="600" align="center" allow="autoplay"></iframe>
                             </div>
                         </div>
-                    </div> -->
+                    </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="flush-headingThree" style="color:#F4AD39;">
+                            <button style="color:#F4AD39; background-color:white; font-size: 18px;" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="true" aria-controls="flush-collapseTwo">
+                                How to submit your abstract
+                            </button>
+                        </h2>
+                        <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body" style="background-color: #212428;">
+                                <iframe src="https://drive.google.com/file/d/1p1qFb0emOgxS7_oistU_nnllTLfY7gCe/preview" width="100%" height="600" align="center" allow="autoplay"></iframe>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
 
