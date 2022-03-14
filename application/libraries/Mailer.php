@@ -36,6 +36,8 @@ class Mailer implements iNotification
     {
         try {
             $this->mail->setFrom($this->from, $this->sender);
+            $this->mail->addEmbeddedImage("themes/img/email_header.jpg","img_email_header");
+            $this->mail->addEmbeddedImage("themes/img/email_footer.jpg","img_email_footer");
             $this->mail->addAddress($to);              
             $this->mail->isHTML(true);                                 
             $this->mail->Subject = $subject;
@@ -58,6 +60,8 @@ class Mailer implements iNotification
             }else{
                 $attc = $attachment;
             }
+            $this->mail->addEmbeddedImage("./themes/img/email_header.jpg","img_email_header");
+            $this->mail->addEmbeddedImage("./themes/img/email_footer.jpg","img_email_footer");
             $this->mail->setFrom($this->from, $this->sender);
             $this->mail->addAddress($to);               // Name is optional
             // Attachments

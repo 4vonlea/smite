@@ -22,7 +22,7 @@ $theme_path = base_url("themes/gigaland") . "/";
             <div class="row" style="background-size: cover;">
 
                 <div class="col-md-12 text-center" style="background-size: cover;">
-                    <h1 style="color:#F4AD39;">Registrasi Akun Group</h1>
+                    <h1 style="color:#F4AD39;">Group Registration</h1>
                 </div>
                 <div class="clearfix" style="background-size: cover;"></div>
             </div>
@@ -54,6 +54,11 @@ $theme_path = base_url("themes/gigaland") . "/";
                                     <td>Bill To</td>
                                     <td class="text-center">:</td>
                                     <th>{{data.bill_to}}</th>
+                                </tr>
+                                <tr>
+                                    <td>Your Email</td>
+                                    <td class="text-center">:</td>
+                                    <th>{{data.email_group}}</th>
                                 </tr>
                                 <tr>
                                     <td>Invoice ID</td>
@@ -231,6 +236,13 @@ $theme_path = base_url("themes/gigaland") . "/";
                                         <h5 style="color:#F4AD39;">Bill To*</h5>
                                         <input type="text" :class="{'is-invalid': validation_error.bill_to}" class="form-control mb-0" name="bill_to" placeholder="Bill To" v-model="data.bill_to" />
                                         <div v-if="validation_error.bill_to" class="invalid-feedback" v-html="validation_error.bill_to"></div>
+                                    </div>
+                                    <div class="spacer-20"></div>
+
+                                    <div class="field-set" style="color:#F4AD39;">
+                                        <h5 style="color:#F4AD39;">Your Email* <small>(Invoice will be sent  to this email)</small></h5>
+                                        <input type="text" :class="{'is-invalid': validation_error.email_group}" class="form-control mb-0" name="email_group" placeholder="Bill To" v-model="data.email_group" />
+                                        <div v-if="validation_error.email_group" class="invalid-feedback" v-html="validation_error.email_group"></div>
                                     </div>
 
                                     <div class="spacer-20"></div>

@@ -106,18 +106,25 @@ class Notification_m extends MY_Model{
     }
 
     protected function wrapMessage($message){
-        $wrapperMessage = "#DO NOT REPLY THIS AUTOMATED MESSAGE#<br/>If reply, sent to admin@aomc-pinbanjarmasin2022.com<br/><br/><hr/>".$message;
-        $wrapperMessage.="<br/>Best Regards,<br/>Committee of ".Settings_m::getSetting('site_title')."<br/><br/>";
-        $wrapperMessage.= "For more information, visit<br/>";
-        $wrapperMessage.= "<a href='".base_url()."'>https://aomc-pinbanjarmasin2022.com</a><br/><br/>";
-        $wrapperMessage.= "Contact Person for Registration and Information<br/><br/>";
-        $wrapperMessage.= "AOMC:<br/>";
-        $wrapperMessage.= "Nurul Fadli, MD, Neurologist or Desva Nurafivah, BMS<br/>";
-        $wrapperMessage.= "admin@aomc-pinbanjarmasin2022.com<br/><br/>";
-        $wrapperMessage.= "PIN:<br/>";
-        $wrapperMessage.= "Rida Sieseria, MD<br/>";
-        $wrapperMessage.="<a href='https://wa.me/6285163683209'> Whats app Number</a><br/>";
-        $wrapperMessage.="admin@aomc-pinbanjarmasin2022.com";
+        $urlImageFooter = "cid:img_email_footer";//base_url('themes/img/email_footer.jpg');
+        $urlImageHeader = "cid:img_email_header";//base_url('themes/img/email_header.jpg');
+
+        $wrapperMessage = "<body style='background-color:#f6f6f6'>#DO NOT REPLY THIS AUTOMATED MESSAGE#<br/>If reply, sent to admin@aomc-pinbanjarmasin2022.com<br/><br/><hr/>";
+        $wrapperMessage.= "<div style='padding:10px;width:45%;background-color:white;margin-right:auto;margin-left:auto;'><br/><img width='100%' src='".$urlImageHeader."'/>";
+        $wrapperMessage.= $message;
+        $wrapperMessage.= "<img width='100%' src='".$urlImageFooter."'/><br/></div>";
+        // $wrapperMessage.="<br/>Best Regards,<br/>Committee of ".Settings_m::getSetting('site_title')."<br/><br/>";
+        // $wrapperMessage.= "For more information, visit<br/>";
+        // $wrapperMessage.= "<a href='".base_url()."'>https://aomc-pinbanjarmasin2022.com</a><br/><br/>";
+        // $wrapperMessage.= "Contact Person for Registration and Information<br/><br/>";
+        // $wrapperMessage.= "AOMC:<br/>";
+        // $wrapperMessage.= "Nurul Fadli, MD, Neurologist or Desva Nurafivah, BMS<br/>";
+        // $wrapperMessage.= "admin@aomc-pinbanjarmasin2022.com<br/><br/>";
+        // $wrapperMessage.= "PIN:<br/>";
+        // $wrapperMessage.= "Rida Sieseria, MD<br/>";
+        // $wrapperMessage.="<a href='https://wa.me/6285163683209'> Whats app Number</a><br/>";
+        // $wrapperMessage.="admin@aomc-pinbanjarmasin2022.com";
+        $wrapperMessage .= "</body>";
         return $wrapperMessage;
     }
 }

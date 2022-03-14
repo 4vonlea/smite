@@ -223,6 +223,7 @@ class Register extends MY_Controller
 
 			$this->form_validation->set_rules('bill_to', 'Bill To', 'required');
 			$this->form_validation->set_rules('status', 'Status', 'required');
+			$this->form_validation->set_rules('email_group', 'Email', 'required');
 
 			$validationError = false;
 			$model['validation_error'] = [];
@@ -287,6 +288,8 @@ class Register extends MY_Controller
 					$transaction->id = $id;
 				}
 
+				$tr = $this->Transaction_m->findOne($id_invoice);
+				$invoiceDataPdf = $tr->exportInvoice()->output();
 				foreach ($members as $key => $data) {
 					$data['username_account'] = $data['email'];
 					$data['verified_by_admin'] = !$need_verify;
@@ -348,12 +351,11 @@ class Register extends MY_Controller
 					$error['statusData'] = $this->Member_m->getDB()->trans_status();
 					$error['message'] = $this->Member_m->getDB()->error();
 					if ($error['statusData']) {
-						$tr = $this->Transaction_m->findOne($id_invoice);
 						$data['participantsCategory'] = $participantsCategory;
 						$email_message = $this->load->view('template/success_register_onsite', $data, true);
 						$attc = [
-							$data['fullname'] . '-invoice.pdf' => $tr->exportInvoice()->output(),
-							$data['fullname'] . '-bukti_registrasi.pdf' => $tr->exportPaymentProof()->output()
+							$data['fullname'] . '-invoice.pdf' => $invoiceDataPdf,
+							// $data['fullname'] . '-bukti_registrasi.pdf' => $tr->exportPaymentProof()->output()
 						];
 						$details = $tr->detailsWithEvent();
 						foreach ($details as $row) {
@@ -375,10 +377,14 @@ class Register extends MY_Controller
 						}
 
 						if (!$dataMember) {
-							$this->Notification_m->sendMessageWithAttachment($data['email'], 'Pendaftaran Berhasil', $email_message, $attc);
+							$this->Notification_m->sendMessageWithAttachment($data['email'], 'Registration Success', $email_message, $attc);
 						}
 					}
 				}
+				$this->Notification_m->sendMessageWithAttachment($tr->email_group, 'Registration Success',"Your group registration success",[
+					'invoice.pdf'=>$invoiceDataPdf,
+				]);
+
 
 				$error['transactions'] = $this->getTransactions($transaction);
 			}
