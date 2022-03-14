@@ -682,10 +682,10 @@ $theme_path = base_url("themes/gigaland") . "/";
             // NOTE Menambah dan Menghapus Event
             addEvent(e, event, member, event_name, event_required = '') {
                 let isRequired = true;
-                // if (event_required != null) {
-                //     find = this.eventAdded.find(data => data.event_name == event_required);
-                //     isRequired = find ? true : false;
-                // }
+                if (event_required != null) {
+                    find = this.eventAdded.find(data => data.event_name == event_required);
+                    isRequired = find ? true : false;
+                }
                 if (e.target.checked) {
                     if (isRequired) {
                         event.member_status = member;
