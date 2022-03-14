@@ -386,6 +386,18 @@
                             </div>
                         </div>
                     </div>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="flush-headingFour" style="color:#F4AD39;">
+                            <button style="color:#F4AD39; background-color:white; font-size: 18px;" class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="true" aria-controls="flush-collapseTwo">
+                                How to do a group registration
+                            </button>
+                        </h2>
+                        <div id="flush-collapseFour" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                            <div class="accordion-body" style="background-color: #212428;">
+                                <iframe src="https://drive.google.com/file/d/1UzaAnvpC7qNKG1CF8bDKVQSh28NB441n/preview" width="100%" height="600" align="center" allow="autoplay"></iframe>
+                            </div>
+                        </div>
+                    </div>
 
                 </div>
 
