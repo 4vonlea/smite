@@ -59,12 +59,14 @@ class Event_m extends MY_Model
 				event_pricing.price as price_r,
 				event_pricing.price_in_usd as price_in_usd,
 				event_pricing.id as id_price,
+				evt.name as event_required
 			")
 			->select("condition,
 				condition_date,
-				kategory")
+				t.kategory")
 			->where($filter)
 			->join("event_pricing", "t.id = event_id")
+			->join("events evt", "evt.id = t.event_required", 'left')
 			->order_by("t.id,event_pricing.name,event_pricing.condition_date")->get();
 		$return = [];
 		$temp = "";
@@ -101,6 +103,7 @@ class Event_m extends MY_Model
 				$return[$index] = [
 					'name' => $row['event_name'],
 					'category' => $row['kategory'],
+					'event_required' => $row['event_required'],
 					'pricingName' => [
 						[
 							'name' => $row['name_pricing'],

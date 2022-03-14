@@ -34,6 +34,17 @@ class Register extends MY_Controller
 
 			$eventAdded = json_decode($this->input->post('eventAdded'));
 
+			// NOTE Validasi Event Required
+			$isRequired = 0;
+			foreach ($eventAdded as $key => $value) {
+				if ($value->event_required != '') {
+					$findRequired = array_search($value->event_required, array_column($eventAdded, 'event_name'));
+					if ($findRequired === false) {
+						$isRequired += 1;
+					}
+				}
+			}
+
 			$this->load->model(['Member_m', 'User_account_m', 'Notification_m']);
 			$this->load->library('Uuid');
 
@@ -61,7 +72,7 @@ class Register extends MY_Controller
 			$univ = Univ_m::withKey($univ, "univ_id");
 			$status = Category_member_m::withKey($status, "id");
 			$need_verify = (isset($status[$data['status']]) && $status[$data['status']]['need_verify'] == "1");
-			if (($this->Member_m->validate($data) && $this->handlingProof('proof', $data['id'], $need_verify)) && count($eventAdded) > 0) {
+			if (($this->Member_m->validate($data) && $this->handlingProof('proof', $data['id'], $need_verify)) && count($eventAdded) > 0 && $isRequired == 0) {
 				$data['username_account'] = $data['email'];
 				$data['verified_by_admin'] = !$need_verify;
 				$data['verified_email'] = 0;
@@ -143,6 +154,7 @@ class Register extends MY_Controller
 					[
 						'proof' => (isset($this->upload) ? $this->upload->display_errors("", "") : null),
 						'eventAdded' => (count($eventAdded) == 0)  ? 'Choose at least 1 event' : '',
+						'requiredEvent' => $isRequired > 0 ? 'Please select required event' : '',
 					],
 				);
 			}
@@ -180,6 +192,17 @@ class Register extends MY_Controller
 		if ($this->input->post()) {
 
 			$eventAdded = json_decode($this->input->post('eventAdded'));
+
+			// NOTE Validasi Event Required
+			$isRequired = 0;
+			foreach ($eventAdded as $key => $value) {
+				if ($value->event_required != '') {
+					$findRequired = array_search($value->event_required, array_column($eventAdded, 'event_name'));
+					if ($findRequired === false) {
+						$isRequired += 1;
+					}
+				}
+			}
 
 			$this->load->model(['Member_m', 'User_account_m', 'Notification_m', 'Transaction_m', 'Transaction_detail_m']);
 			$this->load->library('form_validation');
@@ -269,7 +292,7 @@ class Register extends MY_Controller
 			}
 
 			$error = [];
-			if ($count > 0 || $validationError) {
+			if ($count > 0 || $validationError || $isRequired > 0) {
 				$status = false;
 			} else {
 				$status = true;
@@ -393,6 +416,7 @@ class Register extends MY_Controller
 							'members' => $members,
 							'validation_error' => array_merge($model['validation_error'], [
 								'eventAdded' => (count($eventAdded) == 0)  ? 'Choose at least 1 event' : '',
+								'requiredEvent' => $isRequired > 0 ? 'Please select required event' : '',
 							]),
 						]
 					]
@@ -410,7 +434,6 @@ class Register extends MY_Controller
 				'events' => $this->getEvents(),
 				'paymentMethod' => Settings_m::getEnablePayment(),
 			];
-
 			$this->layout->render('member/' . $this->theme . '/register_group', $data);
 		}
 	}
@@ -777,10 +800,10 @@ class Register extends MY_Controller
 			$tran = $this->Transaction_m->findOne($id);
 			$tran->client_message = $message;
 			$tran->payment_proof =  $data['file_name'];
-			if($tran->status_payment == Transaction_m::STATUS_PENDING){
+			if ($tran->status_payment == Transaction_m::STATUS_PENDING) {
 				$tran->status_payment = Transaction_m::STATUS_NEED_VERIFY;
 				$data['status_payment'] =  Transaction_m::STATUS_NEED_VERIFY;
-			}else{
+			} else {
 				$data['status_payment'] = $tran->status_payment;
 			}
 			$mem = $this->Member_m->findOne($tran->member_id);
