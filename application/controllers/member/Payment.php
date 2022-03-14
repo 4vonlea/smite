@@ -345,7 +345,7 @@ class Payment extends MY_Controller
 					JSON_EXTRACT(l.response,\"$.expired\") AS ex_string 
 				FROM transaction t
 				LEFT JOIN log_payment l  ON t.id = l.invoice AND l.`action` = \"check_status\"
-				WHERE t.channel = \"ESPAY\" AND t.status_payment = \"pending\" AND (l.id IS NULL OR NOW() >= STR_TO_DATE(JSON_EXTRACT(l.response,\"$.expired\"),'\"%Y-%m-%d %H:%i:%s\"'))";
+				WHERE t.channel = \"ESPAY\" AND ((t.status_payment = \"pending\" AND (l.id IS NULL OR NOW() >= STR_TO_DATE(JSON_EXTRACT(l.response,\"$.expired\"),'\"%Y-%m-%d %H:%i:%s\"'))) OR t.status_payment = 'need_verification')";
 			$rs = $this->db->query($sql);
 			foreach($rs->result_array() as $row){
 				$orders[] = $row['id'];
