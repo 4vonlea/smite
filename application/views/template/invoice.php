@@ -4,7 +4,6 @@
  * @var Transaction_m $transaction
  */
 $header_image = base_url('themes/uploads/header_kop.jpg');
-
 $member = $transaction->member;
 $lang['cal_january']	= "Januari";
 $lang['cal_february']	= "Februari";
@@ -102,7 +101,7 @@ $isGroup = ($member == null);
 			</div>
 		</div>
 		<div class="row">
-			<div class="col">Name</div>
+			<div class="col"><?=$isGroup ? "Bill To":"Name";?></div>
 			<div class="col2">:</div>
 			<div>
 				<?= $member->fullname ?? $transaction->member_id; ?>

@@ -87,7 +87,7 @@ $isGroup = ($member == null);
 			</div>
 		</div>
 		<div class="row">
-			<div class="col">Name</div>
+			<div class="col"><?=$isGroup ? "Bill To":"Name";?></div>
 			<div class="col2">:</div>
 			<div>
 				<?= $member->fullname ?? $transaction->member_id; ?>
