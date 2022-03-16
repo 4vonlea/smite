@@ -71,9 +71,11 @@ $this->layout->begin_head();
 									<td>
 										<input type="checkbox" v-model="model.selected" name="transaction[event][]" :value="[ev.id,ev.price,ev.price_in_usd,ev.product_name,ev.status]" />
 									</td>
-									<td>{{ index }}</td>
+									<td>{{ index }} <span style="font-size: 14px;" v-if="ev.event_required">(You must follow event {{ ev.event_required }} to patcipate this event)</span>
 									<td>
-										<span v-if="ev.price != 0">{{ formatCurrency(ev.price) }} /</span> {{formatCurrency(ev.price_in_usd, 'USD')}}
+										<span v-show="ev.price != 0">{{ formatCurrency(ev.price) }}</span>
+										<span v-show="ev.price != 0 && ev.price_in_usd != 0"> / </span>
+										<span v-show="ev.price_in_usd != 0">{{formatCurrency(ev.price_in_usd, 'USD')}}</span>
 									</td>
 								</tr>
 								<!-- <tfoot>
@@ -232,6 +234,7 @@ $this->layout->begin_head();
 									rt[item.name] = item.pricingName[0].pricing[key];
 									rt[item.name].product_name = `${item.name} (${status})`;
 									rt[item.name].status = `${status}`;
+									rt[item.name].event_required = item.event_required;
 								}
 							})
 						}
