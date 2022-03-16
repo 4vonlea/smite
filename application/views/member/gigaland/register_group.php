@@ -241,7 +241,7 @@ $theme_path = base_url("themes/gigaland") . "/";
 
                                     <div class="field-set" style="color:#F4AD39;">
                                         <h5 style="color:#F4AD39;">Your Email* <small>(Invoice will be sent  to this email)</small></h5>
-                                        <input type="text" :class="{'is-invalid': validation_error.email_group}" class="form-control mb-0" name="email_group" placeholder="Bill To" v-model="data.email_group" />
+                                        <input type="text" :class="{'is-invalid': validation_error.email_group}" class="form-control mb-0" name="email_group" placeholder="Email" v-model="data.email_group" />
                                         <div v-if="validation_error.email_group" class="invalid-feedback" v-html="validation_error.email_group"></div>
                                     </div>
 

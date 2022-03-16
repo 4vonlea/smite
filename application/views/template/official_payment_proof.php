@@ -4,165 +4,193 @@
  * @var Transaction_m $transaction
  */
 $header_image = base_url('themes/uploads/header_kop.jpg');
+
 $member = $transaction->member;
+$lang['cal_january']	= "Januari";
+$lang['cal_february']	= "Februari";
+$lang['cal_march']		= "Maret";
+$lang['cal_april']		= "April";
+$lang['cal_mayl']		= "Mei";
+$lang['cal_june']		= "Juni";
+$lang['cal_july']		= "Juli";
+$lang['cal_august']		= "Agustus";
+$lang['cal_september']	= "September";
+$lang['cal_october']	= "Oktober";
+$lang['cal_november']	= "November";
+$lang['cal_december']	= "Desember";
+setlocale(LC_TIME, 'id_ID');
+$payment = Settings_m::manualPayment(false);
 $isGroup = ($member == null);
-
-ob_start();
-QRCode::png("payment_proof;" . $transaction->id, false, QR_ECLEVEL_L, 4, 2);
-$qr = base64_encode(ob_get_clean());
-header('Content-Type: text/html');
 ?>
-<style>
-	.table {
-		border-collapse: collapse;
-		width: 90%;
-		margin-top: 15px;
-		margin-bottom: 15px;
-	}
+<html>
 
-	.table th,
-	.table td {
-		padding: 5px 10px;
-		vertical-align: top;
-	}
+<head>
+	<style>
+		.table th,
+		.table td {
+			vertical-align: top;
+		}
 
-	.table th {
-		text-align: left;
-	}
+		.watermark {
+			position: absolute;
+			top: 20%;
+			/* or whatever */
+			left: 15%;
+			/* or whatever, position according to taste */
+			opacity: 0.2;
+			/* Firefox, Chrome, Safari, Opera, IE >= 9 (preview) */
+			filter: alpha(opacity=20);
+			/* for <= IE 8 */
+			z-index: -1;
+		}
+		.row{
+			width: 100%;
+			clear: both;
+		}
+		.col {
+			width: 145px;
+			display: block;
+			float: left;
+			font-weight: bold;
+		}
+		.col2{
+			width: 10px;
+			display: block;
+			float: left;
+		}
+	</style>
+</head>
 
-	.watermark {
-		position: absolute;
-		top: 20%;
-		/* or whatever */
-		left: 15%;
-		/* or whatever, position according to taste */
-		opacity: 0.2;
-		/* Firefox, Chrome, Safari, Opera, IE >= 9 (preview) */
-		filter: alpha(opacity=20);
-		/* for <= IE 8 */
-		z-index: -1;
-	}
-</style>
-<img class="watermark" src="<?= base_url('themes/uploads/paid.jpg'); ?>" />
-<table border="0" cellpadding="0" cellspacing="0" style="width: 700px;margin-right: auto;margin-left: auto">
-	<tr>
-		<td>
-			<img src="<?= $header_image; ?>" style="width:700px" alt="<?= $header_image; ?>" />
-		</td>
-	</tr>
-	<tr style="height:30px">
-		<td style="text-align:center;height:30px">
-			<p>
-				<span style="font-family:times new roman,times,serif;font-size:12pt"><strong>PAYMENT AND REGISTRATION PROOF - RECEIPT</strong></span>
-			</p>
-			<p style="text-align:right">
-				<span style="font-family:times new roman,times,serif;font-size:12pt;text-align:start;background-color:#ffffff"><?= date("d F Y", strtotime($transaction->updated_at)); ?></span>
-			</p>
-			<p style="text-align:left">
-				Dear. <?= $member->sponsor ?? $transaction->member_id; ?>
-			</p>
-			<p style="text-align:justify;text-justify:inter-word;">
-				Thank you for your registration and participation in the event <?= Settings_m::getSetting("text_payment_proof"); ?>. Here are the registration and payment details:
-			</p>
-		</td>
-	</tr>
-	<tr>
-		<td align="center">
-			<table class="table" style="width: 100%;">
-				<tr>
-					<th width="170">ID INVOICE</th>
-					<td width="10">:</td>
-					<td><?= $transaction->id; ?></td>
-				</tr>
-				<tr>
-					<th>Name</th>
-					<td>:</td>
-					<td><?= $member->fullname ?? $transaction->member_id; ?></td>
-				</tr>
-				<?php if($member):?>
-				<tr>
-					<th>Status</th>
-					<td>:</td>
-					<td><?= $member->status_member->kategory; ?></td>
-				</tr>
-				<tr>
-					<th>Username</th>
-					<td>:</td>
-					<td><?= $member->username_account; ?></td>
-				</tr>
-				<?php endif;?>
-				<?php if (isset($member->sponsor) && $member->sponsor != "") : ?>
-					<tr>
-						<th>Sponsor</th>
-						<td>:</td>
-						<td><?= $member->sponsor; ?></td>
-					</tr>
-				<?php endif; ?>
-				<tr>
-					<th>Followed Event</th>
-					<td>:</td>
-					<td>
-						<ul style="margin: 0px;padding-left:15px">
-							<?php
-							$total = 0;
-							foreach ($transaction->detailsWithEvent() as $d) {
-								$total += $d->price;
-								if($d->price_usd > 0){
-									echo "<li>$d->product_name :  <br/>USD " . $d->price_usd . "</li>";
-								}else{
-									echo "<li>$d->product_name :  <br/>Rp " . number_format($d->price, 2, ",", ".") . "</li>";
-								}
-							};
-							?>
-						</ul>
-					</td>
-				</tr>
-				<tr>
-					<th>Amount Price</th>
-					<td>:</td>
-					<td>Rp <?= number_format($total, 2, ",", "."); ?>*</td>
-				</tr>
-				<tr>
-					<th>
-						Payment Method
-					</th>
-					<td>:</td>
-					<td>
-						<?= strtoupper($transaction->channel); ?> - 
-						<?php
-							$data = $transaction->toArray();
-							if($data['paymentGatewayInfo']['product']){ 
-								echo $data['paymentGatewayInfo']['product']."<br/>";
-							}
-							if($data['paymentGatewayInfo']['productNumber']){
-								echo "Account Number : ".$data['paymentGatewayInfo']['productNumber']."<br/>";
-
-							}					
-						?>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="3">
-						<span style="font-size:9pt">*The amount price above does not include online bank payment administration fees</small>
-					</td>
-				</tr>
-			</table>
-		</td>
-	</tr> <br />
-	<tr style="height:20px">
-		<td style="height:20px">
-			<p style="text-align:justify;text-justify:inter-word;">
-			This payment proof (receipt) is a valid proof and is used properly. Participants must show this receipt to the committee at the time of re-registration. Thank you</p> <br /><br />
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<div style="bottom: 80px;left:0px;position: absolute">
-				<img style="margin: auto" src="data:image/png;base64,<?= $qr; ?>" />
+<body>
+	<header>
+		<img src="<?= $header_image; ?>" style="width:100%" alt="<?= $header_image; ?>" />
+	</header>
+	<footer>
+		<img class="watermark" src="<?= base_url('themes/uploads/paid.jpg'); ?>" />
+	</footer>
+	<section>
+		<h4 style="text-align: center;">PAYMENT AND REGISTRATION PROOF - RECEIPT</h4>
+		<p style="text-align:right">
+			<span style="font-family:times new roman,times,serif;font-size:12pt;text-align:start;background-color:#ffffff"><?= date("d F Y", strtotime($transaction->updated_at)); ?></span>
+		</p>
+		<p style="text-align:left">
+			Dear. <?= $member->sponsor ?? $transaction->member_id; ?>
+		</p>
+		<p style="text-align:justify;text-justify:inter-word;">
+			Thank you for your registration and participation in the event <?= Settings_m::getSetting("text_payment_proof"); ?>. Here are the registration and payment details:
+		</p>
+		<div class="row">
+			<div class="col">ID Invoice</div>
+			<div class="col2">:</div>
+			<div>
+				<?= $transaction->id; ?>
 			</div>
-			<?php
-			$this->load->view("template/invoice_payment_signature");
-			?>
-		</td>
-	</tr>
-</table>
+		</div>
+		<div class="row">
+			<div class="col">Name</div>
+			<div class="col2">:</div>
+			<div>
+				<?= $member->fullname ?? $transaction->member_id; ?>
+			</div>
+		</div>
+		<?php if ($member && $member->email) : ?>
+			<div class="row">
+				<div class="col">
+					E-mail
+				</div>
+				<div class="col2">:</div>
+				<div>
+					<a href="mailto:<?= $member->email; ?>" rel="noreferrer" target="_blank">
+						<?= $member->email; ?>
+					</a>
+				</div>
+			</div>
+		<?php endif; ?>
+		<?php if ($member && $member->username_account) : ?>
+			<div class="row">
+				<div class="col">
+					Username
+				</div>
+				<div class="col2">:</div>
+				<div>
+					<?= $member->username_account; ?>
+				</div>
+			</div>
+		<?php endif; ?>
+		<?php if ($member && $member->status) : ?>
+
+			<div class="row">
+				<div class="col">
+					Status
+				</div>
+				<div class="col2">:</div>
+				<div>
+					<?= $member->status_member->kategory; ?>
+				</div>
+			</div>
+		<?php endif; ?>
+		<?php if (isset($member->sponsor) && $member->sponsor != "") : ?>
+			<div class="row">
+				<div class="col">
+					Sponsor
+				</div>
+				<div class="col2">:</div>
+				<div>
+					<?= $member->sponsor; ?>
+				</div>
+			</div>
+		<?php endif; ?>
+		<div class="row">
+			<div class="col">Followed event</div>
+			<div class="col2">:</div>
+			<div style="padding-left: 155px">
+				<?php
+				$total = 0;
+				foreach ($transaction->detailsWithEvent() as $d) {
+					$total += $d->price;
+					$name = ($isGroup ? $d->member_name : "");
+					if ($d->price_usd > 0) {
+						echo "<span>$d->product_name  / $name :  <br/>USD " . $d->price_usd . "</span><br/>";
+					} else {
+						echo "<span>$d->product_name / $name :  <br/>Rp " . number_format($d->price, 2, ",", ".") . "</span><br/>";
+					}
+				};
+				?>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">Amount Price</div>
+			<div class="col2">:</div>
+			<div>
+				Rp <?= number_format($total, 2, ",", "."); ?>*
+
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">Payment Method</div>
+			<div class="col2">:</div>
+			<div>
+				<?= strtoupper($transaction->channel); ?> -
+				<?php
+				$data = $transaction->toArray();
+				if ($data['paymentGatewayInfo']['product']) {
+					echo $data['paymentGatewayInfo']['product'] . "<br/>";
+				}
+				if ($data['paymentGatewayInfo']['productNumber']) {
+					echo "Account Number : " . $data['paymentGatewayInfo']['productNumber'] . "<br/>";
+				}
+				?>
+			</div>
+		</div>
+		<small style="font-size:9pt">*The amount price above does not include online bank payment administration fees</small>
+
+		<p>
+			This payment proof (receipt) is a valid proof and is used properly. Participants must show this receipt to the committee at the time of re-registration. Thank you
+		</p> 
+		<?php
+		$this->load->view("template/invoice_payment_signature");
+		?>
+	</section>
+</body>
+
+</html>

@@ -492,6 +492,8 @@ class Member extends Admin_Controller
 
 			$transaction = $this->input->post('transaction');
 			$bill_to = $this->input->post('bill_to');
+			$email_group = $this->input->post('email_group');
+
 			$channel = 'CASH';
 			// $channel = $this->input->post('channel');
 			$id_invoice = $this->Transaction_m->generateInvoiceId();
@@ -574,7 +576,8 @@ class Member extends Admin_Controller
 					'message_payment' => '',
 					'channel' => $channel,
 					'status_payment' => Transaction_m::STATUS_FINISH,
-					'payment_proof' => $data['payment_proof']
+					'payment_proof' => $data['payment_proof'],
+					'email_group' => $email_group,
 				]);
 
 				foreach ($model['members'] as $key => $data) {

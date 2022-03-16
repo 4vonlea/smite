@@ -220,6 +220,7 @@ class Register extends MY_Controller
 			$statusParticipant = $data['status'];
 			$bill_to = "REGISTER-GROUP : {$data['bill_to']}";
 			$bill_to_input = $data['bill_to'];
+			$email_group = $data['email_group'];
 
 			$this->form_validation->set_rules('bill_to', 'Bill To', 'required');
 			$this->form_validation->set_rules('status', 'Status', 'required');
@@ -284,6 +285,7 @@ class Register extends MY_Controller
 					$transaction->checkout = 0;
 					$transaction->status_payment = Transaction_m::STATUS_WAITING;
 					$transaction->member_id = $bill_to;
+					$transaction->email_group = $email_group;
 					$transaction->save();
 					$transaction->id = $id;
 				}
@@ -377,13 +379,13 @@ class Register extends MY_Controller
 						}
 
 						if (!$dataMember) {
-							$this->Notification_m->sendMessageWithAttachment($data['email'], 'Registration Success', $email_message, $attc);
+							// $this->Notification_m->sendMessageWithAttachment($data['email'], 'Registration Success', $email_message, $attc);
 						}
 					}
 				}
-				$this->Notification_m->sendMessageWithAttachment($tr->email_group, 'Registration Success',"Your group registration success",[
-					'invoice.pdf'=>$invoiceDataPdf,
-				]);
+				// $this->Notification_m->sendMessageWithAttachment($tr->email_group, 'Registration Success',"Your group registration success",[
+				// 	'invoice.pdf'=>$invoiceDataPdf,
+				// ]);
 
 
 				$error['transactions'] = $this->getTransactions($transaction);
@@ -396,6 +398,7 @@ class Register extends MY_Controller
 						'data' => [
 							'bill_to' => $bill_to_input,
 							'id_invoice' => $id_invoice,
+							'email_group' => $email_group,
 							'members' => $members,
 							'validation_error' => array_merge($model['validation_error'], [
 								'eventAdded' => (count($eventAdded) == 0)  ? 'Choose at least 1 event' : '',

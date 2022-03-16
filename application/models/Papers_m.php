@@ -74,6 +74,7 @@ class Papers_m extends MY_Model
 		$default =  [
 			'relationships' => [
 				'member' => ['members', 'member.id = member_id'],
+				'kategory_members' => ['kategory_members','member.status = kategory_members.id'],
 				'category_paper' => ['category_paper', 'category_paper.id = category', 'left'],
 				'st' => ['settings', 'st.name = "format_id_paper"', "left"]
 			],
@@ -83,6 +84,7 @@ class Papers_m extends MY_Model
 				't_id' => 't.id', 'fullname',
 				'title',
 				'status' => 't.status',
+				'status_member'=>'kategory',
 				't_created_at' => 't.created_at',
 				'm_id' => 'member.id',
 				'author' => 'member.fullname',

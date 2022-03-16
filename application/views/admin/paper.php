@@ -207,6 +207,10 @@ $this->layout->end_head();
 							Hidden
 						</template>
 					<?php endif; ?>
+					<template slot="fullname" slot-scope="props">
+						{{ props.row.fullname }} <br/>
+						<span class="badge badge-info">{{  props.row.status_member }}</span>
+					</template>
 					<template slot="status" slot-scope="props">{{ status[props.row.status] }}<br />
 						<a class="badge badge-info" :href="'<?= base_url('admin/paper/file'); ?>/'+props.row.filename+'/'+props.row.t_id+'/Abstract'" target="_blank" v-if="props.row.filename">Abstract</a>
 					</template>

@@ -34,6 +34,13 @@ $this->layout->begin_head();
 							</div>
 						</div>
 
+						<div class="form-group row">
+							<label class="col-lg-3 control-label">Your Email* <small>(Invoice will be sent  to this email)</label>
+							<div class="col-lg-5">
+								<input type="text" :class="{'is-invalid': validation_error.email_group}" class="form-control" placeholder="Bill To" v.model="model.email_group" name="email_group" />
+								<div v-if="validation_error.email_group" class="invalid-feedback" v-html="validation_error.email_group"></div>
+							</div>
+						</div>
 						<!-- NOTE Status Participant -->
 						<div class="form-group row">
 							<label class="col-lg-3 control-label">Status Participant</label>
