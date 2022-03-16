@@ -165,16 +165,18 @@ class Event_m extends MY_Model
 				event_pricing.price as price_r,
 				event_pricing.price_in_usd as price_in_usd,
 				event_pricing.id as id_price,
+				evt.name as event_required,
 				td.id as followed,
 				COALESCE(checkout,0) as checkout,
 				tr.status_payment
 			")
 			->select("condition,
 				condition_date,
-				kategory,
+				t.kategory,
 				t.special_link")
 			->where($filter)
 			->join("event_pricing", "t.id = event_id")
+			->join("events evt", "evt.id = t.event_required", 'left')
 			->join("transaction_details td", "td.event_pricing_id = event_pricing.id AND td.member_id = '$member_id'", "left")
 			->join("transaction tr", "tr.id = td.transaction_id", "left")
 			->order_by("t.id,event_pricing.name,event_pricing.condition_date")->get();
@@ -220,6 +222,7 @@ class Event_m extends MY_Model
 				$return[$index] = [
 					'id' => $row['id_event'],
 					'name' => $row['event_name'],
+					'event_required' => $row['event_required'],
 					'category' => $row['kategory'],
 					'special_link' => ($row['special_link'] != "" && $row['special_link'] != "null" ? json_decode($row['special_link']) : []),
 					'kouta' => intval($row['kouta']),
@@ -402,5 +405,26 @@ class Event_m extends MY_Model
 		} else {
 			throw new ErrorException("Template of Certificate not found !");
 		}
+	}
+
+	/**
+	 * getRequiredEvent
+	 *
+	 * description
+	 *
+	 * @return void
+	 */
+	public function getRequiredEvent($event_id, $member_id)
+	{
+		$this->db->select('e.id,
+			e.name,
+			t.status_payment')
+			->from('events e')
+			->join('event_pricing ep', 'ep.event_id = e.id')
+			->join('transaction_details td', 'td.event_pricing_id = ep.id')
+			->join('transaction t', 't.id = td.transaction_id')
+			->where('e.id', $event_id)
+			->where('t.member_id', $member_id);
+		return $this->db->get()->row();
 	}
 }
