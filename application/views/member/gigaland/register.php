@@ -376,7 +376,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                                                         <div v-for="(event, index) in filteredEvent" class="card card-default mt-2" v-bind:key="index">
                                                             <div class="card-header">
                                                                 <h4 class="card-title m-0" style="color:#F5AC39">
-                                                                    {{ event.name }}
+                                                                    {{ event.name }} <span style="font-size: 14px;" v-if="event.event_required">(You must follow event {{ event.event_required }} to patcipate this event)</span>
                                                                 </h4>
                                                             </div>
                                                             <div :id="'accordion-'+index" class="collapse show table-responsive">
@@ -721,7 +721,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                     } else {
                         console.log(e.target, $(e.target));
                         $(e.target).prop('checked', false);
-                        Swal.fire('Info', `Must choose event ${event_required} !`, 'info');
+                        Swal.fire('Info', `You must follow event ${event_required} to patcipate this event !`, 'info');
                     }
                 } else {
                     $(`.${event_name}`).prop('checked', false);
