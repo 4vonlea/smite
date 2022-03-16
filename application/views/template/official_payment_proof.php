@@ -182,7 +182,7 @@ $isGroup = ($member == null);
 				?>
 			</div>
 		</div>
-		<small style="font-size:9pt">*The amount price above does not include online bank payment administration fees</small>
+		<small style="font-size:9pt;clear:both">*The amount price above does not include online bank payment administration fees</small>
 
 		<p>
 			This payment proof (receipt) is a valid proof and is used properly. Participants must show this receipt to the committee at the time of re-registration. Thank you
