@@ -316,7 +316,32 @@ class Area extends MY_Controller
 			$feeAlready = true;
 		}
 
-		if ($this->Event_m->validateFollowing($data['id'], $this->session->user_session['status_name'])) {
+		// NOTE Check Required Events
+		$valid = true;
+		$message = '';
+
+		$findEvent = $this->Event_m->findOne(['id' => $data['event_id']]);
+		if ($findEvent && $findEvent->event_required) {
+			$cek = $this->Event_m->getRequiredEvent($findEvent->event_required, $this->session->user_session['id']);
+			// NOTE Data Required Event
+			$dataEvent = $this->Event_m->findOne(['id' => $findEvent->event_required]);
+			if ($cek) {
+				if ($cek->status_payment == Transaction_m::STATUS_FINISH) {
+					$valid = true;
+				} else if (in_array($cek->status_payment, [Transaction_m::STATUS_WAITING, Transaction_m::STATUS_PENDING])) {
+					$valid = false;
+					$message = "Not Available, please complete the payment !";
+				} else {
+					$valid = false;
+					$message = "You must follow event {$dataEvent->name} to patcipate this event !";
+				}
+			} else {
+				$valid = false;
+				$message = "You must follow event {$dataEvent->name} to patcipate this event !";
+			}
+		}
+
+		if ($this->Event_m->validateFollowing($data['id'], $this->session->user_session['status_name']) && $valid) {
 
 			// NOTE Harga sesuai dengan database
 			$price = $this->Event_pricing_m->findOne(['id' => $data['id'], 'condition' => $this->session->user_session['status_name']]);
@@ -344,7 +369,7 @@ class Area extends MY_Controller
 			}
 		} else {
 			$response['status'] = false;
-			$response['message'] = "You are prohibited from following !";
+			$response['message'] = $message ?? "You are prohibited from following !";
 		}
 		$this->Transaction_m->getDB()->trans_complete();
 
