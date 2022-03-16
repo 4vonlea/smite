@@ -379,13 +379,13 @@ class Register extends MY_Controller
 						}
 
 						if (!$dataMember) {
-							// $this->Notification_m->sendMessageWithAttachment($data['email'], 'Registration Success', $email_message, $attc);
+							$this->Notification_m->sendMessageWithAttachment($data['email'], 'Registration Success', $email_message, $attc);
 						}
 					}
 				}
-				// $this->Notification_m->sendMessageWithAttachment($tr->email_group, 'Registration Success',"Your group registration success",[
-				// 	'invoice.pdf'=>$invoiceDataPdf,
-				// ]);
+				$this->Notification_m->sendMessageWithAttachment($tr->email_group, 'Registration Success',"Your group registration success",[
+					'invoice.pdf'=>$invoiceDataPdf,
+				]);
 
 
 				$error['transactions'] = $this->getTransactions($transaction);
