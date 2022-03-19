@@ -269,7 +269,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                                                 <div v-for="(event, index) in filteredEvent" class="card card-default mt-2" v-bind:key="index">
                                                     <div class="card-header">
                                                         <h4 class="card-title m-0" style="color:#F5AC39">
-                                                            {{ event.name }}
+                                                            {{ event.name }} <span style="font-size: 14px;" v-if="event.event_required">(You must follow event {{ event.event_required }} to patcipate this event)</span>
                                                         </h4>
                                                     </div>
                                                     <div :id="'accordion-'+index" class="collapse show table-responsive">
@@ -296,7 +296,7 @@ $theme_path = base_url("themes/gigaland") . "/";
 
 
                                                                                 <div v-if="member == status_text" class="de-switch mt-2" style="background-size: cover;">
-                                                                                    <input type="checkbox" :id="`switch-unlock_${member}_${event.name}`" :value="pricing.pricing[member].added" class="checkbox" v-model="pricing.pricing[member].added" @click="addEvent($event,pricing.pricing[member],member,event.name)">
+                                                                                    <input type="checkbox" :id="`switch-unlock_${member}_${event.name}`" :value="pricing.pricing[member].added" class="checkbox" :class="event.event_required" v-model="pricing.pricing[member].added" @click="addEvent($event,pricing.pricing[member],member,event.name,event.event_required)">
                                                                                     <label :for="`switch-unlock_${member}_${event.name}`"></label>
                                                                                 </div>
                                                                                 <div v-else>
@@ -311,8 +311,11 @@ $theme_path = base_url("themes/gigaland") . "/";
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div v-if="validation_error.eventAdded" style="font-size: .875em;color: #dc3545;">
+                                                <div v-if="validation_error.eventAdded" style="font-size: .875em;color: #F2AC38;">
                                                     {{ validation_error.eventAdded }}
+                                                </div>
+                                                <div v-if="validation_error.requiredEvent" style="font-size: 1em;color: #F2AC38;">
+                                                    {{ validation_error.requiredEvent }}
                                                 </div>
                                             </div>
                                         </div>
@@ -702,17 +705,28 @@ $theme_path = base_url("themes/gigaland") . "/";
                 }).format(price);
             },
             // NOTE Menambah dan Menghapus Event
-            addEvent(e, event, member, event_name) {
-
-                if (e.target.checked) {
-                    event.member_status = member;
-                    event.event_name = event_name;
-
-                    this.eventAdded.push(event);
-                } else {
-                    this.eventAdded = app.eventAdded.filter(data => data.id != event.id);
+            addEvent(e, event, member, event_name, event_required = '') {
+                let isRequired = true;
+                if (event_required != null) {
+                    find = this.eventAdded.find(data => data.event_name == event_required);
+                    isRequired = find ? true : false;
                 }
+                if (e.target.checked) {
+                    if (isRequired) {
+                        event.member_status = member;
+                        event.event_name = event_name;
+                        event.event_required = event_required;
 
+                        this.eventAdded.push(event);
+                    } else {
+                        console.log(e.target, $(e.target));
+                        $(e.target).prop('checked', false);
+                        Swal.fire('Info', `You must follow event ${event_required} to patcipate this event !`, 'info');
+                    }
+                } else {
+                    $(`.${event_name}`).prop('checked', false);
+                    this.eventAdded = app.eventAdded.filter(data => data.id != event.id && data.event_required != event_name);
+                }
             },
             formatDate(date) {
                 return moment(date).format("DD MMM YYYY, [At] HH:mm:ss");

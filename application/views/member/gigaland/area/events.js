@@ -1,5 +1,5 @@
 export default Vue.component("PageEvents", {
-	template: `
+    template: `
         <div class="col-lg-12">
             <page-loader :loading="loading" :fail="fail"></page-loader>
             <div v-if="!fail">            
@@ -26,12 +26,12 @@ export default Vue.component("PageEvents", {
 							<div  v-for="(event, index) in events" class="card card-default" v-bind:key="index">
 								<div class="card-header">
 									<h4 class="card-title m-0" style="color:#F5AC39">
-										{{ event.name }}
+										{{ event.name }} <span style="font-size: 14px;" v-if="event.event_required">(You must follow event {{ event.event_required }} to patcipate this event)</span>
 									</h4>
 								</div>
 								<div :id="'accordion-'+index" class="collapse show table-responsive">
 										<div class="alert alert-success text-center" v-if="event.followed">
-											<h5>You follow this event</h5>
+											<h5 class="mb-0" style="color: black;">You follow this event</h5>
 											<!--<a class="btn btn-default" :href="'<?=base_url('member/area/card');?>/'+event.id+'/'+user.id" target="_blank">Download Name Tag</a>-->
 											<!--<a class="btn btn-default" :href="'<?=base_url('member/area/certificate');?>/'+event.id+'/'+user.id" target="_blank">Download Certificate</a>-->
 										</div>
@@ -56,7 +56,7 @@ export default Vue.component("PageEvents", {
 																<span v-show="pricing.pricing[member].price != 0 && pricing.pricing[member].price_in_usd != 0"> / </span>
 																<span v-show="pricing.pricing[member].price_in_usd != 0">{{formatCurrency(pricing.pricing[member].price_in_usd, 'USD')}}</span>
 
-																<button @click="addToCart(pricing.pricing[member],member,event.name)" v-if="pricing.pricing[member].available && !pricing.pricing[member].added && !pricing.pricing[member].waiting_payment" :disabled="adding"  class="btn btn-sm btn-warning"><i v-if="adding" class="fa fa-spin fa-spinner"></i> Add To Cart</button>
+																<button @click="addToCart(pricing.pricing[member],member,event.name,event.id)" v-if="pricing.pricing[member].available && !pricing.pricing[member].added && !pricing.pricing[member].waiting_payment" :disabled="adding"  class="btn btn-sm btn-warning"><i v-if="adding" class="fa fa-spin fa-spinner"></i> Add To Cart</button>
 																<button v-if="!pricing.pricing[member].available" style="cursor:not-allowed;color:#fff;" aria-disabled="true"  disabled class="btn btn-sm btn-danger">Not Available</button>
 																<button v-if="pricing.pricing[member].waiting_payment" style="cursor:not-allowed;color:#fff;" aria-disabled="true"  disabled class="btn btn-sm btn-info">Waiting Payment</button>
 																<button v-if="pricing.pricing[member].added" style="cursor:default;color:#fff;" aria-disabled="true"  disabled class="btn btn-sm btn-success">Added</button>
@@ -79,75 +79,76 @@ export default Vue.component("PageEvents", {
             </div>
         </div>
     `,
-	data: function () {
-		return {
-			loading: false,
-			fail: false,
-			user: {},
-			adding:false,
-			events: null,
-		}
-	},
-	created() {
-		this.fetchEvents()
-	},
-	watch: {
-		'$route': 'fetchEvents'
-	},
-	computed:{
-		countAdded(){
-			var count = 0;
-			for(var event in this.events){
-				for(var pricingName in this.events[event].pricingName){
-					for(var pricing in this.events[event].pricingName[pricingName].pricing ){
-						if(this.events[event].pricingName[pricingName].pricing[pricing].added == 1 && !this.events[event].followed) {
-							count++;
-						}
-					}
-				}
-			}
-			return count;
-		}
-	},
-	methods: {
-		addToCart(event,member,event_name){
-			var page = this;
-			this.adding  = true;
-			event.member_status = member;
-			event.event_name = event_name;
-			$.post(this.baseUrl+"add_cart",event,function (res) {
-				if(res.status) {
-					event.added = 1;
-				}else{
-					Swal.fire('Fail',res.message,'warning');
-				}
-			}).fail(function () {
-				Swal.fire('Fail',"Failed adding to cart !",'error');
-			}).always(function () {
-				page.adding  = false;
-			});
-		},
-		fetchEvents() {
-			var page = this;
-			page.loading = true;
-			page.fail = false;
-			$.post(this.baseUrl + "get_events", null, function (res) {
-				if (res.status) {
-					page.events = res.events;
-				} else {
-					page.fail = true;
-				}
-			}).fail(function () {
-				page.fail = true;
-			}).always(function () {
-				page.loading = false;
-			});
-		},
-		formatCurrency(price, currency = 'IDR'){
-			return new Intl.NumberFormat("id-ID",{ 
-				style: 'currency',
-				currency: currency
-			}).format(price);
-		}
-	}
+    data: function() {
+        return {
+            loading: false,
+            fail: false,
+            user: {},
+            adding: false,
+            events: null,
+        }
+    },
+    created() {
+        this.fetchEvents()
+    },
+    watch: {
+        '$route': 'fetchEvents'
+    },
+    computed: {
+        countAdded() {
+            var count = 0;
+            for (var event in this.events) {
+                for (var pricingName in this.events[event].pricingName) {
+                    for (var pricing in this.events[event].pricingName[pricingName].pricing) {
+                        if (this.events[event].pricingName[pricingName].pricing[pricing].added == 1 && !this.events[event].followed) {
+                            count++;
+                        }
+                    }
+                }
+            }
+            return count;
+        }
+    },
+    methods: {
+        addToCart(event, member, event_name, event_id) {
+            var page = this;
+            this.adding = true;
+            event.member_status = member;
+            event.event_name = event_name;
+            event.event_id = event_id;
+            $.post(this.baseUrl + "add_cart", event, function(res) {
+                if (res.status) {
+                    event.added = 1;
+                } else {
+                    Swal.fire('Fail', res.message, 'warning');
+                }
+            }).fail(function() {
+                Swal.fire('Fail', "Failed adding to cart !", 'error');
+            }).always(function() {
+                page.adding = false;
+            });
+        },
+        fetchEvents() {
+            var page = this;
+            page.loading = true;
+            page.fail = false;
+            $.post(this.baseUrl + "get_events", null, function(res) {
+                if (res.status) {
+                    page.events = res.events;
+                } else {
+                    page.fail = true;
+                }
+            }).fail(function() {
+                page.fail = true;
+            }).always(function() {
+                page.loading = false;
+            });
+        },
+        formatCurrency(price, currency = 'IDR') {
+            return new Intl.NumberFormat("id-ID", {
+                style: 'currency',
+                currency: currency
+            }).format(price);
+        }
+    }
 });
