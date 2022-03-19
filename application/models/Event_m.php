@@ -54,12 +54,14 @@ class Event_m extends MY_Model
 
 		$filter = ($isManual ? [] : ['show' => '1']);
 		$this->load->model("Transaction_m");
-		$result = $this->setAlias("t")->find()->select("t.name as event_name,
+		$result = $this->setAlias("t")->find()->select("t.id as id_event,
+				t.name as event_name,
 				event_pricing.name as name_pricing,
 				event_pricing.price as price_r,
 				event_pricing.price_in_usd as price_in_usd,
 				event_pricing.id as id_price,
-				evt.name as event_required
+				evt.name as event_required,
+				t.event_required as event_required_id,
 			")
 			->select("condition,
 				condition_date,
@@ -101,9 +103,11 @@ class Event_m extends MY_Model
 			if ($temp != $row['event_name'] && $avalaible) {
 				$index++;
 				$return[$index] = [
+					'id' => $row['id_event'],
 					'name' => $row['event_name'],
 					'category' => $row['kategory'],
 					'event_required' => $row['event_required'],
+					'event_required_id' => $row['event_required_id'],
 					'pricingName' => [
 						[
 							'name' => $row['name_pricing'],
@@ -111,6 +115,9 @@ class Event_m extends MY_Model
 							'pricing' => [
 								$row['condition'] => [
 									'id' => $row['id_price'],
+									'id_event' => $row['id_event'],
+									'event_required' => $row['event_required'],
+									'event_required_id' => $row['event_required_id'],
 									'price' => $row['price_r'],
 									'price_in_usd' => $row['price_in_usd'],
 									'available' => $avalaible
@@ -166,6 +173,7 @@ class Event_m extends MY_Model
 				event_pricing.price_in_usd as price_in_usd,
 				event_pricing.id as id_price,
 				evt.name as event_required,
+				t.event_required as event_required_id,
 				td.id as followed,
 				COALESCE(checkout,0) as checkout,
 				tr.status_payment
@@ -223,6 +231,7 @@ class Event_m extends MY_Model
 					'id' => $row['id_event'],
 					'name' => $row['event_name'],
 					'event_required' => $row['event_required'],
+					'event_required_id' => $row['event_required_id'],
 					'category' => $row['kategory'],
 					'special_link' => ($row['special_link'] != "" && $row['special_link'] != "null" ? json_decode($row['special_link']) : []),
 					'kouta' => intval($row['kouta']),
@@ -235,6 +244,9 @@ class Event_m extends MY_Model
 							'pricing' => [
 								$row['condition'] => [
 									'id' => $row['id_price'],
+									'id_event' => $row['id_event'],
+									'event_required' => $row['event_required'],
+									'event_required_id' => $row['event_required_id'],
 									'price' => $row['price_r'],
 									'price_in_usd' => $row['price_in_usd'],
 									'available' => $avalaible,

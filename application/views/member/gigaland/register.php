@@ -379,51 +379,51 @@ $theme_path = base_url("themes/gigaland") . "/";
                                                 </div>
                                                 <div class="row">
                                                     <div class="accordion accordion-quaternary col-md-12">
-                                                        <div v-for="(event, index) in filteredEvent"  v-bind:key="index">
-                                                            <div class="card card-default mt-2" v-if="showCategory == event.category">
-                                                            <div class="card-header">
-                                                                <h4 class="card-title m-0" style="color:#F5AC39">
-                                                                    {{ event.name }} 
-                                                                    <br/><span style="font-size: 14px;" v-if="event.event_required">(You must follow event "{{ event.event_required }}" to participate this event)</span>
-                                                                </h4>
-                                                            </div>
-                                                            <div :id="'accordion-'+index" class="collapse show table-responsive">
-                                                                <div>
-                                                                    <div v-if="event.participant >= event.kouta" class="alert alert-warning text-center">
-                                                                        <h4>Sorry, quota for this event is full</h4>
-                                                                    </div>
-                                                                    <table class="table text-light">
-                                                                        <thead>
-                                                                            <tr>
-                                                                                <th>Category</th>
-                                                                                <th v-for="pricing in event.pricingName" class="text-center"><span v-html="pricing.title"></span></th>
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                            <tr v-for="member in event.memberStatus">
-                                                                                <td>{{ member }}</td>
-                                                                                <td v-for="pricing in event.pricingName" class="text-center">
-                                                                                    <span v-if="pricing.pricing[member]">
-
-                                                                                        <span v-show="pricing.pricing[member].price != 0">{{ formatCurrency(pricing.pricing[member].price) }}</span>
-                                                                                        <span v-show="pricing.pricing[member].price != 0 && pricing.pricing[member].price_in_usd != 0"> / </span>
-                                                                                        <span v-show="pricing.pricing[member].price_in_usd != 0">{{formatCurrency(pricing.pricing[member].price_in_usd, 'USD')}}</span>
-
-                                                                                        <div v-if="member == status_text" class="de-switch mt-2" style="background-size: cover;">
-                                                                                            <input type="checkbox" :id="`switch-unlock_${member}_${event.name}`" :value="pricing.pricing[member].added" class="checkbox" :class="event.event_required" v-model="pricing.pricing[member].added" @click="addEvent($event,pricing.pricing[member],member,event.name,event.event_required)">
-                                                                                            <label :for="`switch-unlock_${member}_${event.name}`"></label>
-                                                                                        </div>
-                                                                                        <div v-else>
-                                                                                            <button type="button" v-if="member != status_text" style="cursor:not-allowed;color:#fff;" aria-disabled="true" disabled class="btn btn-sm btn-danger">Not Available</button>
-                                                                                        </div>
-                                                                                        <!-- <button type="button" @click="addEvent(pricing.pricing[member],member,event.name)" v-if="member == status_text" :disabled="pricing.pricing[member].added" class="btn btn-sm btn-warning">Add Event</button> -->
-                                                                                    </span>
-                                                                                </td>
-                                                                            </tr>
-                                                                        </tbody>
-                                                                    </table>
+                                                        <div v-for="(event, index) in filteredEvent" v-bind:key="index">
+                                                            <div class="card card-default mt-2" v-show="showCategory == event.category">
+                                                                <div class="card-header">
+                                                                    <h4 class="card-title m-0" style="color:#F5AC39">
+                                                                        {{ event.name }}
+                                                                        <br /><span style="font-size: 14px;" v-if="event.event_required">(You must follow event "{{ event.event_required }}" to participate this event)</span>
+                                                                    </h4>
                                                                 </div>
-                                                            </div>
+                                                                <div :id="'accordion-'+index" class="collapse show table-responsive">
+                                                                    <div>
+                                                                        <div v-if="event.participant >= event.kouta" class="alert alert-warning text-center">
+                                                                            <h4>Sorry, quota for this event is full</h4>
+                                                                        </div>
+                                                                        <table class="table text-light">
+                                                                            <thead>
+                                                                                <tr>
+                                                                                    <th>Category</th>
+                                                                                    <th v-for="pricing in event.pricingName" class="text-center"><span v-html="pricing.title"></span></th>
+                                                                                </tr>
+                                                                            </thead>
+                                                                            <tbody>
+                                                                                <tr v-for="member in event.memberStatus">
+                                                                                    <td>{{ member }}</td>
+                                                                                    <td v-for="pricing in event.pricingName" class="text-center">
+                                                                                        <span v-if="pricing.pricing[member]">
+
+                                                                                            <span v-show="pricing.pricing[member].price != 0">{{ formatCurrency(pricing.pricing[member].price) }}</span>
+                                                                                            <span v-show="pricing.pricing[member].price != 0 && pricing.pricing[member].price_in_usd != 0"> / </span>
+                                                                                            <span v-show="pricing.pricing[member].price_in_usd != 0">{{formatCurrency(pricing.pricing[member].price_in_usd, 'USD')}}</span>
+
+                                                                                            <div v-if="member == status_text" class="de-switch mt-2" style="background-size: cover;">
+                                                                                                <input type="checkbox" :id="`switch-unlock_${member}_${event.name}`" :value="pricing.pricing[member].added" class="checkbox" :class="pricing.pricing[member].event_required_id" v-model="pricing.pricing[member].added" @click="addEvent($event,pricing.pricing[member],member,event.name)">
+                                                                                                <label :for="`switch-unlock_${member}_${event.name}`"></label>
+                                                                                            </div>
+                                                                                            <div v-else>
+                                                                                                <button type="button" v-if="member != status_text" style="cursor:not-allowed;color:#fff;" aria-disabled="true" disabled class="btn btn-sm btn-danger">Not Available</button>
+                                                                                            </div>
+                                                                                            <!-- <button type="button" @click="addEvent(pricing.pricing[member],member,event.name)" v-if="member == status_text" :disabled="pricing.pricing[member].added" class="btn btn-sm btn-warning">Add Event</button> -->
+                                                                                        </span>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            </tbody>
+                                                                        </table>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                         <div class="card card-default mt-2">
@@ -516,7 +516,7 @@ $theme_path = base_url("themes/gigaland") . "/";
             isEmail: false,
             data: {},
             isUsd: false,
-            showCategory:'',
+            showCategory: '',
         },
         mounted: function() {
 
@@ -534,16 +534,16 @@ $theme_path = base_url("themes/gigaland") . "/";
                     desc: sp[1]
                 });
             })
-            if(this.events.length > 0){
+            if (this.events.length > 0) {
                 this.showCategory = this.events[0].category
             }
             this.paymentMethod = tempPayment;
         },
         computed: {
-            eventCategory(){
+            eventCategory() {
                 let category = [];
-                this.events.forEach(function(val){
-                    if(category.includes(val.category) == false){
+                this.events.forEach(function(val) {
+                    if (category.includes(val.category) == false) {
                         category.push(val.category);
                     }
                 });
@@ -726,32 +726,42 @@ $theme_path = base_url("themes/gigaland") . "/";
                 }).format(price);
             },
             // NOTE Menambah dan Menghapus Event
-            checkRequirement(event_required){
+            checkRequirement(event_required_id) {
                 let isRequired = true;
-                if (event_required != null) {
-                    find = this.eventAdded.find(data => data.event_name == event_required);
+                if (event_required_id != null && event_required_id != 0) {
+                    find = this.eventAdded.find(data => data.id_event == event_required_id);
                     isRequired = find ? true : false;
                 }
                 return isRequired;
             },
-            addEvent(e, event, member, event_name, event_required = '') {
-                let isRequired = this.checkRequirement(event_required);
+            addEvent(e, event, member, event_name) {
+                let isRequired = this.checkRequirement(event.event_required_id);
                 if (e.target.checked) {
                     if (isRequired) {
                         event.member_status = member;
                         event.event_name = event_name;
-                        event.event_required = event_required;
-
                         this.eventAdded.push(event);
                     } else {
-                        console.log(e.target, $(e.target));
                         $(e.target).prop('checked', false);
-                        Swal.fire('Info', `You must follow event ${event_required} to participate this event !`, 'info');
+                        Swal.fire('Info', `You must follow event <b>"${event.event_required}"</b> to participate this event !`, 'info');
                     }
                 } else {
-                    $(`.${event_name}`).prop('checked', false);
-                    this.eventAdded = app.eventAdded.filter(data => data.id != event.id && data.event_required != event_name);
+                    let eventId = event.id_event;
+                    app.removeEvent(event.id_event);
                 }
+            },
+            removeEvent(id) {
+                app.eventAdded.forEach((data) => {
+                    if (id != 'undefined') {
+                        if (data.id_event == id) {
+                            app.eventAdded = app.eventAdded.filter(data => data.id_event != id);
+                            $(`.${data.id_event}`).prop('checked', false);
+                        }
+                        if (data.event_required_id == id) {
+                            app.removeEvent(data.id_event);
+                        }
+                    }
+                });
             },
             formatDate(date) {
                 return moment(date).format("DD MMM YYYY, [At] HH:mm:ss");

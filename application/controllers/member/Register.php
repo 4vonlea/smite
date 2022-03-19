@@ -33,12 +33,11 @@ class Register extends MY_Controller
 		if ($this->input->post()) {
 
 			$eventAdded = json_decode($this->input->post('eventAdded'));
-
 			// NOTE Validasi Event Required
 			$isRequired = 0;
 			foreach ($eventAdded as $key => $value) {
-				if ($value->event_required != '') {
-					$findRequired = array_search($value->event_required, array_column($eventAdded, 'event_name'));
+				if ($value->event_required_id != '') {
+					$findRequired = array_search($value->event_required_id, array_column($eventAdded, 'id_event'));
 					if ($findRequired === false) {
 						$isRequired += 1;
 					}
@@ -407,8 +406,8 @@ class Register extends MY_Controller
 						}
 					}
 				}
-				$this->Notification_m->sendMessageWithAttachment($tr->email_group, 'Registration Success',"Your group registration success",[
-					'invoice.pdf'=>$invoiceDataPdf,
+				$this->Notification_m->sendMessageWithAttachment($tr->email_group, 'Registration Success', "Your group registration success", [
+					'invoice.pdf' => $invoiceDataPdf,
 				]);
 
 
@@ -445,14 +444,14 @@ class Register extends MY_Controller
 				'paymentMethod' => Settings_m::getEnablePayment(),
 			];
 
-			if($id_invoice) {
+			if ($id_invoice) {
 				$transaction = $this->Transaction_m->findOne($id_invoice);
 				$error['transactions'] = $this->getTransactions($transaction);
 				$bill_to = $transaction->member_id;
-				$bill_to_input = str_replace("REGISTER-GROUP : ","",$transaction->member_id);
-				$listMember = $this->Transaction_detail_m->find()->where("transaction_id",$id_invoice)
-						->join("members","members.id = transaction_details.member_id")->select("members.*")
-						->get()->result();
+				$bill_to_input = str_replace("REGISTER-GROUP : ", "", $transaction->member_id);
+				$listMember = $this->Transaction_detail_m->find()->where("transaction_id", $id_invoice)
+					->join("members", "members.id = transaction_details.member_id")->select("members.*")
+					->get()->result();
 				$members = [];
 				foreach ($listMember as $key => $dataMember) {
 					$members[$key]['id_invoice'] = $id_invoice;
@@ -464,21 +463,21 @@ class Register extends MY_Controller
 					$members[$key]['country'] = $dataMember->country;
 					$members[$key]['birthday'] = $dataMember->birthday;
 					$members[$key]['sponsor'] = $bill_to_input;
-	
+
 					$members[$key]['status'] = $dataMember->status;
 				}
 				$data['continueTransaction'] = (array_merge(
-						$error,
-						[
-							'status' => $status,
-							'data' => [
-								'bill_to' => $bill_to_input,
-								'id_invoice' => $id_invoice,
-								'email_group' => $transaction->email_group,
-								'members' => $members,
-								'validation_error' =>[],
-							]
+					$error,
+					[
+						'status' => $status,
+						'data' => [
+							'bill_to' => $bill_to_input,
+							'id_invoice' => $id_invoice,
+							'email_group' => $transaction->email_group,
+							'members' => $members,
+							'validation_error' => [],
 						]
+					]
 				));
 			}
 			$this->layout->render('member/' . $this->theme . '/register_group', $data);
@@ -531,7 +530,7 @@ class Register extends MY_Controller
 		$events = $this->Event_m->eventAvailableNow();
 		return $events;
 	}
-	
+
 	/**
 	 * transactions
 	 *
