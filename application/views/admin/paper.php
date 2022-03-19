@@ -177,6 +177,13 @@ $this->layout->end_head();
 						</button>
 						<button type="button" class="btn btn-primary m-2" data-toggle="modal" data-target="#modal-category-paper"><i class="fa fa-book"></i> Category Paper
 						</button>
+
+					</div>
+				</div>
+			</div>
+			<div class="table-responsive">
+				<div class="row">
+					<div class="col-md-12">
 						<div class="dropdown">
 							<button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 								Filter by Category Paper
@@ -186,10 +193,17 @@ $this->layout->end_head();
 								<a v-for="(cat,index) in categoryPaper" class="dropdown-item" href="#" @click="filterGrid(cat.id)">{{ cat.name }}</a>
 							</div>
 						</div>
+						<div class="dropdown">
+							<button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Filter by {{ filterStatusLabel }}
+							</button>
+							<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+								<span class="dropdown-item" href="#" @click="filterStatus('all','Status Member')">All Status</span>
+								<span v-for="(cat,index) in categoryMember" class="dropdown-item" href="#" @click="filterStatus(cat.id,cat.kategory)">{{ cat.kategory }}</span>
+							</div>
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="table-responsive">
 				<datagrid @loaded_data="loadedGrid" ref="datagrid" :api-url="apiUrl" :fields="[
 						{name:'id_paper',sortField:'id_paper','title':'ID Paper'},
 						{name:'category_name',sortField:'category_name','title':'Category Paper'},
@@ -208,8 +222,8 @@ $this->layout->end_head();
 						</template>
 					<?php endif; ?>
 					<template slot="fullname" slot-scope="props">
-						{{ props.row.fullname }} <br/>
-						<span class="badge badge-info">{{  props.row.status_member }}</span>
+						{{ props.row.fullname }} <br />
+						<span class="badge badge-info">{{ props.row.status_member }}</span>
 					</template>
 					<template slot="status" slot-scope="props">{{ status[props.row.status] }}<br />
 						<a class="badge badge-info" :href="'<?= base_url('admin/paper/file'); ?>/'+props.row.filename+'/'+props.row.t_id+'/Abstract'" target="_blank" v-if="props.row.filename">Abstract</a>
@@ -713,7 +727,9 @@ $this->layout->end_head();
 			},
 			new_category_paper: '',
 			categoryPaper: <?= json_encode($categoryPaper); ?>,
+			categoryMember: <?= json_encode($categoryMember); ?>,
 			filteredPaper: "",
+			filterStatusLabel:'Status Member',
 		},
 		filters: {
 			formatDate: function(val) {
@@ -734,7 +750,16 @@ $this->layout->end_head();
 				console.log(this.filteredPaper);
 				app.$refs.datagrid.refresh();
 			},
+			filterStatus(id,label){
+				if(id != "all"){
+					app.$refs.datagrid.additionalQuery = {'filterStatus':id};
+				}else{
+					app.$refs.datagrid.additionalQuery = {};
+				}
+				this.filterStatusLabel = label;
+				app.$refs.datagrid.doFilter();
 
+			},
 			// NOTE Category Paper
 			addCategoryPaper: function() {
 				if (this.new_status != "") {

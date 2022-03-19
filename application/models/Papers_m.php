@@ -142,8 +142,10 @@ class Papers_m extends MY_Model
 			->select("SUM(IF(status = 3,1,0)) as stat_3");
 
 
-		if (isset($gridConfig['filter']))
+		if (isset($gridConfig['filter'])){
+			unset($gridConfig['filter']['kategory_members.id']);
 			$db->where($gridConfig['filter']);
+		}
 
 		$result = $db->get()->row_array();
 		$data = array_merge($data, $result);

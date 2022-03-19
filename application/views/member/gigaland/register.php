@@ -370,13 +370,21 @@ $theme_path = base_url("themes/gigaland") . "/";
                                                         Please select the event you want. We suggest you to make a payment immediately (credit card or virtual account) after checkout. *the price exclude administration fee
                                                     </div>
                                                 </div>
-
+                                                <div class="row mt-2">
+                                                    <ul class="nav nav-tabs">
+                                                        <li v-for="cat in eventCategory" class="nav-item">
+                                                            <span class="nav-link" @click="showCategory = cat" :class="{'active':showCategory == cat}">{{ cat }}</span>
+                                                        </li>
+                                                    </ul>
+                                                </div>
                                                 <div class="row">
                                                     <div class="accordion accordion-quaternary col-md-12">
-                                                        <div v-for="(event, index) in filteredEvent" class="card card-default mt-2" v-bind:key="index">
+                                                        <div v-for="(event, index) in filteredEvent"  v-bind:key="index">
+                                                            <div class="card card-default mt-2" v-if="showCategory == event.category">
                                                             <div class="card-header">
                                                                 <h4 class="card-title m-0" style="color:#F5AC39">
-                                                                    {{ event.name }} <span style="font-size: 14px;" v-if="event.event_required">(You must follow event {{ event.event_required }} to patcipate this event)</span>
+                                                                    {{ event.name }} 
+                                                                    <br/><span style="font-size: 14px;" v-if="event.event_required">(You must follow event "{{ event.event_required }}" to participate this event)</span>
                                                                 </h4>
                                                             </div>
                                                             <div :id="'accordion-'+index" class="collapse show table-responsive">
@@ -415,6 +423,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                                                                         </tbody>
                                                                     </table>
                                                                 </div>
+                                                            </div>
                                                             </div>
                                                         </div>
                                                         <div class="card card-default mt-2">
@@ -507,6 +516,7 @@ $theme_path = base_url("themes/gigaland") . "/";
             isEmail: false,
             data: {},
             isUsd: false,
+            showCategory:'',
         },
         mounted: function() {
 
@@ -524,10 +534,21 @@ $theme_path = base_url("themes/gigaland") . "/";
                     desc: sp[1]
                 });
             })
-
+            if(this.events.length > 0){
+                this.showCategory = this.events[0].category
+            }
             this.paymentMethod = tempPayment;
         },
         computed: {
+            eventCategory(){
+                let category = [];
+                this.events.forEach(function(val){
+                    if(category.includes(val.category) == false){
+                        category.push(val.category);
+                    }
+                });
+                return category;
+            },
             needVerification() {
                 var ret = false;
                 var app = this;
@@ -705,12 +726,16 @@ $theme_path = base_url("themes/gigaland") . "/";
                 }).format(price);
             },
             // NOTE Menambah dan Menghapus Event
-            addEvent(e, event, member, event_name, event_required = '') {
+            checkRequirement(event_required){
                 let isRequired = true;
                 if (event_required != null) {
                     find = this.eventAdded.find(data => data.event_name == event_required);
                     isRequired = find ? true : false;
                 }
+                return isRequired;
+            },
+            addEvent(e, event, member, event_name, event_required = '') {
+                let isRequired = this.checkRequirement(event_required);
                 if (e.target.checked) {
                     if (isRequired) {
                         event.member_status = member;
@@ -721,7 +746,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                     } else {
                         console.log(e.target, $(e.target));
                         $(e.target).prop('checked', false);
-                        Swal.fire('Info', `You must follow event ${event_required} to patcipate this event !`, 'info');
+                        Swal.fire('Info', `You must follow event ${event_required} to participate this event !`, 'info');
                     }
                 } else {
                     $(`.${event_name}`).prop('checked', false);

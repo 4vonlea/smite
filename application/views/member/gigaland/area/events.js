@@ -20,53 +20,62 @@ export default Vue.component("PageEvents", {
 						</div>
 						<div class="col-md-3"></div>
 					</div>
-					
+                    <div class="row mt-2">
+                        <ul class="nav nav-tabs">
+                            <li v-for="cat in eventCategory" class="nav-item">
+                                <span class="nav-link" @click="showCategory = cat" :class="{'active':showCategory == cat}">{{ cat }}</span>
+                            </li>
+                        </ul>
+                    </div>
 					<div class="row">
 						<div class="accordion accordion-quaternary col-md-12">
-							<div  v-for="(event, index) in events" class="card card-default" v-bind:key="index">
-								<div class="card-header">
-									<h4 class="card-title m-0" style="color:#F5AC39">
-										{{ event.name }} <span style="font-size: 14px;" v-if="event.event_required">(You must follow event {{ event.event_required }} to patcipate this event)</span>
-									</h4>
-								</div>
-								<div :id="'accordion-'+index" class="collapse show table-responsive">
-										<div class="alert alert-success text-center" v-if="event.followed">
-											<h5 class="mb-0" style="color: black;">You follow this event</h5>
-											<!--<a class="btn btn-default" :href="'<?=base_url('member/area/card');?>/'+event.id+'/'+user.id" target="_blank">Download Name Tag</a>-->
-											<!--<a class="btn btn-default" :href="'<?=base_url('member/area/certificate');?>/'+event.id+'/'+user.id" target="_blank">Download Certificate</a>-->
-										</div>
-										<div v-else >
-											<div v-if="event.participant >= event.kouta" class="alert alert-warning text-center">
-												<h4>Sorry qouta for this full event</h4>
-											</div>
-											<table class="table text-light">
-												<thead>
-													<tr>
-														<th>Status As</th>
-														<th v-for="pricing in event.pricingName" class="text-center"><span v-html="pricing.title"></span></th>
-													</tr>
-												</thead>
-												<tbody>
-													<tr v-for="member in event.memberStatus">
-														<td>{{ member }}</td>
-														<td v-for="pricing in event.pricingName" class="text-center">
-															<span v-if="pricing.pricing[member]">
+							<div v-for="(event, index) in events"  v-bind:key="index">
+                                <div class="card card-default" v-if="showCategory == event.category">
+                                    <div class="card-header">
+                                        <h4 class="card-title m-0" style="color:#F5AC39">
+                                            {{ event.name }} 
+                                            <br/><span style="font-size: 14px;" v-if="event.event_required">(You must follow event <strong>{{ event.event_required }}</strong> to participate this event)</span>
+                                        </h4>
+                                    </div>
+                                    <div :id="'accordion-'+index" class="collapse show table-responsive">
+                                            <div class="alert alert-success text-center" v-if="event.followed">
+                                                <h5 class="mb-0" style="color: black;">You follow this event</h5>
+                                                <!--<a class="btn btn-default" :href="'<?=base_url('member/area/card');?>/'+event.id+'/'+user.id" target="_blank">Download Name Tag</a>-->
+                                                <!--<a class="btn btn-default" :href="'<?=base_url('member/area/certificate');?>/'+event.id+'/'+user.id" target="_blank">Download Certificate</a>-->
+                                            </div>
+                                            <div v-else >
+                                                <div v-if="event.participant >= event.kouta" class="alert alert-warning text-center">
+                                                    <h4>Sorry qouta for this full event</h4>
+                                                </div>
+                                                <table class="table text-light">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Status As</th>
+                                                            <th v-for="pricing in event.pricingName" class="text-center"><span v-html="pricing.title"></span></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr v-for="member in event.memberStatus">
+                                                            <td>{{ member }}</td>
+                                                            <td v-for="pricing in event.pricingName" class="text-center">
+                                                                <span v-if="pricing.pricing[member]">
 
-																<span v-show="pricing.pricing[member].price != 0">{{ formatCurrency(pricing.pricing[member].price) }}</span>
-																<span v-show="pricing.pricing[member].price != 0 && pricing.pricing[member].price_in_usd != 0"> / </span>
-																<span v-show="pricing.pricing[member].price_in_usd != 0">{{formatCurrency(pricing.pricing[member].price_in_usd, 'USD')}}</span>
+                                                                    <span v-show="pricing.pricing[member].price != 0">{{ formatCurrency(pricing.pricing[member].price) }}</span>
+                                                                    <span v-show="pricing.pricing[member].price != 0 && pricing.pricing[member].price_in_usd != 0"> / </span>
+                                                                    <span v-show="pricing.pricing[member].price_in_usd != 0">{{formatCurrency(pricing.pricing[member].price_in_usd, 'USD')}}</span>
 
-																<button @click="addToCart(pricing.pricing[member],member,event.name,event.id)" v-if="pricing.pricing[member].available && !pricing.pricing[member].added && !pricing.pricing[member].waiting_payment" :disabled="adding"  class="btn btn-sm btn-warning"><i v-if="adding" class="fa fa-spin fa-spinner"></i> Add To Cart</button>
-																<button v-if="!pricing.pricing[member].available" style="cursor:not-allowed;color:#fff;" aria-disabled="true"  disabled class="btn btn-sm btn-danger">Not Available</button>
-																<button v-if="pricing.pricing[member].waiting_payment" style="cursor:not-allowed;color:#fff;" aria-disabled="true"  disabled class="btn btn-sm btn-info">Waiting Payment</button>
-																<button v-if="pricing.pricing[member].added" style="cursor:default;color:#fff;" aria-disabled="true"  disabled class="btn btn-sm btn-success">Added</button>
-															</span>
-														</td>
-													</tr>
-												</tbody>
-											</table>
-										</div>
-								</div>
+                                                                    <button @click="addToCart(pricing.pricing[member],member,event.name,event.id)" v-if="pricing.pricing[member].available && !pricing.pricing[member].added && !pricing.pricing[member].waiting_payment" :disabled="adding"  class="btn btn-sm btn-warning"><i v-if="adding" class="fa fa-spin fa-spinner"></i> Add To Cart</button>
+                                                                    <button v-if="!pricing.pricing[member].available" style="cursor:not-allowed;color:#fff;" aria-disabled="true"  disabled class="btn btn-sm btn-danger">Not Available</button>
+                                                                    <button v-if="pricing.pricing[member].waiting_payment" style="cursor:not-allowed;color:#fff;" aria-disabled="true"  disabled class="btn btn-sm btn-info">Waiting Payment</button>
+                                                                    <button v-if="pricing.pricing[member].added" style="cursor:default;color:#fff;" aria-disabled="true"  disabled class="btn btn-sm btn-success">Added</button>
+                                                                </span>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                    </div>
+                                </div>
 							</div>
 						</div>
 					</div>
@@ -86,6 +95,7 @@ export default Vue.component("PageEvents", {
             user: {},
             adding: false,
             events: null,
+            showCategory:"",
         }
     },
     created() {
@@ -95,6 +105,15 @@ export default Vue.component("PageEvents", {
         '$route': 'fetchEvents'
     },
     computed: {
+        eventCategory(){
+            let category = [];
+            this.events.forEach(function(val){
+                if(category.includes(val.category) == false){
+                    category.push(val.category);
+                }
+            });
+            return category;
+        },
         countAdded() {
             var count = 0;
             for (var event in this.events) {
@@ -135,6 +154,9 @@ export default Vue.component("PageEvents", {
             $.post(this.baseUrl + "get_events", null, function(res) {
                 if (res.status) {
                     page.events = res.events;
+                    if(res.events.length > 0){
+                        page.showCategory = res.events[0].category
+                    }
                 } else {
                     page.fail = true;
                 }

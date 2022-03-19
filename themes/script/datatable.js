@@ -73,6 +73,7 @@ Vue.component('datagrid', {
             loading:false,
             pageSize: 10,
             paramsQuery:{fields:this.getFieldName()},
+            additionalQuery:{},
             css: {
                 table: {
                     tableWrapper: '',
@@ -169,6 +170,7 @@ Vue.component('datagrid', {
         		this.globalFilter = split[1];
 			}
             this.paramsQuery = {
+                ...this.additionalQuery,
                 'global_filter': this.globalFilter,
                 'fields':this.getFieldName(),
             }
@@ -180,6 +182,7 @@ Vue.component('datagrid', {
         resetFilter() {
             this.globalFilter = "";
             this.paramsQuery = {
+                ...this.additionalQuery,
                 'fields':this.getFieldName(),
             }
             Vue.nextTick( () => this.$refs.vuetable.refresh())

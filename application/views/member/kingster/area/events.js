@@ -104,6 +104,15 @@ export default Vue.component("PageEvents", {
 		}
 	},
 	methods: {
+		eventCategory(){
+			let category = [];
+			this.event.forEach(function(val){
+				if(category.includes(val.category) == false){
+					category.push(val.category);
+				}
+			});
+			return category;
+		},
 		addToCart(event,member,event_name){
 			var page = this;
 			this.adding  = true;

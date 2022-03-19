@@ -264,12 +264,21 @@ $theme_path = base_url("themes/gigaland") . "/";
                                                 Please select the event you want. *Events are available based on your status and date
                                             </div>
                                         </div>
+                                        <div class="row mt-2">
+                                            <ul class="nav nav-tabs">
+                                                <li v-for="cat in eventCategory" class="nav-item">
+                                                    <span class="nav-link" @click="showCategory = cat" :class="{'active':showCategory == cat}">{{ cat }}</span>
+                                                </li>
+                                            </ul>
+                                        </div>
                                         <div class="row">
                                             <div class="accordion accordion-quaternary col-md-12">
-                                                <div v-for="(event, index) in filteredEvent" class="card card-default mt-2" v-bind:key="index">
+                                                <div v-for="(event, index) in filteredEvent" v-bind:key="index">
+                                                <div  class="card card-default mt-2" v-if="showCategory == event.category" >
                                                     <div class="card-header">
                                                         <h4 class="card-title m-0" style="color:#F5AC39">
-                                                            {{ event.name }} <span style="font-size: 14px;" v-if="event.event_required">(You must follow event {{ event.event_required }} to patcipate this event)</span>
+                                                            {{ event.name }} <br/>
+                                                            <span style="font-size: 14px;" v-if="event.event_required">(You must follow event <strong>{{ event.event_required }}</strong> to participate this event)</span>
                                                         </h4>
                                                     </div>
                                                     <div :id="'accordion-'+index" class="collapse show table-responsive">
@@ -310,6 +319,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                                                             </table>
                                                         </div>
                                                     </div>
+                                                </div>
                                                 </div>
                                                 <div v-if="validation_error.eventAdded" style="font-size: .875em;color: #F2AC38;">
                                                     {{ validation_error.eventAdded }}
@@ -491,6 +501,7 @@ $theme_path = base_url("themes/gigaland") . "/";
             data: {},
             isUsd: false,
             continueTransaction:<?= isset($continueTransaction) ? json_encode($continueTransaction) : "{}" ;?>,
+            showCategory:"",
         },
         mounted: function() {
 
@@ -520,8 +531,20 @@ $theme_path = base_url("themes/gigaland") . "/";
                 });
                 console.log(this.data);
             }
+            if(this.events.length > 0){
+                this.showCategory = this.events[0].category
+            }
         },
         computed: {
+            eventCategory(){
+                let category = [];
+                this.events.forEach(function(val){
+                    if(category.includes(val.category) == false){
+                        category.push(val.category);
+                    }
+                });
+                return category;
+            },
             needVerification() {
                 var ret = false;
                 var app = this;

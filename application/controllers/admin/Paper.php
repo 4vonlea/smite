@@ -12,7 +12,7 @@ class Paper extends Admin_Controller
 	public function index()
 	{
 		$this->load->helper("form");
-		$this->load->model(["Papers_m", "User_account_m", "Category_paper_m"]);
+		$this->load->model(["Papers_m", "User_account_m", "Category_paper_m","Category_member_m"]);
 		$adminPaper = [];
 		foreach ($this->User_account_m->findAll(['role' => User_account_m::ROLE_ADMIN_PAPER]) as $row) {
 			$t = $row->toArray();
@@ -22,7 +22,8 @@ class Paper extends Admin_Controller
 		$categoryPaper = $this->Category_paper_m->find()->select('*')->get()->result_array();
 		$this->layout->render('paper', [
 			'admin_paper' => $adminPaper,
-			'categoryPaper' => $categoryPaper
+			'categoryPaper' => $categoryPaper,
+			'categoryMember' => $this->Category_member_m->find()->get()->result_array(),
 		]);
 	}
 
@@ -40,6 +41,10 @@ class Paper extends Admin_Controller
 				'category' => $idCategory,
 			]
 		] : [];
+
+		if($this->input->get("filterStatus")){
+			$filterCategoryPaper['filter']['kategory_members.id'] = $this->input->get("filterStatus");
+		}
 
 		$gridConfig = $this->Papers_m->gridConfig($filterCategoryPaper);
 		// }

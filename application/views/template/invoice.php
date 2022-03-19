@@ -164,9 +164,9 @@ $isGroup = ($member == null);
 					$total += $d->price;
 					$name = ($isGroup ? $d->member_name : "");
 					if ($d->price_usd > 0) {
-						echo "<span>$d->product_name  / $name :  <br/>USD " . $d->price_usd . "</span><br/>";
+						echo "<span>$d->product_name  / <strong>$name</strong> :  <br/>USD " . $d->price_usd . "</span><br/>";
 					} else {
-						echo "<span>$d->product_name / $name :  <br/>Rp " . number_format($d->price, 2, ",", ".") . "</span><br/>";
+						echo "<span>$d->product_name / <strong>$name</strong> :  <br/>Rp " . number_format($d->price, 2, ",", ".") . "</span><br/>";
 					}
 				};
 				?>
