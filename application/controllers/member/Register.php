@@ -167,7 +167,7 @@ class Register extends MY_Controller
 		}
 	}
 
-	public function group()
+	public function group($id_invoice = null)
 	{
 		$this->load->model('Category_member_m');
 		$this->load->model('Univ_m');
@@ -176,12 +176,12 @@ class Register extends MY_Controller
 		$status = $this->Category_member_m->find()->select("id,kategory,need_verify")->where('is_hide', '0')->get()->result_array();
 		$univ = $this->Univ_m->find()->select("univ_id, univ_nama")->order_by('univ_id')->get()->result_array();
 		$participantsCategory = Category_member_m::asList(Category_member_m::findAll(), 'id', 'kategory', 'Please Select your status');
+		$this->load->model(['Member_m', 'User_account_m', 'Notification_m', 'Transaction_m', 'Transaction_detail_m']);
 
 		if ($this->input->post()) {
 
 			$eventAdded = json_decode($this->input->post('eventAdded'));
 
-			$this->load->model(['Member_m', 'User_account_m', 'Notification_m', 'Transaction_m', 'Transaction_detail_m']);
 			$this->load->library('form_validation');
 			$this->load->library('Uuid');
 
@@ -420,6 +420,42 @@ class Register extends MY_Controller
 				'paymentMethod' => Settings_m::getEnablePayment(),
 			];
 
+			if($id_invoice) {
+				$transaction = $this->Transaction_m->findOne($id_invoice);
+				$error['transactions'] = $this->getTransactions($transaction);
+				$bill_to = $transaction->member_id;
+				$bill_to_input = str_replace("REGISTER-GROUP : ","",$transaction->member_id);
+				$listMember = $this->Transaction_detail_m->find()->where("transaction_id",$id_invoice)
+						->join("members","members.id = transaction_details.member_id")->select("members.*")
+						->get()->result();
+				$members = [];
+				foreach ($listMember as $key => $dataMember) {
+					$members[$key]['id_invoice'] = $id_invoice;
+					$members[$key]['bill_to'] = $bill_to;
+					$members[$key]['bill_to_input'] = $bill_to_input;
+					$members[$key]['id'] = $dataMember->id;
+					$members[$key]['phone'] = $dataMember->phone;
+					$members[$key]['region'] = $dataMember->region;
+					$members[$key]['country'] = $dataMember->country;
+					$members[$key]['birthday'] = $dataMember->birthday;
+					$members[$key]['sponsor'] = $bill_to_input;
+	
+					$members[$key]['status'] = $dataMember->status;
+				}
+				$data['continueTransaction'] = (array_merge(
+						$error,
+						[
+							'status' => $status,
+							'data' => [
+								'bill_to' => $bill_to_input,
+								'id_invoice' => $id_invoice,
+								'email_group' => $transaction->email_group,
+								'members' => $members,
+								'validation_error' =>[],
+							]
+						]
+				));
+			}
 			$this->layout->render('member/' . $this->theme . '/register_group', $data);
 		}
 	}

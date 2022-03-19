@@ -487,6 +487,7 @@ $theme_path = base_url("themes/gigaland") . "/";
             members: [],
             data: {},
             isUsd: false,
+            continueTransaction:<?= isset($continueTransaction) ? json_encode($continueTransaction) : "{}" ;?>,
         },
         mounted: function() {
 
@@ -506,6 +507,16 @@ $theme_path = base_url("themes/gigaland") . "/";
             })
 
             this.paymentMethod = tempPayment;
+            if(this.continueTransaction.transactions){
+                this.page = 'payment';
+                this.data = this.continueTransaction.data;//JSON.parse(JSON.stringify(res.data));
+                this.members = this.continueTransaction.members;//JSON.parse(JSON.stringify(res.data.members))
+                this.transactions = this.continueTransaction.transactions ? this.continueTransaction.transactions.cart : [];
+                Vue.nextTick(() => {
+                    app.initEspayFrame();
+                });
+                console.log(this.data);
+            }
         },
         computed: {
             needVerification() {
