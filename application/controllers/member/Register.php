@@ -36,7 +36,7 @@ class Register extends MY_Controller
 			// NOTE Validasi Event Required
 			$isRequired = 0;
 			foreach ($eventAdded as $key => $value) {
-				if ($value->event_required_id != '') {
+				if ($value->event_required_id != '' && $value->event_required_id != "0") {
 					$findRequired = array_search($value->event_required_id, array_column($eventAdded, 'id_event'));
 					if ($findRequired === false) {
 						$isRequired += 1;
