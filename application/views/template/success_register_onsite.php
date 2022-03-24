@@ -51,10 +51,10 @@
 		</tr> -->
 		<tr>
 			<th>City</th>
-			<td><?=$city?></td>
+			<td><?=$city ?? "-"?></td>
 		</tr>
 		<tr>
 			<th>Adress</th>
-			<td><?=$address?></td>
+			<td><?=$address ?? "-"?></td>
 		</tr>
 </table>

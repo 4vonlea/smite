@@ -36,7 +36,7 @@ class Register extends MY_Controller
 			// NOTE Validasi Event Required
 			$isRequired = 0;
 			foreach ($eventAdded as $key => $value) {
-				if ($value->event_required_id != '' && $value->event_required_id != "0") {
+				if (isset($value->event_required) && $value->event_required_id != '' && $value->event_required_id != "0") {
 					$findRequired = array_search($value->event_required_id, array_column($eventAdded, 'id_event'));
 					if ($findRequired === false) {
 						$isRequired += 1;
@@ -196,7 +196,7 @@ class Register extends MY_Controller
 			// NOTE Validasi Event Required
 			$isRequired = 0;
 			foreach ($eventAdded as $key => $value) {
-				if ($value->event_required != '') {
+				if (isset($value->event_required) && $value->event_required != '') {
 					$findRequired = array_search($value->event_required, array_column($eventAdded, 'event_name'));
 					if ($findRequired === false) {
 						$isRequired += 1;
@@ -314,7 +314,6 @@ class Register extends MY_Controller
 				}
 
 				$tr = $this->Transaction_m->findOne($id_invoice);
-				$invoiceDataPdf = $tr->exportInvoice()->output();
 				foreach ($members as $key => $data) {
 					$data['username_account'] = $data['email'];
 					$data['verified_by_admin'] = !$need_verify;
@@ -375,7 +374,9 @@ class Register extends MY_Controller
 					$this->Member_m->getDB()->trans_complete();
 					$error['statusData'] = $this->Member_m->getDB()->trans_status();
 					$error['message'] = $this->Member_m->getDB()->error();
+
 					if ($error['statusData']) {
+						$invoiceDataPdf = $tr->exportInvoice()->output();
 						$data['participantsCategory'] = $participantsCategory;
 						$email_message = $this->load->view('template/success_register_onsite', $data, true);
 						$attc = [
@@ -401,12 +402,12 @@ class Register extends MY_Controller
 							}
 						}
 
-						if (!$dataMember) {
+						if ($data) {
 							$this->Notification_m->sendMessageWithAttachment($data['email'], 'Registration Success', $email_message, $attc);
 						}
 					}
 				}
-				$this->Notification_m->sendMessageWithAttachment($tr->email_group, 'Registration Success', "Your group registration success", [
+				$this->Notification_m->sendMessageWithAttachment($tr->email_group, 'Registration Success', "Your group registration success below is your invoice", [
 					'invoice.pdf' => $invoiceDataPdf,
 				]);
 

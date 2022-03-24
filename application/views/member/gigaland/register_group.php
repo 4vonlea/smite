@@ -474,6 +474,9 @@ $theme_path = base_url("themes/gigaland") . "/";
 <script src="<?= base_url("themes/script/vuejs-datepicker.min.js"); ?>"></script>
 <script src="<?= base_url("themes/script/chosen/chosen.jquery.min.js"); ?>"></script>
 
+<?php if (isset(Settings_m::getEspay()['jsKitUrl'])) : ?>
+    <script src="<?= Settings_m::getEspay()['jsKitUrl']; ?>"></script>
+<?php endif; ?>
 <script>
     var app = new Vue({
         'el': "#app",
@@ -666,6 +669,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                 });
             },
             initEspayFrame() {
+                console.log("Init Espay");
                 var invoiceID = app.data.id_invoice;
                 var apiKeyEspay = "<?= Settings_m::getEspay()['apiKey']; ?>";
                 var data = {
@@ -675,6 +679,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                 };
                 console.log(data);
                 if (typeof SGOSignature !== "undefined") {
+                    console.log(SGOSignature);
                     var sgoPlusIframe = document.getElementById("sgoplus-iframe");
                     if (sgoPlusIframe !== null)
                         sgoPlusIframe.src = SGOSignature.getIframeURL(data);

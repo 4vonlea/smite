@@ -141,6 +141,9 @@ class Event_m extends MY_Model
 						'pricing' => [
 							$row['condition'] => [
 								'id' => $row['id_price'],
+								'id_event' => $row['id_event'],
+								'event_required' => $row['event_required'],
+								'event_required_id' => $row['event_required_id'],
 								'price' => $row['price_r'],
 								'price_in_usd' => $row['price_in_usd'],
 								'available' => $avalaible
@@ -151,6 +154,9 @@ class Event_m extends MY_Model
 				} else {
 					$return[$index]['pricingName'][$pId]['pricing'][$row['condition']] = [
 						'id' => $row['id_price'],
+						'id_event' => $row['id_event'],
+						'event_required' => $row['event_required'],
+						'event_required_id' => $row['event_required_id'],
 						'price' => $row['price_r'],
 						'price_in_usd' => $row['price_in_usd'],
 						'available' => $avalaible
