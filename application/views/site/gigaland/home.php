@@ -443,8 +443,7 @@
                             <div class="tab-pane active show" id="tab-1">
                                 <ul>
                                     <li>15 February 2022 : Open Submission</li>
-                                    <li>27 March 2022 : Submission Deadline for AOMC</li>
-                                    <li>14 April 2022 : Submission Deadline for PIN</li>
+                                    <li>14 April 2022 : Abstract Submission Deadline for AOMC and PIN</li>
                                     <li>22 April 2022 : Abstract Revision Deadline</li>
                                     <li>7 Mei 2022 : Full Manuscript Submission Deadline</li>
                                     <li>31 Mei 2022 : Presentation (poster/slide) Submission Deadline</li>
@@ -467,7 +466,7 @@
                                             </li>
                                             <li>
                                                 What if I forget my password?<br>
-                                                - If you forget your password, please click the “Forgot Password section on the login page, and enter your registered email, then click Reset. The new password will be sent to the email that was entered during the reset process. Or you can also just click:
+                                                - If you forget your password, please click the Forgot Password section on the login page, and enter your registered email, then click Reset. The new password will be sent to the email that was entered during the reset process. Or you can also just click:
                                             </li>
                                             <li>
                                                 Where is the zoom link?<br>
@@ -808,8 +807,7 @@
                         <h5 style="color:#F4AD39;">Important Dates</h5>
                         <ul style="font-size: 12px;">
                             <li>15 February 2022 : Open Submission</li>
-                            <li>27 March 2022 : Submission Deadline for AOMC</li>
-                            <li>14 April 2022 : Submission Deadline for PIN</li>
+                            <li>14 April 2022 : Abstract Submission Deadline for AOMC and PIN</li>
                             <li>22 April 2022 : Abstract Revision Deadline</li>
                             <li>7 Mei 2022 : Full Manuscript Submission Deadline</li>
                             <li>31 Mei 2022 : Presentation (poster/slide) Submission Deadline</li>
