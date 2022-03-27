@@ -41,11 +41,11 @@ class Papers_m extends MY_Model
 	];
 
 	public static $declaration = [
-		"Research"=>"I hereby declared that the mentioned study has granted ethical clearance from an official ethical committee.",
-		"Clinical Pathogical Conference"=>"I hereby declared that the mentioned study has granted ethical clearance from an official ethical committee",
-		"Original Research"=>"I hereby declared that the mentioned study has granted ethical clearance from an official ethical committee",
-		"Systematic Review"=>"I hereby declared that this submitted review has made according to PRISMA Statement",
-		"Case Report"=>"I hereby declared that the mentioned case report has granted informed consent to be published from the patient or the responsible caregiver and all possible effort to obscure patient's identity has been taken."
+		"Research"=>"I will act as presenting author and declared that the mentioned study has granted ethical clearance from an official ethical committee.",
+		"Clinical Pathogical Conference"=>"I will act as presenting author and declared that the mentioned study has granted ethical clearance from an official ethical committee",
+		"Original Research"=>"I will act as presenting author and declared that the mentioned study has granted ethical clearance from an official ethical committee",
+		"Systematic Review"=>"I will act as presenting author and declared that this submitted review has made according to PRISMA Statement",
+		"Case Report"=>"I will act as presenting author and declared that the mentioned case report has granted informed consent to be published from the patient or the responsible caregiver and all possible effort to obscure patient's identity has been taken."
 	];
 
 	protected $table = "papers";

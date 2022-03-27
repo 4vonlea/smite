@@ -297,7 +297,7 @@ export default Vue.component("PagePaper", {
 									class="form-control" name="introduction" style="background-color: transparent;">
 										</textarea>
 								<div v-if="error_upload.title" class="invalid-feedback">{{ error_upload.introduction }}</div>
-								<small>{{ wordCountIntroduction }} Word (250 maximum)</small>
+								<small>{{ wordCountIntroduction }} Word (300 maximum)</small>
 							</div>
 						</div>
 						<!--
