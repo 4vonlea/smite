@@ -321,20 +321,17 @@ class Area extends MY_Controller
 		$message = '';
 
 		$findEvent = $this->Event_m->findOne(['id' => $data['event_id']]);
-		if ($findEvent && $findEvent->event_required) {
+		if ($findEvent && $findEvent->event_required && $findEvent->event_required != "0") {
 			$cek = $this->Event_m->getRequiredEvent($findEvent->event_required, $this->session->user_session['id']);
 			// NOTE Data Required Event
 			$dataEvent = $this->Event_m->findOne(['id' => $findEvent->event_required]);
 			if ($cek) {
 				if ($cek->status_payment == Transaction_m::STATUS_FINISH) {
 					$valid = true;
-				} else if (in_array($cek->status_payment, [Transaction_m::STATUS_WAITING, Transaction_m::STATUS_PENDING])) {
+				} else if (in_array($cek->status_payment, [Transaction_m::STATUS_PENDING])) {
 					$valid = false;
 					$message = "Not Available, please complete the payment !";
-				} else {
-					$valid = false;
-					$message = "You must follow event {$dataEvent->name} to patcipate this event !";
-				}
+				} 
 			} else {
 				$valid = false;
 				$message = "You must follow event {$dataEvent->name} to patcipate this event !";

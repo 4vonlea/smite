@@ -434,6 +434,7 @@ class Event_m extends MY_Model
 	 */
 	public function getRequiredEvent($event_id, $member_id)
 	{
+		$this->load->model("Transaction_m");
 		$this->db->select('e.id,
 			e.name,
 			t.status_payment')
@@ -442,6 +443,7 @@ class Event_m extends MY_Model
 			->join('transaction_details td', 'td.event_pricing_id = ep.id')
 			->join('transaction t', 't.id = td.transaction_id')
 			->where('e.id', $event_id)
+			->where("status_payment !=",Transaction_m::STATUS_EXPIRE)
 			->where('t.member_id', $member_id);
 		return $this->db->get()->row();
 	}
