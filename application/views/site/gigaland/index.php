@@ -83,6 +83,7 @@
                                                                 <input type='password' name='password' id='password' class="form-control" placeholder="Password">
                                                             </div>
                                                         <?php endif; ?>
+                                                        <a href="<?=base_url('site/forget');?>">Forgot Password ?</a>
                                                         <div class="d-buttons">
                                                             <input type="submit" name="login" class="btn-main btn-fullwidth" value="<?= $hasSession ? "Back To Member Area" : "Sign"; ?>" style="background-color:#F4AD39; color:black;"><br>
                                                         </div>

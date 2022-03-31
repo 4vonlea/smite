@@ -41,6 +41,7 @@
                                                     <div class="field-set">
                                                         <input type='password' name='password' id='password' class="form-control" placeholder="Password">
                                                     </div>
+                                                    <a href="<?=base_url('site/forget');?>" class="mb-2">Forgot Password ?</a>
                                                     <div class="d-buttons">
                                                         <input type="submit" name="login" value="Sign" class="btn-main btn-fullwidth" name="login" style="background-color:#F4AD39; color:black;"/><br>
                                                     </div>
