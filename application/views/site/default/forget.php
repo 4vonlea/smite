@@ -21,7 +21,7 @@
                 <div class="row">
                     <label class="col-lg-2 control-label"></label>
                     <div class="col-lg-6">
-                        <p class="">Silakan masukan alamat email yang anda daftarkan untuk mereset password anda</p>
+                        <p class="">SPlease enter the email address you registered to reset your password</p>
                         <?php echo $this->session->flashdata('message');?>
                     </div>
                 </div>
@@ -36,9 +36,8 @@
                     </div>
                     <div class="form-group row">
                         <label class="col-lg-2 control-label"></label>
-                        <div class="col-lg-5 col-lg-offset-3">
+                        <div class="d-button">
                             <button type="submit" class="btn btn-primary custom-border-width custom-border-radius font-weight-semibold text-uppercase" >Reset</button>
-                            <a href="<?=base_url('site/login');?>" type="" class="btn btn-outline custom-border-width btn-danger custom-border-radius font-weight-semibold text-uppercase" id="resetBtn" style="border-color:red;color:red">Cancel</a>
                         </div>
                     </div>
                 </form>
