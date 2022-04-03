@@ -225,7 +225,8 @@ $this->layout->end_head();
 						{{ props.row.fullname }} <br />
 						<span class="badge badge-info">{{ props.row.status_member }}</span>
 					</template>
-					<template slot="status" slot-scope="props">{{ status[props.row.status] }}<br />
+					<template slot="status" slot-scope="props">
+						{{ status[props.row.status] }}<br />
 						<a class="badge badge-info" :href="'<?= base_url('admin/paper/file'); ?>/'+props.row.filename+'/'+props.row.t_id+'/Abstract'" target="_blank" v-if="props.row.filename">Abstract</a>
 					</template>
 					<template slot="status_fullpaper" slot-scope="props">{{ (props.row.status == 2 ? status[props.row.status_fullpaper]:'') }}<br />
@@ -250,6 +251,9 @@ $this->layout->end_head();
 									<span class="fa fa-user"></span> Set Reviewer
 								</button>
 							<?php endif; ?>
+							<button class="btn btn-danger btn-sm" @click="deletePaper(props,$event)">
+								<span class="fa fa-trash"></span> Delete
+							</button>
 						</div>
 					</template>
 				</datagrid>
@@ -882,6 +886,38 @@ $this->layout->end_head();
 						});
 					});
 
+			},
+			deletePaper(prop, event) {
+				var btn = event.currentTarget;
+				Swal.fire({
+					title: "Are you sure ?",
+					html: `You will delete paper with title <b>"${prop.row.title}"<b/>`,
+					type: 'warning',
+					showCancelButton: true,
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+					confirmButtonText: 'Yes, delete it!'
+				}).then((result) => {
+					if (result.value) {
+						btn.innerHTML = "<i class='fa fa-spin fa-spinner'></i>";
+						btn.setAttribute("disabled", true);
+						$.post("<?= base_url("admin/paper/delete"); ?>", {'id':prop.row.t_id}, function(res) {
+							if (res.status) {
+								Swal.fire("Success", "Paper deleted successfully", "success");
+								app.$refs.datagrid.refresh();
+							} else
+								Swal.fire("Failed", res.message, "error");
+						}, "JSON").fail(function(xhr) {
+							var message = xhr.getResponseHeader("Message");
+							if (!message)
+								message = 'Server fail to response !';
+							Swal.fire('Fail', message, 'error');
+						}).always(function() {
+							btn.innerHTML = '<i class="fa fa-trash"></i> Delete';
+							btn.removeAttribute("disabled");
+						});
+					}
+				});
 			},
 			setReviewer(row) {
 				this.validation = null;

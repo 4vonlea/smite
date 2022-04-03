@@ -189,6 +189,15 @@ class Paper extends Admin_Controller
 		// }
 	}
 
+	public function delete()
+	{
+		$this->load->model('Papers_m');
+		$status = $this->Papers_m->delete($this->input->post('id'));
+		$this->output
+			->set_content_type("application/json")
+			->_display(json_encode(['status' => $status]));
+	}
+
 	public function file($name, $id, $type = "Abstract")
 	{
 		$filepath = APPPATH . "uploads/papers/" . $name;
