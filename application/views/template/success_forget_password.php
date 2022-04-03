@@ -32,7 +32,6 @@
 
 </p>
 <p>
-	Your new password is <b><?php echo $password; ?><b>
+	Your new password is <b><?php echo $password; ?></b>
 </p>
-</table>
 <p>Stay keep your password secretly</p>

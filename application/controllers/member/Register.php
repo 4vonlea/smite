@@ -143,7 +143,7 @@ class Register extends MY_Controller
 				$error['statusData'] = $this->Member_m->getDB()->trans_status();
 				$error['message'] = $this->Member_m->getDB()->error();
 				if ($error['statusData']) {
-					$email_message = $this->load->view('template/email_confirmation', ['token' => $token, 'name' => $data['fullname']], true);
+					$email_message = $this->load->view('template/email/email_confirmation', ['token' => $token, 'name' => $data['fullname']], true);
 					$this->Notification_m->sendMessage($data['email'], 'Email Confirmation', $email_message);
 				}
 			} else {

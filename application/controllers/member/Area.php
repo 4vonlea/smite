@@ -530,13 +530,22 @@ class Area extends MY_Controller
 		$config['file_name']        = 'abstract' . date("Ymdhis"); //$this->session->user_session['id'];
 
 		$this->load->library('upload', $config);
-		$this->load->model("Papers_m");
+		$this->load->model(["Papers_m","Notification_m"]);
 		$upload = $this->upload->do_upload('file');
 		$validation = $this->Papers_m->validate($this->input->post());
 		if ($upload && $validation) {
 			$paper = Papers_m::findOne(['id' => $this->input->post('id')]);
-			if (!$paper)
-				$paper = new Papers_m();
+			$checkSameTitle = Papers_m::findOne(['member_id'=>$this->session->user_session['id'],'title'=>$this->input->post('title')]);
+			$isNew = false;
+			$response['check'] = $checkSameTitle;
+			if (!$paper || $paper->id == 0){
+				if($checkSameTitle){
+					$paper = $checkSameTitle;
+				}else{
+					$isNew = true;
+					$paper = new Papers_m();
+				}
+			}
 
 			$this->load->model(["Category_paper_m"]);
 			$category = $this->Category_paper_m->find()->where('name', $this->input->post('category'))->get()->row_array();
@@ -565,6 +574,16 @@ class Area extends MY_Controller
 			$paper->updated_at = date("Y-m-d H:i:s");
 			$response['status'] = true;
 			$response['paper'] = $paper->toArray();
+			$response['isNew'] = $isNew;
+			if($isNew){
+				$user = Member_m::findOne(['username_account' => $this->session->user_session['username']]);
+				$email_message = $this->load->view("template/email/abstract_received",[
+					'title'=>$this->input->post("title"),
+					'name'=>$user->fullname,
+					'email'=>$user->email,
+				],true);
+				$this->Notification_m->sendMessage($user->email, 'Abstract Received', $email_message);
+			}
 		} else {
 			$response['status'] = false;
 			$response['message'] = array_merge($this->Papers_m->getErrors(), ['file' => $this->upload->display_errors("", "")]);

@@ -46,7 +46,7 @@ class Member extends Admin_Controller
 					'token_reset' => "verifyemail_" . $token
 				], ['username' => $email]);
 			}
-			$email_message = $this->load->view('template/email_confirmation', ['token' => $token[1], 'name' => $account['fullname']], true);
+			$email_message = $this->load->view('template/email/email_confirmation', ['token' => $token[1], 'name' => $account['fullname']], true);
 			$this->Notification_m->sendMessage($email, 'Email Confirmation', $email_message);
 			$this->output
 				->set_content_type("application/json")
