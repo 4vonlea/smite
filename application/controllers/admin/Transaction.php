@@ -258,4 +258,92 @@ class Transaction extends Admin_Controller
 			exit;
 		}
 	}
+
+	public function gl(){
+		$this->load->helper("form");
+		$this->load->model("Transaction_m");
+		$this->layout->set_breadcrumb("Transaction Guarantee Letter");
+		$this->layout->render('transaction_gl');
+
+	}
+
+	public function save_gl(){
+		$id_invoice = $this->input->post("id");
+		$data = $this->input->post('midtrans_data');
+		$uploadStatus = true;
+		$this->load->library("form_validation");
+		$this->form_validation->set_rules('midtrans_data[sponsorName]', 'Sponsor', 'required');
+		$this->form_validation->set_rules('midtrans_data[payPlanDate]', 'Pay Plan Date', 'required');
+		$response = [
+			'status'=>true,
+			'validation_error'=>null,
+		];
+		if (isset($_FILES['fileName']) && is_uploaded_file($_FILES['fileName']['tmp_name'])) {
+			if(file_exists(APPPATH . 'uploads/guarantee_letter/') == false){
+				mkdir(APPPATH . 'uploads/guarantee_letter/');
+			}
+
+			$config['upload_path'] = APPPATH . 'uploads/guarantee_letter/';
+			$config['allowed_types'] = 'jpg|png|jpeg|pdf';
+			$config['max_size'] = 2048;
+			$config['overwrite'] = true;
+			$config['file_name'] = $id_invoice;
+
+			$this->load->library('upload', $config);
+			if ($this->upload->do_upload('fileName')) {
+				$dataUpload = $this->upload->data();
+				$data['fileName'] = $dataUpload['file_name'];
+			} else {
+				$uploadStatus = false;
+			}
+		}
+		if($uploadStatus && $this->form_validation->run()){
+			$this->load->model("Transaction_m");
+			$response['status'] = $this->Transaction_m->update([
+				'channel'=>$this->input->post('channel') ?? Transaction_m::CHANNEL_GL,
+				'message_payment'=>$this->input->post('message_payment') ?? "-",
+				'midtrans_data'=>json_encode($data)
+			],$id_invoice);
+		}else{
+			$response['status'] = false;
+			$response['validation_error'] = array_merge($this->form_validation->error_array(), ['fileName' => ($uploadStatus == false ? $this->upload->display_errors("", "") : null)]);
+		}
+		$this->output->set_content_type("application/json")
+				->set_output(json_encode($response));
+	}
+
+	public function file_gl($name)
+	{
+		$filepath = APPPATH . "uploads/guarantee_letter/" . $name;
+		if (file_exists($filepath)) {
+			$filename = $name;
+			header('Content-Description: File Transfer');
+			header('Content-Type: ' . mime_content_type($filepath));
+			header('Content-Disposition: attachment; filename="' . $filename . '"');
+			header('Expires: 0');
+			header('Cache-Control: must-revalidate');
+			header('Pragma: public');
+			header('Content-Length: ' . filesize($filepath));
+			flush(); // Flush system output buffer
+			readfile($filepath);
+			exit;
+		} else {
+			show_404('File not found on server !');
+		}
+	}
+
+
+	public function set_status_gl(){
+
+	}
+
+	public function grid_gl()
+	{
+		$this->load->model('Transaction_m');
+
+		$grid = $this->Transaction_m->gridDataGl($this->input->get());
+		$this->output
+			->set_content_type("application/json")
+			->_display(json_encode($grid));
+	}
 }

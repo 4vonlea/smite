@@ -200,6 +200,11 @@ function hideForRole($role, $listRole)
 						</a>
 					</li>
 					<li class="nav-item  <?= hideForRole($role, ['3']); ?>">
+						<a class="nav-link" href="<?= base_url('admin/transaction/gl'); ?>">
+							<i class="ni ni-cart text-orange"></i> Transaction GL
+						</a>
+					</li>
+					<li class="nav-item  <?= hideForRole($role, ['3']); ?>">
 						<a class="nav-link" href="<?= base_url('admin/notification'); ?>">
 							<i class="ni ni-chat-round text-blue"></i> Message & Notification
 						</a>

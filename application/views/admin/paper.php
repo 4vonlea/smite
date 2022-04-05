@@ -10,6 +10,11 @@ $this->layout->begin_head();
 	.modal .table td {
 		white-space: normal !important;
 	}
+	.vuetable-td-title{
+		word-wrap: break-word;
+		white-space: inherit !important;
+		font-size: 12px !important;
+	}
 </style>
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/vue-ctk-date-time-picker@2.5.0/dist/vue-ctk-date-time-picker.css">
 <?php
@@ -204,18 +209,34 @@ $this->layout->end_head();
 						</div>
 					</div>
 				</div>
-				<datagrid @loaded_data="loadedGrid" ref="datagrid" :api-url="apiUrl" :fields="[
+				<datagrid @loaded_data="loadedGrid" ref="datagrid" :api-url="apiUrl" 
+				:sort-list="[
+					{name:'id_paper',sortField:'id_paper','title':'ID Paper'},
+					{name:'category_name',sortField:'category_name','title':'Category Paper'},
+					{name:'title',sortField:'title','title':'Abstract Title'},
+					{name:'fullname',sortField:'fullname','title':'Member Name'},
+					{name:'score','sortField':'score','title':'Score'},
+					{name:'status','sortField':'status','title':'Status Abstract'},
+					{name:'status_fullpaper','sortField':'status_fullpaper','title':'status_fullpaper'},
+					{name:'status_presentasi','sortField':'status_presentasi','title':'Status Presentation'},
+					{name:'type_presence','sortField':'type_presence','title':'Presentation'},
+					{name:'t_created_at',sortField:'t_created_at',title:'Submit On'},
+				]"
+				
+				:fields="[
 						{name:'id_paper',sortField:'id_paper','title':'ID Paper'},
-						{name:'category_name',sortField:'category_name','title':'Category Paper'},
+						{name:'title',sortField:'title','title':'Abstract Title'},
 						{name:'fullname',sortField:'fullname','title':'Member Name'},
 						{name:'score','sortField':'score'},
 						{name:'status','sortField':'status','title':'Status Abstract'},
-						{name:'status_fullpaper','sortField':'status_fullpaper','title':'status_fullpaper'},
-						{name:'status_presentasi','sortField':'status_presentasi','title':'Status Presentation'},
 						{name:'type_presence','sortField':'type_presence','title':'Presentation'},
 						{name:'t_created_at',sortField:'t_created_at',title:'Submit On'},
 						{name:'t_id','title':'Aksi'}
 					]">
+					<template slot="title" slot-scope="props">
+						<span class="badge badge-info">Category : {{ props.row.category_name ?? "Not Set"  }}</span>
+						<p style="font-size: 14px;white-space:normal">{{ props.row.title }}</p>
+					</template>
 					<?php if ($this->session->user_session['role'] == User_account_m::ROLE_ADMIN_PAPER) : ?>
 						<template slot="fullname" slot-scope="props">
 							Hidden
@@ -226,14 +247,21 @@ $this->layout->end_head();
 						<span class="badge badge-info">{{ props.row.status_member }}</span>
 					</template>
 					<template slot="status" slot-scope="props">
-						{{ status[props.row.status] }}<br />
-						<a class="badge badge-info" :href="'<?= base_url('admin/paper/file'); ?>/'+props.row.filename+'/'+props.row.t_id+'/Abstract'" target="_blank" v-if="props.row.filename">Abstract</a>
-					</template>
-					<template slot="status_fullpaper" slot-scope="props">{{ (props.row.status == 2 ? status[props.row.status_fullpaper]:'') }}<br />
-						<a class="badge badge-info" :href="'<?= base_url('admin/paper/file'); ?>/'+props.row.fullpaper+'/'+props.row.t_id+'/Fullpaper'" target="_blank" v-if="props.row.fullpaper">Fullpaper</a>
-					</template>
-					<template slot="status_presentasi" slot-scope="props">{{ (props.row.status_fullpaper == 2 ? status[props.row.status_presentasi]:'') }}<br />
-						<a class="badge badge-info" :href="'<?= base_url('admin/paper/file'); ?>/'+props.row.poster+'/'+props.row.t_id+'/Presentation'" target="_blank" v-if="props.row.poster">Presentation/Poster</a>
+						<ul class="list-group list-group-flush">
+							<li class="list-group-item">
+								Status Abstract : {{ status[props.row.status] }}<br/>
+								<a class="badge badge-info" :href="'<?= base_url('admin/paper/file'); ?>/'+props.row.filename+'/'+props.row.t_id+'/Abstract'" target="_blank" v-if="props.row.filename">File Abstract</a>
+							</li>
+							<li class="list-group-item">
+								Status Fullpaper : {{ (props.row.status == 2 ? status[props.row.status_fullpaper]:'') }}<br />
+								<a class="badge badge-info" :href="'<?= base_url('admin/paper/file'); ?>/'+props.row.fullpaper+'/'+props.row.t_id+'/Fullpaper'" target="_blank" v-if="props.row.fullpaper">File Fullpaper</a>
+							</li>
+							<li class="list-group-item">
+								Status Presentation : {{ (props.row.status_fullpaper == 2 ? status[props.row.status_presentasi]:'') }}<br />
+								<a class="badge badge-info" :href="'<?= base_url('admin/paper/file'); ?>/'+props.row.poster+'/'+props.row.t_id+'/Presentation'" target="_blank" v-if="props.row.poster">File Presentation/Poster</a>
+							
+							</li>
+						</ul>
 					</template>
 					<template slot="t_updated_at" slot-scope="props">
 						{{ formatDate(props.row.t_created_at) }}

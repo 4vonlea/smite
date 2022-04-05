@@ -8,6 +8,7 @@
 		white-space: initial !important;
 	}
 </style>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/vue-ctk-date-time-picker@2.5.0/dist/vue-ctk-date-time-picker.css">
 <?php $this->layout->end_head(); ?>
 <div class="header bg-primary pb-8 pt-5 pt-md-8">
 	<div class="container-fluid">
@@ -132,6 +133,10 @@
 							<a class="btn btn-primary btn-sm" :href="'<?= base_url('admin/notification/index'); ?>/'+props.row.m_id" target="_blank">
 								<span class="fa fa-envelope"></span> Email
 							</a>
+
+							<button v-if="props.row.status_payment != 'waiting' && props.row.channel != '<?=Transaction_m::CHANNEL_GL;?>'" @click="setAsGuaranteeLetter(props)" class="btn btn-info btn-sm">
+								<span class="fa fa-edit"></span> Set As GL Transaction
+							</button>
 						</div>
 					</template>
 				</datagrid>
@@ -379,15 +384,78 @@
 				<button type="button" class="btn btn-primary" @click="saveModify">Save</button>
 				<button :disabled="sendingProof" type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
 			</div>
-
 		</div>
 	</div>
 </div>
+<div class="modal" id="modal-gl">
+<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<!-- Modal Header -->
+			<div class="modal-header">
+				<h4 class="modal-title">Set As Guarantee Letter</h4>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+
+			<!-- Modal body -->
+			<div class="modal-body">
+				<table class="table table-bordered">
+					<tr>
+						<th>ID Invoice</th>
+						<td>{{ glModel.id }}
+					</tr>
+					<tr>
+						<th>Bill To</th>
+						<td :colspan="isGroup ? '4' : '3'">{{ isGroup ? glModel.member_id : glModel.member.fullname }}</td>
+					</tr>
+				</table>
+				<hr/>
+				<form id="form-gl" ref="formGl">
+					
+					<input type="hidden" name="id" :value="glModel.id"/>
+					<div class="form-group">
+						<label>Sponsor Name</label>
+						<input type="text" name="midtrans_data[sponsorName]" :class="{'is-invalid': glModel.validation_error['midtrans_data[sponsorName]']}" v-model="glModel.midtrans_data.sponsorName" class="form-control" />
+						<div v-if="glModel.validation_error['midtrans_data[sponsorName]']" class="invalid-feedback">
+							{{ glModel.validation_error['midtrans_data[sponsorName]'] }}
+						</div>
+					</div>
+					<div class="form-group">
+						<label>Pay Plan Date</label>
+						<vuejs-datepicker :input-class="{'form-control':true,'is-invalid': glModel.validation_error['midtrans_data[payPlanDate]']}" wrapper-class="" name="midtrans_data[payPlanDate]" v-model="glModel.midtrans_data.payPlanDate" ></vuejs-datepicker>
+						<div v-if="glModel.validation_error['midtrans_data[payPlanDate]']" class="invalid-feedback d-block">
+							{{ glModel.validation_error['midtrans_data[payPlanDate]'] }}
+						</div>
+					</div>
+					<div class="form-gorup">
+						<label>Guarantee Letter File <small>(pdf,jpg,jpeg Max 2 MB)</small></label>
+						<input type="file" name="fileName" :class="{'is-invalid': glModel.validation_error.fileName}" class="form-control" />
+						<div v-if="glModel.validation_error.fileName" class="invalid-feedback">
+							{{ glModel.validation_error.fileName }}
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" :disabled="savingGl" class="btn btn-primary" @click="saveGuaranteeLetter">
+					Save
+					<i class="fa fa-spin fa-spinner" v-if="savingGl"></i>
+				</button>
+				<button :disabled="savingGl" type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+</div>
 <?php $this->layout->begin_script(); ?>
+<script src="<?= base_url("themes/script/vuejs-datepicker.min.js"); ?>"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-ctk-date-time-picker@2.5.0/dist/vue-ctk-date-time-picker.umd.js" charset="utf-8"></script>
+
 <script>
 	var info = <?= json_encode(Transaction_m::$transaction_status); ?>;
+    Vue.component('vue-ctk-date-time-picker', window['vue-ctk-date-time-picker']);
 	var app = new Vue({
 		el: '#app',
+		components: {
+            vuejsDatepicker,
+        },
 		data: {
 			info: info,
 			listEvent: [],
@@ -404,6 +472,11 @@
 				details: [],
 				status_payment: ""
 			},
+			glModel:{
+				member: {},
+				midtrans_data:{},
+				validation_error:{}
+			},
 			pagination: {},
 			verifying: false,
 			expiring: false,
@@ -411,8 +484,8 @@
 			editUniquePrice: false,
 			inputUniquePrice: '',
 			sendingUniquePrice: false,
-
 			isGroup: false,
+			savingGl:false,
 		},
 		computed: {
 			amount() {
@@ -596,6 +669,79 @@
 					}).always(function() {
 						app.$refs.datagrid.loading = false;
 					});
+			},
+			setAsGuaranteeLetter(row){
+				app.$refs.datagrid.loading = true;
+				var url = "<?= base_url('admin/transaction/detail'); ?>";
+				$.post(url, {
+						id: row.row.invoice
+					}, null, 'JSON')
+					.done(function(res) {
+						if(res.model.midtrans_data){
+							try{
+								res.model.midtrans_data = JSON.parse(res.model.midtrans_data);
+							}catch{
+								res.model.midtrans_data = {
+									filename:'',
+									payPlanDate:'',
+									sponsorName:'',
+								};
+							}
+						}else{
+							res.model.midtrans_data = {
+								filename:'',
+								payPlanDate:'',
+								sponsorName:'',
+							};
+						}
+						res.model.validation_error = {};
+						app.isGroup = $.isArray(res.model.member);
+						app.glModel = res.model;
+						$('#form-gl').trigger('reset');
+						$("#modal-gl").modal("show");
+					}).fail(function(xhr) {
+						var message = xhr.getResponseHeader("Message");
+						if (!message)
+							message = 'Server fail to response !';
+						Swal.fire('Fail', message, 'error');
+					}).always(function() {
+						app.$refs.datagrid.loading = false;
+					});
+			},
+			saveGuaranteeLetter(){
+				var formData = new FormData(this.$refs.formGl);
+				if(app.glModel.midtrans_data.payPlanDate)
+					formData.set("payPlanDate",moment(app.glModel.midtrans_data.payPlanDate).format('YYYY-MM-DD'));
+				this.savingGl = true;
+				$.ajax({
+					url: '<?= base_url('admin/transaction/save_gl'); ?>',
+					type: 'POST',
+					contentType: false,
+					cache: false,
+					processData: false,
+					data: formData
+				}).done(function(res) {
+					if (res.status == false && res.validation_error) {
+						app.glModel.validation_error = res.validation_error
+					} else if (res.status == false && res.message) {
+						Swal.fire('Fail', res.message, 'error');
+					} else {
+						app.glModel.validation_error = {};
+						app.$refs.datagrid.refresh();
+						Swal.fire({
+							title: 'Successfully',
+							type: 'success',
+							html: `<p>Set As Guarantee Letter</p>`,
+						});
+					}
+				}).fail(function(xhr) {
+					var message = xhr.getResponseHeader("Message");
+					if (!message)
+						message = 'Server fail to response !';
+					Swal.fire('Fail', message, 'error');
+				}).always(function(res) {
+					app.savingGl = false;
+				});
 			},
 			formatCurrency(price) {
 				return new Intl.NumberFormat("id-ID", {

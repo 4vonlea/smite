@@ -184,10 +184,10 @@ $this->layout->begin_head();
 						<div class="form-group row">
 							<label class="col-lg-3 control-label">Method Payment</label>
 							<div class="col-lg-5">
-								<?= form_dropdown('channel', ['CASH' => 'CASH', 'EDC' => 'EDC', 'MANUAL TRANSFER' => 'MANUAL TRANSFER', 'GUARANTEE LETTER' => 'GUARANTEE LETTER'], 'CASH', [':class' => "{'is-invalid':validation_error.status}", 'class' => 'form-control', 'placeholder' => 'Select your status !', 'v-model' => 'channel']); ?>
+								<?= form_dropdown('channel', ['CASH' => 'CASH', 'EDC' => 'EDC', 'MANUAL TRANSFER' => 'MANUAL TRANSFER', Transaction_m::CHANNEL_GL => Transaction_m::CHANNEL_GL], 'CASH', [':class' => "{'is-invalid':validation_error.status}", 'class' => 'form-control', 'placeholder' => 'Select your status !', 'v-model' => 'channel']); ?>
 							</div>
 						</div>
-						<div v-if="channel =='MANUAL TRANSFER' || channel == 'GUARANTEE LETTER'" class="form-group row">
+						<div v-if="channel =='MANUAL TRANSFER' || channel == '<?=Transaction_m::CHANNEL_GL;?>'" class="form-group row">
 							<label class="col-lg-3 control-label">Upload Bukti <small>(jpg,png,jpeg,pdf)</small></label>
 							<div class="col-lg-5">
 								<input type="file" name="proof" :class="{'is-invalid':validation_error.proof}" class="form-control-file" />

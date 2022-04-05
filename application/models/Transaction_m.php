@@ -27,16 +27,42 @@ class Transaction_m extends MY_Model
 	const STATUS_DENY = "deny";
 	const STATUS_NEED_VERIFY = "need_verification";
 
+	const CHANNEL_GL = "GUARANTEE LETTER";
+
+	const GL_PAID_MESSAGE = "Guarantee letter Paid";
+
 	public function gridConfig($options = array())
 	{
 		return [
 			'relationships' => [
 				'member' => ['members', 'member.id = member_id', 'left']
 			],
-			'select' => ['invoice' => 't.id', 't_id' => 't.id', 'fullname' => 'COALESCE(fullname,t.member_id)', 'status_payment', 't_updated_at' => 't.updated_at', 'm_id' => 'member.id'],
+			'select' => ['invoice' => 't.id', 't_id' => 't.id', 'fullname' => 'COALESCE(fullname,t.member_id)', 'status_payment','channel', 't_updated_at' => 't.updated_at', 'm_id' => 'member.id'],
 			//			'filter'=>['checkout'=>'1'],
 			'sort' => ['t.updated_at', 'desc']
 		];
+	}
+
+	public function gridDataGl($params, $relationship = [])
+	{
+		$gridConfig = $this->gridConfig();
+		$gridConfig['select'] = array_merge($gridConfig['select'],[
+			'sponsor'=>"midtrans_data->>'$.sponsorName'",
+			'pay_plan_date'=>"midtrans_data->>'$.payPlanDate'",
+			'filename'=>"midtrans_data->>'$.fileName'",
+			'status_gl'=>"IF(message_payment = '".self::GL_PAID_MESSAGE."','Paid','Unpaid')"
+		]);
+		$gridConfig['filter'] = ['channel'=>Transaction_m::CHANNEL_GL];
+		$data = parent::gridData($params, $gridConfig);
+		$result = $this->find()->select("COUNT(id) as total")
+			->select("COALESCE(SUM(IF(message_payment = '".self::GL_PAID_MESSAGE."',1,0)),0) as paid")
+			->select("COALESCE(SUM(IF(message_payment != '".self::GL_PAID_MESSAGE."',1,0)),0) as unpaid")
+			->where("channel",self::CHANNEL_GL)
+			->get()->row_array();
+		$data['total_transaction'] = $result['total'];
+		$data['paid_transaction'] = $result['paid'];
+		$data['unpaid_transaction'] = $result['unpaid'];
+		return $data;
 	}
 
 	public function gridData($params, $relationship = [])

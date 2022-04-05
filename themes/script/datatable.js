@@ -15,9 +15,18 @@ var template = `
                 <div class="input-group-append">
                     <button type="button"  v-on:click="doFilter" class="btn btn-primary"><i class="fa fa-search"></i> Search</button>
                     <button type="button" v-on:click="resetFilter" class="btn btn-primary"><i class="fa fa-times"></i> Reset</button>
+                    <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Sorting
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a v-for="item in sortingList" class="dropdown-item" href="#" @click="setSort(item)">
+                            <i v-if="currentOrder.field == item.field && currentOrder.direction == 'asc'" class="fa fa-chevron-up"></i>
+                            <i v-if="currentOrder.field == item.field && currentOrder.direction == 'desc'" class="fa fa-chevron-down"></i>
+                            {{ item.title }}
+                        </a>
+                    </div>
                 </div>
             </div>
-
         </div>
     </div>
     <div style="position: relative">
@@ -33,7 +42,7 @@ var template = `
                   :per-page="pageSize"
                   data-path="data"
                   pagination-path=""
-                  :sort-order="sortOrder"
+                  :sort-order="sortingOrder"
                   :append-params="paramsQuery"
                   @vuetable:pagination-data="onPaginationData"
                   @vuetable:loading="onLoading"
@@ -61,7 +70,7 @@ Vue.component('datagrid', {
         'vuetable-pagination-info': Vuetable.VuetablePaginationInfo
     },
     props: {
-        'fields': Array, 'api-url': String, 'sort-order': Array, 'per-page': {
+        'fields': Array, 'api-url': String, 'sort-order': Array,'sort-list': Array, 'per-page': {
             'type': Array, 'default': function () {
                 return [10, 20, 50, 100];
             }
@@ -74,6 +83,7 @@ Vue.component('datagrid', {
             pageSize: 10,
             paramsQuery:{fields:this.getFieldName()},
             additionalQuery:{},
+            sortingOrder:[],
             css: {
                 table: {
                     tableWrapper: '',
@@ -111,6 +121,11 @@ Vue.component('datagrid', {
             },
         }
     },
+    created(){
+        if(this.sortOrder){
+            this.sortingOrder = this.sortOrder;
+        }
+    },
     computed: {
         fieldSlots: function () {
             var field = [];
@@ -120,6 +135,27 @@ Vue.component('datagrid', {
                     field.push(i);
             });
             return field;
+        },
+        sortingList(){
+            let sorting = [];
+            if(this.sortList){
+                sorting = this.sortList;
+            }else{
+                this.fields.forEach(function (row) {
+                    if(row.sortField){
+                       sorting.push({field:row.sortField,title:row.title ? row.title : row.name});
+                    }
+                })
+            }
+            console.log(this.sortList);
+            return sorting;
+        },
+        currentOrder(){
+            let current = {field:'',sortField:'',direction:''};
+            if(this.sortingOrder.length > 0){
+                current = this.sortingOrder[0];
+            }
+            return current;
         }
     },
     watch: {
@@ -165,7 +201,6 @@ Vue.component('datagrid', {
         },
         doFilter () {
         	var split = this.globalFilter.split(";");
-        	console.log(split.length,this.globalFilter);
         	if(split.length > 1){
         		this.globalFilter = split[1];
 			}
@@ -175,6 +210,13 @@ Vue.component('datagrid', {
                 'fields':this.getFieldName(),
             }
             Vue.nextTick( () => this.$refs.vuetable.refresh())
+        },
+        setSort(row){
+            let direction = row.field == this.currentOrder.field && this.currentOrder.direction == 'asc' ? 'desc' : 'asc';
+            this.sortingOrder = [
+                {field:row.field,sortField:row.field, direction:direction}
+            ]
+            Vue.nextTick( () => this.$refs.vuetable.refresh())    
         },
         refresh(){
             Vue.nextTick( () => this.$refs.vuetable.refresh())

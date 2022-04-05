@@ -68,3 +68,4 @@ themes/filemanager/*
 
 themes/uploads/video/*
 !themes/uploads/video/index.html
+application/uploads/guarantee_letter/*
