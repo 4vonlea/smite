@@ -108,6 +108,19 @@ class Notification_m extends MY_Model{
     protected function wrapMessage($message){
         $urlImageFooter = "";
         $urlImageHeader = "";
+<<<<<<< HEAD
+        //if($this->getType() == self::TYPE_GMAIL){
+         //   if(file_exists(APPPATH."../themes/img/email_footer_64.txt")){
+         //       $urlImageFooter =  file_get_contents(APPPATH."../themes/img/email_footer_64.txt");
+         //   }
+         //   if(file_exists(APPPATH."../themes/img/email_header_64.txt")){
+         //       $urlImageHeader = file_get_contents(APPPATH."../themes/img/email_header_64.txt");
+        //    }
+        //}elseif($this->getType() == self::TYPE_MAILER){
+            $urlImageFooter =  "cid:img_email_footer";//base_url('themes/img/email_footer.jpg');
+            $urlImageHeader = "cid:img_email_header";//base_url('themes/img/email_header.jpg');
+        //}
+=======
         if($this->getType() == self::TYPE_GMAIL){
                 $urlImageFooter = base_url('themes/img/email_footer.jpg');// base_url('themes/img/email_footer.jpg');//file_get_contents(APPPATH."../themes/img/email_footer_64.txt");
                 $urlImageHeader = base_url('themes/img/email_header.jpg');//file_get_contents(APPPATH."../themes/img/email_header_64.txt");
@@ -115,6 +128,7 @@ class Notification_m extends MY_Model{
             $urlImageFooter =  "cid:img_email_footer";//base_url('themes/img/email_footer.jpg');
             $urlImageHeader = "cid:img_email_header";//base_url('themes/img/email_header.jpg');
         }
+>>>>>>> b7d06adfe120756abac72e6ffdff5e59dce6a788
 
         $wrapperMessage = "<body style='background-color:#f6f6f6'>#DO NOT REPLY THIS AUTOMATED MESSAGE#<br/>If reply, sent to admin@aomc-pinbanjarmasin2022.com<br/><br/><hr/>";
         $wrapperMessage.= "<div style='padding:10px;width:45%;background-color:white;margin-right:auto;margin-left:auto;'><br/><img width='100%' src='".$urlImageHeader."'/>";
