@@ -333,7 +333,7 @@ class Site extends MY_Controller
 
                 $success = $this->db->insert('video_komen', $data);
                 if (!$success) {
-                    $debug($id);
+                    debug($id);
                 } else {
                     $this->session->set_userdata('idvideo', $id);
                     $seevideo = $this->VideoM->seevideo($id);
