@@ -110,7 +110,7 @@ class Notification_m extends MY_Model{
         $urlImageHeader = "";
         if($this->getType() == self::TYPE_GMAIL){
             if(file_exists(APPPATH."../themes/img/email_footer_64.txt")){
-                $urlImageFooter =  file_get_contents(APPPATH."../themes/img/email_foooter_64.txt");
+                $urlImageFooter =  file_get_contents(APPPATH."../themes/img/email_footer_64.txt");
             }
             if(file_exists(APPPATH."../themes/img/email_header_64.txt")){
                 $urlImageHeader = file_get_contents(APPPATH."../themes/img/email_header_64.txt");
