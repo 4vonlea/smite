@@ -109,8 +109,8 @@ class Notification_m extends MY_Model{
         $urlImageFooter = "";
         $urlImageHeader = "";
         if($this->getType() == self::TYPE_GMAIL){
-            $urlImageFooter = "https://aomc-pinbanjarmasin2022.com/themes/img/email_footer.jpg";// base_url('themes/img/email_footer.jpg');//file_get_contents(APPPATH."../themes/img/email_footer_64.txt");
-            $urlImageHeader = "https://aomc-pinbanjarmasin2022.com/themes/img/email_header.jpg";//file_get_contents(APPPATH."../themes/img/email_header_64.txt");
+                $urlImageFooter = base_url('themes/img/email_footer.jpg');// base_url('themes/img/email_footer.jpg');//file_get_contents(APPPATH."../themes/img/email_footer_64.txt");
+                $urlImageHeader = base_url('themes/img/email_header.jpg');//file_get_contents(APPPATH."../themes/img/email_header_64.txt");
         }elseif($this->getType() == self::TYPE_MAILER){
             $urlImageFooter =  "cid:img_email_footer";//base_url('themes/img/email_footer.jpg');
             $urlImageHeader = "cid:img_email_header";//base_url('themes/img/email_header.jpg');
