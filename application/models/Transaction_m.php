@@ -47,9 +47,9 @@ class Transaction_m extends MY_Model
 	{
 		$gridConfig = $this->gridConfig();
 		$gridConfig['select'] = array_merge($gridConfig['select'],[
-			'sponsor'=>"midtrans_data->>'$.sponsorName'",
-			'pay_plan_date'=>"midtrans_data->>'$.payPlanDate'",
-			'filename'=>"midtrans_data->>'$.fileName'",
+			'sponsor'=>"JSON_UNQUOTE(JSON_EXTRACT(midtrans_data,'$.sponsorName'))",//"midtrans_data->>'$.sponsorName'",
+			'pay_plan_date'=>"JSON_UNQUOTE(JSON_EXTRACT(midtrans_data,'$.payPlanDate'))",//"midtrans_data->>'$.payPlanDate'",
+			'filename'=>"JSON_UNQUOTE(JSON_EXTRACT(midtrans_data,'$.fileName'))",//"midtrans_data->>'$.fileName'",
 			'status_gl'=>"IF(message_payment = '".self::GL_PAID_MESSAGE."','Paid','Unpaid')"
 		]);
 		$gridConfig['filter'] = ['channel'=>Transaction_m::CHANNEL_GL];

@@ -27,10 +27,11 @@ class Setting extends Admin_Controller
 		$this->load->helper("form");
 		$this->load->model(['Notification_m', "Event_m"]);
 		$gmail_token = $this->Notification_m->getValue(Notification_m::SETTING_GMAIL_TOKEN, true);
+		$this->load->library("Gmail_api",['token'=>$gmail_token]);
 		$manual = Settings_m::getSetting(Settings_m::MANUAL_PAYMENT);
 		$this->layout->render('setting', [
 			'wa_token' => $this->Notification_m->getValue(Notification_m::SETTING_WA_TOKEN),
-			'email_binded' => (is_array($gmail_token) && count($gmail_token) > 0) ? 1 : 0,
+			'email_binded' => $this->gmail_api->getClient()->isAccessTokenExpired() ? 0 : 1,// (is_array($gmail_token) && count($gmail_token) > 0) ? 1 : 0,
 			"event" => $this->Event_m->findAll(),
 			'manual' => ($manual == "" || $manual == "null" ? "[]" : $manual)
 		]);
