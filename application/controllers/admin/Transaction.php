@@ -316,7 +316,7 @@ class Transaction extends Admin_Controller
 	{
 		$filepath = APPPATH . "uploads/guarantee_letter/" . $name;
 		if (file_exists($filepath)) {
-			$filename = $name;
+			$filename = "Guarantee Letter-".$name;
 			header('Content-Description: File Transfer');
 			header('Content-Type: ' . mime_content_type($filepath));
 			header('Content-Disposition: attachment; filename="' . $filename . '"');
