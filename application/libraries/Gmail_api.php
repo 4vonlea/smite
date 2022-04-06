@@ -117,7 +117,7 @@ class Gmail_api implements iNotification
 		$strRawMessage .= 'Content-type: Multipart/Mixed; boundary="' . $boundary . '"' . "\r\n";
 		$strRawMessage .= "\r\n--{$boundary}\r\n";
 		$strRawMessage .= "Content-Type: text/html; charset=utf-8\r\n";
-		$strRawMessage .= 'Content-Transfer-Encoding: quoted-printable' . "\r\n\r\n";
+		$strRawMessage .= 'Content-Transfer-Encoding: base64' . "\r\n\r\n";
 		$strRawMessage .= $message."\r\n";
 		foreach($files as $filename => $attc){
 			$mimeType = $finfo->buffer($attc);
