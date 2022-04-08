@@ -96,7 +96,7 @@
                                         </h2>
                                         <p style="color:#F4AD39; text-shadow: 3px 2px 1px black; font-size: 25px;">June 9<sup>th</sup> - 12<sup>th</sup>, 2022 on Virtual Meeting</p>
                                     </div>
-                                    <a href="<?= base_url('themes/gigaland'); ?>/images/2ndpinaomcfinalrev.pdf" target="blank" class="btn-main btn-lg" style="background-color:#F4AD39; color:black;">Download 2 <sup>nd</sup> Announcement here (updated on April 1st, 2022)</a>&nbsp;
+                                    <a href="<?= base_url('themes/gigaland'); ?>/images/2ndrevisiaomcpin5apr.pdf" target="blank" class="btn-main btn-lg" style="background-color:#F4AD39; color:black;">Download 2 <sup>nd</sup> Announcement here (updated on April 5th, 2022)</a>&nbsp;
                                     <div class="spacer-10">
                                         <div class="d-buttons">
 
@@ -424,16 +424,21 @@
                             </li>
                             <li class="nav-item mt-2" data-aos="fade-up" data-aos-delay="100">
                                 <a class="nav-link" data-bs-toggle="tab" href="#tab-3">
-                                    <h4 style="color:#F4AD39;">Scientific Guideline</h4>
+                                    <h4 style="color:#F4AD39;">Scientific Programme</h4>
                                 </a>
                             </li>
                             <li class="nav-item mt-2" data-aos="fade-up" data-aos-delay="100">
                                 <a class="nav-link" data-bs-toggle="tab" href="#tab-4">
-                                    <h4 style="color:#F4AD39;">Remarks from Chairmans </h4>
+                                    <h4 style="color:#F4AD39;">Scientific Guideline</h4>
                                 </a>
                             </li>
                             <li class="nav-item mt-2" data-aos="fade-up" data-aos-delay="100">
                                 <a class="nav-link" data-bs-toggle="tab" href="#tab-5">
+                                    <h4 style="color:#F4AD39;">Remarks from Chairmans </h4>
+                                </a>
+                            </li>
+                            <li class="nav-item mt-2" data-aos="fade-up" data-aos-delay="100">
+                                <a class="nav-link" data-bs-toggle="tab" href="#tab-6">
                                     <h4 style="color:#F4AD39;">Committee</h4>
                                 </a>
                             </li>
@@ -489,8 +494,18 @@
                                     </div>
                                 </figure>
                             </div>
-
                             <div class="tab-pane" id="tab-3">
+                                <figure>
+                                    <div class="col-lg-12 col-md-6 footer-links text-left">
+                                        <h4>Scientific Programme for PIN's</h4>
+                                        -
+                                        <hr>
+                                        <h4>Scientific Programme for AOMC</h4>
+                                        <a href="<?= base_url('themes/gigaland'); ?>/images/aomc-programme.pdf" target="blank" class="btn-main btn-sm" style="background-color:#F4AD39; color:black;">AOMC 2022 Scientific Programme</a>&nbsp;<br><br>
+                                    </div>
+                                </figure>
+                            </div>
+                            <div class="tab-pane" id="tab-4">
                                 <figure>
                                     <div class="col-lg-12 col-md-6 footer-links text-left">
                                         <h4>Scientific Guideline for PIN's</h4>
@@ -498,7 +513,7 @@
                                         <a href="<?= base_url('themes/gigaland'); ?>/images/TemplateAbstrakPINPerdossi2022.docx" target="blank" class="btn-main btn-sm" style="background-color:#F4AD39; color:black;">Template for PIN's Abstract</a>&nbsp;<br>
                                         <hr>
                                         <h4>Scientific Guideline for AOMC</h4>
-                                        <a href="<?= base_url('themes/gigaland'); ?>/images/aomc2022abstractsubfinal.pdf" target="blank" class="btn-main btn-sm" style="background-color:#F4AD39; color:black;">Guideline for AOMC abstract</a>&nbsp;<br><br>
+                                        <a href="<?= base_url('themes/gigaland'); ?>/images/AOMC 2022_Scientific Guidlines_Update.pdf" target="blank" class="btn-main btn-sm" style="background-color:#F4AD39; color:black;">Guideline for AOMC abstract (updated on 6th April)</a>&nbsp;<br><br>
                                         <a href="<?= base_url('themes/gigaland'); ?>/images/AOMC 2022 Abstract Submission Form For Original Article.docx" target="blank" class="btn-main btn-sm" style="background-color:#F4AD39; color:black;">Click here for template for the original article</a>&nbsp;<br><br>
                                         <a href="<?= base_url('themes/gigaland'); ?>/images/AOMC 2022 Abstract Submission Form For Case Report.docx" target="blank" class="btn-main btn-sm" style="background-color:#F4AD39; color:black;">Click here for template for case report</a>&nbsp;<br>
 
@@ -506,13 +521,13 @@
                                 </figure>
                             </div>
 
-                            <div class="tab-pane" id="tab-4">
+                            <div class="tab-pane" id="tab-5">
                                 <figure>
                                     <iframe src="<?= base_url('themes/gigaland'); ?>/images/remark.pdf" width="100%" height="500px"></iframe>
                                 </figure>
                             </div>
 
-                            <div class="tab-pane" id="tab-5">
+                            <div class="tab-pane" id="tab-6">
                                 <figure>
                                     <iframe src="<?= base_url('themes/gigaland'); ?>/images/commitee.pdf" width="100%" height="500px"></iframe>
                                 </figure>

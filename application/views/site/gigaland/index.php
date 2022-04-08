@@ -66,7 +66,7 @@
 										<div class="spacer-10"></div>
 										<div class="spacer-10"></div>
 
-                                        	<a href="<?= base_url('themes/gigaland'); ?>/images/2ndpinaomcfinalrev.pdf" target="blank" class="btn-main btn-lg" style="background-color:#F4AD39; color:black;">Download 2 <sup>nd</sup> Announcement here (updated on April 1st, 2022)</a>&nbsp;
+                                        	<a href="<?= base_url('themes/gigaland'); ?>/images/2ndrevisiaomcpin5apr.pdf" target="blank" class="btn-main btn-lg" style="background-color:#F4AD39; color:black;">Download 2 <sup>nd</sup> Announcement here (updated on April 5th, 2022)</a>&nbsp;
 
                                             <!--<a href="" class="btn-main btn-lg" style="background-color:#F4AD39; color:black;">Enter</a>&nbsp;-->											
                                         </div>
