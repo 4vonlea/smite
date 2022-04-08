@@ -342,7 +342,7 @@ class Transaction extends Admin_Controller
 				->set_output(json_encode($response));
 	}
 
-	public function file_gl($name,$is_receipt)
+	public function file_gl($name,$is_receipt = false)
 	{
 		$filepath = APPPATH . "uploads/guarantee_letter/" . $name;
 		if (file_exists($filepath)) {
