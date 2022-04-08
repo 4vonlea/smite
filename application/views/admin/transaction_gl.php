@@ -103,6 +103,10 @@
 						<span v-if="props.row.status_gl == 'Unpaid'" class="badge badge-danger">
 							{{ props.row.status_gl }}
 						</span>
+						<br/>
+						<a v-if="props.row.receiptPayment" :href="'<?= base_url('admin/transaction/file_gl'); ?>/'+props.row.receiptPayment+'/true'" target="_blank" class="btn btn-sm btn-info mt-2">
+							File Receipt Payment
+						</a>
 
 					</template>
 					<template slot="pay_plan_date" slot-scope="props">
@@ -170,8 +174,23 @@
 							<a :href="'<?= base_url('admin/transaction/file_gl'); ?>/'+modifyModel.midtrans_data.fileName" target="_blank" class="btn btn-sm btn-info mb-2">
 								Download
 							</a>
-							<input type="file" name="fileName" class="form-control" />
+							<input type="file" name="fileName" class="form-control" :class="{'is-invalid': modifyModel.validation_error.fileName}" />
+							<div v-if="modifyModel.validation_error.fileName" class="invalid-feedback">
+								{{ modifyModel.validation_error.fileName }}
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<th>File Receipt Payment</th>
+						<td>
 
+							<a v-if="modifyModel.midtrans_data.receiptPayment" :href="'<?= base_url('admin/transaction/file_gl'); ?>/'+modifyModel.midtrans_data.receiptPayment+'/true'" target="_blank" class="btn btn-sm btn-info mb-2">
+								Download
+							</a>
+							<input type="file" name="receiptPayment" class="form-control" :class="{'is-invalid': modifyModel.validation_error.receiptPayment}" />
+							<div v-if="modifyModel.validation_error.receiptPayment" class="invalid-feedback">
+								{{ modifyModel.validation_error.receiptPayment }}
+							</div>
 						</td>
 					</tr>
 					<tr>
@@ -244,7 +263,7 @@
 				var formData = new FormData(this.$refs.formModify);
 				if(this.modifyModel.midtrans_data.payPlanDate)
 					formData.set("midtrans_data[payPlanDate]",moment(this.modifyModel.midtrans_data.payPlanDate).format('YYYY-MM-DD'));
-				if(this.modifyModel.midtrans_data.payPlanDate)
+				if(this.modifyModel.midtrans_data.fileName)
 					formData.set("midtrans_data[fileName]",this.modifyModel.midtrans_data.fileName);
 
 				this.savingModify = true;

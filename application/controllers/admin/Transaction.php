@@ -271,6 +271,7 @@ class Transaction extends Admin_Controller
 		$id_invoice = $this->input->post("id");
 		$data = $this->input->post('midtrans_data');
 		$uploadStatus = true;
+		$uploadStatusReceipt = true;
 		$this->load->library("form_validation");
 		$this->form_validation->set_rules('midtrans_data[sponsorName]', 'Sponsor', 'required');
 		$this->form_validation->set_rules('midtrans_data[payPlanDate]', 'Pay Plan Date', 'required');
@@ -278,6 +279,7 @@ class Transaction extends Admin_Controller
 			'status'=>true,
 			'validation_error'=>null,
 		];
+		$errorUpload = [];
 		if (isset($_FILES['fileName']) && is_uploaded_file($_FILES['fileName']['tmp_name'])) {
 			if(file_exists(APPPATH . 'uploads/guarantee_letter/') == false){
 				mkdir(APPPATH . 'uploads/guarantee_letter/');
@@ -295,9 +297,33 @@ class Transaction extends Admin_Controller
 				$data['fileName'] = $dataUpload['file_name'];
 			} else {
 				$uploadStatus = false;
+				$errorUpload = $this->upload->display_errors("", "");
 			}
 		}
-		if($uploadStatus && $this->form_validation->run()){
+		$errorReceipt = [];
+		if (isset($_FILES['receiptPayment']) && is_uploaded_file($_FILES['receiptPayment']['tmp_name'])) {
+			if(file_exists(APPPATH . 'uploads/guarantee_letter/') == false){
+				mkdir(APPPATH . 'uploads/guarantee_letter/');
+			}
+			$config['upload_path'] = APPPATH . 'uploads/guarantee_letter/';
+			$config['allowed_types'] = 'jpg|png|jpeg|pdf';
+			$config['max_size'] = 2048;
+			$config['overwrite'] = true;
+			$config['file_name'] = "RP-".$id_invoice;
+			if(isset($this->upload)){
+				$this->upload->initialize($config);
+			}else{
+				$this->load->library('upload', $config);
+			}
+			if ($this->upload->do_upload('receiptPayment')) {
+				$dataUpload = $this->upload->data();
+				$data['receiptPayment'] = $dataUpload['file_name'];
+			} else {
+				$uploadStatusReceipt = false;
+				$errorReceipt = $this->upload->display_errors("", "");
+			}
+		}
+		if($uploadStatus && $uploadStatusReceipt && $this->form_validation->run()){
 			$this->load->model("Transaction_m");
 			$response['status'] = $this->Transaction_m->update([
 				'channel'=>$this->input->post('channel') ?? Transaction_m::CHANNEL_GL,
@@ -306,17 +332,21 @@ class Transaction extends Admin_Controller
 			],$id_invoice);
 		}else{
 			$response['status'] = false;
-			$response['validation_error'] = array_merge($this->form_validation->error_array(), ['fileName' => ($uploadStatus == false ? $this->upload->display_errors("", "") : null)]);
+			$response['validation_error'] = array_merge(
+				$this->form_validation->error_array(), 
+				['fileName' => ($uploadStatus == false ? $errorUpload : null)],
+				['receiptPayment' => ($uploadStatusReceipt == false ? $errorReceipt : null)],
+			);
 		}
 		$this->output->set_content_type("application/json")
 				->set_output(json_encode($response));
 	}
 
-	public function file_gl($name)
+	public function file_gl($name,$is_receipt)
 	{
 		$filepath = APPPATH . "uploads/guarantee_letter/" . $name;
 		if (file_exists($filepath)) {
-			$filename = "Guarantee Letter-".$name;
+			$filename = $is_receipt ? "Receipt Payment-".$name:"Guarantee Letter-".$name;
 			header('Content-Description: File Transfer');
 			header('Content-Type: ' . mime_content_type($filepath));
 			header('Content-Disposition: attachment; filename="' . $filename . '"');
