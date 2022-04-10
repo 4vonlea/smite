@@ -222,7 +222,7 @@ class Papers_m extends MY_Model
 	{
 		$this->db->select('*');
 		$this->db->from('papers');
-		$this->db->where('status', '2');
+		// $this->db->where('status', '2');
 		$result = $this->db->get();
 		return $result->num_rows();
 	}
