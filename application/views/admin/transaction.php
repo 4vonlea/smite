@@ -711,7 +711,7 @@
 			saveGuaranteeLetter(){
 				var formData = new FormData(this.$refs.formGl);
 				if(app.glModel.midtrans_data.payPlanDate)
-					formData.set("payPlanDate",moment(app.glModel.midtrans_data.payPlanDate).format('YYYY-MM-DD'));
+					formData.set("midtrans_data[payPlanDate]",moment(app.glModel.midtrans_data.payPlanDate).format('YYYY-MM-DD'));
 				this.savingGl = true;
 				$.ajax({
 					url: '<?= base_url('admin/transaction/save_gl'); ?>',
