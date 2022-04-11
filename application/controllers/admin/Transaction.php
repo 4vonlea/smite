@@ -349,7 +349,7 @@ class Transaction extends Admin_Controller
 			$filename = $is_receipt ? "Receipt Payment-".$name:"Guarantee Letter-".$name;
 			header('Content-Description: File Transfer');
 			header('Content-Type: ' . mime_content_type($filepath));
-			header('Content-Disposition: attachment; filename="' . $filename . '"');
+			// header('Content-Disposition: attachment; filename="' . $filename . '"');
 			header('Expires: 0');
 			header('Cache-Control: must-revalidate');
 			header('Pragma: public');

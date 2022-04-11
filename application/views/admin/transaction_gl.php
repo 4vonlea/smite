@@ -83,7 +83,7 @@
 				</div>
 			</div>
 			<div class="table-responsive">
-				<datagrid @loaded_data="loadedGrid" ref="datagrid" api-url="<?= base_url('admin/transaction/grid_gl'); ?>" :fields="[{name:'invoice',sortField:'invoice','title':'No Invoice'}, {name:'fullname',sortField:'fullname','title':'Member Name'},{name:'status_payment',sortField:'status_payment','title':'Status Payment'},{name:'status_gl',title:'Status GL'},{name:'pay_plan_date',sortField:'t_updated_at',title:'Pay Plan Date'},{name:'t_id','title':'Aksi'}]">
+				<datagrid @loaded_data="loadedGrid" ref="datagrid" api-url="<?= base_url('admin/transaction/grid_gl'); ?>" :fields="[{name:'invoice',sortField:'invoice','title':'No Invoice'}, {name:'fullname',sortField:'fullname','title':'Member Name'},{name:'status_payment',sortField:'status_payment','title':'Status Payment'},{name:'status_gl',sortField:'status_gl',title:'Status GL'},{name:'pay_plan_date',sortField:'pay_plan_date',title:'Pay Plan Date'},{name:'t_id','title':'Aksi'}]">
 					<template slot="fullname" slot-scope="props">
 						{{ props.row.fullname }} <br />
 						<span class="badge badge-info">
