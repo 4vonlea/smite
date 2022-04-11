@@ -68,6 +68,19 @@ class Transaction_m extends MY_Model
 
 	public function gridData($params, $relationship = [])
 	{
+		$global_filter = (isset($params['global_filter'])?$params['global_filter']:null);
+		if($global_filter){
+			$relationship = (count($relationship) > 0 ? $relationship:$this->gridConfig());
+			$result = $this->db->like("fullname",$global_filter)
+				->or_like("email",$global_filter)
+				->from("members")
+				->select("transaction_id")
+				->join("transaction_details","members.id = member_id")
+				->get();
+			foreach($result->result_array() as $row){
+				$relationship['additional_search'][$row['transaction_id']] = 't.id';
+			}
+		}
 		$data = parent::gridData($params, $relationship);
 		$result = $this->find()->select("SUM(IF(status_payment = '" . self::STATUS_FINISH . "',1,0)) as finish")
 			->select("SUM(IF(status_payment = 'capture' OR status_payment = 'pending',1,0)) as pending")

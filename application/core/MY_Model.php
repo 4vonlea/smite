@@ -103,6 +103,12 @@ class MY_Model extends yidas\Model
 					$countBuilder->or_like($fname, $global_filter);
 				}
             }
+			if(isset($gridConfig['additional_search'])){
+				foreach($gridConfig['additional_search'] as $value=>$fname){
+					$builder->or_like($fname, $value);
+					$countBuilder->or_like($fname, $value);
+				}
+			}
 			$builder->group_end();
 			$countBuilder->group_end();
 		}
