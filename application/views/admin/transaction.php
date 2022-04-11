@@ -229,7 +229,7 @@
 						<th colspan="2">Price</th>
 					</tr>
 					<tr v-for="(dt,ind) in detailSort">
-						<td colspan="2" v-if="isGroup">{{ dt.member.fullname }}</td>
+						<td colspan="2" v-if="isGroup">{{ dt.member.fullname }} <br/> {{ dt.member.email }}</td>
 						<td colspan="2">{{ dt.product_name }}</td>
 						<td colspan="2">
 							{{ editUniquePrice == false || dt.event_pricing_id != 0 ?  formatCurrency(dt.price) : "" }}
@@ -353,7 +353,7 @@
 						<th v-if="!isGroup"><button @click="modifyModel.details.push({member_id:modifyModel.member.id,transaction_id:modifyModel.id,event_pricing_id:0,product_name:'',price:0,isDeleted:0})" class="btn btn-primary btn-sm">Add Item</button></th>
 					</tr>
 					<tr v-for="(dt,ind) in modifySort" :class="{'bg-red':dt.isDeleted}">
-						<td colspan="2" v-if="isGroup">{{ dt.member.fullname }}</td>
+						<td colspan="2" v-if="isGroup">{{ dt.member.fullname }} <br/> {{ dt.member.email }}</td>
 						<td v-if="!dt.id" colspan="2">
 							<select class="form-control" @change="changeEvent($event,dt)" v-model="dt.event_pricing_id">
 								<option value="0">Select Event (Event filtered by status)</option>
