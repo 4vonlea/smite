@@ -122,100 +122,94 @@
                         <h2 class="style-2" style="color:#F4AD39;">Speaker</h2>
                     </div>
                     <div id="collection-carousel-alt" class="owl-carousel wow fadeInRight" data-wow-delay=".5s">
-
                         <div class="nft_coll">
                             <div class="nft_wrap">
-                                <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/collections/coll-1.jpg" class="lazy img-fluid" alt=""></a>
-                            </div>
-                            <div class="nft_coll_pp">
-                                <a href="03_grey-collection.html"><img class="lazy pp-coll" src="<?= base_url('themes/gigaland'); ?>/images/speaker.png" alt=""></a>
-                                <i class="fa fa-check"></i>
+                                <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/speaker/movementdisorder/dr. George Dewanto,Sp.N, FAAN.png" class="lazy img-fluid" alt=""></a>
                             </div>
                             <div class="nft_coll_info">
+                                <br>
                                 <a href="">
-                                    <h4>Speaker 1</h4>
+                                    <h4 style="color:#F4AD39; font-size: 18px;">dr. George Dewanto,Sp.N, FAAN</h4>
                                 </a>
-                                <span>"Materi"</span>
+                                <span>"Movement Disorder"</span>
                             </div>
                         </div>
 
                         <div class="nft_coll">
                             <div class="nft_wrap">
-                                <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/collections/coll-2.jpg" class="lazy img-fluid" alt=""></a>
-                            </div>
-                            <div class="nft_coll_pp">
-                                <a href="03_grey-collection.html"><img class="lazy pp-coll" src="<?= base_url('themes/gigaland'); ?>/images/speaker.png" alt=""></a>
-                                <i class="fa fa-check"></i>
+                                <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/speaker/movementdisorder/dr. Neila Raisa, Sp.N(K).png" class="lazy img-fluid" alt=""></a>
                             </div>
                             <div class="nft_coll_info">
+                                <br>
                                 <a href="">
-                                    <h4>Speaker 2</h4>
+                                    <h4 style="color:#F4AD39; font-size: 18px;">dr. Neila Raisa, Sp.N(K)</h4>
                                 </a>
-                                <span>"Materi"</span>
+                                <span>"Movement Disorder"</span><br><br>
                             </div>
                         </div>
 
                         <div class="nft_coll">
                             <div class="nft_wrap">
-                                <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/collections/coll-1.jpg" class="lazy img-fluid" alt=""></a>
-                            </div>
-                            <div class="nft_coll_pp">
-                                <a href="03_grey-collection.html"><img class="lazy pp-coll" src="<?= base_url('themes/gigaland'); ?>/images/speaker.png" alt=""></a>
-                                <i class="fa fa-check"></i>
+                                <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/speaker/movementdisorder/dr. Nurul Rakhmawati, Sp.N.png" class="lazy img-fluid" alt=""></a>
                             </div>
                             <div class="nft_coll_info">
+                                <br>
                                 <a href="">
-                                    <h4>Speaker 3</h4>
+                                    <h4 style="color:#F4AD39; font-size: 18px;">dr. Nurul Rakhmawati, Sp.N</h4>
                                 </a>
-                                <span>"Materi"</span>
+                                <span>"Movement Disorder"</span>
                             </div>
                         </div>
 
                         <div class="nft_coll">
                             <div class="nft_wrap">
-                                <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/collections/coll-2.jpg" class="lazy img-fluid" alt=""></a>
-                            </div>
-                            <div class="nft_coll_pp">
-                                <a href="03_grey-collection.html"><img class="lazy pp-coll" src="<?= base_url('themes/gigaland'); ?>/images/speaker.png" alt=""></a>
-                                <i class="fa fa-check"></i>
+                                <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/speaker/movementdisorder/dr. Rizal Tumewah, Sp.N(K).png" class="lazy img-fluid" alt=""></a>
                             </div>
                             <div class="nft_coll_info">
+                                <br>
                                 <a href="">
-                                    <h4>Speaker 4</h4>
+                                    <h4 style="color:#F4AD39; font-size: 18px;">dr. Rizal Tumewah, Sp.N(K)</h4>
                                 </a>
-                                <span>"Materi"</span>
+                                <span>"Movement Disorder"</span>
                             </div>
                         </div>
 
                         <div class="nft_coll">
                             <div class="nft_wrap">
-                                <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/collections/coll-1.jpg" class="lazy img-fluid" alt=""></a>
-                            </div>
-                            <div class="nft_coll_pp">
-                                <a href="03_grey-collection.html"><img class="lazy pp-coll" src="<?= base_url('themes/gigaland'); ?>/images/speaker.png" alt=""></a>
-                                <i class="fa fa-check"></i>
+                                <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/speaker/movementdisorder/dr. Selly Marisdina, Sp.N(K), MARS.png" class="lazy img-fluid" alt=""></a>
                             </div>
                             <div class="nft_coll_info">
+                                <br>
                                 <a href="">
-                                    <h4>Speaker 5</h4>
+                                    <h4 style="color:#F4AD39; font-size: 18px;">dr. Selly Marisdina, Sp.N(K), MARS</h4>
                                 </a>
-                                <span>"Materi"</span>
+                                <span>"Movement Disorder"</span>
                             </div>
                         </div>
 
                         <div class="nft_coll">
                             <div class="nft_wrap">
-                                <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/collections/coll-2.jpg" class="lazy img-fluid" alt=""></a>
-                            </div>
-                            <div class="nft_coll_pp">
-                                <a href="03_grey-collection.html"><img class="lazy pp-coll" src="<?= base_url('themes/gigaland'); ?>/images/speaker.png" alt=""></a>
-                                <i class="fa fa-check"></i>
+                                <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/speaker/movementdisorder/dr. Sri Yenni Trisnawati, Sp.N (K).png" class="lazy img-fluid" alt=""></a>
                             </div>
                             <div class="nft_coll_info">
+                                <br>
                                 <a href="">
-                                    <h4>Speaker 6</h4>
+                                    <h4 style="color:#F4AD39; font-size: 18px;">dr. Sri Yenni Trisnawati, Sp.N (K)</h4>
                                 </a>
-                                <span>"Materi"</span>
+                                <span>"Movement Disorder"</span>
+                            </div>
+                        </div>
+
+                        <div class="nft_coll">
+                            <div class="nft_wrap">
+                                <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/speaker/movementdisorder/dr. Subagya, Sp. N(K).png" class="lazy img-fluid" alt=""></a>
+                            </div>
+                            <div class="nft_coll_info">
+                                <br>
+                                <a href="">
+                                    <h4 style="color:#F4AD39; font-size: 18px;">dr. Subagya, Sp. N(K)</h4>
+                                </a>
+                                <span>"Movement Disorder"</span><br><br>
                             </div>
                         </div>
 
@@ -319,7 +313,7 @@
                                     <input type='password' name='password' id='password' class="form-control" placeholder="Password">
                                 </div>
                             <?php endif; ?>
-                            <a href="<?=base_url('site/forget');?>">Forgot Password ?</a>
+                            <a href="<?= base_url('site/forget'); ?>">Forgot Password ?</a>
                             <div class="d-buttons">
                                 <input type="submit" name="login" class="btn-main btn-fullwidth" value="<?= $hasSession ? "Back To Member Area" : "Sign"; ?>" style="background-color:#F4AD39; color:black;"><br>
                             </div>
