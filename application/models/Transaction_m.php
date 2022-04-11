@@ -237,11 +237,14 @@ class Transaction_m extends MY_Model
 
 	public function count_participant()
 	{
-		$this->db->select('*');
-		$this->db->from('transaction');
-		$this->db->where('status_payment', 'settlement');
-		$result = $this->db->get();
-		return $result->num_rows();
+		$this->db->query("SELECT COUNT(DISTINCT m.id) AS j FROM transaction_details td
+							JOIN transaction t ON t.id = td.transaction_id
+							JOIN members m ON m.id = td.member_id
+							JOIN event_pricing ep ON ep.id = td.event_pricing_id
+							JOIN `events` e ON e.id = ep.event_id
+							WHERE t.status_payment = 'settlement'");
+		$result = $this->db->get()->row();
+		return $result->j;
 	}
 
 	/**
