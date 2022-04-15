@@ -42,7 +42,7 @@ export default Vue.component("PageWebminar", {
                                 </td>
                             </tr>
                             <tr v-if="event.special_link.length == 0">
-                                <td  colspan="3">Link for event {{event.name}} not yet available</td>
+                                <td class="text-center" colspan="3">Link for event {{event.name}} not yet available</td>
                             </tr>
                             <tr>
                                 <td class="tab-content" colspan="3">
@@ -268,7 +268,7 @@ export default Vue.component("PageWebminar", {
             var page = this;
             page.loading = true;
             page.fail = false;
-            $.post(this.baseUrl + "get_events", null, function (res) {
+            $.post(this.baseUrl + "get_events", {'onlyFollowed':'1'}, function (res) {
                 if (res.status) {
                     let eventsFollowed = [];
                     $.each(res.events, function (i, event) {

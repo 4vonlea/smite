@@ -167,9 +167,13 @@ class Event_m extends MY_Model
 		return $return;
 	}
 
-	public function eventVueModel($member_id = '', $userStatus = '', $filter = [])
+	public function eventVueModel($member_id = '', $userStatus = '', $filter = [],$onLyFollowed = false)
 	{
-		$filter = array_merge($filter, ['show' => '1']);
+		if($onLyFollowed == false){
+			$filter = array_merge($filter, ['show' => '1']);
+		}else{
+			$filter['td.id IS NOT NULL'] = null;
+		}
 		$this->load->model("Transaction_m");
 		$result = $this->setAlias("t")->find()->select("t.id as id_event,
 				t.kouta,

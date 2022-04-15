@@ -121,7 +121,8 @@ class Area extends MY_Controller
 		if ($this->input->method() !== 'post')
 			show_404("Page not found !");
 		$this->load->model("Event_m");
-		$events = $this->Event_m->eventVueModel($this->session->user_session['id'], $this->session->user_session['status_name']);
+		$onLyFollowed = $this->input->post("onlyFollowed") == '1';
+		$events = $this->Event_m->eventVueModel($this->session->user_session['id'], $this->session->user_session['status_name'],[],$onLyFollowed);
 		$this->output->set_content_type("application/json")
 			->_display(json_encode(['status' => true, 'events' => $events]));
 	}
