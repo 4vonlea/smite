@@ -96,7 +96,7 @@
                                         </h2>
                                         <p style="color:#F4AD39; text-shadow: 3px 2px 1px black; font-size: 25px;">June 9<sup>th</sup> - 12<sup>th</sup>, 2022 on Virtual Meeting</p>
                                     </div>
-                                    <a href="<?= base_url('themes/gigaland'); ?>/images/2ndrevisiaomcpin5apr.pdf" target="blank" class="btn-main btn-lg" style="background-color:#F4AD39; color:black;">Download 2 <sup>nd</sup> Announcement here (updated on April 5th, 2022)</a>&nbsp;
+                                    <a href="<?= base_url('themes/gigaland'); ?>/images/3rdAnnouncement20220415.pdf" target="blank" class="btn-main btn-lg" style="background-color:#F4AD39; color:black;">Download 3 <sup>rd</sup> Announcement here (updated on April 15th)</a>&nbsp;
                                     <div class="spacer-10">
                                         <div class="d-buttons">
 
@@ -443,10 +443,10 @@
                             <div class="tab-pane active show" id="tab-1">
                                 <ul>
                                     <li>15 February 2022 : Open Submission</li>
-                                    <li>14 April 2022 : Abstract Submission Deadline for AOMC and PIN</li>
-                                    <li>22 April 2022 : Abstract Revision Deadline</li>
-                                    <li>7 Mei 2022 : Full Manuscript Submission Deadline</li>
-                                    <li>31 Mei 2022 : Presentation (poster/slide) Submission Deadline</li>
+                                    <li>30 April 2022 : Abstract Submission Deadline for AOMC and PIN</li>
+                                    <li>5 May 2022 : Abstract Revision Deadline</li>
+                                    <li>14 May 2022 : Full Manuscript Submission Deadline</li>
+                                    <li>21 May 2022 : Presentation (poster/slide) Submission Deadline</li>
                                     <li>12 June 2022: Winner Announcement</li>
                                 </ul>
                             </div>
@@ -503,11 +503,11 @@
                                 <figure>
                                     <div class="col-lg-12 col-md-6 footer-links text-left">
                                         <h4>Scientific Guideline for PIN's</h4>
-                                        <a href="<?= base_url('themes/gigaland'); ?>/images/callforabstract.pdf" target="blank" class="btn-main btn-sm" style="background-color:#F4AD39; color:black;">Guideline for PIN's abstract</a>&nbsp;<br><br>
+                                        <a href="<?= base_url('themes/gigaland'); ?>/images/PedomanFreePaper20220415.pdf" target="blank" class="btn-main btn-sm" style="background-color:#F4AD39; color:black;">Guideline for PIN's abstract (updated on 15th April)</a>&nbsp;<br><br>
                                         <a href="<?= base_url('themes/gigaland'); ?>/images/TemplateAbstrakPINPerdossi2022.docx" target="blank" class="btn-main btn-sm" style="background-color:#F4AD39; color:black;">Template for PIN's Abstract</a>&nbsp;<br>
                                         <hr>
                                         <h4>Scientific Guideline for AOMC</h4>
-                                        <a href="<?= base_url('themes/gigaland'); ?>/images/AOMC 2022_Scientific Guidlines_Update.pdf" target="blank" class="btn-main btn-sm" style="background-color:#F4AD39; color:black;">Guideline for AOMC abstract (updated on 6th April)</a>&nbsp;<br><br>
+                                        <a href="<?= base_url('themes/gigaland'); ?>/images/Abstract Guidelines Final.pdf" target="blank" class="btn-main btn-sm" style="background-color:#F4AD39; color:black;">Guideline for AOMC abstract (updated on 12th April)</a>&nbsp;<br><br>
                                         <a href="<?= base_url('themes/gigaland'); ?>/images/AOMC 2022 Abstract Submission Form For Original Article.docx" target="blank" class="btn-main btn-sm" style="background-color:#F4AD39; color:black;">Click here for template for the original article</a>&nbsp;<br><br>
                                         <a href="<?= base_url('themes/gigaland'); ?>/images/AOMC 2022 Abstract Submission Form For Case Report.docx" target="blank" class="btn-main btn-sm" style="background-color:#F4AD39; color:black;">Click here for template for case report</a>&nbsp;<br>
 
@@ -817,10 +817,10 @@
                         <h5 style="color:#F4AD39;">Important Dates</h5>
                         <ul style="font-size: 12px;">
                             <li>15 February 2022 : Open Submission</li>
-                            <li>14 April 2022 : Abstract Submission Deadline for AOMC and PIN</li>
-                            <li>22 April 2022 : Abstract Revision Deadline</li>
-                            <li>7 Mei 2022 : Full Manuscript Submission Deadline</li>
-                            <li>31 Mei 2022 : Presentation (poster/slide) Submission Deadline</li>
+                            <li>30 April 2022 : Abstract Submission Deadline for AOMC and PIN</li>
+                            <li>5 May 2022 : Abstract Revision Deadline</li>
+                            <li>14 May 2022 : Full Manuscript Submission Deadline</li>
+                            <li>21 May 2022 : Presentation (poster/slide) Submission Deadline</li>
                             <li>12 June 2022: Winner Announcement</li>
                         </ul>
                     </div>

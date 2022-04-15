@@ -35,8 +35,8 @@ $theme_path = base_url("themes/gigaland") . "/";
             <div v-if="page == 'registered'" class="col-lg-8 offset-lg-2">
                 <div class="alert alert-success" style="background-color: #F5AC39;">
                     <h4 class="text-dark"><i class="fa fa-info"></i> Your account has been created</h4>
-                    <p>We have sent a confirmation link to your email address. To complete the registration process, please click <i>confirmation link</i>.
-                        If you don't receive a confirmation email, please check your spam. If you need help, please contact us.</p>
+                    <p>We have sent a confirmation link to your email address. Please check your inbox / spam. To complete the registration process, please click <i>confirmation link</i>.
+                        If you need help, please contact us.</p>
                 </div>
 
                 <div class="card mt-2">
@@ -194,7 +194,7 @@ $theme_path = base_url("themes/gigaland") . "/";
             <div v-show="page == 'register'" class="col-lg-8 offset-lg-2">
                 <div class="alert alert-success mt-2" style="background-color: #F5AC39;">
                     <h4 class="text-dark"><i class="fa fa-info"></i> <b>Attention</b></h4>
-                    <p class="text-dark"> <b>Make sure you enter a valid and accessible email address. A code will be sent to the entered email to activate your account.</b></p>
+                    <p class="text-dark"> <b>Make sure you enter a valid and accessible email address. A code will be sent to the entered email to activate your account. Please check inbox / spam</b></p>
                 </div>
                 <form id="form-register" class="form-border" ref="form">
                     <div class="de_tab tab_simple">
