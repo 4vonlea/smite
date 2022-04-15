@@ -536,7 +536,7 @@ class Area extends MY_Controller
 		$validation = $this->Papers_m->validate($this->input->post());
 		if ($upload && $validation) {
 			$paper = Papers_m::findOne(['id' => $this->input->post('id')]);
-			$checkSameTitle = Papers_m::findOne(['member_id'=>$this->session->user_session['id'],'title'=>$this->input->post('title')]);
+			$checkSameTitle = Papers_m::findOne(['member_id'=>$this->session->user_session['id'],'title'=>$this->input->post('title',false)]);
 			$isNew = false;
 			$response['check'] = $checkSameTitle;
 			if (!$paper || $paper->id == 0){
@@ -555,9 +555,9 @@ class Area extends MY_Controller
 			$paper->member_id = $this->session->user_session['id'];
 			$paper->filename = $data['file_name'];
 			$paper->status = 1;
-			$paper->title = $this->input->post('title');
+			$paper->title = $this->input->post('title',false);
 			$paper->type = $this->input->post('type');
-			$paper->introduction = $this->input->post('introduction');
+			$paper->introduction = $this->input->post('introduction',false);
 			$paper->methods = $this->input->post('methods');
 			$paper->category = $category['id'];
 			if ($this->input->post("type_study_other")) {
