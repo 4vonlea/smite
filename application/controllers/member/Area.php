@@ -547,7 +547,7 @@ class Area extends MY_Controller
 					$paper = new Papers_m();
 				}
 			}
-
+          
 			$this->load->model(["Category_paper_m"]);
 			$category = $this->Category_paper_m->find()->where('name', $this->input->post('category'))->get()->row_array();
 
