@@ -66,13 +66,13 @@
 										<div class="spacer-10"></div>
 										<div class="spacer-10"></div>
 
-                                        	<a href="<?= base_url('themes/gigaland'); ?>/images/2ndrevisiaomcpin5apr.pdf" target="blank" class="btn-main btn-lg" style="background-color:#F4AD39; color:black;">Download 2 <sup>nd</sup> Announcement here (updated on April 5th, 2022)</a>&nbsp;
+                                        	<a href="<?= base_url('themes/gigaland'); ?>/images/3rdAnnouncement20220415.pdf" target="blank" class="btn-main btn-lg" style="background-color:#F4AD39; color:black;">Download 3 <sup>rd</sup> Announcement here (updated on April 15th)</a>&nbsp;
 
                                             <!--<a href="" class="btn-main btn-lg" style="background-color:#F4AD39; color:black;">Enter</a>&nbsp;-->											
                                         </div>
                                         <hr>
                                         <div class="container">
-											<h4 style="color:#F4AD39;">Submission for Abstract is opened on February 14th, 2022</h4><br>
+											<h4 style="color:#F4AD39;">NEWS! Abstract Submission is extended to April 30th, 2022</h4><br>
                                             <div class="row align-items-center wow fadeInRight" data-wow-delay=".5s">
                                                 <div class="col-lg-6">
                                                     <?php if (!$hasSession) : ?>
