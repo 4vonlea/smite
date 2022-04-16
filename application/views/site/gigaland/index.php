@@ -66,7 +66,11 @@
 										<div class="spacer-10"></div>
 										<div class="spacer-10"></div>
 
+<<<<<<< HEAD
                                         	<a href="<?= base_url('themes/gigaland'); ?>/images/3rdAnnouncement20220416.pdf" target="blank" class="btn-main btn-lg" style="background-color:#F4AD39; color:black;">Download 3 <sup>rd</sup> Announcement here (updated on April 16th)</a>&nbsp;
+=======
+                                        	<a href="<?= base_url('themes/gigaland'); ?>/images/3rdAnnouncement20220415.pdf" target="blank" class="btn-main btn-lg" style="background-color:#F4AD39; color:black;">Download 3 <sup>rd</sup> Announcement here (updated on April 15th)</a>&nbsp;
+>>>>>>> 843562138b2b3710c786a2d3b5e66a96ff987c81
 
                                             <!--<a href="" class="btn-main btn-lg" style="background-color:#F4AD39; color:black;">Enter</a>&nbsp;-->											
                                         </div>
