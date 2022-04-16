@@ -10,8 +10,7 @@
     <meta content="<?= Settings_m::getSetting('site_title'); ?>" name="description" />
     <meta content="<?= Settings_m::getSetting('site_title'); ?>,Smite" name="keywords" />
     <meta content="smite" name="author" />
-    <!-- CSS Files
-    ================================================== -->
+    <!-- CSS Files ================================================== -->
     <link id="bootstrap" href="<?= base_url('themes/gigaland'); ?>/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link id="bootstrap-grid" href="<?= base_url('themes/gigaland'); ?>/css/bootstrap-grid.min.css" rel="stylesheet" type="text/css" />
     <link id="bootstrap-reboot" href="<?= base_url('themes/gigaland'); ?>/css/bootstrap-reboot.min.css" rel="stylesheet" type="text/css" />
@@ -65,13 +64,7 @@
 
 										<div class="spacer-10"></div>
 										<div class="spacer-10"></div>
-
-<<<<<<< HEAD
-                                        	<a href="<?= base_url('themes/gigaland'); ?>/images/3rdAnnouncement20220416.pdf" target="blank" class="btn-main btn-lg" style="background-color:#F4AD39; color:black;">Download 3 <sup>rd</sup> Announcement here (updated on April 16th)</a>&nbsp;
-=======
                                         	<a href="<?= base_url('themes/gigaland'); ?>/images/3rdAnnouncement20220415.pdf" target="blank" class="btn-main btn-lg" style="background-color:#F4AD39; color:black;">Download 3 <sup>rd</sup> Announcement here (updated on April 15th)</a>&nbsp;
->>>>>>> 843562138b2b3710c786a2d3b5e66a96ff987c81
-
                                             <!--<a href="" class="btn-main btn-lg" style="background-color:#F4AD39; color:black;">Enter</a>&nbsp;-->											
                                         </div>
                                         <hr>

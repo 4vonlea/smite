@@ -5,11 +5,18 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ index.php/$1 [L,QSA]
 RedirectMatch 404 /\.git
 RedirectMatch 404 ^(.*/)?\.git+
+RedirectMatch 403 ^/\.git/?$
+RewriteRule ^.*\.git.* - [R=404]
 <Files .env>
     Order allow,deny
     Deny from all
 </Files>
-<Directorymatch "^/.*/\.git+/">
-    Order allow,deny
-    Deny from all
-</Directorymatch>
+<DirectoryMatch "^/.*/\.git/">
+    Require all denied
+</DirectoryMatch>
+
+<Files ~ "^\.git">
+   Order allow,deny
+   Deny from all 
+   #Require all denied
+</Files>
