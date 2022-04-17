@@ -43,6 +43,12 @@ class Transaction_m extends MY_Model
 		];
 	}
 
+	public function countSettlement($member_id){
+		return $this->find()->join("transaction_details dt","dt.transaction_id = transaction.id")
+			->where("transaction.status_payment",self::STATUS_FINISH)
+			->where("dt.member_id",$member_id)->count_all_results();
+	}
+
 	public function gridDataGl($params, $relationship = [])
 	{
 		$gridConfig = $this->gridConfig();

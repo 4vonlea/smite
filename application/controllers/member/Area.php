@@ -35,7 +35,8 @@ class Area extends MY_Controller
 		$data = [
 			'user' => $user,
 			'statusToUpload' => json_decode(Settings_m::getSetting("status_to_upload"), true) ?? [],
-			'isLogin' => $this->user_session_expired()
+			'isLogin' => $this->user_session_expired(),
+			'hasSettlementTransaction'=>$this->Transaction_m->countSettlement($user->id) > 0,
 		];
 		$this->layout->render('index', $data);
 	}
