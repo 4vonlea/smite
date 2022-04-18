@@ -157,7 +157,8 @@ class Transaction extends Admin_Controller
 				$response['model']['details'][] = array_merge(['member' => $member], $temp);
 			}
 		}
-		$member_id = $group ? current($response['model']['details'])['member_id'] : $response['model']['member']['id'];
+		$current = current($response['model']['details']) ?? ['member_id'=>'-'];
+		$member_id = $group ? $current['member_id'] : $response['model']['member']['id'];
 		$response['listEvent'] = $this->Transaction_m->getNotFollowedEvent($member_id);
 
 		$this->output
