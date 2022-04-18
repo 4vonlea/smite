@@ -45,7 +45,10 @@ class Transaction_m extends MY_Model
 
 	public function countSettlement($member_id){
 		return $this->find()->join("transaction_details dt","dt.transaction_id = transaction.id")
+			->group_start()
 			->where("transaction.status_payment",self::STATUS_FINISH)
+			->or_where("channel",self::CHANNEL_GL)
+			->group_end()
 			->where("dt.member_id",$member_id)->count_all_results();
 	}
 
