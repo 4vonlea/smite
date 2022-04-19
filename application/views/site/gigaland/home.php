@@ -693,6 +693,317 @@
                             </div>
                         </div>
                         <!-- Neuropediatri -->
+                        <!-- Neurotrauma -->
+                        <div class="nft_coll">
+                            <div class="nft_wrap">
+                                <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/speaker/neurotrauma/1.png" class="lazy img-fluid" alt=""></a>
+                            </div>
+                            <div class="nft_coll_info">
+                                <br>
+                                <a href="">
+                                    <h4 style="color:#F4AD39; font-size: 18px;">Dr. dr. Alfansuri Kadri, Sp. S(K)</h4>
+                                </a>
+                                <span>"Neurotrauma"</span>
+                            </div>
+                        </div>
+                        <div class="nft_coll">
+                            <div class="nft_wrap">
+                                <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/speaker/neurotrauma/2.png" class="lazy img-fluid" alt=""></a>
+                            </div>
+                            <div class="nft_coll_info">
+                                <br>
+                                <a href="">
+                                    <h4 style="color:#F4AD39; font-size: 18px;">dr. Cep Juli, SpS(K)</h4>
+                                </a>
+                                <span>"Neurotrauma"</span>
+                                <br><br>
+                            </div>
+                        </div>
+                        <div class="nft_coll">
+                            <div class="nft_wrap">
+                                <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/speaker/neurotrauma/3.png" class="lazy img-fluid" alt=""></a>
+                            </div>
+                            <div class="nft_coll_info">
+                                <br>
+                                <a href="">
+                                    <h4 style="color:#F4AD39; font-size: 18px;">dr. I Komang Arimbawa, Sp.S(K)</h4>
+                                </a>
+                                <span>"Neurotrauma"</span>
+                            </div>
+                        </div>
+                        <div class="nft_coll">
+                            <div class="nft_wrap">
+                                <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/speaker/neurotrauma/4.png" class="lazy img-fluid" alt=""></a>
+                            </div>
+                            <div class="nft_coll_info">
+                                <br>
+                                <a href="">
+                                    <h4 style="color:#F4AD39; font-size: 18px;">dr. Indarwati Setyaningsih, Sp.S (K)</h4>
+                                </a>
+                                <span>"Neurotrauma"</span>
+                            </div>
+                        </div>
+                        <!-- Neurotrauma -->
+                        <!-- Nyeri Kepala -->
+                        <div class="nft_coll">
+                            <div class="nft_wrap">
+                                <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/speaker/nyerikepala/1.png" class="lazy img-fluid" alt=""></a>
+                            </div>
+                            <div class="nft_coll_info">
+                                <br>
+                                <a href="">
+                                    <h4 style="color:#F4AD39; font-size: 18px;">dr. Devi Ariani Sudibyo, Sp. S(K)</h4>
+                                </a>
+                                <span>"Nyeri Kepala"</span>
+                            </div>
+                        </div>
+                        <div class="nft_coll">
+                            <div class="nft_wrap">
+                                <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/speaker/nyerikepala/2.png" class="lazy img-fluid" alt=""></a>
+                            </div>
+                            <div class="nft_coll_info">
+                                <br>
+                                <a href="">
+                                    <h4 style="color:#F4AD39; font-size: 18px;">Dr.dr. Endang Mutiawati SpS (K)</h4>
+                                </a>
+                                <span>"Nyeri Kepala"</span>
+                            </div>
+                        </div>
+                        <div class="nft_coll">
+                            <div class="nft_wrap">
+                                <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/speaker/nyerikepala/3.png" class="lazy img-fluid" alt=""></a>
+                            </div>
+                            <div class="nft_coll_info">
+                                <br>
+                                <a href="">
+                                    <h4 style="color:#F4AD39; font-size: 18px;">Dr. dr. Hasmawaty Basir, Sp.S (K)</h4>
+                                </a>
+                                <span>"Nyeri Kepala"</span>
+                            </div>
+                        </div>
+                        <div class="nft_coll">
+                            <div class="nft_wrap">
+                                <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/speaker/nyerikepala/4.png" class="lazy img-fluid" alt=""></a>
+                            </div>
+                            <div class="nft_coll_info">
+                                <br>
+                                <a href="">
+                                    <h4 style="color:#F4AD39; font-size: 18px;">dr. Herlina Suryawati Sp.S(K)</h4>
+                                </a>
+                                <span>"Nyeri Kepala"</span>
+                            </div>
+                        </div>
+                        <div class="nft_coll">
+                            <div class="nft_wrap">
+                                <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/speaker/nyerikepala/5.png" class="lazy img-fluid" alt=""></a>
+                            </div>
+                            <div class="nft_coll_info">
+                                <br>
+                                <a href="">
+                                    <h4 style="color:#F4AD39; font-size: 18px;">Prof. Dr. dr. Hasan Sjahrir, Sp.S(K)</h4>
+                                </a>
+                                <span>"Nyeri Kepala"</span>
+                            </div>
+                        </div>
+                        <div class="nft_coll">
+                            <div class="nft_wrap">
+                                <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/speaker/nyerikepala/6.png" class="lazy img-fluid" alt=""></a>
+                            </div>
+                            <div class="nft_coll_info">
+                                <br>
+                                <a href="">
+                                    <h4 style="color:#F4AD39; font-size: 18px;">Prof. Dr. dr. I Made Oka Adnyana, Sp.S(K)</h4>
+                                </a>
+                                <span>"Nyeri Kepala"</span>
+                            </div>
+                        </div>
+                        <div class="nft_coll">
+                            <div class="nft_wrap">
+                                <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/speaker/nyerikepala/7.png" class="lazy img-fluid" alt=""></a>
+                            </div>
+                            <div class="nft_coll_info">
+                                <br>
+                                <a href="">
+                                    <h4 style="color:#F4AD39; font-size: 18px;">Dr. dr. Jimmy Barus, M.Sc., Sp.N</h4>
+                                </a>
+                                <span>"Nyeri Kepala"</span>
+                            </div>
+                        </div>
+                        <div class="nft_coll">
+                            <div class="nft_wrap">
+                                <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/speaker/nyerikepala/8.png" class="lazy img-fluid" alt=""></a>
+                            </div>
+                            <div class="nft_coll_info">
+                                <br>
+                                <a href="">
+                                    <h4 style="color:#F4AD39; font-size: 18px;">dr. Pepi Budianto, Sp.S(K)</h4>
+                                </a>
+                                <span>"Nyeri Kepala"</span>
+                            </div>
+                        </div>
+                        <div class="nft_coll">
+                            <div class="nft_wrap">
+                                <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/speaker/nyerikepala/9.png" class="lazy img-fluid" alt=""></a>
+                            </div>
+                            <div class="nft_coll_info">
+                                <br>
+                                <a href="">
+                                    <h4 style="color:#F4AD39; font-size: 18px;">dr. Yusuf Wibisono, Sp.S(K), Sp.Akp</h4>
+                                </a>
+                                <span>"Nyeri Kepala"</span>
+                            </div>
+                        </div>
+
+                        <!-- Nyeri Kepala -->
+                        <!-- P2KB -->
+                        <div class="nft_coll">
+                            <div class="nft_wrap">
+                                <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/speaker/p2kb/1.png" class="lazy img-fluid" alt=""></a>
+                            </div>
+                            <div class="nft_coll_info">
+                                <br>
+                                <a href="">
+                                    <h4 style="color:#F4AD39; font-size: 18px;">dr. Eko Arisetjiono, Sp. N(K)</h4>
+                                </a>
+                                <span>"P2KB"</span>
+                            </div>
+                        </div>
+                        <div class="nft_coll">
+                            <div class="nft_wrap">
+                                <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/speaker/p2kb/2.png" class="lazy img-fluid" alt=""></a>
+                            </div>
+                            <div class="nft_coll_info">
+                                <br>
+                                <a href="">
+                                    <h4 style="color:#F4AD39; font-size: 18px;">dr. Hexanto Muhartomo, SpS(K), M.Kes</h4>
+                                </a>
+                                <span>"P2KB"</span>
+                            </div>
+                        </div>
+                        <div class="nft_coll">
+                            <div class="nft_wrap">
+                                <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/speaker/p2kb/3.png" class="lazy img-fluid" alt=""></a>
+                            </div>
+                            <div class="nft_coll_info">
+                                <br>
+                                <a href="">
+                                    <h4 style="color:#F4AD39; font-size: 18px;">dr. Pinto Desti Ramadhoni, Sp.N (K)</h4>
+                                </a>
+                                <span>"P2KB"</span>
+                            </div>
+                        </div>
+                        <!-- P2KB -->
+                        <!-- PAIN -->
+                        <div class="nft_coll">
+                            <div class="nft_wrap">
+                                <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/speaker/pain/1.png" class="lazy img-fluid" alt=""></a>
+                            </div>
+                            <div class="nft_coll_info">
+                                <br>
+                                <a href="">
+                                    <h4 style="color:#F4AD39; font-size: 18px;">dr. Dalton Silaban, Sp.S, CIPS</h4>
+                                </a>
+                                <span>"PAIN"</span>
+                            </div>
+                        </div>
+                        <div class="nft_coll">
+                            <div class="nft_wrap">
+                                <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/speaker/pain/2.png" class="lazy img-fluid" alt=""></a>
+                            </div>
+                            <div class="nft_coll_info">
+                                <br>
+                                <a href="">
+                                    <h4 style="color:#F4AD39; font-size: 18px;">Dr. dr. Hanik Badriyah, Sp. N(K)</h4>
+                                </a>
+                                <span>"PAIN"</span>
+                            </div>
+                        </div>
+                        <div class="nft_coll">
+                            <div class="nft_wrap">
+                                <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/speaker/pain/3.png" class="lazy img-fluid" alt=""></a>
+                            </div>
+                            <div class="nft_coll_info">
+                                <br>
+                                <a href="">
+                                    <h4 style="color:#F4AD39; font-size: 18px;">dr. Henry Sugiharto, Sp.S(K)</h4>
+                                </a>
+                                <span>"PAIN"</span>
+                            </div>
+                        </div>
+                        <div class="nft_coll">
+                            <div class="nft_wrap">
+                                <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/speaker/pain/4.png" class="lazy img-fluid" alt=""></a>
+                            </div>
+                            <div class="nft_coll_info">
+                                <br>
+                                <a href="">
+                                    <h4 style="color:#F4AD39; font-size: 18px;">dr. Ida Ayu Sri Wijayanti, M.Biomed, Sp. N(K)</h4>
+                                </a>
+                                <span>"PAIN"</span>
+                            </div>
+                        </div>
+                        <div class="nft_coll">
+                            <div class="nft_wrap">
+                                <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/speaker/pain/5.png" class="lazy img-fluid" alt=""></a>
+                            </div>
+                            <div class="nft_coll_info">
+                                <br>
+                                <a href="">
+                                    <h4 style="color:#F4AD39; font-size: 18px;">dr. Istiana Sari, SpS, FIPM, M.Med</h4>
+                                </a>
+                                <span>"PAIN"</span>
+                            </div>
+                        </div>
+                        <div class="nft_coll">
+                            <div class="nft_wrap">
+                                <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/speaker/pain/6.png" class="lazy img-fluid" alt=""></a>
+                            </div>
+                            <div class="nft_coll_info">
+                                <br>
+                                <a href="">
+                                    <h4 style="color:#F4AD39; font-size: 18px;">dr. Suryadi, Sp.S, M.Si.Med</h4>
+                                </a>
+                                <span>"PAIN"</span>
+                            </div>
+                        </div>
+                        <div class="nft_coll">
+                            <div class="nft_wrap">
+                                <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/speaker/pain/7.png" class="lazy img-fluid" alt=""></a>
+                            </div>
+                            <div class="nft_coll_info">
+                                <br>
+                                <a href="">
+                                    <h4 style="color:#F4AD39; font-size: 18px;">Dr. dr. Thomas Eko Purwata, Sp.S(K)</h4>
+                                </a>
+                                <span>"PAIN"</span>
+                            </div>
+                        </div>
+                        <div class="nft_coll">
+                            <div class="nft_wrap">
+                                <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/speaker/pain/8.png" class="lazy img-fluid" alt=""></a>
+                            </div>
+                            <div class="nft_coll_info">
+                                <br>
+                                <a href="">
+                                    <h4 style="color:#F4AD39; font-size: 18px;">dr. Yetty Hambarsari, M.Kes., Sp.N(K)</h4>
+                                </a>
+                                <span>"PAIN"</span>
+                            </div>
+                        </div>
+                        <div class="nft_coll">
+                            <div class="nft_wrap">
+                                <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/speaker/pain/9.png" class="lazy img-fluid" alt=""></a>
+                            </div>
+                            <div class="nft_coll_info">
+                                <br>
+                                <a href="">
+                                    <h4 style="color:#F4AD39; font-size: 18px;">dr. Yudianta, Sp.S(K)</h4>
+                                </a>
+                                <span>"PAIN"</span>
+                                <br><br>
+                            </div>
+                        </div>
+                        <!-- PAIN -->
 
 
                     </div>
