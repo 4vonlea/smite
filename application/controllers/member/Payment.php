@@ -328,7 +328,7 @@ class Payment extends MY_Controller
 
 	public function check_payment($invoice = null){
 		$orders = [];
-		$this->load->model("Transaction_m");
+		$this->load->model(["Transaction_m","Notification_m"]);
 		if($invoice === null && $this->session->has_userdata("user_session")){
 			$rs = $this->Transaction_m->find()->where("status_payment","pending")
 				->where("member_id",$this->session->user_session['id'])
@@ -390,7 +390,7 @@ class Payment extends MY_Controller
 						$member = $tr->member;
 						if($member){
 							$message = $this->load->view("template/email/expired_transaction",['nama'=>$member->fullname],true);
-							$this->Notification_m->sendMEssage($member->email, 'Transaction Expired : '.$order_id, $message);
+							$this->Notification_m->sendMessage($member->email, 'Transaction Expired : '.$order_id, $message);
 						}
 					}
 				}
