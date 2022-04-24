@@ -71,7 +71,7 @@ class Dashboard_m extends CI_Model
 	{
 		$this->load->model("Papers_m");
 		$result = $this->db->select("
-				CONCAT(st.value,LPAD(p.id,3,0)) as id_paper,
+				CONCAT(st2.value,LPAD(p.id,3,0)) as id_paper,
 				fullname as nama,
 				univ_nama as universitas,
 				kategory_members.kategory as status,
@@ -97,7 +97,7 @@ class Dashboard_m extends CI_Model
 			->join("user_accounts u", "u.username = p.reviewer", "left")
 			->join('(SELECT t.id, GROUP_CONCAT(DISTINCT CONCAT(t.id,": ",t.status_payment)) AS status_payment,td.member_id FROM transaction_details td
 			JOIN transaction t ON t.id = td.transaction_id
-			GROUP BY t.id) as payment','payment.member_id = m.id','left')
+			GROUP BY td.member_id) as payment','payment.member_id = m.id','left')
 			->get()->result_array();
 		foreach ($result as $i => $row) {
 			$result[$i]['status_abstract'] = isset(Papers_m::$status[$row['status_abstract']]) ? Papers_m::$status[$row['status_abstract']]:'-';
