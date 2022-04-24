@@ -71,7 +71,7 @@ class Dashboard_m extends CI_Model
 	{
 		$this->load->model("Papers_m");
 		$result = $this->db->select("
-				CONCAT(st2.value,LPAD(p.id,3,0)) as id_paper,
+				CONCAT(st.value,LPAD(p.id,3,0)) as id_paper,
 				fullname as nama,
 				univ_nama as universitas,
 				kategory_members.kategory as status,
