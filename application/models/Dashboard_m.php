@@ -70,10 +70,34 @@ class Dashboard_m extends CI_Model
 	public function getDataPaper()
 	{
 		$this->load->model("Papers_m");
-		$result = $this->db->select("fullname as nama,title, u.name as reviewer,p.status as status_abstract,status_fullpaper,status_presentasi,type,type_presence as type_presentation,DATE_FORMAT(p.created_at,'%d %M %Y at %H:%i') as submitted_on,score,DATE_FORMAT(p.updated_at,'%d %M %Y at %H:%i') as reviewed_on")
+		$result = $this->db->select("
+				CONCAT(st.value,LPAD(p.id,3,0)) as id_paper,
+				fullname as nama,
+				univ_nama as universitas,
+				kategory_members.kategory as status,
+				status_payment,
+				title, 
+				u.name as reviewer,
+				p.status as status_abstract,
+				status_fullpaper,
+				status_presentasi,
+				category_paper.name as manuscript_section,
+				methods as manuscrypt_category,
+				type,
+				type_presence as type_presentation,
+				DATE_FORMAT(p.created_at,'%d %M %Y at %H:%i') as submitted_on,
+				score,
+				DATE_FORMAT(p.updated_at,'%d %M %Y at %H:%i') as reviewed_on")
 			->from("papers p")
 			->join("members m", "m.id = p.member_id")
+			->join("univ","univ = univ_id")
+			->join("kategory_members","kategory_members.id = m.status")
+			->join("settings st",'st.name = "format_id_paper"')
+			->join("category_paper","category = category_paper.id")
 			->join("user_accounts u", "u.username = p.reviewer", "left")
+			->join('(SELECT t.id, GROUP_CONCAT(DISTINCT CONCAT(t.id,": ",t.status_payment)) AS status_payment,td.member_id FROM transaction_details td
+			JOIN transaction t ON t.id = td.transaction_id
+			GROUP BY t.id) as payment','payment.member_id = m.id','left')
 			->get()->result_array();
 		foreach ($result as $i => $row) {
 			$result[$i]['status_abstract'] = isset(Papers_m::$status[$row['status_abstract']]) ? Papers_m::$status[$row['status_abstract']]:'-';
