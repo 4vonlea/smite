@@ -120,7 +120,8 @@ class Papers_m extends MY_Model
 				"feedback_presentasi",
 				"feedback_file_presentasi",
 				'score'
-			]
+			],
+			'include_search_field'=>['transaction_status','univ.univ_nama','phone']
 		];
 		$config =  array_merge($default, $option);
 		return $config;
