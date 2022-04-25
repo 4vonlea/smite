@@ -180,7 +180,7 @@ $this->layout->end_head();
 						</div>
 						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-setting"><i class="fa fa-book"></i> Setting Due Date & Cut Off
 						</button>
-						<button type="button" class="btn btn-primary m-2" data-toggle="modal" data-target="#modal-category-paper"><i class="fa fa-book"></i> Category Paper
+						<button v-if="isAdmin" type="button" class="btn btn-primary m-2" data-toggle="modal" data-target="#modal-category-paper"><i class="fa fa-book"></i> Category Paper
 						</button>
 
 					</div>
@@ -243,8 +243,14 @@ $this->layout->end_head();
 						</template>
 					<?php endif; ?>
 					<template slot="fullname" slot-scope="props">
-						{{ props.row.fullname }} <br />
-						<span class="badge badge-info">{{ props.row.status_member }}</span>
+						{{ props.row.fullname }}
+						<hr style="margin-top: 10px;margin-bottom:10px;" />
+						<span style="font-size: 12px;" class="badge badge-info mb-1">{{ props.row.status_member }}</span><br/>
+						<span style="font-size: 12px;" class="badge badge-info mb-1">{{ props.row.phone }}</span><br/>
+						<span style="font-size: 12px;" class="badge badge-info mb-1">{{ props.row.institution }}</span> <br/>
+						<span style="font-size: 12px;" class="badge mb-1" :class='[props.row.transaction_status == "Transaction Paid" ? "badge-success":"badge-danger"]'>
+							{{ props.row.transaction_status }}
+						</span>
 					</template>
 					<template slot="status" slot-scope="props">
 						<ul class="list-group list-group-flush">
@@ -747,6 +753,7 @@ $this->layout->end_head();
 			detailMode: 0,
 			saving: false,
 			isReviewer: <?= $this->session->user_session['role'] == User_account_m::ROLE_ADMIN_PAPER ? "true" : "false"; ?>,
+			isAdmin: <?= $this->session->user_session['role'] == User_account_m::ROLE_ADMIN ? "true" : "false"; ?>,
 			admin: <?= json_encode($admin_paper); ?>,
 			validation: null,
 			setting_date: {

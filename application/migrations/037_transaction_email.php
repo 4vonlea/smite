@@ -15,6 +15,13 @@ class Migration_transaction_email extends CI_Migration
                 'constraint' => '100',
 			],
 		]);
+		$this->db->query("ALTER TABLE `papers`
+		CHANGE COLUMN `message` `message` VARCHAR(500) NULL DEFAULT NULL COLLATE 'utf8_general_ci' AFTER `updated_at`,
+		CHANGE COLUMN `feedback_file_fullpaper` `feedback_file_fullpaper` VARCHAR(500) NULL DEFAULT NULL COLLATE 'utf8_general_ci' AFTER `status_presentasi`,
+		CHANGE COLUMN `feedback_fullpaper` `feedback_fullpaper` VARCHAR(500) NULL DEFAULT NULL COLLATE 'utf8_general_ci' AFTER `feedback_file_fullpaper`,
+		CHANGE COLUMN `feedback_presentasi` `feedback_presentasi` VARCHAR(500) NULL DEFAULT NULL COLLATE 'utf8_general_ci' AFTER `feedback_fullpaper`,
+		CHANGE COLUMN `feedback_file_presentasi` `feedback_file_presentasi` VARCHAR(500) NULL DEFAULT NULL COLLATE 'utf8_general_ci' AFTER `feedback_presentasi`;
+	");
 	}
 
 	public function down(){

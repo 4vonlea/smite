@@ -76,7 +76,13 @@ class Papers_m extends MY_Model
 				'member' => ['members', 'member.id = member_id'],
 				'kategory_members' => ['kategory_members','member.status = kategory_members.id'],
 				'category_paper' => ['category_paper', 'category_paper.id = category', 'left'],
-				'st' => ['settings', 'st.name = "format_id_paper"', "left"]
+				'univ' => ['univ','member.univ=univ_id'],
+				'st' => ['settings', 'st.name = "format_id_paper"', "left"],
+				'transaction' => ['(SELECT t.id, IF(SUM(IF(t.status_payment = "settlement",1,0)) > 0, "Transaction Paid","Transaction Unpaid") AS transaction_status, 
+				GROUP_CONCAT(DISTINCT CONCAT(t.id,": ",t.status_payment)) AS status_payment,td.member_id
+				FROM transaction_details td
+				JOIN `transaction` t ON t.id = td.transaction_id
+				GROUP BY td.member_id)',"transaction.member_id = member.id","left"]
 			],
 			'select' => [
 				'st_value' => 'st.value',
@@ -86,10 +92,13 @@ class Papers_m extends MY_Model
 				'status' => 't.status',
 				'status_member'=>'kategory',
 				't_created_at' => 't.created_at',
+				'phone' => 'member.phone',
+				'institution'=>'univ.univ_nama',
 				'm_id' => 'member.id',
 				'author' => 'member.fullname',
 				'category_name' => 'category_paper.name',
 				'category_id' => 'category_paper.id',
+				'transaction_status',
 				'filename',
 				'reviewer',
 				'introduction',
