@@ -125,7 +125,7 @@
 							<button @click="detail(props)" class="btn btn-info btn-sm">
 								<span class="fa fa-search"></span> Detail
 							</button>
-							<?php if ($this->session->user_session['role'] == User_account_m::ROLE_SUPERADMIN) : ?>
+							<?php if (in_array($this->session->user_session['role'],[User_account_m::ROLE_SUPERADMIN,User_account_m::ROLE_MANAGER])) : ?>
 								<button @click="modify(props)" class="btn btn-info btn-sm">
 									<span class="fa fa-edit"></span> Modify
 								</button>
