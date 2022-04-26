@@ -753,7 +753,7 @@ $this->layout->end_head();
 			detailMode: 0,
 			saving: false,
 			isReviewer: <?= $this->session->user_session['role'] == User_account_m::ROLE_ADMIN_PAPER ? "true" : "false"; ?>,
-			isAdmin: <?= $this->session->user_session['role'] == User_account_m::ROLE_ADMIN ? "true" : "false"; ?>,
+			isAdmin: <?= in_array($this->session->user_session['role'],[User_account_m::ROLE_ADMIN,User_account_m::ROLE_SUPERADMIN]) ? "true" : "false"; ?>,
 			admin: <?= json_encode($admin_paper); ?>,
 			validation: null,
 			setting_date: {
