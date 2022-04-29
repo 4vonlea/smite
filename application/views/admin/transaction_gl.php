@@ -265,6 +265,8 @@
 					formData.set("midtrans_data[payPlanDate]",moment(this.modifyModel.midtrans_data.payPlanDate).format('YYYY-MM-DD'));
 				if(this.modifyModel.midtrans_data.fileName)
 					formData.set("midtrans_data[fileName]",this.modifyModel.midtrans_data.fileName);
+				if(this.modifyModel.midtrans_data.receiptPayment)
+					formData.set("midtrans_data[receiptPayment]",this.modifyModel.midtrans_data.receiptPayment);
 
 				this.savingModify = true;
 				formData.set("message_payment",this.modifyModel.message_payment);
