@@ -89,7 +89,7 @@
 						<span class="badge badge-info">
 							Sponsor : {{ props.row.sponsor }}
 						</span>
-						<a :href="'<?= base_url('admin/transaction/file_gl'); ?>/'+props.row.filename" target="_blank" class="btn btn-sm btn-info">
+						<a v-if="props.row.filename" :href="'<?= base_url('admin/transaction/file_gl'); ?>/'+props.row.filename" target="_blank" class="btn btn-sm btn-info">
 							File Guarantee Letter
 						</a>
 					</template>
@@ -171,7 +171,7 @@
 						<th>File Guarantee Letter</th>
 						<td>
 
-							<a :href="'<?= base_url('admin/transaction/file_gl'); ?>/'+modifyModel.midtrans_data.fileName" target="_blank" class="btn btn-sm btn-info mb-2">
+							<a v-if="modifyModel.midtrans_data.fileName" :href="'<?= base_url('admin/transaction/file_gl'); ?>/'+modifyModel.midtrans_data.fileName" target="_blank" class="btn btn-sm btn-info mb-2">
 								Download
 							</a>
 							<input type="file" name="fileName" class="form-control" :class="{'is-invalid': modifyModel.validation_error.fileName}" />
@@ -183,7 +183,6 @@
 					<tr>
 						<th>File Receipt Payment</th>
 						<td>
-
 							<a v-if="modifyModel.midtrans_data.receiptPayment" :href="'<?= base_url('admin/transaction/file_gl'); ?>/'+modifyModel.midtrans_data.receiptPayment+'/true'" target="_blank" class="btn btn-sm btn-info mb-2">
 								Download
 							</a>
