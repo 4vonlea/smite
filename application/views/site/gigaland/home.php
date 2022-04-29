@@ -1288,7 +1288,7 @@
                                         -
                                         <hr>
                                         <h4>Scientific Programme for AOMC</h4>
-                                        <a href="<?= base_url('themes/gigaland'); ?>/images/aomc-programme.pdf" target="blank" class="btn-main btn-sm" style="background-color:#F4AD39; color:black;">AOMC 2022 Scientific Programme</a>&nbsp;<br><br>
+                                        <a href="<?= base_url('themes/gigaland'); ?>/images/20220428_AOMC_Scientific_Program_update_compressed.pdf" target="blank" class="btn-main btn-sm" style="background-color:#F4AD39; color:black;">AOMC 2022 Scientific Programme (updated on 28 Apr)</a>&nbsp;<br><br>
                                     </div>
                                 </figure>
                             </div>
@@ -1302,7 +1302,7 @@
                                         <h4>Scientific Guideline for AOMC</h4>
                                         <a href="<?= base_url('themes/gigaland'); ?>/images/Abstract Guidelines Final.pdf" target="blank" class="btn-main btn-sm" style="background-color:#F4AD39; color:black;">Guideline for AOMC abstract (updated on 12th April)</a>&nbsp;<br><br>
                                         <a href="<?= base_url('themes/gigaland'); ?>/images/AOMC 2022 Abstract Submission Form For Original Article.docx" target="blank" class="btn-main btn-sm" style="background-color:#F4AD39; color:black;">Click here for template for the original article</a>&nbsp;<br><br>
-                                        <a href="<?= base_url('themes/gigaland'); ?>/images/AOMC 2022 Abstract Submission Form For Case Report.docx" target="blank" class="btn-main btn-sm" style="background-color:#F4AD39; color:black;">Click here for template for case report</a>&nbsp;<br>
+                                        <a href="<?= base_url('themes/gigaland'); ?>/images/20220428 - AOMC Form For Case Report.docx" target="blank" class="btn-main btn-sm" style="background-color:#F4AD39; color:black;">Click here for template for case report (updated on 28 Apr)</a>&nbsp;<br>
 
                                     </div>
                                 </figure>
