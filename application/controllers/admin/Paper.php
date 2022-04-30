@@ -185,13 +185,13 @@ class Paper extends Admin_Controller
 						$parameter['feedbackPresentation'] = $parameter['feedback_presentasi'];
 
 						$message = $this->load->view("template/email/" . $file, $parameter, true);
-						// if ($message) {
-						// 	if ($type == "fullpaper" && ($status == Papers_m::ACCEPTED || $status == Papers_m::REJECTED)) {
-						// 		$this->Notification_m->sendMessageWithAttachment($member->email, "Result Of Paper Review", $message, ['Abstract Announcement.pdf' => $model->exportNotifPdf()->output()]);
-						// 	}else{
-						// 		$this->Notification_m->sendMessage($member->email, "Result Of Paper Review", $message);
-						// 	}
-						// }
+						if ($message) {
+							if ($type == "fullpaper" && ($status == Papers_m::ACCEPTED || $status == Papers_m::REJECTED)) {
+								$this->Notification_m->sendMessageWithAttachment($member->email, "Result Of Paper Review", $message, ['Abstract Announcement.pdf' => $model->exportNotifPdf()->output()]);
+							}else{
+								$this->Notification_m->sendMessage($member->email, "Result Of Paper Review", $message);
+							}
+						}
 					}
 				}
 				// if ($data['status'] == Papers_m::RETURN_TO_AUTHOR || $data['status_fullpaper'] == Papers_m::RETURN_TO_AUTHOR  || $data['status_presentasi'] == Papers_m::RETURN_TO_AUTHOR) {

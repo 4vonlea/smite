@@ -596,6 +596,7 @@ class Area extends MY_Controller
 			if($isNew){
 				$user = Member_m::findOne(['username_account' => $this->session->user_session['username']]);
 				$email_message = $this->load->view("template/email/abstract_received",[
+					'id' => $this->Paper_m->getIdPaper($paper->id),
 					'title'=>$this->input->post("title"),
 					'name'=>$user->fullname,
 					'email'=>$user->email,
