@@ -12,7 +12,7 @@ class Paper extends Admin_Controller
 	public function index()
 	{
 		$this->load->helper("form");
-		$this->load->model(["Papers_m", "User_account_m", "Category_paper_m","Category_member_m"]);
+		$this->load->model(["Papers_m", "User_account_m", "Category_paper_m", "Category_member_m"]);
 		$adminPaper = [];
 		foreach ($this->User_account_m->findAll(['role' => User_account_m::ROLE_ADMIN_PAPER]) as $row) {
 			$t = $row->toArray();
@@ -42,7 +42,7 @@ class Paper extends Admin_Controller
 			]
 		] : [];
 
-		if($this->input->get("filterStatus")){
+		if ($this->input->get("filterStatus")) {
 			$filterCategoryPaper['filter']['kategory_members.id'] = $this->input->get("filterStatus");
 		}
 
@@ -115,11 +115,9 @@ class Paper extends Admin_Controller
 		$this->load->model('Papers_m');
 		$data = $this->input->post();
 		$response = [];
-		// if($this->session->user_session['role'] == User_account_m::ROLE_ADMIN_PAPER){
-		// 	$this->save_reviewer();
-		// }else{
 		$this->form_validation->set_rules("status", "Status", "required");
 		$model = $this->Papers_m->findOne($data['t_id']);
+		$oldData = $model->toArray();
 		if (isset($data['status']) && $data['status'] == 0 && $model->reviewer != "")
 			$this->form_validation->set_rules("message", "Message", "required");
 
@@ -155,28 +153,64 @@ class Paper extends Admin_Controller
 			$model->reviewer = (isset($data['reviewer']) ? $data['reviewer'] : "");
 			if (isset($data['message']))
 				$model->message = $data['message'];
-			$response['status'] = $model->save();
+			$response['status'] = $model->save(false);
 			if ($response['status'] == false) {
 				$response['message'] = $model->errorsString();
 			} else {
 				$this->load->model("Notification_m");
-				if ($data['status'] == Papers_m::RETURN_TO_AUTHOR || $data['status_fullpaper'] == Papers_m::RETURN_TO_AUTHOR  || $data['status_presentasi'] == Papers_m::RETURN_TO_AUTHOR) {
-					$member = $model->member;
-					$paperid = $this->Papers_m->getIdPaper($model->id);
-					$message = "<p>Dear $member->fullname</p>
-						<p>ID Paper : $paperid</p>
-						<p>Please login to your account to view more detailed comments/feedback files. Please make revisions before the deadline. Thank you<p>";
-					$this->Notification_m->sendMessage($member->email, "Result Of Paper Review", $message);
-				} elseif ($data['status'] == Papers_m::ACCEPTED || $data['status_fullpaper'] == Papers_m::ACCEPTED || $data['status'] == Papers_m::REJECTED) {
-					$member = $model->member;
-					$paperid = $this->Papers_m->getIdPaper($model->id);
-					$message = "<p>Dear $member->fullname</p>
-						<p>ID Paper : $paperid</p>
-						<p>Thank you for submitting your abstract to " . Settings_m::getSetting('site_title') . ". Please download your abstract result annoucement here.</p>
-						<p>Best regards.<br/>
-						Committee of " . Settings_m::getSetting('site_title') . "</p>";
-					$this->Notification_m->sendMessageWithAttachment($member->email, "Result Of Paper Review", $message, ['Abstract Announcement.pdf' => $model->exportNotifPdf()->output()]);
+				$statusList = [
+					Papers_m::REJECTED => 'rejected',
+					Papers_m::ACCEPTED => 'accepted',
+					Papers_m::RETURN_TO_AUTHOR => 'return',
+					Papers_m::UNDER_REVIEW => 'under_review',
+				];
+				$member = $model->member;
+				$paperid = $this->Papers_m->getIdPaper($model->id);
+				foreach (array_diff_assoc(
+					['abstract' => $data['status'], 'fullpaper' => $data['status_fullpaper'], 'presentation' => $data['status_presentasi']],
+					['abstract' => $oldData['status'], 'fullpaper' => $oldData['status_fullpaper'], 'presentation' => $oldData['status_presentasi']],
+				) as $type => $status) {
+					if (isset($statusList[$status])) {
+						$file = $type . "_" . $statusList[$status];
+						$parameter = $model->toArray();
+						$parameter['fullname'] = $member->fullname;
+						$parameter['paperId'] = $paperid;
+						$parameter['institution'] = $member->institution->univ_nama;
+						$parameter['statusAbstract'] = Papers_m::$status[$parameter['status']] ?? "-";
+						$parameter['statusFullpaper'] = Papers_m::$status[$parameter['status_fullpaper']] ?? "-";
+						$parameter['statusPresentation'] = Papers_m::$status[$parameter['status_presentasi']] ?? "-";
+						$parameter['modePresentation'] = $parameter['type_presence'];
+						$parameter['feedbackAbstract'] = $parameter['message'];
+						$parameter['feedbackFullpaper'] = $parameter['feedback_fullpaper'];
+						$parameter['feedbackPresentation'] = $parameter['feedback_presentasi'];
+
+						$message = $this->load->view("template/email/" . $file, $parameter, true);
+						if ($message) {
+							if ($type == "fullpaper" && ($status == Papers_m::ACCEPTED || $status == Papers_m::REJECTED)) {
+								$this->Notification_m->sendMessageWithAttachment($member->email, "Result Of Paper Review", $message, ['Abstract Announcement.pdf' => $model->exportNotifPdf()->output()]);
+							}else{
+								$this->Notification_m->sendMessage($member->email, "Result Of Paper Review", $message);
+							}
+						}
+					}
 				}
+				// if ($data['status'] == Papers_m::RETURN_TO_AUTHOR || $data['status_fullpaper'] == Papers_m::RETURN_TO_AUTHOR  || $data['status_presentasi'] == Papers_m::RETURN_TO_AUTHOR) {
+				// 	$member = $model->member;
+				// 	$paperid = $this->Papers_m->getIdPaper($model->id);
+				// 	$message = "<p>Dear $member->fullname</p>
+				// 		<p>ID Paper : $paperid</p>
+				// 		<p>Please login to your account to view more detailed comments/feedback files. Please make revisions before the deadline. Thank you<p>";
+				// 	$this->Notification_m->sendMessage($member->email, "Result Of Paper Review", $message);
+				// } elseif ($data['status'] == Papers_m::ACCEPTED || $data['status_fullpaper'] == Papers_m::ACCEPTED || $data['status'] == Papers_m::REJECTED) {
+				// 	$member = $model->member;
+				// 	$paperid = $this->Papers_m->getIdPaper($model->id);
+				// 	$message = "<p>Dear $member->fullname</p>
+				// 		<p>ID Paper : $paperid</p>
+				// 		<p>Thank you for submitting your abstract to " . Settings_m::getSetting('site_title') . ". Please download your abstract result annoucement here.</p>
+				// 		<p>Best regards.<br/>
+				// 		Committee of " . Settings_m::getSetting('site_title') . "</p>";
+				// 	$this->Notification_m->sendMessageWithAttachment($member->email, "Result Of Paper Review", $message, ['Abstract Announcement.pdf' => $model->exportNotifPdf()->output()]);
+				// }
 			}
 		} else {
 			$response['status'] = false;

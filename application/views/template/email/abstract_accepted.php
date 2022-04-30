@@ -1,0 +1,11 @@
+<p>ID : <?=$paperId;?></p>
+<p>Member Fullname : <?=$fullname;?></p>
+<p>Abstract Title : <?=$title;?></p>
+<p>Feedback Abstract: <?=$feedbackAbstract;?></p>
+<p>Feedback Fullpaper: <?=$feedbackFullpaper;?></p>
+<p>Feedback Presentation: <?=$feedbackPresentation;?></p>
+<p>Instituion : <?=$institution;?></p>
+<p>Status Abstract : <?=$statusAbstract;?></p>
+<p>Status Fullpaper : <?=$statusFullpaper;?></p>
+<p>Status Presentation : <?=$statusPresentation;?></p>
+<p>Mode Presentation : <?=$modePresentation;?></p>

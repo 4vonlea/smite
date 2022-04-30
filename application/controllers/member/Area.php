@@ -485,6 +485,12 @@ class Area extends MY_Controller
 			'max_size' => 5000,
 			'file_name' => 'presentation_' . date("Ymdhis"),
 		];
+		$configVoice = [
+			'upload_path' => APPPATH . 'uploads/papers/',
+			'allowed_types' => "mp3|m4a",
+			'max_size' => 500000,
+			'file_name' => 'VOICE_'.$this->input->post("id"),
+		];
 		$this->upload->initialize($configFullpaper);
 		$statusFullpaper = $this->upload->do_upload('fullpaper');
 		$dataFullpaper = $this->upload->data();
@@ -495,7 +501,12 @@ class Area extends MY_Controller
 		$dataPresentation = $this->upload->data();
 		$errorPresentation = $this->upload->display_errors("", "");
 
-		if ($statusFullpaper || $statusPresentation) {
+		$this->upload->initialize($configVoice);
+		$statusVoice = $this->upload->do_upload('voice');
+		$dataVoice = $this->upload->data();
+		$errorVoice = $this->upload->display_errors("", "");
+
+		if ($statusFullpaper || $statusPresentation || $statusVoice) {
 			$this->load->model("Papers_m");
 			$paper = $this->Papers_m->findOne($this->input->post("id"));
 			if ($statusFullpaper) {
@@ -510,11 +521,16 @@ class Area extends MY_Controller
 				$paper->time_upload_presentasi = date("Y-m-d H:i:s");
 				$response['data']['poster'] = $paper->poster;
 			}
+			if ($statusVoice) {
+				$paper->voice = $dataVoice['file_name'];
+				$response['data']['voice'] = $paper->voice;
+			}
 			$response['status'] = $paper->save(false);
 		} else {
 			$response['status'] = false;
 			$response['message']['fullpaper'] = $errorFullpaper;
 			$response['message']['presentation'] = $errorPresentation;
+			$response['message']['voice'] = $errorVoice;
 		}
 		$this->output->set_content_type("application/json")
 			->_display(json_encode($response));
@@ -580,6 +596,7 @@ class Area extends MY_Controller
 			if($isNew){
 				$user = Member_m::findOne(['username_account' => $this->session->user_session['username']]);
 				$email_message = $this->load->view("template/email/abstract_received",[
+					'id' => $this->Paper_m->getIdPaper($paper->id),
 					'title'=>$this->input->post("title"),
 					'name'=>$user->fullname,
 					'email'=>$user->email,

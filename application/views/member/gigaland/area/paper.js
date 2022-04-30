@@ -7,7 +7,7 @@ export default Vue.component("PagePaper", {
 					<div class="modal-content">
 						<!-- Modal Header -->
 						<div class="modal-header">
-							<h4 class="modal-title">Upload your Full Paper</h4>
+							<h4 class="modal-title">Upload your Full Paper/Presentation</h4>
 						</div>
 						<!-- Modal body -->
 						<div class="modal-body">
@@ -18,26 +18,34 @@ export default Vue.component("PagePaper", {
 									<label>{{ formFullpaper.title}}</label>
 								</div>
 								<div class="form-group">
-									<label class="font-weight-bold form-control-label text-2 color-heading">Presentation on {{formFullpaper.type_presence}}</label>
+									<label class="font-weight-bold form-control-label text-2 color-heading">Presentation on <strong>"{{formFullpaper.type_presence}}"</strong></label>
 								</div>
 								<hr />
 								<div v-if="formFullpaper.status == 2 && formFullpaper.status_fullpaper != 2 && !isAfter(paper.deadline.fullpaper_cutoff)"
 									class="form-group">
 									<label class="font-weight-bold form-control-label text-2 color-heading">Fullpaper (doc,docx,ods)</label>
 									<input :class="{'is-invalid':error_fullpaper.fullpaper}" type="file"
-										class="form-control-file" name="fullpaper" accept=".doc,.docx,.ods">
+										class="form-control" name="fullpaper" accept=".doc,.docx,.ods">
 									<div v-if="error_fullpaper.fullpaper" class="invalid-feedback">{{ error_fullpaper.fullpaper
 										}}</div>
 								</div>
 								<div v-if="isAfter(paper.deadline.fullpaper_cutoff)" class="alert alert-danger">
 									You are no longer allowed to upload fullpaper, because it has passed the time limit
 								</div>
-								<div v-if="formFullpaper.status_fullpaper == 2 && formFullpaper.status_presentasi != 2 && !isAfter(paper.deadline.presentation_cutoff)"
+								<div v-if="formFullpaper.status_fullpaper == 2 && !isAfter(paper.deadline.presentation_cutoff)"
 									class="form-group">
 									<label class="font-weight-bold form-control-label text-2 color-heading">{{ form.type_presence }} ({{ form.ext }})</label>
-									<input :class="{'is-invalid':error_fullpaper.presentation}" type="file" class="form-control-file" id="presentation_upload" name="presentation" :accept="form.ext">
-									<div v-if="error_fullpaper.presentation" class="invalid-feedback">{{
+									<input :class="{'is-invalid':error_fullpaper.presentation}" type="file" class="form-control" id="presentation_upload" name="presentation" :accept="form.ext">
+									<div v-if="error_fullpaper.presentation" class="invalid-feedback text-danger">{{
 										error_fullpaper.presentation }}</div>
+								</div>
+								<hr/>
+								<div v-if="formFullpaper.status_fullpaper == 2 && !isAfter(paper.deadline.presentation_cutoff)"
+									class="form-group">
+									<label class="font-weight-bold form-control-label text-2 color-heading">Voice Recording (mp3)</label>
+									<input :class="{'is-invalid':error_fullpaper.voice}" type="file" class="form-control" id="voice_upload" name="voice" accept="mp3">
+									<div v-if="error_fullpaper.voice" class="invalid-feedback text-danger">{{
+										error_fullpaper.voice }}</div>
 								</div>
 								<div v-if="isAfter(paper.deadline.presentation_cutoff)" class="alert alert-danger">
 									You are no longer allowed to upload a presentation file, because the time limit has passed
@@ -200,7 +208,7 @@ export default Vue.component("PagePaper", {
 							<label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 color-heading">Feedback File
 								Fullpaper</label>
 							<div class="col-lg-9">
-								<a :href="feedbackUrl(form.feedback_file_fullpaper)">Click Here</a>
+								<a :href="feedbackUrl(form.feedback_file_fullpaper,form.id)">Click Here</a>
 							</div>
 						</div>
 						<div v-if="detail && form.status_fullpaper == 0 && form.feedback_fullpaper" class="form-group row mb-2">
@@ -214,7 +222,7 @@ export default Vue.component("PagePaper", {
 							<label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 color-heading">Fullpaper
 								Link</label>
 							<div class="col-lg-9">
-								<span v-if="form.fullpaper"><a :href="paperUrl(form.fullpaper, form.id_paper, 'Fullpaper')">Click here</a> | </span>
+								<span v-if="form.fullpaper"><a :href="paperUrl(form.fullpaper, form.id, 'Fullpaper')">Click here</a> | </span>
 								<a v-if="form.status_fullpaper != 2" href="#" @click.prevent="modalFullpaper(form)">Change/ Upload
 									Fullpaper </a>
 							</div>
@@ -226,7 +234,7 @@ export default Vue.component("PagePaper", {
 							<label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 color-heading">File Presentation
 								Feedback</label>
 							<div class="col-lg-9">
-								<a :href="feedbackUrl(form.feedback_file_presentasi)">Click here</a>
+								<a :href="feedbackUrl(form.feedback_file_presentasi,form.id)">Click here</a>
 							</div>
 						</div>
 						<div v-if="detail && form.status_presentasi == 0 && form.feedback_fullpaper"
@@ -241,7 +249,9 @@ export default Vue.component("PagePaper", {
 							<label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 color-heading">Presentation
 								Link</label>
 							<div class="col-lg-9">
-								<span v-if="form.poster"><a :href="paperUrl(form.poster, form.id_paper, form.type_presence)">Click here</a> | </span>
+								<span v-if="form.poster"><a :href="paperUrl(form.poster, form.id, form.type_presence)">Click here</a> | </span>
+								<span v-if="form.voice"><a :href="paperUrl(form.voice, form.id,'Voice Recording')">Voice Recording</a> | </span>
+
 								<a v-if="form.status_presentasi != 2" href="#"
 									@click.prevent="modalFullpaper(form)">Change/ Upload Presentation File</a>
 							</div>
@@ -357,14 +367,14 @@ export default Vue.component("PagePaper", {
 							<label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 color-heading">Abstract
 								Link</label>
 							<div class="col-lg-9">
-								<a :href="paperUrl(form.filename, form.id_paper)">Click Here</a>
+								<a :href="paperUrl(form.filename, form.id)">Click Here</a>
 							</div>
 						</div>
 						<div v-if="detail && form.status == 0 && form.feedback" class="form-group row mb-2">
 							<label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 color-heading">File Abstract
 								Feedback</label>
 							<div class="col-lg-9">
-								<a :href="feedbackUrl(form.feedback)">Click Here</a>
+								<a :href="feedbackUrl(form.feedback,form.id)">Click Here</a>
 							</div>
 						</div>
 						<div v-if="detail && form.message" class="form-group row mb-2">
@@ -415,7 +425,7 @@ export default Vue.component("PagePaper", {
 									</span>
 									<span v-else>
 											I Understand
-									<span>
+									</span>
 								</label>
 							</div>
 						</div>
@@ -509,6 +519,10 @@ export default Vue.component("PagePaper", {
                         if (response.data.poster) {
                             page.formFullpaper.poster = response.data.poster;
                             page.form.status_presentasi = 1;
+                        }
+						if (response.data.voice) {
+                            page.formFullpaper.voice = response.data.voice;
+                            page.form.voice = response.data.voice;
                         }
                         page.fetchData();
                     } else {
@@ -633,9 +647,9 @@ export default Vue.component("PagePaper", {
             }
             return "#";
         },
-        feedbackUrl(feedback) {
+        feedbackUrl(feedback,id) {
             if (feedback) {
-                return this.baseUrl + "file/" + feedback;
+                return this.baseUrl + `file/${feedback}/${id}/Feedback`;
             }
             return null;
         }

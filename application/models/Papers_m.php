@@ -12,9 +12,10 @@ class Papers_m extends MY_Model
 	const ACCEPTED = 2;
 	const REJECTED = 3;
 	const RETURN_TO_AUTHOR = 0;
+	const UNDER_REVIEW = 1;
 	public static $status = [
-		self::RETURN_TO_AUTHOR => 'Returned to author',
-		1 => 'Waiting/Under Review',
+		self::RETURN_TO_AUTHOR => 'Returned for revision',
+		self::UNDER_REVIEW => 'Waiting/Under Review',
 		self::ACCEPTED => 'Accepted',
 		self::REJECTED => 'Rejected'
 	];
@@ -23,7 +24,7 @@ class Papers_m extends MY_Model
 		'Oral' => 'Oral',
 		'Moderated Poster' => 'Moderated Poster',
 		'Viewed Poster' => 'Viewed Poster',
-		'Voice Recording' => 'Voice Recording',
+		// 'Voice Recording' => 'Voice Recording',
 	];
 
 	public static $typeAbstract = [
