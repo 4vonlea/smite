@@ -75,6 +75,12 @@ class Member_m extends MY_Model
 		return $this->hasOne("User_account_m", "username", "username_account");
 	}
 
+	public function institution()
+	{
+		return $this->hasOne("Univ_m", "univ_id", "univ");
+	}
+
+
 
 	public function gridData($params, $relationship = [])
 	{
