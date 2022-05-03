@@ -1,11 +1,8 @@
-<p>ID : <?=$paperId;?></p>
-<p>Member Fullname : <?=$fullname;?></p>
-<p>Abstract Title : <?=$title;?></p>
-<p>Feedback Abstract: <?=$feedbackAbstract;?></p>
-<p>Feedback Fullpaper: <?=$feedbackFullpaper;?></p>
-<p>Feedback Presentation: <?=$feedbackPresentation;?></p>
-<p>Instituion : <?=$institution;?></p>
-<p>Status Abstract : <?=$statusAbstract;?></p>
-<p>Status Fullpaper : <?=$statusFullpaper;?></p>
-<p>Status Presentation : <?=$statusPresentation;?></p>
-<p>Mode Presentation : <?=$modePresentation;?></p>
+<p>Dear <?=$fullname;?><br />Institution: <?=$institution;?><br />Manuscript ID: <?=$paperId;?></p>
+<p>Thank you for submitting your abstract. Hereby we informed that your abstract with the title <strong>"<?=$title;?>"</strong> has been <strong><?=$statusAbstract;?></strong>.</p>
+<p>Your abstract feedback (ignore if empty) is:</p>
+<p><strong><?=$feedbackAbstract;?></strong></p>
+<p>For PIN Participants, please be concerned that you are required to submit your full-paper no later than May 14th, 2022 23.59 WITA (GMT +8).</p>
+<p>We encourage you to login our website for further detail.</p>
+<p>If you have any issues, please contact our representative stated on the website.</p>
+<p>Best regards.<br />Committee</p>

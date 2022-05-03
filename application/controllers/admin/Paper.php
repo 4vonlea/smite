@@ -187,9 +187,9 @@ class Paper extends Admin_Controller
 						$message = $this->load->view("template/email/" . $file, $parameter, true);
 						if ($message) {
 							if ($type == "fullpaper" && ($status == Papers_m::ACCEPTED || $status == Papers_m::REJECTED)) {
-								$this->Notification_m->sendMessageWithAttachment($member->email, "Result Of Paper Review", $message, ['Abstract Announcement.pdf' => $model->exportNotifPdf()->output()]);
+								$this->Notification_m->sendMessageWithAttachment($member->email, "AOMC PIN 2022 - Review Result $paperid", $message, ['Abstract Announcement.pdf' => $model->exportNotifPdf()->output()]);
 							}else{
-								$this->Notification_m->sendMessage($member->email, "Result Of Paper Review", $message);
+								$this->Notification_m->sendMessage($member->email, "AOMC PIN 2022 - Review Result $paperid", $message);
 							}
 						}
 					}

@@ -1004,6 +1004,198 @@
                             </div>
                         </div>
                         <!-- PAIN -->
+                        <!-- POKDI NEUROEPIDEM -->
+                        <div class="nft_coll">
+                            <div class="nft_wrap">
+                                <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/speaker/pokdineuroepidem/1.png" class="lazy img-fluid" alt=""></a>
+                            </div>
+                            <div class="nft_coll_info">
+                                <br>
+                                <a href="">
+                                    <h4 style="color:#F4AD39; font-size: 18px;">Dr. dr. Abdul Gofir, MSc, SpS(K)</h4>
+                                </a>
+                                <span>"POKDI NEUROEPIDEM"</span>
+
+                            </div>
+                        </div>
+                        <div class="nft_coll">
+                            <div class="nft_wrap">
+                                <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/speaker/pokdineuroepidem/2.png" class="lazy img-fluid" alt=""></a>
+                            </div>
+                            <div class="nft_coll_info">
+                                <br>
+                                <a href="">
+                                    <h4 style="color:#F4AD39; font-size: 18px;">Dr. dr. Alfansuri Kadri, Sp. S(K)</h4>
+                                </a>
+                                <span>"POKDI NEUROEPIDEM"</span>
+
+                            </div>
+                        </div>
+                        <div class="nft_coll">
+                            <div class="nft_wrap">
+                                <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/speaker/pokdineuroepidem/3.png" class="lazy img-fluid" alt=""></a>
+                            </div>
+                            <div class="nft_coll_info">
+                                <br>
+                                <a href="">
+                                    <h4 style="color:#F4AD39; font-size: 18px;">Dr. dr. Gea Pandhita, MKes, SpS</h4>
+                                </a>
+                                <span>"POKDI NEUROEPIDEM"</span>
+
+                            </div>
+                        </div>
+                        <div class="nft_coll">
+                            <div class="nft_wrap">
+                                <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/speaker/pokdineuroepidem/4.png" class="lazy img-fluid" alt=""></a>
+                            </div>
+                            <div class="nft_coll_info">
+                                <br>
+                                <a href="">
+                                    <h4 style="color:#F4AD39; font-size: 18px;">Dr. dr. Ismail Setyopranoto, Sp.S(K)</h4>
+                                </a>
+                                <span>"POKDI NEUROEPIDEM"</span>
+
+                            </div>
+                        </div>
+                        <div class="nft_coll">
+                            <div class="nft_wrap">
+                                <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/speaker/pokdineuroepidem/5.png" class="lazy img-fluid" alt=""></a>
+                            </div>
+                            <div class="nft_coll_info">
+                                <br>
+                                <a href="">
+                                    <h4 style="color:#F4AD39; font-size: 18px;">dr. Gita Vita Soraya, PhD</h4>
+                                </a>
+                                <span>"POKDI NEUROEPIDEM"</span>
+                                <br><br>
+                            </div>
+                        </div>
+                        <div class="nft_coll">
+                            <div class="nft_wrap">
+                                <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/speaker/pokdineuroepidem/6.png" class="lazy img-fluid" alt=""></a>
+                            </div>
+                            <div class="nft_coll_info">
+                                <br>
+                                <a href="">
+                                    <h4 style="color:#F4AD39; font-size: 16px;">dr. Muhammad Akbar, Sp.S(K), Ph.D, DFM</h4>
+                                </a>
+                                <span>"POKDI NEUROEPIDEM"</span>
+
+                            </div>
+                        </div>
+                        <!-- POKDI NEUROEPIDEM -->
+                        <!-- SLEEP DISORDER -->
+                        <div class="nft_coll">
+                            <div class="nft_wrap">
+                                <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/speaker/sleepdisorder/1.png" class="lazy img-fluid" alt=""></a>
+                            </div>
+                            <div class="nft_coll_info">
+                                <br>
+                                <a href="">
+                                    <h4 style="color:#F4AD39; font-size: 18px;">Dr. dr. Astuti, Sp.N(K)</h4>
+                                </a>
+                                <span>"SLEEP DISORDER"</span>
+                                <br>
+                                <br>
+                            </div>
+                        </div>
+                        <div class="nft_coll">
+                            <div class="nft_wrap">
+                                <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/speaker/sleepdisorder/2.png" class="lazy img-fluid" alt=""></a>
+                            </div>
+                            <div class="nft_coll_info">
+                                <br>
+                                <a href="">
+                                    <h4 style="color:#F4AD39; font-size: 18px;">dr Reno Sari Caniago, Sp.S, M.Biomed</h4>
+                                </a>
+                                <span>"SLEEP DISORDER"</span>
+                            </div>
+                        </div>
+                        <div class="nft_coll">
+                            <div class="nft_wrap">
+                                <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/speaker/sleepdisorder/3.png" class="lazy img-fluid" alt=""></a>
+                            </div>
+                            <div class="nft_coll_info">
+                                <br>
+                                <a href="">
+                                    <h4 style="color:#F4AD39; font-size: 18px;">dr Rikhy Andhani, MSc, SpS</h4>
+                                </a>
+                                <span>"SLEEP DISORDER"</span>
+                            </div>
+                        </div>
+                        <div class="nft_coll">
+                            <div class="nft_wrap">
+                                <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/speaker/sleepdisorder/4.png" class="lazy img-fluid" alt=""></a>
+                            </div>
+                            <div class="nft_coll_info">
+                                <br>
+                                <a href="">
+                                    <h4 style="color:#F4AD39; font-size: 18px;">dr. Asnelia Devicaesaria., Sp</h4>
+                                </a>
+                                <span>"SLEEP DISORDER"</span>
+                            </div>
+                        </div>
+                        <div class="nft_coll">
+                            <div class="nft_wrap">
+                                <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/speaker/sleepdisorder/5.png" class="lazy img-fluid" alt=""></a>
+                            </div>
+                            <div class="nft_coll_info">
+                                <br>
+                                <a href="">
+                                    <h4 style="color:#F4AD39; font-size: 18px;">dr. Ika Marlia, M.Sc, SpS(K)</h4>
+                                </a>
+                                <span>"SLEEP DISORDER"</span>
+                            </div>
+                        </div>
+                        <div class="nft_coll">
+                            <div class="nft_wrap">
+                                <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/speaker/sleepdisorder/6.png" class="lazy img-fluid" alt=""></a>
+                            </div>
+                            <div class="nft_coll_info">
+                                <br>
+                                <a href="">
+                                    <h4 style="color:#F4AD39; font-size: 18px;">Dr. Manfaluthy Hakim,SpS(K)</h4>
+                                </a>
+                                <span>"SLEEP DISORDER"</span>
+                            </div>
+                        </div>
+                        <div class="nft_coll">
+                            <div class="nft_wrap">
+                                <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/speaker/sleepdisorder/7.png" class="lazy img-fluid" alt=""></a>
+                            </div>
+                            <div class="nft_coll_info">
+                                <br>
+                                <a href="">
+                                    <h4 style="color:#F4AD39; font-size: 18px;">dr. RA Dwi Pujiastuti, M.Ked(Neu), Sp.S(K)</h4>
+                                </a>
+                                <span>"SLEEP DISORDER"</span>
+                            </div>
+                        </div>
+                        <div class="nft_coll">
+                            <div class="nft_wrap">
+                                <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/speaker/sleepdisorder/8.png" class="lazy img-fluid" alt=""></a>
+                            </div>
+                            <div class="nft_coll_info">
+                                <br>
+                                <a href="">
+                                    <h4 style="color:#F4AD39; font-size: 18px;">dr. Yetty Hambarsari, Sp.N(K), M.Kes</h4>
+                                </a>
+                                <span>"SLEEP DISORDER"</span>
+                            </div>
+                        </div>
+                        <div class="nft_coll">
+                            <div class="nft_wrap">
+                                <a href="03_grey-collection.html"><img src="<?= base_url('themes/gigaland'); ?>/images/speaker/sleepdisorder/9.png" class="lazy img-fluid" alt=""></a>
+                            </div>
+                            <div class="nft_coll_info">
+                                <br>
+                                <a href="">
+                                    <h4 style="color:#F4AD39; font-size: 14.7px;">Dr.dr. Rimawati Tedjasukmana, SpS(K), RPSGT, FICA</h4>
+                                </a>
+                                <span>"SLEEP DISORDER"</span>
+                            </div>
+                        </div>
+                        <!-- SLEEP DISORDER -->
 
 
                     </div>
@@ -1021,7 +1213,7 @@
                         <i class="wow fadeInUp bg-color-2 i-boxed icon_group" style="background-color:#F4AD39; color:black;"></i>
                         <div class="text">
                             <h4 class="wow fadeInUp" style="color:#F4AD39;">Speaker</h4>
-                            <h1 class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39;">tba</h1>
+                            <h1 class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39;">129</h1>
                         </div>
                         <i class="wm icon_group" style="color:#F4AD39;"></i>
                     </div>
@@ -1031,7 +1223,7 @@
                         <i class="wow fadeInUp bg-color-2 i-boxed icon_group" style="background-color:white; color:black;"></i>
                         <div class="text">
                             <h4 class="wow fadeInUp" style="color:white;">Moderator</h4>
-                            <h1 class="wow fadeInUp" data-wow-delay=".25s" style="color:white;">tba</h1>
+                            <h1 class="wow fadeInUp" data-wow-delay=".25s" style="color:white;">32</h1>
                         </div>
                         <i class="wm icon_group" style="color:white;"></i>
                     </div>
@@ -1490,105 +1682,65 @@
                         <h3 class="style-2 wow fadeInRight" data-wow-delay=".5s" style="color:#F4AD39;">Platinum</h3>
                         <br>
                         <div class="row text-center">
-                            <div class="col-lg-3">
-                                <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/ann.jpeg" style="width:100%;" alt="">
+                            <div class="col-lg-4 mb-4">
+                                <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/sponsor/platinum/daryaaria.png" style="width:100%;" alt="">
                             </div>
-                            <!-- <div class="col-lg-3">
-                                <img class="lazy wow fadeInRight" data-wow-delay=".6s" src="<?= base_url('themes/gigaland'); ?>/images/ann.jpeg" style="width:100%;" alt="">
+                            <div class="col-lg-4 mb-4">
+                                <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/sponsor/platinum/dexamedica.png" style="width:100%;" alt="">
                             </div>
-                            <div class="col-lg-3">
-                                <img class="lazy wow fadeInRight" data-wow-delay=".4s" src="<?= base_url('themes/gigaland'); ?>/images/ann.jpeg" style="width:100%;" alt="">
+                            <div class="col-lg-4 mb-4">
+                                <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/sponsor/platinum/lundbeck.png" style="width:100%;" alt="">
                             </div>
-                            <div class="col-lg-3">
-                                <img class="lazy wow fadeInRight" data-wow-delay=".2s" src="<?= base_url('themes/gigaland'); ?>/images/ann.jpeg" style="width:100%;" alt="">
-                            </div> -->
+                            <div class="col-lg-4 mb-4">
+                                <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/sponsor/platinum/mersifarma.png" style="width:100%;" alt="">
+                            </div>
+                            <div class="col-lg-4 mb-4">
+                                <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/sponsor/platinum/pnghealth.png" style="width:100%;" alt="">
+                            </div>
+
                         </div>
                     </div>
                     <div class="col-lg-12">
                         <h3 class="style-2 wow fadeInRight" data-wow-delay=".5s" style="color:#F4AD39;">Gold</h3>
                         <br>
                         <div class="row text-center">
-                            <div class="col-lg-4">
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/ann.jpeg" style="width:100%;" alt="">
+                            <div class="row col-lg-12">
+                                <div class="row col-12 col-lg-6">
+                                    <div class="col-lg-6 mb-4">
+                                        <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/sponsor/gold/eisai.png" style="width:100%;" alt="">
                                     </div>
-                                    <!-- <div class="col-lg-6">
-                                        <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/ann.jpeg" style="width:100%;" alt="">
-                                    </div> -->
+                                    <div class="col-lg-6 mb-4">
+                                        <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/sponsor/gold/ikhparmindo.png" style="width:100%;" alt="">
+                                    </div>
+                                </div>
+                                <div class="row col-12 col-lg-6">
+                                    <div class="col-lg-6 mb-4">
+                                        <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/sponsor/gold/kimiapharma.png" style="width:100%;" alt="">
+                                    </div>
+                                    <div class="col-lg-6 mb-4">
+                                        <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/sponsor/gold/novartis.png" style="width:100%;" alt="">
+                                    </div>
                                 </div>
                             </div>
-                            <!-- <div class="col-lg-4">
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/ann.jpeg" style="width:100%;" alt="">
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/ann.jpeg" style="width:100%;" alt="">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-4">
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/ann.jpeg" style="width:100%;" alt="">
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/ann.jpeg" style="width:100%;" alt="">
-                                    </div>
-                                </div>
-                            </div> -->
                         </div>
                     </div>
                     <div class="col-lg-12">
-                        <h3 class="style-2 wow fadeInRight" data-wow-delay=".5s" style="color:#F4AD39;">Bronze</h3>
+                        <h3 class="style-2 wow fadeInRight" data-wow-delay=".5s" style="color:#F4AD39;">Workshop</h3>
                         <br>
                         <div class="row text-center">
-                            <div class="col-lg-4">
-                                <div class="row">
-                                    <div class="col-lg-4">
-                                        <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/ann.jpeg" style="width:100%;" alt="">
+                            <div class="row col-lg-12">
+                                <div class="row col-12 col-lg-6">
+                                    <div class="col-lg-4 col-6 mb-4">
+                                        <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/sponsor/workshop/fima.png" style="width:100%;" alt="">
                                     </div>
-
-                                    <!-- <div class="col-lg-4">
-
-                                        <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/ann.jpeg" style="width:100%;" alt="">
+                                    <div class="col-lg-4 col-6 mb-4">
+                                        <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/sponsor/workshop/mahakam.png" style="width:100%;" alt="">
                                     </div>
-                                    <div class="col-lg-4">
-                                        <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/ann.jpeg" style="width:100%;" alt="">
-
-                                    </div> -->
-                                </div>
-                            </div>
-                            <!-- <div class="col-lg-4">
-
-                                <div class="row">
-                                    <div class="col-lg-4">
-                                        <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/ann.jpeg" style="width:100%;" alt="">
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/ann.jpeg" style="width:100%;" alt="">
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/ann.jpeg" style="width:100%;" alt="">
+                                    <div class="col-lg-4 col-6 mb-4">
+                                        <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/sponsor/workshop/pyridam.png" style="width:100%;" alt="">
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-4">
-                                <div class="row">
-                                    <div class="col-lg-4">
-                                        <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/ann.jpeg" style="width:100%;" alt="">
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/ann.jpeg" style="width:100%;" alt="">
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/ann.jpeg" style="width:100%;" alt="">
-                                    </div>
-                                </div>
-
-                            </div> -->
-
                         </div>
                     </div>
 
@@ -1596,6 +1748,7 @@
             </div>
         </div>
     </section>
+
 
 
 
