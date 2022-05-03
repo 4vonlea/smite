@@ -1213,7 +1213,7 @@
                         <i class="wow fadeInUp bg-color-2 i-boxed icon_group" style="background-color:#F4AD39; color:black;"></i>
                         <div class="text">
                             <h4 class="wow fadeInUp" style="color:#F4AD39;">Speaker</h4>
-                            <h1 class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39;">tba</h1>
+                            <h1 class="wow fadeInUp" data-wow-delay=".25s" style="color:#F4AD39;">129</h1>
                         </div>
                         <i class="wm icon_group" style="color:#F4AD39;"></i>
                     </div>
@@ -1223,7 +1223,7 @@
                         <i class="wow fadeInUp bg-color-2 i-boxed icon_group" style="background-color:white; color:black;"></i>
                         <div class="text">
                             <h4 class="wow fadeInUp" style="color:white;">Moderator</h4>
-                            <h1 class="wow fadeInUp" data-wow-delay=".25s" style="color:white;">tba</h1>
+                            <h1 class="wow fadeInUp" data-wow-delay=".25s" style="color:white;">32</h1>
                         </div>
                         <i class="wm icon_group" style="color:white;"></i>
                     </div>
