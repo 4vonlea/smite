@@ -108,6 +108,9 @@ $theme_path = base_url("themes/gigaland") . "/";
                                         </li>
 
                                     </ul>
+                                    <div class="menu_side_area">
+                                        <span id="menu-btn"></span>
+                                    </div>
                                 </div>
                             <?php } else { ?>
                                 <div class="de-flex-col header-col-mid">
