@@ -368,11 +368,11 @@ class Event_m extends MY_Model
 	 * @param null $event_id
 	 * @return CI_DB_query_builder
 	 */
-	public function getParticipant()
+	public function getParticipant($select = null)
 	{
 		$this->load->model("Transaction_m");
 		return $this->setAlias("t")->find()
-			->select("td.id as td_id, td.checklist as checklist,t.id as event_id,t.name as event_name,t.kategory as event_kategory,t.held_on as event_held_on,t.held_in as event_held_in,t.theme as event_theme,m.*,km.kategory as member_status,m.alternatif_status")
+			->select($select ?? "td.id as td_id, td.checklist as checklist,t.id as event_id,t.name as event_name,t.kategory as event_kategory,t.held_on as event_held_on,t.held_in as event_held_in,t.theme as event_theme,m.*,km.kategory as member_status,m.alternatif_status")
 			->join("event_pricing ep", "t.id = ep.event_id")
 			->join("transaction_details td", "td.event_pricing_id = ep.id")
 			->join("transaction tr", "tr.id = td.transaction_id")
@@ -380,7 +380,23 @@ class Event_m extends MY_Model
 			->join("kategory_members km", "km.id = m.status")
 			->where("tr.status_payment", Transaction_m::STATUS_FINISH);
 	}
-
+	
+	/**
+	 * @param null $event_id
+	 * @return CI_DB_query_builder
+	 */
+	public function getEventWithCountParticipant()
+	{
+		$this->load->model("Transaction_m");
+		return $this->setAlias("t")->find()
+			->select("t.id as event_id,t.name as event_name,t.kategory as event_kategory,t.held_on as event_held_on,t.held_in as event_held_in,t.theme as event_theme,COUNT(tr.id) as countParticipant")
+			->join("event_pricing ep", "t.id = ep.event_id")
+			->join("transaction_details td", "td.event_pricing_id = ep.id","left")
+			->join("transaction tr", "tr.id = td.transaction_id AND tr.status_payment = '".Transaction_m::STATUS_FINISH."'","left")
+			->join("members m", "m.id = td.member_id","left")
+			->join("kategory_members km", "km.id = m.status","left")
+			->group_by("t.id");
+	}
 	public function get_pricing($id, $id2)
 	{
 		$this->db->select('pri.id, pri.name as jenis_harga,condition_date, substring(pri.condition_date,1, 10) as waktu_mulai, substring(pri.condition_date,12, 10) as waktu_akhir, pri.price as harga');

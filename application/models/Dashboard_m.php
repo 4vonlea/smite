@@ -25,7 +25,7 @@ class Dashboard_m extends CI_Model
 						WHERE t.status_payment = '" . Transaction_m::STATUS_FINISH . "'
 						GROUP BY event_id";
 
-		if ($this->session->user_session['role'] == User_account_m::ROLE_SUPERADMIN) {
+		if ($this->session->has_userdata("user_session") && $this->session->user_session['role'] == User_account_m::ROLE_SUPERADMIN) {
 			$rs = $this->db->select("t.id as id_event,t.kouta,name,COALESCE(fund_collected,0) as fund_collected,COALESCE(number_participant,0) as number_participant,nametag,seminarkit,certificate")
 				->join("( $queryTemp ) as c", "c.id_event = t.id", "left")
 				->from("events t")->get();
