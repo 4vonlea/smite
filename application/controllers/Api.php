@@ -57,7 +57,7 @@ class Api extends MY_Controller
 
     public function user_event(){
         $token = $this->input->post("token");
-		$this->load->model('Event_m');
+		$this->load->model(['Event_m','Papers_m']);
         if($token){
             if($this->verify_sign($token)){
                 $decodedBase64 = base64_decode($token);
@@ -66,7 +66,24 @@ class Api extends MY_Controller
                     "t.id as event_id,t.name as event_name,t.kategory as event_kategory,t.held_on as event_held_on,t.held_in as event_held_in,t.theme as event_theme"
                 )->where('m.id', $jsonDecoded['memberId'])
                 ->get();
-                $this->send_response(self::CODE_OK,"Success",$result->result_array());
+                $papers = $this->Papers_m->find()->select("CONCAT(st.value,LPAD(papers.id,3,0)) as id,title,type_presence as presentationOn,status as statusAbstract,
+                                                        status_fullpaper as statusFullpaper,status_presentasi as statusPresentation,category_paper.name as manuscriptSection,
+                                                        methods as manuscriptCategory,type as manuscriptType,")
+                                                    ->join("settings st",'st.name = "format_id_paper"',"left")
+                                                    ->join("category_paper","category_paper.id = category","left")
+                                                    ->where("member_id",$jsonDecoded['memberId'])->get()->result_array();
+                $paperList = [];
+                foreach($papers as $row){
+                    $row['statusAbstract'] = Papers_m::$status[$row['statusAbstract']] ?? "-";
+                    $row['statusFullpaper'] = Papers_m::$status[$row['statusFullpaper']] ?? "-";
+                    $row['statusPresentation'] = Papers_m::$status[$row['statusPresentation']] ?? "-";
+                    $paperList[] = $row;
+                }
+                $this->send_response(self::CODE_OK,"Success",[
+                    'followedEvents'=>$result->result_array(),
+                    'submitPaper' => $paperList,
+                ]
+                );
             }else{
                 $this->send_response(self::CODE_BAD_REQUEST,"Token Expired or Invalid",[]);
             }
