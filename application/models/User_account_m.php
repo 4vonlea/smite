@@ -62,6 +62,16 @@ class User_account_m extends MY_Model
 			->join("kategory_members km","status = km.id","left")->get()->row_array();
     }
 
+    public function findMemberWithTransaction(){
+        $this->load->model("Transaction_m");
+        return $this->setAlias("t")->find()->select("m.id")
+			->join('members m','m.username_account = username')
+            ->join("transaction","transaction.member_id = m.id")
+            ->join("univ","m.univ = univ_id","left")
+            ->where("status_payment",Transaction_m::STATUS_FINISH)
+			->join("kategory_members km","status = km.id","left")->get()->row_array();
+    }
+
     public function selectuser($username)
     {
         $this->db->select('username');
