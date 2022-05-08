@@ -786,7 +786,6 @@ $this->layout->end_head();
 					this.filteredPaper = '';
 					this.apiUrl = apiUrlDefault;
 				}
-				console.log(this.filteredPaper);
 				app.$refs.datagrid.refresh();
 			},
 			filterStatus(id,label){
@@ -906,7 +905,7 @@ $this->layout->end_head();
 							if (!res.status) {
 								app.validation = res.message;
 							} else {
-								app.$refs.datagrid.refresh();
+								app.$refs.datagrid.reload();
 								$("#modal-review").modal('hide');
 								$("#modal-reviewer").modal('hide');
 								Swal.fire('Success', "Review has been saved", 'success');
@@ -939,7 +938,7 @@ $this->layout->end_head();
 						$.post("<?= base_url("admin/paper/delete"); ?>", {'id':prop.row.t_id}, function(res) {
 							if (res.status) {
 								Swal.fire("Success", "Paper deleted successfully", "success");
-								app.$refs.datagrid.refresh();
+								app.$refs.datagrid.reload();
 							} else
 								Swal.fire("Failed", res.message, "error");
 						}, "JSON").fail(function(xhr) {

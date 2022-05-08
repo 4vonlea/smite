@@ -11,7 +11,7 @@ export default Vue.component("Presentation", {
             </div>
             <div class="row">
             <div class="col-md-6 col-sm-12">
-                <input type="text" v-model="globalFilter" class="form-control" placeholder="Please type for search...." @change="doFilter" @keyup="doFilter"/>
+                <input type="text" v-model="globalFilter" class="form-control mb-2" placeholder="Please type for search...." @change="doFilter" @keyup="doFilter"/>
             </div>
             <vuetable-pagination 
             ref="pagination"
@@ -26,14 +26,18 @@ export default Vue.component("Presentation", {
                 pagination-path="pagination"
                 @vuetable:pagination-data="onPaginationData">
                     <template slot="poster" slot-scope="props">
-                        <a v-if="isImage(props.rowData.poster)" target="_blank" :href="baseUrl+'file_presentation/'+props.rowData.poster+'/'+props.rowData.id"  class='magnific'>
+                        <div class="text-center">
+                        <a v-if="isImage(props.rowData.poster)" :data-voice="props.rowData.voice" target="_blank" :href="baseUrl+'file_presentation/'+props.rowData.poster+'/'+props.rowData.id"  class='magnific'>
                             <img class="img img-thumbnail" width="160" :src="baseUrl+'file_presentation/'+props.rowData.poster+'/'+props.rowData.id" />
                         </a>
-                        <span v-else>
-                        <a target="_blank" :href="baseUrl+'file_presentation/'+props.rowData.poster+'/'+props.rowData.id"  class='btn btn-primary'>
-                            Show File
-                        </a>
+                        <span v-else-if="typeFile(props.rowData.poster) == 'Power Point'">
+                            <button class="btn btn-primary" @click="$parent.togglePresentation(props.rowData.poster,props.rowData.voice)">Show File {{ typeFile(props.rowData.poster) }}</button>
                         </span>
+                        <a v-else target="_blank" :href="baseUrl+'file_presentation/'+props.rowData.poster+'/'+props.rowData.id"  class='btn btn-primary'>
+                            Show File {{ typeFile(props.rowData.poster) }}
+                        </a>
+
+                        </div>
                     </template>
                 </vuetable>
             </div>
@@ -74,9 +78,43 @@ export default Vue.component("Presentation", {
             }
             return false;
         },
+        typeFile(filename){
+            let extension = filename.toLowerCase().split(".");
+            if(extension.length > 0){
+                if(['ppt','pptx'].includes(extension[1])){
+                    return "Power Point";
+                }
+            }
+            return "";
+        },
         onPaginationData(paginationData) {
             this.$refs.pagination.setPaginationData(paginationData);
-            $("a.magnific").magnificPopup({type:'image'});
+            let comp = this;
+            $("a.magnific").magnificPopup({
+                type:'image',
+                image:{
+                    markup:`<div class="mfp-figure">
+                                <div class="mfp-close"></div>
+                                <div class="mfp-img"></div>
+                                <div class="mfp-bottom-bar">
+                                    <div class="mfp-title"></div>
+                                    <div class="mfp-counter"></div>
+                                    <audio controls autoplay muted>
+                                        <source id="audioPresentation" src="presentationCover.voiceLink" type="audio/mpeg">
+                                        Your browser does not support the audio element.
+                                    </audio>
+                                </div>
+                            </div>
+                    `,
+                    cursor:null,
+                },
+                callbacks:{
+                    open:function(e){
+                        $("#audioPresentation").attr("src",comp.baseUrl+"file_presentation/"+this.st.el.data('voice')+"/0");
+                    }
+                },
+                closeOnBgClick:false,
+        });
         },
         onChangePage(page) {
             this.$refs.vuetable.changePage(page);

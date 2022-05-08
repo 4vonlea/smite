@@ -25,10 +25,39 @@ $this->layout->begin_head();
     .color-heading {
         color: #F4AD39 !important;
     }
+    .cover {
+        position:absolute;
+        padding:20px;
+        margin:0;
+        top:0;
+        left:0;
+        width: 100%;
+        height: 100%;
+        background:rgba(0,0,0,0.75);
+        z-index: 2000;
+        overflow: hidden;
+    }
 </style>
 <?php $this->layout->end_head(); ?>
 
 <div id="app">
+    <div class="cover container-fluid" v-if="presentationCover.isShow">
+        <div class="row">
+            <div class="col-md-11 col-sm-9">
+               
+            </div>
+            <div class="col-md-1 col-sm-3 mb-1">
+                <button @click="togglePresentation('#','#')" class="btn btn-danger">Close</button>
+            </div>
+            <div class="col-12">
+                <iframe :src='presentationCover.link' width='100%' height='600px' frameborder='0'></iframe>  
+                <audio controls autoplay muted>
+                    <source :src="presentationCover.voiceLink" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>              
+            </div>
+        </div>
+    </div>
     <section id="subheader" style="background-size: cover;" class="pb-5">
     </section>
     <div class="container py-2 mb-5" id="content">
@@ -182,6 +211,13 @@ $this->layout->begin_head();
     var app = new Vue({
         router,
         'el': '#app',
+        data:{
+            presentationCover:{
+                isShow:false,
+                link:"#",
+                voiceLink:"#",
+            }
+        },
         methods: {
             uploadImage() {
                 var file_data = this.$refs.file.files[0];
@@ -205,6 +241,18 @@ $this->layout->begin_head();
                         Swal.fire('Failed', response.message, 'error');
                     }
                 });
+            },
+            togglePresentation(filename,voice){
+                this.presentationCover.isShow = !this.presentationCover.isShow;
+                if(this.presentationCover.isShow){
+                    this.presentationCover.voiceLink = this.baseUrl+"file_presentation/"+voice+'/0';
+                    this.presentationCover.link = "https://view.officeapps.live.com/op/view.aspx?src=<?=base_url('application/uploads/papers');?>/"+filename;
+                    document.documentElement.style.overflow = "hidden";
+                }else{
+                    document.documentElement.style.overflow = "scroll";
+                    this.presentationCover.voiceLink = "#";
+                    this.presentationCover.link = "#";
+                }
             }
         }
     }).$mount('#app');

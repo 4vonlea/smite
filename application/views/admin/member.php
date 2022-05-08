@@ -576,7 +576,7 @@ $this->layout->begin_head();
 					if (res.status) {
 						$("#modal-verification").modal("hide");
 						Swal.fire("Success", "Member has been verified !", "success");
-						app.$refs.datagrid.refresh();
+						app.$refs.datagrid.reload();
 					} else
 						app.verifyMessage = res.message;
 				}, 'JSON').fail(function(xhr) {

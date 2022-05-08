@@ -38,8 +38,8 @@ class Dashboard_m extends CI_Model
 
 		$countByStatus = $this->db->query("SELECT ev.id as event_id, t.kategory as status,ev.name as event, COUNT(m.id) AS jumlah FROM kategory_members t
 											LEFT JOIN members m ON t.id = m.`status`
-											LEFT JOIN `transaction` tr ON tr.member_id = m.id AND tr.status_payment = 'settlement'
-											LEFT JOIN transaction_details dt ON dt.transaction_id = tr.id AND dt.event_pricing_id > 0
+											LEFT JOIN transaction_details dt ON dt.member_id = m.id AND dt.event_pricing_id > 0
+											JOIN `transaction` tr ON tr.id = dt.transaction_id AND tr.status_payment = 'settlement'
 											LEFT JOIN `event_pricing` ep ON ep.id = dt.event_pricing_id
 											LEFT JOIN `events` ev ON ev.id = ep.event_id
 											GROUP BY t.id,ev.id")->result_array();

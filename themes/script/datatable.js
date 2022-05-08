@@ -221,6 +221,9 @@ Vue.component('datagrid', {
         refresh(){
             Vue.nextTick( () => this.$refs.vuetable.refresh())
         },
+        reload(){
+            Vue.nextTick( () => this.$refs.vuetable.reload())
+        },
         resetFilter() {
             this.globalFilter = "";
             this.paramsQuery = {

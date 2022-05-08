@@ -221,7 +221,7 @@ class Papers_m extends MY_Model
 	public function findAllPoster()
 	{
 		$result = $this->setAlias("t")->find()
-			->select("t.id,title,type_presence as type,m.fullname,poster")
+			->select("t.id,title,type_presence as type,m.fullname,poster,voice")
 			->join("members m", "m.id = t.member_id")
 			->where("t.status", self::ACCEPTED)
 			->where("poster IS NOT NULL")

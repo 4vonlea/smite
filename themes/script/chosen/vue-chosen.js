@@ -114,7 +114,6 @@ Vue.component('vue-chosen',{
 
 	mounted() {
 		let component = this
-		console.log("TES");
 		$(this.$el).chosen({
 			width: "100%",
 			disable_search_threshold: this.searchable ? this.searchableMin : 100000,
