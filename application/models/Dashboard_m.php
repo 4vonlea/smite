@@ -129,8 +129,8 @@ class Dashboard_m extends CI_Model
 		$this->load->model("Transaction_m");
 		$result = $this->db->select("m.id as member_id, fullname as nama, e.name as Acara yang diikuti")
 			->from("members m")
-			->join("transaction t", "m.id = t.member_id", "left")
-			->join("transaction_details td", "t.id = td.transaction_id", "left")
+			->join("transaction_details td", "td.member_id = m.id", "left")
+			->join("transaction t", "t.id = td.transaction_id", "left")
 			->join("event_pricing ep", "ep.id = td.event_pricing_id")
 			->join("events e", "e.id = ep.event_id")
 			->where("t.status_payment", "SETTLEMENT")
