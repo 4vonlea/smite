@@ -143,10 +143,10 @@
 									<th style="width: 40%" scope="col">Event Name</th>
 									<th style="width: 5%" scope="col">Participant</th>
 									<th style="width: 5%" scope="col">Qouta</th>
-									<th style="width: 5%" scope="col">Remaining Quota</th>
-									<th style="width: 5%" scope="col">Nametag Taken</th>
-									<th style="width: 5%" scope="col">Seminar Kit Taken</th>
-									<th style="width: 5%" scope="col">Certificate Taken</th>
+									<!-- <th style="width: 5%" scope="col">Remaining Quota</th> -->
+									<!-- <th style="width: 5%" scope="col">Nametag Taken</th> -->
+									<!-- <th style="width: 5%" scope="col">Seminar Kit Taken</th> -->
+									<!-- <th style="width: 5%" scope="col">Certificate Taken</th> -->
 									<?php if ($this->session->user_session['role'] == User_account_m::ROLE_SUPERADMIN) : ?>
 										<th style="width: 5%" scope="col">Fund Collected</th>
 									<?php endif; ?>
@@ -158,10 +158,10 @@
 									<th>{{ p.name }}</th>
 									<td>{{ p.number_participant }}</td>
 									<td>{{ p.kouta }}</td>
-									<td>{{ p.kouta-p.number_participant }}</td>
-									<td>Taken: {{ p.nametag }} | Remaining: {{ p.number_participant - p.nametag }}</td>
-									<td>Taken: {{ p.seminarkit }} | Remaining: {{ p.number_participant - p.seminarkit }}</td>
-									<td>Taken: {{ p.certificate }} | Remaining: {{ p.number_participant - p.certificate }}</td>
+									<!-- <td>{{ p.kouta-p.number_participant }}</td> -->
+									<!-- <td>Taken: {{ p.nametag }} | Remaining: {{ p.number_participant - p.nametag }}</td> -->
+									<!-- <td>Taken: {{ p.seminarkit }} | Remaining: {{ p.number_participant - p.seminarkit }}</td> -->
+									<!-- <td>Taken: {{ p.certificate }} | Remaining: {{ p.number_participant - p.certificate }}</td> -->
 									<?php if ($this->session->user_session['role'] == User_account_m::ROLE_SUPERADMIN) : ?>
 										<td>{{ formatCurrency(p.fund_collected) }}</td>
 									<?php endif; ?>

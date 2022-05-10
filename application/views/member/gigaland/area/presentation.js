@@ -36,7 +36,13 @@ export default Vue.component("Presentation", {
                         <a v-else target="_blank" :href="baseUrl+'file_presentation/'+props.rowData.poster+'/'+props.rowData.id"  class='btn btn-primary'>
                             Show File {{ typeFile(props.rowData.poster) }}
                         </a>
-
+                        <p class="mt-2">
+                            <button class="btn btn-link" @click="likePoster(props.rowData,props.rowData.liked == '0')">
+                                <i v-if="props.rowData.isLoading == '0'" :class="[ props.rowData.liked == '1' ? 'text-danger':'text-white']" class="fa fa-heart fa-2x"></i>
+                                <i v-if="props.rowData.isLoading == '1'" class="fa fa-spin fa-spinner text-heart fa-2x"></i>
+                            </button>
+                            {{ props.rowData.jumlah}} Likes
+                        </p>
                         </div>
                     </template>
                 </vuetable>
@@ -71,6 +77,26 @@ export default Vue.component("Presentation", {
         }
     },
     methods: {
+        likePoster(row,isLike){
+            row.isLoading = "1";
+            $.post(this.appUrl+'member/area/like_presentation',{
+                id:row.id,
+                action:isLike ? "add":"delete"
+            }).done(function(res){
+                if(isLike){
+                    row.liked = "1";
+                    row.jumlah++;
+                }else{
+                    row.liked = "0";
+                    row.jumlah--;
+                }
+            }).always(function(res){
+                row.isLoading = "0";
+            }).fail(function(res){
+                row.isLoading = "0";
+                Swal.fire('Fail',"Failed to give a like", 'error');
+            });
+        },
         isImage(data){
             let extension = data.toLowerCase().split(".");
             if(extension.length > 0){

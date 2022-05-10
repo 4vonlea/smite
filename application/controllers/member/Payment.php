@@ -86,7 +86,7 @@ class Payment extends MY_Controller
 					}
 				}
 				$file['Bukti Registrasi'] = $tr->exportPaymentProof()->output();
-				$this->Notification_m->sendMessageWithAttachment($member->email,"Official Bukti Registrasi And Name Tag","Thank you for registering and fulfilling your payment, below is offical Bukti Registrasi",$file,"OFFICIAL_BUKTI_REGISTRASI.pdf");
+				$this->Notification_m->sendMessageWithAttachment($member->email,"Official Payment Proof And Name Tag","Thank you for registering and fulfilling your payment, below is offical Bukti Registrasi",$file,"OFFICIAL_BUKTI_REGISTRASI.pdf");
 
 //				$file = $tr->exportPaymentProof()->output();
 //				$this->Notification_m->sendMessageWithAttachment($member->email,"Official Bukti Registrasi-And Name Tag","Thank you for registering and fulfilling your payment, below is offical Bukti Registrasi",$file,"OFFICIAL_PAYMENT_PROOF.pdf");

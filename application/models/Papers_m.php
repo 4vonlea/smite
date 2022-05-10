@@ -218,15 +218,21 @@ class Papers_m extends MY_Model
 		return $this->hasOne('Member_m', 'id', 'member_id');
 	}
 
-	public function findAllPoster()
+	public function findAllPoster($username = null)
 	{
-		$result = $this->setAlias("t")->find()
-			->select("t.id,title,type_presence as type,m.fullname,poster,voice")
+		$query = $this->setAlias("t")->find()
+			->select("t.id,title,type_presence as type,m.fullname,poster,voice, 0 as isLoading,COALESCE(c.jumlah,0) as jumlah")
 			->join("members m", "m.id = t.member_id")
+			->join("(SELECT video_id as cId,COUNT(id) as jumlah FROM video_like GROUP BY video_id ) as c","c.cId = t.id","left")
 			->where("t.status", self::ACCEPTED)
-			->where("poster IS NOT NULL")
-			->get();
-		return $result->result_array();
+			->where("poster IS NOT NULL");
+		if($username){
+			$query->join("video_like","video_id = t.id AND username='$username'","left")
+				->select("IF(video_like.id is NULL,0,1) as liked");
+		}else{
+			$query->select("1 as liked");
+		}
+		return $query->get()->result_array();
 	}
 
 	public function count_paper()

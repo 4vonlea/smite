@@ -44,7 +44,7 @@ class Area extends MY_Controller
 	public function presentationList()
 	{
 		$this->load->model("Papers_m");
-		$data = $this->Papers_m->findAllPoster();
+		$data = $this->Papers_m->findAllPoster($this->session->user_session['username']);
 		$this->output->set_content_type("application/json")
 			->_display(json_encode(['status' => true, 'data' => $data]));
 	}
@@ -748,6 +748,24 @@ class Area extends MY_Controller
 				'univ' => Univ_m::asList($univ->result_array(), 'univ_id', 'univ_nama'),
 				'country' => Country_m::asList($country->result_array(), 'id', 'name')
 			]));
+	}
+
+	public function like_presentation(){
+		$username = $this->session->user_session['username'];
+		$id = $this->input->post("id");
+		$action = $this->input->post("action");
+		$status = false;
+		if($action == "add"){
+			$status = $this->db->insert("video_like",[
+				'video_id'=>$id,
+				'username'=>$username
+			]);
+		}else{
+			$status = $this->db->delete("video_like",['video_id'=>$id,'username'=>$username]);
+		}
+		$this->output
+			->set_content_type("application/json")
+			->_display(json_encode(['status'=>$status]));
 	}
 
 	public function redirect_client($name)

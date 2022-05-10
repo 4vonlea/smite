@@ -90,6 +90,7 @@ class Notification_m extends MY_Model{
     public function sendMessage($to,$subject,$message){
         $message = $this->wrapMessage($message);
         $class = $this->getClass();
+        $subject .= " - ".Settings_m::getSetting('site_title');
         if($class)
             return $class->sendMessage($to,$subject,$message);
         return ['status'=>false,'code'=>'0','message'=>'Failed to initialized class'];
@@ -100,6 +101,7 @@ class Notification_m extends MY_Model{
     public function sendMessageWithAttachment($to,$subject,$message,$attachment,$fname = ""){
         $message = $this->wrapMessage($message);
         $class = $this->getClass();
+        $subject .= " - ".Settings_m::getSetting('site_title');
         if($class)
             return $class->sendMessageWithAttachment($to,$subject,$message,$attachment,$fname);
         return ['status'=>false,'code'=>'0','message'=>'Failed to initialized class'];

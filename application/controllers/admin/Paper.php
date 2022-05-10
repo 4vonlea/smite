@@ -183,6 +183,7 @@ class Paper extends Admin_Controller
 						$parameter['feedbackAbstract'] = $parameter['message'];
 						$parameter['feedbackFullpaper'] = $parameter['feedback_fullpaper'];
 						$parameter['feedbackPresentation'] = $parameter['feedback_presentasi'];
+						$parameter['siteTitle'] = Settings_m::getSetting('site_title');
 
 						$message = $this->load->view("template/email/" . $file, $parameter, true);
 						if ($message) {
