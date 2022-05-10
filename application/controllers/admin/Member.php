@@ -258,9 +258,11 @@ class Member extends Admin_Controller
 					$price = $this->Event_pricing_m->findOne(['id' => $t[0], 'condition' => $t[4]]);
 					if ($price->price != 0) {
 						$t['1'] = $price->price;
-					} else {
+					} elseif($price->price_in_usd > 0) {
 						$kurs_usd = json_decode(Settings_m::getSetting('kurs_usd'), true);
 						$t['1'] = ($price->price_in_usd * $kurs_usd['value']);
+					}else{
+						$t['1'] = $price->price;
 					}
 
 					$details[] = [
@@ -640,9 +642,11 @@ class Member extends Admin_Controller
 						$price = $this->Event_pricing_m->findOne(['id' => $event[0], 'condition' => $event[4]]);
 						if ($price->price != 0) {
 							$event['1'] = $price->price;
-						} else {
+						} elseif($price->price_in_usd > 0) {
 							$kurs_usd = json_decode(Settings_m::getSetting('kurs_usd'), true);
 							$event['1'] = ($price->price_in_usd * $kurs_usd['value']);
+						}else{
+							$event['1'] = $price->price;
 						}
 
 						$details[] = [
@@ -706,7 +710,7 @@ class Member extends Admin_Controller
 		} else {
 			$this->load->model(["Category_member_m", "Event_m"]);
 			$this->load->helper("form");
-			$events = $this->Event_m->eventAvailableNow();
+			$events = $this->Event_m->eventAvailableNow(true);
 			$univList = $this->Univ_m->find()->order_by("univ_id,univ_nama")->get();
 			$univDl = Univ_m::asList($univList->result_array(), "univ_id", "univ_nama");
 

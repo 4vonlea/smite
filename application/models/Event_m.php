@@ -118,8 +118,8 @@ class Event_m extends MY_Model
 									'id_event' => $row['id_event'],
 									'event_required' => $row['event_required'],
 									'event_required_id' => $row['event_required_id'],
-									'price' => $row['price_r'],
-									'price_in_usd' => $row['price_in_usd'],
+									'price' => $row['price_r'] ?? 0,
+									'price_in_usd' => $row['price_in_usd'] ?? 0,
 									'available' => $avalaible
 								]
 							]
@@ -144,8 +144,8 @@ class Event_m extends MY_Model
 								'id_event' => $row['id_event'],
 								'event_required' => $row['event_required'],
 								'event_required_id' => $row['event_required_id'],
-								'price' => $row['price_r'],
-								'price_in_usd' => $row['price_in_usd'],
+								'price' => $row['price_r'] ?? 0,
+								'price_in_usd' => $row['price_in_usd'] ?? 0,
 								'available' => $avalaible
 							]
 						]
@@ -157,8 +157,8 @@ class Event_m extends MY_Model
 						'id_event' => $row['id_event'],
 						'event_required' => $row['event_required'],
 						'event_required_id' => $row['event_required_id'],
-						'price' => $row['price_r'],
-						'price_in_usd' => $row['price_in_usd'],
+						'price' => $row['price_r'] ?? 0,
+						'price_in_usd' => $row['price_in_usd'] ?? 0,
 						'available' => $avalaible
 					];
 				}
