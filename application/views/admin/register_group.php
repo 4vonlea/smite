@@ -80,7 +80,7 @@ $this->layout->begin_head();
 									</td>
 									<td>{{ index }} <span style="font-size: 14px;" v-if="ev.event_required">(You must follow event {{ ev.event_required }} to patcipate this event)</span>
 									<td>
-										<span v-show="ev.price != 0">{{ formatCurrency(ev.price) }}</span>
+										<span v-show="ev.price != 0 || ev.price_in_usd == 0">{{ formatCurrency(ev.price) }}</span>
 										<span v-show="ev.price != 0 && ev.price_in_usd != 0"> / </span>
 										<span v-show="ev.price_in_usd != 0">{{formatCurrency(ev.price_in_usd, 'USD')}}</span>
 									</td>
