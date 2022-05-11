@@ -183,8 +183,8 @@
 								<th>-</th>
 								<!-- <th>-</th>
 								<th>-</th>
-								<th>-</th> -->
 								<th>-</th>
+								<th>-</th> -->
 								<?php if ($this->session->user_session['role'] == User_account_m::ROLE_SUPERADMIN) : ?>
 									<th>{{ formatCurrency(total.fund) }}</th>
 								<?php endif; ?>
