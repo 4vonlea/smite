@@ -3,6 +3,10 @@ RewriteCond $1 !^(index\.php|resources|robots\.txt)
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ index.php/$1 [L,QSA]
+
+RewriteCond %{HTTP_HOST} www.aomc-pinbanjarmasin2022.com
+RewriteRule (.*) https://aomc-pinbanjarmasin2022.com/$1 [R=301,L]
+
 <Files .env>
     Order allow,deny
     Deny from all
