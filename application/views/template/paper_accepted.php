@@ -33,14 +33,14 @@ $header_image = base_url('themes/uploads/header_kop.jpg');
 	</tr>
 	<tr>
 		<td class="text-center">
-			<h4 style="font-size: 14pt">Abstract Submission Announcement – <?=Settings_m::getSetting('site_title');?></h4>
+			<h4 style="font-size: 14pt">Submission Announcement – <?=Settings_m::getSetting('site_title');?></h4>
 		</td>
 	</tr>
 	<tr>
 		<td>
 			<p>Dear <?= $member->fullname; ?></p>
-			<p>Thank you for submitting your abstract to <?=Settings_m::getSetting('site_title');?>. Hereby we informed you that
-				your abstract:</p>
+			<p>Thank you for submitting your manuscript to <?=Settings_m::getSetting('site_title');?>. Congratulation, hereby we informed you that
+				your manuscript:</p>
 			<table>
 				<tr>
 					<td style="width: 100px">Title</td>
@@ -53,13 +53,13 @@ $header_image = base_url('themes/uploads/header_kop.jpg');
 					<td><?= $paper->getIdPaper(); ?></td>
 				</tr>
 				<tr>
-					<td>Result Of Abstract</td>
+					<td>Result of abstract</td>
 					<td>:</td>
 					<td><?= Papers_m::$status[$paper->status];?></td>
 				</tr>
 				<?php if($paper->status_fullpaper != "" && $paper->status_fullpaper != "-1"):?>
 				<tr>
-					<td>Result Of Fullpaper</td>
+					<td>Result of fullpaper</td>
 					<td>:</td>
 					<td><?= Papers_m::$status[$paper->status_fullpaper];?></td>
 				</tr>
@@ -70,10 +70,7 @@ $header_image = base_url('themes/uploads/header_kop.jpg');
 					<td><?= $paper->type_presence; ?></td>
 				</tr>
 			</table>
-			<!-- <p>Please see our guideline and check for important date for your presentation <a href="https://eastinsdv2020.com/themes/porto/pengumuman/pedoman.rtf">here</a>. Deadline for uploading
-				your FULLPAPER AND MEDIA OF PRESENTATION (poster or oral) is <span style="font-weight: bold">14th February 2020 23.59 WITA</span>. Please login your account for uploading the file.
-			</p> -->
-			<p>We appreciate you submitting your abstract and for giving us the opportunity to consider your work.
+			<p>Please consider this annoucement as your Letter of Acceptance and use it accordingly. We appreciate your participation and for giving us the opportunity to consider your work.
 				 Thank you and we wait for your attendance.
 			</p> 
 
