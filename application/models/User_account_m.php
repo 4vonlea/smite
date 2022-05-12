@@ -64,7 +64,7 @@ class User_account_m extends MY_Model
 
     public function findMemberWithTransaction(){
         $this->load->model("Transaction_m");
-        return $this->setAlias("t")->find()->select("m.id")
+        return $this->setAlias("t")->find()->select("m.id,km.kategory as status_name")
 			->join('members m','m.username_account = username')
             ->join("transaction","transaction.member_id = m.id")
             ->join("univ","m.univ = univ_id","left")

@@ -26,7 +26,6 @@ class Api extends MY_Controller
                     $user['fullname'] = "Dummy Unreal";
                     $user['gender'] = "Male";
                     $user['phone'] = "6280000000000";
-                    $user['status_name'] = "Unreal User";
                     $user['univ_nama'] = "Unreal University";
                 }else{
                     $user = $this->User_account_m->findWithBiodata($username);
