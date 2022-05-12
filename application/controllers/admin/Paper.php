@@ -67,6 +67,10 @@ class Paper extends Admin_Controller
 			->_display(json_encode($feedback));
 	}
 
+	public function preview_loa($id){
+		$model = $this->Papers_m->findOne($id);
+		$model->exportNotifPdf()->stream("dompdf_out.pdf", array("Attachment" => false));
+	}
 	protected function save_reviewer()
 	{
 		$data = $this->input->post();
