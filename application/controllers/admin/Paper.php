@@ -68,6 +68,7 @@ class Paper extends Admin_Controller
 	}
 
 	public function preview_loa($id){
+		$this->load->model('Papers_m');
 		$model = $this->Papers_m->findOne($id);
 		$model->exportNotifPdf()->stream("dompdf_out.pdf", array("Attachment" => false));
 	}
