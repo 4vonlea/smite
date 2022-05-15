@@ -283,7 +283,7 @@ class Member extends Admin_Controller
 				if ($error['status']) {
 					$tr = $this->Transaction_m->findOne($id_invoice);
 					$data['participantsCategory'] = $participantsCategory;
-					$email_message = $this->load->view('template/success_register_onsite', $data, true);
+					$email_message = $this->load->view('template/email/success_register_onsite', $data, true);
 					$attc = [
 						$data['fullname'] . '-invoice.pdf' => $tr->exportInvoice()->output(),
 						$data['fullname'] . '-bukti_registrasi.pdf' => $tr->exportPaymentProof()->output()
@@ -669,7 +669,7 @@ class Member extends Admin_Controller
 					if ($error['status']) {
 						$tr = $this->Transaction_m->findOne($id_invoice);
 						$data['participantsCategory'] = $participantsCategory;
-						$email_message = $this->load->view('template/success_register_onsite', $data, true);
+						$email_message = $this->load->view('template/email/success_register_onsite', $data, true);
 						$attc = [
 							$data['fullname'] . '-invoice.pdf' => $tr->exportInvoice()->output(),
 							$data['fullname'] . '-bukti_registrasi.pdf' => $tr->exportPaymentProof()->output()

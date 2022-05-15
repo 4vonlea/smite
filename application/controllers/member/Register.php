@@ -378,7 +378,7 @@ class Register extends MY_Controller
 					if ($error['statusData']) {
 						$invoiceDataPdf = $tr->exportInvoice()->output();
 						$data['participantsCategory'] = $participantsCategory;
-						$email_message = $this->load->view('template/success_register_onsite', $data, true);
+						$email_message = $this->load->view('template/email/success_register_onsite', $data, true);
 						$attc = [
 							$data['fullname'] . '-invoice.pdf' => $invoiceDataPdf,
 							// $data['fullname'] . '-bukti_registrasi.pdf' => $tr->exportPaymentProof()->output()
