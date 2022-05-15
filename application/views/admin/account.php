@@ -109,6 +109,16 @@
 								<h3>User Account</h3>
 							</div>
 							<div class="col-6 text-right">
+							<div class="dropdown">
+								<button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									{{ currentRole }}
+								</button>
+								<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+									<a class="dropdown-item" href="#" @click="filterRole(-1,'All Role')">All Role</a>
+									<a class="dropdown-item" v-for="(val,ind) in listRole" @click="filterRole(ind,val)"  href="#">{{ val }}</a>
+
+								</div>
+							</div>
 								<button @click="onAdd" type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Add User</button>
 								<a href="<?=base_url('admin/account/access');?>" class="btn btn-primary"><i class="fa fa-edit"></i> Manage Access</a>
 							</div>
@@ -118,7 +128,7 @@
 						<datagrid
 							ref="datagrid"
 							api-url="<?= base_url('admin/account/grid'); ?>"
-							:fields="[{name:'username',sortField:'username'}, {name:'role',sortField:'role','title':'Role'},{name:'username_',sortField:'username_','title':'Actions'}]">
+							:fields="[{name:'username',sortField:'username'},{name:'fullname',sortField:'fullname',title:'Fullname'}, {name:'role',sortField:'role','title':'Role'},{name:'username_',sortField:'username_','title':'Actions'}]">
 							<template slot="role" slot-scope="prop">
 								{{ listRole[prop.row.role] }}
 							</template>
@@ -168,8 +178,19 @@
                 saving: false,
                 model: model()
             },
+			currentRole:"All Role",
         },
         methods: {
+			filterRole(id,label){
+				if(id >= 0){
+					app.$refs.datagrid.additionalQuery = {'role':id};
+				}else{
+					app.$refs.datagrid.additionalQuery = {};
+				}
+				this.currentRole = label;
+				app.$refs.datagrid.doFilter();
+
+			},
             resetPass(prop){
                 Swal.fire({
                     title: 'Are you sure?',

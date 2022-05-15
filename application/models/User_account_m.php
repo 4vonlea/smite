@@ -42,9 +42,12 @@ class User_account_m extends MY_Model
 
 	public function gridConfig($options = array())
 	{
-		return [
-			'select'=>['username'=>'t.username','role'=>'role','username_'=>'username'],
-		];
+		return array_merge([
+			'select'=>['username'=>'t.username','role'=>'role','username_'=>'username','fullname'],
+            'relationships' => [
+				'members' => ['members', 'members.username_account = username', 'left'],
+			],
+		],$options);
 	}
 
 	public static function verify($username,$password){

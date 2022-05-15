@@ -22,8 +22,15 @@ class Account extends Admin_Controller
 	public function grid()
 	{
 		$this->load->model('User_account_m');
-
-		$grid = $this->User_account_m->gridData($this->input->get());
+		$gridConfig = [];
+		if($this->input->get("role")){
+			$gridConfig = $this->User_account_m->gridConfig([
+				'filter'=>[
+					'role'=>$this->input->get('role')
+				]
+				]);
+		}
+		$grid = $this->User_account_m->gridData($this->input->get(),$gridConfig);
 		$this->output
 			->set_content_type("application/json")
 			->_display(json_encode($grid));
