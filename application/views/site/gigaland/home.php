@@ -95,7 +95,8 @@
                                         </h2>
                                         <p style="color:#F4AD39; text-shadow: 3px 2px 1px black; font-size: 25px;">June 9<sup>th</sup> - 12<sup>th</sup>, 2022 on Virtual Meeting</p>
                                     </div>
-                                    <a href="<?= base_url('themes/gigaland'); ?>/images/3rdAnnouncement20220416.pdf" target="blank" class="btn-main btn-lg" style="background-color:#F4AD39; color:black;">Download 3 <sup>rd</sup> Announcement here (updated on April 16th)</a>&nbsp;
+                                    <a href="<?= base_url('themes/gigaland'); ?>/images/3rdAnnouncement20220416.pdf" target="blank" class="btn-main btn-lg" style="background-color:#F4AD39; color:black;">Download 3 <sup>rd</sup> Announcement here (updated on April 16th)</a>&nbsp;<br><br>
+                                    <a href="https://drive.google.com/drive/folders/1IvTWTiAPzxrXhJGkZWHd0nmUwNaDfSaU?usp=sharing" target="blank" class="btn-main btn-lg" style="background-color:#00fdff; color:black;">Download "PIN Category: Paper Competition Announcement" (Release on 15 May)</a>&nbsp;
 
                                     <div class="spacer-10">
                                         <div class="d-buttons">
@@ -110,7 +111,10 @@
                 </div>
             </div>
         </section>
-
+<br>
+<br>
+<br>
+<br>
 
         <section id="section-collections" class="pt30 pb30">
             <div class="container">
@@ -1488,13 +1492,15 @@
                                 <figure>
                                     <div class="col-lg-12 col-md-6 footer-links text-left">
                                         <h4>Scientific Guideline for PIN's</h4>
-                                        <a href="<?= base_url('themes/gigaland'); ?>/images/PedomanFreePaper20220415.pdf" target="blank" class="btn-main btn-sm" style="background-color:#F4AD39; color:black;">Guideline for PIN's abstract (updated on 15th April)</a>&nbsp;<br><br>
-                                        <a href="<?= base_url('themes/gigaland'); ?>/images/TemplateAbstrakPINPerdossi2022.docx" target="blank" class="btn-main btn-sm" style="background-color:#F4AD39; color:black;">Template for PIN's Abstract</a>&nbsp;<br>
+                                        <a href="<?= base_url('themes/gigaland'); ?>/images/220514 - Update Pedoman Free Paper.pdf" target="blank" class="btn-main btn-xs" style="background-color:#00fdff; color:black;">Guideline for PIN's Call for Abstract (New! updated on 15 May)</a>&nbsp;<br><br>
+                                        <a href="<?= base_url('themes/gigaland'); ?>/images/TemplateAbstrakPINPerdossi2022.docx" target="blank" class="btn-main btn-xs" style="background-color:#F4AD39; color:black;">Template for PIN's Abstract</a>&nbsp;<br><br>
+                                        <a href="https://drive.google.com/drive/folders/1MydS41eTpg5uUvnDqV-EcFybPCcLkAsH" target="blank" class="btn-main btn-xs" style="background-color:#00fdff; color:black;">Template for Paper Presentation (New! Updated on 15 May) </a>&nbsp;<br><br>
+                                        <a href="<?= base_url('themes/gigaland'); ?>/images/FAQ Ilmiah PIN Banjarmasin.pdf" target="blank" class="btn-main btn-xs" style="background-color:#00fdff; color:black;">FAQ Paper Competition (New! 15 May)</a>&nbsp;<br>
                                         <hr>
                                         <h4>Scientific Guideline for AOMC</h4>
-                                        <a href="<?= base_url('themes/gigaland'); ?>/images/Abstract Guidelines Final.pdf" target="blank" class="btn-main btn-sm" style="background-color:#F4AD39; color:black;">Guideline for AOMC abstract (updated on 12th April)</a>&nbsp;<br><br>
-                                        <a href="<?= base_url('themes/gigaland'); ?>/images/AOMC 2022 Abstract Submission Form For Original Article.docx" target="blank" class="btn-main btn-sm" style="background-color:#F4AD39; color:black;">Click here for template for the original article</a>&nbsp;<br><br>
-                                        <a href="<?= base_url('themes/gigaland'); ?>/images/20220428 - AOMC Form For Case Report.docx" target="blank" class="btn-main btn-sm" style="background-color:#F4AD39; color:black;">Click here for template for case report (updated on 28 Apr)</a>&nbsp;<br>
+                                        <a href="<?= base_url('themes/gigaland'); ?>/images/Abstract Guidelines Final.pdf" target="blank" class="btn-main btn-xs" style="background-color:#F4AD39; color:black;">Guideline for AOMC abstract (updated on 12th April)</a>&nbsp;<br><br>
+                                        <a href="<?= base_url('themes/gigaland'); ?>/images/AOMC 2022 Abstract Submission Form For Original Article.docx" target="blank" class="btn-main btn-xs" style="background-color:#F4AD39; color:black;">Click here for template for the original article</a>&nbsp;<br><br>
+                                        <a href="<?= base_url('themes/gigaland'); ?>/images/20220428 - AOMC Form For Case Report.docx" target="blank" class="btn-main btn-xs" style="background-color:#F4AD39; color:black;">Click here for template for case report (updated on 28 Apr)</a>&nbsp;<br>
 
                                     </div>
                                 </figure>

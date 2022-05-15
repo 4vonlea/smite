@@ -54,26 +54,26 @@ $header_image = base_url('themes/uploads/header_kop.jpg');
 					<td><?= $paper->getIdPaper(); ?></td>
 				</tr>
 				<tr>
-					<td>Result of abstract</td>
+					<td>Result of Abstract</td>
 					<td>:</td>
 					<td><?= Papers_m::$status[$paper->status];?></td>
 				</tr>
 				<?php if($paper->status_fullpaper != "" && $paper->status_fullpaper != "-1"):?>
 				<tr>
-					<td>Result of fullpaper</td>
+					<td>Result of Full-paper</td>
 					<td>:</td>
 					<td><?= Papers_m::$status[$paper->status_fullpaper];?></td>
 				</tr>
 				<?php endif;?>
 				<tr>
-					<td>Mode Of Presentation</td>
+					<td>Mode of Presentation</td>
 					<td>:</td>
 					<td><?= $paper->type_presence; ?></td>
 				</tr>
 			</table>
 			<p>Please consider this annoucement as your Letter of Acceptance and use it accordingly. We appreciate your participation and for giving us the opportunity to consider your work.
 				 Thank you and we wait for your attendance.
-			</p> 
+			</p>
 
 		</td>
 	</tr>

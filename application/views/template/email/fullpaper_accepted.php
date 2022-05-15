@@ -3,4 +3,5 @@
 <p>Your mode of presentation is:<strong>"<?=$modePresentation;?>"</strong></p>
 <p>Please be concerned that you are required to submit your presentation (for oral presenter) or potrait poster (for poster presenter) no later than May 21th, 2022 23.59 WITA (GMT +8). Failure to meet this obligation will impact to your overall score</p>
 <p>We also have attacted Your Letter of Acceptance to be used properly. If you have any question, please contact our representative stated on the website.</p>
+<p>For PIN <strong>Moderated Poster</strong> Participant, please join this WA group: https://chat.whatsapp.com/ELzw1irkIxzJTZSgkRTh5w</p>
 <p>Best regards.<br />Committee</p>
