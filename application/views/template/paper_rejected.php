@@ -39,6 +39,7 @@ $header_image = base_url('themes/uploads/header_kop.jpg');
 	<tr>
 		<td>
 			<p>Dear <?= $member->fullname; ?></p>
+          	<p>Institution : <?=$member->institution->univ_nama;?></p>
 			<p>Thank you for submitting your abstract to <?=Settings_m::getSetting('site_title');?>. Hereby we informed you that
 				your abstract:</p>
 			<table>
@@ -64,13 +65,12 @@ $header_image = base_url('themes/uploads/header_kop.jpg');
 	</tr>
 	<tr style="height:20px">
 		<td>
-			<div style="width:50%;float: right">
-				<p style="text-align: right">Kind Regards,</p>
+			<div style="width:100%;float: right">
+				<p style="text-align: center">Kind Regards,</p>
 				<div style="text-align: center">
 					<p>Chairman of <?= Settings_m::getSetting('site_title'); ?></p>
-					<img width="200px" height="100px" style="z-index: -10"
+					<img style="z-index: -10;margin-bottom:40px;height:200px"
 						 src="<?= base_url('themes/uploads/ttd_cap.jpg'); ?>">
-					<div style="margin-top: -50px;z-index: -5"><?= Settings_m::getSetting('ketua_panitia'); ?></div>
 				</div>
 			</div>
 		</td>

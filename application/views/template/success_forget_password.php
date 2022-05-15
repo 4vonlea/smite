@@ -26,12 +26,12 @@
 		padding: 10px 10px;
 	}
 </style>
-<p>Hi</p>
+<p>Dear Participant</p>
 <p>
-	You've received this email because you have successfully reset your password.
+	You've received this email because you have requested to reset your password. Please find your new password below.
 
 </p>
 <p>
 	Your new password is <b><?php echo $password; ?></b>
 </p>
-<p>Stay keep your password secretly</p>
+<p>We encourage you to change your password immediately. Please keep your password confidential. Thank you</p>
