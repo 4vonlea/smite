@@ -582,7 +582,7 @@ class Register extends MY_Controller
 					if (!$check) {
 						$fee->event_pricing_id = 0; //$event['id'];
 						$fee->transaction_id = $transaction->id;
-						$fee->price = 5000 + rand(100, 500); //"6000";//$event['price'];
+						$fee->price = Transaction_m::ADMIN_FEE_START + rand(100, 500); //"6000";//$event['price'];
 						$fee->member_id = $data['isGroup'] ? $data['bill_to'] : $data['id'];
 						$fee->product_name = "Admin Fee";
 						$fee->save();
