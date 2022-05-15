@@ -26,7 +26,7 @@
 </style>
 <p>Dear, <?=$fullname;?></p>
 <p>
-	Thank you for completing your registration. Please note your username and password below to join in our website https://aomc-pinbanjarmasin2022.com/ . We have attached your invoice and proof of payment to be used accordingly <?=Settings_m::getSetting('text_payment_proof');?>.
+	Thank you for completing your registration. Please note your username and password below to join in our website https://aomc-pinbanjarmasin2022.com/ . We have attached your invoice for your convinience. <?=Settings_m::getSetting('text_payment_proof');?>.
 </p>
 	<table>
 		<tr>

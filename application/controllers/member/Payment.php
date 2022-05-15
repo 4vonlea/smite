@@ -270,7 +270,7 @@ class Payment extends MY_Controller
 				$attc = [
 					$member->fullname.'-invoice.pdf' => $tr->exportInvoice()->output(),
 				];
-				$this->Notification_m->sendMessageWithAttachment($member->email, 'Invoice', "Thank you for your participation, the following is an invoice for the event you participated in", $attc);
+				$this->Notification_m->sendMessageWithAttachment($member->email, 'Invoice', "Dear Participant. Thank you for your participation, herewith we attached your invoice to pay off. Please complete your transaction. Thank you.", $attc);
 			}
 		}else{
 			$response['error_code'] = 1;
@@ -316,7 +316,7 @@ class Payment extends MY_Controller
 					if($member){
 						$this->load->model("Notification_m");
 						$file['Registration Proof'] = $tr->exportPaymentProof()->output();
-						$this->Notification_m->sendMessageWithAttachment($member->email,"Official Registration Proof","Thank you for registering and fulfilling your payment, below is offical Registration Proof",$file,"REGISTRATION_PROOF.pdf");
+						$this->Notification_m->sendMessageWithAttachment($member->email,"Official Registration Proof","Dear Participant. Thank you for fulfilling your payment, we have attached your Offical Registration Proof below. Please use it accordingly. Thank you",$file,"REGISTRATION_PROOF.pdf");
 					}
 				}
 			}

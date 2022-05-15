@@ -722,14 +722,14 @@ class Register extends MY_Controller
 					$attc = [
 						$member->fullname . '-invoice.pdf' => $transaction->exportInvoice()->output(),
 					];
-					$this->Notification_m->sendMessageWithAttachment($member->email, 'Invoice', "Thank you for your participation, the following is an invoice for the event you participated in", $attc);
+					$this->Notification_m->sendMessageWithAttachment($member->email, 'Invoice', "Dear Participant. Thank you for your participation, herewith we attached your invoice to pay off. Please complete your transaction. Thank you.", $attc);
 				}
 			} else {
 				$member = $this->Member_m->findOne(['id' => $transaction->member_id]);
 				$attc = [
 					$member->fullname . '-invoice.pdf' => $transaction->exportInvoice()->output(),
 				];
-				$this->Notification_m->sendMessageWithAttachment($member->email, 'Invoice', "Thank you for your participation, the following is an invoice for the event you participated in", $attc);
+				$this->Notification_m->sendMessageWithAttachment($member->email, 'Invoice', "Dear Participant. Thank you for your participation, herewith we attached your invoice to pay off. Please complete your transaction. Thank you.", $attc);
 			}
 		}
 
