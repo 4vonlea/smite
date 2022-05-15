@@ -77,7 +77,7 @@ $isGroup = ($member == null);
 			Dear. <?= $member->sponsor ?? $transaction->member_id; ?>
 		</p>
 		<p style="text-align:justify;text-justify:inter-word;">
-			Thank you for your registration and participation in our event <?= Settings_m::getSetting("text_payment_proof"); ?>. Here are the registration and payment details:
+			Thank you for registration and participation in our event <?= Settings_m::getSetting("text_payment_proof"); ?>. Here are the registration and payment details:
 		</p>
 		<div class="row">
 			<div class="col">ID Invoice</div>
@@ -185,7 +185,7 @@ $isGroup = ($member == null);
 		<small style="font-size:9pt;clear:both">*The amount price above has included online bank payment administration fees</small>
 
 		<p>
-			This payment proof (receipt) is a valid document and used it properly. If needed, participants should show this receipt to the committee at the time of re-registration. Thank you
+			This payment proof (receipt) is a valid document and please used it properly. If needed, participants should show this receipt to the committee at the time of re-registration. Thank you
 		</p> 
 		<?php
 		$this->load->view("template/invoice_payment_signature");

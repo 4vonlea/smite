@@ -33,8 +33,8 @@ class Transaction extends Admin_Controller
 			$file = $tr->exportPaymentProof();
 		}
 		$message = "<p>Dear Participant</p>
-					<p>Thank you for participating in the event. Please download your 'Registration Proof' here.</p>
-					<p>Best regards.<br/>
+					<p>This is a resend email. Thank you for fulfilling your payment, we have attached your Offical Registration Proof below. Please use it accordingly. </p>
+					<p>Thank you. Best regards.<br/>
 					Committee of " . Settings_m::getSetting('site_title') . "</p>";
 		$result = $this->Notification_m->sendMessageWithAttachment($member->email, 'Resend : Registration Proof', $message, [$filename => $file->output()]);
 		$this->output
