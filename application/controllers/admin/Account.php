@@ -23,7 +23,7 @@ class Account extends Admin_Controller
 	{
 		$this->load->model('User_account_m');
 		$gridConfig = [];
-		if($this->input->get("role") >= 0){
+		if($this->input->get("role") != null){
 			$gridConfig = $this->User_account_m->gridConfig([
 				'filter'=>[
 					'role'=>$this->input->get('role')
