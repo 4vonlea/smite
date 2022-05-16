@@ -144,7 +144,7 @@ class Register extends MY_Controller
 				$error['message'] = $this->Member_m->getDB()->error();
 				if ($error['statusData']) {
 					$email_message = $this->load->view('template/email/email_confirmation', ['token' => $token, 'name' => $data['fullname']], true);
-					$this->Notification_m->sendMessage($data['email'], 'Email Confirmation', $email_message);
+					$this->Notification_m->sendMessage($data['email'], 'Confirm your email to access our event', $email_message);
 				}
 			} else {
 				$error['statusData'] = false;
@@ -722,14 +722,14 @@ class Register extends MY_Controller
 					$attc = [
 						$member->fullname . '-invoice.pdf' => $transaction->exportInvoice()->output(),
 					];
-					$this->Notification_m->sendMessageWithAttachment($member->email, 'Invoice', "Dear Participant. Thank you for your participation, herewith we attached your invoice to pay off. Please complete your transaction. Thank you.", $attc);
+					$this->Notification_m->sendMessageWithAttachment($member->email, 'Unpaid Invoice', "Dear Participant. Thank you for your participation, herewith we attached your invoice to pay off. Please complete your transaction. Thank you.", $attc);
 				}
 			} else {
 				$member = $this->Member_m->findOne(['id' => $transaction->member_id]);
 				$attc = [
 					$member->fullname . '-invoice.pdf' => $transaction->exportInvoice()->output(),
 				];
-				$this->Notification_m->sendMessageWithAttachment($member->email, 'Invoice', "Dear Participant. Thank you for your participation, herewith we attached your invoice to pay off. Please complete your transaction. Thank you.", $attc);
+				$this->Notification_m->sendMessageWithAttachment($member->email, 'Unpaid Invoice', "Dear Participant. Thank you for your participation, herewith we attached your invoice to pay off. Please complete your transaction. Thank you.", $attc);
 			}
 		}
 
