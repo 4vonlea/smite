@@ -270,7 +270,7 @@ class Payment extends MY_Controller
 				$attc = [
 					$member->fullname.'-invoice.pdf' => $tr->exportInvoice()->output(),
 				];
-				$this->Notification_m->sendMessageWithAttachment($member->email, 'Invoice', "Dear Participant. Thank you for your participation, herewith we attached your invoice to pay off. Please complete your transaction. Thank you.", $attc);
+				$this->Notification_m->sendMessageWithAttachment($member->email, 'Unpaid Invoice (MA)', "<p>Dear Participant.</p><p>You have add an event(s) from your member area. Thank you for your participation.</p><p>Herewith we attached your invoice to pay off. Please complete your transaction as soon as possible. Our system will automatically settle after we receive your payment. If you dont receive any further notification after completing your transferred payment for more than 1x24 hours, please contact the committee.</p><p>Thank you.</p><p>Registration Committee</p><p>&nbsp;</p>", $attc);
 			}
 		}else{
 			$response['error_code'] = 1;
@@ -316,7 +316,7 @@ class Payment extends MY_Controller
 					if($member){
 						$this->load->model("Notification_m");
 						$file['Registration Proof'] = $tr->exportPaymentProof()->output();
-						$this->Notification_m->sendMessageWithAttachment($member->email,"Official Registration Proof","Dear Participant. Thank you for fulfilling your payment, we have attached your Offical Registration Proof below. Please use it accordingly. Thank you",$file,"REGISTRATION_PROOF.pdf");
+						$this->Notification_m->sendMessageWithAttachment($member->email,"Official Registration Proof (MA)","<p>Dear Participant.</p><p>Thank you for fulfilling your payment and we have automatically settle your transaction. We also have attached your Offical Registration Proof below. Please use it accordingly.</p><p>If you have any inquery, please contact the committee.</p><p>Thank you and we are happy to meet you in this event(s).</p><p>Registration Committee</p>",$file,"REGISTRATION_PROOF.pdf");
 					}
 				}
 			}

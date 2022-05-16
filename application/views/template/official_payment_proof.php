@@ -74,10 +74,10 @@ $isGroup = ($member == null);
 			<span style="font-family:times new roman,times,serif;font-size:12pt;text-align:start;background-color:#ffffff"><?= date("d F Y", strtotime($transaction->updated_at)); ?></span>
 		</p>
 		<p style="text-align:left">
-			Dear. <?= $member->sponsor ?? $transaction->member_id; ?>
+			Dear Participant <?= $member->sponsor ?? $transaction->member_id; ?>
 		</p>
 		<p style="text-align:justify;text-justify:inter-word;">
-			Thank you for registration and participation in our event <?= Settings_m::getSetting("text_payment_proof"); ?>. Here are the registration and payment details:
+			Thank you for completing your payment in our event <?= Settings_m::getSetting("text_payment_proof"); ?>. We have received your payment and here are the registration and payment details:
 		</p>
 		<div class="row">
 			<div class="col">ID Invoice</div>

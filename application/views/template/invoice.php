@@ -69,8 +69,8 @@ $isGroup = ($member == null);
 	</footer>
 	<section>
 		<h4 style="text-align: center;">INVOICE</h4>
-		<p>Dear <?= $member->sponsor ?? $transaction->member_id; ?></p>
-		<p style="text-align:justify;text-justify:inter-word;">Here we send the bill of payment as a form of official bill. Please complete this payment immediately
+		<p>Dear Participant <?= $member->sponsor ?? $transaction->member_id; ?></p>
+		<p style="text-align:justify;text-justify:inter-word;">Here we send the bill of payment as a form of official statement. Please complete this payment immediately
 			<?php if (is_array($payment) && count($payment) == 1 && $transaction->channel == "MANUAL TRANSFER") : ?>
 				via Bank <?= $payment[0]['bank']; ?> No <?= $payment[0]['no_rekening']; ?> a.n <?= $payment[0]['holder']; ?>
 			<?php elseif (is_array($payment) && count($payment) > 1) : ?>
@@ -196,7 +196,7 @@ $isGroup = ($member == null);
 				?>
 			</div>
 		</div>
-		<p style="text-align:justify;text-justify:inter-word;font-size:20px">
+		<p style="text-align:justify;text-justify:inter-word;font-size:18px">
 			Any inappropriate payments or fraud transactions will be automatically deleted by the system and participants must re-checkout. Thank you
 		</p>
 		<?php

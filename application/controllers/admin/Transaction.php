@@ -234,7 +234,7 @@ class Transaction extends Admin_Controller
 				}
 			}
 			if($member){
-				$this->Notification_m->sendMessageWithAttachment($member->email, 'Invoice, Payment Proof', "Thank you for registering and fulfilling your payment, below is your invoice and official Payment Proof", $attc);
+				$this->Notification_m->sendMessageWithAttachment($member->email, 'Verified! Invoice & Payment Proof', "<p>Dear Participant</p><p>Thank you for fullfiling your payment. We have received yours and verified your payment.</p><p>We have attached your payment and registration proof. Please use in accordingly.</p><p>Thank you</p><p>Registration Committee.</p>", $attc);
 			}
 		}
 		$this->output
