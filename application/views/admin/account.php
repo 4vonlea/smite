@@ -128,7 +128,7 @@
 						<datagrid
 							ref="datagrid"
 							api-url="<?= base_url('admin/account/grid'); ?>"
-							:fields="[{name:'username',sortField:'username'},{name:'fullname',sortField:'fullname',title:'Fullname'}, {name:'role',sortField:'role','title':'Role'},{name:'username_',sortField:'username_','title':'Actions'}]">
+							:fields="[{name:'username',sortField:'username'},{name:'fname',sortField:'fname',title:'Fullname'}, {name:'role',sortField:'role','title':'Role'},{name:'username_',sortField:'username_','title':'Actions'}]">
 							<template slot="role" slot-scope="prop">
 								{{ listRole[prop.row.role] }}
 							</template>

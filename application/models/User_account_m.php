@@ -43,7 +43,7 @@ class User_account_m extends MY_Model
 	public function gridConfig($options = array())
 	{
 		return array_merge([
-			'select'=>['username'=>'t.username','role'=>'role','username_'=>'username','fullname'],
+			'select'=>['username'=>'t.username','role'=>'role','username_'=>'username','fname'=>'COALESCE(name,fullname)'],
             'relationships' => [
 				'members' => ['members', 'members.username_account = username', 'left'],
 			],
