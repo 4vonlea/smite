@@ -306,7 +306,7 @@ class Member extends Admin_Controller
 							}
 						}
 					}
-					$this->Notification_m->sendMessageWithAttachment($data['email'], 'Your registration is success', $email_message, $attc);
+					$this->Notification_m->sendMessageWithAttachment($data['email'], 'Your registration is success (#AIR)', $email_message, $attc);
 				}
 			} else {
 				$error['status'] = false;
@@ -695,7 +695,7 @@ class Member extends Admin_Controller
 								}
 							}
 						}
-						$this->Notification_m->sendMessageWithAttachment($data['email'], 'Your registration is success', $email_message, $attc);
+						$this->Notification_m->sendMessageWithAttachment($data['email'], 'Your registration is success (#AGR)', $email_message, $attc);
 					}
 				}
 			}

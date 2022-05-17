@@ -403,11 +403,11 @@ class Register extends MY_Controller
 						}
 
 						if ($data) {
-							$this->Notification_m->sendMessageWithAttachment($data['email'], 'Registration Success', $email_message, $attc);
+							$this->Notification_m->sendMessageWithAttachment($data['email'], 'Group Registration Account Info', $email_message, $attc);
 						}
 					}
 				}
-				$this->Notification_m->sendMessageWithAttachment($tr->email_group, 'Registration Success', "Your group registration success below is your invoice", [
+				$this->Notification_m->sendMessageWithAttachment($tr->email_group, 'Your Group Registration Billing', "<p>Dear Participant.</p><p>You have succesfully group registered and we have created an invoice to pay off based on your event participation. Thank you and we are happy to meet you in this event(s).</p><p>Herewith we attached your invoice to pay off. Please complete your transaction as soon as possible. Our system will automatically settle after we receive your payment. If you dont receive any further notification after completing your transferred payment for more than 1x24 hours, please contact the committee.</p><p>Thank you.</p><p>Registration Committee</p>", [
 					'invoice.pdf' => $invoiceDataPdf,
 				]);
 
@@ -722,14 +722,14 @@ class Register extends MY_Controller
 					$attc = [
 						$member->fullname . '-invoice.pdf' => $transaction->exportInvoice()->output(),
 					];
-					$this->Notification_m->sendMessageWithAttachment($member->email, 'Unpaid Invoice', "Dear Participant. Thank you for your participation, herewith we attached your invoice to pay off. Please complete your transaction. Thank you.", $attc);
+					$this->Notification_m->sendMessageWithAttachment($member->email, 'Unpaid Invoice (M-GFr)', "<p>Dear Participant.</p><p>You have succesfully group registered and we have created an invoice to pay off based on your event participation. Thank you and we are happy to meet you in this event(s).</p><p>Herewith we attached your invoice to pay off. Please complete your transaction as soon as possible. If you have fulfill your transfer, please upload your bank receipt in our designated file. If you dont receive any further notification after completing your transferred payment for more than 3x24 hours, please contact the committee.</p><p>Thank you.</p><p>Registration Committee</p>", $attc);
 				}
 			} else {
 				$member = $this->Member_m->findOne(['id' => $transaction->member_id]);
 				$attc = [
 					$member->fullname . '-invoice.pdf' => $transaction->exportInvoice()->output(),
 				];
-				$this->Notification_m->sendMessageWithAttachment($member->email, 'Unpaid Invoice', "Dear Participant. Thank you for your participation, herewith we attached your invoice to pay off. Please complete your transaction. Thank you.", $attc);
+				$this->Notification_m->sendMessageWithAttachment($member->email, 'Unpaid Invoice (M-IFr)', "<p>Dear Participant.</p><p>You have succesfully registered and we have created an invoice to pay off based on your event participation. Thank you and we are happy to meet you in this event(s).</p><p>Herewith we attached your invoice to pay off. Please complete your transaction as soon as possible.  If you have fulfill your transfer, please upload your bank receipt in our designated file. If you dont receive any further notification after completing your transferred payment for more than 3x24 hours, please contact the committee.</p><p>Thank you.</p><p>Registration Committee</p>", $attc);
 			}
 		}
 
