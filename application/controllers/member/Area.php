@@ -467,11 +467,11 @@ class Area extends MY_Controller
 
 		$type = $this->input->post('type_presence');
 		$ext = 'mp3|m4a';
-		if ($type == 'Oral') {
-			$ext = 'ppt|pptx|pdf';
-		} else if ($type == 'Moderated Poster' || $type == 'Viewed Poster') {
-			$ext = 'jpg|png|jpeg|ppt';
-		}
+		// if ($type == 'Oral') {
+		// 	$ext = 'ppt|pptx|pdf';
+		// } else if ($type == 'Moderated Poster' || $type == 'Viewed Poster') {
+			$ext = 'jpg|png|jpeg|ppt|ppt|pptx|pdf|mp3|m4a';
+		// }
 
 		$configFullpaper = [
 			'upload_path' => APPPATH . 'uploads/papers/',
