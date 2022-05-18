@@ -30,22 +30,26 @@ class Api extends MY_Controller
                 }else{
                     $user = $this->User_account_m->findWithBiodata($username);
                 }
-                $createdTime = time();
-                $this->send_response(self::CODE_OK,"Authentication Success",[
-                    'email'=>$user['email'],
-                    'fullname'=>$user['fullname'],
-                    'gender'=>$user['gender'] == "F" ? "Female":"Male",
-                    'phone'=>$user['phone'],
-                    'statusAs' => $user['status_name'],
-                    'institution' => $user['univ_nama'],
-                    'token'=>base64_encode(json_encode([
-                            'memberId'=>$user['id'],
-                            'created'=>$createdTime,
-                            'signature'=>$this->sign($user['id'],$createdTime)
-                        ],
-                    )
-                    )
-                ]);
+                if($user){
+                    $createdTime = time();
+                    $this->send_response(self::CODE_OK,"Authentication Success",[
+                        'email'=>$user['email'],
+                        'fullname'=>$user['fullname'],
+                        'gender'=>$user['gender'] == "F" ? "Female":"Male",
+                        'phone'=>$user['phone'],
+                        'statusAs' => $user['status_name'],
+                        'institution' => $user['univ_nama'],
+                        'token'=>base64_encode(json_encode([
+                                'memberId'=>$user['id'],
+                                'created'=>$createdTime,
+                                'signature'=>$this->sign($user['id'],$createdTime)
+                            ],
+                        )
+                        )
+                    ]);
+                }else{
+                    $this->send_response(self::CODE_BAD_REQUEST,"Email no registered as participant but as official",[]);
+                }
             }else{
                 $this->send_response(self::CODE_BAD_REQUEST,"Invalid email or password",[]);
             }
