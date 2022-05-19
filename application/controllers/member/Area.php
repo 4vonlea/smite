@@ -470,7 +470,7 @@ class Area extends MY_Controller
 		// if ($type == 'Oral') {
 		// 	$ext = 'ppt|pptx|pdf';
 		// } else if ($type == 'Moderated Poster' || $type == 'Viewed Poster') {
-			$ext = 'jpg|png|jpeg|ppt|ppt|pptx|pdf|mp3|m4a';
+			$ext = 'jpg|png|jpeg|ppt|ppt|pptx|pdf|mp3|m4a|rar|zip';
 		// }
 
 		$configFullpaper = [
@@ -482,7 +482,7 @@ class Area extends MY_Controller
 		$configPresentation = [
 			'upload_path' => APPPATH . 'uploads/papers/',
 			'allowed_types' => $ext,
-			'max_size' => 5000,
+			'max_size' => 20480,
 			'file_name' => 'presentation_' . date("Ymdhis"),
 		];
 		$configVoice = [
