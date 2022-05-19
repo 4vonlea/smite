@@ -464,7 +464,7 @@ class Event_m extends MY_Model
 			->join('transaction t', 't.id = td.transaction_id')
 			->where('e.id', $event_id)
 			->where("status_payment !=",Transaction_m::STATUS_EXPIRE)
-			->where('t.member_id', $member_id);
+			->where('td.member_id', $member_id);
 		return $this->db->get()->row();
 	}
 }
