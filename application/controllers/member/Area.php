@@ -370,6 +370,7 @@ class Area extends MY_Controller
 			$response['status'] = false;
 			$response['message'] = $message ?? "You are prohibited from following !";
 		}
+		$response['id'] = $transaction->id;
 		$this->Transaction_m->getDB()->trans_complete();
 
 		$this->output->set_content_type("application/json")
