@@ -50,7 +50,7 @@ $this->layout->begin_head();
                 <button @click="togglePresentation('#','#')" class="btn btn-danger">Close</button>
             </div>
             <div class="col-12">
-                <iframe :src='presentationCover.link' width='100%' height='600px' frameborder='0'></iframe>  
+                <iframe :src='presentationCover.link' width='100%' :height='presentationCover.height' frameborder='0'></iframe>  
                 <audio controls autoplay muted>
                     <source :src="presentationCover.voiceLink" type="audio/mpeg">
                     Your browser does not support the audio element.
@@ -216,6 +216,7 @@ $this->layout->begin_head();
                 isShow:false,
                 link:"#",
                 voiceLink:"#",
+                height:"600px",
             }
         },
         methods: {
@@ -244,6 +245,7 @@ $this->layout->begin_head();
             },
             togglePresentation(filename,voice,id){
                 this.presentationCover.isShow = !this.presentationCover.isShow;
+                this.presentationCover.height = ($(window).height()-130)+"px";
                 if(this.presentationCover.isShow){
                     this.presentationCover.voiceLink = this.baseUrl+"file_presentation/"+voice+'/'+id;
                     this.presentationCover.link = "https://view.officeapps.live.com/op/view.aspx?src=<?=base_url('application/uploads/papers');?>/"+filename;
