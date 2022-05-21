@@ -221,7 +221,7 @@ class Transaction_m extends MY_Model
 	}
 
 	public function findByDetail($member_id){
-		$trIdList =  $this->db->select("t.id")
+		$trIdList =  $this->db->select("DISTINCT t.id")
 			->from("transaction t")
 			->join("transaction_details td","t.id = td.transaction_id")
 			->where("td.member_id",$member_id)
