@@ -242,10 +242,10 @@ $this->layout->begin_head();
                     }
                 });
             },
-            togglePresentation(filename,voice){
+            togglePresentation(filename,voice,id){
                 this.presentationCover.isShow = !this.presentationCover.isShow;
                 if(this.presentationCover.isShow){
-                    this.presentationCover.voiceLink = this.baseUrl+"file_presentation/"+voice+'/0';
+                    this.presentationCover.voiceLink = this.baseUrl+"file_presentation/"+voice+'/'+id;
                     this.presentationCover.link = "https://view.officeapps.live.com/op/view.aspx?src=<?=base_url('application/uploads/papers');?>/"+filename;
                     document.documentElement.style.overflow = "hidden";
                 }else{

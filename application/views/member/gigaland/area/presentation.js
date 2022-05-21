@@ -27,11 +27,11 @@ export default Vue.component("Presentation", {
                 @vuetable:pagination-data="onPaginationData">
                     <template slot="poster" slot-scope="props">
                         <div class="text-center">
-                        <a v-if="isImage(props.rowData.poster)" :data-voice="props.rowData.voice" target="_blank" :href="baseUrl+'file_presentation/'+props.rowData.poster+'/'+props.rowData.id"  class='magnific'>
+                        <a v-if="isImage(props.rowData.poster)" :data-voice="props.rowData.voice" :data-id="props.rowData.id" target="_blank" :href="baseUrl+'file_presentation/'+props.rowData.poster+'/'+props.rowData.id"  class='magnific'>
                             <img class="img img-thumbnail" width="160" :src="baseUrl+'file_presentation/'+props.rowData.poster+'/'+props.rowData.id" />
                         </a>
                         <span v-else-if="typeFile(props.rowData.poster) == 'Power Point'">
-                            <button class="btn btn-primary" @click="$parent.togglePresentation(props.rowData.poster,props.rowData.voice)">Show File {{ typeFile(props.rowData.poster) }}</button>
+                            <button class="btn btn-primary" @click="$parent.togglePresentation(props.rowData.poster,props.rowData.voice,props.rowData.id)">Show File {{ typeFile(props.rowData.poster) }}</button>
                         </span>
                         <a v-else target="_blank" :href="baseUrl+'file_presentation/'+props.rowData.poster+'/'+props.rowData.id"  class='btn btn-primary'>
                             Show File {{ typeFile(props.rowData.poster) }}
@@ -136,7 +136,7 @@ export default Vue.component("Presentation", {
                 },
                 callbacks:{
                     open:function(e){
-                        $("#audioPresentation").attr("src",comp.baseUrl+"file_presentation/"+this.st.el.data('voice')+"/0");
+                        $("#audioPresentation").attr("src",comp.baseUrl+"file_presentation/"+this.st.el.data('voice')+"/"+this.st.el.data('id'));
                     }
                 },
                 closeOnBgClick:false,
