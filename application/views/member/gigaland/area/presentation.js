@@ -62,8 +62,8 @@ export default Vue.component("Presentation", {
             data:[],
             globalFilter:'',
             pagerClass: {
-                wrapperClass: 'col-md-6 col-sm-12 btn-group text-center',
-                activeClass: 'active btn-primary',
+                wrapperClass: 'col-md-6 col-sm-12 btn-group text-center mb-2',
+                activeClass: 'active bg-warning',
                 disabledClass: 'disabled btn-outlined-danger',
                 pageClass: 'btn btn-secondary btn-outlined-primary',
                 linkClass: 'btn btn-secondary btn-outlined-primary',
