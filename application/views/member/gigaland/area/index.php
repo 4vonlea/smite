@@ -26,22 +26,22 @@ $this->layout->begin_head();
         color: #F4AD39 !important;
     }
     .cover {
-        position:absolute;
+        /* position:absolute;
         padding:20px;
         margin:0;
         top:0;
         left:0;
         width: 100%;
-        height: 100%;
+        height: 100%; */
         background:rgba(0,0,0,0.75);
-        z-index: 2000;
-        overflow: hidden;
+        /* z-index: 2000; */
+        /* overflow: hidden; */
     }
 </style>
 <?php $this->layout->end_head(); ?>
 
 <div id="app">
-    <div class="cover container-fluid" v-if="presentationCover.isShow">
+    <div class="mfp-wrap mfp-close-btn-in mfp-auto-cursor mfp-ready cover" v-if="presentationCover.isShow">
         <div class="row">
             <div class="col-md-11 col-sm-9">
                
