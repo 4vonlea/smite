@@ -201,6 +201,7 @@ class Transaction extends Admin_Controller
 		$detail = $this->Transaction_m->findOne($id);
 		$detail->status_payment = Transaction_m::STATUS_FINISH;
 		$detail->message_payment = "Verified manual";
+		$detail->checkout = 1;
 		$status = $detail->save();
 		if ($status) {
 			$member = $this->Member_m->findOne(['id' => $detail->member_id]);
