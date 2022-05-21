@@ -15,8 +15,6 @@ export default Vue.component("Presentation", {
             </div>
             <vuetable-pagination 
             ref="pagination"
-            activeClass="btn-primary"
-            pageClass="btn-default"
             :css="pagerClass"
             @vuetable-pagination:change-page="onChangePage"></vuetable-pagination>
 
@@ -67,8 +65,8 @@ export default Vue.component("Presentation", {
                 wrapperClass: 'col-md-6 col-sm-12 btn-group text-center',
                 activeClass: 'active btn-primary',
                 disabledClass: 'disabled btn-outlined-danger',
-                pageClass: 'btn btn-default btn-outlined-primary',
-                linkClass: 'btn btn-default btn-outlined-primary',
+                pageClass: 'btn btn-secondary btn-outlined-primary',
+                linkClass: 'btn btn-secondary btn-outlined-primary',
                 icons: {
                     first: '',
                     prev: '',
