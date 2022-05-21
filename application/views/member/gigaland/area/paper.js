@@ -29,7 +29,7 @@ export default Vue.component("PagePaper", {
 									<div v-if="error_fullpaper.fullpaper" class="invalid-feedback">{{ error_fullpaper.fullpaper
 										}}</div>
 								</div>
-								<div v-if="isAfter(paper.deadline.fullpaper_cutoff)" class="alert alert-danger">
+								<div v-if="formFullpaper.status_fullpaper != 2 && isAfter(paper.deadline.fullpaper_cutoff)" class="alert alert-danger">
 									You are no longer allowed to upload fullpaper, because it has passed the time limit
 								</div>
 								<div v-if="formFullpaper.status_fullpaper == 2 && !isAfter(paper.deadline.presentation_cutoff)"
@@ -511,7 +511,7 @@ export default Vue.component("PagePaper", {
                 success: function(response) {
                     if (response.status) {
                         $("#modal-fullpaper").modal("hide");
-                        Swal.fire('Success', "Fullpaper or Presentation/ Poster File uploaded successfully !", 'success');
+                        Swal.fire('Success', "Fullpaper or Presentation/Poster File uploaded successfully !", 'success');
                         if (response.data.fullpaper) {
                             page.formFullpaper.fullpaper = response.data.fullpaper;
                             page.form.status_fullpaper = 1;
