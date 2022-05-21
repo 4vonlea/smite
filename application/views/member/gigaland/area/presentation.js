@@ -15,6 +15,8 @@ export default Vue.component("Presentation", {
             </div>
             <vuetable-pagination 
             ref="pagination"
+            activeClass="btn-primary"
+            pageClass="btn-default"
             :css="pagerClass"
             @vuetable-pagination:change-page="onChangePage"></vuetable-pagination>
 
