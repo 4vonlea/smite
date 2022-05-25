@@ -64,12 +64,12 @@
 
 										<div class="spacer-10"></div>
 										<div class="spacer-10"></div>
-                                        	<a href="<?= base_url('themes/gigaland'); ?>/images/3rdAnnouncement20220416.pdf" target="blank" class="btn-main btn-lg" style="background-color:#F4AD39; color:black;">Download 3 <sup>rd</sup> Announcement here (updated on April 16th)</a>&nbsp;
+                                        	<a href="<?= base_url('themes/gigaland'); ?>/images/220524FA.pdf" target="blank" class="btn-main btn-lg" style="background-color:#00fdff; color:black;">Download FINAL Announcement here (New released on 24 May)</a>&nbsp;
                                             <!--<a href="" class="btn-main btn-lg" style="background-color:#F4AD39; color:black;">Enter</a>&nbsp;-->											
                                         </div>
                                         <hr>
                                         <div class="container">
-											<h3 style="color:#f44939;">NEWS! Your abstract is in peer-review process, please check your email regularly</h3><br>
+											<h3 style="color:#f44939;">See you on the day!</h3><br>
                                             <div class="row align-items-center wow fadeInRight" data-wow-delay=".5s">
                                                 <div class="col-lg-6">
                                                     <?php if (!$hasSession) : ?>
