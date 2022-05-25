@@ -174,7 +174,7 @@ class Event_m extends MY_Model
 		}
 		$this->load->model("Transaction_m");
 		$result = $this->setAlias("t")->find()->select("t.id as id_event,
-				t.kouta2,
+				t.kouta,
 				t.name as event_name,
 				event_pricing.name as name_pricing,
 				event_pricing.price as price_r,
