@@ -216,9 +216,13 @@ var PageProfile = Vue.component("PageProfile", {
             var page = this;
             this.loading = true;
             this.user.birthday = moment(this.user.birthday).format("YYYY-MM-DD");
-            $.post(this.baseUrl + "save_profile", this.user, function () {
-                Swal.fire('Success', "Your profile saved successfully", 'success');
-                page.editing = false;
+            $.post(this.baseUrl + "save_profile", this.user, function (res) {
+                if(res.status){
+                    Swal.fire('Success', "Your profile saved successfully", 'success');
+                    page.editing = false;
+                }else{
+                    Swal.fire('Failed',res.message, 'warning');
+                }
             }, 'JSON').fail(function (xhr) {
                 Swal.fire('Fail', "Failed to save your profile", 'error');
             }).always(function () {

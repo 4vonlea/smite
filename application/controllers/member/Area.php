@@ -77,11 +77,50 @@ class Area extends MY_Controller
 	public function save_profile()
 	{
 		if ($this->input->post()) {
-			$post = $this->input->post();
-			$user = Member_m::findOne(['username_account' => $this->session->user_session['username']]);
-			$user->setAttributes($post);
-			$this->output->set_content_type("application/json")
-				->_display(json_encode(['status' => $user->save(false)]));
+			$data = $this->input->post();
+		$model = Member_m::findOne(['username_account' => $this->session->user_session['username']]);
+		$account = $model->account;
+		$user_session = $this->session->userdata("user_session");
+		$data['email'] = trim($data['email']);
+		if ($model->email != $data['email']) {
+			if ($account) {
+				$account->username = $data['email'];
+				$check = $account->toArray();
+				$check['username'] = $data['email'];
+				if ($account->validate($check)) {
+					$account->save();
+					$data['username_account'] = trim($data['email']);
+					$user_session['username'] = trim($data['username_account']);
+				} else {
+					$this->output
+						->set_content_type("application/json")
+						->_display(json_encode(['status' => false, 'message' => "Username/Email sudah dipakai oleh member lain"]));
+					exit;
+				}
+			} else {
+				$token = uniqid();
+				$this->User_account_m->insert([
+					'username' => $data['email'],
+					'password' => password_hash("1q2w3e4r", PASSWORD_DEFAULT),
+					'role' => 0,
+					'token_reset' => "verifyemail_" . $token
+				], false);
+				$user_session['username'] = $data['username_account'];
+			}
+		}
+		$model->setAttributes($data);
+		$status = $model->save(false);
+		if($status){
+			$this->session->set_userdata("user_session",$user_session);
+		}
+		$this->output
+			->set_content_type("application/json")
+			->_display(json_encode(['status' => $status, 'message' => $model->getErrors()]));
+			// $post = $this->input->post();
+			// $user = Member_m::findOne(['username_account' => $this->session->user_session['username']]);
+			// $user->setAttributes($post);
+			// $this->output->set_content_type("application/json")
+			// 	->_display(json_encode(['status' => $user->save(false)]));
 		} else {
 			show_404("Page not found !");
 		}

@@ -359,6 +359,7 @@ class Member extends Admin_Controller
 		$data = $this->input->post();
 		$model = $this->Member_m->findOne(['id' => $data['id']]);
 		$account = $model->account;
+		$data['email'] = trim($data['email']);
 		if ($model->email != $data['email']) {
 			if ($account) {
 				$account->username = $data['email'];
