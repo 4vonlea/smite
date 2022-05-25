@@ -95,8 +95,8 @@
                                         </h2>
                                         <p style="color:#F4AD39; text-shadow: 3px 2px 1px black; font-size: 25px;">June 9<sup>th</sup> - 12<sup>th</sup>, 2022 on Virtual Meeting</p>
                                     </div>
-                                    <a href="<?= base_url('themes/gigaland'); ?>/images/3rdAnnouncement20220416.pdf" target="blank" class="btn-main btn-lg" style="background-color:#F4AD39; color:black;">Download 3 <sup>rd</sup> Announcement here (updated on April 16th)</a>&nbsp;<br><br>
-                                    <a href="https://drive.google.com/drive/folders/1IvTWTiAPzxrXhJGkZWHd0nmUwNaDfSaU?usp=sharing" target="blank" class="btn-main btn-lg" style="background-color:#00fdff; color:black;">Download "PIN Category: Paper Competition Announcement" (Release on 15 May)</a>&nbsp;
+                                    <a href="<?= base_url('themes/gigaland'); ?>/images/220524FA.pdf" target="blank" class="btn-main btn-lg" style="background-color:#00fdff; color:black;">Download FINAL Announcement here (New released on 24 May)</a>&nbsp;<br><br>
+                                    <a href="https://drive.google.com/drive/folders/1IvTWTiAPzxrXhJGkZWHd0nmUwNaDfSaU?usp=sharing" target="blank" class="btn-main btn-lg" style="background-color:#F4AD39; color:black;">Download "PIN Category: Paper Competition Announcement" (Release on 15 May)</a>&nbsp;
 
                                     <div class="spacer-10">
                                         <div class="d-buttons">
