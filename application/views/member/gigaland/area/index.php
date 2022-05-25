@@ -41,7 +41,7 @@ $this->layout->begin_head();
 <?php $this->layout->end_head(); ?>
 
 <div id="app">
-    <div class="mfp-wrap mfp-close-btn-in mfp-auto-cursor mfp-ready cover" v-if="presentationCover.isShow">
+    <div id="cover-presentation" class="mfp-wrap mfp-close-btn-in mfp-auto-cursor mfp-ready cover" style="display:none" v-show="presentationCover.isShow">
         <div class="row">
             <div class="col-md-11 col-sm-9">
                
@@ -246,6 +246,7 @@ $this->layout->begin_head();
             togglePresentation(filename,voice,id){
                 this.presentationCover.isShow = !this.presentationCover.isShow;
                 this.presentationCover.height = ($(window).height()-130)+"px";
+                $("#cover-presentation").removeAttr("style");
                 if(this.presentationCover.isShow){
                     this.presentationCover.voiceLink = this.baseUrl+"file_presentation/"+voice+'/'+id;
                     this.presentationCover.link = "https://view.officeapps.live.com/op/view.aspx?src=<?=base_url('application/uploads/papers');?>/"+filename;

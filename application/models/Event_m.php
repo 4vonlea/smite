@@ -171,12 +171,10 @@ class Event_m extends MY_Model
 	{
 		if($onLyFollowed == false){
 			$filter = array_merge($filter, ['show' => '1']);
-		}else{
-			$filter['td.id IS NOT NULL'] = null;
 		}
 		$this->load->model("Transaction_m");
 		$result = $this->setAlias("t")->find()->select("t.id as id_event,
-				t.kouta,
+				t.kouta2,
 				t.name as event_name,
 				event_pricing.name as name_pricing,
 				event_pricing.price as price_r,
@@ -193,6 +191,7 @@ class Event_m extends MY_Model
 				t.kategory,
 				t.special_link")
 			->where($filter)
+			->or_where("td.id IS NOT NULL",null)
 			->join("event_pricing", "t.id = event_id")
 			->join("events evt", "evt.id = t.event_required", 'left')
 			->join("transaction_details td", "td.event_pricing_id = event_pricing.id AND td.member_id = '$member_id'", "left")
