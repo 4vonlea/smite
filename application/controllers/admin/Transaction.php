@@ -24,7 +24,7 @@ class Transaction extends Admin_Controller
 	{
 		$this->load->model(['Transaction_m', 'Member_m', 'Notification_m']);
 		$tr = $this->Transaction_m->findOne(['id' => $id]);
-		$member = $this->Member_m->findOne(['id' => $tr->member_id]);
+		$member = $this->Member_m->findOne(['id' => $tr->member_id]) ?? (object) ['fullname'=>str_replace("REGISTER-GROUP : ","",$tr->member_id),'email'=>$tr->email_group];
 		if ($type == "invoice") {
 			$filename = $member->fullname . "-Invoice.pdf";
 			$file = $tr->exportInvoice();

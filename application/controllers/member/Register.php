@@ -247,16 +247,15 @@ class Register extends MY_Controller
 
 			$this->form_validation->set_rules('bill_to', 'Bill To', 'required');
 			$this->form_validation->set_rules('status', 'Status', 'required');
-			$this->form_validation->set_rules('email_group', 'Email', 'required');
-
+			$this->form_validation->set_rules('email_group', 'Email', 'required|valid_email');
 			$validationError = false;
 			$model['validation_error'] = [];
 			// NOTE Validasi Bill To dan Status
 			if (!$this->form_validation->run()) {
 				$validationError = true;
-
 				$model['validation_error']['bill_to'] = form_error('bill_to');
 				$model['validation_error']['status'] = form_error('status');
+				$model['validation_error']['email_group'] = form_error('email_group');
 			}
 
 			// NOTE Validasi Jumlah Member

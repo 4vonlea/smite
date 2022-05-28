@@ -504,6 +504,7 @@ class Member extends Admin_Controller
 
 			$this->form_validation->set_rules('bill_to', 'Bill To', 'required');
 			$this->form_validation->set_rules('status', 'Status', 'required');
+			$this->form_validation->set_rules('email_group', 'Email', 'required|valid_email');
 
 			$validationError = false;
 			$model['validation_error'] = [];
@@ -513,6 +514,7 @@ class Member extends Admin_Controller
 
 				$model['validation_error']['bill_to'] = form_error('bill_to');
 				$model['validation_error']['status'] = form_error('status');
+				$model['validation_error']['email_group'] = form_error('email_group');
 			}
 
 			// NOTE Validasi Jumlah Member
