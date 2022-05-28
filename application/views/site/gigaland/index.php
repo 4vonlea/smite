@@ -64,7 +64,7 @@
 
 										<div class="spacer-10"></div>
 										<div class="spacer-10"></div>
-                                        	<a href="<?= base_url('themes/gigaland'); ?>/images/220524FA.pdf" target="blank" class="btn-main btn-lg" style="background-color:#00fdff; color:black;">Download FINAL Announcement here (New released on 24 May)</a>&nbsp;
+                                        	<a href="<?= base_url('themes/gigaland'); ?>/images/20220528FA.pdf" target="blank" class="btn-main btn-lg" style="background-color:#00fdff; color:black;">Download FINAL Announcement here (Updated on 28 May)</a>&nbsp;
                                             <!--<a href="" class="btn-main btn-lg" style="background-color:#F4AD39; color:black;">Enter</a>&nbsp;-->											
                                         </div>
                                         <hr>
