@@ -120,6 +120,8 @@ class Papers_m extends MY_Model
 				"feedback_fullpaper",
 				"feedback_presentasi",
 				"feedback_file_presentasi",
+				'time_upload_fullpaper',
+				'time_upload_presentasi',
 				'score'
 			],
 			'include_search_field'=>['transaction_status','univ.univ_nama','phone']
