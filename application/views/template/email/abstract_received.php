@@ -1,3 +1,4 @@
+<p><strong>Abstract Review Result</strong></p><br />
 <p>Dear <?=$name;?></p>
 <p>We would like to inform you that we have received your abstract with the title <strong>"<?=$title;?>"</strong></p>
 <p>Your abstract ID is <?=$id;?></p>
