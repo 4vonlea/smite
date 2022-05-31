@@ -62,6 +62,9 @@ class Api extends MY_Controller
 	{
 		$this->load->model("Papers_m");
 		$paper = $this->Papers_m->findOne($id);
+        if(!$paper)
+			show_404('File not found on server !');
+
         $name = $type == 'presentation' ? $paper->poster : $paper->voice;
 		$filepath = APPPATH . "uploads/papers/" . $name;
 
