@@ -118,7 +118,7 @@ class Api extends MY_Controller
                     $row['statusPresentation'] = Papers_m::$status[$row['statusPresentation']] ?? "-";
                     $row['filePresentation'] = base_url('api/file/presentation/'.$row['rawId'].'/'.$row['poster']);
                     $row['fileVoice'] = base_url('api/file/voice/'.$row['rawId'].'/'.$row['voice']);
-                    unset($row['poster'],$row['voice'];)
+                    unset($row['poster'],$row['voice']);
                     $paperList[] = $row;
                 }
                 $this->send_response(self::CODE_OK,"Success",[
