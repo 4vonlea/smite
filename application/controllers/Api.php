@@ -58,7 +58,7 @@ class Api extends MY_Controller
         }
     }
 
-    public function file($type, $id)
+    public function file($type, $id, $name)
 	{
 		$this->load->model("Papers_m");
 		$paper = $this->Papers_m->findOne($id);
@@ -103,6 +103,7 @@ class Api extends MY_Controller
                 ->get();
                 $papers = $this->Papers_m->find()->select("CONCAT(st.value,LPAD(papers.id,3,0)) as id,title,type_presence as presentationOn,status as statusAbstract,
                                                         status_fullpaper as statusFullpaper,status_presentasi as statusPresentation,category_paper.name as manuscriptSection,
+                                                        papers.id as rawId,
                                                         methods as manuscriptCategory,type as manuscriptType,")
                                                     ->join("settings st",'st.name = "format_id_paper"',"left")
                                                     ->join("category_paper","category_paper.id = category","left")
@@ -112,8 +113,8 @@ class Api extends MY_Controller
                     $row['statusAbstract'] = Papers_m::$status[$row['statusAbstract']] ?? "-";
                     $row['statusFullpaper'] = Papers_m::$status[$row['statusFullpaper']] ?? "-";
                     $row['statusPresentation'] = Papers_m::$status[$row['statusPresentation']] ?? "-";
-                    $row['filePresentation'] = base_url('api/file/presentation/'.$row['id']);
-                    $row['fileVoice'] = base_url('api/file/voice/'.$row['id']);
+                    $row['filePresentation'] = base_url('api/file/presentation/'.$row['rawId'].'/'.$row['poster']);
+                    $row['fileVoice'] = base_url('api/file/voice/'.$row['rawId'].'/'.$row['voice']);
                     $paperList[] = $row;
                 }
                 $this->send_response(self::CODE_OK,"Success",[
