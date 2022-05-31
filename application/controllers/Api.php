@@ -106,7 +106,7 @@ class Api extends MY_Controller
                 ->get();
                 $papers = $this->Papers_m->find()->select("CONCAT(st.value,LPAD(papers.id,3,0)) as id,title,type_presence as presentationOn,status as statusAbstract,
                                                         status_fullpaper as statusFullpaper,status_presentasi as statusPresentation,category_paper.name as manuscriptSection,
-                                                        papers.id as rawId,
+                                                        papers.id as rawId,poster,voice,
                                                         methods as manuscriptCategory,type as manuscriptType,")
                                                     ->join("settings st",'st.name = "format_id_paper"',"left")
                                                     ->join("category_paper","category_paper.id = category","left")
