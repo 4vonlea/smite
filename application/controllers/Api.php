@@ -58,6 +58,38 @@ class Api extends MY_Controller
         }
     }
 
+    public function file($type, $id)
+	{
+		$this->load->model("Papers_m");
+		$paper = $this->Papers_m->findOne($id);
+        $name = $type == 'presentation' ? $paper->poster : $paper->voice;
+		$filepath = APPPATH . "uploads/papers/" . $name;
+
+		if (file_exists($filepath)) {
+			list(, $ext) = explode(".", $name);
+
+			$dataTitle = explode(" ", $paper->title);
+			$title = count($dataTitle) > 3 ? "{$dataTitle[0]} {$dataTitle[1]} {$dataTitle[2]}" : implode(" ", $dataTitle);
+
+			$member = $paper->member;
+
+			// $filename = $type . '-' . $paper->getIdPaper() . '-' . $member->fullname . '.' . $ext;
+			$filename = "{$paper->getIdPaper()}-{$type}-{$member->fullname}-{$title}.{$ext}";
+			header('Content-Description: File Transfer');
+			header('Content-Type: ' . mime_content_type($filepath));
+			header('Content-Disposition: attachment; filename="' . $filename . '"');
+			header('Expires: 0');
+			header('Cache-Control: must-revalidate');
+			header('Pragma: public');
+			header('Content-Length: ' . filesize($filepath));
+			flush(); // Flush system output buffer
+			readfile($filepath);
+			exit;
+		} else {
+			show_404('File not found on server !');
+		}
+	}
+
     public function user_event(){
         $token = $this->input->post("token");
 		$this->load->model(['Event_m','Papers_m']);
@@ -80,6 +112,8 @@ class Api extends MY_Controller
                     $row['statusAbstract'] = Papers_m::$status[$row['statusAbstract']] ?? "-";
                     $row['statusFullpaper'] = Papers_m::$status[$row['statusFullpaper']] ?? "-";
                     $row['statusPresentation'] = Papers_m::$status[$row['statusPresentation']] ?? "-";
+                    $row['filePresentation'] = base_url('api/file/presentation/'.$row['id']);
+                    $row['fileVoice'] = base_url('api/file/voice/'.$row['id']);
                     $paperList[] = $row;
                 }
                 $this->send_response(self::CODE_OK,"Success",[
