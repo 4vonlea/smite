@@ -187,8 +187,8 @@ class Dashboard_m extends CI_Model
 					JOIN event_pricing ep ON ep.id = td.event_pricing_id
 					WHERE t.status_payment = "' . Transaction_m::STATUS_FINISH . '") AS t ON t.member_id =m.id
 					LEFT JOIN papers p ON p.member_id = m.id 
-					order by m.id
-					GROUP BY m.id';
+					GROUP BY m.id
+					order by m.id';
 		$rs = $this->db->query($query);
 		$data = $rs->result_array();
 		$rs = $this->db->get("events");
