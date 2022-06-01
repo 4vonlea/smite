@@ -69,7 +69,7 @@
                                         </div>
                                         <hr>
                                         <div class="container">
-											<h3 style="color:#f44939;">See you on the day!</h3><br>
+											<h3 style="color:#f44939;">Workshop Registration will be closed on 6th June 2022!</h3><br>
                                             <div class="row align-items-center wow fadeInRight" data-wow-delay=".5s">
                                                 <div class="col-lg-6">
                                                     <?php if (!$hasSession) : ?>
