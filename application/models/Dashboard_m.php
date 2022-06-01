@@ -98,6 +98,7 @@ class Dashboard_m extends CI_Model
 			->join('(SELECT t.id, GROUP_CONCAT(DISTINCT CONCAT(t.id,": ",t.status_payment)) AS status_payment,td.member_id FROM transaction_details td
 			JOIN transaction t ON t.id = td.transaction_id
 			GROUP BY td.member_id) as payment','payment.member_id = m.id','left')
+			->order_by("p.id")
 			->get()->result_array();
 		foreach ($result as $i => $row) {
 			$result[$i]['status_abstract'] = isset(Papers_m::$status[$row['status_abstract']]) ? Papers_m::$status[$row['status_abstract']]:'-';
@@ -168,6 +169,7 @@ class Dashboard_m extends CI_Model
 			->join("event_pricing ep", "ep.id = td.event_pricing_id")
 			->join("events e", "e.id = ep.event_id")
 			->where("event_id", $event_id)->where("status_payment", Transaction_m::STATUS_FINISH)
+			->order_by("t.id")
 			->get("transaction_details td");
 		return $rs->result_array();
 	}
@@ -185,6 +187,7 @@ class Dashboard_m extends CI_Model
 					JOIN event_pricing ep ON ep.id = td.event_pricing_id
 					WHERE t.status_payment = "' . Transaction_m::STATUS_FINISH . '") AS t ON t.member_id =m.id
 					LEFT JOIN papers p ON p.member_id = m.id 
+					order by m.id
 					GROUP BY m.id';
 		$rs = $this->db->query($query);
 		$data = $rs->result_array();
