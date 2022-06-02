@@ -363,6 +363,10 @@ class Register extends MY_Controller
 							'role' => 0,
 							'token_reset' => "verifyemail_" . $token
 						], false);
+
+						$email_message = $this->load->view('template/email/email_confirmation', ['token' => $token, 'name' => $data['fullname']], true);
+						$this->Notification_m->sendMessage($data['email'], 'Confirm your email to access our event', $email_message);
+
 					}
 
 					/* -------------------------------------------------------------------------- */
