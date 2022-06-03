@@ -87,7 +87,7 @@ $config = array(
     | without final / (DON'T TOUCH)
     |
     */
-    'base_url' =>'https://seminar_dokter.test',//$base_url,
+    'base_url' => env('base_url'),'https://seminar_dokter.test',//$base_url,
     /*
     |--------------------------------------------------------------------------
     | path from base_url to base of upload folder
