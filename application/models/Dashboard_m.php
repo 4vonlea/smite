@@ -73,6 +73,7 @@ class Dashboard_m extends CI_Model
 		$result = $this->db->select("
 				CONCAT(st.value,LPAD(p.id,3,0)) as id_paper,
 				fullname as nama,
+				email,
 				univ_nama as universitas,
 				kategory_members.kategory as status,
 				status_payment,

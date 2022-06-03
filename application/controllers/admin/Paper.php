@@ -244,7 +244,7 @@ class Paper extends Admin_Controller
 		$this->load->model("Papers_m");
 		$paper = $this->Papers_m->findOne($id);
 
-		if ($type == 'Voice Recording') {
+		if ($type == 'Voice') {
 			$type = 'Voice';
 		} else if (in_array($type, ['Moderated Poster', 'Viewed Poster', 'Oral'])) {
 			$type = "Present";
@@ -300,13 +300,17 @@ class Paper extends Admin_Controller
 				$fileToAdd = $row->poster;
 			} elseif ($type == 'fullpaper') {
 				$fileToAdd = $row->fullpaper;
+			} elseif ($type == "voice"){
+				$fileToAdd = $row->voice;
 			}
 			$temp = explode(".", $fileToAdd);
 			$ext = "";
 			if (count($temp) > 0)
 				$ext = $temp[count($temp) - 1];
 			if (file_exists(APPPATH . "uploads/papers/" . $fileToAdd) && $fileToAdd != "") {
-				$zip->addFromString($row->id_paper . "_" . $type . "_" . $row->fullname . "." . $ext, file_get_contents(APPPATH . "uploads/papers/" . $fileToAdd));
+				$dataTitle = explode(" ", $row->title);
+				$title = implode(" ",array_slice($dataTitle,0,3));
+				$zip->addFromString($row->id_paper . "_" . $type . "_" . $row->fullname . "_".$title."." . $ext, file_get_contents(APPPATH . "uploads/papers/" . $fileToAdd));
 			}
 		}
 		redirect(base_url('themes/uploads/' . $type . "_all.zip"));

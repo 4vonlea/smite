@@ -176,6 +176,7 @@ $this->layout->end_head();
 								<a class="dropdown-item" href="<?= base_url('admin/paper/download_all_files/abstract'); ?>">Abstract</a>
 								<a class="dropdown-item" href="<?= base_url('admin/paper/download_all_files/fullpaper'); ?>">Fullpaper</a>
 								<a class="dropdown-item" href="<?= base_url('admin/paper/download_all_files/presentation'); ?>">Presentation</a>
+								<a class="dropdown-item" href="<?= base_url('admin/paper/download_all_files/voice'); ?>">Voice Recording</a>
 							</div>
 						</div>
 						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-setting"><i class="fa fa-book"></i> Setting Due Date & Cut Off
@@ -265,6 +266,7 @@ $this->layout->end_head();
 							<li class="list-group-item">
 								Status Presentation : {{ (props.row.status_fullpaper == 2 ? status[props.row.status_presentasi]:'') }}<br />
 								<a class="badge badge-info" :href="'<?= base_url('admin/paper/file'); ?>/'+props.row.poster+'/'+props.row.t_id+'/Presentation'" target="_blank" v-if="props.row.poster">File Presentation/Poster</a>
+								<a class="badge badge-info" :href="'<?= base_url('admin/paper/file'); ?>/'+props.row.voice+'/'+props.row.t_id+'/Voice'" target="_blank" v-if="props.row.voice">Voice Recording</a>
 							
 							</li>
 						</ul>
