@@ -34,7 +34,6 @@ class Login extends MY_Controller
                         $this->session->set_userdata('sess_expired', time()+60*60*24*7);
                     }else{
                         $this->session->set_userdata('sess_expired', time()+3600);
-
                     }
                     $this->session->set_userdata('user_session',$user);
                     if($user['role'] == User_account_m::ROLE_ADMIN_PAPER)

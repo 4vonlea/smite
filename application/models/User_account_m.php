@@ -77,15 +77,11 @@ class User_account_m extends MY_Model
 
     public function selectuser($username)
     {
-        $this->db->select('username');
+        $this->db->select('username,last_reset');
         $this->db->from('user_accounts');
         $this->db->where('username', $username);
         $hasil = $this->db->get();
-        if ($hasil->num_rows() > 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return $hasil->row();
     }
 
 }

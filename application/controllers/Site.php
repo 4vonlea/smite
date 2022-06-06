@@ -165,14 +165,26 @@ class Site extends MY_Controller
         $status_proses = null;
         $post          = $this->input->post();
         $username = $post['username'];
-        if ($this->AccountM->selectuser($username) == true) {
-            $data['password'] = rand(10000, 99999);
-            $success = $this->AccountM->update(['password' => password_hash($data['password'], PASSWORD_DEFAULT)], ['username' => $username], false);
-            $email_message = $this->load->view('template/success_forget_password', $data, true);
-            $this->Notification_m->sendMessage($username, 'Reset password account', $email_message);
-            $this->session->set_flashdata('message', '<div class="col-lg-7 alert alert-success"><center> please check your email for your new password </center>
-            </div>');
-            redirect('site/forget', 'refresh');
+        if ($user = $this->AccountM->selectuser($username)) {
+            $start_date = new DateTime($user->last_reset);
+            $since_start = $start_date->diff(new DateTime());
+            if($user->last_reset == null || $since_start->i > 30){
+                $data['password'] = rand(10000, 99999);
+                $success = $this->AccountM->update(['password' => password_hash($data['password'], PASSWORD_DEFAULT),'last_reset'=>date("Y-m-d H:i:s")], ['username' => $username], false);
+                $email_message = $this->load->view('template/success_forget_password', $data, true);
+                $this->Notification_m->sendMessage($username, 'Reset password account', $email_message);
+                $this->session->set_flashdata('message', '<div class="col-lg-12 alert alert-success"><center> please check your email for your new password </center>
+                </div>');
+                redirect('site/forget', 'refresh');
+            }else{
+                $this->session->set_flashdata('message', '
+                <div class="col-lg-12 alert alert-danger">
+                <p>You have resetted your password recently. Please check your inbox or spam. New request may available after 30 minutes later.</p>
+                <p>If you have any issue, please contact the commiittee</p>
+                </div>');
+                redirect('site/forget', 'refresh');
+    
+            }
         } else {
             $this->session->set_flashdata('message', '<div class="col-lg-12 alert alert-danger">The email is not registered
             </div>');
