@@ -1678,6 +1678,7 @@
         </div>
     </section>
 
+
     <section id="sponsors" class="pt30 pb30">
         <div class="container">
             <div class="nft__item_lg style-3">
@@ -1755,9 +1756,6 @@
             </div>
         </div>
     </section>
-
-
-
 
     <a href="#" id="back-to-top"></a>
 
