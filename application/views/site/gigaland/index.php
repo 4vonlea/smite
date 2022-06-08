@@ -64,13 +64,14 @@
 
 										<div class="spacer-10"></div>
 										<div class="spacer-10"></div>
-                                        	<a href="<?= base_url('themes/gigaland'); ?>/images/20220528FA.pdf" target="blank" class="btn-main btn-lg" style="background-color:#00fdff; color:black;">Download FINAL Announcement here (Updated on 28 May)</a>&nbsp;
+                                        	<a href="<?= base_url('themes/gigaland'); ?>/images/20220528FA.pdf" target="blank" class="btn-main btn-lg" style="background-color:#F4AD39; color:black;">Download FINAL Announcement here (Updated on 28 May)</a>&nbsp;
                                             <!--<a href="" class="btn-main btn-lg" style="background-color:#F4AD39; color:black;">Enter</a>&nbsp;-->											
                                         </div>
                                         <hr>
-                                        <div class="container">
-											<h3 style="color:#f44939;">Workshop Registration will be closed on 6th June 2022!</h3><br>
-                                            <div class="row align-items-center wow fadeInRight" data-wow-delay=".5s">
+                                        <div class="container">                                        
+                                        <a href="https://live.aomc-pinbanjarmasin2022.com/login" class="btn-main btn-lg" style="background-color:#00fdff; color:black;">-------------Click here to Join Event-------------------------</a><br>
+                                        <hr>    
+                                          	<div class="row align-items-center wow fadeInRight" data-wow-delay=".5s">
                                                 <div class="col-lg-6">
                                                     <?php if (!$hasSession) : ?>
                                                         <h3 style="color:#F4AD39;">Sign In</h3><br>

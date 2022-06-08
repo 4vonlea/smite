@@ -95,9 +95,13 @@
                                         </h2>
                                         <p style="color:#F4AD39; text-shadow: 3px 2px 1px black; font-size: 25px;">June 9<sup>th</sup> - 12<sup>th</sup>, 2022 on Virtual Meeting</p>
                                     </div>
+                                        <hr>
+                                        <div class="container">                                        
+                                        <a href="https://live.aomc-pinbanjarmasin2022.com/login" class="btn-main btn-lg" style="background-color:#00fdff; color:black;">-----------------------Click here to Join Event-------------------------</a><br>
+                                        <hr>    
                                     <a href="<?= base_url('themes/gigaland'); ?>/images/20220528FA.pdf" target="blank" class="btn-main btn-lg" style="background-color:#F4AD39; color:black;">Download FINAL Announcement here (Updated on 28 May)</a>&nbsp;<br><br>
                                     <a href="https://drive.google.com/drive/folders/1IvTWTiAPzxrXhJGkZWHd0nmUwNaDfSaU?usp=sharing" target="blank" class="btn-main btn-lg" style="background-color:#F4AD39; color:black;">Download "PIN Category: Paper Competition Announcement" (Release on 15 May)</a>&nbsp;<br><br>
-                                    <a href="<?= base_url('themes/gigaland'); ?>/images/220601 AOMC 2022 Accepted Abstract List.pdf" target="blank" class="btn-main btn-lg" style="background-color:#00fdff; color:black;">Download "AOMC Category: Accepted Abstract List" (Updated on 1 June)</a>&nbsp;
+                                    <a href="<?= base_url('themes/gigaland'); ?>/images/220601 AOMC 2022 Accepted Abstract List.pdf" target="blank" class="btn-main btn-lg" style="background-color:#F4AD39; color:black;">Download "AOMC Category: Accepted Abstract List" (Updated on 1 June)</a>&nbsp;
 
                                     <div class="spacer-10">
                                         <div class="d-buttons">
