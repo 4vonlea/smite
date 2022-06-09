@@ -140,9 +140,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                     </div>
                 </div>
                 <div class="row">
-                    <div class="offset-4 col-8">
-                        <a href="https://live.aomc-pinbanjarmasin2022.com/login" class="btn-main btn-lg" style="background-color:#00fdff; color:black;">-------------Click here to Join Event-------------</a><br>
-                    </div>
+                    <a href="https://live.aomc-pinbanjarmasin2022.com/login" class="btn-main btn-lg" style="background-color:#00fdff; color:black;">-------------Click here to Join Event-------------</a><br>
                 </div>
             </div>
     </div>
