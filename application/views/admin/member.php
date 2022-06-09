@@ -469,9 +469,10 @@ $this->layout->begin_head();
 			saveProfile() {
 				app.savingProfile = true;
 				$.post("<?= base_url("admin/member/save_profile"); ?>", app.profile, function(res) {
-					if (res.status)
+					if (res.status){
+						app.profile.username_account = app.profile.email;
 						Swal.fire("Success", "Profile Saved !", "success");
-					else
+					}else
 						Swal.fire("Failed", (res.message ? res.message : "Failed to save data !"), "error");
 				}, "JSON").fail(function(xhr) {
 					var message = xhr.getResponseHeader("Message");
