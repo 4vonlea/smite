@@ -10,8 +10,17 @@ export default Vue.component("Presentation", {
                 <p class="mb-0">Displaying poster or presentation files uploaded by call for paper's participant</p>
             </div>
             <div class="row">
-            <div class="col-md-6 col-sm-12">
+            <div class="col-md-4 col-sm-9">
                 <input type="text" v-model="globalFilter" class="form-control mb-2" placeholder="Please type for search...." @change="doFilter" @keyup="doFilter"/>
+            </div>
+            <div class="col-md-2 col-sm-3">
+                <select v-model="perPage" style="padding:.375rem .75rem">
+                    <option value="5">Show 5 </option>
+                    <option value="10">Show 10 </option>
+                    <option value="25">Show 25 </option>
+                    <option value="50">Show 50 </option>
+                    <option value="100">Show 100 </option>
+                </select>
             </div>
             <vuetable-pagination 
             ref="pagination"
@@ -74,6 +83,13 @@ export default Vue.component("Presentation", {
                     last: '',
                 },
             }
+        }
+    },
+    watch:{
+        perPage:(val) => {
+            Vue.nextTick(() => {
+                this.onChangePage(1);
+            });
         }
     },
     methods: {
