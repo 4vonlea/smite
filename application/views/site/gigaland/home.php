@@ -1683,83 +1683,119 @@
     </section>
 
 
-    <section id="sponsors" class="pt30 pb30">
-        <div class="container">
-            <div class="nft__item_lg style-3">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <h2 class="style-2 wow fadeInRight" data-wow-delay=".5s" style="color:#F4AD39;">Sponsor</h2>
+<div class="container">
+    <div class="nft__item_lg style-3">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2 class="style-2 wow fadeInRight" data-wow-delay=".5s" style="color:#F4AD39;">Sponsor</h2>
+            </div>
+            <div class="col-lg-12">
+                <h3 class="style-2 wow fadeInRight" data-wow-delay=".5s" style="color:#F4AD39;">Platinum</h3>
+                <br>
+                <div class="row text-center">
+                    <div class="col-lg-4 mb-4">
+                        <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/sponsor/platinum/pnghealth.png" style="width:100%;" alt="">
                     </div>
-                    <div class="col-lg-12">
-                        <h3 class="style-2 wow fadeInRight" data-wow-delay=".5s" style="color:#F4AD39;">Platinum</h3>
-                        <br>
-                        <div class="row text-center">
-                            <div class="col-lg-4 mb-4">
-                                <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/sponsor/platinum/daryaaria.png" style="width:100%;" alt="">
-                            </div>
-                            <div class="col-lg-4 mb-4">
-                                <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/sponsor/platinum/dexamedica.png" style="width:100%;" alt="">
-                            </div>
-                            <div class="col-lg-4 mb-4">
-                                <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/sponsor/platinum/lundbeck.png" style="width:100%;" alt="">
-                            </div>
-                            <div class="col-lg-4 mb-4">
-                                <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/sponsor/platinum/mersifarma.png" style="width:100%;" alt="">
-                            </div>
-                            <div class="col-lg-4 mb-4">
-                                <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/sponsor/platinum/pnghealth.png" style="width:100%;" alt="">
-                            </div>
-
-                        </div>
+                    <div class="col-lg-4 mb-4">
+                        <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/sponsor/platinum/mersifarma.png" style="width:100%;" alt="">
                     </div>
-                    <div class="col-lg-12">
-                        <h3 class="style-2 wow fadeInRight" data-wow-delay=".5s" style="color:#F4AD39;">Gold</h3>
-                        <br>
-                        <div class="row text-center">
-                            <div class="row col-lg-12">
-                                <div class="row col-12 col-lg-6">
-                                    <div class="col-lg-6 mb-4">
-                                        <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/sponsor/gold/eisai.png" style="width:100%;" alt="">
-                                    </div>
-                                    <div class="col-lg-6 mb-4">
-                                        <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/sponsor/gold/ikhparmindo.png" style="width:100%;" alt="">
-                                    </div>
-                                </div>
-                                <div class="row col-12 col-lg-6">
-                                    <div class="col-lg-6 mb-4">
-                                        <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/sponsor/gold/kimiapharma.png" style="width:100%;" alt="">
-                                    </div>
-                                    <div class="col-lg-6 mb-4">
-                                        <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/sponsor/gold/novartis.png" style="width:100%;" alt="">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="col-lg-4 mb-4">
+                        <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/sponsor/platinum/dexamedica.png" style="width:100%;" alt="">
                     </div>
-                    <div class="col-lg-12">
-                        <h3 class="style-2 wow fadeInRight" data-wow-delay=".5s" style="color:#F4AD39;">Workshop</h3>
-                        <br>
-                        <div class="row text-center">
-                            <div class="row col-lg-12">
-                                <div class="row col-12 col-lg-6">
-                                    <div class="col-lg-4 col-6 mb-4">
-                                        <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/sponsor/workshop/fima.png" style="width:100%;" alt="">
-                                    </div>
-                                    <div class="col-lg-4 col-6 mb-4">
-                                        <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/sponsor/workshop/mahakam.png" style="width:100%;" alt="">
-                                    </div>
-                                    <div class="col-lg-4 col-6 mb-4">
-                                        <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/sponsor/workshop/pyridam.png" style="width:100%;" alt="">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="col-lg-4 mb-4">
+                        <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/sponsor/platinum/eisai.png" style="width:100%;" alt="">
                     </div>
-
+                    <div class="col-lg-4 mb-4">
+                        <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/sponsor/platinum/abbott.png" style="width:100%;" alt="">
+                    </div>
+                    <div class="col-lg-4 mb-4">
+                        <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/sponsor/platinum/kalbe.png" style="width:100%;" alt="">
+                    </div>
+                    <div class="col-lg-4 mb-4">
+                        <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/sponsor/platinum/jnj.png" style="width:100%;" alt="">
+                    </div>
+                    <div class="col-lg-4 mb-4">
+                        <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/sponsor/platinum/lundbeck.png" style="width:100%;" alt="">
+                    </div>
+                    <div class="col-lg-4 mb-4">
+                        <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/sponsor/platinum/daryaaria.png" style="width:100%;" alt="">
+                    </div>
                 </div>
             </div>
+            <div class="col-lg-12">
+                <h3 class="style-2 wow fadeInRight" data-wow-delay=".5s" style="color:#F4AD39;">Gold</h3>
+                <br>
+                <div class="row text-center">
+                    <div class="row col-lg-12">
+                        <div class="row col-12 col-lg-6">
+                            <div class="col-lg-6 mb-4">
+                                <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/sponsor/gold/kimiapharma.png" style="width:100%;" alt="">
+                            </div>
+                            <div class="col-lg-6 mb-4">
+                                <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/sponsor/gold/ikhparmindo.png" style="width:100%;" alt="">
+                            </div>
+                        </div>
+                        <div class="row col-12 col-lg-6">
+                            <div class="col-lg-6 mb-4">
+                                <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/sponsor/gold/prodia.png" style="width:100%;" alt="">
+                            </div>
+                            <div class="col-lg-6 mb-4">
+                                <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/sponsor/gold/mitraasa.png" style="width:100%;" alt="">
+                            </div>
+                        </div>
+                        <div class="row col-12 col-lg-6">
+                            <div class="col-lg-6 mb-4">
+                                <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/sponsor/gold/novartis.png" style="width:100%;" alt="">
+                            </div>
+                            <div class="col-lg-6 mb-4">
+                                <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/sponsor/gold/pfizer.png" style="width:100%;" alt="">
+                            </div>
+                        </div>
+                        <div class="row col-12 col-lg-6">
+                            <div class="col-lg-6 mb-4">
+                                <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/sponsor/gold/wellesta.png" style="width:100%;" alt="">
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <h3 class="style-2 wow fadeInRight" data-wow-delay=".5s" style="color:#F4AD39;">Silver</h3>
+                <br>
+                <div class="row text-center">
+                    <div class="row col-lg-12">
+                        <div class="row col-12 col-lg-6">
+                            <div class="col-lg-4 col-6 mb-4">
+                                <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/sponsor/silver/mahakam.png" style="width:100%;" alt="">
+                            </div>
+                            <div class="col-lg-4 col-6 mb-4">
+                                <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/sponsor/silver/pyridam.png" style="width:100%;" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <h3 class="style-2 wow fadeInRight" data-wow-delay=".5s" style="color:#F4AD39;">Bronze</h3>
+                <br>
+                <div class="row text-center">
+                    <div class="row col-lg-12">
+                        <div class="row col-12 col-lg-6">
+                            <div class="col-lg-3 col-6 mb-4">
+                                <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/sponsor/bronze/tempo.png" style="width:100%;" alt="">
+                            </div>
+                            <div class="col-lg-3 col-6 mb-4">
+                                <img class="lazy wow fadeInRight" data-wow-delay=".8s" src="<?= base_url('themes/gigaland'); ?>/images/sponsor/bronze/sanbe.png" style="width:100%;" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
-    </section>
+    </div>
+</div>
 
     <a href="#" id="back-to-top"></a>
 
