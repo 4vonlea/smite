@@ -14,7 +14,7 @@ export default Vue.component("Presentation", {
                 <input type="text" v-model="globalFilter" class="form-control mb-2" placeholder="Please type for search...." @change="doFilter" @keyup="doFilter"/>
             </div>
             <div class="col-md-2 col-sm-3">
-                <select v-model="perPage" style="padding:.375rem .75rem">
+                <select v-model.number="perPage" style="padding:.375rem .75rem">
                     <option value="5">Show 5 </option>
                     <option value="10">Show 10 </option>
                     <option value="25">Show 25 </option>
