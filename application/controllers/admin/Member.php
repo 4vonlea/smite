@@ -247,7 +247,8 @@ class Member extends Admin_Controller
 					'message_payment' => $data['message_payment'],
 					'channel' => $data['channel'],
 					'status_payment' => Transaction_m::STATUS_FINISH,
-					'payment_proof' => $data['payment_proof']
+					'payment_proof' => $data['payment_proof'],
+					'midtrans_data' => $data['channel'] == Transaction_m::CHANNEL_GL ? json_encode(['sponsorName'=>$this->input->post("sponsor")]) : ""
 				]);
 				$details = [];
 				foreach ($data['transaction']['event'] as $tr) {
