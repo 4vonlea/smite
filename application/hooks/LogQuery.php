@@ -13,7 +13,7 @@ class LogQuery {
             $date = date('Y-m-d H:i:s');
             if (!in_array(strtoupper(substr(trim($query),0,6)),["SELECT","SHOW C"])) {
                 $db->insert('log_proses',array(
-                    'controller'=>$controller,
+                    'controller'=>$controller ?? "",
                     'username'=>$username.":".$ip,
                     'request'=>$request,
                     'query'=>$query,
