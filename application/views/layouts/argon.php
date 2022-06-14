@@ -189,6 +189,11 @@ function hideForRole($role, $listRole)
 							<i class="ni ni-book-bookmark text-orange"></i> Papers
 						</a>
 					</li>
+					<li class="nav-item ">
+						<a class="nav-link" href="<?= base_url('admin/paper/champion'); ?>">
+							<i class="ni ni-book-bookmark text-orange"></i> Papers Champion
+						</a>
+					</li>
 					<li class="nav-item  <?= hideForRole($role, ['3', '4','5']); ?>">
 						<a class="nav-link" href="<?= base_url('admin/event'); ?>">
 							<i class="ni ni-planet text-blue"></i> Events List

@@ -147,7 +147,6 @@ Vue.component('datagrid', {
                     }
                 })
             }
-            console.log(this.sortList);
             return sorting;
         },
         currentOrder(){

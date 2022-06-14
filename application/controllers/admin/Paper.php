@@ -9,6 +9,7 @@ class Paper extends Admin_Controller
 		'save' => 'insert',
 		'file' => 'view',
 	];
+
 	public function index()
 	{
 		$this->load->helper("form");
@@ -355,4 +356,81 @@ class Paper extends Admin_Controller
 			->set_content_type("application/json")
 			->_display(json_encode(['status' => $status]));
 	}
+
+	public function champion(){
+		$this->load->model(['Category_paper_m']);
+
+		$this->layout->set_breadcrumb("Papers Champion");
+		$categoryPaper = $this->Category_paper_m->find()->select('*')->get()->result_array();
+		$this->layout->render('paper_champion', [
+			'categoryPaper'=>$categoryPaper
+		]);
+	}
+
+	public function grid_champion()
+	{
+		$this->load->model(['Paper_champion_m']);
+		$gridConfig = $this->Paper_champion_m->gridConfig();
+		if ($this->input->get("category")) {
+			$gridConfig['filter']['category_paper.id'] = $this->input->get("category");
+		}
+		$grid = $this->Paper_champion_m->gridData($this->input->get(),$gridConfig);
+		$this->output
+			->set_content_type("application/json")
+			->_display(json_encode($grid));
+	}
+
+	public function search_paper(){
+		$this->load->model(['Papers_m']);
+		$data = $this->Papers_m->setAlias("t")->find()
+			->select("title as value,t.id as paper_id,fullname")
+			->join("members","members.id = t.member_id")
+			->like('fullname',$this->input->post('cari'))
+			->or_like('title',$this->input->post('cari'))
+			->get()->result_array();
+		$this->output
+			->set_content_type("application/json")
+			->_display(json_encode([
+				'inputPhrase'=>$this->input->post('cari'),
+				'items'=>$data
+			]));
+
+	}
+
+	public function add_champion(){
+		$this->load->model(['Paper_champion_m']);
+		$this->Paper_champion_m->find()->where([
+			'paper_id'=>$this->input->post("paper_id"),
+			'description'=>$this->input->post("description"),
+		]);
+		if($this->Paper_champion_m->count() == 0){
+			$result = $this->Paper_champion_m->insert([
+				'paper_id'=>$this->input->post("paper_id"),
+				'description'=>$this->input->post("description"),
+			]);
+		}
+		$this->output
+			->set_content_type("application/json")
+			->_display(json_encode([
+				'status'=>true,
+				'data'=>$result,
+			]));
+	}
+
+	public function delete_champion(){
+		if ($this->input->method() != 'post')
+			show_404("Page Not Found !");
+		$message = "";
+		$this->load->model(["Paper_champion_m"]);
+		$post = $this->input->post();
+
+		$status = $this->Paper_champion_m->find()->where(['id' => $post['id']])->delete();
+		if ($status == false)
+			$message = "Failed to delete member, error on server !";
+
+		$this->output
+			->set_content_type("application/json")
+			->_display(json_encode(['status' => $status, 'message' => $message]));
+	}
+
 }
