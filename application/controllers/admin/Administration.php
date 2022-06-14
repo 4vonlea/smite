@@ -119,7 +119,7 @@ class Administration extends Admin_Controller
 	{
 		$this->load->model(["Member_m", "Event_m"]);
 		$member = $this->Member_m->setAlias('t')->find()->join('kategory_members kt', 'kt.id = t.status ')
-			->select('fullname,email,kt.kategory as status_member,alternatif_status')->where("t.id", $member_id)->get()->row_array();
+			->select('t.id,fullname,email,kt.kategory as status_member,alternatif_status')->where("t.id", $member_id)->get()->row_array();
 		if (file_exists(APPPATH . "uploads/cert_template/$event_id.txt")) {
 			$member['status_member'] = "Peserta";
 			$this->Event_m->exportCertificate($member, $event_id)->stream("Certificate.pdf", array("Attachment" => false));

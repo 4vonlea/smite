@@ -41,6 +41,7 @@ class Setting extends Admin_Controller
 	{
 		$this->load->model("Event_m");
 		$propery = json_decode(Settings_m::getSetting("config_cert_$id"), true);
+		$data['id'] = "-";
 		foreach ($propery as $field) {
 			$data[$field['name']] = "Preview $field[name]";
 		}

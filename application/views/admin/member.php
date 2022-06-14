@@ -450,7 +450,8 @@ $this->layout->begin_head();
 					status_member: event.member_status,
 					id: event.event_id,
 					event_name: event.event_name,
-					alternatif_status: event.alternatif_status
+					alternatif_status: event.alternatif_status,
+					m_id:this.profile.id,
 				}
 				$.post("<?= base_url("admin/member/send_certificate"); ?>", data, function(res) {
 					if (res.status)

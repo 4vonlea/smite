@@ -29,7 +29,9 @@ class Committee_attributes_m extends My_model
 			'status_member'=>$com->status,
 			'event_name'=>$event->name,
 			'alternatif_status'=>$com->status,
+			'qr' => $com->status.":".$com->committee->name,
 		];
+		require_once APPPATH . "third_party/phpqrcode/qrlib.php";
 		if(file_exists(APPPATH."uploads/cert_template/$event->id.txt")) {
 
 			$domInvoice = new Dompdf\Dompdf();

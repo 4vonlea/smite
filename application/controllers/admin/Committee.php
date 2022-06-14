@@ -30,6 +30,7 @@ class Committee extends Admin_Controller
 		$this->load->model(['Committee_m', 'Committee_attributes_m']);
 
 		$post = $this->input->post();
+		$message = "";
 
 		$this->Committee_m->getDB()->trans_start();
 		if (isset($post['id'])) {

@@ -424,9 +424,15 @@ class Event_m extends MY_Model
 			$event_name = $rs->name;
 		}
 
-		$this->load->model('Settings_m');
+		$this->load->model(['Settings_m','Transaction_m']);
+		require_once APPPATH . "third_party/phpqrcode/qrlib.php";
 		if (file_exists(APPPATH . "uploads/cert_template/$id.txt")) {
-
+			$tr = $this->db->from("transaction_details")->join("event_pricing","event_pricing.id = event_pricing_id")
+				->join("transaction","transaction.id = transaction_id")
+				->where("transaction_details.member_id",$data['id'])
+				->where("transaction.status_payment",Transaction_m::STATUS_FINISH)
+				->where("event_id",$id)->select("transaction_id")->get()->row();
+			$data['qr'] = $tr->transaction_id ?? "-";
 			$data['event_name'] = $event_name;
 			$domInvoice = new Dompdf();
 			$propery = json_decode(Settings_m::getSetting("config_cert_$id"), true);

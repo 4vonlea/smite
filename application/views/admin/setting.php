@@ -135,7 +135,7 @@
 									</div>
 									<div class="form-group row">
 										<label class="col-md-3 col-form-label">Parameter from Member</label>
-										<?= form_dropdown("param", ['' => 'Select Parameter', 'fullname' => 'Full Name', 'email' => 'Email', 'gender' => 'Gender', 'status_member' => 'Status Of Member', 'event_name' => 'Event Name', 'alternatif_status' => 'Alternatif Status'], "", ['class' => 'form-control col-md-3', 'v-model' => 'selectedParam', 'id' => 'sel_param']); ?>
+										<?= form_dropdown("param", ['' => 'Select Parameter', 'fullname' => 'Full Name', 'email' => 'Email', 'gender' => 'Gender', 'status_member' => 'Status Of Member', 'event_name' => 'Event Name', 'alternatif_status' => 'Alternatif Status','qr_code'=>'QR Code (ID Invoice)'], "", ['class' => 'form-control col-md-3', 'v-model' => 'selectedParam', 'id' => 'sel_param']); ?>
 										<div class="col-md-6">
 											<button type="button" @click="addPropertyCert" class="btn btn-primary">Add
 												Property
@@ -192,7 +192,9 @@
 								</div>
 								<div style="position: relative">
 									<img :src="cert.image" style="width: 100%" />
-									<div style="background:rgba(0,0,0,0.3)" v-for="prop in certProperty" :style="prop.style">{{ prop.name }}
+									<div style="background:rgba(0,0,0,0.3)" v-for="prop in certProperty" :style="prop.style">
+										<span v-if="prop.name != 'qr_code'">{{ prop.name }}</span>
+										<img v-else src="<?= base_url('themes/uploads/qrpreview.png'); ?>" :style="{height:prop.style.width,width:prop.style.width}" />
 									</div>
 								</div>
 							</div>
