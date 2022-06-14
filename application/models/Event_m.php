@@ -418,10 +418,10 @@ class Event_m extends MY_Model
 	{
 		if ($id == null) {
 			$id = $this->id;
-			$event_name = $this->name;
+			$event_name = $this->name ?? "Not Found";
 		} else {
 			$rs = $this->findOne($id);
-			$event_name = $rs->name;
+			$event_name = $rs->name ?? "Not Found";
 		}
 
 		$this->load->model(['Settings_m','Transaction_m']);

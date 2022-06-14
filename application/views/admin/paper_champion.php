@@ -69,7 +69,6 @@ $this->layout->end_head();
 					{name:'description','sortField':'description','title':'Description'},
 				]" :fields="[
                         {name:'id_paper',sortField:'id_paper','title':'ID Paper'},
-                        {name:'category_name',sortField:'category_name','title':'Category Paper'},
                         {name:'title',sortField:'title','title':'Abstract Title'},
                         {name:'fullname',sortField:'fullname','title':'Member Name'},
                         {name:'description','sortField':'description','title':'Description'},

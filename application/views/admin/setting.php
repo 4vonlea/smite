@@ -122,20 +122,22 @@
 										<label class="col-md-3 col-form-label">Template For Events</label>
 										<?php
 										$list = Event_m::asList($event, "id", "name");
+										$list['Paper'] = "Paper";
 										$list[""] = "Select Event";
 										echo form_dropdown("event", $list, "", ['class' => 'form-control col-md-3', '@change' => 'changeCertEvent', 'v-model' => 'selectedEvent', 'id' => 'sel_event']);
 										?>
 										<div class="col-md-6">
 											<div class="custom-file">
 												<input ref="certImage" type="file" @change="changeCertImage" class="custom-file-input" id="customFile">
-												<label class="custom-file-label" for="customFile">{{ cert.fileName
-													}}</label>
+												<label class="custom-file-label" for="customFile">{{ cert.fileName }}</label>
 											</div>
 										</div>
 									</div>
 									<div class="form-group row">
 										<label class="col-md-3 col-form-label">Parameter from Member</label>
-										<?= form_dropdown("param", ['' => 'Select Parameter', 'fullname' => 'Full Name', 'email' => 'Email', 'gender' => 'Gender', 'status_member' => 'Status Of Member', 'event_name' => 'Event Name', 'alternatif_status' => 'Alternatif Status','qr_code'=>'QR Code (ID Invoice)'], "", ['class' => 'form-control col-md-3', 'v-model' => 'selectedParam', 'id' => 'sel_param']); ?>
+										<select class="form-control col-md-3" name="param" v-model="selectedParam" id="sel_param">
+												<option v-for="(val,key) in paramsCertificate" :value="key">{{ val }}</option>
+										</select>
 										<div class="col-md-6">
 											<button type="button" @click="addPropertyCert" class="btn btn-primary">Add
 												Property
@@ -589,7 +591,8 @@
 			},
 			kurs_usd: kurs_usd,
 			savingManual: false,
-
+			paramsEvent:<?=json_encode(['' => 'Select Parameter', 'fullname' => 'Full Name', 'email' => 'Email', 'gender' => 'Gender', 'status_member' => 'Status Of Member', 'event_name' => 'Event Name', 'alternatif_status' => 'Alternatif Status','qr_code'=>'QR Code (ID Invoice)']);?>,
+			paramsPaper:<?=json_encode(['' => 'Select Parameter', 'fullname' => 'Full Name', 'email' => 'Email', 'title' => 'Paper Title', 'id_paper' => 'ID Paper', 'status' => 'Participant/Champion Status','qr_code'=>'QR Code (ID Paper)']);?>,
 			money: {
 				decimal: ',',
 				thousands: '.',
@@ -598,6 +601,12 @@
 			},
 		},
 		computed: {
+			paramsCertificate(){
+				if(this.selectedEvent == "Paper"){
+					return this.paramsPaper;
+				}
+				return this.paramsEvent;
+			},
 			urlPreview() {
 				return "<?= base_url('admin/setting/preview_cert'); ?>/" + this.selectedEvent;
 			},

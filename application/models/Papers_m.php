@@ -251,4 +251,26 @@ class Papers_m extends MY_Model
 	{
 		return $this->hasOne("Category_paper_m", "id", "category");
 	}
+
+	public function exportCertificate($data, $id = "Paper")
+	{
+		$this->load->model(['Settings_m','Transaction_m']);
+		require_once APPPATH . "third_party/phpqrcode/qrlib.php";
+		if (file_exists(APPPATH . "uploads/cert_template/$id.txt")) {
+			$data['qr'] = $data['id_paper'];
+			$domInvoice = new Dompdf\Dompdf();
+			$propery = json_decode(Settings_m::getSetting("config_cert_$id"), true);
+			$html = $this->load->view("template/certificate", [
+				'image' => file_get_contents(APPPATH . "uploads/cert_template/$id.txt"),
+				'property' => $propery,
+				'data' => $data
+			], true);
+			$domInvoice->setPaper("a4", "landscape");
+			$domInvoice->loadHtml($html);
+			$domInvoice->render();
+			return $domInvoice;
+		} else {
+			throw new ErrorException("Template of Certificate not found !");
+		}
+	}
 }
