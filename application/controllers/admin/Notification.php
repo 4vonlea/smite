@@ -71,7 +71,7 @@ class Notification extends Admin_Controller
 			];
 			$member['status_member'] = "Peserta";
 			$cert = $this->Event_m->exportCertificate($member, $event['id'])->output();
-			$status = $this->Notification_m->sendMessageWithAttachment($member['email'], "Certificate of Event", "Thank you for your participation <br/> Below is your certificate of '" . $event['name'] . "'", $cert, "CERTIFICATE.pdf");
+			$status = $this->Notification_m->sendMessageWithAttachment($member['email'], "Certificate of '" . $event['name'] . "'", "<p>Dear Participant</p><p>Thank you for joining us on our event. We are so glad to meet and deliver you the recent knowledge and best practice for our profession.</p><p>To appreciate your presence, here we send you <strong>certificate of attendance for our event: '" . $event['name'] . "'</strong>. We wish to meet you again in the next event</p><p>Best Regards,</p><p>Committee</p>" . $event['name'] . "'", $cert, "CERTIFICATE.pdf");
 			$this->output
 				->set_content_type("application/json")
 				->_display(json_encode(['status' => true, 'log' => $status]));
