@@ -167,7 +167,10 @@ class Member extends Admin_Controller
 				$member['id'] = $member['m_id'];
 				$member['status_member'] = "Peserta";
 				$cert = $this->Event_m->exportCertificate($member, $id)->output();
-				$status = $this->Notification_m->sendMessageWithAttachment($member['email'], "Certificate of Event", "Thank you for your participation <br/> Below is your certificate of '" . $member['event_name'] . "'", $cert, "CERTIFICATE.pdf");
+				$message = $this->load->view("template/email/send_certificate_event",[
+					'event_name'=>$member['event_name']
+				]);
+				$status = $this->Notification_m->sendMessageWithAttachment($member['email'], "Certificate of Event",$message, $cert, "CERTIFICATE.pdf");
 				$statusKirim = (isset($status['labelIds']) && in_array("SENT",$status['labelIds']));
 				$this->output
 					->set_content_type("application/json")
