@@ -140,7 +140,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                     </div>
                 </div>
                 <div class="row">
-                    <a href="https://live.aomc-pinbanjarmasin2022.com/login" class="btn-main btn-lg" style="background-color:#00fdff; color:black;">-------------Click here to Join Event-------------</a><br>
+                    <a href="#" class="btn-main btn-lg" style="background-color:#00fdff; color:black;">Certificate will be sent through email start from 20 June and Recorded video will be available at 27 June 2022</a><br>
                 </div>
             </div>
     </div>

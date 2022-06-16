@@ -97,7 +97,7 @@
                                     </div>
                                         <hr>
                                         <div class="container">                                        
-                                        <a href="https://live.aomc-pinbanjarmasin2022.com/login" class="btn-main btn-lg" style="background-color:#00fdff; color:black;">-----------------------Click here to Join Event-------------------------</a><br>
+                                        <a href="#" class="btn-main btn-lg" style="background-color:#00fdff; color:black;">Certificate will be sent through email start from 20 June and Recorded video will be available at 27 June 2022</a><br>
                                         <hr>    
                                     <a href="<?= base_url('themes/gigaland'); ?>/images/20220528FA.pdf" target="blank" class="btn-main btn-lg" style="background-color:#F4AD39; color:black;">Download FINAL Announcement here (Updated on 28 May)</a>&nbsp;<br><br>
                                     <a href="https://drive.google.com/drive/folders/1IvTWTiAPzxrXhJGkZWHd0nmUwNaDfSaU?usp=sharing" target="blank" class="btn-main btn-lg" style="background-color:#F4AD39; color:black;">Download "PIN Category: Paper Competition Announcement" (Release on 15 May)</a>&nbsp;<br><br>
