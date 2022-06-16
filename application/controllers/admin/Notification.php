@@ -73,16 +73,20 @@ class Notification extends Admin_Controller
 			if($this->input->post("isPaper")){
 				$member = $this->input->post();
 				$cert = $this->Papers_m->exportCertificate($member)->output();
-				$status = $this->Notification_m->sendMessageWithAttachment($member['email'], "Certificate of Paper", "Thank you for your participation <br/> Below is your certificate of Paper	", $cert, "CERTIFICATE.pdf");
+				$message = $this->load->view("template/email/send_certificate_event",[
+					'event_name'=>'Manuscript'
+				]);
+				$status = $this->Notification_m->sendMessageWithAttachment($member['email'], "Certificate of Paper",$message, $cert, "CERTIFICATE.pdf");
 			}else{
 				$member = $this->input->post();
 				$event = [
 					'id' => $member['event_id'],
-					'name' => $member['event_name']
+					'event_name' => $member['event_name']
 				];
 				$member['status_member'] = "Peserta";
 				$cert = $this->Event_m->exportCertificate($member, $event['id'])->output();
-				$status = $this->Notification_m->sendMessageWithAttachment($member['email'], "Certificate of '" . $event['name'] . "'", "<p>Dear Participant</p><p>Thank you for joining us on our event. We are so glad to meet and deliver you the recent knowledge and best practice for our profession.</p><p>To appreciate your presence, here we send you <strong>certificate of attendance for our event: '" . $event['name'] . "'</strong>. We wish to meet you again in the next event</p><p>Best Regards,</p><p>Committee</p>" . $event['name'] . "'", $cert, "CERTIFICATE.pdf");
+				$message = $this->load->view("template/email/send_certificate_event",$event);
+				$status = $this->Notification_m->sendMessageWithAttachment($member['email'], "Certificate of '" . $event['name'] . "'",$message, $cert, "CERTIFICATE.pdf");
 			}
 			$this->output
 				->set_content_type("application/json")

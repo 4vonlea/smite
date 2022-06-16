@@ -171,7 +171,7 @@ class Site extends MY_Controller
             if($user->last_reset == null || $since_start->i > 30){
                 $data['password'] = rand(10000, 99999);
                 $success = $this->AccountM->update(['password' => password_hash($data['password'], PASSWORD_DEFAULT),'last_reset'=>date("Y-m-d H:i:s")], ['username' => $username], false);
-                $email_message = $this->load->view('template/success_forget_password', $data, true);
+                $email_message = $this->load->view('template/email/success_forget_password', $data, true);
                 $this->Notification_m->sendMessage($username, 'Reset password account', $email_message);
                 $this->session->set_flashdata('message', '<div class="col-lg-12 alert alert-success"><center> please check your email for your new password </center>
                 </div>');

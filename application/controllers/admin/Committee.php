@@ -106,7 +106,10 @@ class Committee extends Admin_Controller
 		$commiteMember = $com->committee;
 		if($commiteMember->email){
 			$cert = $com->exportCertificate()->output();
-			$status = $this->Notification_m->sendMessageWithAttachment($commiteMember->email, "Certificate of Event", "Thank you for your participation <br/> Below is your certificate of '" . $com->event->name."'", $cert, "CERTIFICATE.pdf");
+			$message = $this->load->view("template/email/send_certificate_event",[
+				'event_name'=>$com->event->name
+			]);
+			$status = $this->Notification_m->sendMessageWithAttachment($commiteMember->email, "Certificate of Event", $message, $cert, "CERTIFICATE.pdf");
 			if($status['status']){
 				$this->session->set_flashdata('message', 'Certificate sent successfully to '.$commiteMember->email);
 			redirect(base_url("admin/committee"));
