@@ -28,6 +28,7 @@ class Committee extends Admin_Controller
 		if ($this->input->method() != 'post')
 			show_404("Page Not Found !");
 		$this->load->model(['Committee_m', 'Committee_attributes_m']);
+		$message = "";
 
 		$post = $this->input->post();
 		$message = "";

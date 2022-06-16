@@ -59,8 +59,8 @@
                                             <!--<a href="#" class="btn-main btn-lg" style="background-color:#F4AD39; color:black;">This Site Under Maintenance</a>&nbsp;-->
 
                                             <a href="<?= base_url('site/home'); ?>" class="btn-main btn-sm" style="background-color:#F4AD39; color:black;">Visit our Website here</a>&nbsp;
-                                            <a href="<?= base_url('member/register'); ?>" class="btn-main btn-sm" style="background-color:#F4AD39; color:black;">Click here For Individual Registration</a>&nbsp;
-                                            <a href="<?= base_url('member/register/group'); ?>" class="btn-main btn-sm" style="background-color:#F4AD39; color:black;">Click here for Group Registration</a>&nbsp;
+                                            <a href="<?= base_url('themes/gigaland'); ?>/images/220615 - AOMC Poster Winner.pdf" class="btn-main btn-sm" style="background-color:#d8e08e; color:black;">Download AOMC 2022 Best E-poster</a>&nbsp;
+                                            <a href="<?= base_url('themes/gigaland'); ?>/images/220615 - Program Book AOMC 2022.pdf" class="btn-main btn-sm" style="background-color:#d8e08e; color:black;">Download AOMC 2022 Program book</a>&nbsp;
 
 										<div class="spacer-10"></div>
 										<div class="spacer-10"></div>
@@ -69,7 +69,7 @@
                                         </div>
                                         <hr>
                                         <div class="container">                                        
-                                        <a href="https://live.aomc-pinbanjarmasin2022.com/login" class="btn-main btn-lg" style="background-color:#00fdff; color:black;">-------------Click here to Join Event-------------------------</a><br>
+                                        <p style="color:#F4AD39; text-shadow: 3px 2px 1px black; font-size: 25px;">Certificate will be sent through email start from 20 June and Recorded video will be available at 27 June 2022</p>
                                         <hr>    
                                           	<div class="row align-items-center wow fadeInRight" data-wow-delay=".5s">
                                                 <div class="col-lg-6">
