@@ -49,14 +49,20 @@ class Notification extends Admin_Controller
 		if ($this->input->method() != 'post')
 			show_404("Page Not Found !");
 
-		$this->load->model(['Event_m', 'Settings_m']);
+		$this->load->model(['Event_m', 'Settings_m','Papers_m']);
 		if ($preparing) {
 			$id = $this->input->post("id");
 			if (Settings_m::getSetting("config_cert_$id") != "" && file_exists(APPPATH . "uploads/cert_template/$id.txt")) {
-				$result = $this->Event_m->getParticipant()->where('t.id', $id)->get();
+				if($id == "Paper"){
+					$result = $this->Papers_m->certificateReciver();
+
+				}else{
+					$result = $this->Event_m->getParticipant()->where('t.id', $id)->get()->result_array();
+				}
 				$this->output
 					->set_content_type("application/json")
-					->_display(json_encode(['status' => true, 'data' => $result->result_array()]));
+					->_display(json_encode(['status' => true, 'data' => $result]));
+
 			} else {
 				$this->output
 					->set_content_type("application/json")
@@ -64,14 +70,20 @@ class Notification extends Admin_Controller
 			}
 		} else {
 			$this->load->model("Notification_m");
-			$member = $this->input->post();
-			$event = [
-				'id' => $member['event_id'],
-				'name' => $member['event_name']
-			];
-			$member['status_member'] = "Peserta";
-			$cert = $this->Event_m->exportCertificate($member, $event['id'])->output();
-			$status = $this->Notification_m->sendMessageWithAttachment($member['email'], "Certificate of Event", "Thank you for your participation <br/> Below is your certificate of '" . $event['name'] . "'", $cert, "CERTIFICATE.pdf");
+			if($this->input->post("isPaper")){
+				$member = $this->input->post();
+				$cert = $this->Papers_m->exportCertificate($member)->output();
+				$status = $this->Notification_m->sendMessageWithAttachment($member['email'], "Certificate of Paper", "Thank you for your participation <br/> Below is your certificate of Paper	", $cert, "CERTIFICATE.pdf");
+			}else{
+				$member = $this->input->post();
+				$event = [
+					'id' => $member['event_id'],
+					'name' => $member['event_name']
+				];
+				$member['status_member'] = "Peserta";
+				$cert = $this->Event_m->exportCertificate($member, $event['id'])->output();
+				$status = $this->Notification_m->sendMessageWithAttachment($member['email'], "Certificate of Event", "Thank you for your participation <br/> Below is your certificate of '" . $event['name'] . "'", $cert, "CERTIFICATE.pdf");
+			}
 			$this->output
 				->set_content_type("application/json")
 				->_display(json_encode(['status' => true, 'log' => $status]));
