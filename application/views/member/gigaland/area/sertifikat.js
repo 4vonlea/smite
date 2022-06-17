@@ -25,7 +25,7 @@ export default Vue.component("PageSertifikat",{
                             <h5 class="card-title">{{ event.name }}</h5>
                             <p class="card-text">Thank you for your participation. Please download your certificate by pressing the button below</p>
                             <button disabled v-if="klikKuesioner == 0 && event.hasCertificate" class="btn btn-default">Download Certificate</button>
-                            <span v-if="!event.hasCertificate">Not Yet Available</span>
+                            <span class="badge badge-danger bg-danger" v-if="!event.hasCertificate">Not Yet Available</span>
                             <a v-if="klikKuesioner == 1 && event.hasCertificate" class="btn btn-primary" :href="'<?=base_url('member/area/certificate');?>/'+event.id+'/'+user.id" target="_blank">Download Certificate</a>
                         </div>
                     </div>
