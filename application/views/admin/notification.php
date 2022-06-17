@@ -234,6 +234,7 @@ $this->layout->begin_head();
 				</table>
 			</div>
 			<div class="modal-footer">
+				<button @click="retryPooling" v-if="pooling.data.length == 0 && pooling.failedList.length > 0" class="btn btn-secondary">Retry</button>
 				<button v-if="pooling.data.length == 0" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 			</div>
 		</div>
@@ -282,7 +283,8 @@ $this->layout->begin_head();
 				size: 0,
 				success: 0,
 				fail: 0,
-				processed: 0
+				processed: 0,
+				failedList:[]
 			},
 			files: [],
 			listMember: <?= json_encode($memberList); ?>,
@@ -423,7 +425,7 @@ $this->layout->begin_head();
 							app.pooling.title = "Send Certificate";
 							app.pooling.url = "<?= base_url('admin/notification/send_material'); ?>";
 							app.pooling.data = res.data;
-							app.poolingStart();
+							app.poolingStart(false);
 						} else
 							Swal.fire("Failed", res.message, "error");
 					}).fail(function(xhr) {
@@ -435,12 +437,22 @@ $this->layout->begin_head();
 						app.sendingMaterial = false;
 					});
 			},
-			poolingStart() {
+			retryPooling(){
+				this.pooling.data = JSON.parse(JSON.stringify(this.pooling.failedList));
+				this.pooling.failedList = [];
+				this.poolingStart(true);
+			},
+			poolingStart(isRetry) {
 				$("#modal-pooling").modal("show");
-				this.pooling.size = app.pooling.data.length;
-				this.pooling.success = 0;
-				this.pooling.fail = 0;
-				this.pooling.processed = 0;
+				if(isRetry){
+					this.pooling.processed -= this.pooling.fail;
+					this.pooling.fail = 0;
+				}else{
+					this.pooling.size = app.pooling.data.length;
+					this.pooling.success = 0;
+					this.pooling.fail = 0;
+					this.pooling.processed = 0;
+				}
 				this.pooling.style = {
 					"width": "0%"
 				};
@@ -450,9 +462,11 @@ $this->layout->begin_head();
 							app.pooling.success++;
 						} else {
 							app.pooling.fail++;
+							app.pooling.failedList.push(data);
 						}
 					}).fail(function(xhr) {
 						app.pooling.fail++;
+						app.pooling.failedList.push(data);
 					}).always(function() {
 						app.pooling.processed++;
 						var percent = (app.pooling.processed / app.pooling.size) * 100;
@@ -489,7 +503,8 @@ $this->layout->begin_head();
 							app.pooling.title = "Send Certificate";
 							app.pooling.url = "<?= base_url('admin/notification/send_cert'); ?>";
 							app.pooling.data = res.data;
-							app.poolingStart();
+							app.pooling.failedList = [];
+							app.poolingStart(false);
 						} else
 							Swal.fire("Failed", res.message, "error");
 					}).fail(function(xhr) {
@@ -513,7 +528,8 @@ $this->layout->begin_head();
 							app.pooling.title = "Send Certificate Committee";
 							app.pooling.url = "<?= base_url('admin/notification/send_cert_com'); ?>";
 							app.pooling.data = res.data;
-							app.poolingStart();
+							app.pooling.failedList = [];
+							app.poolingStart(false);
 						} else
 							Swal.fire("Failed", res.message, "error");
 					}).fail(function(xhr) {
@@ -536,7 +552,8 @@ $this->layout->begin_head();
 							app.pooling.title = "Send Mass Notification";
 							app.pooling.url = "<?= base_url('admin/notification/send_message'); ?>";
 							app.pooling.data = res.data;
-							app.poolingStart();
+							app.pooling.failedList = [];
+							app.poolingStart(false);
 						} else
 							Swal.fire("Success", "Message Sent !", "success");
 					}).fail(function(xhr) {

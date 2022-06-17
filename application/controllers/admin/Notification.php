@@ -70,6 +70,7 @@ class Notification extends Admin_Controller
 			}
 		} else {
 			$this->load->model("Notification_m");
+			$status = [];
 			if($this->input->post("isPaper")){
 				$member = $this->input->post();
 				$cert = $this->Papers_m->exportCertificate($member)->output();
@@ -86,11 +87,12 @@ class Notification extends Admin_Controller
 				$member['status_member'] = "Peserta";
 				$cert = $this->Event_m->exportCertificate($member, $event['id'])->output();
 				$message = $this->load->view("template/email/send_certificate_event",$event,true);
-				$status = $this->Notification_m->sendMessageWithAttachment($member['email'], "Certificate of '" . $event['name'] . "'",$message, $cert, "CERTIFICATE.pdf");
+				$status = $this->Notification_m->sendMessageWithAttachment($member['email'], "Certificate of '" . $event['event_name'] . "'",$message, $cert, "CERTIFICATE.pdf");
 			}
+			
 			$this->output
 				->set_content_type("application/json")
-				->_display(json_encode(['status' => true, 'log' => $status]));
+				->_display(json_encode(['status' => isset($status['labelIds']) && in_array("SENT",$status['labelIds']), 'log' => $status]));
 		}
 	}
 
@@ -123,7 +125,7 @@ class Notification extends Admin_Controller
 			$status = $this->Notification_m->sendMessageWithAttachment($post['email'], "Certificate of Event", "Thank you for your participation <br/> Below is your certificate of '" . $post['event_name'] . "'", $cert, "CERTIFICATE.pdf");
 			$this->output
 				->set_content_type("application/json")
-				->_display(json_encode(['status' => true, 'log' => $status]));
+				->_display(json_encode(['status' => isset($status['labelIds']) && in_array("SENT",$status['labelIds']), 'log' => $status]));
 		}
 	}
 
@@ -162,7 +164,7 @@ class Notification extends Admin_Controller
 			$status = $this->Notification_m->sendMessageWithAttachment($member['email'], "Material of Event", "Thank you for your participation <br/> Below is your material of " . $event['name'], $material_file);
 			$this->output
 				->set_content_type("application/json")
-				->_display(json_encode(['status' => true, 'log' => $status]));
+				->_display(json_encode(['status' => isset($status['labelIds']) && in_array("SENT",$status['labelIds']), 'log' => $status]));
 		}
 	}
 
