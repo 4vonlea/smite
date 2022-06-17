@@ -58,6 +58,18 @@ class Setting extends Admin_Controller
 			$return['property'] = json_decode($config, true);
 			if ($return['property'] == null)
 				$return['property'] = [];
+			if(file_exists(APPPATH . "uploads/cert_template/second_page_$id.txt")){
+				$return['secondPage'] = [
+					'filename'=>"Second Page.jpg",
+					'base64'=>file_get_contents(APPPATH . "uploads/cert_template/second_page_$id.txt")
+				];
+
+			}else{
+				$return['secondPage'] = [
+					'filename'=>"Select image file..",
+					'base64'=>null
+				];
+			}
 			$return['image'] = file_get_contents(APPPATH . "uploads/cert_template/$id.txt");
 			$return['base64Image'] = $return['image'];
 			$this->output
@@ -71,18 +83,14 @@ class Setting extends Admin_Controller
 	}
 	public function save_cert()
 	{
-		//		$data = $_POST['base64Image'];
-		//		list($type, $data) = explode(';', $data);
-		//		list(, $data)      = explode(',', $data);
-		//		$data = base64_decode($data);
-		//		list(,$ext) = explode(".",$this->input->post('fileName'));
-		//		file_put_contents(APPPATH."uploads/cert_template/$_POST[event].".$ext, $data);
 		file_put_contents(APPPATH . "uploads/cert_template/$_POST[event].txt", $_POST['base64Image']);
-		//		Settings_m::saveSetting("config_cert_img_$_POST[event]",  $_POST['base64Image']);
-
 		$property =  $this->input->post('property');
 		if (!$property)
 			$property = [];
+		$secondPage = $this->input->post("secondPage");
+		if(isset($secondPage['base64']) && $secondPage['base64'] != null){
+			file_put_contents(APPPATH . "uploads/cert_template/second_page_$_POST[event].txt", $_POST['secondPage']['base64']);
+		}
 		Settings_m::saveSetting("config_cert_$_POST[event]", $property);
 
 		$this->output
