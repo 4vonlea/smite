@@ -169,7 +169,7 @@ class Member extends Admin_Controller
 				$cert = $this->Event_m->exportCertificate($member, $id)->output();
 				$message = $this->load->view("template/email/send_certificate_event",[
 					'event_name'=>$member['event_name']
-				]);
+				],true);
 				$status = $this->Notification_m->sendMessageWithAttachment($member['email'], "Certificate of Event",$message, $cert, "CERTIFICATE.pdf");
 				$statusKirim = (isset($status['labelIds']) && in_array("SENT",$status['labelIds']));
 				$this->output
