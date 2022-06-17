@@ -34,7 +34,7 @@ export default Vue.component("PageWebminar", {
                                     <hr/>
                                     <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
                                         <li v-for="(d,i) in groupDate(event.special_link)" class="nav-item">
-                                            <a :class="{active: d.active}" class="nav-link" data-toggle="pill" :href="'#tabs-'+event.id+'-'+d.index" role="tab" aria-controls="pills-home" aria-selected="true">
+                                            <a :class="{active: d.active}" class="nav-link" data-bs-toggle="pill" :data-bs-target="'#tabs-'+event.id+'-'+d.index" :href="'#tabs-'+event.id+'-'+d.index" role="tab" aria-controls="pills-home" aria-selected="true">
                                                 {{ i }}
                                             </a>
                                         </li>
