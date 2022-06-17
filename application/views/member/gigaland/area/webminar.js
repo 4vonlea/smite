@@ -69,7 +69,7 @@ export default Vue.component("PageWebminar", {
                                                     <button :disabled="(link.finishWatch == '0' && link.advertisement) || link.url == '#' || link.timeReady " v-on:click="join(link.url)" class="btn btn-primary btn-block">
                                                     {{ link.showingClass == 'badge badge-success' ? 'Live Now' : 'Join Now' }}
                                                     </button>
-                                                    <button v-show="link.urlRecording" @click="showRecording(link)" class="btn btn-primary btn-block">
+                                                    <button v-show="link.urlRecording" @click="showRecording(link)" class="btn btn-primary bg-primary btn-block">
                                                     View Recordings
                                                     </button>
                                                     <button v-for="(ads,index) in link.advertisement" class="btn btn-block" :class="[ads.watch == '1' ? 'btn-primary':'btn-default']" v-on:click="showAds(index,link,indSpl)">
