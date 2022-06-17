@@ -21,7 +21,7 @@ export default Vue.component("PageSertifikat",{
                     </div>
                     -->
                     <div class="card-group col-md-12">
-                        <div v-for="event in events" :key="event.id" class="card w-50">
+                        <div v-for="event in events" :key="event.id" class="card">
                             <div class="card-body text-center">
                                 <h5 class="card-title">{{ event.name }}</h5>
                                 <p class="card-text">Thank you for your participation. Please download your certificate by pressing the button below</p>
