@@ -75,7 +75,7 @@ class Notification extends Admin_Controller
 				$cert = $this->Papers_m->exportCertificate($member)->output();
 				$message = $this->load->view("template/email/send_certificate_event",[
 					'event_name'=>'Manuscript'
-				]);
+				],true);
 				$status = $this->Notification_m->sendMessageWithAttachment($member['email'], "Certificate of Paper",$message, $cert, "CERTIFICATE.pdf");
 			}else{
 				$member = $this->input->post();
@@ -85,7 +85,7 @@ class Notification extends Admin_Controller
 				];
 				$member['status_member'] = "Peserta";
 				$cert = $this->Event_m->exportCertificate($member, $event['id'])->output();
-				$message = $this->load->view("template/email/send_certificate_event",$event);
+				$message = $this->load->view("template/email/send_certificate_event",$event,true);
 				$status = $this->Notification_m->sendMessageWithAttachment($member['email'], "Certificate of '" . $event['name'] . "'",$message, $cert, "CERTIFICATE.pdf");
 			}
 			$this->output
