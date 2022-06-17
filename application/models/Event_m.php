@@ -265,6 +265,7 @@ class Event_m extends MY_Model
 							]
 						]
 					],
+					'hasCertificate'=>file_exists(APPPATH . "uploads/cert_template/$row[id_event].txt"),
 					'memberStatus' => [$row['condition']]
 				];
 				$tempPricing = $row['name_pricing'];
