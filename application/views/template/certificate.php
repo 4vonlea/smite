@@ -10,9 +10,19 @@ if (isset($data['qr'])) {
 	$qr = base64_encode(ob_get_clean());
 }
 header('Content-Type: text/html');
-
-
 ?>
+<style>
+	.page-break{
+		page-break-before: always;
+	}
+	.img-fit {
+		padding: 0;
+		display: block;
+		margin: 0 auto;
+		max-height: 100%;
+		max-width: 100%;
+	}
+</style>
 <img src="<?= $image; ?>" style="width: 100%;position: absolute;top:-1.3%"/>
 <?php if(isset($property)) foreach ($property as $i=>$row): ?>
 	<div
@@ -25,3 +35,8 @@ header('Content-Type: text/html');
 		<?php endif;?>
 	</div>
 <?php endforeach; ?>
+<?php if(isset($secondPage) && $secondPage != null):?>
+<div class="page-break" style="text-align:center">
+	<img class="img-fit" src="<?=$secondPage;?>" />
+</div>
+<?php endif;?>
