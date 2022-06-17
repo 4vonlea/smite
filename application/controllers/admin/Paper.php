@@ -439,7 +439,7 @@ class Paper extends Admin_Controller
 		$data = $this->Papers_m->find()->where(['papers.id'=>$id])
 			->join("members","members.id = member_id")
 			->join("settings st",'st.name = "format_id_paper"','left')
-			->select("CONCAT(st.value,LPAD(papers.id,3,0)) as id_paper,fullname,email,title,'Participant' as status")
+			->select("CONCAT(st.value,LPAD(papers.id,3,0)) as id_paper,fullname,type_presence,email,title,'Participant' as status")
 			->get()->row_array();
 		$this->Papers_m->exportCertificate($data)->stream('preview_cert.pdf', array('Attachment' => 0));
 	}

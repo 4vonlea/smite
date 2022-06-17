@@ -62,7 +62,6 @@ class Notification extends Admin_Controller
 				$this->output
 					->set_content_type("application/json")
 					->_display(json_encode(['status' => true, 'data' => $result]));
-
 			} else {
 				$this->output
 					->set_content_type("application/json")
