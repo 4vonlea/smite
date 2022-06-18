@@ -13,15 +13,17 @@ header('Content-Type: text/html');
 ?>
 <style>
 	.page-break{
-		page-break-before: always;
+		page-break-before: auto;
 	}
 	.img-fit {
+		object-fit: cover;
 		padding: 0;
 		display: block;
 		margin: 0 auto;
 		max-height: 100%;
 		max-width: 100%;
-	}
+		width: 100%;
+  	}
 </style>
 <img src="<?= $image; ?>" style="width: 100%;position: absolute;top:-1.3%"/>
 <?php if(isset($property)) foreach ($property as $i=>$row): ?>
