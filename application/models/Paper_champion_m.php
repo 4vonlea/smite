@@ -29,6 +29,7 @@ class Paper_champion_m extends MY_Model
                 'id_paper' => 'CONCAT(st.value,LPAD(papers.id,3,0))',
                 'category_name' => 'category_paper.name',
                 'title',
+                'paper_id',
                 'fullname',
                 'description',
                 'phone',

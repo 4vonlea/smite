@@ -93,6 +93,9 @@ $this->layout->end_head();
                             <button class="btn btn-danger btn-sm" @click="deletePaper(props.row,$event)">
                                 <span class="fa fa-trash"></span> Delete
                             </button>
+                            <button class="btn btn-primary btn-sm" @click="editPaper(props.row)">
+                                <span class="fa fa-edit"></span> Edit
+                            </button>
                         </div>
                     </template>
                 </datagrid>
@@ -143,6 +146,7 @@ $this->layout->end_head();
             categoryPaper: <?= json_encode($categoryPaper); ?>,
             filteredPaper: "",
             form:{
+                id:'',
                 title:'',
                 paper_id:'',
                 description:'',
@@ -152,14 +156,22 @@ $this->layout->end_head();
         methods: {
             onAdd() {
                 this.form = {
+                    id:'',
                     title:'',
                     paper_id:'',
                     description:'',
                 };
                 $("#modal-add").modal("show");
             },
-            detail(props, $event) {
-
+            editPaper(props) {
+                console.log(props);
+                this.form = {
+                    id:props.t_id,
+                    title:props.title,
+                    paper_id:props.paper_id,
+                    description:props.description,
+                };
+                $("#modal-add").modal("show");
             },
             deletePaper(row, $event) {
                 var btn = event.currentTarget;

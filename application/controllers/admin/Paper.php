@@ -399,11 +399,13 @@ class Paper extends Admin_Controller
 
 	public function add_champion(){
 		$this->load->model(['Paper_champion_m']);
-		$this->Paper_champion_m->find()->where([
-			'paper_id'=>$this->input->post("paper_id"),
-			'description'=>$this->input->post("description"),
-		]);
-		if($this->Paper_champion_m->count() == 0){
+		$id = $this->input->post("id");
+		if($id){
+			$result = $this->Paper_champion_m->update([
+				'paper_id'=>$this->input->post("paper_id"),
+				'description'=>$this->input->post("description"),
+			],['id'=>$id]);
+		}else{
 			$result = $this->Paper_champion_m->insert([
 				'paper_id'=>$this->input->post("paper_id"),
 				'description'=>$this->input->post("description"),
