@@ -12,6 +12,9 @@ if (isset($data['qr'])) {
 header('Content-Type: text/html');
 ?>
 <style>
+	@page {
+		size: a4 landscape;
+	}
 	.page-break{
 		page-break-after: always;
 		width: 100%;
