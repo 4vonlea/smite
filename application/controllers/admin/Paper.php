@@ -444,5 +444,38 @@ class Paper extends Admin_Controller
 		$this->Papers_m->exportCertificate($data)->stream('preview_cert.pdf', array('Attachment' => 0));
 	}
 
+	public function send_certificate()
+	{
+		if ($this->input->post()) {
+			$this->load->model(["Notification_m", "Papers_m"]);
+			$id = $this->input->post("id");
+			$member = $this->input->post();
+			if (file_exists(APPPATH . "uploads/cert_template/Paper.txt")) {
+				$data = $this->Papers_m->find()->where(['papers.id'=>$id])
+					->join("members","members.id = member_id")
+					->join("settings st",'st.name = "format_id_paper"','left')
+					->select("CONCAT(st.value,LPAD(papers.id,3,0)) as id_paper,fullname,type_presence,email,title,'Participant' as status")
+					->get()->row_array();
+				
+				$cert = $this->Papers_m->exportCertificate($data)->output();;
+				$message = $this->load->view("template/email/send_certificate_paper",[
+					'event_name'=>"Manuscript"
+				],true);
+				$status = $this->Notification_m->sendMessageWithAttachment($data['email'], "Certificate of Manuscript",$message, $cert, "CERTIFICATE.pdf");
+				$statusKirim = (isset($status['labelIds']) && in_array("SENT",$status['labelIds']));
+				$this->output
+					->set_content_type("application/json")
+					->_display(json_encode([
+						'status'=>$statusKirim,
+						'data'=>$status,
+					]));
+			} else {
+				$this->output
+					->set_content_type("application/json")
+					->_display(json_encode(['status' => false, 'message' => 'Template Certificate is not found ! please set on Setting']));
+			}
+		}
+	}
+
 
 }
