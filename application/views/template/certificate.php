@@ -29,22 +29,20 @@ header('Content-Type: text/html');
 		width: 100%;
   	}
 </style>
-<div class="page-break">
-<img src="<?= $image; ?>" style="width: 100%;max-height:100%;top:-1.3%"/>
-<?php if(isset($property)) foreach ($property as $i=>$row): ?>
-	<div
-		style="text-align:center;font-size:<?= $row['style']['fontSize']; ?>px ;font-weight:<?= $row['style']['fontWeight']; ?>;position: absolute;z-index: <?=$i;?>;width:<?= $row['style']['width']; ?>%;top:<?= $row['style']['top']; ?>%;left: <?= $row['style']['left']; ?>%">
-		<?php if($row['name'] == 'qr_code'):?>
-			<img
-				style="width:<?= $row['style']['width']; ?>%;position: relative" src="data:image/png;base64,<?= $qr; ?>"/>
-		<?php else: ?>
-			<?= $data[$row['name']]; ?>
-		<?php endif;?>
-	</div>
-<?php endforeach; ?>
-<div>
+<div class="page-break" style="background:url(<?= $image; ?>);background-size:cover;">
+	<?php if(isset($property)) foreach ($property as $i=>$row): ?>
+		<div
+			style="text-align:center;font-size:<?= $row['style']['fontSize']; ?>px ;font-weight:<?= $row['style']['fontWeight']; ?>;position: absolute;z-index: <?=$i;?>;width:<?= $row['style']['width']; ?>%;top:<?= $row['style']['top']; ?>%;left: <?= $row['style']['left']; ?>%">
+			<?php if($row['name'] == 'qr_code'):?>
+				<img
+					style="width:<?= $row['style']['width']; ?>%;position: relative" src="data:image/png;base64,<?= $qr; ?>"/>
+			<?php else: ?>
+				<?= $data[$row['name']]; ?>
+			<?php endif;?>
+		</div>
+	<?php endforeach; ?>
+</div>
 <?php if(isset($secondPage) && $secondPage != null):?>
-<div style="text-align:center">
-	<img class="img-fit" src="<?=$secondPage;?>" />
+<div style="height:100%;background:url(<?= $secondPage; ?>);background-size:cover;">
 </div>
 <?php endif;?>
