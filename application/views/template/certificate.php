@@ -18,6 +18,7 @@ header('Content-Type: text/html');
 	.page-break{
 		page-break-after: always;
 		height: 100%;
+		width: 100%;
 	}
 	.img-fit {
 		/* object-fit: cover; */
