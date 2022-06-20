@@ -479,5 +479,39 @@ class Paper extends Admin_Controller
 		}
 	}
 
+	public function preview_cert_champion($id)
+	{
+		$this->load->model("Paper_champion_m");
+		$data = $this->Paper_champion_m->champion($id);
+		$this->Papers_m->exportCertificate($data)->stream('preview_cert.pdf', array('Attachment' => 0));
+	}
+
+	public function send_certificate_champion($id)
+	{
+		if ($this->input->post()) {
+			$this->load->model(["Notification_m", "Papers_m","Paper_champion_m"]);
+			$id = $this->input->post("id");
+			if (file_exists(APPPATH . "uploads/cert_template/Paper.txt")) {
+				$data = $this->Paper_champion_m->champion($id);				
+				$cert = $this->Papers_m->exportCertificate($data)->output();;
+				$message = $this->load->view("template/email/send_certificate_paper",[
+					'event_name'=>"Manuscript"
+				],true);
+				$status = $this->Notification_m->sendMessageWithAttachment($data['email'], "Certificate of Manuscript",$message, $cert, "CERTIFICATE.pdf");
+				$statusKirim = (isset($status['labelIds']) && in_array("SENT",$status['labelIds']));
+				$this->output
+					->set_content_type("application/json")
+					->_display(json_encode([
+						'status'=>$statusKirim,
+						'data'=>$status,
+					]));
+			} else {
+				$this->output
+					->set_content_type("application/json")
+					->_display(json_encode(['status' => false, 'message' => 'Template Certificate is not found ! please set on Setting']));
+			}
+		}
+	}
+
 
 }

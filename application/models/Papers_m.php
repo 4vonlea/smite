@@ -271,6 +271,7 @@ class Papers_m extends MY_Model
 		}
 		return $return;
 	}
+	
 	public function exportCertificate($data, $id = "Paper")
 	{
 		$this->load->model(['Settings_m','Transaction_m']);

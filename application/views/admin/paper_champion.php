@@ -118,6 +118,10 @@ $this->layout->end_head();
                 Paper Title
             </label>
             <input type="text" class="form-control autocomplete" placeholder="Please type a paper title or participant name" v-model="form.title" />
+            <hr/>
+            <a class="btn btn-sm btn-primary" target="_blank" :href="'<?=base_url('admin/paper/preview_cert_champion');?>/'+props.row.t_id">Preview Certificate</a>
+            <button @click="sendCertificate(props.row,$event)" class="btn btn-sm btn-primary">Send Certificate</button>
+
         </div>
         <div class="form-group">
             <label class="control-label">
@@ -226,7 +230,27 @@ $this->layout->end_head();
                 }).fail((xhr) => {
 
                 });
-            }
+            },
+            sendCertificate(row,evt){
+				let dom = evt.target;
+				var inH = dom.innerHTML;
+				dom.innerHTML = "<span class='fa fa-spin fa-spinner'></span>";
+
+				$.post("<?=base_url();?>/admin/paper/send_certificate_champion",{id:row.t_id},(res)=>{
+					if(res.status){
+						Swal.fire("Success", "Paper certificate sent successfully", "success");
+					}else{
+						if(res.message)
+							Swal.fire("Failed", res.message, "error");
+						else
+							Swal.fire("Failed","Failed to sent certificate", "error");
+					}
+				}).always(() => {
+					dom.innerHTML = inH;
+				}).fail(()=>{
+					Swal.fire('Fail', "Failed to load data", 'error');
+				})
+			}
         }
     });
     $('.autocomplete').easyAutocomplete({
