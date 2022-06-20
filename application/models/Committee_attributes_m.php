@@ -39,7 +39,9 @@ class Committee_attributes_m extends My_model
 			$html = $this->load->view("template/certificate", [
 				'image' => file_get_contents(APPPATH . "uploads/cert_template/$event->id.txt"),
 				'property' => $propery,
-				'data' => $member
+				'data' => $member,
+				'secondPage' => file_exists(APPPATH . "uploads/cert_template/second_page_$id.txt") ? 
+					file_get_contents(APPPATH . "uploads/cert_template/second_page_$id.txt") : ""
 			], true);
 			$domInvoice->setPaper("a4", "landscape");
 			$domInvoice->loadHtml($html);

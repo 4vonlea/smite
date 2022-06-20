@@ -246,8 +246,8 @@ $this->layout->end_head();
 					<template slot="fullname" slot-scope="props">
 						{{ props.row.fullname }} 
 						<hr style="margin-top: 10px;margin-bottom:10px;" />
-						<a v-if="props.row.status_fullpaper == '<?=Papers_m::ACCEPTED;?>'" class="btn btn-sm btn-primary" target="_blank" :href="'<?=base_url('admin/paper/preview_cert');?>/'+props.row.t_id">Preview Certificate</a>
-						<button v-if="props.row.status_fullpaper == '<?=Papers_m::ACCEPTED;?>'" @click="sendCertificate(props.row,$event)" class="btn btn-sm btn-primary">Send Certificate</button>
+						<a v-if="props.row.status_presentasi == '<?=Papers_m::ACCEPTED;?>'" class="btn btn-sm btn-primary" target="_blank" :href="'<?=base_url('admin/paper/preview_cert');?>/'+props.row.t_id">Preview Certificate</a>
+						<button v-if="props.row.status_presentasi == '<?=Papers_m::ACCEPTED;?>'" @click="sendCertificate(props.row,$event)" class="btn btn-sm btn-primary">Send Certificate</button>
 						<hr style="margin-top: 10px;margin-bottom:10px;" />
 						<span style="font-size: 12px;" class="badge badge-info mb-1">{{ props.row.status_member }}</span><br/>
 						<span style="font-size: 12px;" class="badge badge-info mb-1">{{ props.row.phone }}</span><br/>
