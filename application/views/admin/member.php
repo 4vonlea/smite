@@ -129,6 +129,10 @@ $this->layout->begin_head();
 						<input type="text" class="form-control" v-model="profile.alternatif_status" />
 					</div>
 					<div class="form-group">
+						<label class="form-check-label">Alternatif Status 2 (Optional)</label>
+						<input type="text" class="form-control" v-model="profile.alternatif_status2" />
+					</div>
+					<div class="form-group">
 						<label class="form-check-label">Fullname</label>
 						<input type="text" class="form-control" v-model="profile.fullname" />
 					</div>
@@ -191,6 +195,10 @@ $this->layout->begin_head();
 					<tr>
 						<th>Alternatif Status</th>
 						<td colspan="2">{{ profile.alternatif_status }}</td>
+					</tr>
+					<tr>
+						<th>Alternatif Status 2</th>
+						<td colspan="2">{{ profile.alternatif_status2 }}</td>
 					</tr>
 					<tr>
 						<th>Full Name</th>
@@ -453,6 +461,7 @@ $this->layout->begin_head();
 					id: event.event_id,
 					event_name: event.event_name,
 					alternatif_status: event.alternatif_status,
+					alternatif_status2: event.alternatif_status2,
 					m_id:this.profile.id,
 				}
 				$.post("<?= base_url("admin/member/send_certificate"); ?>", data, function(res) {

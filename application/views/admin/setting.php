@@ -633,7 +633,7 @@
 			},
 			kurs_usd: kurs_usd,
 			savingManual: false,
-			paramsEvent:<?=json_encode(['' => 'Select Parameter', 'fullname' => 'Full Name', 'email' => 'Email', 'gender' => 'Gender', 'status_member' => 'Status Of Member', 'event_name' => 'Event Name', 'alternatif_status' => 'Alternatif Status','qr_code'=>'QR Code (ID Invoice)']);?>,
+			paramsEvent:<?=json_encode(['' => 'Select Parameter', 'fullname' => 'Full Name', 'email' => 'Email', 'gender' => 'Gender', 'status_member' => 'Status Of Member', 'event_name' => 'Event Name', 'alternatif_status' => 'Alternatif Status','alternatif_status2' => 'Alternatif Status 2','qr_code'=>'QR Code (ID Invoice)']);?>,
 			paramsPaper:<?=json_encode(['' => 'Select Parameter', 'fullname' => 'Full Name', 'email' => 'Email', 'title' => 'Paper Title', 'id_paper' => 'ID Paper','type_presence'=>'Mode Presentation', 'status' => 'Participant/Champion Status','qr_code'=>'QR Code (ID Paper)']);?>,
 			money: {
 				decimal: ',',

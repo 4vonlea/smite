@@ -372,7 +372,7 @@ class Event_m extends MY_Model
 	{
 		$this->load->model("Transaction_m");
 		return $this->setAlias("t")->find()
-			->select($select ?? "m.id as m_id,td.id as td_id, td.checklist as checklist,t.id as event_id,t.name as event_name,t.kategory as event_kategory,t.held_on as event_held_on,t.held_in as event_held_in,t.theme as event_theme,m.*,km.kategory as member_status,m.alternatif_status")
+			->select($select ?? "m.id as m_id,td.id as td_id, td.checklist as checklist,t.id as event_id,t.name as event_name,t.kategory as event_kategory,t.held_on as event_held_on,t.held_in as event_held_in,t.theme as event_theme,m.*,km.kategory as member_status,m.alternatif_status,m.alternatif_status2")
 			->join("event_pricing ep", "t.id = ep.event_id")
 			->join("transaction_details td", "td.event_pricing_id = ep.id")
 			->join("transaction tr", "tr.id = td.transaction_id")
