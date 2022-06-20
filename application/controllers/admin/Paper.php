@@ -481,7 +481,7 @@ class Paper extends Admin_Controller
 
 	public function preview_cert_champion($id)
 	{
-		$this->load->model("Paper_champion_m");
+		$this->load->model(["Paper_champion_m","Papers_m"]);
 		$data = $this->Paper_champion_m->champion($id);
 		$this->Papers_m->exportCertificate($data)->stream('preview_cert.pdf', array('Attachment' => 0));
 	}
