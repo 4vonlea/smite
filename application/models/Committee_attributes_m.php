@@ -40,8 +40,8 @@ class Committee_attributes_m extends My_model
 				'image' => file_get_contents(APPPATH . "uploads/cert_template/$event->id.txt"),
 				'property' => $propery,
 				'data' => $member,
-				'secondPage' => file_exists(APPPATH . "uploads/cert_template/second_page_$id.txt") ? 
-					file_get_contents(APPPATH . "uploads/cert_template/second_page_$id.txt") : ""
+				'secondPage' => file_exists(APPPATH . "uploads/cert_template/second_page_$event->id.txt") ? 
+					file_get_contents(APPPATH . "uploads/cert_template/second_page_$event->$id.txt") : ""
 			], true);
 			$domInvoice->setPaper("a4", "landscape");
 			$domInvoice->loadHtml($html);
