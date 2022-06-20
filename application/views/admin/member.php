@@ -246,7 +246,9 @@ $this->layout->begin_head();
 								<tr v-for="ev in profile.event">
 									<td>
 										{{ ev.event_name }} <br />
-										<a :href="'<?= base_url('admin/member/card'); ?>/'+ev.event_id+'/'+profile.id" target="_blank">Download Name Tag</a> <button :disabled="sendingCertificate" v-on:click="sendCertificate(ev)" class="btn btn-primary btn-sm"><i v-if="sendingCertificate" class="fa fa-spin fa-spinner"></i>Send Certificate</button>
+										<a :href="'<?= base_url('admin/member/card'); ?>/'+ev.event_id+'/'+profile.id" target="_blank">Download Name Tag</a> 
+										<button :disabled="sendingCertificate" v-on:click="sendCertificate(ev)" class="btn btn-primary btn-sm"><i v-if="sendingCertificate" class="fa fa-spin fa-spinner"></i>Send Certificate</button>
+										<a :href="'<?= base_url('admin/member/preview_certificate'); ?>/'+ev.event_id+'/'+profile.id" target="_blank">Preview Certificate</a> 
 									</td>
 									<td>
 										<input type="checkbox" v-model="ev.checklist.nametag" true-value="true" false-value="false" />
