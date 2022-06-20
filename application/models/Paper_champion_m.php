@@ -20,7 +20,7 @@ class Paper_champion_m extends MY_Model
 				->join("members","members.id = member_id")
 				->join("settings st",'st.name = "format_id_paper"','left')
                 ->where("paper_champion.id",$id)
-                ->get()->row();
+                ->get()->row_array();
     }
     public function gridConfig($option = array())
 	{
