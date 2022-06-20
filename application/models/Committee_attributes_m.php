@@ -33,15 +33,15 @@ class Committee_attributes_m extends My_model
 		];
 		require_once APPPATH . "third_party/phpqrcode/qrlib.php";
 		if(file_exists(APPPATH."uploads/cert_template/$event->id.txt")) {
-
+			$event_id = $event->id;
 			$domInvoice = new Dompdf\Dompdf();
-			$propery = json_decode(Settings_m::getSetting("config_cert_$event->id"), true);
+			$propery = json_decode(Settings_m::getSetting("config_cert_$event_id"), true);
 			$html = $this->load->view("template/certificate", [
-				'image' => file_get_contents(APPPATH . "uploads/cert_template/$event->id.txt"),
+				'image' => file_get_contents(APPPATH . "uploads/cert_template/$event_id.txt"),
 				'property' => $propery,
 				'data' => $member,
-				'secondPage' => file_exists(APPPATH . "uploads/cert_template/second_page_".$event->id.".txt") ? 
-					file_get_contents(APPPATH . "uploads/cert_template/second_page_".$event->$id.".txt") : ""
+				'secondPage' => file_exists(APPPATH . "uploads/cert_template/second_page_".$event_id.".txt") ? 
+					file_get_contents(APPPATH . "uploads/cert_template/second_page_".$event_id.".txt") : ""
 			], true);
 			$domInvoice->setPaper("a4", "landscape");
 			$domInvoice->loadHtml($html);
