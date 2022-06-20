@@ -77,6 +77,9 @@ $this->layout->end_head();
                     <template slot="title" slot-scope="props">
                         <span class="badge badge-info">Category : {{ props.row.category_name ?? "Not Set"  }}</span>
                         <p style="font-size: 14px;white-space:normal">{{ props.row.title }}</p>
+                        <hr/>
+                        <a class="btn btn-sm btn-primary" target="_blank" :href="'<?=base_url('admin/paper/preview_cert_champion');?>/'+props.row.t_id">Preview Certificate</a>
+                        <button @click="sendCertificate(props.row,$event)" class="btn btn-sm btn-primary">Send Certificate</button>
                     </template>
                     <template slot="fullname" slot-scope="props">
                         {{ props.row.fullname }}
@@ -118,10 +121,6 @@ $this->layout->end_head();
                 Paper Title
             </label>
             <input type="text" class="form-control autocomplete" placeholder="Please type a paper title or participant name" v-model="form.title" />
-            <hr/>
-            <a class="btn btn-sm btn-primary" target="_blank" :href="'<?=base_url('admin/paper/preview_cert_champion');?>/'+props.row.t_id">Preview Certificate</a>
-            <button @click="sendCertificate(props.row,$event)" class="btn btn-sm btn-primary">Send Certificate</button>
-
         </div>
         <div class="form-group">
             <label class="control-label">
