@@ -13,6 +13,15 @@ class Paper_champion_m extends MY_Model
     protected $timestamps = false;
 	protected $table = "paper_champion";
 
+
+    public function champion($id){
+        return $this->find()->select("'1' as isPaper,fullname,type_presence,title,email,CONCAT(st.value,LPAD(papers.id,3,0)) as id_paper,description as status")
+				->join("papers","paper_champion.paper_id = papers.id")
+				->join("members","members.id = member_id")
+				->join("settings st",'st.name = "format_id_paper"','left')
+                ->where("paper_champion.id",$id)
+                ->get()->row_array();
+    }
     public function gridConfig($option = array())
 	{
 		return [
@@ -29,6 +38,7 @@ class Paper_champion_m extends MY_Model
                 'id_paper' => 'CONCAT(st.value,LPAD(papers.id,3,0))',
                 'category_name' => 'category_paper.name',
                 'title',
+                'paper_id',
                 'fullname',
                 'description',
                 'phone',

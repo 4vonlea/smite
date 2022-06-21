@@ -73,10 +73,10 @@ class Notification extends Admin_Controller
 			if($this->input->post("isPaper")){
 				$member = $this->input->post();
 				$cert = $this->Papers_m->exportCertificate($member)->output();
-				$message = $this->load->view("template/email/send_certificate_event",[
+				$message = $this->load->view("template/email/send_certificate_paper",[
 					'event_name'=>'Manuscript'
 				],true);
-				$status = $this->Notification_m->sendMessageWithAttachment($member['email'], "Certificate of Paper",$message, $cert, "CERTIFICATE.pdf");
+				$status = $this->Notification_m->sendMessageWithAttachment($member['email'], "Certificate of Manuscript",$message, $cert, "CERTIFICATE.pdf");
 			}else{
 				$member = $this->input->post();
 				$event = [

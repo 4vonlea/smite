@@ -271,6 +271,7 @@ class Papers_m extends MY_Model
 		}
 		return $return;
 	}
+	
 	public function exportCertificate($data, $id = "Paper")
 	{
 		$this->load->model(['Settings_m','Transaction_m']);
@@ -282,7 +283,9 @@ class Papers_m extends MY_Model
 			$html = $this->load->view("template/certificate", [
 				'image' => file_get_contents(APPPATH . "uploads/cert_template/$id.txt"),
 				'property' => $propery,
-				'data' => $data
+				'data' => $data,
+				'secondPage' => file_exists(APPPATH . "uploads/cert_template/second_page_$id.txt") ? 
+						file_get_contents(APPPATH . "uploads/cert_template/second_page_$id.txt") : ""
 			], true);
 			$domInvoice->setPaper("a4", "landscape");
 			$domInvoice->loadHtml($html);

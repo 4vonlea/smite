@@ -34,7 +34,7 @@ class Administration extends Admin_Controller
 			$event_id = $this->input->post("event_id");
 			switch ($action) {
 				case "retrieval":
-					$rs = $this->Event_m->getParticipant()->where("t.id", $event_id)->select("m.id as m_id,km.kategory as status_member,m.alternatif_status")->get();
+					$rs = $this->Event_m->getParticipant()->where("t.id", $event_id)->select("m.id as m_id,km.kategory as status_member,m.alternatif_status,alternatif_status2")->get();
 					$participant = $rs->result_array();
 
 					$timeCreate = time();
@@ -55,6 +55,7 @@ class Administration extends Admin_Controller
 								'status_member' => $row['status_member'],
 								'id' => $row['m_id'],
 								'alternatif_status'=>$row['alternatif_status'],
+								'alternatif_status2'=>$row['alternatif_status2'],
 							];
 							if ($type == 'certificate') {
 								$member['status_member'] = "Peserta";
@@ -119,7 +120,7 @@ class Administration extends Admin_Controller
 	{
 		$this->load->model(["Member_m", "Event_m"]);
 		$member = $this->Member_m->setAlias('t')->find()->join('kategory_members kt', 'kt.id = t.status ')
-			->select('t.id,fullname,email,kt.kategory as status_member,alternatif_status')->where("t.id", $member_id)->get()->row_array();
+			->select('t.id,fullname,email,kt.kategory as status_member,alternatif_status,alternatif_status2')->where("t.id", $member_id)->get()->row_array();
 		if (file_exists(APPPATH . "uploads/cert_template/$event_id.txt")) {
 			$member['status_member'] = "Peserta";
 			$this->Event_m->exportCertificate($member, $event_id)->stream("Certificate.pdf", array("Attachment" => false));

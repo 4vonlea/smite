@@ -77,6 +77,9 @@ $this->layout->end_head();
                     <template slot="title" slot-scope="props">
                         <span class="badge badge-info">Category : {{ props.row.category_name ?? "Not Set"  }}</span>
                         <p style="font-size: 14px;white-space:normal">{{ props.row.title }}</p>
+                        <hr/>
+                        <a class="btn btn-sm btn-primary" target="_blank" :href="'<?=base_url('admin/paper/preview_cert_champion');?>/'+props.row.t_id">Preview Certificate</a>
+                        <button @click="sendCertificate(props.row,$event)" class="btn btn-sm btn-primary">Send Certificate</button>
                     </template>
                     <template slot="fullname" slot-scope="props">
                         {{ props.row.fullname }}
@@ -92,6 +95,9 @@ $this->layout->end_head();
                         <div class="table-button-container">
                             <button class="btn btn-danger btn-sm" @click="deletePaper(props.row,$event)">
                                 <span class="fa fa-trash"></span> Delete
+                            </button>
+                            <button class="btn btn-primary btn-sm" @click="editPaper(props.row)">
+                                <span class="fa fa-edit"></span> Edit
                             </button>
                         </div>
                     </template>
@@ -143,6 +149,7 @@ $this->layout->end_head();
             categoryPaper: <?= json_encode($categoryPaper); ?>,
             filteredPaper: "",
             form:{
+                id:'',
                 title:'',
                 paper_id:'',
                 description:'',
@@ -152,14 +159,22 @@ $this->layout->end_head();
         methods: {
             onAdd() {
                 this.form = {
+                    id:'',
                     title:'',
                     paper_id:'',
                     description:'',
                 };
                 $("#modal-add").modal("show");
             },
-            detail(props, $event) {
-
+            editPaper(props) {
+                console.log(props);
+                this.form = {
+                    id:props.t_id,
+                    title:props.title,
+                    paper_id:props.paper_id,
+                    description:props.description,
+                };
+                $("#modal-add").modal("show");
             },
             deletePaper(row, $event) {
                 var btn = event.currentTarget;
@@ -214,7 +229,27 @@ $this->layout->end_head();
                 }).fail((xhr) => {
 
                 });
-            }
+            },
+            sendCertificate(row,evt){
+				let dom = evt.target;
+				var inH = dom.innerHTML;
+				dom.innerHTML = "<span class='fa fa-spin fa-spinner'></span>";
+
+				$.post("<?=base_url();?>/admin/paper/send_certificate_champion",{id:row.t_id},(res)=>{
+					if(res.status){
+						Swal.fire("Success", "Paper certificate sent successfully", "success");
+					}else{
+						if(res.message)
+							Swal.fire("Failed", res.message, "error");
+						else
+							Swal.fire("Failed","Failed to sent certificate", "error");
+					}
+				}).always(() => {
+					dom.innerHTML = inH;
+				}).fail(()=>{
+					Swal.fire('Fail', "Failed to load data", 'error');
+				})
+			}
         }
     });
     $('.autocomplete').easyAutocomplete({

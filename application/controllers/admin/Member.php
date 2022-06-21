@@ -170,7 +170,7 @@ class Member extends Admin_Controller
 				$message = $this->load->view("template/email/send_certificate_event",[
 					'event_name'=>$member['event_name']
 				],true);
-				$status = $this->Notification_m->sendMessageWithAttachment($member['email'], "Certificate of Event",$message, $cert, "CERTIFICATE.pdf");
+				$status = $this->Notification_m->sendMessageWithAttachment($member['email'], "Certificate of '" . $member['event_name'] . "'",$message, $cert, "CERTIFICATE.pdf");
 				$statusKirim = (isset($status['labelIds']) && in_array("SENT",$status['labelIds']));
 				$this->output
 					->set_content_type("application/json")
@@ -183,6 +183,21 @@ class Member extends Admin_Controller
 					->set_content_type("application/json")
 					->_display(json_encode(['status' => false, 'message' => 'Template Certificate is not found ! please set on Setting']));
 			}
+		}
+	}
+
+	public function preview_certificate($event_id,$profile_id)
+	{
+		$this->load->model(["Notification_m", "Event_m"]);
+		$member = $this->Event_m->getParticipant()->where("m.id",$profile_id)->where("t.id",$event_id)->get()->row_array();
+		if (file_exists(APPPATH . "uploads/cert_template/$event_id.txt")) {
+			$member['id'] = $member['m_id'];
+			$member['status_member'] = "Peserta";
+			$this->Event_m->exportCertificate($member, $event_id)->stream('preview_cert.pdf', array('Attachment' => 0));
+		} else {
+			$this->output
+				->set_content_type("application/json")
+				->_display(json_encode(['status' => false, 'message' => 'Template Certificate is not found ! please set on Setting']));
 		}
 	}
 

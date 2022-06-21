@@ -129,6 +129,10 @@ $this->layout->begin_head();
 						<input type="text" class="form-control" v-model="profile.alternatif_status" />
 					</div>
 					<div class="form-group">
+						<label class="form-check-label">Alternatif Status 2 (Optional)</label>
+						<input type="text" class="form-control" v-model="profile.alternatif_status2" />
+					</div>
+					<div class="form-group">
 						<label class="form-check-label">Fullname</label>
 						<input type="text" class="form-control" v-model="profile.fullname" />
 					</div>
@@ -193,6 +197,10 @@ $this->layout->begin_head();
 						<td colspan="2">{{ profile.alternatif_status }}</td>
 					</tr>
 					<tr>
+						<th>Alternatif Status 2</th>
+						<td colspan="2">{{ profile.alternatif_status2 }}</td>
+					</tr>
+					<tr>
 						<th>Full Name</th>
 						<td colspan="2">{{ profile.fullname }}</td>
 					</tr>
@@ -246,7 +254,9 @@ $this->layout->begin_head();
 								<tr v-for="ev in profile.event">
 									<td>
 										{{ ev.event_name }} <br />
-										<a :href="'<?= base_url('admin/member/card'); ?>/'+ev.event_id+'/'+profile.id" target="_blank">Download Name Tag</a> <button :disabled="sendingCertificate" v-on:click="sendCertificate(ev)" class="btn btn-primary btn-sm"><i v-if="sendingCertificate" class="fa fa-spin fa-spinner"></i>Send Certificate</button>
+										<a :href="'<?= base_url('admin/member/card'); ?>/'+ev.event_id+'/'+profile.id" target="_blank">Download Name Tag</a> 
+										<button :disabled="sendingCertificate" v-on:click="sendCertificate(ev)" class="btn btn-primary btn-sm"><i v-if="sendingCertificate" class="fa fa-spin fa-spinner"></i>Send Certificate</button>
+										<a class="btn btn-primary btn-sm" :href="'<?= base_url('admin/member/preview_certificate'); ?>/'+ev.event_id+'/'+profile.id" target="_blank">Preview Certificate</a> 
 									</td>
 									<td>
 										<input type="checkbox" v-model="ev.checklist.nametag" true-value="true" false-value="false" />
@@ -451,6 +461,7 @@ $this->layout->begin_head();
 					id: event.event_id,
 					event_name: event.event_name,
 					alternatif_status: event.alternatif_status,
+					alternatif_status2: event.alternatif_status2,
 					m_id:this.profile.id,
 				}
 				$.post("<?= base_url("admin/member/send_certificate"); ?>", data, function(res) {

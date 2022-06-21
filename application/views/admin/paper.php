@@ -245,7 +245,9 @@ $this->layout->end_head();
 					<?php endif; ?>
 					<template slot="fullname" slot-scope="props">
 						{{ props.row.fullname }} 
-						<a v-if="props.row.status_fullpaper == '<?=Papers_m::ACCEPTED;?>'" class="btn btn-sm btn-primary" target="_blank" :href="'<?=base_url('admin/paper/preview_cert');?>/'+props.row.t_id">Preview Certificate</a>
+						<hr style="margin-top: 10px;margin-bottom:10px;" />
+						<a v-if="props.row.status_presentasi == '<?=Papers_m::ACCEPTED;?>'" class="btn btn-sm btn-primary" target="_blank" :href="'<?=base_url('admin/paper/preview_cert');?>/'+props.row.t_id">Preview Certificate</a>
+						<button v-if="props.row.status_presentasi == '<?=Papers_m::ACCEPTED;?>'" @click="sendCertificate(props.row,$event)" class="btn btn-sm btn-primary">Send Certificate</button>
 						<hr style="margin-top: 10px;margin-bottom:10px;" />
 						<span style="font-size: 12px;" class="badge badge-info mb-1">{{ props.row.status_member }}</span><br/>
 						<span style="font-size: 12px;" class="badge badge-info mb-1">{{ props.row.phone }}</span><br/>
@@ -998,6 +1000,26 @@ $this->layout->end_head();
 			formatDate(date) {
 				return moment(date).format("DD MMM YYYY, [At] HH:mm:ss");
 			},
+			sendCertificate(row,evt){
+				let dom = evt.target;
+				var inH = dom.innerHTML;
+				dom.innerHTML = "<span class='fa fa-spin fa-spinner'></span>";
+
+				$.post("<?=base_url();?>/admin/paper/send_certificate",{id:row.t_id},(res)=>{
+					if(res.status){
+						Swal.fire("Success", "Paper certificate sent successfully", "success");
+					}else{
+						if(res.message)
+							Swal.fire("Failed", res.message, "error");
+						else
+							Swal.fire("Failed","Failed to sent certificate", "error");
+					}
+				}).always(() => {
+					dom.innerHTML = inH;
+				}).fail(()=>{
+					Swal.fire('Fail', "Failed to load data", 'error');
+				})
+			}
 		}
 	});
 </script>
