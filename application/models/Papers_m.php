@@ -252,21 +252,27 @@ class Papers_m extends MY_Model
 		return $this->hasOne("Category_paper_m", "id", "category");
 	}
 
-	public function certificateReciver($defaultStatus = "Participant"){
+	public function certificateReciver($defaultStatus = "Participant",$idCategory = null){
+		$return = [];
 		$participant =$this->find()->select("'1' as isPaper,fullname,type_presence,title,email,CONCAT(st.value,LPAD(papers.id,3,0)) as id_paper,'$defaultStatus' as status")
 				->join("members","members.id = member_id")
 				->join("settings st",'st.name = "format_id_paper"','left')
-				->where("status_presentasi",Papers_m::ACCEPTED)
-				->get()->result_array();
+				->where("status_presentasi",Papers_m::ACCEPTED);
+		if($idCategory){
+			$participant->where("category",$idCategory);
+		}
+		foreach($participant->get()->result_array() as $row){
+			$return[] = $row;
+		}
+
 		$champion =$this->find()->select("'1' as isPaper,fullname,type_presence,title,email,CONCAT(st.value,LPAD(papers.id,3,0)) as id_paper,description as status")
 				->join("paper_champion","paper_champion.paper_id = papers.id")
 				->join("members","members.id = member_id")
-				->join("settings st",'st.name = "format_id_paper"','left')->get()->result_array();
-		$return = [];
-		foreach($participant as $row){
-			$return[] = $row;
+				->join("settings st",'st.name = "format_id_paper"','left');
+		if($idCategory){
+			$champion->where("category",$idCategory);
 		}
-		foreach($champion as $row){
+		foreach($champion->get()->result_array() as $row){
 			$return[] = $row;
 		}
 		return $return;

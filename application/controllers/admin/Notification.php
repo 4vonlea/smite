@@ -16,11 +16,13 @@ class Notification extends Admin_Controller
 
 	public function index($send_to_person = null)
 	{
-		$this->load->model(["Event_m", "Member_m", "Category_member_m", "Transaction_m"]);
+		$this->load->model(["Event_m", "Member_m", "Category_member_m", "Transaction_m","Category_paper_m"]);
 		$this->load->helper('form_helper');
 		$eventList = $this->Event_m->find()->select("id,name as label")->get()->result_array();
 		$statusList = $this->Category_member_m->find()->select("id,kategory as label")->get()->result_array();
-		$eventList[] = ['id' => 'Paper', 'label' => 'Paper Participant'];
+		foreach($this->Category_paper_m->findAll() as $row){
+			$eventList[] = ['id' => 'Paper;'.$row->id, 'label' => 'Paper Participant ('.$row->name.')'];
+		}
 		$memberList = $this->Member_m->find()->select("id,CONCAT(fullname,' (',email,')') as label")->get()->result_array();
 
 		$transactionStatus = [
@@ -52,10 +54,11 @@ class Notification extends Admin_Controller
 		$this->load->model(['Event_m', 'Settings_m','Papers_m']);
 		if ($preparing) {
 			$id = $this->input->post("id");
+			$expl = explode(";",$id);
+			$id = $expl[0] ?? $id;
 			if (Settings_m::getSetting("config_cert_$id") != "" && file_exists(APPPATH . "uploads/cert_template/$id.txt")) {
 				if($id == "Paper"){
-					$result = $this->Papers_m->certificateReciver();
-
+					$result = $this->Papers_m->certificateReciver("Participant",$expl[1] ?? null);
 				}else{
 					$result = $this->Event_m->getParticipant()->where('t.id', $id)->get()->result_array();
 				}
