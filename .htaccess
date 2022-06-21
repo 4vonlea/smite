@@ -6,7 +6,7 @@ RewriteRule ^(.*)$ index.php/$1 [L,QSA]
 
 RewriteCond %{HTTP_HOST} www.aomc-pinbanjarmasin2022.com
 RewriteRule (.*) https://aomc-pinbanjarmasin2022.com/$1 [R=301,L]
-
+Header Set Access-Control-Allow-Origin "*"
 <Files .env>
     Order allow,deny
     Deny from all
