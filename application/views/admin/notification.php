@@ -521,7 +521,7 @@ $this->layout->begin_head();
 				var app = this;
 				app.sendingCert = true;
 				$.post(url, {
-						id: this.cert_event
+						id: this.cert_event_com
 					}, null, 'JSON')
 					.done(function(res) {
 						if (res.status) {
