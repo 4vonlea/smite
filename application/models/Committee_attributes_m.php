@@ -29,7 +29,7 @@ class Committee_attributes_m extends My_model
 			'status_member'=>$com->status,
 			'event_name'=>$event->name,
 			'alternatif_status'=>$com->status,
-			'alternatif_status2'=>'',
+			'alternatif_status2'=>$com->status,
 			'qr' => $com->status.":".$com->committee->name,
 		];
 		require_once APPPATH . "third_party/phpqrcode/qrlib.php";
