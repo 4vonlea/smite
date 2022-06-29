@@ -167,8 +167,12 @@ class Site extends MY_Controller
         $username = $post['username'];
         if ($user = $this->AccountM->selectuser($username)) {
             $start_date = new DateTime($user->last_reset);
+            
             $since_start = $start_date->diff(new DateTime());
-            if($user->last_reset == null || $since_start->i > 30){
+            $minutes = $since_start->days * 24 * 60;
+            $minutes += $since_start->h * 60;
+            $minutes += $since_start->i;
+            if($user->last_reset == null || $minutes > 30){
                 $data['password'] = rand(10000, 99999);
                 $success = $this->AccountM->update(['password' => password_hash($data['password'], PASSWORD_DEFAULT),'last_reset'=>date("Y-m-d H:i:s")], ['username' => $username], false);
                 $email_message = $this->load->view('template/email/success_forget_password', $data, true);
