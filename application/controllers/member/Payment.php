@@ -262,16 +262,21 @@ class Payment extends MY_Controller
 			$response['trx_date'] = $date;
 			$response['installment_period'] = "30D";
 			if($member){
-				$response['customer_details'] = [
-					'firstname'=>$member->fullname,
-					'phone_number'=>$member->phone,
-					'email'=>$member->email,
-				];
-				$attc = [
-					$member->fullname.'-invoice.pdf' => $tr->exportInvoice()->output(),
-				];
-				$message = $this->load->view("template/email/send_unpaid_invoice",$member->toArray(),true);
-				$this->Notification_m->sendMessageWithAttachment($member->email, 'Unpaid Invoice (MA)', $message, $attc);
+				$result = run_job("job","send_unpaid_invoice",[
+					$member->id,
+					$order_id,
+					30,
+				]);
+				// $response['customer_details'] = [
+				// 	'firstname'=>$member->fullname,
+				// 	'phone_number'=>$member->phone,
+				// 	'email'=>$member->email,
+				// ];
+				// $attc = [
+				// 	$member->fullname.'-invoice.pdf' => $tr->exportInvoice()->output(),
+				// ];
+				// $message = $this->load->view("template/email/send_unpaid_invoice",$member->toArray(),true);
+				// $this->Notification_m->sendMessageWithAttachment($member->email, 'Unpaid Invoice (MA)', $message, $attc);
 			}
 		}else{
 			$response['error_code'] = 1;

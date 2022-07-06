@@ -10,7 +10,11 @@ class Job extends CI_Controller
         }
     }
 
-    public function send_unpaid_invoice($member_id,$transaction_id){
+    public function send_unpaid_invoice($member_id,$transaction_id,$sleep = 0){
+        if($sleep > 0){
+            sleep($sleep);
+        }
+        exec("php index.php payment check_payment $transaction_id");
         $this->load->model(["Transaction_m","Member_m","Notification_m"]);
         $tr = $this->Transaction_m->findOne(['id'=>$transaction_id]);
         $member = $this->Member_m->findOne(['id'=>$member_id]);

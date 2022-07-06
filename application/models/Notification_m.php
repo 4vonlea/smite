@@ -23,7 +23,7 @@ class Notification_m extends MY_Model{
 
     public function getValue($name,$isJson = false){
         $token = $this->findOne(['name'=>$name]);
-		return ($token ? ($isJson ?  json_decode($token->value,true):$token->value):'{}');
+		return ($token ? ($isJson ?  json_decode($token->value,true):$token->value):($isJson ?[] :'{}'));
 	}
 
 	public function setValue($name,$value){
