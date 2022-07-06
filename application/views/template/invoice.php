@@ -29,7 +29,22 @@ $isGroup = ($member == null);
 		.table td {
 			vertical-align: top;
 		}
+		.table-event{
+			border-collapse: collapse;
+			margin-top: 10px;
+		}
 
+		.table-event thead{
+			background-color: green;
+			color: white;
+		}
+		.table-event th {
+			text-align: center;
+		}
+		.table-event th, .table-event td{
+			border: 1px solid;
+			padding:3px;
+		}
 		.watermark {
 			position: absolute;
 			top: 20%;
@@ -42,17 +57,20 @@ $isGroup = ($member == null);
 			/* for <= IE 8 */
 			z-index: -1;
 		}
-		.row{
+
+		.row {
 			width: 100%;
 			clear: both;
 		}
+
 		.col {
 			width: 145px;
 			display: block;
 			float: left;
 			font-weight: bold;
 		}
-		.col2{
+
+		.col2 {
 			width: 10px;
 			display: block;
 			float: left;
@@ -65,7 +83,7 @@ $isGroup = ($member == null);
 		<img src="<?= $header_image; ?>" style="width:100%" alt="<?= $header_image; ?>" />
 	</header>
 	<footer>
-		<img class="watermark" src="<?=  base_url('themes/uploads/payment_required.jpg');?>" />
+		<img class="watermark" src="<?= base_url('themes/uploads/payment_required.jpg'); ?>" />
 	</footer>
 	<section>
 		<h4 style="text-align: center;">INVOICE</h4>
@@ -75,133 +93,148 @@ $isGroup = ($member == null);
 				via Bank <?= $payment[0]['bank']; ?> No <?= $payment[0]['no_rekening']; ?> a.n <?= $payment[0]['holder']; ?>
 			<?php elseif (is_array($payment) && count($payment) > 1) : ?>
 				via :
-				<ul>
-					<?php foreach ($payment as $list) : ?>
-						<li>Bank <?= $list['bank']; ?> No <?= $list['no_rekening']; ?> a.n <?= $list['holder']; ?></li>
-					<?php endforeach; ?>
-				</ul>
+		<ul>
+			<?php foreach ($payment as $list) : ?>
+				<li>Bank <?= $list['bank']; ?> No <?= $list['no_rekening']; ?> a.n <?= $list['holder']; ?></li>
+			<?php endforeach; ?>
+		</ul>
+	<?php endif; ?>
+	</p>
+	<div class="row">
+		<div class="col">Order Date</div>
+		<div class="col2">:</div>
+		<div class="col3">
+			<?php if ($transaction->checkout == 0) : ?>
+				<?= date("d F Y \a\\t H:i:s A"); ?>
+			<?php else : ?>
+				<?= date("d F Y \a\\t H:i:s A", strtotime($transaction->created_at)); ?>
 			<?php endif; ?>
-		</p>
-		<div class="row">
-			<div class="col">Order Date</div>
-			<div class="col2">:</div>
-			<div class="col3">
-				<?php if ($transaction->checkout == 0) : ?>
-					<?= date("d F Y \a\\t H:i:s A"); ?>
-				<?php else : ?>
-					<?= date("d F Y \a\\t H:i:s A", strtotime($transaction->created_at)); ?>
-				<?php endif; ?>
-			</div>
 		</div>
-		<div class="row">
-			<div class="col">ID Invoice</div>
-			<div class="col2">:</div>
-			<div>
-				<?= $transaction->id; ?>
-			</div>
+	</div>
+	<div class="row">
+		<div class="col">ID Invoice</div>
+		<div class="col2">:</div>
+		<div>
+			<?= $transaction->id; ?>
 		</div>
-		<div class="row">
-			<div class="col"><?=$isGroup ? "Bill To":"Name";?></div>
-			<div class="col2">:</div>
-			<div>
-				<?= $member->fullname ?? $transaction->member_id; ?>
-			</div>
+	</div>
+	<div class="row">
+		<div class="col"><?= $isGroup ? "Bill To" : "Name"; ?></div>
+		<div class="col2">:</div>
+		<div>
+			<?= $member->fullname ?? $transaction->member_id; ?>
 		</div>
-		<?php if ($member && $member->email) : ?>
-			<div class="row">
-				<div class="col">
-					E-mail
-				</div>
-				<div class="col2">:</div>
-				<div>
-					<a href="mailto:<?= $member->email; ?>" rel="noreferrer" target="_blank">
-						<?= $member->email; ?>
-					</a>
-				</div>
-			</div>
-		<?php endif; ?>
-		<?php if ($member && $member->username_account) : ?>
-			<div class="row">
-				<div class="col">
-					Username
-				</div>
-				<div class="col2">:</div>
-				<div>
-					<?= $member->username_account; ?>
-				</div>
-			</div>
-		<?php endif; ?>
-		<?php if ($member && $member->status) : ?>
-
-			<div class="row">
-				<div class="col">
-					Status
-				</div>
-				<div class="col2">:</div>
-				<div>
-					<?= $member->status_member->kategory; ?>
-				</div>
-			</div>
-		<?php endif; ?>
-		<?php if (isset($member->sponsor) && $member->sponsor != "") : ?>
-			<div class="row">
-				<div class="col">
-					Sponsor
-				</div>
-				<div class="col2">:</div>
-				<div>
-					<?= $member->sponsor; ?>
-				</div>
-			</div>
-		<?php endif; ?>
+	</div>
+	<?php if ($member && $member->email) : ?>
 		<div class="row">
-			<div class="col">Followed event</div>
-			<div class="col2">:</div>
-			<div style="padding-left: 155px">
-				<?php
-				$total = 0;
-				foreach ($transaction->detailsWithEvent() as $d) {
-					$total += $d->price;
-					$name = ($isGroup ? $d->member_name : "");
-					if ($d->price_usd > 0) {
-						echo "<span>$d->product_name  / <strong>$name</strong> :  <br/>USD " . $d->price_usd . "</span><br/>";
-					} else {
-						echo "<span>$d->product_name / <strong>$name</strong> :  <br/>Rp " . number_format($d->price, 2, ",", ".") . "</span><br/>";
-					}
-				};
-				?>
+			<div class="col">
+				E-mail
 			</div>
-		</div>
-		<div class="row">
-			<div class="col">Amount Price</div>
 			<div class="col2">:</div>
 			<div>
-				Rp <?= number_format($total, 2, ",", "."); ?>*
-
+				<a href="mailto:<?= $member->email; ?>" rel="noreferrer" target="_blank">
+					<?= $member->email; ?>
+				</a>
 			</div>
 		</div>
+	<?php endif; ?>
+	<?php if ($member && $member->username_account) : ?>
 		<div class="row">
-			<div class="col">Payment Method</div>
+			<div class="col">
+				Username
+			</div>
 			<div class="col2">:</div>
 			<div>
-				<?= strtoupper($transaction->channel); ?> -
-				<?php
-				$data = $transaction->toArray();
-				if ($data['paymentGatewayInfo']['product']) {
-					echo $data['paymentGatewayInfo']['product'] . "<br/>";
-				}
-				if ($data['paymentGatewayInfo']['productNumber']) {
-					echo "Account Number : " . $data['paymentGatewayInfo']['productNumber'] . "<br/>";
-				}
-				?>
+				<?= $member->username_account; ?>
 			</div>
 		</div>
-		<p style="text-align:justify;text-justify:inter-word;font-size:18px">
-			Any inappropriate payments or fraud transactions will be automatically deleted by the system and participants must re-checkout. Thank you
-		</p>
-		<?php
-		$this->load->view("template/invoice_payment_signature");
-		?>
+	<?php endif; ?>
+	<?php if ($member && $member->status) : ?>
+		<div class="row">
+			<div class="col">
+				Status
+			</div>
+			<div class="col2">:</div>
+			<div>
+				<?= $member->status_member->kategory; ?>
+			</div>
+		</div>
+	<?php endif; ?>
+	<?php if (isset($member->sponsor) && $member->sponsor != "") : ?>
+		<div class="row">
+			<div class="col">
+				Sponsor
+			</div>
+			<div class="col2">:</div>
+			<div>
+				<?= $member->sponsor; ?>
+			</div>
+		</div>
+	<?php endif; ?>
+	<div class="row">
+		<div class="col">Payment Method</div>
+		<div class="col2">:</div>
+		<div>
+			<?= strtoupper($transaction->channel); ?> -
+			<?php
+			$data = $transaction->toArray();
+			if ($data['paymentGatewayInfo']['product']) {
+				echo $data['paymentGatewayInfo']['product'] . "";
+			}
+			if ($data['paymentGatewayInfo']['productNumber']) {
+				echo " / " . $data['paymentGatewayInfo']['productNumber'] . "<br/>";
+			}
+			?>
+		</div>
+	</div>
+	<div class="row">
+		<div class="">
+			<table class="table-event">
+				<thead>
+					<tr>
+						<th>No</th>
+						<th>Item</th>
+						<th>Price</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php
+					$total = 0;
+					$no = 1;
+					foreach ($transaction->detailsWithEvent() as $d) {
+						echo "<tr>";
+						echo "<td style='text-align:center'>$no</td>";
+						$total += $d->price;
+						$name = ($isGroup ? $d->member_name : "");
+						if ($d->price_usd > 0) {
+							echo "<td>$d->product_name  / <strong>$name</strong></td><td style='text-align:center'>USD " . $d->price_usd . "</td>";
+						} else {
+							echo "<td>$d->product_name / <strong>$name</strong></td><td style='text-align:center'>Rp " . number_format($d->price, 2, ",", ".") . "</td>";
+						}
+						echo "</tr>";
+						$no++;
+					};
+					?>
+				</tbody>
+				<tfoot>
+					<tr>
+						<th style="text-align: left" colspan="2">
+							Total
+						</th>
+						<th>
+							Rp <?= number_format($total, 2, ",", "."); ?>*
+						</th>
+					</tr>
+				</tfoot>
+			</table>
+		</div>
+	</div>
+	<p style="text-align:justify;text-justify:inter-word;font-size:18px">
+		Any inappropriate payments or fraud transactions will be automatically deleted by the system and participants must re-checkout. Thank you
+	</p>
+	<?php
+	$this->load->view("template/invoice_payment_signature");
+	?>
 	</section>
 </body>
 

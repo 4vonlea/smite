@@ -31,6 +31,26 @@ $isGroup = ($member == null);
 			vertical-align: top;
 		}
 
+		.table-event {
+			border-collapse: collapse;
+			margin-top: 10px;
+		}
+
+		.table-event thead {
+			background-color: green;
+			color: white;
+		}
+
+		.table-event th {
+			text-align: center;
+		}
+
+		.table-event th,
+		.table-event td {
+			border: 1px solid;
+			padding: 3px;
+		}
+
 		.watermark {
 			position: absolute;
 			top: 20%;
@@ -43,17 +63,20 @@ $isGroup = ($member == null);
 			/* for <= IE 8 */
 			z-index: -1;
 		}
-		.row{
+
+		.row {
 			width: 100%;
 			clear: both;
 		}
+
 		.col {
 			width: 145px;
 			display: block;
 			float: left;
 			font-weight: bold;
 		}
-		.col2{
+
+		.col2 {
 			width: 10px;
 			display: block;
 			float: left;
@@ -87,7 +110,7 @@ $isGroup = ($member == null);
 			</div>
 		</div>
 		<div class="row">
-			<div class="col"><?=$isGroup ? "Bill To":"Name";?></div>
+			<div class="col"><?= $isGroup ? "Bill To" : "Name"; ?></div>
 			<div class="col2">:</div>
 			<div>
 				<?= $member->fullname ?? $transaction->member_id; ?>
@@ -141,32 +164,6 @@ $isGroup = ($member == null);
 			</div>
 		<?php endif; ?>
 		<div class="row">
-			<div class="col">Followed event</div>
-			<div class="col2">:</div>
-			<div style="padding-left: 155px">
-				<?php
-				$total = 0;
-				foreach ($transaction->detailsWithEvent() as $d) {
-					$total += $d->price;
-					$name = ($isGroup ? $d->member_name : "");
-					if ($d->price_usd > 0) {
-						echo "<span>$d->product_name  / <strong>$name</strong> :  <br/>USD " . $d->price_usd . "</span><br/>";
-					} else {
-						echo "<span>$d->product_name / <strong>$name</strong> :  <br/>Rp " . number_format($d->price, 2, ",", ".") . "</span><br/>";
-					}
-				};
-				?>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col">Amount Price</div>
-			<div class="col2">:</div>
-			<div>
-				Rp <?= number_format($total, 2, ",", "."); ?>*
-
-			</div>
-		</div>
-		<div class="row">
 			<div class="col">Payment Method</div>
 			<div class="col2">:</div>
 			<div>
@@ -174,19 +171,63 @@ $isGroup = ($member == null);
 				<?php
 				$data = $transaction->toArray();
 				if ($data['paymentGatewayInfo']['product']) {
-					echo $data['paymentGatewayInfo']['product'] . "<br/>";
+					echo $data['paymentGatewayInfo']['product'];
 				}
 				if ($data['paymentGatewayInfo']['productNumber']) {
-					echo "Account Number : " . $data['paymentGatewayInfo']['productNumber'] . "<br/>";
+					echo " / " . $data['paymentGatewayInfo']['productNumber'] . "<br/>";
 				}
 				?>
 			</div>
 		</div>
+		<div class="row">
+			<div class="">
+				<table class="table-event">
+					<thead>
+						<tr>
+							<th>No</th>
+							<th>Item</th>
+							<th>Price</th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php
+						$total = 0;
+						$no = 1;
+						foreach ($transaction->detailsWithEvent() as $d) {
+							echo "<tr>";
+							echo "<td style='text-align:center'>$no</td>";
+							$total += $d->price;
+							$name = ($isGroup ? $d->member_name : "");
+							if ($d->price_usd > 0) {
+								echo "<td>$d->product_name  / <strong>$name</strong></td><td style='text-align:center'>USD " . $d->price_usd . "</td>";
+							} else {
+								echo "<td>$d->product_name / <strong>$name</strong></td><td style='text-align:center'>Rp " . number_format($d->price, 2, ",", ".") . "</td>";
+							}
+							echo "</tr>";
+							$no++;
+						};
+						?>
+					</tbody>
+					<tfoot>
+						<tr>
+							<th style="text-align: left" colspan="2">
+								Total
+							</th>
+							<th>
+								Rp <?= number_format($total, 2, ",", "."); ?>*
+							</th>
+						</tr>
+					</tfoot>
+				</table>
+			</div>
+		</div>
+
+
 		<small style="font-size:9pt;clear:both">*The amount price above has included online bank payment administration fees</small>
 
 		<p>
 			This payment proof (receipt) is a valid document and please used it properly. If needed, participants should show this receipt to the committee at the time of re-registration. Thank you
-		</p> 
+		</p>
 		<?php
 		$this->load->view("template/invoice_payment_signature");
 		?>

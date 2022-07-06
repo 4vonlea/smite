@@ -18,4 +18,12 @@ class Migrate extends CI_Controller
 //        }
     }
 
+    public function job(){
+        $result = run_job("job","send_unpaid_invoice",[
+            '172f22cc-f041-48a3-ba6d-29ffc920345d',
+            "INV-20220608-00034"
+        ]);
+        var_dump($result);
+    }
+
 }

@@ -270,7 +270,8 @@ class Payment extends MY_Controller
 				$attc = [
 					$member->fullname.'-invoice.pdf' => $tr->exportInvoice()->output(),
 				];
-				$this->Notification_m->sendMessageWithAttachment($member->email, 'Unpaid Invoice (MA)', "<p>Dear Participant.</p><p>You have added an event(s) from your member area. Thank you for your participation.</p><p>Herewith we attached your invoice to pay off. Please complete your transaction as soon as possible. Our system will automatically settle after we receive your payment. If you don't receive any further notification after completing your transferred payment for more than 1x24 hours, please contact the committee.</p><p>Thank you.</p><p>Registration Committee</p><p>&nbsp;</p>", $attc);
+				$message = $this->load->view("template/email/send_unpaid_invoice",$member->toArray(),true);
+				$this->Notification_m->sendMessageWithAttachment($member->email, 'Unpaid Invoice (MA)', $message, $attc);
 			}
 		}else{
 			$response['error_code'] = 1;
