@@ -124,7 +124,7 @@ class Notification extends Admin_Controller
 			$this->load->model("Notification_m");
 			$post = $this->input->post();
 			$cert = $this->Committee_attributes_m->exportCertificate($post['id'])->output();
-			$status = $this->Notification_m->sendMessageWithAttachment($post['email'], "Certificate of Event", "Thank you for your participation <br/> Below is your certificate of '" . $post['event_name'] . "'", $cert, "CERTIFICATE.pdf");
+			$status = $this->Notification_m->sendMessageWithAttachment($post['email'], "Certificate of '" . $event['event_name'] . "'", "<p>Dear Participant</p><p>Thank you for joining us on our event. We are so glad to meet and deliver you the recent knowledge and best practice for our profession.</p><p>To appreciate your presence, here we send you <strong>certificate of attendance for our event: '" . $event['event_name'] . "'</strong>. We wish to meet you again in the next event</p><p>Best Regards,</p><p>Committee</p>", $cert, "CERTIFICATE.pdf");
 			$this->output
 				->set_content_type("application/json")
 				->_display(json_encode(['status' => isset($status['labelIds']) && in_array("SENT",$status['labelIds']), 'log' => $status]));
