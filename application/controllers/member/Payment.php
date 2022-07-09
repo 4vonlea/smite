@@ -336,13 +336,8 @@ class Payment extends MY_Controller
 		$orders = [];
 		$this->load->model(["Transaction_m","Notification_m"]);
 		if($invoice === null && $this->session->has_userdata("user_session")){
-<<<<<<< HEAD
-		  	$rs = $this->Transaction_m->find()->where("status_payment","pending")
-				->where("member_id",$this->session->user_session['id'])
-=======
 			$rs = $this->Transaction_m->find()->where("status_payment","pending")
 				->where("member_id",$this->session->user_session['id'] ?? "")
->>>>>>> 1d452744bcabd4769996d6291bab93d50a43e3fe
 				->where("channel","ESPAY")->get();
 				foreach($rs->result_array() as $row){
 					$orders[] = $row['id'];
