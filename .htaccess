@@ -4,8 +4,8 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ index.php/$1 [L,QSA]
 
-RewriteCond %{HTTP_HOST} www.aomc-pinbanjarmasin2022.com
-RewriteRule (.*) https://aomc-pinbanjarmasin2022.com/$1 [R=301,L]
+RewriteCond %{HTTP_HOST} www.pinperdossicirebon2022
+RewriteRule (.*) https://pinperdossicirebon2022/$1 [R=301,L]
 Header Set Access-Control-Allow-Origin "*"
 <Files .env>
     Order allow,deny
