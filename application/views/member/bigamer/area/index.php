@@ -11,7 +11,6 @@ $this->layout->begin_head();
 ?>
 <link href="<?= base_url(); ?>themes/script/chosen/chosen.css" rel="stylesheet">
 <link href="<?= base_url(); ?>themes/script/magnific/magnific.css" rel="stylesheet">
-<link href="<?= $theme_path; ?>css/custom.css" rel="stylesheet">
 <link href="https://vjs.zencdn.net/7.10.2/video-js.css" rel="stylesheet" />
 <style>
     .btn:disabled {
@@ -21,10 +20,17 @@ $this->layout->begin_head();
     .tab-content>table.active {
         display: table;
     }
-
-    .color-heading {
-        color: #F4AD39 !important;
+    .light-select .chosen-container-single .chosen-single {
+        filter: none;
+        border: none;
+        display: block;
+        height: 42px;
+        padding-top: 10px;
     }
+    .achievement-area-copy{
+        background-color: #232a5c;
+        padding: 30px;
+   }
     .cover {
         /* position:absolute;
         padding:20px;
@@ -60,26 +66,19 @@ $this->layout->begin_head();
     </div>
     <section id="subheader" style="background-size: cover;" class="pb-5">
     </section>
-    <div class="container py-2 mb-5" id="content">
-        <div class="row">
-            <div class="col-lg-12 mt-4 mt-lg-0">
-                <div class="de_tab tab_simple">
-                    <div class="de_tab_content">
-                        <div class="tab-1">
-                            <div class="row wow fadeIn">
-                                <!-- <div class="col-lg-2">
-                                    <div class="field-set" style="color:#F4AD39;">
-                                        <img :src="image_link" id="click_profile_img" class="d-banner-img-edit img-fluid" alt="" onclick="$('#file-profile').click();">
-                                        <input id="file-profile" accept="image/*" @change="uploadImage" type="file" ref="file" style="display: none">
-                                    </div>
-                                </div> -->
-                                <div class="col-lg-12 mb-sm-20" style="background-size: cover;">
-                                    <div class="field-set" style="background-size: cover;">
-                                        <router-view active-class="active"></router-view>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+    <div class="padding-top padding-bottom" id="content">
+        <div class="container">
+            <div class="row g-4">
+                <a class="btn btn-edge-block btn-purple">information</a>
+                <!-- <div class="col-lg-2">
+                    <div class="field-set" style="color:#F4AD39;">
+                        <img :src="image_link" id="click_profile_img" class="d-banner-img-edit img-fluid" alt="" onclick="$('#file-profile').click();">
+                        <input id="file-profile" accept="image/*" @change="uploadImage" type="file" ref="file" style="display: none">
+                    </div>
+                </div> -->
+                <div class="col-lg-12 mb-sm-20" style="background-size: cover;">
+                    <div class="field-set" style="background-size: cover;">
+                        <router-view active-class="active"></router-view>
                     </div>
                 </div>
             </div>

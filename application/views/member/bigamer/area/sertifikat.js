@@ -1,10 +1,10 @@
 export default Vue.component("PageSertifikat",{
     template:`
-        <div class="col-lg-12">
+        <div class="achievement-area-copy">
             <page-loader :loading="loading" :fail="fail"></page-loader>
             <div v-if="!loading">
             	<div class="overflow-hidden mb-1">
-                    <h2 class="font-weight-normal color-heading text-7 mb-0"><strong class="font-weight-extra-bold">Download Certificate</strong></h2>
+                    <p class="font-weight-normal mb-0" style="font-size: 30px;"><strong class="font-weight-extra-bold">Download Certificate</strong></p>
                     <div class="overflow-hidden mb-4 pb-3">
                         <p class="mb-0">Please download your certificate</p>
                     </div>
@@ -20,13 +20,13 @@ export default Vue.component("PageSertifikat",{
                         <p>The certificate download button can be clicked after filling out the questionnaire</p>
                     </div>
                     -->
-                    <div v-for="event in events" :key="event.id" class="col-md-4 card">
+                    <div v-for="event in events" :key="event.id" class="col-md-4 card" style="background-color: #403F83; border-color: white;">
                         <div class="card-body text-center">
                             <h5 class="card-title">{{ event.name }}</h5>
                             <p class="card-text">Thank you for your participation. Please download your certificate by pressing the button below</p>
                             <button disabled v-if="klikKuesioner == 0 && event.hasCertificate" class="btn btn-default">Download Certificate</button>
                             <span class="badge badge-danger bg-danger" v-if="!event.hasCertificate">Not Yet Available</span>
-                            <a v-if="klikKuesioner == 1 && event.hasCertificate" class="btn btn-primary" :href="'<?=base_url('member/area/certificate');?>/'+event.id+'/'+user.id" target="_blank">Download Certificate</a>
+                            <a v-if="klikKuesioner == 1 && event.hasCertificate" class="btn btn-success" :href="'<?=base_url('member/area/certificate');?>/'+event.id+'/'+user.id" target="_blank">Download Certificate</a>
                         </div>
                     </div>
                 </div>

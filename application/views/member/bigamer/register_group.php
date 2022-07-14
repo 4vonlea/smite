@@ -11,31 +11,37 @@ $this->layout->begin_head();
 /**
  * @var $content
  */
-$theme_path = base_url("themes/gigaland") . "/";
+$theme_path = base_url("themes/bigamer") . "/";
 ?>
 <link href="<?= base_url(); ?>themes/script/chosen/chosen.css" rel="stylesheet">
-<link href="<?= $theme_path; ?>css/custom.css" rel="stylesheet">
+<style>
+    .achievement-area-copy {
+        background-color: #232a5c;
+        padding: 30px;
+    }
+</style>
 <?php $this->layout->end_head(); ?>
-<section id="subheader" style="background-size: cover;">
-    <div class="center-y relative text-center" style="background-size: cover;">
-        <div class="container" style="background-size: cover;">
-            <div class="row" style="background-size: cover;">
-
-                <div class="col-md-12 text-center" style="background-size: cover;">
-                    <h1 style="color:#F4AD39;">Group Registration</h1>
-                </div>
-                <div class="clearfix" style="background-size: cover;"></div>
-            </div>
+<section class="pageheader-section" style="background-image: url(assets/images/pageheader/bg.jpg);">
+    <div class="container">
+        <div class="section-wrapper text-center text-uppercase">
+            <h2 class="pageheader-title">Group Registration Page</h2>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb justify-content-center mb-0">
+                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Group Registration</li>
+                </ol>
+            </nav>
         </div>
     </div>
 </section>
 
-<section id="app" class="custom-section-padding">
+
+<section id="app" class="padding-top padding-bottom">
     <div class="container">
-        <div class="row">
+        <div class="row g-4">
             <!-- NOTE Setelah Submmit -->
-            <div v-if="page == 'registered'" class="col-lg-12">
-                <div class="alert alert-success" style="background-color: #F5AC39;">
+            <div v-if="page == 'registered'" class="achievement-area-copy">
+                <div class="alert alert-success">
                     <h4 class="text-dark"><i class="fa fa-info"></i> Registration Success</h4>
                     <p>We have sent a confirmation link to your email address. To complete the registration process, please click <i>confirmation link</i>.
                         If you don't receive a confirmation email, please check your spam. Then, please make sure you enter a valid email address when filling out the registration form. If you need help, please contact us.</p>
@@ -43,12 +49,12 @@ $theme_path = base_url("themes/gigaland") . "/";
                     <p><strong>For additional information, please note your Invoice ID to confirm payment. Payment confirmation can be done through the <a href="<?= base_url('member/register/check_invoice') ?>" style="color:#161D30;text-decoration: underline;" target="_BLANK">Check Invoice</a> page</strong></p>
                 </div>
 
-                <div class="card mt-2">
-                    <div class="card-header text-center">
-                        <h5 class="m-0 p-0" style="color:#F4AD39;">Event</h5>
+                <div class="card card-achievement mt-2">
+                    <div class="card-header bg-achievement text-center">
+                        <h5 class="m-0 p-0">Event</h5>
                     </div>
                     <div class="card-body">
-                        <table class="table text-light">
+                        <table class="table">
                             <tbody>
                                 <tr>
                                     <td>Bill To</td>
@@ -70,12 +76,12 @@ $theme_path = base_url("themes/gigaland") . "/";
                     </div>
                 </div>
 
-                <div class="card mt-2">
-                    <div class="card-header text-center">
-                        <h5 class="m-0 p-0" style="color:#F4AD39;">Billing Information</h5>
+                <div class="card card-achievement mt-2">
+                    <div class="card-header bg-achievement text-center">
+                        <h5 class="m-0 p-0">Billing Information</h5>
                     </div>
                     <div class="card-body">
-                        <table class="table text-light">
+                        <table class="table">
                             <thead>
                                 <th>Event Name</th>
                                 <th>
@@ -124,7 +130,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                     </div>
                 </div>
 
-                <div class="alert alert-success mt-2" style="background-color: #F5AC39;">
+                <div class="alert alert-success mt-2">
                     <h4 class="text-dark"><i class="fa fa-info"></i> Payment confirmation</h4>
                     <!-- <p><strong>Untuk melakukan konfirmasi pembayaran bisa dilakukan melalui halaman <a href="<?= base_url('member/register/check_invoice') ?>" style="color:#161D30;text-decoration: underline;" target="_BLANK">Check Invoice</a></strong></p> -->
                     <p><strong>Payment confirmation can be done through the <a href="<?= base_url('member/register/check_invoice') ?>" style="color:#161D30;text-decoration: underline;" target="_BLANK">Check Invoice</a> page</strong></p>
@@ -133,13 +139,13 @@ $theme_path = base_url("themes/gigaland") . "/";
         </div>
 
         <!-- NOTE Payment -->
-        <div v-if="page == 'payment'" class="col-lg-8 offset-lg-2">
-            <div class="card mt-2">
-                <div class="card-header text-center">
-                    <h5 class="m-0 p-0" style="color:#F4AD39;">Account</h5>
+        <div v-if="page == 'payment'" class="achievement-area-copy">
+            <div class="card card-achievement mt-2">
+                <div class="card-header bg-achievement text-center">
+                    <h5 class="m-0 p-0">Account</h5>
                 </div>
                 <div class="card-body">
-                    <table class="table text-light">
+                    <table class="table">
                         <tbody>
                             <tr>
                                 <td>Bill To</td>
@@ -156,12 +162,12 @@ $theme_path = base_url("themes/gigaland") . "/";
                 </div>
             </div>
 
-            <div class="card mt-2">
-                <div class="card-header text-center">
-                    <h5 class="m-0 p-0" style="color:#F4AD39;">Event</h5>
+            <div class="card card-achievement mt-2">
+                <div class="card-header bg-achievement text-center">
+                    <h5 class="m-0 p-0">Event</h5>
                 </div>
                 <div class="card-body">
-                    <table class="table text-light">
+                    <table class="table">
                         <thead>
                             <th>Event Name</th>
                             <th>
@@ -195,7 +201,7 @@ $theme_path = base_url("themes/gigaland") . "/";
             </div>
 
             <div class="form-group mb-2">
-                <select name="selectedPaymentMethod" id="selectedPaymentMethod" :class="{ 'is-invalid':validation_error.selectedPaymentMethod}" class="form-control selectedPaymentMethod mt-2 text-center text-light" style="background-color: #202429" v-model="selectedPaymentMethod">
+                <select name="selectedPaymentMethod" id="selectedPaymentMethod" :class="{ 'is-invalid':validation_error.selectedPaymentMethod}" class="form-control selectedPaymentMethod mt-2 text-center" v-model="selectedPaymentMethod">
                     <option v-for="(method,ind) in paymentMethod" :value="method.key" :selected="method.key == 'manualPayment'">{{method.desc}}</option>
                 </select>
                 <div v-if="validation_error.selectedPaymentMethod" class="invalid-feedback">
@@ -204,22 +210,20 @@ $theme_path = base_url("themes/gigaland") . "/";
             </div>
             <hr />
             <div class="col-lg-12 text-center">
-                <button :disabled="saving" type="button" @click="checkout" class="btn-main" style="background-color:#F4AD39; color:black;">
+                <button :disabled="saving" type="button" @click="checkout" class="btn btn-purple">
                     <i v-if="saving" class="fa fa-spin fa-spinner"></i>
                     Checkout
                 </button>
-                <button type="button" @click="page = 'register'" class="btn-main" style="background-color:#F4AD39; color:black;">
+                <button type="button" @click="page = 'register'" class="btn btn-purple">
                     Back
                 </button>
             </div>
-
         </div>
 
         <!-- NOTE Sebelum Submit -->
-        <div v-if="page == 'register'" class="col-lg-8 offset-lg-2">
-            <div class="alert alert-success mt-2" style="background-color: #F5AC39;">
-                <h4 class="text-dark"><i class="fa fa-info"></i> <b>Attention</b></h4>
-                <p>Make sure the email address entered is valid and you can access it because we will send an activation code via that email. Your account cannot be used until it is activated first.</p>
+        <div v-if="page == 'register'" class="achievement-area-copy">
+            <div class="alert btn-purple" role="alert">
+                <h4 class="text-black"><i class="icofont icofont-info-circle"></i> <b>Attention</h4><p>Make sure the email address entered is valid and you can access it because we will send an activation code via that email. Your account cannot be used until it is activated first.</p></b>
             </div>
             <form id="form-register" class="form-border" ref="form">
                 <div class="de_tab tab_simple">
@@ -230,53 +234,45 @@ $theme_path = base_url("themes/gigaland") . "/";
                     <div class="de_tab_content">
                         <div class="tab-1">
                             <div class="row wow fadeIn">
-                                <div class="col-lg-12 mb-sm-20">
+                                <div class="col-lg-12">
 
-                                    <div class="field-set" style="color:#F4AD39;">
-                                        <h5 style="color:#F4AD39;">Bill To*</h5>
+                                    <div class="form-group mb-2">
+                                        <label>Bill To*</label>
                                         <input type="text" :class="{'is-invalid': validation_error.bill_to}" class="form-control mb-0" name="bill_to" placeholder="Bill To" v-model="data.bill_to" />
                                         <div v-if="validation_error.bill_to" class="invalid-feedback" v-html="validation_error.bill_to"></div>
                                     </div>
-                                    <div class="spacer-20"></div>
-
-                                    <div class="field-set" style="color:#F4AD39;">
-                                        <h5 style="color:#F4AD39;">Your Email* <small>(Invoice will be sent to this email)</small></h5>
+                                    <div class="form-group mb-2">
+                                        <label>Your Email* <small>(Invoice will be sent to this email)</small></label>
                                         <input type="text" :class="{'is-invalid': validation_error.email_group}" class="form-control mb-0" name="email_group" placeholder="Email" v-model="data.email_group" />
                                         <div v-if="validation_error.email_group" class="invalid-feedback" v-html="validation_error.email_group"></div>
                                     </div>
-
-                                    <div class="spacer-20"></div>
-
-                                    <div class="field-set" style="color:#F4AD39;">
-                                        <h5 style="color:#F4AD39;">Status*</h5>
-                                        <?= form_dropdown('status', $participantsCategory, '', [':class' => "{'is-invalid':validation_error.status}", 'id' => 'status', 'v-model' => 'status_selected', 'class' => 'form-control mb-0', 'placeholder' => 'Select your status !', 'style' => 'background-color: #202429']); ?>
+                                    <div class="form-group mb-2">
+                                        <label>Status*</label>
+                                        <?= form_dropdown('status', $participantsCategory, '', [':class' => "{'is-invalid':validation_error.status}", 'id' => 'status', 'v-model' => 'status_selected', 'class' => 'form-control mb-0', 'placeholder' => 'Select your status !']); ?>
                                         <div v-if="validation_error.status" class="invalid-feedback" v-html="validation_error.status"></div>
                                     </div>
 
                                     <!-- NOTE EVENTS -->
                                     <span v-if="status_selected">
-                                        <hr />
-                                        <div class="card">
-                                            <div class="card-header text-center">
-                                                <h2 class="m-0 p-0"><strong class="font-weight-extra-bold ">Event</strong></h2>
-                                            </div>
-                                            <div class="card-body text-center" style="color:#F4AD39;">
-                                                Please select the event you want. *Events are available based on your status and date
-                                            </div>
+                                        <div class="alert btn-purple">
+                                            <h4 class="text-black"><i class="icofont icofont-info-circle"></i> <b>Event</b></h4>
+                                            <p class="text-center">Please select the event you want. *Events are available based on your status and date</p>
                                         </div>
                                         <div class="row mt-2">
-                                            <ul class="nav nav-tabs">
-                                                <li v-for="cat in eventCategory" class="nav-item">
-                                                    <span class="nav-link" @click="showCategory = cat" :class="{'active':showCategory == cat}">{{ cat }}</span>
-                                                </li>
-                                            </ul>
+                                            <div class="col-md-12">
+                                                <ul class="nav nav-pills">
+                                                    <li v-for="cat in eventCategory" class="nav-item">
+                                                        <span class="nav-link" @click="showCategory = cat" :class="{'active':showCategory == cat}">{{ cat }}</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </div>
                                         <div class="row">
                                             <div class="accordion accordion-quaternary col-md-12">
                                                 <div v-for="(event, index) in filteredEvent" v-bind:key="index">
-                                                    <div class="card card-default mt-2" v-show="showCategory == event.category">
-                                                        <div class="card-header">
-                                                            <h4 class="card-title m-0" style="color:#F5AC39">
+                                                    <div class="card card-achievement card-default mt-2" v-show="showCategory == event.category">
+                                                        <div class="card-header bg-achievement">
+                                                            <h4 class="card-title m-0">
                                                                 {{ event.name }} <br />
                                                                 <span style="font-size: 14px;" v-if="event.event_required">(You must follow event <strong>{{ event.event_required }}</strong> to participate this event)</span>
                                                             </h4>
@@ -286,7 +282,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                                                                 <div v-if="event.participant >= event.kouta" class="alert alert-warning text-center">
                                                                     <h4>Sorry, quota for this event is full</h4>
                                                                 </div>
-                                                                <table class="table text-light">
+                                                                <table class="table">
                                                                     <thead>
                                                                         <tr>
                                                                             <th class="border-end">Category</th>
@@ -333,12 +329,12 @@ $theme_path = base_url("themes/gigaland") . "/";
                                     <!-- NOTE GROUP -->
                                     <div class="form-group">
                                         <hr />
-                                        <h5 style="color:#F4AD39;">Members
+                                        <h5>Members
                                             <span v-if="validation_error.members">
                                                 (<span style="color: #F4AD39;" v-html="validation_error.members"></span>)
                                             </span>
                                         </h5>
-                                        <table class="table text-light border">
+                                        <table class="table border">
                                             <thead class="text-center">
                                                 <tr>
                                                     <th class="border-end" width="5%">
@@ -348,7 +344,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                                                         <h5>Data Members</h5>
                                                     </th>
                                                     <th class="border-end" width="10%">
-                                                        <button @click="addMembers" type="button" class="btn btn-primary" style="background-color:#F4AD39; color:black;"><i class="fa fa-plus"></i>
+                                                        <button @click="addMembers" type="button" class="btn btn-purple"><i class="fa fa-plus"></i>
                                                         </button>
                                                     </th>
                                                 </tr>
@@ -366,14 +362,14 @@ $theme_path = base_url("themes/gigaland") . "/";
                                                     <td class="border-end">
                                                         <div class="row m-1">
                                                             <div class="form-group col-6 p-2">
-                                                                <label class="control-label" style="color:#F4AD39;">Email</label>
+                                                                <label class="control-label">Email</label>
                                                                 <input type="text" v-model="member.email" placeholder="Email" :class="{'is-invalid': member.validation_error.email}" class="form-control mb-0" name="email" />
                                                                 <div v-if="member.validation_error.email" class="invalid-feedback">
                                                                     {{ member.validation_error.email }}
                                                                 </div>
                                                             </div>
                                                             <div class="form-group col-6 p-2">
-                                                                <label class="control-label" style="color:#F4AD39;">Full Name*</label>
+                                                                <label class="control-label">Full Name*</label>
                                                                 <input type="text" v-model="member.fullname" placeholder="Full Name" :class="{'is-invalid':member.validation_error.fullname}" class="form-control mb-0" name="fullname" />
                                                                 <div v-if="member.validation_error.fullname" class="invalid-feedback">
                                                                     {{ member.validation_error.fullname }}
@@ -381,7 +377,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                                                             </div>
 
                                                             <div class="form-group col-6 p-2 dark-select">
-                                                                <label class="control-label" style="color:#F4AD39;">Institution</label>
+                                                                <label class="control-label">Institution</label>
                                                                 <br>
                                                                 <?= form_dropdown("univ", $participantsUniv, "", [
                                                                     ':name' => '`univ_${index}`',
@@ -396,7 +392,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                                                                 </div>
 
                                                                 <!-- <div class="mt-2" v-if="member.univ == <?= Univ_m::UNIV_OTHER; ?>">
-                                                                    <input style="color:#F4AD39;" type="text" v-model="member.other_institution" :class="{ 'is-invalid':member.validation_error.other_institution} " class="form-control mb-0" name="other_institution" />
+                                                                    <input type="text" v-model="member.other_institution" :class="{ 'is-invalid':member.validation_error.other_institution} " class="form-control mb-0" name="other_institution" />
                                                                     <div v-if="member.validation_error.other_institution" class="invalid-feedback">
                                                                         {{ member.validation_error.other_institution }}
                                                                     </div>
@@ -404,7 +400,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                                                             </div>
 
                                                             <!-- <div class="form-group col-6 p-2">
-                                                                <label class="control-label" style="color:#F4AD39;">Sponsor</label>
+                                                                <label class="control-label">Sponsor</label>
                                                                 <input type="text" v-model="member.sponsor" placeholder="Sponsor" :class="{'is-invalid': member.validation_error.sponsor}" class="form-control mb-0" name="sponsor" />
                                                                 <div v-if="member.validation_error.sponsor" class="invalid-feedback">
                                                                     {{ member.validation_error.sponsor }}
@@ -412,8 +408,8 @@ $theme_path = base_url("themes/gigaland") . "/";
                                                             </div> -->
 
                                                             <div class="form-group col-6 p-2" v-if="member.univ == <?= Univ_m::UNIV_OTHER; ?>">
-                                                                <label class="control-label" style="color:#F4AD39;">Other Institution*</label>
-                                                                <input style="color:#F4AD39;" type="text" v-model="member.other_institution" :class="{ 'is-invalid':member.validation_error.other_institution} " class="form-control mb-0" name="other_institution" />
+                                                                <label class="control-label">Other Institution*</label>
+                                                                <input type="text" v-model="member.other_institution" :class="{ 'is-invalid':member.validation_error.other_institution} " class="form-control mb-0" name="other_institution" />
                                                                 <div v-if="member.validation_error.other_institution" class="invalid-feedback">
                                                                     {{ member.validation_error.other_institution }}
                                                                 </div>
@@ -426,9 +422,9 @@ $theme_path = base_url("themes/gigaland") . "/";
                                                 </tr>
                                             </tbody>
                                         </table>
-                                        <small class="col-12" for="" style="color:#F4AD39;">*PLEASE FILL YOUR NAME CORRECTLY FOR YOUR CERTIFICATE</small>
-                                        <div class="card card-default mt-2">
-                                            <div class="card-header text-center" style="color:#F5AC39">
+                                        <small class="col-12" for="">*PLEASE FILL YOUR NAME CORRECTLY FOR YOUR CERTIFICATE</small>
+                                        <div class="card card-achievement card-default mt-2">
+                                            <div class="card-header bg-achievement text-center" style="color:#fff">
                                                 <b>{{ formatCurrency(total()) }}</b>
                                                 <span v-show="isUsd">
                                                     <br>
@@ -444,7 +440,7 @@ $theme_path = base_url("themes/gigaland") . "/";
                 </div>
                 <hr />
                 <div class="col-lg-12 text-center">
-                    <button :disabled="saving" type="button" @click="register" class="btn-main" style="background-color:#F4AD39; color:black;">
+                    <button :disabled="saving" type="button" @click="register" style="width: 200px;" class="btn btn-edge btn-purple">
                         <i v-if="saving" class="fa fa-spin fa-spinner"></i>
                         Next
                     </button>
@@ -457,7 +453,7 @@ $theme_path = base_url("themes/gigaland") . "/";
     <div class="modal" id="modal-select-payment">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header bg-purple">
                     <h4 class="modal-title">Select Payment Method</h4>
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>

@@ -1,23 +1,25 @@
 export default Vue.component("PageBilling", {
     template: `
-        <div class="col-lg-12">
+        <div class="achievement-area-copy">
             <page-loader :loading="loading" :fail="fail"></page-loader>
             <div v-if="!loading">
             	<div class="overflow-hidden mb-1">
-                	<h2 class="font-weight-normal color-heading text-7 mb-0"><strong class="font-weight-extra-bold">Cart & Payment</strong></h2>
+					<p class="font-weight-normal mb-0" style="font-size: 30px;"><strong class="font-weight-extra-bold">Cart &amp; Payment</strong></p>
 				</div>
 				<div class="overflow-hidden mb-4 pb-3">
 					<p class="mb-0">Your payment information. We suggest you to make a payment immediately (credit card or virtual account) after click "checkout" below. </p>
 				</div>
 				<div class="row  table-responsive">
 					<h4>Transaction History</h4>
-					<table class="table text-light border">
+					<table class="table table-bordered text-light">
 						<thead>
-							<th class="color-heading">Order Date</th>
-							<th class="color-heading">Invoice ID</th>
-							<th class="color-heading">Status</th>
-							<th class="color-heading">Total price</th>
-							<th class="color-heading"></th>
+							<tr style="background-color: #ff0052;" class="text-center">
+								<th class="color-heading">Order Date</th>
+								<th class="color-heading">Invoice ID</th>
+								<th class="color-heading">Status</th>
+								<th class="color-heading">Total price</th>
+								<th class="color-heading"></th>
+							</tr>
 						</thead>
 						<tbody v-if="!transaction">
 							<tr>
@@ -31,7 +33,7 @@ export default Vue.component("PageBilling", {
 								<td>{{ item.status_payment.toUpperCase()}}</td>
 								<td>{{ sumPrice(item.detail)}}</td>
 								<td>
-									<button class="btn btn-primary" @click="detailTransaction(item,$event)">Click for detail</button>
+									<button class="btn btn-purple" @click="detailTransaction(item,$event)">Click for detail</button>
 									<button @click="modalProof(item)" v-if="item.status_payment == 'pending' && item.channel == 'MANUAL TRANSFER'" class="btn btn-primary" >Unggah Bukti Transfer</button>
 								</td>
 							</tr>
@@ -89,21 +91,21 @@ export default Vue.component("PageBilling", {
 			</div>
 			<div class="modal" id="modal-upload-proof">
 				<div class="modal-dialog modal-dialog-centered">
-					<div class="modal-content">
+					<div class="modal-content" style="background-color: #212428;">
 						<div class="modal-header">
 							<h4 class="modal-title">Upload Payment Proof</h4>
 						</div>
 						<div class="modal-body">
 							<form ref="formUpload">
-								<div class="form-group">
+								<div class="form-group mb-3">
 									<label class="form-control-label">Invoice ID</label>
 									<input name="invoice_id" type="text" :value="upload.id" readonly class="form-control" />
 								</div>
-								<div class="form-group">
+								<div class="form-group mb-3">
 									<label class="form-control-label">Amount (Rp)</label>
 									<input type="text" :value="sumPrice(upload.detail)" readonly class="form-control" />
 								</div>
-								<div class="form-group">
+								<div class="form-group mb-3">
 									<label class="form-control-label">Payment Proof(png,jpg,jpeg,pdf)</label>
 									<div class="custom-file">
 										<input @change="fileChange" name="file_proof" type="file" accept=".png,.jpg,.jpeg,.pdf" :class="{'is-invalid':upload_validation.invalid}" class="custom-file-input" />									
@@ -111,7 +113,7 @@ export default Vue.component("PageBilling", {
 										<div v-if="upload_validation.invalid" class="invalid-feedback">{{ upload_validation.message_invalid }}</div>
 									</div>
 								</div>
-								<div class="form-group">
+								<div class="form-group mb-3">
 									<label class="form-control-label">Message</label>
 									<textarea name="message" class="form-control">
 									</textarea>
@@ -126,65 +128,67 @@ export default Vue.component("PageBilling", {
 			</div>
 			<div class="modal" id="modal-detail" tabindex="1005" role="dialog">
 				<div class="modal-dialog modal-lg modal-dialog-centered">
-					<div class="modal-content">
+					<div class="modal-content"  style="background-color: #212428;">
 						<div class="modal-header">
-							<h4 class="modal-title">Detail Transaction</h4>
+						<p class="font-weight-normal mb-0" style="font-size: 20px;">Detail Transaction</p> 
 							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">&times;</button>
 						</div>
 						<div class="modal-body table-responsive">
-							<table class="table text-light">
-								<tr>
-									<th>Invoice ID</th>
-									<td>{{ detailModel.id }}</td>
-									<th>Invoice Date</th>
-									<td>{{ detailModel.updated_at }}</td>
-								</tr>
-								<tr>
-									<th class="text-center" colspan="4">Billing Information</th>
-								</tr>
-								<tr>
-									<th>Bill To</th>
-									<td colspan="3">{{ detailModel.member.member_id ? detailModel.member.member_id : user.fullname }}</td>
-								</tr>
-								<tr>
-									<th>Address</th>
-									<td colspan="3">{{ user.address+", "+user.city }}</td>
-								</tr>
-								<tr>
-									<th>Total Price</th>
-									<td colspan="3">{{ amount }}</td>
-								</tr>
-								<tr>
-									<th>Payment Method</th>
-									<td colspan="3">
-										{{ detailModel.channel }}
-										<div v-if="detailModel.status_payment == 'pending' && detailModel.paymentGatewayInfo.product" class="card mt-3">
-											<div class="card-body">
-												<h5 class="card-title">
-													Bank Info : {{ detailModel.paymentGatewayInfo.product }}
-												</h5>
-												<h5 class="card-text">
-													Account Number : {{ detailModel.paymentGatewayInfo.productNumber}}
-												</h5>
+							<table class="table table-bordered text-light">
+								<tbody>
+									<tr>
+										<th>Invoice ID</th>
+										<td>{{ detailModel.id }}</td>
+										<th>Invoice Date</th>
+										<td>{{ detailModel.updated_at }}</td>
+									</tr>
+									<tr>
+										<th class="text-center" colspan="4">Billing Information</th>
+									</tr>
+									<tr>
+										<th>Bill To</th>
+										<td colspan="3">{{ detailModel.member.member_id ? detailModel.member.member_id : user.fullname }}</td>
+									</tr>
+									<tr>
+										<th>Address</th>
+										<td colspan="3">{{ user.address+", "+user.city }}</td>
+									</tr>
+									<tr>
+										<th>Total Price</th>
+										<td colspan="3">{{ amount }}</td>
+									</tr>
+									<tr>
+										<th>Payment Method</th>
+										<td colspan="3">
+											{{ detailModel.channel }}
+											<div v-if="detailModel.status_payment == 'pending' && detailModel.paymentGatewayInfo.product" class="card card-achievement mt-3">
+												<div class="card-body">
+													<h5 class="card-title" style="color:#212428">
+														Bank Info : {{ detailModel.paymentGatewayInfo.product }}
+													</h5>
+													<h5 class="card-text">
+														Account Number : {{ detailModel.paymentGatewayInfo.productNumber}}
+													</h5>
+												</div>
 											</div>
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<th>Status</th>
-									<td colspan="3">{{ detailModel.status_payment.toUpperCase() }}</td>
-								</tr>
-								<tr>
-									<th class="text-center" colspan="4">Detail</th>
-								</tr>
-								<tr>
-									<th colspan="2">Event Name</th>
-									<th colspan="2">Price</th>
-								</tr>
-								<tr v-for="dt in detailModel.details">
-									<td colspan="2">{{ dt.product_name }}</td>
-									<td colspan="2">{{ formatCurrency(dt.price) }}</td>
-								</tr>
+										</td>
+									</tr>
+									<tr>
+										<th>Status</th>
+										<td colspan="3">{{ detailModel.status_payment.toUpperCase() }}</td>
+									</tr>
+									<tr>
+										<th class="text-center" colspan="4">Detail</th>
+									</tr>
+									<tr>
+										<th colspan="2">Event Name</th>
+										<th colspan="2">Price</th>
+									</tr>
+									<tr v-for="dt in detailModel.details">
+										<td colspan="2">{{ dt.product_name }}</td>
+										<td colspan="2">{{ formatCurrency(dt.price) }}</td>
+									</tr>
+								</tbody>
 							</table>
 							<br>
 							<h5 v-if="detailModel.status_payment == 'pending'">Transfer Information</h5>
@@ -225,8 +229,8 @@ export default Vue.component("PageBilling", {
 								<br/>Then upload proof of payment (receipts, screenshots of SMS banking, etc.) in the Transaction History </p>
 								<div class="row">
 									<div class="col-sm-6" v-for="account in detailModel.banks">
-										<div class="card p-2">
-												<h3 class="card-title">{{ account.bank }}</h3>
+										<div class="card card-achievement p-2">
+												<h3 class="card-title" style="color:#212428">{{ account.bank }}</h3>
 												<p class="card-text table-responsive">
 													<table>
 														<tr>
@@ -256,7 +260,7 @@ export default Vue.component("PageBilling", {
 			</div>
 			<div class="modal" id="modal-select-payment">
 				<div class="modal-dialog">
-					<div class="modal-content">
+					<div class="modal-content"  style="background-color: #212428;">
 						<div class="modal-header">
 							<h4 class="modal-title">Select Payment Method</h4>
 							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">&times;</button>
@@ -270,7 +274,7 @@ export default Vue.component("PageBilling", {
 			
 			<div class="modal" id="modal-manual_payment">
 				<div class="modal-dialog modal-lg">
-					<div class="modal-content">
+					<div class="modal-content"  style="background-color: #212428;">
 						<div class="modal-header">
 							<h4 class="modal-title">Info Payment</h4>
 							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">&times;</button>
@@ -280,9 +284,9 @@ export default Vue.component("PageBilling", {
 							<br/>Then upload proof of payment (receipts, SMS banking screenshoot, etc) on Transaction History </p>
 							<div class="row">
 								<div class="col-sm-6" v-for="account in manual_payment.banks">
-									<div class="card">
+									<div class="card card-achievement">
 										<div class="card-body">
-											<h3 class="card-title">{{ account.bank }}</h3>
+											<h4 class="card-title" style="color:#212428">{{ account.bank }}</h4>
 											<p class="card-text">
 												<table>
 													<tr><th>Account Number</th><td>:</td><td>{{ account.no_rekening }}</td></tr>												

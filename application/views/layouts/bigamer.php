@@ -16,7 +16,6 @@
 	<link rel="stylesheet" href="<?=base_url('themes/bigamer');?>/assets/css/icofont.min.css">
 	<link rel="stylesheet" href="<?=base_url('themes/bigamer');?>/assets/css/swiper.min.css">
 	<link rel="stylesheet" href="<?=base_url('themes/bigamer');?>/assets/css/lightcase.css">
-	<link rel="stylesheet" href="<?=base_url('themes/bigamer');?>/assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="<?=base_url('themes/bigamer');?>/assets/css/style.min.css">
 	<link rel="stylesheet" href="<?=base_url('themes/bigamer');?>/assets/css/custom.css">
     <?php if (ENVIRONMENT == "production") : ?>
@@ -51,7 +50,7 @@
 				<div class="brand-logo d-none d-lg-inline-block">
 					<div class="logo">
 						<a href="index.html">
-							<img src="<?=base_url('themes/bigamer');?>/assets/images/logo/logo.png" alt="logo">
+							<img src="<?=base_url('themes/uploads/logo.png');?>" style="width:100px" alt="logo">
 						</a>
 					</div>
 				</div>
@@ -92,15 +91,55 @@
 							</div>
 							<div class="menu-area">
 								<ul class="menu">
+								<?php if (isset($isLogin)) { ?>
+                                    <!-- mainmenu begin -->
+                                    <?php
+                                        $member = $this->router->class == "area";
+                                        $userDetail = array_merge($user->toArray(), ['status_member' => $user->status_member->kategory]);
+                                    ?>
+                                        <li>
+                                            <a href="<?= base_url('site/home'); ?>#content">Home<span></span></a>
+                                        </li>
+                                        <li>
+                                            <a href="<?= base_url('member/area'); ?>#/profile">Profile<span></span></a>
+                                        </li>
+                                        <?php if($hasSettlementTransaction):?>
+                                        <li>
+                                            <a href="<?= base_url('member/area'); ?>#/paper">Send Manuscript<span></span></a>
+                                        </li>
+                                        <?php endif;?>
+                                        <li class="menu-item-has-children">
+                                            <a class="active" href="#">Purchase<span></span></a><span></span>
+                                            <ul class="submenu">
+                                                <li><a href="<?= base_url('member/area'); ?>#/events">Events</a></li>
+                                                <li><a href="<?= base_url('member/area'); ?>#/billing">Cart & Payment</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="menu-item-has-children">
+                                            <a class="active" href="#">On Event<span></span></a><span></span>
+                                            <ul class="submenu">
+                                                <li><a href="<?= base_url('member/area'); ?>#/webminar">Webinar Link</a></li>
+                                                <?php if (in_array($userDetail['status'], $statusToUpload)) : ?>
+                                                    <li><a href="<?= base_url('member/area'); ?>#/material">Upload Material</a></li>
+                                                <?php endif; ?>
+                                                <li><a href="<?= base_url('member/area'); ?>#/sertifikat">Download Certificate</a></li>
+                                                <li><a href="<?= base_url('member/area'); ?>#/presentation">List of Scientific Presentations</a></li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a href="<?= base_url('member/area/logout'); ?>">Logout<span></span></a>
+                                        </li>
 
+                            <?php } else{ ?>
 									<li><a href="<?=base_url('site/home');?>#home">Home</a></li>
 									<li><a href="<?=base_url('site/home');?>#sign-in">Sign In</a></li>
 									<li><a href="<?=base_url('site/home');?>#event">Event</a></li>
-									
+									<?php };?>
 								</ul>
+								<?php if(!isset($isLogin)):?>
 								<!-- <a href="login.html" class="login"><i class="icofont-user"></i> <span>LOG IN</span> </a> -->
 								<a href="<?=base_url('member/register');?>" class="signup"><i class="icofont-users"></i> <span>Registration</span></a>
-
+								<?php endif;?>
 								<!-- toggle icons -->
 								<div class="header-bar d-lg-none">
 									<span></span>
@@ -240,7 +279,7 @@
 	<script src="<?=base_url('themes/bigamer');?>/assets/js/main.js"></script>
 	<script src="<?=base_url('themes/bigamer');?>/assets/js/custom.js"></script>
     <script src="<?= base_url("themes/script/moment.min.js"); ?>"></script>
-
+	<script src="https://use.fontawesome.com/451d4f3257.js"></script>
 
 	<!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
 	<script>

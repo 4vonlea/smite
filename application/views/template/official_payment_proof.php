@@ -34,6 +34,7 @@ $isGroup = ($member == null);
 		.table-event {
 			border-collapse: collapse;
 			margin-top: 10px;
+			width: 100%;
 		}
 
 		.table-event thead {

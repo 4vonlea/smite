@@ -1,6 +1,6 @@
 export default Vue.component("PagePaper", {
     template: `
-        <div class="col-lg-12">
+        <div class="achievement-area-copy">
 			<page-loader :loading="loading" :fail="fail"></page-loader>
 			<div class="modal" data-backdrop="static" id="modal-fullpaper">
 				<div class="modal-dialog modal-dialog-centered">
@@ -66,19 +66,18 @@ export default Vue.component("PagePaper", {
 			</div>
 			<div v-if="!loading && !fail">
 				<div class="overflow-hidden mb-1">
-					<h2 class="font-weight-normal color-heading text-7 mb-0"><strong class="font-weight-extra-bold">Send
-							Manuscript</strong></h2>
+				<p class="font-weight-normal mb-0" style="font-size: 30px;"><strong class="font-weight-extra-bold">Send Manuscript</strong></p>
 				</div>
 				<div class="overflow-hidden mb-4 pb-3">
 					<p class="mb-0">If you want to participate, please upload your manuscript.</p>
 				</div>
 				<ul class="list-group list-group-horizontal flex-fill mb-2 ">
 					<li class="list-group-item text-light border color-heading" style="background-color: transparent;">Deadline Abstract <span
-							class='badge badge-info'>{{ paper.deadline.paper_deadline | formatDate }}</span></li>
+							class='badge bg-info'>{{ paper.deadline.paper_deadline | formatDate }}</span></li>
 					<li class="list-group-item text-light border color-heading" style="background-color: transparent;">Deadline Fullpaper
-						<span class='badge badge-info'>{{ paper.deadline.fullpaper_deadline | formatDate }}</span></li>
+						<span class='badge bg-info'>{{ paper.deadline.fullpaper_deadline | formatDate }}</span></li>
 					<li class="list-group-item text-light border color-heading" style="background-color: transparent;">Deadline Presentasi
-						<span class='badge badge-info'>{{ paper.deadline.presentation_deadline | formatDate }}</span></li>
+						<span class='badge bg-info'>{{ paper.deadline.presentation_deadline | formatDate }}</span></li>
 				</ul>
 				<p class="mb-0">*<small class="font-weight-bold">You can change/ reupload your fullpaper or presentation/ poster
 						file, on detail page (magnifying glass icon)</small></p>
@@ -117,35 +116,35 @@ export default Vue.component("PagePaper", {
 										<li class="list-group-item d-flex justify-content-between align-items-center border text-light"
 											style="background-color:transparent">
 											Abstract
-											<span class="badge badge-primary badge-pill">{{ paper.status[pap.status] }}</span>
+											<span class="badge bg-primary badge-pill">{{ paper.status[pap.status] }}</span>
 
 										</li>
 										<li class="list-group-item d-flex justify-content-between align-items-center border text-light"
 											style="background-color:transparent">
 											Fullpaper
-											<span class="badge badge-primary badge-pill">{{ (pap.status == 2 ?
+											<span class="badge bg-primary badge-pill">{{ (pap.status == 2 ?
 												paper.status[pap.status_fullpaper]:'') }}</span>
 										</li>
 										<li class="list-group-item d-flex justify-content-between align-items-center border text-light"
 											style="background-color:transparent">
 											Presentation
-											<span class="badge badge-primary badge-pill">{{ (pap.status_fullpaper == 2 ?
+											<span class="badge bg-primary badge-pill">{{ (pap.status_fullpaper == 2 ?
 												paper.status[pap.status_presentasi]:'') }}</span>
 										</li>
 									</ul>
 									<div class="text-center pt-2">
-										<h5 class="badge badge-info" v-if="pap.status == 0">
+										<h5 class="badge bg-info" v-if="pap.status == 0">
 											Please correct your abstract <br /><small>(Press Details then Edit)</small>
 										</h5>
-										<h5 class="badge badge-info" v-if="pap.status == 2 && pap.status_fullpaper == 0">
+										<h5 class="badge bg-info" v-if="pap.status == 2 && pap.status_fullpaper == 0">
 											Please correct your fullpaper <br /><small>(View Details)</small>
 										</h5>
-										<h5 class="badge badge-info"
+										<h5 class="badge bg-info"
 											v-if="pap.status_fullpaper == 2 && pap.status_presentasi == 0">
 											Please correct your abstract <br /><small>(View Details)</small>
 										</h5>
 										<span v-if="pap.status_fullpaper == 2">
-											<h5 class="badge badge-info">(Presentation on {{ pap.type_presence }})</h5>
+											<h5 class="badge bg-info">(Presentation on {{ pap.type_presence }})</h5>
 										</span>
 									</div>
 
@@ -184,18 +183,18 @@ export default Vue.component("PagePaper", {
 									<li class="list-group-item d-flex justify-content-between align-items-center border text-light"
 										style="background-color:transparent">
 										Abstract
-										<span class="badge badge-primary badge-pill">{{ paper.status[form.status] }}</span>
+										<span class="badge bg-primary badge-pill">{{ paper.status[form.status] }}</span>
 									</li>
 									<li class="list-group-item d-flex justify-content-between align-items-center border text-light"
 										style="background-color:transparent">
 										Fullpaper
-										<span class="badge badge-primary badge-pill">{{ paper.status[form.status_fullpaper]
+										<span class="badge bg-primary badge-pill">{{ paper.status[form.status_fullpaper]
 											}}</span>
 									</li>
 									<li class="list-group-item d-flex justify-content-between align-items-center border text-light"
 										style="background-color:transparent">
 										Presentation
-										<span class="badge badge-primary badge-pill">{{ paper.status[form.status_presentasi]
+										<span class="badge bg-primary badge-pill">{{ paper.status[form.status_presentasi]
 											}}</span>
 									</li>
 								</ul>
@@ -259,8 +258,7 @@ export default Vue.component("PagePaper", {
 						<div class="form-group row mb-2">
 							<label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 color-heading">Manuscript Section*</label>
 							<div class="col-lg-9">
-								<select :disabled="detail" class="form-control text-light" v-model="form.category" name="category"
-									style="background-color: #202429" :class="{'is-invalid':error_upload.category}">
+								<select :disabled="detail" class="form-control" v-model="form.category" name="category" :class="{'is-invalid':error_upload.category}">
 									<option v-for="(category,key) in paper.categoryPaper" :value="category">{{ category }}</option>
 								</select>
 								<div v-if="error_upload.category" class="invalid-feedback">{{ error_upload.category }}</div>
@@ -269,8 +267,7 @@ export default Vue.component("PagePaper", {
 						<div class="form-group row mb-2">
 							<label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 color-heading">Manuscript Category*</label>
 							<div class="col-lg-9">
-								<select :disabled="detail" class="form-control text-light" v-model="form.type" name="type"
-									style="background-color: #202429" :class="{'is-invalid':error_upload.type}">
+								<select :disabled="detail" class="form-control" v-model="form.type" name="type" :class="{'is-invalid':error_upload.type}">
 									<option v-for="(type,key) in paper.treePaper[form.category]" :value="key">{{ key }}</option>
 								</select>
 								<div v-if="error_upload.type" class="invalid-feedback">{{ error_upload.type }}</div>
@@ -279,8 +276,7 @@ export default Vue.component("PagePaper", {
 						<div class="form-group row mb-2">
 							<label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 color-heading">Manuscript Type*</label>
 							<div class="col-lg-9">
-								<select :disabled="detail" class="form-control text-light" v-model="form.methods" name="methods"
-									style="background-color: #202429" :class="{'is-invalid':error_upload.methods}">
+								<select :disabled="detail" class="form-control" v-model="form.methods" name="methods" :class="{'is-invalid':error_upload.methods}">
 									<option v-for="(type,key) in form.category && form.type ? paper.treePaper[form.category][form.type] : []" :value="key">{{ key }}</option>
 								</select>
 								<input :disabled="form.methods != 'Other' || detail"

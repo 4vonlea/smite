@@ -1,16 +1,16 @@
 export default Vue.component("PageWebminar", {
     template: `
-        <div class="col-lg-12">
+        <div class="achievement-area-copy">
             <page-loader :loading="loading" :fail="fail"></page-loader>
             <div v-if="!loading">
             	<div class="overflow-hidden mb-1">
-                    <h2 class="font-weight-normal color-heading text-7 mb-0"><strong class="font-weight-extra-bold">Webinar Link</strong></h2>
-                    <div class="overflow-hidden mb-4 pb-3">
+                    <p class="font-weight-normal mb-0" style="font-size: 30px;"><strong class="font-weight-extra-bold">Webinar Link</strong></p><br>
+                    <div class="overflow-hidden">
                         <p class="mb-0">Please attend the event you participate via the link below</p>
                     </div>
                 </div>
                 <div class="row table-responsive">
-                    <p class="font-weight-bold h5">
+                    <p class="font-weight-bold">
                         *Join button cannot be clicked until 5 minutes before start time
                         and not clickable unless you have watched the sponsor
                         <br/>
@@ -21,12 +21,13 @@ export default Vue.component("PageWebminar", {
                         Presentation Material can be access here:
                         <a href="https://drive.google.com/drive/folders/1Wi7t64mOIq_WGD-v7GS7G3dL6CZo8DGr?usp=sharing" target="_blank">heree</a>
                     </p>-->
-                    <table class="table text-light">
+                    <table class="table table-bordered text-light">
                         <tbody v-if="events.length == 0">
                             <tr>
                                 <td class="text-center" colspan="3">You haven't participated in any events yet </td>
                             </tr>
                         </tbody>
+                        <tbody>
                         <template v-for="event in events">
                             <tr>
                                 <td class="font-weight-bold text-center" colspan="3">
@@ -97,6 +98,7 @@ export default Vue.component("PageWebminar", {
                                 </td>
                             </tr>
                         </template>
+                        </tbody>
                     </table>
                 </div>
                 <div id="modal-ads" class="modal" tabindex="-1" role="dialog">

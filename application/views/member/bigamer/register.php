@@ -370,11 +370,13 @@ $theme_path = base_url("themes/bigamer") . "/";
                                 <p class="text-center">Please select the event you want. We suggest you to make a payment immediately (credit card or virtual account) after checkout. *the price exclude administration fee</p>
                             </div>
                             <div class="row mt-2">
-                                <ul class="nav nav-pills">
-                                    <li v-for="cat in eventCategory" class="nav-item">
-                                        <span style="cursor: pointer;" class="nav-link" @click="showCategory = cat" :class="{'active':showCategory == cat}">{{ cat }}</span>
-                                    </li>
-                                </ul>
+                                <div class="col-md-12">
+                                    <ul class="nav nav-pills">
+                                        <li v-for="cat in eventCategory" class="nav-item">
+                                            <span style="cursor: pointer;" class="nav-link" @click="showCategory = cat" :class="{'active':showCategory == cat}">{{ cat }}</span>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="accordion accordion-quaternary col-md-12">
@@ -461,7 +463,7 @@ $theme_path = base_url("themes/bigamer") . "/";
     <div class="modal" id="modal-select-payment">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header bg-purple">
                     <h4 class="modal-title">Select Payment Method</h4>
                     <button type="button" class="btn btn-default" data-dismiss="modal">&times;</button>
                 </div>

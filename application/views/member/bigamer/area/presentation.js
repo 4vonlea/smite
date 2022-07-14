@@ -1,10 +1,10 @@
 export default Vue.component("Presentation", {
     template:`
-    <div class="col-lg-12">
+    <div class="achievement-area-copy">
         <page-loader :loading="loading" :fail="fail"></page-loader>
         <div v-if="!loading">
             <div class="overflow-hidden mb-1">
-                <h2 class="font-weight-normal color-heading text-7 mb-0"><strong class="font-weight-extra-bold">Presentation Gallery</strong></h2>
+                <p class="font-weight-normal mb-0" style="font-size: 30px;"><strong class="font-weight-extra-bold">Presentation Gallery</strong></p>
             </div>
             <div class="overflow-hidden mb-4 pb-3">
                 <p class="mb-0">Displaying poster or presentation files uploaded by call for paper's participant</p>
@@ -14,7 +14,7 @@ export default Vue.component("Presentation", {
                 <input type="text" v-model="globalFilter" class="form-control mb-2" placeholder="Please type for search...." @change="doFilter" @keyup="doFilter"/>
             </div>
             <div class="col-md-2 col-sm-3">
-                <select v-model.number="perPage" style="padding:.375rem .75rem">
+                <select class="form-select form-select-sm" v-model.number="perPage" style="padding:.375rem .75rem">
                     <option value="5">Show 5 </option>
                     <option value="10">Show 10 </option>
                     <option value="25">Show 25 </option>
@@ -33,6 +33,7 @@ export default Vue.component("Presentation", {
                 :per-page="perPage"
                 :data-manager="dataManager"
                 pagination-path="pagination"
+                :css="css.table"
                 @vuetable:pagination-data="onPaginationData">
                     <template slot="poster" slot-scope="props">
                         <div class="text-center">
@@ -70,6 +71,12 @@ export default Vue.component("Presentation", {
             fail:false,
             data:[],
             globalFilter:'',
+            css:{
+                table:{
+                    tableHeaderClass:"text-center",
+                    tableClass:"table table-bordered text-light dataTable no-footer"
+                }
+            },
             pagerClass: {
                 wrapperClass: 'col-md-6 col-sm-12 btn-group text-center mb-2',
                 activeClass: 'active bg-warning',
