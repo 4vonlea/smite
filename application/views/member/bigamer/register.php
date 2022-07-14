@@ -372,7 +372,7 @@ $theme_path = base_url("themes/bigamer") . "/";
                             <div class="row mt-2">
                                 <ul class="nav nav-pills">
                                     <li v-for="cat in eventCategory" class="nav-item">
-                                        <span class="nav-link" @click="showCategory = cat" :class="{'active':showCategory == cat}">{{ cat }}</span>
+                                        <span style="cursor: pointer;" class="nav-link" @click="showCategory = cat" :class="{'active':showCategory == cat}">{{ cat }}</span>
                                     </li>
                                 </ul>
                             </div>
