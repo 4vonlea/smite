@@ -44,21 +44,22 @@
 		<div class="container" style="margin-top: -100px;">
             <div class="section-wrapper text-center text-uppercase">
                 <h1 class="header-title" style="font-size: 45px;">PIN PERDOSSI CIREBON</h1>
+              	<h1 class="header-title" style="font-size: 35px;">17 - 20 November 2022</h1>
 				<img src="<?= base_url('themes/bigamer'); ?>/assets/images/custom/perdossi_1.png" class="img-logo-head" alt="">
 				<img src="<?= base_url('themes/bigamer'); ?>/assets/images/custom/perdossi_2.png" class="img-logo-head" alt="">
             </div>
 			<div class="row text-center mt-2">
 				<div class="col-md-6 offset-md-3">
-					<a href="<?=base_url('site/home');?>" class="btn-main btn btn-edge-block btn-purple">Visit our Website here</a><br>
-					<a href="#" class="btn-main btn btn-edge-block btn-primary" style="margin-top: -10px;">Download AOMC 2022 Best E-poster</a><br>
-					<a href="#" class="btn-main btn btn-edge-block btn-primary" style="margin-top: -10px;">Download AOMC 2022 Program book</a><br>
-					<a href="https://aomc-pinbanjarmasin2022.com/themes/gigaland/images/20220528FA.pdf" target="blank" class="btn-mai btn btn-edge-block btn-purple" style="margin-top: -10px;">Download FINAL Announcement here (Updated on 28 May)</a><br>
+					<!--<a href="<?=base_url('site/home');?>" class="btn-main btn btn-edge-block btn-purple">Visit our Website here</a><br>-->
+					<a href="#" class="btn-main btn btn-edge-block btn-primary" style="margin-top: -10px;">Please wait</a><br>
+					<a href="#" class="btn-main btn btn-edge-block btn-primary" style="margin-top: -10px;">Website will be ready soon</a><br>
+					<!--<a href="https://aomc-pinbanjarmasin2022.com/themes/gigaland/images/20220528FA.pdf" target="blank" class="btn-mai btn btn-edge-block btn-purple" style="margin-top: -10px;">Download First Announcement here (Released on July 18th)</a><br>-->
 					<hr>
 				</div>
 			</div>
 			<div class="row mt-3 text-center">
 				<div class="col-12">
-					<p style="color: white; text-shadow: 3px 2px 1px black; font-size: 25px;">Recorded video will be available at 13 June 2022 until 12 July 2022. <a title="Tutorial Download Certicate and View Recording AOMC PIN Banjarmasin" href="https://drive.google.com/file/d/1lYOmP3mJVqUfgvs5IUIBNltaPMl0dBRp/view?usp=sharing" target="_blank">Download Tutorial to watch</a> here.</p>
+					<p style="color: white; text-shadow: 3px 2px 1px black; font-size: 25px;">Website will be available on July 18th 2022</p>
 				</div>
 			</div>
 
