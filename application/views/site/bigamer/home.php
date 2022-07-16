@@ -19,13 +19,6 @@
 	<link rel="stylesheet" href="<?=base_url('themes/bigamer');?>/assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="<?=base_url('themes/bigamer');?>/assets/css/style.min.css">
 	<link rel="stylesheet" href="<?=base_url('themes/bigamer');?>/assets/css/custom.css">
-    <link href="<?= base_url('themes/gigaland'); ?>/css/jquery.countdown.css" rel="stylesheet" type="text/css" />
-	<style>
-		.countdown-section{
-			margin-right: 10px;
-			font-size: 20px;
-		}
-	</style>
 
 </head>
 
@@ -52,7 +45,7 @@
 				<div class="brand-logo d-none d-lg-inline-block">
 					<div class="logo">
 						<a href="index.html">
-							<img src="<?=base_url('themes/uploads/logo.png');?>" style="width:100px" alt="logo">
+							<img src="<?=base_url('themes/bigamer');?>/assets/images/logo/logo.png" alt="logo">
 						</a>
 					</div>
 				</div>
@@ -61,13 +54,13 @@
 						<div class="header-top-area">
 							<ul class="left">
 								<li>
-									<i class="icofont-ui-call"></i> <a href="http://wa.me/6289603215099" target="_BLANK"><span>089603215099</span></a>
+									<i class="icofont-ui-call"></i> <a href="http://wa.me/6289603215099" target="_BLANK"><span>087733667120</span></a>
 								</li>
 								<li>
-									<i class="icofont-email"></i> <a href="mailto:admin@pinperdossicirebon2022.com" target="_BLANK"> <span>Mail : Admin</span></a>
+									<i class="icofont-email"></i> <a href="mailto:admin@pinperdossicirebon2022.com" target="_BLANK"> <span>Mail : pincirebon2022@gmail.com</span></a>
 								</li>
 								<li>
-									<i class="icofont-location-pin"></i> Cirebon
+									<i class="icofont-location-pin"></i> Aston Hotel, Cirebon
 								</li>
 							</ul>
 							<ul class="social-icons d-flex align-items-center">
@@ -81,7 +74,7 @@
 									<a href="#" class="instagram"><i class="icofont-instagram"></i></a>
 								</li>
 								<li>
-									<a href="http://wa.me/6289603215099" target="_BLANK" class="whatsapp"><i class="icofont-whatsapp"></i></a>
+									<a href="http://wa.me/6287733667120" target="_BLANK" class="whatsapp"><i class="icofont-whatsapp"></i></a>
 								</li>
 							</ul>
 						</div>
@@ -95,7 +88,7 @@
 								<ul class="menu">
 
 									<li><a href="#home">Home</a></li>
-									<li><a href="#sign-in">Sign In</a></li>
+									<li><a href="#sign-in">Sign</a></li>
 									<li><a href="#event">Event</a></li>
 									
 								</ul>
@@ -127,8 +120,8 @@
 				<div class="banner-content text-center">
 					<h1 class="header-title">PIN PERDOSSI CIREBON</h1>
 					<p style="text-transform: initial; font-size: 32px;">5.0 Neurotech : A New Innovationto Enchance <br> Neuroscience and Reshape NeuroSociety</p>
-					<p style="text-transform: initial;">17 - 22 November 2022</p>
-					<a href="#info" class="default-button reverse-effect"><span>Watch Now <i class="icofont-play-alt-1"></i></span> </a>
+					<p style="text-transform: initial;">17 - 20 November 2022</p>
+					<a href="#info" class="default-button reverse-effect"><span>Download First Announcement here <i class="icofont-play-alt-1"></i></span> </a>
 				</div>
 				<div class="banner-thumb d-flex flex-wrap justify-content-center justify-content-between align-items-center align-items-lg-end">
 					<div class="banner-thumb-img ml-xl-50-none">
@@ -214,7 +207,7 @@
                             </div>
                             <div class="contact-content">
                                 <h6 class="title">Speaker</h6>
-                                <h3>10</h3>
+                                <h3>tba</h3>
                             </div>
                         </div>
                     </div>
@@ -225,7 +218,7 @@
                             </div>
                             <div class="contact-content">
                                 <h6 class="title">Moderator</h6>
-                                <h3>18</h3>
+                                <h3>tba</h3>
                             </div>
                         </div>
                     </div>
@@ -236,7 +229,7 @@
                             </div>
                             <div class="contact-content">
                                 <h6 class="title">Participant</h6>
-                                <h3>100</h3>
+                                <h3>tba</h3>
                             </div>
                         </div>
                     </div>
@@ -247,7 +240,7 @@
                             </div>
                             <div class="contact-content">
                                 <h6 class="title">Abstract</h6>
-                                <h3>110</h3>
+                                <h3>tba</h3>
                             </div>
                         </div>
                     </div>
@@ -258,20 +251,19 @@
 						<div class="row">
 							<div class="col-lg-6 mb-3" style="text-align: center">
 								<h4>Abstract Countdown</h4>
-								<p class="text-white">(<?= date_format($papercountdown, "F d, Y"); ?>)</p>
-
-								<div class="de_countdown text-center btn btn-edge-block btn-purple mt-2" data-year="<?= date_format($papercountdown, "Y"); ?>" data-month="<?= date_format($papercountdown, "m"); ?>" data-day="<?= date_format($papercountdown, "d"); ?>" data-hour="<?= date_format($papercountdown, "H"); ?>"></div>
+								<p class="text-white">(April 30, 2022)</p>
+								<a href="#" class="btn btn-edge-block btn-purple mt-2">0h 0m 0s</a>
 							</div>
 							<div class="col-lg-6" style="text-align: center">
 								<h4>Event Countdown</h4>
-								<p class="text-white">(<?= date_format($eventcountdown, "F d, Y"); ?>)</p>
-								<div class="de_countdown text-center btn btn-edge-block btn-purple mt-2" data-year="<?= date_format($eventcountdown, "Y"); ?>" data-month="<?= date_format($eventcountdown, "m"); ?>" data-day="<?= date_format($eventcountdown, "d"); ?>" data-hour="<?= date_format($eventcountdown, "H"); ?>"></div>
+								<p class="text-white">(April 30, 2022)</p>
+								<a href="#" class="btn btn-edge-block btn-purple mt-2">0h 0m 0s</a>
 							</div>
 						</div>
 					</div>
 				</div>
 
-				<h3 class="mt-5 mb-2">SIMPOSIUM</h3>
+				<h3 class="mt-5 mb-2">Workshop</h3>
 
 				<div class="row g-5">
 					<div class="col-lg-6">
@@ -282,9 +274,9 @@
 										<div class="match-inner">
 											<div class="match-header d-flex flex-wrap justify-content-between align-items-center">
 												<p class="match-team-info" style="text-transform: initial;">
-													Minimal : <span class="fw-bold">30 Orang</span>
+													Minimal : <span class="fw-bold">30 orang</span>
 												</p>
-												<p class="match-prize" style="text-transform: initial;">Rp. <span class="fw-bold">$3200</span></p>
+												<p class="match-prize" style="text-transform: initial;">Rp. <span class="fw-bold">tba</span></p>
 											</div>
 											<div class="match-content gradient-bg-blue">
 												<div class="row align-items-center justify-content-center">
@@ -293,9 +285,9 @@
 															<h4><a href="" style="text-transform: initial;">Stroke dan Pembuluh Darah</a>
 															</h4>
 															<p class="d-flex flex-wrap justify-content-center">
-																<span class="match-date">30
-																	April 2021 </span><span class="match-time">Time:
-																	08:30PM</span>
+																<span class="match-date">17 - 18
+																	November 2022 </span><span class="match-time">Time:
+																	08:00AM</span>
 															</p>
 														</div>
 													</div>
@@ -311,7 +303,7 @@
 												<p class="match-team-info" style="text-transform: initial;">
 													Minimal : <span class="fw-bold">30 Orang</span>
 												</p>
-												<p class="match-prize" style="text-transform: initial;">Rp. <span class="fw-bold">$3200</span></p>
+												<p class="match-prize" style="text-transform: initial;">Rp. <span class="fw-bold">tba</span></p>
 											</div>
 											<div class="match-content gradient-bg-blue">
 												<div class="row align-items-center justify-content-center">
@@ -320,9 +312,9 @@
 															<h4><a href="" style="text-transform: initial;">Neurointervensi</a>
 															</h4>
 															<p class="d-flex flex-wrap justify-content-center">
-																<span class="match-date">30
-																	April 2021 </span><span class="match-time">Time:
-																	08:30PM</span>
+																<span class="match-date">17 - 18
+																	November 2022 </span><span class="match-time">Time:
+																	08:00AM</span>
 															</p>
 														</div>
 													</div>
@@ -338,7 +330,7 @@
 												<p class="match-team-info" style="text-transform: initial;">
 													Minimal : <span class="fw-bold">30 Orang</span>
 												</p>
-												<p class="match-prize" style="text-transform: initial;">Rp. <span class="fw-bold">$3200</span></p>
+												<p class="match-prize" style="text-transform: initial;">Rp. <span class="fw-bold">tba</span></p>
 											</div>
 											<div class="match-content gradient-bg-blue">
 												<div class="row align-items-center justify-content-center">
@@ -347,9 +339,9 @@
 															<h4><a href="" style="text-transform: initial;">Neurointensif</a>
 															</h4>
 															<p class="d-flex flex-wrap justify-content-center">
-																<span class="match-date">30
-																	April 2021 </span><span class="match-time">Time:
-																	08:30PM</span>
+																<span class="match-date">17 - 18
+																	November 2022 </span><span class="match-time">Time:
+																	08:00AM</span>
 															</p>
 														</div>
 													</div>
@@ -365,7 +357,7 @@
 												<p class="match-team-info" style="text-transform: initial;">
 													Minimal : <span class="fw-bold">30 Orang</span>
 												</p>
-												<p class="match-prize" style="text-transform: initial;">Rp. <span class="fw-bold">$3200</span></p>
+												<p class="match-prize" style="text-transform: initial;">Rp. <span class="fw-bold">tba</span></p>
 											</div>
 											<div class="match-content gradient-bg-blue">
 												<div class="row align-items-center justify-content-center">
@@ -374,9 +366,9 @@
 															<h4><a href="" style="text-transform: initial;">Neurobehaviour</a>
 															</h4>
 															<p class="d-flex flex-wrap justify-content-center">
-																<span class="match-date">30
-																	April 2021 </span><span class="match-time">Time:
-																	08:30PM</span>
+																<span class="match-date">17 - 18
+																	November 2022 </span><span class="match-time">Time:
+																	08:00AM</span>
 															</p>
 														</div>
 													</div>
@@ -392,7 +384,7 @@
 												<p class="match-team-info" style="text-transform: initial;">
 													Minimal : <span class="fw-bold">30 Orang</span>
 												</p>
-												<p class="match-prize" style="text-transform: initial;">Rp. <span class="fw-bold">$3200</span></p>
+												<p class="match-prize" style="text-transform: initial;">Rp. <span class="fw-bold">tba</span></p>
 											</div>
 											<div class="match-content gradient-bg-blue">
 												<div class="row align-items-center justify-content-center">
@@ -401,9 +393,9 @@
 															<h4><a href="" style="text-transform: initial;">Neurorestorasi</a>
 															</h4>
 															<p class="d-flex flex-wrap justify-content-center">
-																<span class="match-date">30
-																	April 2021 </span><span class="match-time">Time:
-																	08:30PM</span>
+																<span class="match-date">17 - 18
+																	November 2022 </span><span class="match-time">Time:
+																	08:00AM</span>
 															</p>
 														</div>
 													</div>
@@ -426,7 +418,7 @@
 												<p class="match-team-info" style="text-transform: initial;">
 													Minimal : <span class="fw-bold">30 Orang</span>
 												</p>
-												<p class="match-prize" style="text-transform: initial;">Rp. <span class="fw-bold">$3200</span></p>
+												<p class="match-prize" style="text-transform: initial;">Rp. <span class="fw-bold">tba</span></p>
 											</div>
 											<div class="match-content gradient-bg-blue">
 												<div class="row align-items-center justify-content-center">
@@ -435,9 +427,9 @@
 															<h4><a href="" style="text-transform: initial;">Neurogeriatri</a>
 															</h4>
 															<p class="d-flex flex-wrap justify-content-center">
-																<span class="match-date">30
-																	April 2021 </span><span class="match-time">Time:
-																	08:30PM</span>
+																<span class="match-date">17 - 18
+																	November 2022 </span><span class="match-time">Time:
+																	08:00AM</span>
 															</p>
 														</div>
 													</div>
@@ -453,7 +445,7 @@
 												<p class="match-team-info" style="text-transform: initial;">
 													Minimal : <span class="fw-bold">30 Orang</span>
 												</p>
-												<p class="match-prize" style="text-transform: initial;">Rp. <span class="fw-bold">$3200</span></p>
+												<p class="match-prize" style="text-transform: initial;">Rp. <span class="fw-bold">tba</span></p>
 											</div>
 											<div class="match-content gradient-bg-blue">
 												<div class="row align-items-center justify-content-center">
@@ -462,9 +454,9 @@
 															<h4><a href="" style="text-transform: initial;">Neuroinfeksi</a>
 															</h4>
 															<p class="d-flex flex-wrap justify-content-center">
-																<span class="match-date">30
-																	April 2021 </span><span class="match-time">Time:
-																	08:30PM</span>
+																<span class="match-date">17 - 18
+																	November 2022 </span><span class="match-time">Time:
+																	08:00AM</span>
 															</p>
 														</div>
 													</div>
@@ -480,7 +472,7 @@
 												<p class="match-team-info" style="text-transform: initial;">
 													Minimal : <span class="fw-bold">30 Orang</span>
 												</p>
-												<p class="match-prize" style="text-transform: initial;">Rp. <span class="fw-bold">$3200</span></p>
+												<p class="match-prize" style="text-transform: initial;">Rp. <span class="fw-bold">tba</span></p>
 											</div>
 											<div class="match-content gradient-bg-blue">
 												<div class="row align-items-center justify-content-center">
@@ -489,9 +481,9 @@
 															<h4><a href="" style="text-transform: initial;">Neuroimaging</a>
 															</h4>
 															<p class="d-flex flex-wrap justify-content-center">
-																<span class="match-date">30
-																	April 2021 </span><span class="match-time">Time:
-																	08:30PM</span>
+																<span class="match-date">17 - 18
+																	November 2022 </span><span class="match-time">Time:
+																	08:00AM</span>
 															</p>
 														</div>
 													</div>
@@ -507,7 +499,7 @@
 												<p class="match-team-info" style="text-transform: initial;">
 													Minimal : <span class="fw-bold">30 Orang</span>
 												</p>
-												<p class="match-prize" style="text-transform: initial;">Rp. <span class="fw-bold">$3200</span></p>
+												<p class="match-prize" style="text-transform: initial;">Rp. <span class="fw-bold">tba</span></p>
 											</div>
 											<div class="match-content gradient-bg-blue">
 												<div class="row align-items-center justify-content-center">
@@ -516,9 +508,9 @@
 															<h4><a href="" style="text-transform: initial;">Neuroonkologi</a>
 															</h4>
 															<p class="d-flex flex-wrap justify-content-center">
-																<span class="match-date">30
-																	April 2021 </span><span class="match-time">Time:
-																	08:30PM</span>
+																<span class="match-date">17 - 18
+																	November 2022 </span><span class="match-time">Time:
+																	08:00AM</span>
 															</p>
 														</div>
 													</div>
@@ -563,12 +555,12 @@
 								</form>
 							</div>
 							<div class="col-lg-6">
-								<h3 style="text-align: center">How to Register</h3>
+								<h3 style="text-align: center">Cara Pendaftaran</h3>
 								<p>
-									1. Click <b>Register</b>, and fill in your profile <br>
-									2. Choose your event (and or submit your abstract)<br>
-									3. Pay via our online payment gateway<br>
-									4. Download your registration receipt, and See you on the date<br>
+									1. Klik <b>Register</b>, dan isi profil anda<br>
+									2. Pilih kegiatan yang ini diikuti<br>
+									3. Lakukan pembayaran secara online<br>
+									4. Bukti Pembayaran dan Registrasi akan dikirimkan via email. Mohon dibawa saat registrasi ulang<br>
 								</p>
 
 								<li class="about-item2 d-flex flex-wrap mb-2">
@@ -584,7 +576,7 @@
 										<i class="icofont icofont-certificate-alt-1"></i>
 									</div>
 									<div class="about-item-content">
-										<p>E-certificate will be sent <br> to the registered email</p>
+										<p>Sertifikat akan dikirimkan melalui <br>email</p>
 									</div>
 								</li>
 							</div>
@@ -598,7 +590,7 @@
 						</div>
 						<div class="col-lg-6 col-md-6">
 							<div class="d-grid text-center">
-								<a href="<?=base_url('member/register/group');?>" class="default-button reverse-effect"><span> <i class="icofont-users"></i> Registrasi Grup/Kelompok</span> </a>
+								<a href="<?=base_url('member/register/group');?>" class="default-button reverse-effect"><span> <i class="icofont-users"></i> Registrasi Grup/ Kelompok</span> </a>
 							</div>
 						</div>
 					</div>
@@ -626,7 +618,7 @@
 												data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true"
 												aria-controls="collapseOne">
 												<span class="accor-header-inner d-flex flex-wrap align-items-center">
-													<p style="color: white; font-size: 20px; margin-top: 15px">Registration</p>
+													<p style="color: white; font-size: 20px; margin-top: 15px">Video Registrasi menggunakan pembayaran online</p>
 												</span>
 											</button>
 										</div>
@@ -643,7 +635,7 @@
 												data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true"
 												aria-controls="collapseTwo">
 												<span class="accor-header-inner d-flex flex-wrap align-items-center">
-													<p style="color: white; font-size: 20px; margin-top: 15px">How to register by using credit card (esp International Participant)</p>
+													<p style="color: white; font-size: 20px; margin-top: 15px">Video Registrasi menggunakan pembayaran kartu kredit</p>
 												</span>
 											</button>
 										</div>
@@ -660,7 +652,7 @@
 												data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true"
 												aria-controls="collapseThree">
 												<span class="accor-header-inner d-flex flex-wrap align-items-center">
-													<p style="color: white; font-size: 20px; margin-top: 15px">How to submit your abstract</p>
+													<p style="color: white; font-size: 20px; margin-top: 15px">Video Tutorial melakukan submisi abstrak</p>
 												</span>
 											</button>
 										</div>
@@ -677,7 +669,7 @@
 												data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="true"
 												aria-controls="collapseFour">
 												<span class="accor-header-inner d-flex flex-wrap align-items-center">
-													<p style="color: white; font-size: 20px; margin-top: 15px">How to do a group registration</p>
+													<p style="color: white; font-size: 20px; margin-top: 15px">Video Tutorial Pendaftaran Grup</p>
 												</span>
 											</button>
 										</div>
@@ -709,8 +701,8 @@
 					<ul class="gallery-filter">
 						<li data-filter=".one" class="item-one is-checked"><span class="category">Tanggal Penting</span></li>
 						<li data-filter=".two" class="item-two"><span class="category">FAQ</span></li>
-						<li data-filter=".three" class="item-three"><span class="category">Scientific Programme</span></li>
-						<li data-filter=".four" class="item-four"><span class="category">Scientific Guideline</span></li>
+						<li data-filter=".three" class="item-three"><span class="category">Jadwal Kegiatan</span></li>
+						<li data-filter=".four" class="item-four"><span class="category">Pedoman Ilmiah</span></li>
 						<li data-filter=".five" class="item-five"><span class="category">Sambutan</span></li>
 						<li data-filter=".six" class="item-six"><span class="category">Kepanitiaan</span></li>
 					</ul>
@@ -722,11 +714,10 @@
 								<h4>Tanggal Penting</h4>
 								<hr>
 								<ul>
-									<li>Batas Pengumpulan CV dan judul untuk SKP IDI : 10 Agustus 2022</li>
 									<li>Batas Pengumpulan Abstrak : 12 Oktober 2022</li>
 									<li>Pengumuman Penerimaan Abstrak : 24 Oktober 2022</li>
-									<li>Program Ilmiah : 17 – 18 November 2022 WS, dan 19– 20 November 2022 Simposium</li>
-									<li>E-Poster & Presentasi Oral : 19 November 2022</li>
+									<li>Program Ilmiah : 17 – 18 November 2022 untuk Workshop, dan 19– 20 November 2022 Simposium</li>
+									<li>E-Poster / Presentasi Oral : 19 November 2022</li>
 								</ul>
 							</div>
 						</div>
@@ -738,33 +729,28 @@
 								<hr>
 								<ul style="text-align: justify;">
 									<li>
-										<i class="icofont-exclamation-circle"></i> Is this conference held online or offline?<br>
-										- This conference will be held online using Zoom Application.
+										<i class="icofont-exclamation-circle"></i> Apakah kegiatan ini dilakukan secara daring atau luring?<br>
+										- Kegiatan ini dilakukan secara daring di Aston Hotel, Cirebon 
 									</li>
 									<li>
-										<i class="icofont-exclamation-circle"></i> How to login?<br>
-										- Login using the user email that has been registered on the web https://aomc-pinbanjarmasin2022.com/ and passwords respectively.
+										<i class="icofont-exclamation-circle"></i> Bagaimana caranya login?<br>
+										- Login menggunakan email user yang telah terdaftar di web https://https://pinperdossicirebon2022.com/ dengan password masing-masing.
 									</li>
 									<li>
-										<i class="icofont-exclamation-circle"></i> What if I forget my password?<br>
-										- If you forget your password, please click the Forgot Password section on the login page, and enter your registered email, then click Reset. The new password will be sent to the email that was entered during the reset process. Or you can also just click:
+										<i class="icofont-exclamation-circle"></i> Bagaimana jika saya lupa password?<br>
+										- Jika Anda lupa kata sandi Anda, silakan klik bagian Lupa Kata Sandi pada halaman login, dan masukkan email Anda yang terdaftar, lalu klik Atur Ulang. Password baru akan dikirimkan ke email yang dimasukkan saat proses reset.
 									</li>
 									<li>
-										<i class="icofont-exclamation-circle"></i> Where is the zoom link?<br>
-										- The event link is available in the Webinar Links” section of the Member Area page, to the left of the page. https://aomc-pinbanjarmasin2022.com/
+										<i class="icofont-exclamation-circle"></i> Saya tidak mengetahui username saya?<br>
+										- Silakan lakukan pencarian di inbox email dengan kata kunci: PIN PERDOSSI 2022 untuk mengetahui notifikasi username anda saat selesai mendaftar
 									</li>
 									<li>
-										<i class="icofont-exclamation-circle"></i> What if I enter the wrong user's email?<br>
-										- Please search in your email inbox, with keywords: to find out your username notification
+										<i class="icofont-exclamation-circle"></i> Saya didaftarkan oleh pihak sponsor, bagaimana caranya login?<br>
+										- Silakan hubungi sponsor anda langsung untuk mendapatkan informasi akun.
 									</li>
 									<li>
-										<i class="icofont-exclamation-circle"></i> I was registered by the sponsor, what should I do to login?<br>
-										- Please contact your sponsor directly for your account information.
-									</li>
-									<li>
-										<i class="icofont-exclamation-circle"></i> I am not a participant in this event, but I am a speaker/moderator/judge at this event, how do I login?<br>
-										- For speakers, moderators and judges, we have sent account access autogenerated to your doctor's email. Please check your inbox/spam and try to access our website with that account.
-									</li>
+										<i class="icofont-exclamation-circle"></i> Saya bukan peserta acara ini, tapi saya pembicara/moderator/juri di acara ini, bagaimana cara login?<br>
+										- Untuk pembicara, moderator, dan juri, kami telah mengirimkan akses akun yang dibuat secara otomatis ke email dokter Anda. Silakan periksa kotak masuk/spam Anda dan coba akses situs web kami dengan akun tersebut.									</li>
 								</ul>
 							</div>
 						</div>
@@ -772,30 +758,22 @@
 					<div class="col-12 masonary-item three" style="position: absolute; left: 0px; top: 0px;  display: none;">
 						<div class="row g-4">
 							<div class="achievement-area">
-								<h4>Scientific Programme for PIN's</h4>
-								-
-								<hr>
-								<h4>Scientific Programme for AOMC</h4>
-								<a href="https://aomc-pinbanjarmasin2022.com/themes/gigaland/images/220601 AOMC 2022_Scientific Program Update.pdf" target="blank" class="btn btn-edge btn-primary">AOMC 2022 Scientific Programme (updated on 1 June)</a><br>
+								<h4>Jadwal acara</h4>
+								<a href="#" target="blank" class="btn btn-edge btn-primary">Jadwal Acara</a><br>
 							</div>
 						</div>
 					</div>
 					<div class="col-12 masonary-item four" style="position: absolute; left: 0px; top: 0px;  display: none;">
 						<div class="row g-4">
 							<div class="achievement-area">
-								<h4>Scientific Guideline for PIN's</h4>
-								<a href="https://aomc-pinbanjarmasin2022.com/themes/gigaland/images/220514 - Update Pedoman Free Paper.pdf" target="blank" class="btn btn-edge btn-primary mt-2">Guideline for PIN's Call for Abstract (New! updated on 15 May)</a><br>
+								<h4>Pedoman Ilmiah</h4>
+<!--								<a href="https://aomc-pinbanjarmasin2022.com/themes/gigaland/images/220514 - Update Pedoman Free Paper.pdf" target="blank" class="btn btn-edge btn-primary mt-2">Guideline for PIN's Call for Abstract (New! updated on 15 May)</a><br>
 								<a href="https://aomc-pinbanjarmasin2022.com/themes/gigaland/images/TemplateAbstrakPINPerdossi2022.docx" target="blank" class="btn btn-edge btn-warning mt-2">Template for PIN's Abstract</a><br>
 								<a href="https://drive.google.com/drive/folders/1MydS41eTpg5uUvnDqV-EcFybPCcLkAsH" target="blank" class="btn btn-edge btn-primary mt-2">Template for Paper Presentation (New! Updated on 15 May) </a><br>
 								<a href="https://aomc-pinbanjarmasin2022.com/themes/gigaland/images/FAQ Ilmiah PIN Banjarmasin.pdf" target="blank" class="btn btn-edge btn-primary mt-2">FAQ Paper Competition (New! 15 May)</a>
-								<hr>
-								<h4>Scientific Guideline for AOMC</h4>
-								<a href="https://aomc-pinbanjarmasin2022.com/themes/gigaland/images/Abstract Guidelines Final.pdf" target="blank" class="btn btn-edge btn-warning">Guideline for AOMC abstract (updated on 12th April)</a><br>
-								<a href="https://aomc-pinbanjarmasin2022.com/themes/gigaland/images/AOMC 2022 Abstract Submission Form For Original Article.docx" target="blank" class="btn btn-edge btn-warning mt-2">Click here for template for the original article</a><br>
-								<a href="https://aomc-pinbanjarmasin2022.com/themes/gigaland/images/20220428 - AOMC Form For Case Report.docx" target="blank" class="btn btn-edge btn-warning mt-2">Click here for template for case report (updated on 28 Apr)</a>
 							</div>
 						</div>
-					</div>
+					</div> -->
 					<div class="col-12 masonary-item five" style="position: absolute; left: 0px; top: 0px;  display: none;">
 						<div class="row g-4">
 							<div class="achievement-area">
@@ -1072,11 +1050,10 @@
                                 </div>
                                 <div class="fm-item-content">
 									<ul style="font-size: 15px;">
-										<li>Batas Pengumpulan CV dan judul untuk SKP IDI : 10 Agustus 2022</li>
 										<li>Batas Pengumpulan Abstrak : 12 Oktober 2022</li>
 										<li>Pengumuman Penerimaan Abstrak : 24 Oktober 2022</li>
-										<li>Program Ilmiah : 17 – 18 November 2022 WS, dan 19– 20 November 2022 Simposium</li>
-										<li>E-Poster & Presentasi Oral : 19 November 2022</li>
+										<li>Program Ilmiah : 17 – 18 November 2022 Workshop, dan 19– 20 November 2022 Simposium</li>
+										<li>E-Poster - Presentasi Oral : 19 November 2022</li>
 									</ul>
                                 </div>
                             </div>
@@ -1086,7 +1063,7 @@
                         <div class="footer-middle-item-wrapper">
                             <div class="footer-middle-item mb-lg-0">
                                 <div class="fm-item-title">
-                                    <h5>Simposium</h5>
+                                    <h5>Workshop</h5>
 									<hr>
                                 </div>
                                 <div class="fm-item-content">
@@ -1120,8 +1097,8 @@
 										<li>GP : Rp. 1.500.000</li> <br>
 										<b>Early Bird</b> <br>
 										<li>Spesialist : Rp. 3.500.000</li>
-										<li>Resident : Rp. 2.000.000</li>
-										<li>GP : Rp. 2.000.000</li>
+										<li>Resident : Rp. 1.750.000</li>
+										<li>GP : Rp. 1.750.000</li>
 									</ul>
                                 </div>
                             </div>
@@ -1138,7 +1115,7 @@
                                     <div class="d-grid">
 										<a href="login.html" class="btn btn-edge btn-purple"> Sign In</a><br>
 										<a href="<?=base_url('member/register');?>" class="btn btn-edge btn-purple"> Registrasi Individu</a><br>
-										<a href="<?=base_url('member/register/group');?>" class="btn btn-edge btn-purple"> Registrasi Grup/Kelompok</a><br>
+										<a href="<?=base_url('member/register/group');?>" class="btn btn-edge btn-purple"> Registrasi Grup/ Kelompok</a><br>
 									</div>
                                 </div>
                             </div>
@@ -1175,9 +1152,6 @@
 	<script src="<?=base_url('themes/bigamer');?>/assets/js/plugins.js"></script>
 	<script src="<?=base_url('themes/bigamer');?>/assets/js/main.js"></script>
 	<script src="<?=base_url('themes/bigamer');?>/assets/js/custom.js"></script>
-    <script src="<?= base_url('themes/gigaland'); ?>/js/jquery.plugin.js"></script>
-    <script src="<?= base_url('themes/gigaland'); ?>/js/jquery.countTo.js"></script>
-    <script src="<?= base_url('themes/gigaland'); ?>/js/jquery.countdown.js"></script>
 
 
 	<!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
@@ -1190,14 +1164,7 @@
 		ga('create', 'UA-XXXXX-Y', 'auto');
 		ga('set', 'anonymizeIp', true);
 		ga('set', 'transport', 'beacon');
-		ga('send', 'pageview');
-		$('.de_countdown').each(function() {
-             var y = $(this).data('year');
-             var m = $(this).data('month');
-             var d = $(this).data('day');
-             var h = $(this).data('hour');
-             $(this).countdown({until: new Date(y, m-1, d, h)});
-         });
+		ga('send', 'pageview')
 	</script>
 	<script src="https://www.google-analytics.com/analytics.js" async></script>
 
