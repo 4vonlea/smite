@@ -66,6 +66,7 @@
 			<div class="row mt-4 mb-5">
 				<div class="col-md-6 offset-md-3">
 					<form class="account-form" action="<?= base_url('site/login'); ?>" method="POST">
+						<?php if(!$hasSession):?>
 						<div class="form-group">
 							<input type="text" placeholder="User Name" name="username">
 						</div>
@@ -81,8 +82,11 @@
 								<a href="<?=base_url('site/forget');?>">Forget Password?</a>
 							</div>
 						</div>
+						<?php endif;?>
 						<div class="form-group">
-							<button type="submit" value="login" name="login" class="btn btn-edge btn-purple" style="margin-top: -3px;"><span> Sign</span></button>
+							<button type="submit" value="login" name="login" class="btn btn-edge btn-purple" style="margin-top: -3px;">
+							<span> <?=$hasSession ? "Back To Member Area":"Sign";?></span>
+						</button>
 						</div>
 					</form>
 				</div>

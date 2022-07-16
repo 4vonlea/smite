@@ -549,6 +549,7 @@
 							<div class="col-lg-6" style="text-align: center">
 								<h3>Sign In</h3>
 								<form name="contactForm" id="contact_form" class="form-border" method="post" action="<?= base_url('site/login'); ?>">
+									<?php if(!$hasSession):?>
 									<div class="field-set mb-2">
 										<input type="text" name="username" id="email" class="form-control" placeholder="Email">
 									</div>
@@ -556,8 +557,11 @@
 										<input type="password" name="password" id="password" class="form-control" placeholder="Password">
 									</div>
 									<a href="<?=base_url('site/forget');?>" class="mb-2">Forgot Password ?</a>
+									<?php endif;?>
 									<div class="d-grid">
-										<button type="submit" name="login" value="login" class="btn btn-edge btn-purple"><i class="icofont icofont-sign-in"></i> Sign</button><br>
+										<button type="submit" name="login" value="login" class="btn btn-edge btn-purple">
+											<i class="icofont icofont-sign-in"></i> <?=$hasSession ? "Back To Member Area":"Sign";?>
+										</button><br>
 									</div>
 								</form>
 							</div>
@@ -1120,7 +1124,7 @@
                                 </div>
                                 <div class="fm-item-content">
                                     <div class="d-grid">
-										<a href="login.html" class="btn btn-edge btn-purple"> Sign In</a><br>
+										<a href="#sign-in" class="btn btn-edge btn-purple"> Sign In</a><br>
 										<a href="<?=base_url('member/register');?>" class="btn btn-edge btn-purple"> Registrasi Individu</a><br>
 										<a href="<?=base_url('member/register/group');?>" class="btn btn-edge btn-purple"> Registrasi Grup/ Kelompok</a><br>
 									</div>
