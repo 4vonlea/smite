@@ -18,8 +18,7 @@
 	<link rel="stylesheet" href="<?=base_url('themes/bigamer');?>/assets/css/lightcase.css">
 	<link rel="stylesheet" href="<?=base_url('themes/bigamer');?>/assets/css/style.min.css">
 	<link rel="stylesheet" href="<?=base_url('themes/bigamer');?>/assets/css/custom.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/fontawesome.min.css" integrity="sha512-xX2rYBFJSj86W54Fyv1de80DWBq7zYLn2z0I9bIhQG+rxIF6XVJUpdGnsNHWRa6AvP89vtFupEPDP8eZAtu9qA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <?php if (ENVIRONMENT == "production") : ?>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" integrity="sha512-q3eWabyZPc1XTCmF+8/LuE1ozpg5xxn7iO89yfSOd5/oKvyqLngoNGsx8jq92Y8eXJ/IRxQbEC+FGSYxtk2oiw==" crossorigin="anonymous" referrerpolicy="no-referrer" />    <?php if (ENVIRONMENT == "production") : ?>
         <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
     <?php else : ?>
         <script src="<?= base_url('themes/script/vue.js'); ?>"></script>
@@ -279,8 +278,7 @@
 	<script src="<?=base_url('themes/bigamer');?>/assets/js/main.js"></script>
 	<script src="<?=base_url('themes/bigamer');?>/assets/js/custom.js"></script>
     <script src="<?= base_url("themes/script/moment.min.js"); ?>"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/js/fontawesome.min.js" integrity="sha512-5qbIAL4qJ/FSsWfIq5Pd0qbqoZpk5NcUVeAAREV2Li4EKzyJDEGlADHhHOSSCw0tHP7z3Q4hNHJXa81P92borQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-	<!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/js/all.min.js" integrity="sha512-LW9+kKj/cBGHqnI4ok24dUWNR/e8sUD8RLzak1mNw5Ja2JYCmTXJTF5VpgFSw+VoBfpMvPScCo2DnKTIUjrzYw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>	<!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
 	<script>
 		window.ga = function () {
 			ga.q.push(arguments)
