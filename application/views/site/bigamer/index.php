@@ -51,15 +51,15 @@
 			<div class="row text-center mt-2">
 				<div class="col-md-6 offset-md-3">
 					<!--<a href="<?=base_url('site/home');?>" class="btn-main btn btn-edge-block btn-purple">Visit our Website here</a><br>-->
-					<a href="#" class="btn-main btn btn-edge-block btn-primary" style="margin-top: -10px;">Please wait</a><br>
-					<a href="#" class="btn-main btn btn-edge-block btn-primary" style="margin-top: -10px;">Website will be ready soon</a><br>
+					<a href="https://pinperdossicirebon2022.com/site/home" class="btn-main btn btn-edge-block btn-primary" style="margin-top: -10px;">Visit our Website</a><br>
+					<a href="#" class="btn-main btn btn-edge-block btn-primary" style="margin-top: -10px;">Download First Announcement here (Not yet available)</a><br>
 					<!--<a href="https://aomc-pinbanjarmasin2022.com/themes/gigaland/images/20220528FA.pdf" target="blank" class="btn-mai btn btn-edge-block btn-purple" style="margin-top: -10px;">Download First Announcement here (Released on July 18th)</a><br>-->
 					<hr>
 				</div>
 			</div>
 			<div class="row mt-3 text-center">
 				<div class="col-12">
-					<p style="color: white; text-shadow: 3px 2px 1px black; font-size: 25px;">Website will be available on July 18th 2022</p>
+					<p style="color: white; text-shadow: 3px 2px 1px black; font-size: 25px;">We have opened the registration</p>
 				</div>
 			</div>
 

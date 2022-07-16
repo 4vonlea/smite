@@ -64,19 +64,19 @@
 									<i class="icofont-ui-call"></i> <a href="http://wa.me/6289603215099" target="_BLANK"><span>087733667120</span></a>
 								</li>
 								<li>
-									<i class="icofont-email"></i> <a href="mailto:admin@pinperdossicirebon2022.com" target="_BLANK"> <span>Mail : pincirebon2022@gmail.com</span></a>
+									<i class="icofont-email"></i> <a href="mailto:admin@pinperdossicirebon2022.com" target="_BLANK"> <span>pincirebon2022@gmail.com</span></a>
 								</li>
 								<li>
 									<i class="icofont-location-pin"></i> Aston Hotel, Cirebon
 								</li>
 							</ul>
 							<ul class="social-icons d-flex align-items-center">
-								<li>
+<!--								<li>
 									<a href="#" class="youtube"><i class="icofont-youtube-play"></i></a>
 								</li>
 								<li>
 									<a href="#" class="twitter"><i class="icofont-twitter"></i></a>
-								</li>
+								</li>-->
 								<li>
 									<a href="#" class="instagram"><i class="icofont-instagram"></i></a>
 								</li>
@@ -777,10 +777,10 @@
 <!--								<a href="https://aomc-pinbanjarmasin2022.com/themes/gigaland/images/220514 - Update Pedoman Free Paper.pdf" target="blank" class="btn btn-edge btn-primary mt-2">Guideline for PIN's Call for Abstract (New! updated on 15 May)</a><br>
 								<a href="https://aomc-pinbanjarmasin2022.com/themes/gigaland/images/TemplateAbstrakPINPerdossi2022.docx" target="blank" class="btn btn-edge btn-warning mt-2">Template for PIN's Abstract</a><br>
 								<a href="https://drive.google.com/drive/folders/1MydS41eTpg5uUvnDqV-EcFybPCcLkAsH" target="blank" class="btn btn-edge btn-primary mt-2">Template for Paper Presentation (New! Updated on 15 May) </a><br>
-								<a href="https://aomc-pinbanjarmasin2022.com/themes/gigaland/images/FAQ Ilmiah PIN Banjarmasin.pdf" target="blank" class="btn btn-edge btn-primary mt-2">FAQ Paper Competition (New! 15 May)</a>
+								<a href="https://aomc-pinbanjarmasin2022.com/themes/gigaland/images/FAQ Ilmiah PIN Banjarmasin.pdf" target="blank" class="btn btn-edge btn-primary mt-2">FAQ Paper Competition (New! 15 May)</a>-->
 							</div>
 						</div>
-					</div> -->
+					</div>
 					<div class="col-12 masonary-item five" style="position: absolute; left: 0px; top: 0px;  display: none;">
 						<div class="row g-4">
 							<div class="achievement-area">
@@ -1102,7 +1102,7 @@
 										<li>Spesialist : Rp. 3.000.000</li>
 										<li>Resident : Rp. 1.500.000</li>
 										<li>GP : Rp. 1.500.000</li> <br>
-										<b>Early Bird</b> <br>
+										<b>Regular</b> <br>
 										<li>Spesialist : Rp. 3.500.000</li>
 										<li>Resident : Rp. 1.750.000</li>
 										<li>GP : Rp. 1.750.000</li>

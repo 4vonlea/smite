@@ -59,22 +59,22 @@
 						<div class="header-top-area">
 							<ul class="left">
 								<li>
-									<i class="icofont-ui-call"></i> <a href="http://wa.me/6289603215099" target="_BLANK"><span>089603215099</span></a>
+									<i class="icofont-ui-call"></i> <a href="http://wa.me/6289603215099" target="_BLANK"><span>087733667120</span></a>
 								</li>
 								<li>
-									<i class="icofont-email"></i> <a href="mailto:admin@pinperdossicirebon2022.com" target="_BLANK"> <span>Mail : Admin</span></a>
+									<i class="icofont-email"></i> <a href="mailto:admin@pinperdossicirebon2022.com" target="_BLANK"> <span>pincirebon2022@gmail.com</span></a>
 								</li>
 								<li>
-									<i class="icofont-location-pin"></i> Cirebon
+									<i class="icofont-location-pin"></i> Aston Hotel, Cirebon
 								</li>
 							</ul>
 							<ul class="social-icons d-flex align-items-center">
-								<li>
+<!--							<li>
 									<a href="#" class="youtube"><i class="icofont-youtube-play"></i></a>
 								</li>
 								<li>
 									<a href="#" class="twitter"><i class="icofont-twitter"></i></a>
-								</li>
+								</li>-->
 								<li>
 									<a href="#" class="instagram"><i class="icofont-instagram"></i></a>
 								</li>
@@ -175,11 +175,10 @@
                                 </div>
                                 <div class="fm-item-content">
 									<ul style="font-size: 15px;">
-										<li>Batas Pengumpulan CV dan judul untuk SKP IDI : 10 Agustus 2022</li>
 										<li>Batas Pengumpulan Abstrak : 12 Oktober 2022</li>
 										<li>Pengumuman Penerimaan Abstrak : 24 Oktober 2022</li>
-										<li>Program Ilmiah : 17 – 18 November 2022 WS, dan 19– 20 November 2022 Simposium</li>
-										<li>E-Poster & Presentasi Oral : 19 November 2022</li>
+										<li>Program Ilmiah : 17 – 18 November 2022 Workshop, dan 19– 20 November 2022 Simposium</li>
+										<li>E-Poster / Presentasi Oral : 19 November 2022</li>
 									</ul>
                                 </div>
                             </div>
@@ -189,7 +188,7 @@
                         <div class="footer-middle-item-wrapper">
                             <div class="footer-middle-item mb-lg-0">
                                 <div class="fm-item-title">
-                                    <h5>Simposium</h5>
+                                    <h5>Workshop</h5>
 									<hr>
                                 </div>
                                 <div class="fm-item-content">
@@ -221,10 +220,10 @@
 										<li>Spesialist : Rp. 3.000.000</li>
 										<li>Resident : Rp. 1.500.000</li>
 										<li>GP : Rp. 1.500.000</li> <br>
-										<b>Early Bird</b> <br>
+										<b>Regular</b> <br>
 										<li>Spesialist : Rp. 3.500.000</li>
-										<li>Resident : Rp. 2.000.000</li>
-										<li>GP : Rp. 2.000.000</li>
+										<li>Resident : Rp. 1.750.000</li>
+										<li>GP : Rp. 1.750.000</li>
 									</ul>
                                 </div>
                             </div>
