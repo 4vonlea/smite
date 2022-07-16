@@ -236,7 +236,7 @@
                             </div>
                             <div class="contact-content">
                                 <h6 class="title">Participant</h6>
-                                <h3>100</h3>
+                                <h3><?php echo $participant; ?></h3>
                             </div>
                         </div>
                     </div>
@@ -247,7 +247,7 @@
                             </div>
                             <div class="contact-content">
                                 <h6 class="title">Abstract</h6>
-                                <h3>110</h3>
+                                <h3><?php echo $paper; ?></h3>
                             </div>
                         </div>
                     </div>
