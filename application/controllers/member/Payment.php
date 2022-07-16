@@ -429,6 +429,14 @@ class Payment extends MY_Controller
 		$this->log("settlement");
 	}
 
+	public function merchant_info_espay(){
+		$espayConfig = Settings_m::getEspay();
+		$response = $this->request($espayConfig['apiLink']."merchantinfo",[
+			'key'=>$espayConfig['apiKey'],
+		]);
+		$this->output->set_header("content-type: application/json")->set_output($response);
+	}
+
 	protected function request($url,$params){
 		$curl = curl_init();
 			curl_setopt_array($curl, array(
