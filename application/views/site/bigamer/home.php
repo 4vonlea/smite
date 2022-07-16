@@ -19,7 +19,12 @@
 	<link rel="stylesheet" href="<?=base_url('themes/bigamer');?>/assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="<?=base_url('themes/bigamer');?>/assets/css/style.min.css">
 	<link rel="stylesheet" href="<?=base_url('themes/bigamer');?>/assets/css/custom.css">
-
+	<style>
+		.countdown-section{
+			margin-right: 5px;
+			font-size: 20px;
+		}
+	</style>
 </head>
 
 <body>
@@ -252,12 +257,12 @@
 							<div class="col-lg-6 mb-3" style="text-align: center">
 								<h4>Abstract Countdown</h4>
 								<p class="text-white">(<?= date_format($papercountdown, "F d, Y"); ?>)</p>
-								<div class="de_countdown text-center" data-year="<?= date_format($papercountdown, "Y"); ?>" data-month="<?= date_format($papercountdown, "m"); ?>" data-day="<?= date_format($papercountdown, "d"); ?>" data-hour="<?= date_format($papercountdown, "H"); ?>"></div>
+								<div class="de_countdown text-center btn btn-edge-block btn-purple mt-2 is-countdown" data-year="<?= date_format($papercountdown, "Y"); ?>" data-month="<?= date_format($papercountdown, "m"); ?>" data-day="<?= date_format($papercountdown, "d"); ?>" data-hour="<?= date_format($papercountdown, "H"); ?>"></div>
 							</div>
 							<div class="col-lg-6" style="text-align: center">
 								<h4>Event Countdown</h4>
 								<p class="text-white">(<?= date_format($eventcountdown, "F d, Y"); ?>)</p>
-								<div class="de_countdown text-center" data-year="<?= date_format($eventcountdown, "Y"); ?>" data-month="<?= date_format($eventcountdown, "m"); ?>" data-day="<?= date_format($eventcountdown, "d"); ?>" data-hour="<?= date_format($eventcountdown, "H"); ?>"></div>
+								<div class="de_countdown text-center btn btn-edge-block btn-purple mt-2 is-countdown" data-year="<?= date_format($eventcountdown, "Y"); ?>" data-month="<?= date_format($eventcountdown, "m"); ?>" data-day="<?= date_format($eventcountdown, "d"); ?>" data-hour="<?= date_format($eventcountdown, "H"); ?>"></div>
 							</div>
 						</div>
 					</div>
