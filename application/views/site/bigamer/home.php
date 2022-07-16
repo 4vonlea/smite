@@ -52,7 +52,7 @@
 				<div class="brand-logo d-none d-lg-inline-block">
 					<div class="logo">
 						<a href="index.html">
-							<img src="<?=base_url('themes/bigamer');?>/assets/images/logo/logo.png" alt="logo">
+							<img src="<?=base_url('themes/uploads/logo.png');?>" style="width:100px"alt="logo">
 						</a>
 					</div>
 				</div>
