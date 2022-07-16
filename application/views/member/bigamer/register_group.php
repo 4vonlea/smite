@@ -300,8 +300,8 @@ $theme_path = base_url("themes/bigamer") . "/";
                                                                                     <span v-if="pricing.pricing[member].price_in_usd != 0">{{formatCurrency(pricing.pricing[member].price_in_usd, 'USD')}}</span>
 
 
-                                                                                    <div v-if="member == status_text" class="de-switch mt-2" style="background-size: cover;">
-                                                                                        <input type="checkbox" :id="`switch-unlock_${member}_${event.name}`" :value="pricing.pricing[member].added" class="checkbox" :class="pricing.pricing[member].event_required_id" v-model="pricing.pricing[member].added" @click="addEvent($event,pricing.pricing[member],member,event.name)">
+                                                                                    <div v-if="member == status_text" class="form-check form-switch d-flex justify-content-center">
+                                                                                        <input type="checkbox" :id="`switch-unlock_${member}_${event.name}`" :value="pricing.pricing[member].added" class="form-check-input" :class="pricing.pricing[member].event_required_id" v-model="pricing.pricing[member].added" @click="addEvent($event,pricing.pricing[member],member,event.name)">
                                                                                         <label :for="`switch-unlock_${member}_${event.name}`"></label>
                                                                                     </div>
                                                                                     <div v-else>
