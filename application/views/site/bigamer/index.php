@@ -51,7 +51,7 @@
 			<div class="row text-center mt-2">
 				<div class="col-md-6 offset-md-3">
 					<!--<a href="<?=base_url('site/home');?>" class="btn-main btn btn-edge-block btn-purple">Visit our Website here</a><br>-->
-					<a href="https://pinperdossicirebon2022.com/site/home" class="btn-main btn btn-edge-block btn-primary" style="margin-top: -10px;">Visit our Website</a><br>
+					<a href="<?=base_url("site/home");?>" class="btn-main btn btn-edge-block btn-primary" style="margin-top: -10px;">Visit our Website</a><br>
 					<a href="#" class="btn-main btn btn-edge-block btn-primary" style="margin-top: -10px;">Download First Announcement here (Not yet available)</a><br>
 					<!--<a href="https://aomc-pinbanjarmasin2022.com/themes/gigaland/images/20220528FA.pdf" target="blank" class="btn-mai btn btn-edge-block btn-purple" style="margin-top: -10px;">Download First Announcement here (Released on July 18th)</a><br>-->
 					<hr>
