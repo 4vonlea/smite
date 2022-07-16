@@ -372,4 +372,12 @@ class Site extends MY_Controller
         $this->VideoM->delete_komen($idkomen);
         echo json_encode(array("status" => true));
     }
+    
+    public function test(){
+    run_job("job","send_unpaid_invoice",[
+		"37b0eb9e-0908-4425-a35d-0ed432fc9820",
+	    "INV-20220716-00001",
+		30,
+	]);
+    }
 }
