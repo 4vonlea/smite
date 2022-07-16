@@ -266,7 +266,7 @@ export default Vue.component("PageBilling", {
 							<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">&times;</button>
 						</div>
 						<div class="modal-body">
-						<iframe id="sgoplus-iframe" sandbox="allow-top-navigation" style="width:100%"></iframe>
+						<iframe id="sgoplus-iframe" sandbox="allow-same-origin allow-scripts allow-top-navigation" style="width:100%"></iframe>
 						</div>
 					</div>
 				</div>
