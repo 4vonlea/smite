@@ -89,7 +89,7 @@
 					<div class="header-bottom">
 						<div class="header-wrapper justify-content-lg-end">
 							<div class="mobile-logo d-lg-none">
-								<a href="index.html"><img src="<?=base_url('themes/bigamer');?>/assets/images/logo/logo.png" alt="logo"></a>
+								<a href="index.html"><img src="<?=base_url('themes/uploads/logo.png');?>" style="width:80px" alt="logo"></a>
 							</div>
 							<div class="menu-area">
 								<ul class="menu">
