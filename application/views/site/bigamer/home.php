@@ -229,7 +229,11 @@
                             </div>
                             <div class="contact-content">
                                 <h6 class="title">Participant</h6>
+<<<<<<< HEAD
                                 <h3>tba</h3>
+=======
+                                <h3><?php echo $participant; ?></h3>
+>>>>>>> 6cbb9a062e439d0d0d902b485685f0e26c1ff994
                             </div>
                         </div>
                     </div>
@@ -240,7 +244,11 @@
                             </div>
                             <div class="contact-content">
                                 <h6 class="title">Abstract</h6>
+<<<<<<< HEAD
                                 <h3>tba</h3>
+=======
+                                <h3><?php echo $paper; ?></h3>
+>>>>>>> 6cbb9a062e439d0d0d902b485685f0e26c1ff994
                             </div>
                         </div>
                     </div>
