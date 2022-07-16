@@ -228,6 +228,8 @@ $isGroup = ($member == null);
 					</tr>
 				</tfoot>
 			</table>
+			<span style="font-size:9pt">*The amount price above does not include online bank payment administration fees</small>
+
 		</div>
 	</div>
 	<p style="text-align:justify;text-justify:inter-word;font-size:18px">
