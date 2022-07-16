@@ -465,9 +465,9 @@ class Payment extends MY_Controller
 			$total += $row->price;
 		}
 		$signature = $this->create_signature_espay($espayConfig['signature'],$id_invoice,"SENDINVOICE",$rs_date,$uuid,"",$total);
-
-		$espayConfig['apiLink'] = "https://sandbox-api.espay.id/rest/merchantpg/";
-		$response = $this->request($espayConfig['apiLink']."sendinvoice",[
+		$link = rtrim($espayConfig['apiLink'],"/")."pg/";
+		var_dump($link);
+		$response = $this->request($link."sendinvoice",[
 			'rq_uuid'=>$uuid,
 			'rq_datetime'=>$rs_date,
 			'order_id'=>$id_invoice,
