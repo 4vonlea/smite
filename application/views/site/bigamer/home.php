@@ -19,6 +19,8 @@
 	<link rel="stylesheet" href="<?=base_url('themes/bigamer');?>/assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="<?=base_url('themes/bigamer');?>/assets/css/style.min.css">
 	<link rel="stylesheet" href="<?=base_url('themes/bigamer');?>/assets/css/custom.css">
+    <link href="<?= base_url('themes/gigaland'); ?>/css/jquery.countdown.css" rel="stylesheet" type="text/css" />
+
 	<style>
 		.countdown-section{
 			margin-right: 5px;
@@ -1157,10 +1159,14 @@
 	<script src="<?=base_url('themes/bigamer');?>/assets/js/plugins.js"></script>
 	<script src="<?=base_url('themes/bigamer');?>/assets/js/main.js"></script>
 	<script src="<?=base_url('themes/bigamer');?>/assets/js/custom.js"></script>
+    <script src="<?= base_url('themes/gigaland'); ?>/js/jquery.plugin.js"></script>
+    <script src="<?= base_url('themes/gigaland'); ?>/js/jquery.countTo.js"></script>
+    <script src="<?= base_url('themes/gigaland'); ?>/js/jquery.countdown.js"></script>
 
 
 	<!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
 	<script>
+		
 		window.ga = function () {
 			ga.q.push(arguments)
 		};
@@ -1169,7 +1175,15 @@
 		ga('create', 'UA-XXXXX-Y', 'auto');
 		ga('set', 'anonymizeIp', true);
 		ga('set', 'transport', 'beacon');
-		ga('send', 'pageview')
+		ga('send', 'pageview');
+		$('.de_countdown').each(function() {
+             var y = $(this).data('year');
+             var m = $(this).data('month');
+             var d = $(this).data('day');
+             var h = $(this).data('hour');
+             $(this).countdown({until: new Date(y, m-1, d, h)});
+         });
+	
 	</script>
 	<script src="https://www.google-analytics.com/analytics.js" async></script>
 
