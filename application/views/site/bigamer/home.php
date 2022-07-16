@@ -254,13 +254,12 @@
 								<h4>Abstract Countdown</h4>
 								<p class="text-white">(<?= date_format($papercountdown, "F d, Y"); ?>)</p>
 
-								<div class="de_countdown text-center" data-year="<?= date_format($papercountdown, "Y"); ?>" data-month="<?= date_format($papercountdown, "m"); ?>" data-day="<?= date_format($papercountdown, "d"); ?>" data-hour="<?= date_format($papercountdown, "H"); ?>"></div>
-								<a href="#" class="btn btn-edge-block btn-purple mt-2">0h 0m 0s</a>
+								<div class="de_countdown text-center btn btn-edge-block btn-purple mt-2" data-year="<?= date_format($papercountdown, "Y"); ?>" data-month="<?= date_format($papercountdown, "m"); ?>" data-day="<?= date_format($papercountdown, "d"); ?>" data-hour="<?= date_format($papercountdown, "H"); ?>"></div>
 							</div>
 							<div class="col-lg-6" style="text-align: center">
 								<h4>Event Countdown</h4>
 								<p class="text-white">(<?= date_format($eventcountdown, "F d, Y"); ?>)</p>
-								<div class="de_countdown text-center" data-year="<?= date_format($eventcountdown, "Y"); ?>" data-month="<?= date_format($eventcountdown, "m"); ?>" data-day="<?= date_format($eventcountdown, "d"); ?>" data-hour="<?= date_format($eventcountdown, "H"); ?>"></div>
+								<div class="de_countdown text-center btn btn-edge-block btn-purple mt-2" data-year="<?= date_format($eventcountdown, "Y"); ?>" data-month="<?= date_format($eventcountdown, "m"); ?>" data-day="<?= date_format($eventcountdown, "d"); ?>" data-hour="<?= date_format($eventcountdown, "H"); ?>"></div>
 							</div>
 						</div>
 					</div>
