@@ -14,17 +14,23 @@ class Job extends CI_Controller
         if($sleep > 0){
             sleep($sleep);
         }
-        exec("php index.php payment check_payment $transaction_id");
+        exec("php index.php member payment check_payment $transaction_id");
         $this->load->model(["Transaction_m","Member_m","Notification_m"]);
         $tr = $this->Transaction_m->findOne(['id'=>$transaction_id]);
-        $member = $this->Member_m->findOne(['id'=>$member_id]);
-        file_put_contents("./tes.json",$member_id.$transaction_id);
-        if($member){
+        $member = $tr->member;
+        if($tr){
+            if($member){
+                $fullname = $member->fullname;
+    			$email = $member->email;
+            }else{
+                $fullname = str_replace("REGISTER-GROUP :","",$tr->member_id);
+    			$email = $tr->email_group;
+            }
             $attc = [
-                $member->fullname.'-invoice.pdf' => $tr->exportInvoice()->output(),
+                $fullname.'-invoice.pdf' => $tr->exportInvoice()->output(),
             ];
-            $message = $this->load->view("template/email/send_unpaid_invoice",$member->toArray(),true);
-            $this->Notification_m->sendMessageWithAttachment($member->email, 'Unpaid Invoice (MA)',$message, $attc);
+            $message = $this->load->view("template/email/send_unpaid_invoice",['fullname'=>$fullname],true);
+            $this->Notification_m->sendMessageWithAttachment($email, 'Unpaid Invoice (MA)',$message, $attc);
         }
     }
     public function test($params,$params2){

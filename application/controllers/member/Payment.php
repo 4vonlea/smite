@@ -405,10 +405,14 @@ class Payment extends MY_Controller
 		}
 	}
 
-	protected function create_signature_espay($keySignature,$order_id,$service_name,$rq_datetime ,$rq_uuid = "",$error_code = ""){
+	protected function create_signature_espay($keySignature,$order_id,$service_name,$rq_datetime ,$rq_uuid = "",$error_code = "",$amount =""){
 		$sign = "";
+		$espayConfig = Settings_m::getEspay();
+		$comm_code = $espayConfig['merchantCode'];
 		if($service_name == "INQUIRY-RS"){
 			$sign = "##$keySignature##$rq_uuid##$rq_datetime##$order_id##$error_code##$service_name##";
+		}else if($service_name == "SENDINVOICE"){
+			$sign = "##$keySignature##$rq_uuid##$rq_datetime##$order_id##$amount##IDR##$comm_code##$service_name##";
 		}else{
 			$sign = "##$keySignature##$rq_datetime##$order_id##$service_name##";
 		}
@@ -435,6 +439,50 @@ class Payment extends MY_Controller
 			'key'=>$espayConfig['apiKey'],
 		]);
 		$this->output->set_header("content-type: application/json")->set_output($response);
+	}
+
+	public function send_invoice_espay($id_invoice){
+		// $id_invoice = "INV-20220714-00003";// $this->input->post("id_invoice");
+		$bankCode = "009";// $this->input->post("bank_code");
+		$espayConfig = Settings_m::getEspay();
+		$rs_date =  date("Y-m-d H:i:s");
+		$uuid = md5($rs_date);
+		$this->load->model(["Transaction_m","Notification_m"]);
+
+		$tr = $this->Transaction_m->findOne(['id' => $id_invoice]);
+		if(strpos($tr->member_id,"REGISTER-GROUP") !== false){
+			$email = $tr->email_group;
+			$name = str_replace("REGISTER-GROUP :","",$tr->member_id);
+			$noHp = "";
+		}else{
+			$member = $tr->member;
+			$email = $member->email;
+			$name = $member->fullname;
+			$noHp = $member->phone;
+		}
+		$total = 0;
+		foreach($tr->details as $row){
+			$total += $row->price;
+		}
+		$signature = $this->create_signature_espay($espayConfig['signature'],$id_invoice,"SENDINVOICE",$rs_date,$uuid,"",$total);
+
+		$espayConfig['apiLink'] = "https://sandbox-api.espay.id/rest/merchantpg/";
+		$response = $this->request($espayConfig['apiLink']."sendinvoice",[
+			'rq_uuid'=>$uuid,
+			'rq_datetime'=>$rs_date,
+			'order_id'=>$id_invoice,
+			'ccy'=>'IDR',
+			'comm_code'=>$espayConfig['merchantCode'],
+			'remark1'=>"082155708905",
+			'remark2'=>$name,
+			'remark3'=>$email,
+			'update'=>'N',
+			'bank_code'=>$bankCode,
+			'va_expired'=>60 * 24 *5,//Dalam Menit
+			'amount'=>$total,
+			'signature'=>$signature,
+		]);
+		echo $response;
 	}
 
 	protected function request($url,$params){
