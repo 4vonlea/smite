@@ -18,7 +18,9 @@
 	<link rel="stylesheet" href="<?=base_url('themes/bigamer');?>/assets/css/lightcase.css">
 	<link rel="stylesheet" href="<?=base_url('themes/bigamer');?>/assets/css/style.min.css">
 	<link rel="stylesheet" href="<?=base_url('themes/bigamer');?>/assets/css/custom.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" integrity="sha512-q3eWabyZPc1XTCmF+8/LuE1ozpg5xxn7iO89yfSOd5/oKvyqLngoNGsx8jq92Y8eXJ/IRxQbEC+FGSYxtk2oiw==" crossorigin="anonymous" referrerpolicy="no-referrer" />    <?php if (ENVIRONMENT == "production") : ?>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css" integrity="sha512-Mo79lrQ4UecW8OCcRUZzf0ntfMNgpOFR46Acj2ZtWO8vKhBvD79VCp3VOKSzk6TovLg5evL3Xi3u475Q/jMu4g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	
+	<?php if (ENVIRONMENT == "production") : ?>
         <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
     <?php else : ?>
         <script src="<?= base_url('themes/script/vue.js'); ?>"></script>
@@ -278,7 +280,6 @@
 	<script src="<?=base_url('themes/bigamer');?>/assets/js/main.js"></script>
 	<script src="<?=base_url('themes/bigamer');?>/assets/js/custom.js"></script>
     <script src="<?= base_url("themes/script/moment.min.js"); ?>"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/js/all.min.js" integrity="sha512-LW9+kKj/cBGHqnI4ok24dUWNR/e8sUD8RLzak1mNw5Ja2JYCmTXJTF5VpgFSw+VoBfpMvPScCo2DnKTIUjrzYw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>	<!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
 	<script>
 		window.ga = function () {
 			ga.q.push(arguments)

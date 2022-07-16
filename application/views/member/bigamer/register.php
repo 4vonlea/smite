@@ -525,7 +525,6 @@ $theme_path = base_url("themes/bigamer") . "/";
             }];
             $.each(paymentData, function(i, v) {
                 let sp = v.split(";");
-                console.log(sp)
                 tempPayment.push({
                     key: sp[0],
                     desc: sp[1]
