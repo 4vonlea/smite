@@ -259,12 +259,12 @@
 							<div class="col-lg-6 mb-3" style="text-align: center">
 								<h4>Abstract Countdown</h4>
 								<p class="text-white">(<?= date_format($papercountdown, "F d, Y"); ?>)</p>
-								<div class="de_countdown text-center btn btn-edge-block btn-purple mt-2 is-countdown" data-year="<?= date_format($papercountdown, "Y"); ?>" data-month="<?= date_format($papercountdown, "m"); ?>" data-day="<?= date_format($papercountdown, "d"); ?>" data-hour="<?= date_format($papercountdown, "H"); ?>"></div>
+								<div class="de_countdown text-center btn btn-edge-block btn-purple mt-2" data-year="<?= date_format($papercountdown, "Y"); ?>" data-month="<?= date_format($papercountdown, "m"); ?>" data-day="<?= date_format($papercountdown, "d"); ?>" data-hour="<?= date_format($papercountdown, "H"); ?>"></div>
 							</div>
 							<div class="col-lg-6" style="text-align: center">
 								<h4>Event Countdown</h4>
 								<p class="text-white">(<?= date_format($eventcountdown, "F d, Y"); ?>)</p>
-								<div class="de_countdown text-center btn btn-edge-block btn-purple mt-2 is-countdown" data-year="<?= date_format($eventcountdown, "Y"); ?>" data-month="<?= date_format($eventcountdown, "m"); ?>" data-day="<?= date_format($eventcountdown, "d"); ?>" data-hour="<?= date_format($eventcountdown, "H"); ?>"></div>
+								<div class="de_countdown text-center btn btn-edge-block btn-purple mt-2" data-year="<?= date_format($eventcountdown, "Y"); ?>" data-month="<?= date_format($eventcountdown, "m"); ?>" data-day="<?= date_format($eventcountdown, "d"); ?>" data-hour="<?= date_format($eventcountdown, "H"); ?>"></div>
 							</div>
 						</div>
 					</div>
@@ -1166,7 +1166,6 @@
 
 	<!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
 	<script>
-		
 		window.ga = function () {
 			ga.q.push(arguments)
 		};
@@ -1176,16 +1175,16 @@
 		ga('set', 'anonymizeIp', true);
 		ga('set', 'transport', 'beacon');
 		ga('send', 'pageview');
-		$('.de_countdown').each(function() {
+		$(function(){
+			$('.de_countdown').each(function() {
              var y = $(this).data('year');
              var m = $(this).data('month');
              var d = $(this).data('day');
              var h = $(this).data('hour');
              $(this).countdown({until: new Date(y, m-1, d, h)});
          });
-	
+		})
 	</script>
-	<script src="https://www.google-analytics.com/analytics.js" async></script>
 
 </body>
 
