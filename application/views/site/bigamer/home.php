@@ -1170,6 +1170,7 @@
 	<script src="<?=base_url('themes/bigamer');?>/assets/js/plugins.js"></script>
 	<script src="<?=base_url('themes/bigamer');?>/assets/js/main.js"></script>
 	<script src="<?=base_url('themes/bigamer');?>/assets/js/custom.js"></script>
+    <script src="<?= base_url('themes/gigaland'); ?>/js/jquery.countTo.js"></script>
     <script src="<?= base_url('themes/gigaland'); ?>/js/jquery.countdown.js"></script>
 
 
