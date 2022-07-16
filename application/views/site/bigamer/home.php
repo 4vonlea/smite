@@ -19,6 +19,7 @@
 	<link rel="stylesheet" href="<?=base_url('themes/bigamer');?>/assets/css/bootstrap.min.css">
 	<link rel="stylesheet" href="<?=base_url('themes/bigamer');?>/assets/css/style.min.css">
 	<link rel="stylesheet" href="<?=base_url('themes/bigamer');?>/assets/css/custom.css">
+    <link href="<?= base_url('themes/gigaland'); ?>/css/jquery.countdown.css" rel="stylesheet" type="text/css" />
 
 </head>
 
@@ -251,13 +252,15 @@
 						<div class="row">
 							<div class="col-lg-6 mb-3" style="text-align: center">
 								<h4>Abstract Countdown</h4>
-								<p class="text-white">(April 30, 2022)</p>
+								<p class="text-white">(<?= date_format($papercountdown, "F d, Y"); ?>)</p>
+
+								<div class="de_countdown text-center" data-year="<?= date_format($papercountdown, "Y"); ?>" data-month="<?= date_format($papercountdown, "m"); ?>" data-day="<?= date_format($papercountdown, "d"); ?>" data-hour="<?= date_format($papercountdown, "H"); ?>"></div>
 								<a href="#" class="btn btn-edge-block btn-purple mt-2">0h 0m 0s</a>
 							</div>
 							<div class="col-lg-6" style="text-align: center">
 								<h4>Event Countdown</h4>
-								<p class="text-white">(April 30, 2022)</p>
-								<a href="#" class="btn btn-edge-block btn-purple mt-2">0h 0m 0s</a>
+								<p class="text-white">(<?= date_format($eventcountdown, "F d, Y"); ?>)</p>
+								<div class="de_countdown text-center" data-year="<?= date_format($eventcountdown, "Y"); ?>" data-month="<?= date_format($eventcountdown, "m"); ?>" data-day="<?= date_format($eventcountdown, "d"); ?>" data-hour="<?= date_format($eventcountdown, "H"); ?>"></div>
 							</div>
 						</div>
 					</div>
@@ -1167,6 +1170,7 @@
 	<script src="<?=base_url('themes/bigamer');?>/assets/js/plugins.js"></script>
 	<script src="<?=base_url('themes/bigamer');?>/assets/js/main.js"></script>
 	<script src="<?=base_url('themes/bigamer');?>/assets/js/custom.js"></script>
+    <script src="<?= base_url('themes/gigaland'); ?>/js/jquery.countdown.js"></script>
 
 
 	<!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
