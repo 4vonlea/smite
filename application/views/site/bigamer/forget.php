@@ -2,7 +2,7 @@
     <div class="container">
         <div class="section-header">
 				<!-- <p>our LATEST VIDEOS</p> -->
-            <h2 class="header-title">Forgot Your Password ?</h2>
+            <h2 class="header-title">Lupa Password ?</h2>
         </div>
         <div class="section-wrapper">
         <div class="row">
@@ -16,7 +16,7 @@
                                     <div class="col-12">
                                         <div class="row">
                                             <div class="col-lg-12">
-                                                <p class="">Please enter the email address you registered to reset your password</p>
+                                                <p class="">Masukkan email yang anda gunakan saat pendaftaran</p>
                                                 <?php echo $this->session->flashdata('message'); ?>
                                             </div>
                                         </div>

@@ -1,7 +1,7 @@
 <section id="home" aria-label="section" class="banner-section bg-img">
     <div class="container">
         <div class="section-wrapper text-center text-uppercase">
-            <h2 class="pageheader-title mb-3">Sign In Page</h2>
+            <h2 class="pageheader-title mb-3">Halaman Login</h2>
         </div>
         <div class="row">
             <div class="col-lg-8 offset-lg-2 achievement-area">
@@ -21,11 +21,11 @@
                         <div class="form-group">
                             <input type='password' name='password' id='password' class="form-control" placeholder="Password">
                         </div>
-                        <a href="<?= base_url('site/forget'); ?>" class="mb-2">Forgot Password ?</a>
+                        <a href="<?= base_url('site/forget'); ?>" class="mb-2">Lupa Password ?</a>
                         <div class="form-group">
                             <button type="submit" name="login" value="Sign" class="btn-edge default-button" name="login">
                                 <span>
-                                <i class="icofont icofont-sign-in"></i> SIGN
+                                <i class="icofont icofont-sign-in"></i> Masuk Login
                                 </span>
                             </button>
                         </div>

@@ -94,13 +94,13 @@
 							<div class="menu-area">
 								<ul class="menu">
 
-									<li><a href="#home">Home</a></li>
-									<li><a href="#sign-in">Sign</a></li>
-									<li><a href="#event">Event</a></li>
+									<li><a href="#home">Beranda</a></li>
+									<li><a href="#sign-in">Masuk Login</a></li>
+									<li><a href="#event">Kegiatan</a></li>
 									
 								</ul>
 								<!-- <a href="login.html" class="login"><i class="icofont-user"></i> <span>LOG IN</span> </a> -->
-								<a href="<?=base_url('site/register');?>" class="signup"><i class="icofont-users"></i> <span>Registration</span></a>
+								<a href="<?=base_url('site/register');?>" class="signup"><i class="icofont-users"></i> <span>Registrasi</span></a>
 
 								<!-- toggle icons -->
 								<div class="header-bar d-lg-none">
@@ -128,7 +128,7 @@
 					<h1 class="header-title">PIN PERDOSSI CIREBON</h1>
 					<p style="text-transform: initial; font-size: 32px;">5.0 Neurotech : A New Innovationto Enchance <br> Neuroscience and Reshape NeuroSociety</p>
 					<p style="text-transform: initial;">17 - 20 November 2022</p>
-					<a href="#info" class="default-button reverse-effect"><span>Download First Announcement here <i class="icofont-play-alt-1"></i></span> </a>
+					<a href="#info" class="default-button reverse-effect"><span>Unduh First Announcement disini <i class="icofont-play-alt-1"></i></span> </a>
 				</div>
 				<div class="banner-thumb d-flex flex-wrap justify-content-center justify-content-between align-items-center align-items-lg-end">
 					<div class="banner-thumb-img ml-xl-50-none">
@@ -213,7 +213,7 @@
 								<i class="icofont icofont-user-suited icofont-2x" style="position: relative; z-index: 2;"></i>
                             </div>
                             <div class="contact-content">
-                                <h6 class="title">Speaker</h6>
+                                <h6 class="title">Pembicara</h6>
                                 <h3>tba</h3>
                             </div>
                         </div>
@@ -235,7 +235,7 @@
                                 <i class="icofont icofont-users-alt-5 icofont-3x" style="position: relative; z-index: 2;"></i>
                             </div>
                             <div class="contact-content">
-                                <h6 class="title">Participant</h6>
+                                <h6 class="title">Peserta</h6>
                                 <h3><?php echo $participant; ?></h3>
                             </div>
                         </div>
@@ -246,7 +246,7 @@
                                 <i class="icofont icofont-file-alt icofont-3x" style="position: relative; z-index: 2;"></i>
                             </div>
                             <div class="contact-content">
-                                <h6 class="title">Abstract</h6>
+                                <h6 class="title">Abstrak</h6>
                                 <h3><?php echo $paper; ?></h3>
                             </div>
                         </div>
@@ -540,14 +540,14 @@
 		<div class="container">
 			<div class="section-header">
 				<!-- <p>our LATEST VIDEOS</p> -->
-				<h2 class="header-title" class="header-title">Sign In / Register</h2>
+				<h2 class="header-title" class="header-title">Masuk / Registrasi</h2>
 			</div>
 			<div class="section-wrapper">
 				<div class="row g-4">
 					<div class="achievement-area">
 						<div class="row">
 							<div class="col-lg-6" style="text-align: center">
-								<h3>Sign In</h3>
+								<h3>Masuk Login</h3>
 								<form name="contactForm" id="contact_form" class="form-border" method="post" action="<?= base_url('site/login'); ?>">
 									<?php if(!$hasSession):?>
 									<div class="field-set mb-2">
@@ -556,7 +556,7 @@
 									<div class="field-set mb-2">
 										<input type="password" name="password" id="password" class="form-control" placeholder="Password">
 									</div>
-									<a href="<?=base_url('site/forget');?>" class="mb-2">Forgot Password ?</a>
+									<a href="<?=base_url('site/forget');?>" class="mb-2">Lupa Password ?</a>
 									<?php endif;?>
 									<div class="d-grid">
 										<button type="submit" name="login" value="login" class="btn btn-edge btn-purple">
@@ -568,7 +568,7 @@
 							<div class="col-lg-6">
 								<h3 style="text-align: center">Cara Pendaftaran</h3>
 								<p>
-									1. Klik <b>Register</b>, dan isi profil anda<br>
+									1. Klik <b>Registrasi dibawah</b>, dan isi profil anda<br>
 									2. Pilih kegiatan yang ini diikuti<br>
 									3. Lakukan pembayaran secara online<br>
 									4. Bukti Pembayaran dan Registrasi akan dikirimkan via email. Mohon dibawa saat registrasi ulang<br>
@@ -705,7 +705,7 @@
 	<div id="event" class="padding-top padding-bottom bg-img" style="background-image: url(<?=base_url('themes/bigamer');?>/assets/images/custom/bg3.jpg);">
         <div class="container">
 			<div class="section-header">
-				<h2 class="header-title">Event Info</h2>
+				<h2 class="header-title">Informasi Kegiatan</h2>
 			</div>
 			<div class="section-wrapper">
 				<div class="row g-4">
@@ -1119,12 +1119,12 @@
                         <div class="footer-middle-item-wrapper">
                             <div class="footer-middle-item mb-lg-0">
                                 <div class="fm-item-title">
-                                    <h5>Sign In / Registration</h5>
+                                    <h5>Masuk / Registrasi</h5>
 									<hr>
                                 </div>
                                 <div class="fm-item-content">
                                     <div class="d-grid">
-										<a href="#sign-in" class="btn btn-edge btn-purple"> Sign In</a><br>
+										<a href="#sign-in" class="btn btn-edge btn-purple"> Masuk Login</a><br>
 										<a href="<?=base_url('member/register');?>" class="btn btn-edge btn-purple"> Registrasi Individu</a><br>
 										<a href="<?=base_url('member/register/group');?>" class="btn btn-edge btn-purple"> Registrasi Grup/ Kelompok</a><br>
 									</div>
