@@ -166,7 +166,7 @@ export default Vue.component("PageBilling", {
 													<h5 class="card-title" style="color:#212428">
 														Bank Info : {{ detailModel.paymentGatewayInfo.product }}
 													</h5>
-													<h5 class="card-text">
+													<h5 class="card-text text-dark">
 														Account Number : {{ detailModel.paymentGatewayInfo.productNumber}}
 													</h5>
 												</div>
