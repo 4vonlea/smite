@@ -100,21 +100,21 @@
                                         $userDetail = array_merge($user->toArray(), ['status_member' => $user->status_member->kategory]);
                                     ?>
                                         <li>
-                                            <a href="<?= base_url('site/home'); ?>#content">Home<span></span></a>
+                                            <a href="<?= base_url('site/home'); ?>#content">Beranda<span></span></a>
                                         </li>
                                         <li>
-                                            <a href="<?= base_url('member/area'); ?>#/profile">Profile<span></span></a>
+                                            <a href="<?= base_url('member/area'); ?>#/profile">Profil<span></span></a>
                                         </li>
                                         <?php if($hasSettlementTransaction):?>
                                         <li>
-                                            <a href="<?= base_url('member/area'); ?>#/paper">Send Manuscript<span></span></a>
+                                            <a href="<?= base_url('member/area'); ?>#/paper">Kirim Abstrak<span></span></a>
                                         </li>
                                         <?php endif;?>
                                         <li class="menu-item-has-children">
                                             <a class="active" href="#">Purchase<span></span></a><span></span>
                                             <ul class="submenu">
-                                                <li><a href="<?= base_url('member/area'); ?>#/events">Events</a></li>
-                                                <li><a href="<?= base_url('member/area'); ?>#/billing">Cart & Payment</a></li>
+                                                <li><a href="<?= base_url('member/area'); ?>#/events">Pilih Kegiatan</a></li>
+                                                <li><a href="<?= base_url('member/area'); ?>#/billing">Keranjang dan Pembayaran</a></li>
                                             </ul>
                                         </li>
                                         <li class="menu-item-has-children">
@@ -122,10 +122,10 @@
                                             <ul class="submenu">
                                                 <li><a href="<?= base_url('member/area'); ?>#/webminar">Webinar Link</a></li>
                                                 <?php if (in_array($userDetail['status'], $statusToUpload)) : ?>
-                                                    <li><a href="<?= base_url('member/area'); ?>#/material">Upload Material</a></li>
+                                                    <li><a href="<?= base_url('member/area'); ?>#/material">Unggah Materi</a></li>
                                                 <?php endif; ?>
-                                                <li><a href="<?= base_url('member/area'); ?>#/sertifikat">Download Certificate</a></li>
-                                                <li><a href="<?= base_url('member/area'); ?>#/presentation">List of Scientific Presentations</a></li>
+                                                <li><a href="<?= base_url('member/area'); ?>#/sertifikat">Unduh Certificate</a></li>
+                                                <li><a href="<?= base_url('member/area'); ?>#/presentation">Daftar Presentasi Ilmiah</a></li>
                                             </ul>
                                         </li>
                                         <li>
@@ -133,14 +133,14 @@
                                         </li>
 
                             <?php } else{ ?>
-									<li><a href="<?=base_url('site/home');?>#home">Home</a></li>
-									<li><a href="<?=base_url('site/home');?>#sign-in">Sign In</a></li>
-									<li><a href="<?=base_url('site/home');?>#event">Event</a></li>
+									<li><a href="<?=base_url('site/home');?>#home">Beranda</a></li>
+									<li><a href="<?=base_url('site/home');?>#sign-in">Masuk Login</a></li>
+									<li><a href="<?=base_url('site/home');?>#event">Kegiatan</a></li>
 									<?php };?>
 								</ul>
 								<?php if(!isset($isLogin)):?>
 								<!-- <a href="login.html" class="login"><i class="icofont-user"></i> <span>LOG IN</span> </a> -->
-								<a href="<?=base_url('member/register');?>" class="signup"><i class="icofont-users"></i> <span>Registration</span></a>
+								<a href="<?=base_url('member/register');?>" class="signup"><i class="icofont-users"></i> <span>Registrasi</span></a>
 								<?php endif;?>
 								<!-- toggle icons -->
 								<div class="header-bar d-lg-none">
@@ -235,12 +235,12 @@
                         <div class="footer-middle-item-wrapper">
                             <div class="footer-middle-item mb-lg-0">
                                 <div class="fm-item-title">
-                                    <h5>Sign In / Registration</h5>
+                                    <h5>Masuk / Registrasi</h5>
 									<hr>
                                 </div>
                                 <div class="fm-item-content">
                                     <div class="d-grid">
-										<a href="login.html" class="btn btn-edge btn-purple"> Sign In</a><br>
+										<a href="login.html" class="btn btn-edge btn-purple"> Masuk Login</a><br>
 										<a href="register.html" class="btn btn-edge btn-purple"> Registrasi Individu</a><br>
 										<a href="register-group.html" class="btn btn-edge btn-purple"> Registrasi Grup/Kelompok</a><br>
 									</div>

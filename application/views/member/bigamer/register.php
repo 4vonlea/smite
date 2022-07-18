@@ -23,11 +23,11 @@ $theme_path = base_url("themes/bigamer") . "/";
 <section class="pageheader-section" style="background-image: url(<?= $theme_path; ?>assets/images/pageheader/bg.jpg);">
     <div class="container">
         <div class="section-wrapper text-center text-uppercase">
-            <h2 class="pageheader-title">Registration Page</h2>
+            <h2 class="pageheader-title">Halaman Registrasi</h2>
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb justify-content-center mb-0">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Registration</li>
+                    <li class="breadcrumb-item"><a href="index.html">Beranda</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Registrasi</li>
                 </ol>
             </nav>
         </div>
@@ -39,21 +39,21 @@ $theme_path = base_url("themes/bigamer") . "/";
             <!-- NOTE Setelah Submmit -->
             <div v-if="page == 'registered'" class="col-lg-8 offset-lg-2">
                 <div class="alert alert-success">
-                    <h4 class="text-dark"><i class="fa fa-info"></i> Your account has been created</h4>
-                    <p>We have sent a confirmation link to your email address. Please check your inbox / spam. To complete the registration process, please click <i>confirmation link</i>.
-                        If you need help, please contact us.</p>
+                    <h4 class="text-dark"><i class="fa fa-info"></i> Akun anda telah dibuat</h4>
+                    <p>Kami telah mengirimkan email konfirmasi, mohon cek inbox / spam. Untuk menyelesaikan pendaftaran, klik <i>link konfirmasi</i>yang terdapat didalam email.
+                        Silakan hubungi kami bila memerlukan bantuan.</p>
                 </div>
 
                 <div class="card card-achievement mt-2">
                     <div class="card-header text-center">
-                        <h4 class="m-0 p-0"><strong class="font-weight-extra-bold ">Billing Information</strong></h4>
+                        <h4 class="m-0 p-0"><strong class="font-weight-extra-bold ">Informasi Tagihan</strong></h4>
                     </div>
                     <div class="card-body">
                         <table class="table">
                             <thead>
-                                <th>Event Name</th>
+                                <th>Nama Kegiatan</th>
                                 <th>
-                                    <p>Pricing
+                                    <p>Harga
                                         <span v-show="isUsd">
                                             (<span style="color:#F4AD39;font-size:12px">Converted to rupiah</span>)
                                         </span>
@@ -99,8 +99,8 @@ $theme_path = base_url("themes/bigamer") . "/";
                 </div>
 
                 <div class="alert alert-success mt-2">
-                    <h4 class="text-dark"><i class="fa fa-info"></i> Payment confirmation</h4>
-                    <p><strong>To confirm payment, please log in, then access "Cart and Payment"</strong></p>
+                    <h4 class="text-dark"><i class="fa fa-info"></i> Konfirmasi Pembayaran</h4>
+                    <p><strong>Untuk konfirmasi pembayaran, silakan login, kemudian masuk ke menu "keranjang dan pembayaran"</strong></p>
                 </div>
             </div>
 
@@ -110,7 +110,7 @@ $theme_path = base_url("themes/bigamer") . "/";
 
                 <div class="card card-achievement mt-2">
                     <div class="card-header bg-achievement text-center">
-                        <h4 class="m-0 p-0"><strong class="font-weight-extra-bold ">Account</strong></h4>
+                        <h4 class="m-0 p-0"><strong class="font-weight-extra-bold ">Akun</strong></h4>
                     </div>
                     <div class="card-body">
                         <table class="table">
@@ -121,7 +121,7 @@ $theme_path = base_url("themes/bigamer") . "/";
                                     <th>{{data.email}}</th>
                                 </tr>
                                 <tr>
-                                    <td>Name</td>
+                                    <td>Nama</td>
                                     <td class="text-center">:</td>
                                     <th>{{data.fullname}}</th>
                                 </tr>
@@ -142,15 +142,15 @@ $theme_path = base_url("themes/bigamer") . "/";
 
                 <div class="card card-achievement mt-2">
                     <div class="card-header bg-achievement text-center">
-                        <h4 class="m-0 p-0"><strong class="font-weight-extra-bold ">Event</strong></h4>
+                        <h4 class="m-0 p-0"><strong class="font-weight-extra-bold ">Kegiatan</strong></h4>
                     </div>
                     <div class="card-body">
                         <table class="table">
                             <thead>
                                 <th></th>
-                                <th>Event Name</th>
+                                <th>Nama Kegiatan</th>
                                 <th>
-                                    <p>Pricing
+                                    <p>Harga
                                         <span v-show="isUsd">
                                             (<span style="color:#F4AD39">Converted to rupiah</span>)
                                         </span>
@@ -198,11 +198,11 @@ $theme_path = base_url("themes/bigamer") . "/";
             <!-- NOTE Sebelum Submit -->
             <div v-show="page == 'register'">
                 <div class="alert btn-purple">
-                    <h4 class="text-black"><i class="icofont icofont-info-circle"></i> <b>Attention</h4>
-                    <p>Make sure you enter a valid and accessible email address. A code will be sent to the entered email to activate your account. Please check inbox / spam</p></b>
+                    <h4 class="text-black"><i class="icofont icofont-info-circle"></i> <b>Perhatian</b></h4>
+                    <p><b>Pastikan email yang terdaftar dapat diakses oleh anda. Link konfirmasi akan dikirimkan ke email tersebut. Mohon cek inbox atau spam</b></p>
                 </div>
                 <div class="achievement-area-copy">
-                    <h3 class="title text-center mb-4">Register Now</h3>
+                    <h3 class="title text-center mb-4">Registrasi sekarang</h3>
                     <form id="form-register" style="text-align: left; font-size: 18px; font-weight: 500;" ref="form">
                         <div class="form-group mb-2">
                             <label>Email*</label>
@@ -222,7 +222,7 @@ $theme_path = base_url("themes/bigamer") . "/";
                         </div>
                         <div class="form-group mb-2">
 
-                            <label>Confirm Password*</label>
+                            <label>Konfirmasi Password*</label>
                             <input type="password" :class="{ 'is-invalid': validation_error.confirm_password }" class="form-control mb-0" name="confirm_password" placeholder="Confirm Password" />
                             <div v-if="validation_error.confirm_password" class="invalid-feedback">
                                 {{ validation_error.confirm_password }}
@@ -230,7 +230,7 @@ $theme_path = base_url("themes/bigamer") . "/";
                         </div>
                         <div class="form-group mb-2">
 
-                            <label>Your Status*</label>
+                            <label>Status*</label>
                             <?= form_dropdown('status', $participantsCategory, '', [':class' => "{'is-invalid':validation_error.status}", 'id' => 'status', 'v-model' => 'status_selected', 'class' => 'form-control mb-0', 'placeholder' => 'Select your status !']); ?>
                             <div v-if="validation_error.status" class="invalid-feedback">
                                 {{ validation_error.status }}
@@ -240,7 +240,7 @@ $theme_path = base_url("themes/bigamer") . "/";
                         <span v-if="needVerification">
                             <div class="form-group mb-2">
 
-                                <label>Please upload your proof identity* <small>(jpg,jpeg,png)</small></label>
+                                <label>Bukti Identitas* <small>(jpg,jpeg,png)</small></label>
                                 <input type="file" name="proof" accept=".jpg,.png,.jpeg" :class="{'is-invalid':validation_error.proof}" class="form-control-file" />
                                 <div v-if="validation_error.proof" class="invalid-feedback d-block">
                                     {{ validation_error.proof }}
@@ -250,8 +250,8 @@ $theme_path = base_url("themes/bigamer") . "/";
                         </span>
                         <div class="form-group mb-2">
 
-                            <label> Full Name*</label>
-                            <small>*Rename isn't allowed after submission. Fill your name completely (include title) for the certificate</small>
+                            <label> Nama Lengkap*</label>
+                            <small>*Mohon isi lengkap dengan gelar untuk sertifikat, perubahan nama setelah registrasi tidak dapat dilakukan</small>
                             <input type="text" :class="{'is-invalid':validation_error.fullname}" class="form-control mb-0" name="fullname" placeholder="Full Name" />
                             <div v-if="validation_error.fullname" class="invalid-feedback">
                                 {{ validation_error.fullname }}
@@ -267,7 +267,7 @@ $theme_path = base_url("themes/bigamer") . "/";
 
                                             <div class="spacer-20"></div> -->
                         <div class="form-group mb-2">
-                            <label> Country*</label>
+                            <label> Negara*</label>
                             <?= form_dropdown('country', $participantsCountry, '', [':class' => "{'is-invalid':validation_error.country}", 'v-model' => 'country_selected', 'class' => 'form-control country_selected chosen mb-0', 'placeholder' => 'Select your institution !']); ?>
                             <div v-if="validation_error.country" class="invalid-feedback">
                                 {{ validation_error.country }}
@@ -288,7 +288,7 @@ $theme_path = base_url("themes/bigamer") . "/";
                         </span>
                         <div class="form-group mb-2">
 
-                            <label> City*</label>
+                            <label> Kota*</label>
                             <input type="text" :class="{'is-invalid':validation_error.city}" class="form-control mb-0" name="city" placeholder="City" />
                             <div v-if="validation_error.city" class="invalid-feedback">
                                 {{ validation_error.city }}
@@ -297,7 +297,7 @@ $theme_path = base_url("themes/bigamer") . "/";
 
                         <div class="form-group mb-2">
 
-                            <label> Institution / Affiliation*</label>
+                            <label> Institusi / Affiliasi*</label>
                             <?= form_dropdown('univ', $participantsUniv, '', [':class' => "{'is-invalid':validation_error.univ}", 'v-model' => 'univ_selected', 'class' => 'form-control univ_selected chosen mb-0', 'placeholder' => 'Select your institution !']); ?>
                             <div v-if="validation_error.univ" class="invalid-feedback">
                                 {{ validation_error.univ }}
@@ -316,7 +316,7 @@ $theme_path = base_url("themes/bigamer") . "/";
                         </span>
                         <div class="form-group mb-2">
 
-                            <label>Phone/ Whats App No (optional, for rapid communication)*</label>
+                            <label>Nomor Whatsapp (optional)*</label>
                             <input type="text" :class="{ 'is-invalid':validation_error.phone}" @keypress="onlyNumber" class="form-control mb-0" name="phone" placeholder="Phone/WA" />
                             <div v-if="validation_error.phone" class="invalid-feedback">
                                 {{ validation_error.phone }}
@@ -338,14 +338,14 @@ $theme_path = base_url("themes/bigamer") . "/";
                                             <div class="spacer-20"></div> -->
                         <div class="form-group mb-2">
 
-                            <label>Do you have a sponsor?*</label><br/>
+                            <label>Apakah anda memiliki sponsor?*</label><br/>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" id="radioSponsorYes" type="radio" name="haveSponsor" value="1" v-model="haveSponsor" />
-                                <label class="form-check-label" for="radioSponsorYes">Yes</label>
+                                <label class="form-check-label" for="radioSponsorYes">Ya</label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" id="radioSponsorNo" type="radio" name="haveSponsor" value="0" v-model="haveSponsor" />
-                                <label class="form-check-label" for="radioSponsorNo">No</label>
+                                <label class="form-check-label" for="radioSponsorNo">Tidak</label>
                             </div>
                         </div>
                         <!-- <div v-if="validation_error.gender" class="invalid-feedback">
@@ -354,7 +354,7 @@ $theme_path = base_url("themes/bigamer") . "/";
 
                         <span v-if="haveSponsor == '1'">
                             <div class="form-group mb-2">
-                                <label>Sponsor*</label>
+                                <label>Nama Sponsor*</label>
                                 <input type="text" :class="{'is-invalid':validation_error.sponsor}" class="form-control mb-0" name="sponsor" placeholder="Sponsor" />
                                 <div v-if="validation_error.sponsor" class="invalid-feedback">
                                     {{ validation_error.sponsor }}
@@ -367,7 +367,7 @@ $theme_path = base_url("themes/bigamer") . "/";
                             <hr />
                             <div class="alert btn-purple">
                                 <h4 class="text-black"><i class="icofont icofont-info-circle"></i> <b>Event</b></h4>
-                                <p class="text-center">Please select the event you want. We suggest you to make a payment immediately (credit card or virtual account) after checkout. *the price exclude administration fee</p>
+                                <p class="text-center">Pilih kegiatan yang ingin anda ikuti. Untuk kenyamaan anda, Kami harap pembayaran dapat langsung dilakukan tanpa penundaan setelah checkout. *harga yang tertera belum termasuk biaya admin</p>
                             </div>
                             <div class="row mt-2">
                                 <div class="col-md-12">
@@ -391,12 +391,12 @@ $theme_path = base_url("themes/bigamer") . "/";
                                             <div :id="'accordion-'+index" class="collapse show table-responsive">
                                                 <div>
                                                     <div v-if="event.participant >= event.kouta" class="alert alert-warning text-center">
-                                                        <h4>Sorry, quota for this event is full</h4>
+                                                        <h4>Maaf, kuota telah penuh</h4>
                                                     </div>
                                                     <table class="table">
                                                         <thead>
                                                             <tr>
-                                                                <th>Category</th>
+                                                                <th>Kategori</th>
                                                                 <th v-for="pricing in event.pricingName" class="text-center"><span v-html="pricing.title"></span></th>
                                                             </tr>
                                                         </thead>
@@ -464,7 +464,7 @@ $theme_path = base_url("themes/bigamer") . "/";
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header bg-purple">
-                    <h4 class="modal-title">Select Payment Method</h4>
+                    <h4 class="modal-title">Pilih metode pembayaran</h4>
                     <button type="button" class="btn btn-default" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body">
