@@ -193,7 +193,7 @@ export default Vue.component("PageBilling", {
 							<br>
 							<h5 v-if="detailModel.status_payment == 'pending'">Transfer Information</h5>
 							<div v-if="detailModel.status_payment == 'pending' && detailModel.channel == 'ESPAY'">
-								<table v-if="detailEspay.product_value">
+								<table class="table table-bordered text-light" v-if="detailEspay.product_value">
 									<tr>
 										<th>Bank/Vendor Name</th>
 										<td>
