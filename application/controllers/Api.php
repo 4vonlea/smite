@@ -134,6 +134,14 @@ class Api extends MY_Controller
         }
     }
 
+    public function available_room(){
+		$this->load->model('Room_m');
+        $checkin = $this->input->post("checkin");
+        $checkout = $this->input->post("checkout");
+        $data = $this->Room_m->availableRoom($checkin,$checkout);
+        $this->send_response(self::CODE_OK,"Success",$data);
+    }
+
     public function event_list(){
 		$this->load->model('Event_m');
         $result = $this->Event_m->getEventWithCountParticipant()->get();

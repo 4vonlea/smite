@@ -26,6 +26,9 @@ export default Vue.component("PageEvents", {
                                 <li v-for="cat in eventCategory" style="cursor:pointer" class="nav-item">
                                     <span class="nav-link" @click="showCategory = cat" :class="{'active':showCategory == cat}">{{ cat }}</span>
                                 </li>
+                                <li class="nav-item">
+                                    Hotel Booking
+                                </li>
                             </ul>
                         </div>
                     </div>

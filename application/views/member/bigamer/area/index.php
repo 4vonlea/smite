@@ -12,6 +12,8 @@ $this->layout->begin_head();
 <link href="<?= base_url(); ?>themes/script/chosen/chosen.css" rel="stylesheet">
 <link href="<?= base_url(); ?>themes/script/magnific/magnific.css" rel="stylesheet">
 <link href="https://vjs.zencdn.net/7.10.2/video-js.css" rel="stylesheet" />
+<script src="<?= base_url("themes/script/vue-hotel-booking.js?") . time(); ?>"></script>
+
 <style>
     .btn:disabled {
         cursor: not-allowed;
@@ -120,6 +122,7 @@ $this->layout->begin_head();
 
     var userD = <?= json_encode($userDetail); ?>;
     Vue.use(VueRouter);
+    Vue.use(hotelBooking);
     const routes = [{
             path: '/',
             component: PageProfile,

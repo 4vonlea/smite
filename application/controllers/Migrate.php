@@ -26,4 +26,18 @@ class Migrate extends CI_Controller
         var_dump($result);
     }
 
+    public function tes_range(){
+        $this->load->model(["Transaction_m","Room_m"]);
+        var_dump($this->Transaction_m->countOverlapHotelBooking(1,'2022-07-15','2022-07-16') == 0);
+        var_dump($this->Transaction_m->countOverlapHotelBooking(1,'2022-07-16','2022-07-17') == 1);
+        var_dump($this->Transaction_m->countOverlapHotelBooking(1,'2022-07-17','2022-07-18') == 3);
+        var_dump($this->Transaction_m->countOverlapHotelBooking(1,'2022-07-18','2022-07-19') == 3);
+        var_dump($this->Transaction_m->countOverlapHotelBooking(1,'2022-07-19','2022-07-20') == 1);
+        var_dump($this->Transaction_m->countOverlapHotelBooking(1,'2022-07-15','2022-07-19') == 4);
+        var_dump($this->Transaction_m->countOverlapHotelBooking(1,'2022-07-16','2022-07-18') == 3);
+        var_dump($this->Transaction_m->countOverlapHotelBooking(1,'2022-07-15','2022-07-20') == 4);
+        var_dump($this->Room_m->availableRoom('2022-07-15','2022-07-19'));
+
+    }
+
 }

@@ -210,6 +210,11 @@ function hideForRole($role, $listRole)
 						</a>
 					</li>
 					<li class="nav-item  <?= hideForRole($role, ['3']); ?>">
+						<a class="nav-link" href="<?= base_url('admin/hotel'); ?>">
+							<i class="ni ni-building text-orange"></i> Hotel
+						</a>
+					</li>
+					<li class="nav-item  <?= hideForRole($role, ['3']); ?>">
 						<a class="nav-link" href="<?= base_url('admin/notification'); ?>">
 							<i class="ni ni-chat-round text-blue"></i> Message & Notification
 						</a>

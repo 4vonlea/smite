@@ -133,6 +133,29 @@ class Transaction_m extends MY_Model
 			->where('transaction.id', $invoiceId)
 			->get();
 	}
+
+	public function validateBookingHotel($room_id,$checkin,$checkout){
+		$countBooking = $this->countOverlapHotelBooking($room_id,$checkin,$checkout);
+		$result = $this->db->from($this->table)
+            ->where("'$checkin' BETWEEN rooms.start_date AND rooms.end_date")
+            ->where("'$checkout' BETWEEN rooms.start_date AND rooms.end_date")
+            ->select("rooms.*")
+            ->get()->row();
+		if($result){
+			return $result->quota >= $countBooking;
+		}
+		return false;
+	}
+
+	public function countOverlapHotelBooking($room_id,$checkin,$checkout){
+		return $this->db->from("transaction_details td")
+			->join("transaction tr","tr.id = td.transaction_id")
+			->where("status_payment !=",Transaction_m::STATUS_EXPIRE)
+			->where('td.checkout >',$checkin)
+			->where('td.checkin <',$checkout)
+			->where("room_id",$room_id)->count_all_results();
+	}
+
 	public function detailsWithEvent()
 	{
 		$rs = $this->db->select("t.*,e.id as event_id,e.name as event_name,e.theme, e.held_on,e.held_in,e.theme, m.fullname as member_name")
