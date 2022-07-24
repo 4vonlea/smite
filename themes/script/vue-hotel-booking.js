@@ -38,8 +38,8 @@ let template = `
     <div class="row row-cols-1 row-cols-md-3 g-4">
         <div v-if="showBooking"  class="col-md-12">
             <div class="card">
-                <div class="card-header  bg-info">
-                    <p class="card-title text-dark fw-bold">Hotel Pesanan Anda</p>
+                <div class="card-header  bg-purple">
+                    <p class="card-title text-light fw-bold">Hotel Pesanan Anda</p>
                 </div>
                 <div class="card-body">
                     <ul class="list-group list-group-flush">
@@ -53,17 +53,20 @@ let template = `
                                 </div>
                                 <span v-else class="badge bg-info">{{ room.status_payment }}</span>
                             </div>
-                            <p>
-                                {{ room.name }},
-                                <i class="fa fa-moon-o"></i> {{ calculateNight(room.checkin,room.checkout) }} Malam,
-                                <i class="fa fa-calendar"></i> {{ formatDate(room.checkin) }} - {{ formatDate(room.checkout) }}
+                            <span>
+                                <i class="fa fa-bed"></i> {{ room.name }}
+                                <i class="fa fa-moon-o ms-3"></i> {{ calculateNight(room.checkin,room.checkout) }} Malam
+                                <i class="fa fa-calendar ms-3"></i> {{ formatDate(room.checkin) }} - {{ formatDate(room.checkout) }}
+                            </span>
+                            <p class="fw-bold mt-1">
+                                Total : {{ formatCurrency(room.price) }}
                             </p>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
-        <div v-for="hotel in hotels" class="col-md-3">
+        <div v-for="(hotel,ind) in hotels" class="col-md-3">
             <div class="card">
                 <div class="card-header">
                     <h5 class="card-title text-dark text-center">{{ hotel.hotel_name }}</h5>
@@ -83,7 +86,10 @@ let template = `
                 </div>
                 <div class="card-footer">
                     <div class="d-grid gap-2">
-                        <button type="button" @click="bookHotel($event,hotel)" class="btn btn-primary">Book {{ formatCurrency(hotel.price * night) }}</button>
+                        <button :disabled="processingButtonIndex == ind" type="button" @click="bookHotel(hotel,ind)" class="btn btn-primary">
+                            <i v-if="processingButtonIndex == ind" class="fa fa-spin fa-spinner"></i>
+                            <span v-else>Book {{ formatCurrency(hotel.price * night) }}</span>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -114,6 +120,7 @@ Vue.component('hotel-booking', {
             hotels:null,
             showBooking:false,
             bookingData:[],
+            processingButtonIndex:-1,
             momentFormat: {
 				stringify: (date) => {
 					return date ? moment(date).format('DD MMM YYYY') : ''
@@ -128,15 +135,11 @@ Vue.component('hotel-booking', {
         this.bookingData = (this.booking) ? this.booking: [];
     },
     methods:{
-        bookHotel(evt,room){
-            let btn = evt.currentTarget;
-            let tempInner = btn.innerHTML;
-			btn.innerHTML = "<i class='fa fa-spin fa-spinner'></i>";
-            btn.setAttribute("disabled", true);
+        bookHotel(room,ind){
+            this.processingButtonIndex = ind;
             if(typeof this.onBook != 'undefined'){
-                this.onBook(btn,room,this.form);
-                btn.innerHTML = tempInner;
-                btn.removeAttribute("disabled");
+                this.onBook(room,this.form);
+                this.processingButtonIndex = -1;
             }else{
                 $.post(this.bookUrl,{
                     id:room.id,
@@ -153,6 +156,7 @@ Vue.component('hotel-booking', {
                             hotel_name:room.hotel_name,
                             checkin:this.form.checkin,
                             checkout:this.form.checkout,
+                            price: this.night * parseFloat(room.price),
                             status_payment:'Waiting Payment'
                         });
                         Swal.fire('Berhasil',"Hotel berhasil dipesan !", 'success');
@@ -162,8 +166,7 @@ Vue.component('hotel-booking', {
                 }).fail((xhr)=>{
                     Swal.fire('Fail', "Failed to book hotels !", 'error');
                 }).always((res)=>{
-                    btn.innerHTML = tempInner;
-                    btn.removeAttribute("disabled");
+                    this.processingButtonIndex = -1;
                 })
             }
         },

@@ -759,19 +759,23 @@ $theme_path = base_url("themes/bigamer") . "/";
             onCancelBooking(ind,room){
                 this.hotelBooking.booking.splice(ind,1);
             },
-            onBooking(btn,room,dateCheck){
+            onBooking(room,dateCheck){
                 let night = moment(dateCheck.checkout).diff(dateCheck.checkin,'days');
-                this.hotelBooking.booking.push({
-                    id:room.id,
-                    name:room.name,
-                    hotel_name:room.hotel_name,
-                    checkin:moment(dateCheck.checkin).format("YYYY-MM-DD"),
-                    checkout:moment(dateCheck.checkout).format("YYYY-MM-DD"),
-                    price: night * parseFloat(room.price),
-                    uniqueId:this.uniqueid
-                });
-                Swal.fire('Berhasil',"Hotel berhasil ditambahkan !", 'success');
-                btn.remove;
+                if(moment(dateCheck.checkout).isAfter(moment(dateCheck.checkin))){
+                    this.hotelBooking.booking.push({
+                        id:room.id,
+                        name:room.name,
+                        hotel_name:room.hotel_name,
+                        checkin:moment(dateCheck.checkin).format("YYYY-MM-DD"),
+                        checkout:moment(dateCheck.checkout).format("YYYY-MM-DD"),
+                        price: night * parseFloat(room.price),
+                        uniqueId:this.uniqueid
+                    });
+                    Swal.fire('Berhasil',"Hotel berhasil ditambahkan !", 'success');
+                }else{
+                    Swal.fire('Fail',"Tanggal Checkout harus lebih dari tanggal checkin", 'warning');
+                    
+                }
             },
             addEvent(e, event, member, event_name) {
                 let isRequired = this.checkRequirement(event.event_required_id);

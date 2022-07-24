@@ -273,7 +273,7 @@ class Area extends MY_Controller
 		$this->Transaction_detail_m->delete($id);
 		$count = $this->Transaction_detail_m->find()->select("SUM(price) as c")
 			->where('transaction_id', $this->input->post("transaction_id"))
-			->where('event_pricing_id > ', "0")
+			->where('event_pricing_id != ', "0")
 			->get()->row_array();
 		if ($count['c'] == 0) {
 			$this->Transaction_detail_m->delete(['event_pricing_id' => 0, 'transaction_id' => $this->input->post("transaction_id")]);

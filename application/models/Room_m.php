@@ -41,7 +41,7 @@ class Room_m extends MY_Model
             ->where("td.member_id",$member_id)
             ->where("event_pricing_id","-1")
             ->where("t.status_payment !=",Transaction_m::STATUS_EXPIRE)
-            ->select("rooms.id,rooms.name,hotels.name as hotel_name,td.checkin_date as checkin,td.checkout_date as checkout,t.status_payment")
+            ->select("rooms.id,rooms.name,hotels.name as hotel_name,td.checkin_date as checkin,td.checkout_date as checkout,t.status_payment,td.price")
             ->get();
         $return = [];
         $statusList = [
