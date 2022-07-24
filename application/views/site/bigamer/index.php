@@ -51,15 +51,16 @@
 			<div class="row text-center mt-2">
 				<div class="col-md-6 offset-md-3">
 					<!--<a href="<?=base_url('site/home');?>" class="btn-main btn btn-edge-block btn-purple">Visit our Website here</a><br>-->
-					<a href="<?=base_url("site/home");?>" class="btn-main btn btn-edge-block btn-primary" style="margin-top: -10px;">Klik disini untuk Kunjungi website kami</a><br>
-					<a href="#" class="btn-main btn btn-edge-block btn-primary" style="margin-top: -10px;">Unduh First Announcement disini (belum tersedia)</a><br>
-					<!--<a href="https://aomc-pinbanjarmasin2022.com/themes/gigaland/images/20220528FA.pdf" target="blank" class="btn-mai btn btn-edge-block btn-purple" style="margin-top: -10px;">Download First Announcement here (Released on July 18th)</a><br>-->
+					<a href="<?=base_url("site/home");?>" class="btn-main btn btn-edge-block btn-primary" style="margin-top: -10px;">Kunjungi website disini</a><br>
+					<a href="https://pinperdossicirebon2022.com/member/register" class="btn-mai btn btn-edge-block btn-purple" style="margin-top: -10px;">Registrasi Individu</a><br>
+					<a href="https://pinperdossicirebon2022.com/member/register/group" class="btn-main btn btn-edge-block btn-primary" style="margin-top: -10px;">Registrasi Grup / Kelompok </a><br>
+					<a href="https://drive.google.com/file/d/1tWvDqAwdV2EXNminwN6hdi6hzjdLZ_Iy/view?usp=sharing" target="blank" class="btn-mai btn btn-edge-block btn-purple" style="margin-top: -10px;">Unduh First Announcement (Released on 19 July)</a><br>
 					<hr>
 				</div>
 			</div>
 			<div class="row mt-3 text-center">
 				<div class="col-12">
-					<p style="color: white; text-shadow: 3px 2px 1px black; font-size: 25px;">Silakan mendaftarkan diri, registrasi telah dibuka</p>
+					<p style="color: white; text-shadow: 3px 2px 1px black; font-size: 25px;">Registrasi Simposium telah dibuka</p>
 				</div>
 			</div>
 
