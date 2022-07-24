@@ -17,6 +17,129 @@ class Register extends MY_Controller
 		$this->load->model(['Sponsor_link_m']);
 	}
 
+	public function add_cart()
+	{
+		if ($this->input->method() !== 'post')
+			show_404("Page not found !");
+
+		$response = ['status' => true];
+		$data = $this->input->post();
+		$this->load->model(["Transaction_m", "Transaction_detail_m", "Event_m", "Event_pricing_m"]);
+		$this->Transaction_m->getDB()->trans_start();
+		$transaction = $this->Transaction_m->findOne(['member_id' => $data['uniqueId'], 'checkout' => 0]);
+		if (!$transaction) {
+			$id = $this->Transaction_m->generateInvoiceID();
+			$transaction = new Transaction_m();
+			$transaction->id = $id;
+			$transaction->checkout = 0;
+			$transaction->status_payment = Transaction_m::STATUS_WAITING;
+			$transaction->member_id = $data['uniqueId'];
+			$transaction->save();
+			$transaction->id = $id;
+		}
+		$detail = $this->Transaction_detail_m->findOne(['transaction_id' => $transaction->id, 'event_pricing_id' => $data['id']]);
+		$fee = $this->Transaction_detail_m->findOne(['transaction_id' => $transaction->id, 'event_pricing_id' => 0]);
+		if (!$detail) {
+			$detail = new Transaction_detail_m();
+		}
+		$feeAlready = false;
+		if (!$fee) {
+			$fee = new Transaction_detail_m();
+		} else {
+			$feeAlready = true;
+		}
+
+		// NOTE Check Required Events
+		$valid = true;
+		$message = '';
+
+		if(!isset($data['is_hotel'])){
+			$findEvent = $this->Event_m->findOne(['id' => $data['event_id']]);
+			if ($findEvent && $findEvent->event_required && $findEvent->event_required != "0") {
+				$cek = $this->Event_m->getRequiredEvent($findEvent->event_required,  $data['uniqueId']);
+				// NOTE Data Required Event
+				$dataEvent = $this->Event_m->findOne(['id' => $findEvent->event_required]);
+				if ($cek) {
+					if ($cek->status_payment == Transaction_m::STATUS_FINISH) {
+						$valid = true;
+					} else if (in_array($cek->status_payment, [Transaction_m::STATUS_PENDING])) {
+						$valid = false;
+						$message = "Not Available, please complete the payment !";
+					} 
+				} else {
+					$valid = false;
+					$message = "You must follow event {$dataEvent->name} to patcipate this event !";
+				}
+			}
+
+			if ($this->Event_m->validateFollowing($data['id'], $data['member_status']) && $valid) {
+
+				// NOTE Harga sesuai dengan database
+				$price = $this->Event_pricing_m->findOne(['id' => $data['id'], 'condition' => $data['member_status']]);
+				if ($price->price != 0) {
+					$data['price'] = $price->price;
+				} else {
+					$kurs_usd = json_decode(Settings_m::getSetting('kurs_usd'), true);
+					$data['price'] = ($price->price_in_usd * $kurs_usd['value']);
+				}
+
+				$detail->event_pricing_id = $data['id'];
+				$detail->transaction_id = $transaction->id;
+				$detail->price = $data['price'];
+				$detail->price_usd = $price->price_in_usd;
+				$detail->member_id =  $data['uniqueId'];
+				$detail->product_name = "$data[event_name] ($data[member_status])";
+				$detail->save();
+				
+			} else {
+				$response['status'] = false;
+				$response['message'] = $message ?? "You are prohibited from following !";
+			}
+		}else{
+			$result = $this->Transaction_detail_m->bookHotel($transaction->id, $data['uniqueId'],$data);
+			$data['price'] = 0;
+			if($result === true){
+				$data['price'] = 1;
+				$response['status'] = true;
+			}else{
+				$response['status'] = false;
+				$response['message'] = $result;
+			}
+		}
+
+		$response['transaction_detail_id'] = $this->Transaction_detail_m->getLastInsertID();
+		if ($data['price'] > 0 && $feeAlready == false) {
+			$fee->event_pricing_id = 0; //$data['id'];
+			$fee->transaction_id = $transaction->id;
+			$fee->price = Transaction_m::ADMIN_FEE_START + rand(100, 500); //"6000";//$data['price'];
+			$fee->member_id =  $data['uniqueId'];
+			$fee->product_name = "Admin Fee";
+			$fee->save();
+		}
+		$response['id'] = $transaction->id;
+		$this->Transaction_m->getDB()->trans_complete();
+		$this->output->set_content_type("application/json")
+			->_display(json_encode($response));
+	}
+
+	public function delete_item_cart()
+	{
+		if ($this->input->method() !== 'post')
+			show_404("Page not found !");
+		$id = $this->input->post('id');
+		$this->load->model(["Transaction_detail_m"]);
+		$this->Transaction_detail_m->delete($id);
+		$count = $this->Transaction_detail_m->find()->select("SUM(price) as c")
+			->where('transaction_id', $this->input->post("transaction_id"))
+			->where('event_pricing_id > ', "0")
+			->get()->row_array();
+		if ($count['c'] == 0) {
+			$this->Transaction_detail_m->delete(['event_pricing_id' => 0, 'transaction_id' => $this->input->post("transaction_id")]);
+		}
+		$this->output->set_content_type("application/json")
+			->_display('{"status":true}');
+	}
+
 	public function index()
 	{
 		$this->load->model('Category_member_m');
@@ -25,6 +148,7 @@ class Register extends MY_Controller
 		$this->load->model('Country_m');
 		$this->load->model('Event_pricing_m');
 		$this->load->model('Transaction_detail_m');
+		$this->load->model('Room_m');
 
 		$status = $this->Category_member_m->find()->select("id,kategory,need_verify")->where('is_hide', '0')->get()->result_array();
 		$univ = $this->Univ_m->find()->select("univ_id, univ_nama")->order_by('univ_id')->get()->result_array();
@@ -53,7 +177,8 @@ class Register extends MY_Controller
 			unset($data['paymentMethod']);
 
 			$dataSebelumnya = json_decode($this->input->post('data'));
-			$dataSebelumnya = (array)$dataSebelumnya;
+			$dataSebelumnya = (array) $dataSebelumnya;
+			$bookingHotel = json_decode($this->input->post("booking"),true);
 			if (isset($dataSebelumnya['email']) && $dataSebelumnya['email'] != '') {
 				$_POST['update'] = true;
 				$data['email'] = $dataSebelumnya['email'];
@@ -137,10 +262,25 @@ class Register extends MY_Controller
 					$transaction->id = $id;
 				}
 				$this->transactions($data, $eventAdded, $transaction);
+				$hotelBookingStatus = true;
+				foreach($bookingHotel as $hotel){
+					$result = $this->Transaction_detail_m->bookHotel($transaction->id,$data['id'],[
+						'id'=>$hotel['id'],
+						'checkin'=>$hotel['checkin'],
+						'checkout'=>$hotel['checkout']
+					]);
+					$data['price'] = 0;
+					if($result !== true){
+						$hotelBookingStatus = false;
+						$error['statusData'] = false;
+						$error['validation_error']['eventAdded'] = $result;
+						break;
+					}
+				}
 				$error['transactions'] = $this->getTransactions($transaction);
 
 				$this->Member_m->getDB()->trans_complete();
-				$error['statusData'] = $this->Member_m->getDB()->trans_status();
+				$error['statusData'] = $this->Member_m->getDB()->trans_status() && $hotelBookingStatus;
 				$error['message'] = $this->Member_m->getDB()->error();
 				if ($error['statusData']) {
 					$email_message = $this->load->view('template/email/email_confirmation', ['token' => $token, 'name' => $data['fullname']], true);
@@ -166,6 +306,7 @@ class Register extends MY_Controller
 			$participantsCountry = Country_m::asList($country, 'id', 'name', 'Please Select your country');
 
 			$data = [
+				'uniqueId'=>uniqid(),
 				'participantsCategory' => $participantsCategory,
 				'participantsUniv' => $participantsUniv,
 				'participantsCountry' => $participantsCountry,
@@ -173,6 +314,7 @@ class Register extends MY_Controller
 				'univlist' => $univ,
 				'events' => $this->getEvents(),
 				'paymentMethod' => Settings_m::getEnablePayment(),
+				'rangeBooking'=> $this->Room_m->rangeBooking(),
 			];
 			$this->layout->render('member/' . $this->theme . '/register', $data);
 		}

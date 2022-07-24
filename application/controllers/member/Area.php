@@ -160,11 +160,13 @@ class Area extends MY_Controller
 		ini_set('memory_limit', '2048M');
 		if ($this->input->method() !== 'post')
 			show_404("Page not found !");
-		$this->load->model("Event_m");
+		$this->load->model(["Event_m","Room_m"]);
 		$onLyFollowed = $this->input->post("onlyFollowed") == '1';
 		$events = $this->Event_m->eventVueModel($this->session->user_session['id'], $this->session->user_session['status_name'],[],$onLyFollowed);
+		$booking = $this->Room_m->bookedRoom($this->session->user_session['id']);
+		$rangeBooking = $this->Room_m->rangeBooking();
 		$this->output->set_content_type("application/json")
-			->_display(json_encode(['status' => true, 'events' => $events]));
+			->_display(json_encode(['status' => true, 'events' => $events,'booking'=>$booking,'rangeBooking'=>$rangeBooking]));
 	}
 
 	public function file_presentation($name, $id)
@@ -361,53 +363,67 @@ class Area extends MY_Controller
 		$valid = true;
 		$message = '';
 
-		$findEvent = $this->Event_m->findOne(['id' => $data['event_id']]);
-		if ($findEvent && $findEvent->event_required && $findEvent->event_required != "0") {
-			$cek = $this->Event_m->getRequiredEvent($findEvent->event_required, $this->session->user_session['id']);
-			// NOTE Data Required Event
-			$dataEvent = $this->Event_m->findOne(['id' => $findEvent->event_required]);
-			if ($cek) {
-				if ($cek->status_payment == Transaction_m::STATUS_FINISH) {
-					$valid = true;
-				} else if (in_array($cek->status_payment, [Transaction_m::STATUS_PENDING])) {
+		if(!isset($data['is_hotel'])){
+			$findEvent = $this->Event_m->findOne(['id' => $data['event_id']]);
+			if ($findEvent && $findEvent->event_required && $findEvent->event_required != "0") {
+				$cek = $this->Event_m->getRequiredEvent($findEvent->event_required, $this->session->user_session['id']);
+				// NOTE Data Required Event
+				$dataEvent = $this->Event_m->findOne(['id' => $findEvent->event_required]);
+				if ($cek) {
+					if ($cek->status_payment == Transaction_m::STATUS_FINISH) {
+						$valid = true;
+					} else if (in_array($cek->status_payment, [Transaction_m::STATUS_PENDING])) {
+						$valid = false;
+						$message = "Not Available, please complete the payment !";
+					} 
+				} else {
 					$valid = false;
-					$message = "Not Available, please complete the payment !";
-				} 
+					$message = "You must follow event {$dataEvent->name} to patcipate this event !";
+				}
+			}
+
+			if ($this->Event_m->validateFollowing($data['id'], $this->session->user_session['status_name']) && $valid) {
+
+				// NOTE Harga sesuai dengan database
+				$price = $this->Event_pricing_m->findOne(['id' => $data['id'], 'condition' => $this->session->user_session['status_name']]);
+				if ($price->price != 0) {
+					$data['price'] = $price->price;
+				} else {
+					$kurs_usd = json_decode(Settings_m::getSetting('kurs_usd'), true);
+					$data['price'] = ($price->price_in_usd * $kurs_usd['value']);
+				}
+
+				$detail->event_pricing_id = $data['id'];
+				$detail->transaction_id = $transaction->id;
+				$detail->price = $data['price'];
+				$detail->price_usd = $price->price_in_usd;
+				$detail->member_id = $this->session->user_session['id'];
+				$detail->product_name = "$data[event_name] ($data[member_status])";
+				$detail->save();
+				
 			} else {
-				$valid = false;
-				$message = "You must follow event {$dataEvent->name} to patcipate this event !";
+				$response['status'] = false;
+				$response['message'] = $message ?? "You are prohibited from following !";
+			}
+		}else{
+			$result = $this->Transaction_detail_m->bookHotel($transaction->id,$this->session->user_session['id'],$data);
+			$data['price'] = 0;
+			if($result === true){
+				$data['price'] = 1;
+				$response['status'] = true;
+			}else{
+				$response['status'] = false;
+				$response['message'] = $result;
 			}
 		}
 
-		if ($this->Event_m->validateFollowing($data['id'], $this->session->user_session['status_name']) && $valid) {
-
-			// NOTE Harga sesuai dengan database
-			$price = $this->Event_pricing_m->findOne(['id' => $data['id'], 'condition' => $this->session->user_session['status_name']]);
-			if ($price->price != 0) {
-				$data['price'] = $price->price;
-			} else {
-				$kurs_usd = json_decode(Settings_m::getSetting('kurs_usd'), true);
-				$data['price'] = ($price->price_in_usd * $kurs_usd['value']);
-			}
-
-			$detail->event_pricing_id = $data['id'];
-			$detail->transaction_id = $transaction->id;
-			$detail->price = $data['price'];
-			$detail->price_usd = $price->price_in_usd;
-			$detail->member_id = $this->session->user_session['id'];
-			$detail->product_name = "$data[event_name] ($data[member_status])";
-			$detail->save();
-			if ($data['price'] > 0 && $feeAlready == false) {
-				$fee->event_pricing_id = 0; //$data['id'];
-				$fee->transaction_id = $transaction->id;
-				$fee->price = Transaction_m::ADMIN_FEE_START + rand(100, 500); //"6000";//$data['price'];
-				$fee->member_id = $this->session->user_session['id'];
-				$fee->product_name = "Admin Fee";
-				$fee->save();
-			}
-		} else {
-			$response['status'] = false;
-			$response['message'] = $message ?? "You are prohibited from following !";
+		if ($data['price'] > 0 && $feeAlready == false) {
+			$fee->event_pricing_id = 0; //$data['id'];
+			$fee->transaction_id = $transaction->id;
+			$fee->price = Transaction_m::ADMIN_FEE_START + rand(100, 500); //"6000";//$data['price'];
+			$fee->member_id = $this->session->user_session['id'];
+			$fee->product_name = "Admin Fee";
+			$fee->save();
 		}
 		$response['id'] = $transaction->id;
 		$this->Transaction_m->getDB()->trans_complete();
@@ -444,23 +460,7 @@ class Area extends MY_Controller
 			->_display(json_encode($response));
 	}
 
-	public function delete_item_cart()
-	{
-		if ($this->input->method() !== 'post')
-			show_404("Page not found !");
-		$id = $this->input->post('id');
-		$this->load->model(["Transaction_detail_m"]);
-		$this->Transaction_detail_m->delete($id);
-		$count = $this->Transaction_detail_m->find()->select("SUM(price) as c")
-			->where('transaction_id', $this->input->post("transaction_id"))
-			->where('event_pricing_id > ', "0")
-			->get()->row_array();
-		if ($count['c'] == 0) {
-			$this->Transaction_detail_m->delete(['event_pricing_id' => 0, 'transaction_id' => $this->input->post("transaction_id")]);
-		}
-		$this->output->set_content_type("application/json")
-			->_display('{"status":true}');
-	}
+	 
 
 	public function file($name, $id, $type = 'Abstract')
 	{

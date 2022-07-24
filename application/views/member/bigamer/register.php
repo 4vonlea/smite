@@ -12,6 +12,7 @@ $this->layout->begin_head();
  */
 $theme_path = base_url("themes/bigamer") . "/";
 ?>
+<link rel="stylesheet" type="text/css" href="https://unpkg.com/vue2-datepicker@3.11.0/index.css">
 <style>
    .achievement-area-copy{
     background-color: #232a5c;
@@ -76,12 +77,12 @@ $theme_path = base_url("themes/bigamer") . "/";
                     </div>
                 </div>
 
-                <div class="col-sm-4 mt-2" v-for="account in paymentBank">
+                <div class="col-sm-6 mt-2" v-for="account in paymentBank">
                     <div class="card">
                         <div class="card-body">
-                            <h3 class="card-title ">{{ account.bank }}</h3>
+                            <h3 class="card-title card-title text-dark">{{ account.bank }}</h3>
                             <p class="card-text">
-                            <table style="color: #F5AC39;">
+                            <table class="table">
                                 <tr>
                                     <th>Account Number</th>
                                     <td>:</td>
@@ -168,7 +169,7 @@ $theme_path = base_url("themes/bigamer") . "/";
                                 <tr>
                                     <td></td>
                                     <td class="text-right font-weight-bold">Total :</td>
-                                    <td>{{ formatCurrency(totalPrice()) }}</td>
+                                    <td>{{ formatCurrency((totalPrice())) }}</td>
                                 </tr>
                             </tfoot>
                         </table>
@@ -375,6 +376,9 @@ $theme_path = base_url("themes/bigamer") . "/";
                                         <li v-for="cat in eventCategory" class="nav-item">
                                             <span style="cursor: pointer;" class="nav-link" @click="showCategory = cat" :class="{'active':showCategory == cat}">{{ cat }}</span>
                                         </li>
+                                        <li class="nav-item" style="cursor:pointer">
+                                            <span class="nav-link" @click="showCategory = 'hotel-booking'"  :class="{'active':showCategory == 'hotel-booking'}"> Hotel Booking </span>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -427,6 +431,16 @@ $theme_path = base_url("themes/bigamer") . "/";
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="card card-achievement" v-if="showCategory == 'hotel-booking'">
+                                        <div class="card-header">
+                                            <h4 class="card-title m-0">
+                                                Hotel Booking
+                                            </h4>
+                                        </div>
+                                        <div class="card-body collapse show table-responsive">
+                                            <hotel-booking :unique-id="uniqueid" :on-delete="onCancelBooking" :on-book="onBooking" :booking="hotelBooking.booking" book-url="<?=base_url('member/register/add_cart');?>" search-url="<?=base_url('api/available_room');?>" :min-date="hotelBooking.minBookingDate" :max-date="hotelBooking.maxBookingDate"></hotel-booking>
+                                        </div>
+                                    </div>
                                     <div class="card card-achievement card-default mt-2">
                                         <div class="card-header bg-achievement text-center" style="color: #fff;">
                                             <b>{{ formatCurrency(total()) }}</b>
@@ -436,10 +450,10 @@ $theme_path = base_url("themes/bigamer") . "/";
                                             </span>
                                         </div>
                                     </div>
-                                    <div v-if="validation_error.eventAdded" style="font-size: 1em;color: #F2AC38;">
+                                    <div v-if="validation_error.eventAdded" style="font-size: 1em;" class="alert alert-danger mt-1 text-center">
                                         {{ validation_error.eventAdded }}
                                     </div>
-                                    <div v-if="validation_error.requiredEvent" style="font-size: 1em;color: #F2AC38;">
+                                    <div v-if="validation_error.requiredEvent" style="font-size: 1em;" class="alert alert-danger mt-1 text-center">
                                         {{ validation_error.requiredEvent }}
                                     </div>
                                 </div>
@@ -479,6 +493,8 @@ $theme_path = base_url("themes/bigamer") . "/";
 <script src="<?= base_url("themes/script/sweetalert2@8.js"); ?>"></script>
 <script src="<?= base_url("themes/script/vuejs-datepicker.min.js"); ?>"></script>
 <script src="<?= base_url("themes/script/chosen/chosen.jquery.min.js"); ?>"></script>
+<script src="https://unpkg.com/vue2-datepicker@3.11.0" charset="utf-8"></script>
+<script src="<?= base_url("themes/script/vue-hotel-booking.js?") . time(); ?>"></script>
 
 <?php if (isset(Settings_m::getEspay()['jsKitUrl'])) : ?>
     <script src="<?= Settings_m::getEspay()['jsKitUrl']; ?>"></script>
@@ -490,6 +506,7 @@ $theme_path = base_url("themes/bigamer") . "/";
             vuejsDatepicker
         },
         data: {
+            uniqueid:"<?=$uniqueId;?>",
             statusList: <?= json_encode($statusList); ?>,
             status_selected: "",
             status_text: "",
@@ -500,7 +517,6 @@ $theme_path = base_url("themes/bigamer") . "/";
             saving: false,
             validation_error: {},
             page: 'register',
-
             paymentMethod: [],
             selectedPaymentMethod: '',
             events: <?= json_encode($events) ?>,
@@ -514,6 +530,11 @@ $theme_path = base_url("themes/bigamer") . "/";
             data: {},
             isUsd: false,
             showCategory: '',
+            hotelBooking:{
+                booking:[],
+                minBookingDate:'<?=$rangeBooking['start'];?>',
+                maxBookingDate:'<?=$rangeBooking['end'];?>',
+            }
         },
         mounted: function() {
 
@@ -586,7 +607,7 @@ $theme_path = base_url("themes/bigamer") . "/";
                         total += parseFloat(this.transactions[i].price);
                     } else {
                         isUsd += 1;
-                        kurs_usd = <?= json_encode(json_decode(Settings_m::getSetting('kurs_usd'), true)); ?>;
+                        kurs_usd = {"using_api":0,"value":"0"};
                         total += (parseFloat(item.price_in_usd) * kurs_usd.value);
                     }
                 }
@@ -602,9 +623,12 @@ $theme_path = base_url("themes/bigamer") . "/";
                     } else {
                         isUsd += 1;
 
-                        kurs_usd = <?= json_encode(json_decode(Settings_m::getSetting('kurs_usd'), true)); ?>;
+                        kurs_usd = {"using_api":0,"value":"0"};
                         total += (parseFloat(item.price_in_usd) * kurs_usd.value);
                     }
+                })
+                this.hotelBooking.booking.forEach(room => {
+                    total += room.price;
                 })
                 this.isUsd = isUsd > 0 ? true : false;
                 return total;
@@ -626,6 +650,8 @@ $theme_path = base_url("themes/bigamer") . "/";
                 formData.append('eventAdded', JSON.stringify(app.eventAdded));
                 formData.append('data', JSON.stringify(app.data));
                 formData.append('paymentMethod', app.paymentMethod);
+                formData.append('uniqueId',this.uniqueid);
+                formData.append('booking',JSON.stringify(this.hotelBooking.booking));
 
                 this.saving = true;
                 $.ajax({
@@ -730,20 +756,64 @@ $theme_path = base_url("themes/bigamer") . "/";
                 }
                 return isRequired;
             },
+            onCancelBooking(ind,room){
+                this.hotelBooking.booking.splice(ind,1);
+            },
+            onBooking(btn,room,dateCheck){
+                let night = moment(dateCheck.checkout).diff(dateCheck.checkin,'days');
+                this.hotelBooking.booking.push({
+                    id:room.id,
+                    name:room.name,
+                    hotel_name:room.hotel_name,
+                    checkin:moment(dateCheck.checkin).format("YYYY-MM-DD"),
+                    checkout:moment(dateCheck.checkout).format("YYYY-MM-DD"),
+                    price: night * parseFloat(room.price),
+                    uniqueId:this.uniqueid
+                });
+                Swal.fire('Berhasil',"Hotel berhasil ditambahkan !", 'success');
+                btn.remove;
+            },
             addEvent(e, event, member, event_name) {
                 let isRequired = this.checkRequirement(event.event_required_id);
                 if (e.target.checked) {
                     if (isRequired) {
-                        event.member_status = member;
-                        event.event_name = event_name;
-                        this.eventAdded.push(event);
+                        // $.post("<?=base_url('member/register/add_cart');?>",{
+                        //     uniqueId:this.uniqueid,
+                        //     id:event.id,
+                        //     event_id:event.id_event,
+                        //     member_status:member,
+                        //     event_name:event_name,
+                        // },(res)=>{
+                        //     if(res.status){
+                                event.member_status = member;
+                                event.event_name = event_name;
+                                // event.transaction_detail_id = res.transaction_detail_id;
+                                // event.transaction_id = res.id;
+                                this.eventAdded.push(event);
+                            // }
+                        // }).always(() => {
+
+                        // }).fail((xhr)=>{
+                        //     Swal.fire('Fail', 'Server fail to response !', 'error');
+                        // })
                     } else {
                         $(e.target).prop('checked', false);
                         Swal.fire('Info', `You must follow event <b>"${event.event_required}"</b> to participate this event !`, 'info');
                     }
                 } else {
-                    let eventId = event.id_event;
-                    app.removeEvent(event.id_event);
+                    // $.post("<?=base_url('member/register/delete_item_cart');?>",{
+                    //     id:event.transaction_detail_id,
+                    //     transaction_id:event.transaction_id
+                    // },(res)=>{
+                    //     if(res.status){
+                            let eventId = event.id_event;
+                            app.removeEvent(event.id_event);
+                    //     }
+                    // }).fail((xhr)=>{
+                    //     Swal.fire('Fail', 'Server fail to response !', 'error');
+                    // }).always((xhr)=>{
+
+                    // })
                 }
             },
             removeEvent(id) {

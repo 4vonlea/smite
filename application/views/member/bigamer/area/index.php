@@ -12,7 +12,6 @@ $this->layout->begin_head();
 <link href="<?= base_url(); ?>themes/script/chosen/chosen.css" rel="stylesheet">
 <link href="<?= base_url(); ?>themes/script/magnific/magnific.css" rel="stylesheet">
 <link href="https://vjs.zencdn.net/7.10.2/video-js.css" rel="stylesheet" />
-<script src="<?= base_url("themes/script/vue-hotel-booking.js?") . time(); ?>"></script>
 
 <style>
     .btn:disabled {
@@ -46,6 +45,8 @@ $this->layout->begin_head();
         /* overflow: hidden; */
     }
 </style>
+<link rel="stylesheet" type="text/css" href="https://unpkg.com/vue2-datepicker@3.11.0/index.css">
+
 <?php $this->layout->end_head(); ?>
 
 <div id="app">
@@ -106,6 +107,8 @@ $this->layout->begin_head();
 <script src="<?= base_url("themes/script/moment-tz.js"); ?>"></script>
 <!-- If you'd like to support IE8 (for Video.js versions prior to v7) -->
 <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
+<script src="https://unpkg.com/vue2-datepicker@3.11.0" charset="utf-8"></script>
+<script src="<?= base_url("themes/script/vue-hotel-booking.js?") . time(); ?>"></script>
 
 <script type="module">
     Vue.use(Vuetable);
@@ -122,7 +125,6 @@ $this->layout->begin_head();
 
     var userD = <?= json_encode($userDetail); ?>;
     Vue.use(VueRouter);
-    Vue.use(hotelBooking);
     const routes = [{
             path: '/',
             component: PageProfile,

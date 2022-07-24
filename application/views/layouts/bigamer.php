@@ -291,7 +291,7 @@
 		ga('set', 'transport', 'beacon');
 		ga('send', 'pageview')
 	</script>
-	<script src="https://www.google-analytics.com/analytics.js" async></script>
+	<!-- <script src="https://www.google-analytics.com/analytics.js" async></script> -->
     <?= $script_js; ?>
 
 </body>

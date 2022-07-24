@@ -76,9 +76,9 @@
 								<thead>
 									<tr>
 										<th>Room Name</th>
-										<th>Qouta</th>
+										<th>Price</th>
 										<th>Description</th>
-										<th>Available To Book</th>
+										<th style="width: 360px;">Available To Book</th>
 										<th>
 											<button @click="addRoom" class="btn btn-sm btn-primary">Add Room</button>
 										</th>
@@ -92,19 +92,31 @@
 												{{validation['rooms['+ind+'][name]']}}
 											</div>
 										</td>
+										
 										<td>
-											<input type="text" class="form-control" :class="{'is-invalid':validation['rooms['+ind+'][quota]']}" v-model="room.quota" />
-											<div v-if="validation['rooms['+ind+'][quota]']" class="invalid-feedback">
-												{{validation['rooms['+ind+'][quota]']}}
+											<div class="input-group input-group-alternative">
+												<div class="input-group-prepend">
+													<span class="input-group-text">IDR</span>
+												</div>
+												<money v-model="room.price" v-bind="money" class="form-control" :class="{'is-invalid':validation['rooms['+ind+'][price]']}"></money>
+												<div v-if="validation['rooms['+ind+'][price]']" class="invalid-feedback d-block">
+													{{validation['rooms['+ind+'][price]']}}
+												</div>
 											</div>
 										</td>
 										<td>
-											<input type="text" class="form-control" :class="{'is-invalid':validation['rooms['+ind+'][description]']}" v-model="room.description" />
+											<textarea rows="6" class="form-control" :class="{'is-invalid':validation['rooms['+ind+'][description]']}" v-model="room.description"></textarea>
 											<div v-if="validation['rooms['+ind+'][description]']" class="invalid-feedback">
 												{{validation['rooms['+ind+'][description]']}}
 											</div>
 										</td>
 										<td>
+											<label>Quota</label>
+											<input type="text" class="form-control" :class="{'is-invalid':validation['rooms['+ind+'][quota]']}" v-model="room.quota" />
+											<div v-if="validation['rooms['+ind+'][quota]']" class="invalid-feedback">
+												{{validation['rooms['+ind+'][quota]']}}
+											</div>
+											<label>Available Date</label>
 											<date-picker v-model="room.range_date" :formatter="momentFormat" value-type="format" :input-class="{'form-control':true,'is-invalid':validation['rooms['+ind+'][range_date]']}" range></date-picker>
 											<div v-if="validation['rooms['+ind+'][range_date]']" class="invalid-feedback d-block">
 												{{validation['rooms['+ind+'][range_date]']}}
@@ -131,10 +143,15 @@
 </div>
 <?php $this->layout->begin_head(); ?>
 <link rel="stylesheet" type="text/css" href="https://unpkg.com/vue2-datepicker@3.11.0/index.css">
-
+<style>
+	.mx-datepicker {
+		display: block;
+	}
+</style>
 <?php $this->layout->end_head(); ?>
 
 <?php $this->layout->begin_script(); ?>
+<script src="<?= base_url("themes/script/v-money.js"); ?>"></script>
 <script src="https://unpkg.com/vue2-datepicker@3.11.0" charset="utf-8"></script>
 <script>
 	Vue.component('date-picker', DatePicker);
@@ -145,8 +162,14 @@
 			form: {
 				rooms: [],
 			},
+			money: {
+				decimal: ',',
+				thousands: '.',
+				precision: 0,
+				masked: false
+			},
 			validation: {
-				rooms:[],
+				rooms: [],
 			},
 			momentFormat: {
 				stringify: (date) => {
@@ -165,7 +188,12 @@
 				};
 			},
 			addRoom() {
-				this.form.rooms.push({name:null,quota:null,desciption:null});
+				this.form.rooms.push({
+					name: null,
+					quota: null,
+					desciption: null,
+					price: 0
+				});
 			},
 			editHotel(row, evt) {
 				this.form = row;

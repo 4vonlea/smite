@@ -26,8 +26,8 @@ export default Vue.component("PageEvents", {
                                 <li v-for="cat in eventCategory" style="cursor:pointer" class="nav-item">
                                     <span class="nav-link" @click="showCategory = cat" :class="{'active':showCategory == cat}">{{ cat }}</span>
                                 </li>
-                                <li class="nav-item">
-                                    Hotel Booking
+                                <li class="nav-item" style="cursor:pointer">
+                                    <span class="nav-link" @click="showCategory = 'hotel-booking'"  :class="{'active':showCategory == 'hotel-booking'}"> Hotel Booking </span>
                                 </li>
                             </ul>
                         </div>
@@ -42,7 +42,7 @@ export default Vue.component("PageEvents", {
                                             <br/><span style="font-size: 14px;" v-if="event.event_required">(You must follow event <strong>{{ event.event_required }}</strong> to participate this event)</span>
                                         </h4>
                                     </div>
-                                    <div :id="'accordion-'+index" class="collapse show table-responsive">
+                                    <div :id="'accordion-'+index" class="card-body collapse show table-responsive">
                                             <div class="alert alert-success text-center" style="margin-bottom:0px" v-if="event.followed">
                                                 <h5 class="mb-0" style="color: black;">You follow this event</h5>
                                                 <!--<a class="btn btn-default" :href="'<?=base_url('member/area/card');?>/'+event.id+'/'+user.id" target="_blank">Download Name Tag</a>-->
@@ -82,6 +82,16 @@ export default Vue.component("PageEvents", {
                                     </div>
                                 </div>
 							</div>
+                            <div class="card card-achievement" v-if="showCategory == 'hotel-booking'">
+                                <div class="card-header">
+                                    <h4 class="card-title m-0">
+                                        Hotel Booking
+                                    </h4>
+                                </div>
+                                <div class="card-body collapse show table-responsive">
+                                    <hotel-booking :booking="booking" :book-url="baseUrl+'add_cart'" :search-url="appUrl+'/api/available_room'" :min-date="minBookingDate" :max-date="maxBookingDate"></hotel-booking>
+                                </div>
+                            </div>
 						</div>
 					</div>
 					<div class="row">
@@ -93,27 +103,30 @@ export default Vue.component("PageEvents", {
             </div>
         </div>
     `,
-    data: function() {
+    data: function () {
         return {
             loading: false,
             fail: false,
             user: {},
             adding: false,
-            events: null,
-            showCategory:"",
+            events: [],
+            booking:[],
+            showCategory: "",
+            minBookingDate:"2022-07-10",
+            maxBookingDate:"2022-07-20",
         }
     },
     created() {
-        this.fetchEvents()
+        this.fetchEvents();
     },
     watch: {
         '$route': 'fetchEvents'
     },
     computed: {
-        eventCategory(){
+        eventCategory() {
             let category = [];
-            this.events.forEach(function(val){
-                if(category.includes(val.category) == false){
+            this.events.forEach(function (val) {
+                if (category.includes(val.category) == false) {
                     category.push(val.category);
                 }
             });
@@ -140,15 +153,15 @@ export default Vue.component("PageEvents", {
             event.member_status = member;
             event.event_name = event_name;
             event.event_id = event_id;
-            $.post(this.baseUrl + "add_cart", event, function(res) {
+            $.post(this.baseUrl + "add_cart", event, function (res) {
                 if (res.status) {
                     event.added = 1;
                 } else {
                     Swal.fire('Fail', res.message, 'warning');
                 }
-            }).fail(function() {
+            }).fail(function () {
                 Swal.fire('Fail', "Failed adding to cart !", 'error');
-            }).always(function() {
+            }).always(function () {
                 page.adding = false;
             });
         },
@@ -156,18 +169,21 @@ export default Vue.component("PageEvents", {
             var page = this;
             page.loading = true;
             page.fail = false;
-            $.post(this.baseUrl + "get_events", null, function(res) {
+            $.post(this.baseUrl + "get_events", null, function (res) {
                 if (res.status) {
                     page.events = res.events;
-                    if(res.events.length > 0){
+                    page.booking = res.booking;
+                    page.minBookingDate = res.rangeBooking.start;
+                    page.maxBookingDate = res.rangeBooking.end;
+                    if (res.events.length > 0) {
                         page.showCategory = res.events[0].category
                     }
                 } else {
                     page.fail = true;
                 }
-            }).fail(function() {
+            }).fail(function () {
                 page.fail = true;
-            }).always(function() {
+            }).always(function () {
                 page.loading = false;
             });
         },

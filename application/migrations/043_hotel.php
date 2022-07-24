@@ -49,6 +49,7 @@ class Migration_hotel extends CI_Migration
             'qouta' => [
                 'type' => 'int',
             ],
+            'price' => ['type' => 'decimal'],
         ]);
         $this->dbforge->add_key("id", true);
         $this->dbforge->create_table("rooms", true);

@@ -15,7 +15,7 @@ class Transaction_m extends MY_Model
 		'deny' => "Your payment is denied by the bank or Online Payment Fraud Detection System.",
 		"pending" => "Your payment has not been received. Please make it before the time limit elapse",
 		"expired" => "Transfer due date has elapsed. Please re-choose event(s) and re-checkout",
-		"waiting" => "Waiting costumer to choose event(s) and checkout.",
+		"waiting" => "Waiting costumer to checkout.",
 		self::STATUS_NEED_VERIFY => 'Your payment is waiting for verification from the admin'
 	];
 
@@ -136,13 +136,13 @@ class Transaction_m extends MY_Model
 
 	public function validateBookingHotel($room_id,$checkin,$checkout){
 		$countBooking = $this->countOverlapHotelBooking($room_id,$checkin,$checkout);
-		$result = $this->db->from($this->table)
+		$result = $this->db->from("rooms")
             ->where("'$checkin' BETWEEN rooms.start_date AND rooms.end_date")
             ->where("'$checkout' BETWEEN rooms.start_date AND rooms.end_date")
             ->select("rooms.*")
             ->get()->row();
 		if($result){
-			return $result->quota >= $countBooking;
+			return $result->quota > $countBooking;
 		}
 		return false;
 	}
@@ -151,8 +151,8 @@ class Transaction_m extends MY_Model
 		return $this->db->from("transaction_details td")
 			->join("transaction tr","tr.id = td.transaction_id")
 			->where("status_payment !=",Transaction_m::STATUS_EXPIRE)
-			->where('td.checkout >',$checkin)
-			->where('td.checkin <',$checkout)
+			->where('td.checkout_date >',$checkin)
+			->where('td.checkin_date <',$checkout)
 			->where("room_id",$room_id)->count_all_results();
 	}
 

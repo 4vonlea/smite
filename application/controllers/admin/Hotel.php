@@ -40,6 +40,7 @@ class Hotel extends Admin_Controller
 			$rules[] = ['field' => "rooms[$ind][name]", 'label' => 'Room Name', 'rules' => 'required'];
 			$rules[] = ['field' => "rooms[$ind][quota]", 'label' => 'Quota', 'rules' => 'required|numeric'];
 			$rules[] = ['field' => "rooms[$ind][range_date]", 'label' => 'Date of Available to Book', 'rules' => 'required'];
+			$rules[] = ['field' => "rooms[$ind][price]", 'label' => 'Price', 'rules' => 'required|numeric'];
 		}
 		$this->form_validation->set_rules($rules);
 		$data = [];
@@ -63,6 +64,7 @@ class Hotel extends Admin_Controller
 					'hotel_id' => $hotel->id,
 					'description' => $room['description'] ?? "",
 					'quota' => $room['quota'] ?? "0",
+					'price' => $room['price'] ?? "0",
 					'start_date' => DateTime::createFromFormat("d M Y", $room['range_date'][0])->format("Y-m-d"),
 					'end_date' => DateTime::createFromFormat("d M Y", $room['range_date'][1])->format("Y-m-d"),
 				];
