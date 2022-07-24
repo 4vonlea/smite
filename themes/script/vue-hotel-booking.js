@@ -36,7 +36,7 @@ let template = `
         </div>
     </div>
     <div class="row row-cols-1 row-cols-md-3 g-4">
-        <div v-if="showBooking"  class="col-md-6">
+        <div v-if="showBooking"  class="col-md-12">
             <div class="card">
                 <div class="card-header  bg-info">
                     <p class="card-title text-dark fw-bold">Hotel Pesanan Anda</p>

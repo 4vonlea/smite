@@ -46,7 +46,7 @@ class Migration_hotel extends CI_Migration
             'description'=>[
                 'type'=>'text',
             ],
-            'qouta' => [
+            'quota' => [
                 'type' => 'int',
             ],
             'price' => ['type' => 'decimal'],
