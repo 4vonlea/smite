@@ -62,11 +62,11 @@ $this->layout->end_head();
             </div>
             <div class="table-responsive">
                 <datagrid ref="datagrid" :api-url="apiUrl" :sort-list="[
-					{name:'id_paper',sortField:'id_paper','title':'ID Paper'},
-					{name:'category_name',sortField:'category_name','title':'Category Paper'},
-					{name:'title',sortField:'title','title':'Abstract Title'},
-					{name:'fullname',sortField:'fullname','title':'Member Name'},
-					{name:'description','sortField':'description','title':'Description'},
+					{field:'id_paper',sortField:'id_paper','title':'ID Paper'},
+					{field:'category_name',sortField:'category_name','title':'Category Paper'},
+					{field:'title',sortField:'title','title':'Abstract Title'},
+					{field:'fullname',sortField:'fullname','title':'Member Name'},
+					{field:'description','sortField':'description','title':'Description'},
 				]" :fields="[
                         {name:'id_paper',sortField:'id_paper','title':'ID Paper'},
                         {name:'title',sortField:'title','title':'Abstract Title'},

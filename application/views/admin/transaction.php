@@ -116,9 +116,11 @@
 				</div>
 			</div>
 			<div class="table-responsive">
-				<datagrid @loaded_data="loadedGrid" ref="datagrid" api-url="<?= base_url('admin/transaction/grid'); ?>" :fields="[{name:'invoice',sortField:'invoice','title':'No Invoice'}, {name:'fullname',sortField:'fullname','title':'Member Name'},{name:'status_payment',sortField:'status_payment'},{name:'t_updated_at',sortField:'t_updated_at',title:'Date'},{name:'t_id','title':'Aksi'}]">
+				<datagrid @loaded_data="loadedGrid" ref="datagrid" api-url="<?= base_url('admin/transaction/grid'); ?>" :sort-list="[{field:'invoice',sortField:'invoice','title':'No Invoice'}, {field:'fullname',sortField:'fullname','title':'Member Name'},{field:'status_payment',sortField:'status_payment',title:'Status Payment'},{field:'t_updated_at',sortField:'t_updated_at',title:'Date'},{field:'is_booking_hotel',sortField:'is_booking_hotel','title':'Booking Hotel'}]" :fields="[{name:'invoice',sortField:'invoice','title':'No Invoice'}, {name:'fullname',sortField:'fullname','title':'Member Name'},{name:'status_payment',sortField:'status_payment'},{name:'t_updated_at',sortField:'t_updated_at',title:'Date'},{name:'t_id','title':'Aksi'}]">
 					<template slot="status_payment" slot-scope="props">
 						{{ props.row.status_payment.toUpperCase() }}
+						<br/>
+						<span v-if="props.row.is_booking_hotel > 0" class="badge badge-info">Booking Hotel</span>
 					</template>
 					<template slot="t_id" slot-scope="props">
 						<div class="table-button-container">

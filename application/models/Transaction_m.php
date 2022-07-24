@@ -37,9 +37,13 @@ class Transaction_m extends MY_Model
 	{
 		return [
 			'relationships' => [
-				'member' => ['members', 'member.id = member_id', 'left']
+				'member' => ['members', 'member.id = member_id', 'left'],
+				'booking_hotel' => ['(SELECT 
+											td.transaction_id, 
+											SUM(IF(td.event_pricing_id = -1,1,0)) AS is_booking_hotel 
+									FROM transaction_details td WHERE event_pricing_id = -1 GROUP BY td.transaction_id)','booking_hotel.transaction_id = t.id','left']
 			],
-			'select' => ['invoice' => 't.id', 't_id' => 't.id', 'fullname' => 'COALESCE(fullname,t.member_id)', 'status_payment','channel', 't_updated_at' => 't.updated_at', 'm_id' => 'member.id'],
+			'select' => ['is_booking_hotel'=>'COALESCE(is_booking_hotel,0)','invoice' => 't.id', 't_id' => 't.id', 'fullname' => 'COALESCE(fullname,t.member_id)', 'status_payment','channel', 't_updated_at' => 't.updated_at', 'm_id' => 'member.id'],
 			//			'filter'=>['checkout'=>'1'],
 			'sort' => ['t.updated_at', 'desc']
 		];
