@@ -264,6 +264,24 @@ class Area extends MY_Controller
 		}
 	}
 
+	public function delete_item_cart()
+	{
+		if ($this->input->method() !== 'post')
+			show_404("Page not found !");
+		$id = $this->input->post('id');
+		$this->load->model(["Transaction_detail_m"]);
+		$this->Transaction_detail_m->delete($id);
+		$count = $this->Transaction_detail_m->find()->select("SUM(price) as c")
+			->where('transaction_id', $this->input->post("transaction_id"))
+			->where('event_pricing_id > ', "0")
+			->get()->row_array();
+		if ($count['c'] == 0) {
+			$this->Transaction_detail_m->delete(['event_pricing_id' => 0, 'transaction_id' => $this->input->post("transaction_id")]);
+		}
+		$this->output->set_content_type("application/json")
+			->_display('{"status":true}');
+	}
+
 	public function delete_paper()
 	{
 		if ($this->input->method() !== 'post')
