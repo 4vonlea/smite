@@ -57,10 +57,10 @@ class Migration_hotel extends CI_Migration
             'room_id' => [
                 'type' => 'int',
             ],
-            'checkin' => [
+            'checkin_date' => [
                 'type' => 'date',
             ],
-            'checkout' => [
+            'checkout_date' => [
                 'type' => 'date',
             ],
             			
