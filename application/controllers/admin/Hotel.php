@@ -78,6 +78,7 @@ class Hotel extends Admin_Controller
 				$roomData['range_date'] = [$room['range_date'][0], $room['range_date'][1]];
 				$data['rooms'][] = $roomData;
 			}
+			$this->Room_m->updateTempCalendar();
 			$this->Hotel_m->getDB()->trans_complete();
 			$status = $this->Hotel_m->getDB()->trans_status();
 		} else {

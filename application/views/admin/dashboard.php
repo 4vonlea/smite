@@ -1,3 +1,12 @@
+<?php $this->layout->begin_head();?>
+<style>
+	.table tbody th, .table thead th:first-child{
+		position: sticky;
+		left: 0;
+		background-color: #f6f9fc;
+	}
+</style>
+<?php $this->layout->end_head();?>
 <div class="header bg-primary pb-8 pt-5 pt-md-8">
 	<div class="container-fluid">
 		<div class="header-body">
@@ -129,13 +138,46 @@
 										</div>
 									</div>
 								</div>
+									<button class="btn btn-primary mt-2" @click="showHotel = !showHotel"> {{ showHotel ? "Hide":"Show" }} Summary Hotel</button>
 							</div>
 						</div>
 						<div class="col-md-3 mt-4">
 							<h3 class="mb-0">Partipants of Events</h3>
 						</div>
 					</div>
-					<div class="table-responsive">
+					<div v-if="showHotel" class="table-responsive">
+					<table class="table align-items-center table-flush">
+							<thead class="thead-light">
+								<tr>
+									<th scope="col">Hotel</th>
+									<th v-for="row in report.summary_hotel.rangeDate"> {{ row.date | formatDate }}</th>
+									<th>Aksi</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr v-for="room in report.summary_hotel.roomList">
+									<th>{{ room.hotel_name }} - {{ room.room_name }}</th>
+									<td v-for="row in report.summary_hotel.rangeDate">
+										<span class="badge badge-info">
+											Waiting {{ safeSummary(row.date,room.hotel_id,room.room_id,'waiting') }}
+										</span>
+										<span class="badge badge-info">
+											Pending {{ safeSummary(row.date,room.hotel_id,room.room_id,'pending') }}
+										</span>
+										<span class="badge badge-info">
+											Settlement {{ safeSummary(row.date,room.hotel_id,room.room_id,'settlement') }}
+										</span>
+										<hr style="margin-top: 10px;margin-bottom:10px;" />
+										<span>Quota Sisa : {{ room.quota - safeSummary(row.date,room.hotel_id,room.room_id,'sum') }}</span>
+									</td>
+									<td>
+										<a type="button" :href="'<?=base_url('admin/dashboard/guest_hotel');?>/'+room.room_id" target="_blank" class="btn btn-primary">Download Guest List</a>
+									</td>
+								</tr>
+							</tbody>
+					</table>
+					</div>
+					<div v-if="!showHotel" class="table-responsive">
 						<!-- Projects table -->
 						<table class="table align-items-center table-flush">
 							<thead class="thead-light">
@@ -260,11 +302,19 @@
 	})
 </script>
 <script>
+	 Vue.filter('formatDate', function(value) {
+        if (value) {
+            return moment(value).format('DD MMMM YYYY')
+        }
+    });
 	var app = new Vue({
 		"el": "#app",
 		data: {
 			fetching: false,
-			report: {}
+			report: {
+				summary_hotel:{}
+			},
+			showHotel:false,
 		},
 		mounted() {
 			this.fetchData();
@@ -285,6 +335,18 @@
 			}
 		},
 		methods: {
+			safeSummary(date,hotel_id,room_id,status_payment){
+				if(typeof this.report.summary_hotel.summary[date] != 'undefined'){
+					if(typeof this.report.summary_hotel.summary[date][`H${hotel_id}`] != 'undefined'){
+						if(typeof this.report.summary_hotel.summary[date][`H${hotel_id}`][`R${room_id}`] != 'undefined'){
+							if(typeof this.report.summary_hotel.summary[date][`H${hotel_id}`][`R${room_id}`][status_payment] != 'undefined'){
+								return this.report.summary_hotel.summary[date][`H${hotel_id}`][`R${room_id}`][status_payment];
+							}
+						}
+					}
+				}
+				return 0;
+			},
 			downloadParticipant(event_id, tipe) {
 				window.open("<?= base_url("admin/dashboard/download_participant"); ?>/" + event_id + "/" + tipe);
 			},

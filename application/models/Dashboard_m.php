@@ -4,9 +4,21 @@
 class Dashboard_m extends CI_Model
 {
 
+	public function guestList($room_id){
+		return $this->db->join("transaction t","t.id = transaction_id")
+				->join("rooms r","r.id = room_id")
+				->join("hotels h","h.id = r.hotel_id")
+				->join("members m","m.id = td.member_id")
+				->where("event_pricing_id","-1")
+				->where("r.id",$room_id)
+				->where("status_payment !=","expired")
+				->select("td.transaction_id as id_transaksi,m.fullname,h.name as hotel_name,r.name as room,status_payment,DATE_FORMAT(td.checkin_date,'%d %M %Y') as checkin,DATE_FORMAT(td.checkout_date,'%d %M %Y') as checkout")
+				->get("transaction_details td")
+				->result_array();
+	}
 	public function getData()
 	{
-		$this->load->model("Transaction_m");
+		$this->load->model(["Transaction_m","Hotel_m"]);
 		$return = [];
 		$rs = $this->db->select("COUNT(m.id) AS total_members,SUM(IF(m.verified_by_admin = 0,1,0)) AS unverified_members, SUM(IF(p.id IS NOT NULL,1,0)) AS participants_paper", false)
 			->join("papers p", "p.member_id = m.id", "left")
@@ -64,6 +76,7 @@ class Dashboard_m extends CI_Model
 		}
 		$return['charts'] = $chartResult;
 		$return['participants_event'] = $participantEvent;
+		$return['summary_hotel'] = $this->Hotel_m->summaryBooking();
 		return $return;
 	}
 

@@ -441,9 +441,9 @@ class Payment extends MY_Controller
 		$this->output->set_header("content-type: application/json")->set_output($response);
 	}
 
-	public function send_invoice_espay($id_invoice){
-		// $id_invoice = "INV-20220714-00003";// $this->input->post("id_invoice");
-		$bankCode = "009";// $this->input->post("bank_code");
+	public function send_invoice_espay(){
+		$id_invoice = $this->input->post("id_invoice");
+		$bankCode = $this->input->post("bank_code");
 		$espayConfig = Settings_m::getEspay();
 		$rs_date =  date("Y-m-d H:i:s");
 		$uuid = md5($rs_date);
@@ -466,14 +466,13 @@ class Payment extends MY_Controller
 		}
 		$signature = $this->create_signature_espay($espayConfig['signature'],$id_invoice,"SENDINVOICE",$rs_date,$uuid,"",$total);
 		$link = rtrim($espayConfig['apiLink'],"/")."pg/";
-		var_dump($link);
 		$response = $this->request($link."sendinvoice",[
 			'rq_uuid'=>$uuid,
 			'rq_datetime'=>$rs_date,
 			'order_id'=>$id_invoice,
 			'ccy'=>'IDR',
 			'comm_code'=>$espayConfig['merchantCode'],
-			'remark1'=>"082155708905",
+			'remark1'=>$noHp,
 			'remark2'=>$name,
 			'remark3'=>$email,
 			'update'=>'N',

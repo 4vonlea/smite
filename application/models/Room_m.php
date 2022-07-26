@@ -6,6 +6,20 @@ class Room_m extends MY_Model
     public $fillable = ['name','quota','description','start_date','end_date'];
     protected $timestamps = false;
 
+
+    public function updateTempCalendar(){
+        $range = $this->rangeBooking();
+        if($range){
+            $this->db->truncate("temp_calendar");
+            $currentDate = new DateTime($range['start']);
+            $endDate = new DateTime($range['end']);
+            while($currentDate <= $endDate){
+                $this->db->insert("temp_calendar",['date'=>$currentDate->format("Y-m-d")]);
+                $currentDate->modify("+1 days");
+            }
+        }
+    }
+
     public function rangeBooking(){
         return $this->db->from($this->table)->select("min(start_date) as start,max(end_date) as end")->get()->row_array();
     }

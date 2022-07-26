@@ -33,4 +33,38 @@ class Hotel_m extends MY_Model
         }
         return null;
     }
+
+    public function summaryBooking(){
+        $query = 'SELECT td.transaction_id,td.id,CONCAT("H",h.id) as hotel_id,CONCAT("R",r.id) as room_id,h.name AS hotel,r.name,r.quota, c.date AS booking_date, td.checkin_date,td.checkout_date,t.status_payment FROM transaction_details td
+        JOIN `transaction` t ON t.id = td.transaction_id
+        JOIN rooms r ON r.id = td.room_id
+        JOIN hotels h ON h.id = r.hotel_id
+        JOIN temp_calendar c ON td.checkin_date <= c.date AND c.date < td.checkout_date
+        WHERE td.event_pricing_id = -1 AND t.status_payment != "expired"';
+        $result = $this->db->query($query)->result_array();
+        $rangeDate = $this->db->get("temp_calendar")->result_array();
+        $roomList = $this->db->join("hotels","hotels.id = hotel_id")
+                            ->select("hotels.id as hotel_id,hotels.name as hotel_name,rooms.id as room_id,rooms.name as room_name,quota")
+                            ->get("rooms")->result_array();
+        $temp = [];
+        foreach($result as $row){
+            if(!isset($temp[$row['booking_date']][$row['hotel_id']][$row['room_id']])){
+                $temp[$row['booking_date']][$row['hotel_id']][$row['room_id']]['waiting'] = 0;
+                $temp[$row['booking_date']][$row['hotel_id']][$row['room_id']]['pending'] = 0;
+                $temp[$row['booking_date']][$row['hotel_id']][$row['room_id']]['settlement'] = 0;
+                $temp[$row['booking_date']][$row['hotel_id']][$row['room_id']]['sum'] = 0;
+            }
+            $temp[$row['booking_date']][$row['hotel_id']][$row['room_id']][$row['status_payment']]++;
+            $temp[$row['booking_date']][$row['hotel_id']][$row['room_id']]['sum']++;
+        }
+        return ['summary'=>$temp,'rangeDate'=>$rangeDate,'roomList'=>$roomList];
+//        echo json_encode($temp);
+        // exit;
+        // foreach($roomList as $room){
+        //     foreach($rangeDate as $date){
+        //         $countBooking = isset($temp[$date][$room['hotel_id']]['room_id'])
+        //         $summary[$room][$date] 
+        //     }
+        // }
+    }
 }

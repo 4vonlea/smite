@@ -34,6 +34,12 @@ class Dashboard extends Admin_Controller
 			->_display(json_encode(['status'=>true,'report'=>$report]));
 	}
 
+	public function guest_hotel($room_id){
+		$this->load->model("Dashboard_m");
+    	$data =  $this->Dashboard_m->guestList($room_id);
+    	$this->export("excel","Guest List",$data);
+	}
+
 	public function download_member($tipe){
 		$this->load->model("Dashboard_m");
     	$data =  $this->Dashboard_m->getDataMember();
