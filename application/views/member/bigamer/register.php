@@ -761,20 +761,25 @@ $theme_path = base_url("themes/bigamer") . "/";
             },
             onBooking(room,dateCheck){
                 let night = moment(dateCheck.checkout).diff(dateCheck.checkin,'days');
-                if(moment(dateCheck.checkout).isAfter(moment(dateCheck.checkin))){
+                let momentCheckin = moment(dateCheck.checkin);
+                let momentCheckout = moment(dateCheck.checkout);
+                if(momentCheckin.format("YYYY-MM-DD") == "<?=Transaction_detail_m::DATE_KHUSUS;?>" && night < 2){
+                    Swal.fire('Fail',"Untuk Tanggal 18 November pemesanan minimal 2 malam", 'warning');
+                    return false;
+                }
+                if(momentCheckout.isAfter(momentCheckin)){
                     this.hotelBooking.booking.push({
                         id:room.id,
                         name:room.name,
                         hotel_name:room.hotel_name,
-                        checkin:moment(dateCheck.checkin).format("YYYY-MM-DD"),
-                        checkout:moment(dateCheck.checkout).format("YYYY-MM-DD"),
+                        checkin:momentCheckin.format("YYYY-MM-DD"),
+                        checkout:momentCheckout.format("YYYY-MM-DD"),
                         price: night * parseFloat(room.price),
                         uniqueId:this.uniqueid
                     });
                     Swal.fire('Berhasil',"Hotel berhasil ditambahkan !", 'success');
                 }else{
                     Swal.fire('Fail',"Tanggal Checkout harus lebih dari tanggal checkin", 'warning');
-                    
                 }
             },
             addEvent(e, event, member, event_name) {

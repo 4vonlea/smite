@@ -7,6 +7,7 @@ class Transaction_detail_m extends MY_Model
 	protected $table = "transaction_details";
 	public $fillable = ['id','member_id','transaction_id','event_pricing_id','product_name','price','checklist','price_usd'];
 
+	const DATE_KHUSUS = "2022-11-18";
 	public function member()
 	{
 		return $this->hasOne('Member_m', 'id', 'member_id');
@@ -23,10 +24,14 @@ class Transaction_detail_m extends MY_Model
 		if($this->form_validation->run()){
 			$checkinDate = new DateTime($datas['checkin']);
 			$checkoutDate = new DateTime($datas['checkout']);
+			$night = $checkinDate->diff($checkoutDate)->days;
+
+			if($datas['checkin'] == self::DATE_KHUSUS && $night < 2){
+				return "Untuk Tanggal 18 November pemesanan minimal 2 malam";
+			}
 			if($checkoutDate > $checkinDate){
 				$this->load->model(["Transaction_m","Room_m"]);
 				if($this->Transaction_m->validateBookingHotel($datas['id'],$datas['checkin'],$datas['checkout'])){
-					$night = $checkinDate->diff($checkoutDate)->days;
 					$room = $this->Room_m->findOne(['id' => $datas['id']]);
 					if($room){
 						$hotel = $room->hotel;
