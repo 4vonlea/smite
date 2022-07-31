@@ -523,6 +523,7 @@
 							app.modifyModel = res.model;
 							app.listEvent = res.listEvent;
 							app.modifyModel = res.model;
+							app.$refs.datagrid.refresh();
 							Swal.fire("Success", "Transaction Saved Successfully", "success");
 						}
 					}).always(function() {
@@ -557,6 +558,7 @@
 						if (res.status) {
 							app.editUniquePrice = false;
 							app.detailModel.details[ind].price = app.inputUniquePrice;
+							app.$refs.datagrid.refresh();
 						} else {
 							Swal.fire("Failed", "Gagal mengirim ulang bukti registrasi", "error");
 						}
@@ -621,6 +623,7 @@
 						if (res.status) {
 							app.detailModel.status_payment = "<?= Transaction_m::STATUS_FINISH; ?>";
 							Swal.fire("Success", "Transaction success verified !", "success");
+							app.$refs.datagrid.refresh();
 						} else {
 							Swal.fire("Failed", "Failed to verify transaction", "error");
 						}
