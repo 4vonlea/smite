@@ -37,9 +37,9 @@
  */
 date_default_timezone_set('Asia/Makassar');
 
-if(file_exists('vendor/autoload.php')) {
-    require_once 'vendor/autoload.php';
-    if(file_exists(".env")) {
+if(file_exists(__DIR__.'/vendor/autoload.php')) {
+    require_once __DIR__.'/vendor/autoload.php';
+    if(file_exists(__DIR__."/.env")) {
         $dotenv = Dotenv\Dotenv::create(__DIR__);
         $dotenv->load();
     }
