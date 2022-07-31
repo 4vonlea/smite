@@ -25,7 +25,9 @@ class Transaction_detail_m extends MY_Model
 			$checkinDate = new DateTime($datas['checkin']);
 			$checkoutDate = new DateTime($datas['checkout']);
 			$night = $checkinDate->diff($checkoutDate)->days;
-
+			if($datas['checkin'] == '2022-11-19'){
+				return "Tidak bisa melakukan booking ditanggal 19 November, Mohon melakukan check-in sejak tanggal 18 November dengan durasi menginap minimal 2 malam.";
+			}
 			if($datas['checkin'] == self::DATE_KHUSUS && $night < 2){
 				return "Untuk Tanggal 18 November pemesanan minimal 2 malam";
 			}

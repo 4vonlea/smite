@@ -763,6 +763,11 @@ $theme_path = base_url("themes/bigamer") . "/";
                 let night = moment(dateCheck.checkout).diff(dateCheck.checkin,'days');
                 let momentCheckin = moment(dateCheck.checkin);
                 let momentCheckout = moment(dateCheck.checkout);
+                if(momentCheckin.format("YYYY-MM-DD") == "2022-11-19"){
+                    Swal.fire('Fail',"Tidak bisa melakukan booking ditanggal 19 November, Mohon melakukan check-in sejak tanggal 18 November dengan durasi menginap minimal 2 malam.", 'warning');
+                    return false;
+                }
+
                 if(momentCheckin.format("YYYY-MM-DD") == "<?=Transaction_detail_m::DATE_KHUSUS;?>" && night < 2){
                     Swal.fire('Fail',"Untuk Tanggal 18 November pemesanan minimal 2 malam", 'warning');
                     return false;
