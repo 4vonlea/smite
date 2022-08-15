@@ -250,14 +250,19 @@ $theme_path = base_url("themes/bigamer") . "/";
                             </div>
                         </span>
                         <div class="form-group mb-2">
-
                             <label> Nama Lengkap*</label>
                             <small>*Mohon isi lengkap dengan gelar untuk sertifikat, perubahan nama setelah registrasi tidak dapat dilakukan</small>
                             <input type="text" :class="{'is-invalid':validation_error.fullname}" class="form-control mb-0" name="fullname" placeholder="Full Name" />
                             <div v-if="validation_error.fullname" class="invalid-feedback">
                                 {{ validation_error.fullname }}
                             </div>
-
+                        </div>
+                        <div class="form-group mb-2">
+                            <label>NIK</label>
+                            <input type="text" :class="{'is-invalid':validation_error.nik}" class="form-control mb-0" name="nik" placeholder="NIK anda" />
+                            <div v-if="validation_error.nik" class="invalid-feedback">
+                                {{ validation_error.nik }}
+                            </div>
                         </div>
 
                         <!-- <label> Alamat*</label>
@@ -268,12 +273,12 @@ $theme_path = base_url("themes/bigamer") . "/";
 
                                             <div class="spacer-20"></div> -->
                         <div class="form-group mb-2">
-                            <label> Negara*</label>
+                            <input type="hidden" v-model="country_selected" name="country" value="104" />
+                            <!-- <label> Negara*</label>
                             <?= form_dropdown('country', $participantsCountry, '', [':class' => "{'is-invalid':validation_error.country}", 'v-model' => 'country_selected', 'class' => 'form-control country_selected chosen mb-0', 'placeholder' => 'Select your institution !']); ?>
                             <div v-if="validation_error.country" class="invalid-feedback">
                                 {{ validation_error.country }}
-                            </div>
-
+                            </div> -->
                         </div>
 
                         <span v-if="country_selected == <?= Country_m::COUNTRY_OTHER; ?>">
@@ -494,7 +499,8 @@ $theme_path = base_url("themes/bigamer") . "/";
 <script src="<?= base_url("themes/script/vuejs-datepicker.min.js"); ?>"></script>
 <script src="<?= base_url("themes/script/chosen/chosen.jquery.min.js"); ?>"></script>
 <script src="https://unpkg.com/vue2-datepicker@3.11.0" charset="utf-8"></script>
-<script src="<?= base_url("themes/script/vue-hotel-booking.js?") . time(); ?>"></script>
+<script src="<?= base_url("themes/script/vue-hotel-booking.js?") ?>"></script>
+<script src="<?= base_url("themes/script/vue-espay.js") ?>"></script>
 
 <?php if (isset(Settings_m::getEspay()['jsKitUrl'])) : ?>
     <script src="<?= Settings_m::getEspay()['jsKitUrl']; ?>"></script>
@@ -513,7 +519,7 @@ $theme_path = base_url("themes/bigamer") . "/";
             univList: <?= json_encode($participantsUniv); ?>,
             univ_selected: "",
             countryList: <?= json_encode($participantsCountry); ?>,
-            country_selected: "",
+            country_selected: "104",
             saving: false,
             validation_error: {},
             page: 'register',
