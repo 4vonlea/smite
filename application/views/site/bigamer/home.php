@@ -636,7 +636,7 @@
 										<div id="collapseOne" class="accordion-collapse collapse"
 											aria-labelledby="headingOne" data-bs-parent="#accordionExample">
 											<div class="accordion-body">
-												<embed src="" width="100%" height="600px" align="center"></embed>
+												<embed src="https://drive.google.com/file/d/13_Z82olwb4yH0wP2GVV759NvRyH0vCAG/preview" width="100%" height="600px" align="center" allow="autoplay"></embed>
 											</div>
 										</div>
 									</div>
@@ -646,14 +646,14 @@
 												data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true"
 												aria-controls="collapseTwo">
 												<span class="accor-header-inner d-flex flex-wrap align-items-center">
-													<p style="color: white; font-size: 20px; margin-top: 15px">Video Registrasi menggunakan pembayaran kartu kredit</p>
+													<p style="color: white; font-size: 20px; margin-top: 15px">Video Registrasi secara berkelompok</p>
 												</span>
 											</button>
 										</div>
 										<div id="collapseTwo" class="accordion-collapse collapse"
 											aria-labelledby="headingTwo" data-bs-parent="#accordiTwoxample">
 											<div class="accordion-body">
-												<embed src="" width="100%" height="600" align="center"></embed>
+												<embed src="https://drive.google.com/file/d/13ZerYtQAIFnXv1TJt6OhErM2oHbn9NhK/preview" width="100%" height="600" align="center" allow="autoplay"></embed>
 											</div>
 										</div>
 									</div>
@@ -663,14 +663,14 @@
 												data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true"
 												aria-controls="collapseThree">
 												<span class="accor-header-inner d-flex flex-wrap align-items-center">
-													<p style="color: white; font-size: 20px; margin-top: 15px">Video Tutorial melakukan submisi abstrak</p>
+													<p style="color: white; font-size: 20px; margin-top: 15px">Video Tutorial melakukan booking hotel</p>
 												</span>
 											</button>
 										</div>
 										<div id="collapseThree" class="accordion-collapse collapse"
 											aria-labelledby="headingThree" data-bs-parent="#accordiThreexample">
 											<div class="accordion-body">
-												<embed src="" width="100%" height="600px" align="center"></embed>
+												<embed src="https://drive.google.com/file/d/13eQq8c-MMS_Oi2pL5sfzLbNYzcHuSbSk/preview" width="100%" height="600px" align="center" allow="autoplay"></embed>
 											</div>
 										</div>
 									</div>
@@ -680,14 +680,14 @@
 												data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="true"
 												aria-controls="collapseFour">
 												<span class="accor-header-inner d-flex flex-wrap align-items-center">
-													<p style="color: white; font-size: 20px; margin-top: 15px">Video Tutorial Pendaftaran Grup</p>
+													<p style="color: white; font-size: 20px; margin-top: 15px">Video Tutorial Submisi Abstrak</p>
 												</span>
 											</button>
 										</div>
 										<div id="collapseFour" class="accordion-collapse collapse"
 											aria-labelledby="headingFour" data-bs-parent="#accordiFourxample">
 											<div class="accordion-body">
-												<embed src="" width="100%" height="600px" align="center"></embed>
+												<embed src="https://drive.google.com/file/d/13YwOoIZWjs0D2F3IWZLClXgn9OdO82wq/preview" width="100%" height="600px" align="center" allow="autoplay"></embed>
 											</div>
 										</div>
 									</div>
@@ -727,7 +727,7 @@
 								<ul>
 									<li>Batas Pengumpulan Abstrak : 12 Oktober 2022</li>
 									<li>Pengumuman Penerimaan Abstrak : 24 Oktober 2022</li>
-									<li>Program Ilmiah : 17 – 18 November 2022 untuk Workshop, dan 19– 20 November 2022 Simposium</li>
+									<li>Program Ilmiah : 17  18 November 2022 untuk Workshop, dan 19– 20 November 2022 Simposium</li>
 									<li>E-Poster / Presentasi Oral : 19 November 2022</li>
 								</ul>
 							</div>
