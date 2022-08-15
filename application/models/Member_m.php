@@ -80,6 +80,10 @@ class Member_m extends MY_Model
 		return $this->hasOne("Univ_m", "univ_id", "univ");
 	}
 
+	public function city_name(){
+		return $this->hasOne("Wilayah_m", "kode", "city");
+	}
+
 
 
 	public function gridData($params, $relationship = [])

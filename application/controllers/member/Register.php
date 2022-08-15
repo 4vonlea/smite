@@ -131,11 +131,13 @@ class Register extends MY_Controller
 		$this->load->model('Event_pricing_m');
 		$this->load->model('Transaction_detail_m');
 		$this->load->model('Room_m');
+		$this->load->model('Wilayah_m');
 
 		$status = $this->Category_member_m->find()->select("id,kategory,need_verify")->where('is_hide', '0')->get()->result_array();
 		$univ = $this->Univ_m->find()->select("univ_id, univ_nama")->order_by('univ_id')->get()->result_array();
 		$country = $this->Country_m->find()->select("id, name")->order_by('id')->get()->result_array();
 		$country[] = ['id' => Country_m::COUNTRY_OTHER, 'name' => 'Other Country'];
+		$kabupaten = $this->Wilayah_m->getKabupatenKota()->result_array();
 		if ($this->input->post()) {
 
 			$eventAdded = json_decode($this->input->post('eventAdded'));
@@ -297,6 +299,7 @@ class Register extends MY_Controller
 				'events' => $this->getEvents(),
 				'paymentMethod' => Settings_m::getEnablePayment(),
 				'rangeBooking'=> $this->Room_m->rangeBooking(),
+				'kabupatenList'=>$kabupaten,
 			];
 			$this->layout->render('member/' . $this->theme . '/register', $data);
 		}

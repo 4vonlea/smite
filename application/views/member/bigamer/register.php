@@ -19,6 +19,7 @@ $theme_path = base_url("themes/bigamer") . "/";
     padding: 30px;
    }
 </style>
+<link rel="stylesheet" href="https://unpkg.com/vue-select@latest/dist/vue-select.css">
 <link href="<?= base_url(); ?>themes/script/chosen/chosen.css" rel="stylesheet">
 <?php $this->layout->end_head(); ?>
 <section class="pageheader-section" style="background-image: url(<?= $theme_path; ?>assets/images/pageheader/bg.jpg);">
@@ -294,15 +295,16 @@ $theme_path = base_url("themes/bigamer") . "/";
                         </span>
                         <div class="form-group mb-2">
 
-                            <label> Kota*</label>
-                            <input type="text" :class="{'is-invalid':validation_error.city}" class="form-control mb-0" name="city" placeholder="City" />
-                            <div v-if="validation_error.city" class="invalid-feedback">
+                            <label> Kota</label>
+                            <div class="text-dark" :class="{'is-invalid':validation_error.city}">
+                                <v-select placeholder="Pilih Kota" v-model="city" :options="kabupatenList" name="city" ></v-select>
+                            </div>
+                            <div v-if="validation_error.city" class="invalid-feedback d-block">
                                 {{ validation_error.city }}
                             </div>
                         </div>
 
                         <div class="form-group mb-2">
-
                             <label> Institusi / Affiliasi*</label>
                             <?= form_dropdown('univ', $participantsUniv, '', [':class' => "{'is-invalid':validation_error.univ}", 'v-model' => 'univ_selected', 'class' => 'form-control univ_selected chosen mb-0', 'placeholder' => 'Select your institution !']); ?>
                             <div v-if="validation_error.univ" class="invalid-feedback">
@@ -501,11 +503,13 @@ $theme_path = base_url("themes/bigamer") . "/";
 <script src="https://unpkg.com/vue2-datepicker@3.11.0" charset="utf-8"></script>
 <script src="<?= base_url("themes/script/vue-hotel-booking.js?") ?>"></script>
 <script src="<?= base_url("themes/script/vue-espay.js") ?>"></script>
+<script src="https://unpkg.com/vue-select@latest"></script>
 
 <?php if (isset(Settings_m::getEspay()['jsKitUrl'])) : ?>
     <script src="<?= Settings_m::getEspay()['jsKitUrl']; ?>"></script>
 <?php endif; ?>
 <script>
+    Vue.component('v-select', VueSelect.VueSelect);
     var app = new Vue({
         'el': "#app",
         components: {
@@ -518,6 +522,7 @@ $theme_path = base_url("themes/bigamer") . "/";
             status_text: "",
             univList: <?= json_encode($participantsUniv); ?>,
             univ_selected: "",
+            kabupatenList: <?= json_encode($kabupatenList); ?>,
             countryList: <?= json_encode($participantsCountry); ?>,
             country_selected: "104",
             saving: false,
@@ -530,7 +535,7 @@ $theme_path = base_url("themes/bigamer") . "/";
             adding: false,
             transactions: null,
             paymentBank: null,
-
+            city:"",
             haveSponsor: '0',
             isEmail: false,
             data: {},
@@ -653,6 +658,8 @@ $theme_path = base_url("themes/bigamer") . "/";
                 formData.set("birthday", birthday);
 
                 // NOTE Data Event dan Payment
+                if(this.city)
+                    formData.append('city', this.city.key);
                 formData.append('eventAdded', JSON.stringify(app.eventAdded));
                 formData.append('data', JSON.stringify(app.data));
                 formData.append('paymentMethod', app.paymentMethod);

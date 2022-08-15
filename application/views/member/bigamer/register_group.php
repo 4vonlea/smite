@@ -414,6 +414,13 @@ $theme_path = base_url("themes/bigamer") . "/";
                                                                     {{ member.validation_error.other_institution }}
                                                                 </div>
                                                             </div>
+                                                            <div class="form-group col-6 p-2">
+                                                                <label class="control-label">NIK</label>
+                                                                <input type="text" v-model="member.nik" placeholder="NIK" :class="{'is-invalid':member.validation_error.nik}" class="form-control mb-0" name="nik" />
+                                                                <div v-if="member.validation_error.nik" class="invalid-feedback">
+                                                                    {{ member.validation_error.nik }}
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </td>
                                                     <td class="text-center">
@@ -780,6 +787,7 @@ $theme_path = base_url("themes/bigamer") . "/";
                     sponsor: '',
                     price: '',
                     message_payment: '',
+                    nik:'',
                     validation_error: {}
                 });
 

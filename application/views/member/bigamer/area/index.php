@@ -46,6 +46,7 @@ $this->layout->begin_head();
     }
 </style>
 <link rel="stylesheet" type="text/css" href="https://unpkg.com/vue2-datepicker@3.11.0/index.css">
+<link rel="stylesheet" href="https://unpkg.com/vue-select@latest/dist/vue-select.css">
 
 <?php $this->layout->end_head(); ?>
 
@@ -109,9 +110,11 @@ $this->layout->begin_head();
 <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
 <script src="https://unpkg.com/vue2-datepicker@3.11.0" charset="utf-8"></script>
 <script src="<?= base_url("themes/script/vue-hotel-booking.js?") . time(); ?>"></script>
+<script src="https://unpkg.com/vue-select@latest"></script>
 
 <script type="module">
     Vue.use(Vuetable);
+    Vue.component('v-select', VueSelect.VueSelect);
 
     import progressPage from "<?= base_url("themes/script/progressPage.js"); ?>";
     import PageProfile from "<?= base_url("member/area/page/profile"); ?>";

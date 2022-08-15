@@ -49,6 +49,12 @@ var PageProfile = Vue.component("PageProfile", {
                     <input :disabled="!editing" class="form-control" readonly required="" type="text" v-model="user.fullname">
                 </div>
             </div>
+            <div class="form-group row mb-3">
+                <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 required color-heading">NIK</label>
+                <div class="col-lg-9">
+                    <input :disabled="!editing" class="form-control" required="" type="text" v-model="user.nik">
+                </div>
+            </div>
             <!-- <div class="form-group row mb-3">
                 <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 required color-heading">Gender</label>
                 <div class="col-lg-5">
@@ -86,18 +92,19 @@ var PageProfile = Vue.component("PageProfile", {
                     <input :disabled="!editing" class="form-control" required="" type="email" v-model="user.email">
                 </div>
             </div>
-
+            <!--
             <div class="form-group row mb-3">
                 <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 color-heading" >Country</label>
                 <div class="col-lg-9 light-select">
                     <vue-chosen :disabled="!editing"  v-model="user.country" :options="country_list" placeholder="Choose Country"></vue-chosen>
                 </div>
             </div>
+            -->
 
             <div class="form-group row mb-3">
                 <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 color-heading" >City</label>
-                <div class="col-lg-9">
-                    <input :disabled="!editing" class="form-control" type="text" v-model="user.city" placeholder="City">
+                <div class="col-lg-9 text-dark">
+                    <v-select :disabled="!editing" v-model="user.city" :reduce="city => city.key" :options="kabupatenList"></v-select>
                 </div>
             </div>
 
@@ -187,6 +194,7 @@ var PageProfile = Vue.component("PageProfile", {
             countFollowed: 0,
             univ_list: [],
             country_list: [],
+            kabupatenList:[],
         }
     },
     created() {
@@ -205,6 +213,7 @@ var PageProfile = Vue.component("PageProfile", {
                     page.countFollowed = res.count;
                     page.univ_list = res.univ;
                     page.country_list = res.country;
+                    page.kabupatenList = res.kabupaten;
                 } else {
                     page.fail = true;
                 }
