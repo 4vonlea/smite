@@ -14,7 +14,11 @@ class Migration_nik_member extends CI_Migration
             'nik' => [
                 'type' => 'varchar',
                 'constraint' => '100'
-            ],			
+            ],	
+            'kta' => [
+                'type' => 'varchar',
+                'constraint' => '100'
+            ],				
         ]);
 		$this->dbforge->add_field([
             'kode' => [
@@ -42,6 +46,7 @@ class Migration_nik_member extends CI_Migration
 	public function down()
 	{
 		$this->dbforge->drop_column("members","nik");
+		$this->dbforge->drop_column("members","kta");
         $this->dbforge->drop_table("wilayah");
 	}
 }

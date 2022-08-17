@@ -50,6 +50,12 @@ var PageProfile = Vue.component("PageProfile", {
                 </div>
             </div>
             <div class="form-group row mb-3">
+                <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 required color-heading">KTA PERDOSSI</label>
+                <div class="col-lg-9">
+                    <input readonly class="form-control" required="" type="text" v-model="user.kta">
+                </div>
+            </div>
+            <div class="form-group row mb-3">
                 <label class="col-lg-3 font-weight-bold col-form-label form-control-label text-2 required color-heading">NIK</label>
                 <div class="col-lg-9">
                     <input :disabled="!editing" class="form-control" required="" type="text" v-model="user.nik">

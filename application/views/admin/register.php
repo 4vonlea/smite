@@ -25,9 +25,23 @@ $this->layout->begin_head();
 				<div class="card-body px-lg-5 py-lg-5">
 					<form id="form-register" ref="form">
 						<div class="form-group row">
+                            <label class="col-lg-3 control-label">NIK</label>
+							<div class="col-lg-5">
+								<div class="input-group">
+									<input v-on:keyup.enter="checkMember" type="text" v-model="valueData.nik" :class="{'is-invalid':validation_error.nik}" class="form-control mb-0" name="nik" placeholder="NIK anda" />
+									<button :disabled="checkingMember" @click="checkMember" class="btn btn-primary" type="button">
+										<i v-if="checkingMember" class="fa fa-spin fa-spinner"></i> Cek
+									</button>
+								</div>
+							</div>
+                            <div v-if="validation_error.nik" class="invalid-feedback">
+                                {{ validation_error.nik }}
+                            </div>
+                        </div>
+						<div class="form-group row">
 							<label class="col-lg-3 control-label">Email</label>
 							<div class="col-lg-5">
-								<input type="text" :class="{'is-invalid': validation_error.email}" class="form-control" name="email" />
+								<input type="text" v-model="valueData.email" :class="{'is-invalid': validation_error.email}" class="form-control" name="email" />
 								<div v-if="validation_error.email" class="invalid-feedback">
 									{{ validation_error.email }}
 								</div>
@@ -80,12 +94,22 @@ $this->layout->begin_head();
 							<label class="col-lg-3 control-label">Full Name</label>
 							<div class="col-lg-5">
 								<small>*PLEASE FILL YOUR NAME CORRECTLY FOR YOUR CERTIFICATE</small>
-								<input type="text" :class="{'is-invalid':validation_error.fullname}" class="form-control" name="fullname" />
+								<input type="text" v-model="valueData.fullname" :class="{'is-invalid':validation_error.fullname}" class="form-control" name="fullname" />
 								<div v-if="validation_error.fullname" class="invalid-feedback">
 									{{ validation_error.fullname }}
 								</div>
 							</div>
 						</div>
+
+						<div class="form-group row">
+                            <label class="col-lg-3 control-label">KTA Perdossi</label>
+							<div class="col-lg-5">
+								<input type="text" v-model="valueData.kta" readonly :class="{'is-invalid':validation_error.kta}" class="form-control mb-0" name="kta" placeholder="Full Name" />
+								<div v-if="validation_error.kta" class="invalid-feedback">
+									{{ validation_error.kta }}
+								</div>
+							</div>
+                        </div>
 
 
 						<!-- <div class="form-group row">
@@ -131,7 +155,7 @@ $this->layout->begin_head();
 						<div class="form-group row">
 							<label class="col-lg-3 control-label">Phone/WA</label>
 							<div class="col-lg-5">
-								<input type="text" :class="{ 'is-invalid':validation_error.phone} " class="form-control" @keypress="onlyNumber" name="phone" />
+								<input type="text" v-model="valueData.phone" :class="{ 'is-invalid':validation_error.phone} " class="form-control" @keypress="onlyNumber" name="phone" />
 								<div v-if="validation_error.phone" class="invalid-feedback">
 									{{ validation_error.phone }}
 								</div>
@@ -265,7 +289,16 @@ $this->layout->begin_head();
 			channel: 'CASH',
 			saving: false,
 			validation_error: {},
-			events: <?= json_encode($events); ?>
+			events: <?= json_encode($events); ?>,
+			valueData:{
+                nik:'',
+                kta:'',
+                fullname:'',
+                email:'',
+                phone:'',
+            },
+            checkingMember:false,
+
 		},
 		computed: {
 			filteredEvents() {
@@ -289,6 +322,23 @@ $this->layout->begin_head();
 			}
 		},
 		methods: {
+			checkMember(){
+                this.checkingMember = true;
+                $.get("<?=base_url('member/register/info_member_perdossi');?>/"+this.valueData.nik,(res)=>{
+                    if(res.message == "success"){
+                            this.valueData.kta = res.member.perdossi_no;
+                            this.valueData.fullname = `${res.member.member_title_front} ${res.member.fullname} ${res.member.member_title_back}`;
+                            this.valueData.email = res.member.email;
+                            this.valueData.phone = res.member.member_phone;
+                    }else{
+						Swal.fire('Info', `NIK.${this.valueData.nik} : ${res.message}` , 'info');
+					}
+                }).always(()=>{
+                    this.checkingMember = false;
+                }).fail(()=>{
+                    Swal.fire('Fail', 'Failed to get member information in perdossi API', 'error')
+                })
+            },
 			total(idr = true) {
 				var total = 0;
 				var selected = [];

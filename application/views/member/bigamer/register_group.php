@@ -362,6 +362,18 @@ $theme_path = base_url("themes/bigamer") . "/";
                                                     <td class="border-end">
                                                         <div class="row m-1">
                                                             <div class="form-group col-6 p-2">
+                                                                <label class="control-label">NIK</label>
+                                                                <div class="input-group">
+                                                                    <input type="text" v-on:keyup.enter="checkMember(member)" v-model="member.nik" placeholder="NIK" :class="{'is-invalid':member.validation_error.nik}" class="form-control mb-0" name="nik" />
+                                                                    <button :disabled="member.checking" @click="checkMember(member)" class="btn btn-primary" type="button">
+                                                                        <i v-if="member.checking" class="fa fa-spin fa-spinner"></i> Cek
+                                                                    </button>
+                                                                </div>
+                                                                <div v-if="member.validation_error.nik" class="invalid-feedback">
+                                                                    {{ member.validation_error.nik }}
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group col-6 p-2">
                                                                 <label class="control-label">Email</label>
                                                                 <input type="text" v-model="member.email" placeholder="Email" :class="{'is-invalid': member.validation_error.email}" class="form-control mb-0" name="email" />
                                                                 <div v-if="member.validation_error.email" class="invalid-feedback">
@@ -414,13 +426,7 @@ $theme_path = base_url("themes/bigamer") . "/";
                                                                     {{ member.validation_error.other_institution }}
                                                                 </div>
                                                             </div>
-                                                            <div class="form-group col-6 p-2">
-                                                                <label class="control-label">NIK</label>
-                                                                <input type="text" v-model="member.nik" placeholder="NIK" :class="{'is-invalid':member.validation_error.nik}" class="form-control mb-0" name="nik" />
-                                                                <div v-if="member.validation_error.nik" class="invalid-feedback">
-                                                                    {{ member.validation_error.nik }}
-                                                                </div>
-                                                            </div>
+                                                            
                                                         </div>
                                                     </td>
                                                     <td class="text-center">
@@ -777,17 +783,35 @@ $theme_path = base_url("themes/bigamer") . "/";
             formatDate(date) {
                 return moment(date).format("DD MMM YYYY, [At] HH:mm:ss");
             },
+            checkMember(member){
+                member.checking = true;
+                $.get("<?=base_url('member/register/info_member_perdossi');?>/"+member.nik,(res)=>{
+                    if(res.message == "success"){
+                            member.kta = res.member.perdossi_no;
+                            member.fullname = `${res.member.member_title_front} ${res.member.fullname} ${res.member.member_title_back}`;
+                            member.email = res.member.email;
+                            member.phone = res.member.member_phone;
+                    }
+                }).always(()=>{
+                    member.checking = false;
+                }).fail(()=>{
+                    Swal.fire('Fail', 'Failed to get member information in perdossi API', 'error')
+                })
+            },
             addMembers() {
 
                 this.members.push({
                     email: '',
                     fullname: '',
+                    kta:'',
+                    phone:'',
                     univ: '',
                     other_institution: '',
                     sponsor: '',
                     price: '',
                     message_payment: '',
                     nik:'',
+                    checking:false,
                     validation_error: {}
                 });
 

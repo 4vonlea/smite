@@ -123,6 +123,19 @@ $this->layout->begin_head();
 										<td>
 											<div class="row">
 												<div class="form-group col-6">
+													<label class="control-label">NIK</label>
+													<div class="input-group">
+														<input type="text" v-on:keyup.enter="checkMember(member)" v-model="member.nik" placeholder="NIK" :class="{'is-invalid':member.validation_error.nik}" class="form-control mb-0" name="nik" />
+														<button :disabled="member.checking" @click="checkMember(member)" class="btn btn-primary" type="button">
+															<i v-if="member.checking" class="fa fa-spin fa-spinner"></i> Cek
+														</button>
+													</div>
+													<div v-if="member.validation_error.nik" class="invalid-feedback">
+														{{ member.validation_error.nik }}
+													</div>
+												</div>
+
+												<div class="form-group col-6">
 													<label class="control-label">Email</label>
 													<input type="text" v-model="member.email" placeholder="Email" :class="{'is-invalid': member.validation_error.email}" class="form-control" name="email" />
 													<div v-if="member.validation_error.email" class="invalid-feedback">
@@ -161,13 +174,6 @@ $this->layout->begin_head();
 													</div>
 												</div>
 
-												<div class="form-group col-6">
-													<label class="control-label">Sponsor</label>
-													<input type="text" v-model="member.sponsor" placeholder="Sponsor" :class="{'is-invalid': member.validation_error.sponsor}" class="form-control" name="sponsor" />
-													<div v-if="member.validation_error.sponsor" class="invalid-feedback">
-														{{ member.validation_error.sponsor }}
-													</div>
-												</div>
 											</div>
 										</td>
 										<!-- <td>
@@ -331,6 +337,21 @@ $this->layout->begin_head();
 					currency: currency
 				}).format(price);
 			},
+			checkMember(member){
+                member.checking = true;
+                $.get("<?=base_url('member/register/info_member_perdossi');?>/"+member.nik,(res)=>{
+                    if(res.message == "success"){
+                            member.kta = res.member.perdossi_no;
+                            member.fullname = `${res.member.member_title_front} ${res.member.fullname} ${res.member.member_title_back}`;
+                            member.email = res.member.email;
+                            member.phone = res.member.member_phone;
+                    }
+                }).always(()=>{
+                    member.checking = false;
+                }).fail(()=>{
+                    Swal.fire('Fail', 'Failed to get member information in perdossi API', 'error')
+                })
+            },
 			addMembers() {
 				// var status = [];
 				// app.model.selected.forEach((v, i) => {
@@ -347,6 +368,10 @@ $this->layout->begin_head();
 					sponsor: '',
 					price: '',
 					message_payment: '',
+					nik:'',
+                    checking:false,
+					kta:'',
+                    phone:'',
 					validation_error: {
 						status: [],
 					}

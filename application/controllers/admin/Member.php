@@ -577,8 +577,9 @@ class Member extends Admin_Controller
 				$model['members'][$key]['id'] = Uuid::v4();
 				$model['members'][$key]['password'] = strtoupper(substr(uniqid(), -5));
 				$model['members'][$key]['confirm_password'] = $model['members'][$key]['password'];
-				$model['members'][$key]['phone'] = '0';
-				$model['members'][$key]['country'] = '0';
+				$model['members'][$key]['phone'] = $val['phone'] ?? "0";
+				$model['members'][$key]['kta'] = $val['kta'] ?? "0";
+				$model['members'][$key]['country'] = '104';
 				$model['members'][$key]['birthday'] = date('Y-m-d');
 
 				$uploadStatus = true;

@@ -536,3 +536,6 @@ if (ENVIRONMENT === 'development') {
 		'server_key' => 'Mid-server-ba4rXoTmVHr6NfuygerILZiA'
 	];
 }
+
+$config['perdossi_username'] = "muhammad.zaien17@gmail.com";
+$config['perdossi_password'] = "123456789";

@@ -400,7 +400,9 @@ class Register extends MY_Controller
 				$members[$key]['id'] = Uuid::v4();
 				$members[$key]['password'] = isset($data['password']) ? $data['password'] : strtoupper(substr(uniqid(), -5));
 				$members[$key]['confirm_password'] = $members[$key]['password'];
-				$members[$key]['phone'] = '0';
+				$members[$key]['phone'] = $data['phone'] ?? "0";
+				$members[$key]['nik'] = $data['nik'] ?? "0";
+				$members[$key]['kta'] = $data['kta'] ?? "0";
 				$members[$key]['region'] = '0';
 				$members[$key]['country'] = '0';
 				$members[$key]['birthday'] = date('Y-m-d');
@@ -468,6 +470,8 @@ class Register extends MY_Controller
 					if ($dataMember) {
 						$dataMember = $dataMember->toArray();
 						$dataMember['fullname'] = $data['fullname'];
+						$dataMember['phone'] = $data['phone'] ?? "0";
+						$dataMember['kta'] = $data['kta'] ?? "";
 						$dataMember['univ'] = $data['univ'];
 						$dataMember['sponsor'] = $data['sponsor'];
 						$this->Member_m->update($dataMember, $dataMember['id'], false);
@@ -1001,6 +1005,14 @@ class Register extends MY_Controller
 			$response['message'] = $this->upload->display_errors("", "");
 		}
 		$this->output
+			->set_content_type("application/json")
+			->_display(json_encode($response));
+	}
+
+	public function info_member_perdossi($nik){
+		$this->load->library('Api_perdossi');
+        $response = $this->api_perdossi->getMemberByNIK($nik);
+        $this->output
 			->set_content_type("application/json")
 			->_display(json_encode($response));
 	}

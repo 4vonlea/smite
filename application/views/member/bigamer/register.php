@@ -207,8 +207,20 @@ $theme_path = base_url("themes/bigamer") . "/";
                     <h3 class="title text-center mb-4">Registrasi sekarang</h3>
                     <form id="form-register" style="text-align: left; font-size: 18px; font-weight: 500;" ref="form">
                         <div class="form-group mb-2">
+                            <label>NIK</label>
+                            <div class="input-group">
+                                <input v-on:keyup.enter="checkMember" type="text" v-model="valueData.nik" :class="{'is-invalid':validation_error.nik}" class="form-control mb-0" name="nik" placeholder="NIK anda" />
+                                <button :disabled="checkingMember" @click="checkMember" class="btn btn-primary" type="button">
+                                    <i v-if="checkingMember" class="fa fa-spin fa-spinner"></i> Cek
+                                </button>
+                            </div>
+                            <div v-if="validation_error.nik" class="invalid-feedback">
+                                {{ validation_error.nik }}
+                            </div>
+                        </div>
+                        <div class="form-group mb-2">
                             <label>Email*</label>
-                            <input type="text" :class="{'is-invalid': validation_error.email}" class="form-control mb-0" name="email" placeholder="Email" :disabled="isEmail" />
+                            <input type="text" v-model="valueData.email" :class="{'is-invalid': validation_error.email}" class="form-control mb-0" name="email" placeholder="Email" :disabled="isEmail" />
                             <div v-if="validation_error.email" class="invalid-feedback">
                                 {{ validation_error.email }}
                             </div>
@@ -239,6 +251,14 @@ $theme_path = base_url("themes/bigamer") . "/";
                             </div>
                         </div>
 
+                        <div class="form-group mb-2">
+                            <label>KTA Perdossi</label>
+                            <input type="text" v-model="valueData.kta" readonly :class="{'is-invalid':validation_error.kta}" class="form-control mb-0" name="kta" placeholder="Full Name" />
+                            <div v-if="validation_error.kta" class="invalid-feedback">
+                                {{ validation_error.kta }}
+                            </div>
+                        </div>
+
                         <span v-if="needVerification">
                             <div class="form-group mb-2">
 
@@ -253,19 +273,12 @@ $theme_path = base_url("themes/bigamer") . "/";
                         <div class="form-group mb-2">
                             <label> Nama Lengkap*</label>
                             <small>*Mohon isi lengkap dengan gelar untuk sertifikat, perubahan nama setelah registrasi tidak dapat dilakukan</small>
-                            <input type="text" :class="{'is-invalid':validation_error.fullname}" class="form-control mb-0" name="fullname" placeholder="Full Name" />
+                            <input type="text" v-model="valueData.fullname" :class="{'is-invalid':validation_error.fullname}" class="form-control mb-0" name="fullname" placeholder="Full Name" />
                             <div v-if="validation_error.fullname" class="invalid-feedback">
                                 {{ validation_error.fullname }}
                             </div>
                         </div>
-                        <div class="form-group mb-2">
-                            <label>NIK</label>
-                            <input type="text" :class="{'is-invalid':validation_error.nik}" class="form-control mb-0" name="nik" placeholder="NIK anda" />
-                            <div v-if="validation_error.nik" class="invalid-feedback">
-                                {{ validation_error.nik }}
-                            </div>
-                        </div>
-
+                        
                         <!-- <label> Alamat*</label>
                                             <textarea :class="{ 'is-invalid':validation_error.address }" class="form-control mb-0" name="address" placeholder="Alamat"></textarea>
                                             <div class="invalid-feedback">
@@ -325,7 +338,7 @@ $theme_path = base_url("themes/bigamer") . "/";
                         <div class="form-group mb-2">
 
                             <label>Nomor Whatsapp (optional)*</label>
-                            <input type="text" :class="{ 'is-invalid':validation_error.phone}" @keypress="onlyNumber" class="form-control mb-0" name="phone" placeholder="Phone/WA" />
+                            <input type="text" readonly v-model="valueData.phone" :class="{ 'is-invalid':validation_error.phone}" @keypress="onlyNumber" class="form-control mb-0" name="phone" placeholder="Phone/WA" />
                             <div v-if="validation_error.phone" class="invalid-feedback">
                                 {{ validation_error.phone }}
                             </div>
@@ -516,6 +529,13 @@ $theme_path = base_url("themes/bigamer") . "/";
             vuejsDatepicker
         },
         data: {
+            valueData:{
+                nik:'',
+                kta:'',
+                fullname:'',
+                email:'',
+                phone:'',
+            },
             uniqueid:"<?=$uniqueId;?>",
             statusList: <?= json_encode($statusList); ?>,
             status_selected: "",
@@ -540,6 +560,7 @@ $theme_path = base_url("themes/bigamer") . "/";
             isEmail: false,
             data: {},
             isUsd: false,
+            checkingMember:false,
             showCategory: '',
             hotelBooking:{
                 booking:[],
@@ -610,6 +631,23 @@ $theme_path = base_url("themes/bigamer") . "/";
             }
         },
         methods: {
+            checkMember(){
+                this.checkingMember = true;
+                $.get("<?=base_url('member/register/info_member_perdossi');?>/"+this.valueData.nik,(res)=>{
+                    if(res.message == "success"){
+                            this.valueData.kta = res.member.perdossi_no;
+                            this.valueData.fullname = `${res.member.member_title_front} ${res.member.fullname} ${res.member.member_title_back}`;
+                            this.valueData.email = res.member.email;
+                            this.valueData.phone = res.member.member_phone;
+                    }else{
+						Swal.fire('Info', `NIK.${this.valueData.nik} : ${res.message}` , 'info');
+                    }
+                }).always(()=>{
+                    this.checkingMember = false;
+                }).fail(()=>{
+                    Swal.fire('Fail', 'Failed to get member information in perdossi API', 'error')
+                })
+            },
             totalPrice(idr = true) {
                 var total = 0;
                 var isUsd = 0;

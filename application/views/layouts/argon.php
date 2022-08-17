@@ -252,6 +252,11 @@ function hideForRole($role, $listRole)
 						</a>
 					</li>
 					<li class="nav-item  <?= hideForRole($role, ['3', '4','5']); ?>">
+						<a class="nav-link" href="<?= base_url('admin/log_proses'); ?>">
+							<i class="fa fa-history text-red"></i> Log Aktivitas
+						</a>
+					</li>
+					<li class="nav-item  <?= hideForRole($role, ['3', '4','5']); ?>">
 						<a class="nav-link" href="<?= base_url('admin/setting'); ?>">
 							<i class="ni ni-settings text-red"></i> Setting
 						</a>

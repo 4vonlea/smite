@@ -374,10 +374,8 @@ class Site extends MY_Controller
     }
     
     public function test(){
-    run_job("job","send_unpaid_invoice",[
-		"37b0eb9e-0908-4425-a35d-0ed432fc9820",
-	    "INV-20220716-00001",
-		30,
-	]);
+        $this->load->library('Api_perdossi');
+        $response = $this->api_perdossi->getMemberByNIK("3312120202760001");
+        var_dump($response);
     }
 }
