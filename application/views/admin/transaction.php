@@ -113,6 +113,10 @@
 					<div class="col-6">
 						<h3>Transaction</h3>
 					</div>
+					<div class="col-6 text-right">
+						<input type="checkbox" v-model="onlyHotel" id="checkOnlyHotel"/> 
+						<label for="checkOnlyHotel"> Tampilkan Hanya Transaksi Hotel</label>
+					</div>
 				</div>
 			</div>
 			<div class="table-responsive">
@@ -488,6 +492,7 @@
 			sendingUniquePrice: false,
 			isGroup: false,
 			savingGl:false,
+			onlyHotel:false,
 		},
 		computed: {
 			amount() {
@@ -505,8 +510,16 @@
 				return this.transactionsSort(this.modifyModel.details);
 			}
 		},
+		watch:{
+			onlyHotel(newVal,oldVal){
+				if(newVal)
+						this.$refs.datagrid.additionalQuery = {'onlyHotel':1};
+					else
+						this.$refs.datagrid.additionalQuery = {'onlyHotel':0};
+					this.$refs.datagrid.doFilter();
+			}
+		},
 		methods: {
-
 			transactionsSort(data) {
 				return data.sort(function(a, b) {
 					return (a.event_pricing_id > b.event_pricing_id) ? -1 : 1;

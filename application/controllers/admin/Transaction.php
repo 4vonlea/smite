@@ -60,7 +60,14 @@ class Transaction extends Admin_Controller
 	{
 		$this->load->model('Transaction_m');
 
-		$grid = $this->Transaction_m->gridData($this->input->get());
+		$onlyHotel = $this->input->get("onlyHotel") == "1";
+
+		$gridConfig = $this->Transaction_m->gridConfig();
+		if($onlyHotel){
+			$gridConfig['filter'] = ['is_booking_hotel >'=>'0'];
+		}
+
+		$grid = $this->Transaction_m->gridData($this->input->get(),$gridConfig);
 		$this->output
 			->set_content_type("application/json")
 			->_display(json_encode($grid));
