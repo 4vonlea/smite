@@ -44,6 +44,19 @@ $this->layout->begin_head();
         /* z-index: 2000; */
         /* overflow: hidden; */
     }
+    .chosen-container-single .chosen-single {
+        height: 38px;
+        border-radius: 3px;
+        border: 1px solid #CCCCCC;
+    }
+
+    .chosen-container-single .chosen-single span {
+        padding-top: 4px;
+    }
+
+    .chosen-container-single .chosen-single div b {
+        margin-top: 4px;
+    }
 </style>
 <link rel="stylesheet" type="text/css" href="https://unpkg.com/vue2-datepicker@3.11.0/index.css">
 <link rel="stylesheet" href="https://unpkg.com/vue-select@latest/dist/vue-select.css">

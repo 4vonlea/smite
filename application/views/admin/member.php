@@ -125,12 +125,20 @@ $this->layout->begin_head();
 						</select>
 					</div>
 					<div class="form-group">
+						<label class="form-check-label">KTA</label>
+						<input type="text" class="form-control" v-model="profile.kta" />
+					</div>
+					<div class="form-group">
 						<label class="form-check-label">Alternatif Status (Optional)</label>
 						<input type="text" class="form-control" v-model="profile.alternatif_status" />
 					</div>
 					<div class="form-group">
 						<label class="form-check-label">Alternatif Status 2 (Optional)</label>
 						<input type="text" class="form-control" v-model="profile.alternatif_status2" />
+					</div>
+					<div class="form-group">
+						<label class="form-check-label">NIK</label>
+						<input type="text" class="form-control" v-model="profile.nik" />
 					</div>
 					<div class="form-group">
 						<label class="form-check-label">Fullname</label>
@@ -193,12 +201,24 @@ $this->layout->begin_head();
 						</td>
 					</tr>
 					<tr>
-						<th>Alternatif Status</th>
-						<td colspan="2">{{ profile.alternatif_status }}</td>
+						<th>KTA</th>
+						<td colspan="2">{{ profile.kta }}</td>
 					</tr>
 					<tr>
-						<th>Alternatif Status 2</th>
-						<td colspan="2">{{ profile.alternatif_status2 }}</td>
+						<th>
+							Alternatif Status
+						</th>
+						<td colspan="2">
+							<ol>
+								<li>{{ profile.alternatif_status }}</li>
+								<li>{{ profile.alternatif_status2 }}</li>
+							</ol>
+							
+						</td>
+					</tr>
+					<tr>
+						<th>NIK</th>
+						<td colspan="2">{{ profile.nik }}</td>
 					</tr>
 					<tr>
 						<th>Full Name</th>

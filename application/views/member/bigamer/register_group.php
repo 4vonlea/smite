@@ -19,6 +19,20 @@ $theme_path = base_url("themes/bigamer") . "/";
         background-color: #232a5c;
         padding: 30px;
     }
+
+    .chosen-container-single .chosen-single {
+        height: 38px;
+        border-radius: 3px;
+        border: 1px solid #CCCCCC;
+    }
+
+    .chosen-container-single .chosen-single span {
+        padding-top: 4px;
+    }
+
+    .chosen-container-single .chosen-single div b {
+        margin-top: 4px;
+    }
 </style>
 <?php $this->layout->end_head(); ?>
 <section class="pageheader-section" style="background-image: url(assets/images/pageheader/bg.jpg);">
@@ -223,7 +237,8 @@ $theme_path = base_url("themes/bigamer") . "/";
         <!-- NOTE Sebelum Submit -->
         <div v-if="page == 'register'" class="achievement-area-copy">
             <div class="alert btn-purple" role="alert">
-                <h4 class="text-black"><i class="icofont icofont-info-circle"></i> <b>Attention</h4><p>Make sure the email address entered is valid and you can access it because we will send an activation code via that email. Your account cannot be used until it is activated first.</p></b>
+                <h4 class="text-black"><i class="icofont icofont-info-circle"></i> <b>Attention</h4>
+                <p>Make sure the email address entered is valid and you can access it because we will send an activation code via that email. Your account cannot be used until it is activated first.</p></b>
             </div>
             <form id="form-register" class="form-border" ref="form">
                 <div class="de_tab tab_simple">
@@ -362,26 +377,26 @@ $theme_path = base_url("themes/bigamer") . "/";
                                                     <td class="border-end">
                                                         <div class="row m-1">
                                                             <div class="form-group col-6 p-2">
-                                                                <label class="control-label">NIK</label>
+                                                                <label class="control-label text-light">NIK</label>
                                                                 <div class="input-group">
                                                                     <input type="text" v-on:keyup.enter="checkMember(member)" v-model="member.nik" placeholder="NIK" :class="{'is-invalid':member.validation_error.nik}" class="form-control mb-0" name="nik" />
                                                                     <button :disabled="member.checking" @click="checkMember(member)" class="btn btn-primary" type="button">
                                                                         <i v-if="member.checking" class="fa fa-spin fa-spinner"></i> Cek
                                                                     </button>
                                                                 </div>
-                                                                <div v-if="member.validation_error.nik" class="invalid-feedback">
+                                                                <div v-if="member.validation_error.nik" class="d-block invalid-feedback">
                                                                     {{ member.validation_error.nik }}
                                                                 </div>
                                                             </div>
                                                             <div class="form-group col-6 p-2">
-                                                                <label class="control-label">Email</label>
+                                                                <label class="control-label text-light">Email</label>
                                                                 <input type="text" v-model="member.email" placeholder="Email" :class="{'is-invalid': member.validation_error.email}" class="form-control mb-0" name="email" />
                                                                 <div v-if="member.validation_error.email" class="invalid-feedback">
                                                                     {{ member.validation_error.email }}
                                                                 </div>
                                                             </div>
                                                             <div class="form-group col-6 p-2">
-                                                                <label class="control-label">Full Name*</label>
+                                                                <label class="control-label text-light">Full Name*</label>
                                                                 <input type="text" v-model="member.fullname" placeholder="Full Name" :class="{'is-invalid':member.validation_error.fullname}" class="form-control mb-0" name="fullname" />
                                                                 <div v-if="member.validation_error.fullname" class="invalid-feedback">
                                                                     {{ member.validation_error.fullname }}
@@ -389,7 +404,7 @@ $theme_path = base_url("themes/bigamer") . "/";
                                                             </div>
 
                                                             <div class="form-group col-6 p-2 dark-select">
-                                                                <label class="control-label">Institution</label>
+                                                                <label class="control-label text-light">Institution</label>
                                                                 <br>
                                                                 <?= form_dropdown("univ", $participantsUniv, "", [
                                                                     ':name' => '`univ_${index}`',
@@ -426,7 +441,7 @@ $theme_path = base_url("themes/bigamer") . "/";
                                                                     {{ member.validation_error.other_institution }}
                                                                 </div>
                                                             </div>
-                                                            
+
                                                         </div>
                                                     </td>
                                                     <td class="text-center">
@@ -783,18 +798,18 @@ $theme_path = base_url("themes/bigamer") . "/";
             formatDate(date) {
                 return moment(date).format("DD MMM YYYY, [At] HH:mm:ss");
             },
-            checkMember(member){
+            checkMember(member) {
                 member.checking = true;
-                $.get("<?=base_url('member/register/info_member_perdossi');?>/"+member.nik,(res)=>{
-                    if(res.message == "success"){
-                            member.kta = res.member.perdossi_no;
-                            member.fullname = `${res.member.member_title_front} ${res.member.fullname} ${res.member.member_title_back}`;
-                            member.email = res.member.email;
-                            member.phone = res.member.member_phone;
+                $.get("<?= base_url('member/register/info_member_perdossi'); ?>/" + member.nik, (res) => {
+                    if (res.message == "success") {
+                        member.kta = res.member.perdossi_no;
+                        member.fullname = `${res.member.member_title_front} ${res.member.fullname} ${res.member.member_title_back}`;
+                        member.email = res.member.email;
+                        member.phone = res.member.member_phone;
                     }
-                }).always(()=>{
+                }).always(() => {
                     member.checking = false;
-                }).fail(()=>{
+                }).fail(() => {
                     Swal.fire('Fail', 'Failed to get member information in perdossi API', 'error')
                 })
             },
@@ -803,15 +818,15 @@ $theme_path = base_url("themes/bigamer") . "/";
                 this.members.push({
                     email: '',
                     fullname: '',
-                    kta:'',
-                    phone:'',
+                    kta: '',
+                    phone: '',
                     univ: '',
                     other_institution: '',
                     sponsor: '',
                     price: '',
                     message_payment: '',
-                    nik:'',
-                    checking:false,
+                    nik: '',
+                    checking: false,
                     validation_error: {}
                 });
 
