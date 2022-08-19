@@ -1063,7 +1063,7 @@
 									<ul style="font-size: 15px;">
 										<li>Batas Pengumpulan Abstrak : 12 Oktober 2022</li>
 										<li>Pengumuman Penerimaan Abstrak : 24 Oktober 2022</li>
-										<li>Program Ilmiah : 17 – 18 November 2022 Workshop, dan 19– 20 November 2022 Simposium</li>
+										<li>Program Ilmiah : 17  18 November 2022 Workshop, dan 19– 20 November 2022 Simposium</li>
 										<li>E-Poster - Presentasi Oral : 19 November 2022</li>
 									</ul>
                                 </div>
@@ -1141,6 +1141,7 @@
                     <div class="col-12">
                         <div class="footer-bottom-content text-center">
                             <p>&copy;2022 <a href="#home">PIN PERDOSSI CIREBON</a></p>
+                          	<p><a href="https://wa.me/6282154950326" target="_blank">Web Developer by CV Meta Medika - Click here to Chat WA 082154950326</a></p>
                         </div>
                     </div>
                 </div>
