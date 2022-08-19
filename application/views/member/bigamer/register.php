@@ -12,15 +12,29 @@ $this->layout->begin_head();
  */
 $theme_path = base_url("themes/bigamer") . "/";
 ?>
+<link href="<?= base_url(); ?>themes/script/chosen/chosen.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="https://unpkg.com/vue2-datepicker@3.11.0/index.css">
 <style>
-   .achievement-area-copy{
-    background-color: #232a5c;
-    padding: 30px;
-   }
+    .achievement-area-copy {
+        background-color: #232a5c;
+        padding: 30px;
+    }
+
+    .chosen-container-single .chosen-single {
+        height: 38px;
+        border-radius: 3px;
+        border: 1px solid #CCCCCC;
+    }
+
+    .chosen-container-single .chosen-single span {
+        padding-top: 4px;
+    }
+
+    .chosen-container-single .chosen-single div b {
+        margin-top: 4px;
+    }
 </style>
 <link rel="stylesheet" href="https://unpkg.com/vue-select@latest/dist/vue-select.css">
-<link href="<?= base_url(); ?>themes/script/chosen/chosen.css" rel="stylesheet">
 <?php $this->layout->end_head(); ?>
 <section class="pageheader-section" style="background-image: url(<?= $theme_path; ?>assets/images/pageheader/bg.jpg);">
     <div class="container">
@@ -214,7 +228,7 @@ $theme_path = base_url("themes/bigamer") . "/";
                                     <i v-if="checkingMember" class="fa fa-spin fa-spinner"></i> Cek KTP di Database P2KB
                                 </button>
                             </div>
-                            <div v-if="validation_error.nik" class="invalid-feedback">
+                            <div v-if="validation_error.nik" class="d-block invalid-feedback">
                                 {{ validation_error.nik }}
                             </div>
                         </div>
@@ -278,7 +292,7 @@ $theme_path = base_url("themes/bigamer") . "/";
                                 {{ validation_error.fullname }}
                             </div>
                         </div>
-                        
+
                         <!-- <label> Alamat*</label>
                                             <textarea :class="{ 'is-invalid':validation_error.address }" class="form-control mb-0" name="address" placeholder="Alamat"></textarea>
                                             <div class="invalid-feedback">
@@ -310,7 +324,7 @@ $theme_path = base_url("themes/bigamer") . "/";
 
                             <label> Kota</label>
                             <div class="text-dark" :class="{'is-invalid':validation_error.city}">
-                                <v-select placeholder="Pilih Kota" v-model="city" :options="kabupatenList" name="city" ></v-select>
+                                <v-select placeholder="Pilih Kota" v-model="city" :options="kabupatenList" name="city"></v-select>
                             </div>
                             <div v-if="validation_error.city" class="invalid-feedback d-block">
                                 {{ validation_error.city }}
@@ -359,7 +373,7 @@ $theme_path = base_url("themes/bigamer") . "/";
                                             <div class="spacer-20"></div> -->
                         <div class="form-group mb-2">
 
-                            <label>Apakah anda memiliki sponsor?*</label><br/>
+                            <label>Apakah anda memiliki sponsor?*</label><br />
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" id="radioSponsorYes" type="radio" name="haveSponsor" value="1" v-model="haveSponsor" />
                                 <label class="form-check-label" for="radioSponsorYes">Ya</label>
@@ -397,7 +411,7 @@ $theme_path = base_url("themes/bigamer") . "/";
                                             <span style="cursor: pointer;" class="nav-link" @click="showCategory = cat" :class="{'active':showCategory == cat}">{{ cat }}</span>
                                         </li>
                                         <li class="nav-item" style="cursor:pointer">
-                                            <span class="nav-link" @click="showCategory = 'hotel-booking'"  :class="{'active':showCategory == 'hotel-booking'}"> Hotel Booking </span>
+                                            <span class="nav-link" @click="showCategory = 'hotel-booking'" :class="{'active':showCategory == 'hotel-booking'}"> Hotel Booking </span>
                                         </li>
                                     </ul>
                                 </div>
@@ -458,7 +472,7 @@ $theme_path = base_url("themes/bigamer") . "/";
                                             </h4>
                                         </div>
                                         <div class="card-body collapse show table-responsive">
-                                            <hotel-booking :unique-id="uniqueid" :on-delete="onCancelBooking" :on-book="onBooking" :booking="hotelBooking.booking" book-url="<?=base_url('member/register/add_cart');?>" search-url="<?=base_url('api/available_room');?>" :min-date="hotelBooking.minBookingDate" :max-date="hotelBooking.maxBookingDate"></hotel-booking>
+                                            <hotel-booking :unique-id="uniqueid" :on-delete="onCancelBooking" :on-book="onBooking" :booking="hotelBooking.booking" book-url="<?= base_url('member/register/add_cart'); ?>" search-url="<?= base_url('api/available_room'); ?>" :min-date="hotelBooking.minBookingDate" :max-date="hotelBooking.maxBookingDate"></hotel-booking>
                                         </div>
                                     </div>
                                     <div class="card card-achievement card-default mt-2">
@@ -529,14 +543,14 @@ $theme_path = base_url("themes/bigamer") . "/";
             vuejsDatepicker
         },
         data: {
-            valueData:{
-                nik:'',
-                kta:'',
-                fullname:'',
-                email:'',
-                phone:'',
+            valueData: {
+                nik: '',
+                kta: '',
+                fullname: '',
+                email: '',
+                phone: '',
             },
-            uniqueid:"<?=$uniqueId;?>",
+            uniqueid: "<?= $uniqueId; ?>",
             statusList: <?= json_encode($statusList); ?>,
             status_selected: "",
             status_text: "",
@@ -555,17 +569,17 @@ $theme_path = base_url("themes/bigamer") . "/";
             adding: false,
             transactions: null,
             paymentBank: null,
-            city:"",
+            city: "",
             haveSponsor: '0',
             isEmail: false,
             data: {},
             isUsd: false,
-            checkingMember:false,
+            checkingMember: false,
             showCategory: '',
-            hotelBooking:{
-                booking:[],
-                minBookingDate:'<?=$rangeBooking['start'];?>',
-                maxBookingDate:'<?=$rangeBooking['end'];?>',
+            hotelBooking: {
+                booking: [],
+                minBookingDate: '<?= $rangeBooking['start']; ?>',
+                maxBookingDate: '<?= $rangeBooking['end']; ?>',
             }
         },
         mounted: function() {
@@ -631,20 +645,20 @@ $theme_path = base_url("themes/bigamer") . "/";
             }
         },
         methods: {
-            checkMember(){
+            checkMember() {
                 this.checkingMember = true;
-                $.get("<?=base_url('member/register/info_member_perdossi');?>/"+this.valueData.nik,(res)=>{
-                    if(res.message == "success"){
-                            this.valueData.kta = res.member.perdossi_no;
-                            this.valueData.fullname = `${res.member.member_title_front} ${res.member.fullname} ${res.member.member_title_back}`;
-                            this.valueData.email = res.member.email;
-                            this.valueData.phone = res.member.member_phone;
-                    }else{
-						Swal.fire('Info', `NIK.${this.valueData.nik} : ${res.message}` , 'info');
+                $.get("<?= base_url('member/register/info_member_perdossi'); ?>/" + this.valueData.nik, (res) => {
+                    if (res.message == "success") {
+                        this.valueData.kta = res.member.perdossi_no;
+                        this.valueData.fullname = `${res.member.member_title_front} ${res.member.fullname} ${res.member.member_title_back}`;
+                        this.valueData.email = res.member.email;
+                        this.valueData.phone = res.member.member_phone;
+                    } else {
+                        Swal.fire('Info', `NIK.${this.valueData.nik} : ${res.message}`, 'info');
                     }
-                }).always(()=>{
+                }).always(() => {
                     this.checkingMember = false;
-                }).fail(()=>{
+                }).fail(() => {
                     Swal.fire('Fail', 'Failed to get member information in perdossi API', 'error')
                 })
             },
@@ -656,7 +670,10 @@ $theme_path = base_url("themes/bigamer") . "/";
                         total += parseFloat(this.transactions[i].price);
                     } else {
                         isUsd += 1;
-                        kurs_usd = {"using_api":0,"value":"0"};
+                        kurs_usd = {
+                            "using_api": 0,
+                            "value": "0"
+                        };
                         total += (parseFloat(item.price_in_usd) * kurs_usd.value);
                     }
                 }
@@ -672,7 +689,10 @@ $theme_path = base_url("themes/bigamer") . "/";
                     } else {
                         isUsd += 1;
 
-                        kurs_usd = {"using_api":0,"value":"0"};
+                        kurs_usd = {
+                            "using_api": 0,
+                            "value": "0"
+                        };
                         total += (parseFloat(item.price_in_usd) * kurs_usd.value);
                     }
                 })
@@ -696,13 +716,13 @@ $theme_path = base_url("themes/bigamer") . "/";
                 formData.set("birthday", birthday);
 
                 // NOTE Data Event dan Payment
-                if(this.city)
+                if (this.city)
                     formData.append('city', this.city.key);
                 formData.append('eventAdded', JSON.stringify(app.eventAdded));
                 formData.append('data', JSON.stringify(app.data));
                 formData.append('paymentMethod', app.paymentMethod);
-                formData.append('uniqueId',this.uniqueid);
-                formData.append('booking',JSON.stringify(this.hotelBooking.booking));
+                formData.append('uniqueId', this.uniqueid);
+                formData.append('booking', JSON.stringify(this.hotelBooking.booking));
 
                 this.saving = true;
                 $.ajax({
@@ -807,42 +827,42 @@ $theme_path = base_url("themes/bigamer") . "/";
                 }
                 return isRequired;
             },
-            onCancelBooking(ind,room){
-                this.hotelBooking.booking.splice(ind,1);
+            onCancelBooking(ind, room) {
+                this.hotelBooking.booking.splice(ind, 1);
             },
-            onBooking(room,dateCheck){
-                let night = moment(dateCheck.checkout).diff(dateCheck.checkin,'days');
+            onBooking(room, dateCheck) {
+                let night = moment(dateCheck.checkout).diff(dateCheck.checkin, 'days');
                 let momentCheckin = moment(dateCheck.checkin);
                 let momentCheckout = moment(dateCheck.checkout);
-                if(momentCheckin.format("YYYY-MM-DD") == "2022-11-19"){
-                    Swal.fire('Fail',"Tidak bisa melakukan booking ditanggal 19 November, Mohon melakukan check-in sejak tanggal 18 November dengan durasi menginap minimal 2 malam.", 'warning');
+                if (momentCheckin.format("YYYY-MM-DD") == "2022-11-19") {
+                    Swal.fire('Fail', "Tidak bisa melakukan booking ditanggal 19 November, Mohon melakukan check-in sejak tanggal 18 November dengan durasi menginap minimal 2 malam.", 'warning');
                     return false;
                 }
 
-                if(momentCheckin.format("YYYY-MM-DD") == "<?=Transaction_detail_m::DATE_KHUSUS;?>" && night < 2){
-                    Swal.fire('Fail',"Untuk Tanggal 18 November pemesanan minimal 2 malam", 'warning');
+                if (momentCheckin.format("YYYY-MM-DD") == "<?= Transaction_detail_m::DATE_KHUSUS; ?>" && night < 2) {
+                    Swal.fire('Fail', "Untuk Tanggal 18 November pemesanan minimal 2 malam", 'warning');
                     return false;
                 }
-                if(momentCheckout.isAfter(momentCheckin)){
+                if (momentCheckout.isAfter(momentCheckin)) {
                     this.hotelBooking.booking.push({
-                        id:room.id,
-                        name:room.name,
-                        hotel_name:room.hotel_name,
-                        checkin:momentCheckin.format("YYYY-MM-DD"),
-                        checkout:momentCheckout.format("YYYY-MM-DD"),
+                        id: room.id,
+                        name: room.name,
+                        hotel_name: room.hotel_name,
+                        checkin: momentCheckin.format("YYYY-MM-DD"),
+                        checkout: momentCheckout.format("YYYY-MM-DD"),
                         price: night * parseFloat(room.price),
-                        uniqueId:this.uniqueid
+                        uniqueId: this.uniqueid
                     });
-                    Swal.fire('Berhasil',"Hotel berhasil ditambahkan !", 'success');
-                }else{
-                    Swal.fire('Fail',"Tanggal Checkout harus lebih dari tanggal checkin", 'warning');
+                    Swal.fire('Berhasil', "Hotel berhasil ditambahkan !", 'success');
+                } else {
+                    Swal.fire('Fail', "Tanggal Checkout harus lebih dari tanggal checkin", 'warning');
                 }
             },
             addEvent(e, event, member, event_name) {
                 let isRequired = this.checkRequirement(event.event_required_id);
                 if (e.target.checked) {
                     if (isRequired) {
-                        // $.post("<?=base_url('member/register/add_cart');?>",{
+                        // $.post("<?= base_url('member/register/add_cart'); ?>",{
                         //     uniqueId:this.uniqueid,
                         //     id:event.id,
                         //     event_id:event.id_event,
@@ -850,12 +870,12 @@ $theme_path = base_url("themes/bigamer") . "/";
                         //     event_name:event_name,
                         // },(res)=>{
                         //     if(res.status){
-                                event.member_status = member;
-                                event.event_name = event_name;
-                                // event.transaction_detail_id = res.transaction_detail_id;
-                                // event.transaction_id = res.id;
-                                this.eventAdded.push(event);
-                            // }
+                        event.member_status = member;
+                        event.event_name = event_name;
+                        // event.transaction_detail_id = res.transaction_detail_id;
+                        // event.transaction_id = res.id;
+                        this.eventAdded.push(event);
+                        // }
                         // }).always(() => {
 
                         // }).fail((xhr)=>{
@@ -866,13 +886,13 @@ $theme_path = base_url("themes/bigamer") . "/";
                         Swal.fire('Info', `You must follow event <b>"${event.event_required}"</b> to participate this event !`, 'info');
                     }
                 } else {
-                    // $.post("<?=base_url('member/register/delete_item_cart');?>",{
+                    // $.post("<?= base_url('member/register/delete_item_cart'); ?>",{
                     //     id:event.transaction_detail_id,
                     //     transaction_id:event.transaction_id
                     // },(res)=>{
                     //     if(res.status){
-                            let eventId = event.id_event;
-                            app.removeEvent(event.id_event);
+                    let eventId = event.id_event;
+                    app.removeEvent(event.id_event);
                     //     }
                     // }).fail((xhr)=>{
                     //     Swal.fire('Fail', 'Server fail to response !', 'error');
