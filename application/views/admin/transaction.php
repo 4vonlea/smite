@@ -182,7 +182,7 @@
 					</tr>
 					<tr v-if="!isGroup">
 						<th>Address</th>
-						<td :colspan="isGroup ? '4' : '3'">{{ detailModel.member.address+", "+detailModel.member.city }}</td>
+						<td :colspan="isGroup ? '4' : '3'">{{ detailModel.member.address+", "+detailModel.member.city_name }}</td>
 					</tr>
 					<tr>
 						<th>Amount</th>

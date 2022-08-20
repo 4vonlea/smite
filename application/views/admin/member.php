@@ -161,7 +161,7 @@ $this->layout->begin_head();
 					</div>
 					<div class="form-group">
 						<label class="form-check-label">City</label>
-						<input type="text" class="form-control" v-model="profile.city" />
+						<input type="text" class="form-control" readonly v-model="profile.city_name" />
 					</div>
 					<div class="form-group">
 						<label class="form-check-label">Address</label>
@@ -243,7 +243,7 @@ $this->layout->begin_head();
 					</tr>
 					<tr>
 						<th>City</th>
-						<td colspan="3">{{ profile.city }}</td>
+						<td colspan="3">{{ profile.city_name }}</td>
 					</tr>
 					<tr>
 						<th>Instutution</th>

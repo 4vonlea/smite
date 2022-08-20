@@ -51,8 +51,13 @@ class Member_m extends MY_Model
 	public function gridConfig($option = array())
 	{
 		return [
+			'select'=>[
+				't.*',
+				'wilayah.nama as city_name'
+			],
 			'relationships' => [
 				'institution' => ['univ', 'institution.univ_id = univ', 'left'],
+				'wilayah' => ['wilayah', 'wilayah.kode = city', 'left'],
 			],
 			'sort' => ['t.created_at', 'desc']
 		];

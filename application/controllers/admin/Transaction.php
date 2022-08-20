@@ -154,6 +154,7 @@ class Transaction extends Admin_Controller
 		if ($detail) {
 			$response['model'] = $detail->toArray();
 			$response['model']['member'] = $detail->member ? $detail->member->toArray() : [];
+			$response['model']['member']['city_name'] = $detail->member ? $detail->member->city_name->nama : [];
 			$group = $detail->member ? false : true;
 			$response['model']['details'] = [];
 			foreach ($detail->details as $row) {
