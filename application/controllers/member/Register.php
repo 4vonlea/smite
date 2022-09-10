@@ -180,7 +180,7 @@ class Register extends MY_Controller
 			$univ = Univ_m::withKey($univ, "univ_id");
 			$status = Category_member_m::withKey($status, "id");
 			$need_verify = (isset($status[$data['status']]) && $status[$data['status']]['need_verify'] == "1");
-			if (($this->Member_m->validate($data) && $this->handlingProof('proof', $data['id'], $need_verify)) && count($eventAdded) > 0 && $isRequired == 0) {
+			if (($this->Member_m->validate($data) && $this->handlingProof('proof', $data['id'], $need_verify)) && (count($eventAdded) > 0 || count($bookingHotel) > 0) && $isRequired == 0) {
 				$data['username_account'] = $data['email'];
 				$data['verified_by_admin'] = !$need_verify;
 				$data['verified_email'] = 0;
@@ -245,7 +245,6 @@ class Register extends MY_Controller
 					$transaction->save();
 					$transaction->id = $id;
 				}
-				$this->transactions($data, $eventAdded, $transaction);
 				$hotelBookingStatus = true;
 				foreach($bookingHotel as $hotel){
 					$result = $this->Transaction_detail_m->bookHotel($transaction->id,$data['id'],[
@@ -261,6 +260,8 @@ class Register extends MY_Controller
 						break;
 					}
 				}
+				$this->transactions($data, $eventAdded, $transaction);
+
 				$error['transactions'] = $this->getTransactions($transaction);
 
 				$this->Member_m->getDB()->trans_complete();
@@ -276,7 +277,7 @@ class Register extends MY_Controller
 					$this->Member_m->getErrors(),
 					[
 						'proof' => (isset($this->upload) ? $this->upload->display_errors("", "") : null),
-						'eventAdded' => (count($eventAdded) == 0)  ? 'Choose at least 1 event' : '',
+						'eventAdded' => (count($eventAdded) == 0 && count($bookingHotel) == 0)  ? 'Choose at least 1 event' : '',
 						'requiredEvent' => $isRequired > 0 ? 'Please select required event' : '',
 					],
 				);
@@ -681,16 +682,10 @@ class Register extends MY_Controller
 			$response = ['status' => true];
 
 			$detail = $this->Transaction_detail_m->findOne(['transaction_id' => $transaction->id, 'member_id' => $data['id'], 'event_pricing_id' => $event['id']]);
-			$fee = $this->Transaction_detail_m->findOne(['transaction_id' => $transaction->id, 'member_id' => $data['id'],  'event_pricing_id' => 0]);
 			if (!$detail) {
 				$detail = new Transaction_detail_m();
 			}
-			$feeAlready = false;
-			if (!$fee) {
-				$fee = new Transaction_detail_m();
-			} else {
-				$feeAlready = true;
-			}
+			
 
 			if ($this->Event_m->validateFollowing($event['id'], $event['member_status'])) {
 
@@ -710,23 +705,30 @@ class Register extends MY_Controller
 				$detail->member_id = $data['id'];
 				$detail->product_name = "$event[event_name] ($event[member_status])";
 				$detail->save();
-				if ($event['price'] > 0 && $feeAlready == false) {
-
-					$check = $data['isGroup'] ? $this->Transaction_detail_m->findOne(['transaction_id' => $transaction->id, 'member_id' => $data['bill_to'], 'event_pricing_id' => 0]) : false;
-					if (!$check) {
-						$fee->event_pricing_id = 0; //$event['id'];
-						$fee->transaction_id = $transaction->id;
-						$fee->price = Transaction_m::ADMIN_FEE_START + rand(100, 500); //"6000";//$event['price'];
-						$fee->member_id = $data['isGroup'] ? $data['bill_to'] : $data['id'];
-						$fee->product_name = "Admin Fee";
-						$fee->save();
-					}
-				}
+				
 			} else {
 				$response['status'] = false;
 				$response['message'] = "You are prohibited from following !";
 			}
 			$this->Transaction_m->getDB()->trans_complete();
+		}
+		$feeAlready = false;
+		$fee = $this->Transaction_detail_m->findOne(['transaction_id' => $transaction->id, 'member_id' => $data['id'],  'event_pricing_id' => 0]);
+		if (!$fee) {
+			$fee = new Transaction_detail_m();
+		} else {
+			$feeAlready = true;
+		}
+		if ($this->Transaction_detail_m->sumPriceDetail($transaction->id) > 0 && $feeAlready == false) {
+			$check = $data['isGroup'] ? $this->Transaction_detail_m->findOne(['transaction_id' => $transaction->id, 'member_id' => $data['bill_to'], 'event_pricing_id' => 0]) : false;
+			if (!$check) {
+				$fee->event_pricing_id = 0; //$event['id'];
+				$fee->transaction_id = $transaction->id;
+				$fee->price = Transaction_m::ADMIN_FEE_START + rand(100, 500); //"6000";//$event['price'];
+				$fee->member_id = $data['isGroup'] ? $data['bill_to'] : $data['id'];
+				$fee->product_name = "Admin Fee";
+				$fee->save();
+			}
 		}
 	}
 

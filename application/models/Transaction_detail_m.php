@@ -13,6 +13,12 @@ class Transaction_detail_m extends MY_Model
 		return $this->hasOne('Member_m', 'id', 'member_id');
 	}
 
+	public function sumPriceDetail($transaction_id){
+		return $this->find()->select_sum("price")
+			->where("transaction_id",$transaction_id)
+			->get()->row_object()->price ?? 0;
+	}
+
 	public function bookHotel($transaction_id,$member_id,$datas){
 		$this->load->library("form_validation");
 		$this->form_validation->set_rules([
