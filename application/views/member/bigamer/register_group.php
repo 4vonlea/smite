@@ -377,11 +377,7 @@ $theme_path = base_url("themes/bigamer") . "/";
                                                     <td class="border-end">
                                                         <div class="row m-1">
                                                             <div class="form-group col-6 p-2">
-<<<<<<< HEAD
-                                                                <label class="control-label">NIK (wajib diisi untuk integrasi P2KB)</label>
-=======
-                                                                <label class="control-label text-light">NIK</label>
->>>>>>> d121bb8399b65cd7cfa1d6f56e1d2c46a164ed6b
+                                                                <label class="control-label text-light">NIK (wajib diisi untuk integrasi P2KB)</label>
                                                                 <div class="input-group">
                                                                     <input type="text" v-on:keyup.enter="checkMember(member)" v-model="member.nik" placeholder="NIK" :class="{'is-invalid':member.validation_error.nik}" class="form-control mb-0" name="nik" />
                                                                     <button :disabled="member.checking" @click="checkMember(member)" class="btn btn-primary" type="button">

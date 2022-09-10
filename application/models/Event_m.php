@@ -164,6 +164,9 @@ class Event_m extends MY_Model
 				}
 			}
 		}
+		usort($return,function($a,$b){
+			return $a['name'] - $b['name'];
+		});
 		return $return;
 	}
 
