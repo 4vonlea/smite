@@ -221,11 +221,12 @@ $theme_path = base_url("themes/bigamer") . "/";
                     <h3 class="title text-center mb-4">Registrasi sekarang</h3>
                     <form id="form-register" style="text-align: left; font-size: 18px; font-weight: 500;" ref="form">
                         <div class="form-group mb-2">
-                            <label>NIK (wajib diisi untuk integrasi P2KB)</label>
+                            <label>NIK KTP*</label>
+                          	<small>(wajib diisi untuk integrasi P2KB)</small>
                             <div class="input-group">
                                 <input v-on:keyup.enter="checkMember" type="text" v-model="valueData.nik" :class="{'is-invalid':validation_error.nik}" class="form-control mb-0" name="nik" placeholder="NIK anda" />
                                 <button :disabled="checkingMember" @click="checkMember" class="btn btn-primary" type="button">
-                                    <i v-if="checkingMember" class="fa fa-spin fa-spinner"></i> Cek KTP di Database P2KB
+                                    <i v-if="checkingMember" class="fa fa-spin fa-spinner"></i> Cek NIK di Database P2KB
                                 </button>
                             </div>
                             <div v-if="validation_error.nik" class="d-block invalid-feedback">
@@ -234,7 +235,8 @@ $theme_path = base_url("themes/bigamer") . "/";
                         </div>
                         <div class="form-group mb-2">
                             <label>Email*</label>
-                            <input type="text" v-model="valueData.email" :class="{'is-invalid': validation_error.email}" class="form-control mb-0" name="email" placeholder="Email" :disabled="isEmail" />
+                            <small>(isian ini akan menjadi username anda)</small>
+                          	<input type="text" v-model="valueData.email" :class="{'is-invalid': validation_error.email}" class="form-control mb-0" name="email" placeholder="Email" :disabled="isEmail" />
                             <div v-if="validation_error.email" class="invalid-feedback">
                                 {{ validation_error.email }}
                             </div>
@@ -243,6 +245,7 @@ $theme_path = base_url("themes/bigamer") . "/";
                         <div class="form-group mb-2">
 
                             <label>Password*</label>
+                          	<small>(password untuk akun website ini, BUKAN password email anda)</small>
                             <input type="password" :class="{ 'is-invalid':validation_error.password }" class="form-control mb-0" name="password" placeholder="Password" />
                             <div v-if="validation_error.password" class="invalid-feedback">
                                 {{ validation_error.password }}
@@ -286,7 +289,7 @@ $theme_path = base_url("themes/bigamer") . "/";
                         </span>
                         <div class="form-group mb-2">
                             <label> Nama Lengkap*</label>
-                            <small>*Mohon isi lengkap dengan gelar untuk sertifikat, perubahan nama setelah registrasi tidak dapat dilakukan</small>
+                            <small>Mohon isi lengkap dengan gelar untuk sertifikat, perubahan nama setelah registrasi tidak dapat dilakukan</small>
                             <input type="text" v-model="valueData.fullname" :class="{'is-invalid':validation_error.fullname}" class="form-control mb-0" name="fullname" placeholder="Full Name" />
                             <div v-if="validation_error.fullname" class="invalid-feedback">
                                 {{ validation_error.fullname }}
@@ -402,8 +405,8 @@ $theme_path = base_url("themes/bigamer") . "/";
                             <hr />
                             <div class="alert btn-purple">
                                 <h4 class="text-black"><i class="icofont icofont-info-circle"></i> <b>Event</b></h4>
-                                <p class="text-center">Pilih kegiatan yang ingin anda ikuti. Untuk kenyamaan anda, Kami harap pembayaran dapat langsung dilakukan tanpa penundaan setelah checkout. *harga yang tertera belum termasuk biaya admin</p>
-                            </div>
+                                <p class="text-center">Pilih kegiatan yang ingin anda ikuti. Untuk kenyamaan anda, Kami harap pembayaran dapat langsung dilakukan tanpa penundaan setelah checkout.</p>
+								<p class="text-center">Untuk Hotel, TIDAK dapat dipesan menggunakan Guarantee Letter</p></div>
                             <div class="row mt-2">
                                 <div class="col-md-12">
                                     <ul class="nav nav-pills">

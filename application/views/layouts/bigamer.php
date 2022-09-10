@@ -177,11 +177,13 @@
                                 </div>
                                 <div class="fm-item-content">
 									<ul style="font-size: 15px;">
-										<li>Batas Pengumpulan Abstrak : 12 Oktober 2022</li>
-										<li>Pengumuman Penerimaan Abstrak : 24 Oktober 2022</li>
-										<li>Program Ilmiah : 17 – 18 November 2022 Workshop, dan 19– 20 November 2022 Simposium</li>
-										<li>E-Poster / Presentasi Oral : 19 November 2022</li>
-									</ul>
+										<li>Batas Pengumpulan Abstrak : 21 Oktober 2022</li>
+                                        <li>Batas Pengumpulan Naskah Lengkap : 28 Oktober 2022</li>
+                                        <li>Pengumuman Penerimaan Abstrak : 04 November 2022</li>
+                                        <li>Program Ilmiah : 17  18 November 2022 untuk Workshop, dan 19– 20 November 2022 Simposium</li>
+                                        <li>E-Poster / Presentasi Oral : 19 November 2022</li>
+                                        <li>Pengumuman Pemenang : 20 November 2022</li>									
+                                  	</ul>
                                 </div>
                             </div>
                         </div>
@@ -190,7 +192,7 @@
                         <div class="footer-middle-item-wrapper">
                             <div class="footer-middle-item mb-lg-0">
                                 <div class="fm-item-title">
-                                    <h5>Workshop</h5>
+                                    <h5>POKDI</h5>
 									<hr>
                                 </div>
                                 <div class="fm-item-content">
@@ -213,7 +215,7 @@
                         <div class="footer-middle-item-wrapper">
                             <div class="footer-middle-item mb-lg-0">
                                 <div class="fm-item-title">
-                                    <h5>Biaya Registrasi</h5>
+                                    <h5>Biaya Registrasi Simposium</h5>
 									<hr>
                                 </div>
                                 <div class="fm-item-content">

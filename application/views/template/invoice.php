@@ -228,12 +228,12 @@ $isGroup = ($member == null);
 					</tr>
 				</tfoot>
 			</table>
-			<span style="font-size:9pt">*The amount price above does not include online bank payment administration fees</small>
+			<span style="font-size:9pt">*The amount price above include online bank payment administration fees</small>
 
 		</div>
 	</div>
 	<p style="text-align:justify;text-justify:inter-word;font-size:18px">
-		Any inappropriate payments or fraud transactions will be automatically deleted by the system and participants must re-checkout. Thank you
+		<strong>No refund may be allowed after transaction</strong>. Any inappropriate payments or fraud transactions will be automatically deleted by the system and participants must re-checkout. Thank you
 	</p>
 	<?php
 	$this->load->view("template/invoice_payment_signature");
