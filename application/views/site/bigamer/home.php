@@ -7,22 +7,22 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<!-- site favicon -->
-	<link rel="icon" type="image/png" href="<?=base_url('themes/bigamer');?>/assets/images/favicon.png">
+	<link rel="icon" type="image/png" href="<?= base_url('themes/bigamer'); ?>/assets/images/favicon.png">
 	<!-- Place favicon.ico in the root directory -->
 
 	<!-- All stylesheet and icons css  -->
-	<link rel="stylesheet" href="<?=base_url('themes/bigamer');?>/assets/css/bootstrap.min.css">
-	<link rel="stylesheet" href="<?=base_url('themes/bigamer');?>/assets/css/animate.css">
-	<link rel="stylesheet" href="<?=base_url('themes/bigamer');?>/assets/css/icofont.min.css">
-	<link rel="stylesheet" href="<?=base_url('themes/bigamer');?>/assets/css/swiper.min.css">
-	<link rel="stylesheet" href="<?=base_url('themes/bigamer');?>/assets/css/lightcase.css">
-	<link rel="stylesheet" href="<?=base_url('themes/bigamer');?>/assets/css/bootstrap.min.css">
-	<link rel="stylesheet" href="<?=base_url('themes/bigamer');?>/assets/css/style.min.css">
-	<link rel="stylesheet" href="<?=base_url('themes/bigamer');?>/assets/css/custom.css">
-    <link href="<?= base_url('themes/gigaland'); ?>/css/jquery.countdown.css" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" href="<?= base_url('themes/bigamer'); ?>/assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="<?= base_url('themes/bigamer'); ?>/assets/css/animate.css">
+	<link rel="stylesheet" href="<?= base_url('themes/bigamer'); ?>/assets/css/icofont.min.css">
+	<link rel="stylesheet" href="<?= base_url('themes/bigamer'); ?>/assets/css/swiper.min.css">
+	<link rel="stylesheet" href="<?= base_url('themes/bigamer'); ?>/assets/css/lightcase.css">
+	<link rel="stylesheet" href="<?= base_url('themes/bigamer'); ?>/assets/css/bootstrap.min.css">
+	<link rel="stylesheet" href="<?= base_url('themes/bigamer'); ?>/assets/css/style.min.css">
+	<link rel="stylesheet" href="<?= base_url('themes/bigamer'); ?>/assets/css/custom.css">
+	<link href="<?= base_url('themes/gigaland'); ?>/css/jquery.countdown.css" rel="stylesheet" type="text/css" />
 
 	<style>
-		.countdown-section{
+		.countdown-section {
 			margin-right: 5px;
 			font-size: 20px;
 		}
@@ -31,19 +31,19 @@
 
 <body>
 	<!-- preloader start here -->
-    <div class="preloader">
-        <div class="preloader-inner">
+	<div class="preloader">
+		<div class="preloader-inner">
 			<div class="preloader-icon">
 				<span></span>
 				<span></span>
-            </div>
-        </div>
-    </div>
+			</div>
+		</div>
+	</div>
 	<!-- preloader ending here -->
 
 	<!-- scrollToTop start here -->
-    <a href="#" class="scrollToTop"><i class="icofont-rounded-up"></i></a>
-    <!-- scrollToTop ending here -->
+	<a href="#" class="scrollToTop"><i class="icofont-rounded-up"></i></a>
+	<!-- scrollToTop ending here -->
 
 	<!-- ==========Header Section Starts Here========== -->
 	<header class="header-section">
@@ -52,7 +52,7 @@
 				<div class="brand-logo d-none d-lg-inline-block">
 					<div class="logo">
 						<a href="index.html">
-							<img src="<?=base_url('themes/uploads/logo.png');?>" style="width:100px"alt="logo">
+							<img src="<?= base_url('themes/uploads/logo.png'); ?>" style="width:100px" alt="logo">
 						</a>
 					</div>
 				</div>
@@ -71,7 +71,7 @@
 								</li>
 							</ul>
 							<ul class="social-icons d-flex align-items-center">
-<!--								<li>
+								<!--								<li>
 									<a href="#" class="youtube"><i class="icofont-youtube-play"></i></a>
 								</li>
 								<li>
@@ -89,7 +89,7 @@
 					<div class="header-bottom">
 						<div class="header-wrapper justify-content-lg-end">
 							<div class="mobile-logo d-lg-none">
-								<a href="index.html"><img src="<?=base_url('themes/uploads/logo.png');?>" style="width:80px" alt="logo"></a>
+								<a href="index.html"><img src="<?= base_url('themes/uploads/logo.png'); ?>" style="width:80px" alt="logo"></a>
 							</div>
 							<div class="menu-area">
 								<ul class="menu">
@@ -97,10 +97,10 @@
 									<li><a href="#home">Beranda</a></li>
 									<li><a href="#sign-in">Masuk Login</a></li>
 									<li><a href="#event">Kegiatan</a></li>
-									
+
 								</ul>
 								<!-- <a href="login.html" class="login"><i class="icofont-user"></i> <span>LOG IN</span> </a> -->
-								<a href="<?=base_url('site/register');?>" class="signup"><i class="icofont-users"></i> <span>Registrasi</span></a>
+								<a href="<?= base_url('site/register'); ?>" class="signup"><i class="icofont-users"></i> <span>Registrasi</span></a>
 
 								<!-- toggle icons -->
 								<div class="header-bar d-lg-none">
@@ -121,7 +121,7 @@
 	<!-- ==========Header Section Ends Here========== -->
 
 	<!-- ===========Banner Section start Here========== -->
-	<section id="home" class="banner-section bg-img" style="background-image: url(<?=base_url('themes/bigamer');?>/assets/images/custom/header.jpg);">
+	<section id="home" class="banner-section bg-img" style="background-image: url(<?= base_url('themes/bigamer'); ?>/assets/images/custom/header.jpg);">
 		<div class="container">
 			<div class="">
 				<div class="banner-content text-center">
@@ -132,10 +132,10 @@
 				</div>
 				<div class="banner-thumb d-flex flex-wrap justify-content-center justify-content-between align-items-center align-items-lg-end">
 					<div class="banner-thumb-img ml-xl-50-none">
-						<a href=""><img src="<?=base_url('themes/bigamer');?>/assets/images/custom/perdossi_1.png" style="width: 300px;" alt="banner-thumb"></a>
+						<a href=""><img src="<?= base_url('themes/bigamer'); ?>/assets/images/custom/perdossi_1.png" style="width: 300px;" alt="banner-thumb"></a>
 					</div>
 					<div class="banner-thumb-img mr-xl-50-none">
-						<a href=""><img src="<?=base_url('themes/bigamer');?>/assets/images/custom/perdossi_2.png" style="width: 300px;" alt="banner-thumb"></a>
+						<a href=""><img src="<?= base_url('themes/bigamer'); ?>/assets/images/custom/perdossi_2.png" style="width: 300px;" alt="banner-thumb"></a>
 					</div>
 				</div>
 			</div>
@@ -158,7 +158,7 @@
                                 <div class="swiper-wrapper">
                                     <div class="swiper-slide">
                                         <div class="contact-item text-center">
-											<img src="<?=base_url('themes/bigamer');?>/assets/images/custom/cp2.png" class="lazy img-fluid mb-2" alt="img">
+											<img src="<?= base_url('themes/bigamer'); ?>/assets/images/custom/cp2.png" class="lazy img-fluid mb-2" alt="img">
 											<div class="contact-content">
 												<p class="title" style="font-size: 18px;">Name 1</p><br>
 												"Spesialis" <br>
@@ -167,7 +167,7 @@
                                     </div>
                                     <div class="swiper-slide">
                                         <div class="contact-item text-center">
-											<img src="<?=base_url('themes/bigamer');?>/assets/images/custom/cp2.png" class="lazy img-fluid mb-2" alt="img">
+											<img src="<?= base_url('themes/bigamer'); ?>/assets/images/custom/cp2.png" class="lazy img-fluid mb-2" alt="img">
 											<div class="contact-content">
 												<p class="title" style="font-size: 18px;">Name 2</p><br>
 												"Spesialis" <br>
@@ -176,7 +176,7 @@
                                     </div>
                                     <div class="swiper-slide">
                                         <div class="contact-item text-center">
-											<img src="<?=base_url('themes/bigamer');?>/assets/images/custom/cp2.png" class="lazy img-fluid mb-2" alt="img">
+											<img src="<?= base_url('themes/bigamer'); ?>/assets/images/custom/cp2.png" class="lazy img-fluid mb-2" alt="img">
 											<div class="contact-content">
 												<p class="title" style="font-size: 18px;">Name 3</p><br>
 												"Spesialis" <br>
@@ -185,7 +185,7 @@
                                     </div>
                                     <div class="swiper-slide">
                                         <div class="contact-item text-center">
-											<img src="<?=base_url('themes/bigamer');?>/assets/images/custom/cp2.png" class="lazy img-fluid mb-2" alt="img">
+											<img src="<?= base_url('themes/bigamer'); ?>/assets/images/custom/cp2.png" class="lazy img-fluid mb-2" alt="img">
 											<div class="contact-content">
 												<p class="title" style="font-size: 18px;">Name 4</p><br>
 												"Spesialis" <br>
@@ -194,7 +194,7 @@
                                     </div>
                                     <div class="swiper-slide">
                                         <div class="contact-item text-center">
-											<img src="<?=base_url('themes/bigamer');?>/assets/images/custom/cp2.png" class="lazy img-fluid mb-2" alt="img">
+											<img src="<?= base_url('themes/bigamer'); ?>/assets/images/custom/cp2.png" class="lazy img-fluid mb-2" alt="img">
 											<div class="contact-content">
 												<p class="title" style="font-size: 18px;">Name 5</p><br>
 												"Spesialis" <br>
@@ -207,51 +207,51 @@
 					</div>
 				</div> -->
 				<div class="row justify-content-center g-4 mt-4">
-                    <div class="col-lg-3 col-sm-6 col-12">
-                        <div class="contact-item text-center">
-                            <div class="contact-thumb mb-4">
+					<div class="col-lg-3 col-sm-6 col-12">
+						<div class="contact-item text-center">
+							<div class="contact-thumb mb-4">
 								<i class="icofont icofont-user-suited icofont-2x" style="position: relative; z-index: 2;"></i>
-                            </div>
-                            <div class="contact-content">
-                                <h6 class="title">Pembicara</h6>
-                                <h3>tba</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 col-12">
-                        <div class="contact-item text-center">
-                            <div class="contact-thumb mb-4">
-                                <i class="icofont icofont-users-alt-4 icofont-3x" style="position: relative; z-index: 2;"></i>
-                            </div>
-                            <div class="contact-content">
-                                <h6 class="title">Moderator</h6>
-                                <h3>tba</h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 col-12">
-                        <div class="contact-item text-center">
-                            <div class="contact-thumb mb-4">
-                                <i class="icofont icofont-users-alt-5 icofont-3x" style="position: relative; z-index: 2;"></i>
-                            </div>
-                            <div class="contact-content">
-                                <h6 class="title">Peserta</h6>
-                                <h3><?php echo $participant; ?></h3>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 col-12">
-                        <div class="contact-item text-center">
-                            <div class="contact-thumb mb-4">
-                                <i class="icofont icofont-file-alt icofont-3x" style="position: relative; z-index: 2;"></i>
-                            </div>
-                            <div class="contact-content">
-                                <h6 class="title">Abstrak</h6>
-                                <h3><?php echo $paper; ?></h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+							</div>
+							<div class="contact-content">
+								<h6 class="title">Pembicara</h6>
+								<h3>tba</h3>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3 col-sm-6 col-12">
+						<div class="contact-item text-center">
+							<div class="contact-thumb mb-4">
+								<i class="icofont icofont-users-alt-4 icofont-3x" style="position: relative; z-index: 2;"></i>
+							</div>
+							<div class="contact-content">
+								<h6 class="title">Moderator</h6>
+								<h3>tba</h3>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3 col-sm-6 col-12">
+						<div class="contact-item text-center">
+							<div class="contact-thumb mb-4">
+								<i class="icofont icofont-users-alt-5 icofont-3x" style="position: relative; z-index: 2;"></i>
+							</div>
+							<div class="contact-content">
+								<h6 class="title">Peserta</h6>
+								<h3><?php echo $participant; ?></h3>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3 col-sm-6 col-12">
+						<div class="contact-item text-center">
+							<div class="contact-thumb mb-4">
+								<i class="icofont icofont-file-alt icofont-3x" style="position: relative; z-index: 2;"></i>
+							</div>
+							<div class="contact-content">
+								<h6 class="title">Abstrak</h6>
+								<h3><?php echo $paper; ?></h3>
+							</div>
+						</div>
+					</div>
+				</div>
 
 				<div class="row g-4 mt-4">
 					<div class="achievement-area">
@@ -270,12 +270,96 @@
 					</div>
 				</div>
 
-				<h3 class="mt-5 mb-2">Workshop</h3>
+				<h3 class="mt-5 mb-3 text-center">Simposium</h3>
+				<div class="row g-5">
+					<div class="col-lg-12">
+						<div class="upcome-matches">
+							<div class="row g-3">
+								<div class="col-12">
+									<div class="match-item-2 item-layer">
+										<div class="match-inner">
+											<div class="match-header d-flex flex-wrap justify-content-between align-items-center">
+												<p class="match-team-info" style="text-transform: initial;">
+													Kuota : <span class="fw-bold">1500 orang</span>
+												</p>
+												<p class="match-prize" style="text-transform: initial;">Spesialis | Residen | Dokter Umum </p>
+											</div>
+											<div class="match-content gradient-bg-orange">
+												<div class="row align-items-center justify-content-center">
+													<div class="col-md-8 order-md-2 mt-4 mt-md-0">
+														<div class="match-game-info text-center">
+															<h4><a href="" style="text-transform: initial;">Simposium Nasional</a>
+															</h4>
+															<p class="d-flex flex-wrap justify-content-center">
+																<span class="match-date">Hotel Aston Cirebon, 19 - 20 November 2022 | Time: 08:00AM</span>
+															</p>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 
+				<h3 class="mt-5 mb-3 text-center">Workshop</h3>
 				<div class="row g-5">
 					<div class="col-lg-6">
 						<div class="upcome-matches">
 							<div class="row g-3">
+								<div class="col-12">
+									<div class="match-item-2 item-layer">
+										<div class="match-inner">
+											<div class="match-header d-flex flex-wrap justify-content-between align-items-center">
+												<p class="match-team-info" style="text-transform: initial;">
+													Minimal : <span class="fw-bold">30 Orang</span>
+												</p>
+												<p class="match-prize" style="text-transform: initial;">Rp. <span class="fw-bold">2,5 juta | Onsite: 3 juta</span></p>
+											</div>
+											<div class="match-content gradient-bg-blue">
+												<div class="row align-items-center justify-content-center">
+													<div class="col-md-8 order-md-2 mt-4 mt-md-0">
+														<div class="match-game-info text-center">
+															<h4><a href="" style="text-transform: initial;">Neurobehaviour</a>
+															</h4>
+															<p class="d-flex flex-wrap justify-content-center">
+																<span class="match-date">Hotel Aston Cirebon | Kamis, 17 November 2022 | Time: 07:30 - 16:30</span>
+															</p>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-12">
+									<div class="match-item-2 item-layer">
+										<div class="match-inner">
+											<div class="match-header d-flex flex-wrap justify-content-between align-items-center">
+												<p class="match-team-info" style="text-transform: initial;">
+													Minimal : <span class="fw-bold">30 Orang</span>
+												</p>
+												<p class="match-prize" style="text-transform: initial;">Rp. <span class="fw-bold">2,5 juta | Onsite: 3 juta</span></p>
+											</div>
+											<div class="match-content gradient-bg-blue">
+												<div class="row align-items-center justify-content-center">
+													<div class="col-md-8 order-md-2 mt-4 mt-md-0">
+														<div class="match-game-info text-center">
+															<h4><a href="" style="text-transform: initial;">Code Stroke</a>
+															</h4>
+															<p class="d-flex flex-wrap justify-content-center">
+																<span class="match-date">Hotel Aston Cirebon | Kamis, 17 November 2022 | Time: 07:30 - 16:30</span>
+															</p>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
 								<div class="col-12">
 									<div class="match-item-2 item-layer">
 										<div class="match-inner">
@@ -289,7 +373,7 @@
 												<div class="row align-items-center justify-content-center">
 													<div class="col-md-8 order-md-2 mt-4 mt-md-0">
 														<div class="match-game-info text-center">
-															<h4><a href="" style="text-transform: initial;">Stroke dan Pembuluh Darah</a>
+															<h4><a href="" style="text-transform: initial;">Neuro-restorasi</a>
 															</h4>
 															<p class="d-flex flex-wrap justify-content-center">
 																<span class="match-date">17 - 18
@@ -316,7 +400,7 @@
 												<div class="row align-items-center justify-content-center">
 													<div class="col-md-8 order-md-2 mt-4 mt-md-0">
 														<div class="match-game-info text-center">
-															<h4><a href="" style="text-transform: initial;">Neurointervensi</a>
+															<h4><a href="" style="text-transform: initial;">TCD/TCCD</a>
 															</h4>
 															<p class="d-flex flex-wrap justify-content-center">
 																<span class="match-date">17 - 18
@@ -337,7 +421,7 @@
 												<p class="match-team-info" style="text-transform: initial;">
 													Minimal : <span class="fw-bold">30 Orang</span>
 												</p>
-												<p class="match-prize" style="text-transform: initial;">Rp. <span class="fw-bold">tba</span></p>
+												<p class="match-prize" style="text-transform: initial;">Rp. <span class="fw-bold">3,5 juta | Onsite: 4 juta</span></p>
 											</div>
 											<div class="match-content gradient-bg-blue">
 												<div class="row align-items-center justify-content-center">
@@ -346,9 +430,7 @@
 															<h4><a href="" style="text-transform: initial;">Neurointensif</a>
 															</h4>
 															<p class="d-flex flex-wrap justify-content-center">
-																<span class="match-date">17 - 18
-																	November 2022 </span><span class="match-time">Time:
-																	08:00AM</span>
+																<span class="match-date">Hotel Aston Cirebon | Kamis, 17 November 2022 | Time: 07:30 - 16:30</span>
 															</p>
 														</div>
 													</div>
@@ -364,18 +446,16 @@
 												<p class="match-team-info" style="text-transform: initial;">
 													Minimal : <span class="fw-bold">30 Orang</span>
 												</p>
-												<p class="match-prize" style="text-transform: initial;">Rp. <span class="fw-bold">tba</span></p>
+												<p class="match-prize" style="text-transform: initial;">Rp. <span class="fw-bold">3,5 juta | Onsite: 4 juta</span></p>
 											</div>
 											<div class="match-content gradient-bg-blue">
 												<div class="row align-items-center justify-content-center">
 													<div class="col-md-8 order-md-2 mt-4 mt-md-0">
 														<div class="match-game-info text-center">
-															<h4><a href="" style="text-transform: initial;">Neurobehaviour</a>
+															<h4><a href="" style="text-transform: initial;">Bedah Kasus Malpraktek Dari Sisi Etika, Disiplin Profesi Dokter Dan Hukum</a>
 															</h4>
 															<p class="d-flex flex-wrap justify-content-center">
-																<span class="match-date">17 - 18
-																	November 2022 </span><span class="match-time">Time:
-																	08:00AM</span>
+																<span class="match-date">Hotel Aston Cirebon | Kamis, 17 November 2022 | Time: 07:30AM - 16:30</span>
 															</p>
 														</div>
 													</div>
@@ -384,40 +464,39 @@
 										</div>
 									</div>
 								</div>
-								<div class="col-12">
-									<div class="match-item-2 item-layer">
-										<div class="match-inner">
-											<div class="match-header d-flex flex-wrap justify-content-between align-items-center">
-												<p class="match-team-info" style="text-transform: initial;">
-													Minimal : <span class="fw-bold">30 Orang</span>
-												</p>
-												<p class="match-prize" style="text-transform: initial;">Rp. <span class="fw-bold">tba</span></p>
-											</div>
-											<div class="match-content gradient-bg-blue">
-												<div class="row align-items-center justify-content-center">
-													<div class="col-md-8 order-md-2 mt-4 mt-md-0">
-														<div class="match-game-info text-center">
-															<h4><a href="" style="text-transform: initial;">Neurorestorasi</a>
-															</h4>
-															<p class="d-flex flex-wrap justify-content-center">
-																<span class="match-date">17 - 18
-																	November 2022 </span><span class="match-time">Time:
-																	08:00AM</span>
-															</p>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								
 							</div>
 						</div>
 					</div>
 					<div class="col-lg-6">
 						<div class="upcome-matches">
 							<div class="row g-3">
+								<div class="col-12">
+									<div class="match-item-2 item-layer">
+										<div class="match-inner">
+											<div class="match-header d-flex flex-wrap justify-content-between align-items-center">
+												<p class="match-team-info" style="text-transform: initial;">
+													Minimal : <span class="fw-bold">30 Orang</span>
+												</p>
+												<p class="match-prize" style="text-transform: initial;">Rp. <span class="fw-bold">tba</span></p>
+											</div>
+											<div class="match-content gradient-bg-blue">
+												<div class="row align-items-center justify-content-center">
+													<div class="col-md-8 order-md-2 mt-4 mt-md-0">
+														<div class="match-game-info text-center">
+															<h4><a href="" style="text-transform: initial;">Botox</a>
+															</h4>
+															<p class="d-flex flex-wrap justify-content-center">
+																<span class="match-date">17 - 18
+																	November 2022 </span><span class="match-time">Time:
+																	08:00AM</span>
+															</p>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
 								<div class="col-12">
 									<div class="match-item-2 item-layer">
 										<div class="match-inner">
@@ -458,34 +537,7 @@
 												<div class="row align-items-center justify-content-center">
 													<div class="col-md-8 order-md-2 mt-4 mt-md-0">
 														<div class="match-game-info text-center">
-															<h4><a href="" style="text-transform: initial;">Neuroinfeksi</a>
-															</h4>
-															<p class="d-flex flex-wrap justify-content-center">
-																<span class="match-date">17 - 18
-																	November 2022 </span><span class="match-time">Time:
-																	08:00AM</span>
-															</p>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-12">
-									<div class="match-item-2 item-layer">
-										<div class="match-inner">
-											<div class="match-header d-flex flex-wrap justify-content-between align-items-center">
-												<p class="match-team-info" style="text-transform: initial;">
-													Minimal : <span class="fw-bold">30 Orang</span>
-												</p>
-												<p class="match-prize" style="text-transform: initial;">Rp. <span class="fw-bold">tba</span></p>
-											</div>
-											<div class="match-content gradient-bg-blue">
-												<div class="row align-items-center justify-content-center">
-													<div class="col-md-8 order-md-2 mt-4 mt-md-0">
-														<div class="match-game-info text-center">
-															<h4><a href="" style="text-transform: initial;">Neuroimaging</a>
+															<h4><a href="" style="text-transform: initial;">Carotis Dupleks Ultrasound (CDU)</a>
 															</h4>
 															<p class="d-flex flex-wrap justify-content-center">
 																<span class="match-date">17 - 18
@@ -526,6 +578,60 @@
 										</div>
 									</div>
 								</div>
+								<div class="col-12">
+									<div class="match-item-2 item-layer">
+										<div class="match-inner">
+											<div class="match-header d-flex flex-wrap justify-content-between align-items-center">
+												<p class="match-team-info" style="text-transform: initial;">
+													Minimal : <span class="fw-bold">30 Orang</span>
+												</p>
+												<p class="match-prize" style="text-transform: initial;">Rp. <span class="fw-bold">tba</span></p>
+											</div>
+											<div class="match-content gradient-bg-blue">
+												<div class="row align-items-center justify-content-center">
+													<div class="col-md-8 order-md-2 mt-4 mt-md-0">
+														<div class="match-game-info text-center">
+															<h4><a href="" style="text-transform: initial;">Vascular Neurointervensi</a>
+															</h4>
+															<p class="d-flex flex-wrap justify-content-center">
+																<span class="match-date">17 - 18
+																	November 2022 </span><span class="match-time">Time:
+																	08:00AM</span>
+															</p>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-12">
+									<div class="match-item-2 item-layer">
+										<div class="match-inner">
+											<div class="match-header d-flex flex-wrap justify-content-between align-items-center">
+												<p class="match-team-info" style="text-transform: initial;">
+													Minimal : <span class="fw-bold">30 Orang</span>
+												</p>
+												<p class="match-prize" style="text-transform: initial;">Rp. <span class="fw-bold">tba</span></p>
+											</div>
+											<div class="match-content gradient-bg-blue">
+												<div class="row align-items-center justify-content-center">
+													<div class="col-md-8 order-md-2 mt-4 mt-md-0">
+														<div class="match-game-info text-center">
+															<h4><a href="" style="text-transform: initial;">Neuroinfeksi</a>
+															</h4>
+															<p class="d-flex flex-wrap justify-content-center">
+																<span class="match-date">17 - 18
+																	November 2022 </span><span class="match-time">Time:
+																	08:00AM</span>
+															</p>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -536,7 +642,7 @@
 	<!-- ===========Info Section Ends Here========== -->
 
 	<!-- ===========Sign in Start Here========== -->
-	<section id="sign-in" class="padding-top padding-bottom bg-img" style="background-image: url(<?=base_url('themes/bigamer');?>/assets/images/custom/bg1.jpg);">
+	<section id="sign-in" class="padding-top padding-bottom bg-img" style="background-image: url(<?= base_url('themes/bigamer'); ?>/assets/images/custom/bg1.jpg);">
 		<div class="container">
 			<div class="section-header">
 				<!-- <p>our LATEST VIDEOS</p> -->
@@ -549,18 +655,18 @@
 							<div class="col-lg-6" style="text-align: center">
 								<h3>Masuk Login</h3>
 								<form name="contactForm" id="contact_form" class="form-border" method="post" action="<?= base_url('site/login'); ?>">
-									<?php if(!$hasSession):?>
-									<div class="field-set mb-2">
-										<input type="text" name="username" id="email" class="form-control" placeholder="Email">
-									</div>
-									<div class="field-set mb-2">
-										<input type="password" name="password" id="password" class="form-control" placeholder="Password">
-									</div>
-									<a href="<?=base_url('site/forget');?>" class="mb-2">Lupa Password ?</a>
-									<?php endif;?>
+									<?php if (!$hasSession) : ?>
+										<div class="field-set mb-2">
+											<input type="text" name="username" id="email" class="form-control" placeholder="Email">
+										</div>
+										<div class="field-set mb-2">
+											<input type="password" name="password" id="password" class="form-control" placeholder="Password">
+										</div>
+										<a href="<?= base_url('site/forget'); ?>" class="mb-2">Lupa Password ?</a>
+									<?php endif; ?>
 									<div class="d-grid">
 										<button type="submit" name="login" value="login" class="btn btn-edge btn-purple">
-											<i class="icofont icofont-sign-in"></i> <?=$hasSession ? "Back To Member Area":"Sign";?>
+											<i class="icofont icofont-sign-in"></i> <?= $hasSession ? "Back To Member Area" : "Sign"; ?>
 										</button><br>
 									</div>
 								</form>
@@ -596,12 +702,12 @@
 					<div class="row mt-3">
 						<div class="col-lg-6 col-md-6 mb-2">
 							<div class="d-grid text-center">
-								<a href="<?=base_url('member/register');?>" class="default-button reverse-effect"><span> <i class="icofont-user"></i> Registrasi Individu</span> </a>
+								<a href="<?= base_url('member/register'); ?>" class="default-button reverse-effect"><span> <i class="icofont-user"></i> Registrasi Individu</span> </a>
 							</div>
 						</div>
 						<div class="col-lg-6 col-md-6">
 							<div class="d-grid text-center">
-								<a href="<?=base_url('member/register/group');?>" class="default-button reverse-effect"><span> <i class="icofont-users"></i> Registrasi Grup/ Kelompok</span> </a>
+								<a href="<?= base_url('member/register/group'); ?>" class="default-button reverse-effect"><span> <i class="icofont-users"></i> Registrasi Grup/ Kelompok</span> </a>
 							</div>
 						</div>
 					</div>
@@ -625,16 +731,13 @@
 								<div class="col-12">
 									<div class="accordion-item">
 										<div class="accordion-header" id="headingOne">
-											<button class="accordion-button collapsed" type="button"
-												data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true"
-												aria-controls="collapseOne">
+											<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
 												<span class="accor-header-inner d-flex flex-wrap align-items-center">
 													<p style="color: white; font-size: 20px; margin-top: 15px">Video Registrasi menggunakan pembayaran online</p>
 												</span>
 											</button>
 										</div>
-										<div id="collapseOne" class="accordion-collapse collapse"
-											aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+										<div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
 											<div class="accordion-body">
 												<embed src="https://drive.google.com/file/d/13_Z82olwb4yH0wP2GVV759NvRyH0vCAG/preview" width="100%" height="600px" align="center" allow="autoplay"></embed>
 											</div>
@@ -642,16 +745,13 @@
 									</div>
 									<div class="accordion-item mt-1">
 										<div class="accordion-header" id="headingTwo">
-											<button class="accordion-button collapsed" type="button"
-												data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true"
-												aria-controls="collapseTwo">
+											<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
 												<span class="accor-header-inner d-flex flex-wrap align-items-center">
 													<p style="color: white; font-size: 20px; margin-top: 15px">Video Registrasi secara berkelompok</p>
 												</span>
 											</button>
 										</div>
-										<div id="collapseTwo" class="accordion-collapse collapse"
-											aria-labelledby="headingTwo" data-bs-parent="#accordiTwoxample">
+										<div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordiTwoxample">
 											<div class="accordion-body">
 												<embed src="https://drive.google.com/file/d/13ZerYtQAIFnXv1TJt6OhErM2oHbn9NhK/preview" width="100%" height="600" align="center" allow="autoplay"></embed>
 											</div>
@@ -659,16 +759,13 @@
 									</div>
 									<div class="accordion-item mt-1">
 										<div class="accordion-header" id="headingThree">
-											<button class="accordion-button collapsed" type="button"
-												data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true"
-												aria-controls="collapseThree">
+											<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree">
 												<span class="accor-header-inner d-flex flex-wrap align-items-center">
 													<p style="color: white; font-size: 20px; margin-top: 15px">Video Tutorial melakukan booking hotel</p>
 												</span>
 											</button>
 										</div>
-										<div id="collapseThree" class="accordion-collapse collapse"
-											aria-labelledby="headingThree" data-bs-parent="#accordiThreexample">
+										<div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordiThreexample">
 											<div class="accordion-body">
 												<embed src="https://drive.google.com/file/d/13eQq8c-MMS_Oi2pL5sfzLbNYzcHuSbSk/preview" width="100%" height="600px" align="center" allow="autoplay"></embed>
 											</div>
@@ -676,16 +773,13 @@
 									</div>
 									<div class="accordion-item mt-1">
 										<div class="accordion-header" id="headingFour">
-											<button class="accordion-button collapsed" type="button"
-												data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="true"
-												aria-controls="collapseFour">
+											<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
 												<span class="accor-header-inner d-flex flex-wrap align-items-center">
 													<p style="color: white; font-size: 20px; margin-top: 15px">Video Tutorial Submisi Abstrak</p>
 												</span>
 											</button>
 										</div>
-										<div id="collapseFour" class="accordion-collapse collapse"
-											aria-labelledby="headingFour" data-bs-parent="#accordiFourxample">
+										<div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#accordiFourxample">
 											<div class="accordion-body">
 												<embed src="https://drive.google.com/file/d/13YwOoIZWjs0D2F3IWZLClXgn9OdO82wq/preview" width="100%" height="600px" align="center" allow="autoplay"></embed>
 											</div>
@@ -701,9 +795,43 @@
 	</section>
 	<!-- ===========Video tutorial Ends Here========== -->
 
+	<section class="padding-top padding-bottom" style="margin-top:-100px;">
+		<div class="container">
+			<div class="section-header">
+				<h2 class="header-title">Project Neuroteknologi</h2>
+			</div>
+			<div class="section-wrapper">
+				<div class="row g-4">
+					<div class="col-12">
+						<div class="partner-list" id="accordionExample">
+							<div class="row g-4 justify-content-center">
+								<div class="col-12">
+									<div class="accordion-item">
+										<div class="accordion-header" id="headingOne">
+											<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+												<span class="accor-header-inner d-flex flex-wrap align-items-center">
+													<p style="color: white; font-size: 20px; margin-top: 15px">Syarat & Ketentuan</p>
+												</span>
+											</button>
+										</div>
+										<div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+											<div class="accordion-body">
+												<embed src="<?= base_url('themes/bigamer'); ?>/assets/images/custom/s&k.jpeg" width="100%" align="center" allow="autoplay"></embed>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
 	<!-- ===========Event Start Here========== -->
-	<div id="event" class="padding-top padding-bottom bg-img" style="background-image: url(<?=base_url('themes/bigamer');?>/assets/images/custom/bg3.jpg);">
-        <div class="container">
+	<div id="event" class="padding-top padding-bottom bg-img" style="background-image: url(<?= base_url('themes/bigamer'); ?>/assets/images/custom/bg3.jpg);">
+		<div class="container">
 			<div class="section-header">
 				<h2 class="header-title">Informasi Kegiatan</h2>
 			</div>
@@ -716,6 +844,7 @@
 						<li data-filter=".four" class="item-four"><span class="category">Pedoman Ilmiah</span></li>
 						<li data-filter=".five" class="item-five"><span class="category">Sambutan</span></li>
 						<li data-filter=".six" class="item-six"><span class="category">Kepanitiaan</span></li>
+						<li data-filter=".seven" class="item-seven"><span class="category">Wisata</span></li>
 					</ul>
 				</div>
 				<div class="masonary-gallery" style="position: relative; height: 1153.99px;">
@@ -725,10 +854,12 @@
 								<h4>Tanggal Penting</h4>
 								<hr>
 								<ul>
-									<li>Batas Pengumpulan Abstrak : 12 Oktober 2022</li>
-									<li>Pengumuman Penerimaan Abstrak : 24 Oktober 2022</li>
-									<li>Program Ilmiah : 17  18 November 2022 untuk Workshop, dan 19– 20 November 2022 Simposium</li>
+									<li>Batas Pengumpulan Abstrak : 21 Oktober 2022</li>
+									<li>Batas Pengumpulan Naskah Lengkap : 28 Oktober 2022</li>
+									<li>Pengumuman Penerimaan Abstrak : 04 November 2022</li>
+									<li>Program Ilmiah : 17 18 November 2022 untuk Workshop, dan 19– 20 November 2022 Simposium</li>
 									<li>E-Poster / Presentasi Oral : 19 November 2022</li>
+									<li>Pengumuman Pemenang : 20 November 2022</li>
 								</ul>
 							</div>
 						</div>
@@ -741,7 +872,7 @@
 								<ul style="text-align: justify;">
 									<li>
 										<i class="icofont-exclamation-circle"></i> Apakah kegiatan ini dilakukan secara daring atau luring?<br>
-										- Kegiatan ini dilakukan secara daring di Aston Hotel, Cirebon 
+										- Kegiatan ini dilakukan secara daring di Aston Hotel, Cirebon
 									</li>
 									<li>
 										<i class="icofont-exclamation-circle"></i> Bagaimana caranya login?<br>
@@ -761,7 +892,8 @@
 									</li>
 									<li>
 										<i class="icofont-exclamation-circle"></i> Saya bukan peserta acara ini, tapi saya pembicara/moderator/juri di acara ini, bagaimana cara login?<br>
-										- Untuk pembicara, moderator, dan juri, kami telah mengirimkan akses akun yang dibuat secara otomatis ke email dokter Anda. Silakan periksa kotak masuk/spam Anda dan coba akses situs web kami dengan akun tersebut.									</li>
+										- Untuk pembicara, moderator, dan juri, kami telah mengirimkan akses akun yang dibuat secara otomatis ke email dokter Anda. Silakan periksa kotak masuk/spam Anda dan coba akses situs web kami dengan akun tersebut.
+									</li>
 								</ul>
 							</div>
 						</div>
@@ -778,7 +910,8 @@
 						<div class="row g-4">
 							<div class="achievement-area">
 								<h4>Pedoman Ilmiah</h4>
-<!--								<a href="https://aomc-pinbanjarmasin2022.com/themes/gigaland/images/220514 - Update Pedoman Free Paper.pdf" target="blank" class="btn btn-edge btn-primary mt-2">Guideline for PIN's Call for Abstract (New! updated on 15 May)</a><br>
+								<a href="<?= base_url('themes/bigamer'); ?>/assets/pdf/20220903 - Ketentuan eposter dan oral compressed.pdf" target="blank" class="btn btn-edge btn-warning mt-2">Ketentuan Oral dan E-poster (diperbaharui 3 September 2022)</a><br>
+								<!--								<a href="https://aomc-pinbanjarmasin2022.com/themes/gigaland/images/220514 - Update Pedoman Free Paper.pdf" target="blank" class="btn btn-edge btn-primary mt-2">Guideline for PIN's Call for Abstract (New! updated on 15 May)</a><br>
 								<a href="https://aomc-pinbanjarmasin2022.com/themes/gigaland/images/TemplateAbstrakPINPerdossi2022.docx" target="blank" class="btn btn-edge btn-warning mt-2">Template for PIN's Abstract</a><br>
 								<a href="https://drive.google.com/drive/folders/1MydS41eTpg5uUvnDqV-EcFybPCcLkAsH" target="blank" class="btn btn-edge btn-primary mt-2">Template for Paper Presentation (New! Updated on 15 May) </a><br>
 								<a href="https://aomc-pinbanjarmasin2022.com/themes/gigaland/images/FAQ Ilmiah PIN Banjarmasin.pdf" target="blank" class="btn btn-edge btn-primary mt-2">FAQ Paper Competition (New! 15 May)</a>-->
@@ -799,7 +932,7 @@
 										</h2>
 										<div id="collapseSambutan" class="accordion-collapse collapse show" aria-labelledby="headingSambutan" data-bs-parent="#accordionExample">
 											<div class="accordion-body">
-												<embed src="<?=base_url('themes/bigamer');?>/assets/pdf/sambutan.pdf" width="100%" height="500px" align="center"></embed>
+												<embed src="<?= base_url('themes/bigamer'); ?>/assets/pdf/sambutan.pdf" width="100%" height="500px" align="center"></embed>
 											</div>
 										</div>
 									</div>
@@ -821,7 +954,55 @@
 										</h2>
 										<div id="collapsePanitia" class="accordion-collapse collapse show" aria-labelledby="headingPanitia" data-bs-parent="#accordionExample">
 											<div class="accordion-body">
-												<embed src="<?=base_url('themes/bigamer');?>/assets/pdf/kepanitiaan.pdf" width="100%" height="500px" align="center"></embed>
+												<embed src="<?= base_url('themes/bigamer'); ?>/assets/pdf/kepanitiaan.pdf" width="100%" height="500px" align="center"></embed>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-12 masonary-item seven" style="position: absolute; left: 0px; top: 0px;  display: none;">
+						<div class="row g-4">
+							<div class="contact-item">
+								<h4>Wisata</h4>
+								<hr>
+								<div class="accordion" id="accordionExample">
+									<div class="accordion-item">
+										<h2 class="accordion-header" id="headingWisataKuliner">
+											<button id="btnWisataKuliner" class="accordion-button collapsed text-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWisataKuliner" aria-expanded="true" aria-controls="collapseWisataKuliner">
+												Wisata Kuliner
+											</button>
+										</h2>
+										<div id="collapseWisataKuliner" class="accordion-collapse collapse show" aria-labelledby="headingWisataKuliner" data-bs-parent="#accordionExample">
+											<div class="accordion-body">
+												<img src="<?= base_url('themes/bigamer') ?>/assets/images/custom/wisata_kuliner.jpeg" width="100%" align="center">
+											</div>
+										</div>
+									</div>
+									<hr>
+									<div class="accordion-item">
+										<h2 class="accordion-header" id="headingWisataTempat">
+											<button class="accordion-button collapsed text-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWisataTempat" aria-expanded="true" aria-controls="collapseWisataTempat">
+												Wisata Tempat
+											</button>
+										</h2>
+										<div id="collapseWisataTempat" class="accordion-collapse collapse" aria-labelledby="headingWisataTempat" data-bs-parent="#accordionExample">
+											<div class="accordion-body">
+												<img src="<?= base_url('themes/bigamer') ?>/assets/images/custom/wisata_tempat.jpeg" width="100%" align="center">
+											</div>
+										</div>
+									</div>
+									<hr>
+									<div class="accordion-item">
+										<h2 class="accordion-header" id="headingTravel">
+											<button class="accordion-button collapsed text-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTravel" aria-expanded="true" aria-controls="collapseTravel">
+												Transportasi Darat dan Travel
+											</button>
+										</h2>
+										<div id="collapseTravel" class="accordion-collapse collapse" aria-labelledby="headingTravel" data-bs-parent="#accordionExample">
+											<div class="accordion-body">
+												<img src="<?= base_url('themes/bigamer') ?>/assets/images/custom/#.jpeg" width="100%" align="center">
 											</div>
 										</div>
 									</div>
@@ -831,8 +1012,8 @@
 					</div>
 				</div>
 			</div>
-        </div>
-    </div>
+		</div>
+	</div>
 	<!-- ===========Event Ends Here========== -->
 
 	<!-- ===========CP Section Start Here========== -->
@@ -843,74 +1024,74 @@
 			</div>
 			<div class="section-wrapper">
 				<div class="row g-5 justify-content-center row-cols-md-3 row-cols-sm-3 row-cols-1 mt-1">
-					
-						<div class="game-item item-layer">
-							<div class="game-item-inner bg-1">
-								<div class="game-thumb">
-									<img src="<?=base_url('themes/bigamer');?>/assets/images/custom/cp1.png" alt="game-img">
-								</div>
-								<div class="game-overlay text-center">
-									<h4><a href="#" style="text-transform: initial;">Sekretariat</a> </h4><br>
-									<div class="continer">
-										<a href="http://wa.me/6287733667120" target="_BLANK" class="btn btn-xs btn-purple mt-1"><i class="icofont-whatsapp"></i> Mae</a><br>
-										<a href="http://wa.me/6281322361407" target="_BLANK" class="btn btn-xs btn-purple mt-1"><i class="icofont-whatsapp"></i> dr. Wahyu Kartikasari, Sp. S</a><br>
-									</div>
+
+					<div class="game-item item-layer">
+						<div class="game-item-inner bg-1">
+							<div class="game-thumb">
+								<img src="<?= base_url('themes/bigamer'); ?>/assets/images/custom/cp1.png" alt="game-img">
+							</div>
+							<div class="game-overlay text-center">
+								<h4><a href="#" style="text-transform: initial;">Sekretariat</a> </h4><br>
+								<div class="continer">
+									<a href="http://wa.me/6287733667120" target="_BLANK" class="btn btn-xs btn-purple mt-1"><i class="icofont-whatsapp"></i> Mae</a><br>
+									<a href="http://wa.me/6281322361407" target="_BLANK" class="btn btn-xs btn-purple mt-1"><i class="icofont-whatsapp"></i> dr. Wahyu Kartikasari, Sp. S</a><br>
 								</div>
 							</div>
 						</div>
-						<div class="game-item item-layer">
-							<div class="game-item-inner bg-2">
-								<div class="game-thumb">
-									<img src="<?=base_url('themes/bigamer');?>/assets/images/custom/cp2.png" alt="game-img">
-								</div>
-								<div class="game-overlay text-center">
-									<h4><a href="#" style="text-transform: initial;">Registrasi</a> </h4><br>
-									<div class="container">
-										<a href="http://wa.me/6289603215099" target="_BLANK" class="btn btn-xs btn-purple mt-1"><i class="icofont-whatsapp"></i> dr. Azka</a><br>
-									</div>
+					</div>
+					<div class="game-item item-layer">
+						<div class="game-item-inner bg-2">
+							<div class="game-thumb">
+								<img src="<?= base_url('themes/bigamer'); ?>/assets/images/custom/cp2.png" alt="game-img">
+							</div>
+							<div class="game-overlay text-center">
+								<h4><a href="#" style="text-transform: initial;">Registrasi</a> </h4><br>
+								<div class="container">
+									<a href="http://wa.me/6289603215099" target="_BLANK" class="btn btn-xs btn-purple mt-1"><i class="icofont-whatsapp"></i> dr. Azka</a><br>
 								</div>
 							</div>
 						</div>
-						<div class="game-item item-layer">
-							<div class="game-item-inner bg-3">
-								<div class="game-thumb">
-									<img src="<?=base_url('themes/bigamer');?>/assets/images/custom/cp3.png" alt="game-img">
-								</div>
-								<div class="game-overlay text-center">
-									<h4><a href="#" style="text-transform: initial;">Ilmiah</a> </h4><br>
-									<div class="container">
-										<a href="http://wa.me/6281220336222" target="_BLANK" class="btn btn-xs btn-purple mt-1"><i class="icofont-whatsapp"></i> dr. Andi Suharso, Sp.N</a><br>
-									</div>
+					</div>
+					<div class="game-item item-layer">
+						<div class="game-item-inner bg-3">
+							<div class="game-thumb">
+								<img src="<?= base_url('themes/bigamer'); ?>/assets/images/custom/cp3.png" alt="game-img">
+							</div>
+							<div class="game-overlay text-center">
+								<h4><a href="#" style="text-transform: initial;">Ilmiah</a> </h4><br>
+								<div class="container">
+									<a href="http://wa.me/6281220336222" target="_BLANK" class="btn btn-xs btn-purple mt-1"><i class="icofont-whatsapp"></i> dr. Andi Suharso, Sp.N</a><br>
 								</div>
 							</div>
 						</div>
-						<div class="game-item item-layer">
-							<div class="game-item-inner bg-4">
-								<div class="game-thumb">
-									<img src="<?=base_url('themes/bigamer');?>/assets/images/custom/cp4.png" alt="game-img">
-								</div>
-								<div class="game-overlay text-center">
-									<h4><a href="#" style="text-transform: initial;">Akomodasi</a> </h4><br>
-									<div class="container">
-										<a href="http://wa.me/6285222625454" target="_BLANK" class="btn btn-xs btn-purple mt-1"><i class="icofont-whatsapp"></i> dr. Rinrin Maharani, Sp.S</a><br>
-									</div>
+					</div>
+					<div class="game-item item-layer">
+						<div class="game-item-inner bg-4">
+							<div class="game-thumb">
+								<img src="<?= base_url('themes/bigamer'); ?>/assets/images/custom/cp4.png" alt="game-img">
+							</div>
+							<div class="game-overlay text-center">
+								<h4><a href="#" style="text-transform: initial;">Akomodasi</a> </h4><br>
+								<div class="container">
+									<a href="http://wa.me/6285222625454" target="_BLANK" class="btn btn-xs btn-purple mt-1"><i class="icofont-whatsapp"></i> dr. Rinrin Maharani, Sp.S</a><br>
 								</div>
 							</div>
 						</div>
-						<div class="game-item item-layer">
-							<div class="game-item-inner bg-5">
-								<div class="game-thumb">
-									<img src="<?=base_url('themes/bigamer');?>/assets/images/custom/cp5.png" alt="game-img">
-								</div>
-								<div class="game-overlay text-center">
-									<h4><a href="#" style="text-transform: initial;">Dana dan Sponsorship</a> </h4><br>
-									<div class="container">
-										<a href="http://wa.me/6285888885010" target="_BLANK" class="btn btn-xs btn-purple mt-1"><i class="icofont-whatsapp"></i> dr. Asnelia Devicaesaria, Sp.S</a><br>
-										<a href="http://wa.me/628122012437" target="_BLANK" class="btn btn-xs btn-purple mt-1"><i class="icofont-whatsapp"></i> dr. Agus Kusnandang, Sp.S</a><br>
-									</div>
+					</div>
+					<div class="game-item item-layer">
+						<div class="game-item-inner bg-5">
+							<div class="game-thumb">
+								<img src="<?= base_url('themes/bigamer'); ?>/assets/images/custom/cp5.png" alt="game-img">
+							</div>
+							<div class="game-overlay text-center">
+								<h4><a href="#" style="text-transform: initial;">Dana dan Sponsorship</a> </h4><br>
+								<div class="container">
+									<a href="http://wa.me/6285888885010" target="_BLANK" class="btn btn-xs btn-purple mt-1"><i class="icofont-whatsapp"></i> dr. Asnelia Devicaesaria, Sp.S</a><br>
+									<a href="http://wa.me/628122012437" target="_BLANK" class="btn btn-xs btn-purple mt-1"><i class="icofont-whatsapp"></i> dr. Agus Kusnandang, Sp.S</a><br>
 								</div>
 							</div>
 						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -931,7 +1112,7 @@
 						<div class="sponsor-item">
 							<div class="sponsor-inner">
 								<div class="sponsor-thumb text-center">
-									<img src="<?=base_url('themes/bigamer');?>/assets/images/custom/sponsor.png" alt="sponsor-thumb">
+									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/custom/sponsor.png" alt="sponsor-thumb">
 								</div>
 							</div>
 						</div>
@@ -940,7 +1121,7 @@
 						<div class="sponsor-item">
 							<div class="sponsor-inner">
 								<div class="sponsor-thumb text-center">
-									<img src="<?=base_url('themes/bigamer');?>/assets/images/custom/sponsor.png" alt="sponsor-thumb">
+									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/custom/sponsor.png" alt="sponsor-thumb">
 								</div>
 							</div>
 						</div>
@@ -949,7 +1130,7 @@
 						<div class="sponsor-item">
 							<div class="sponsor-inner">
 								<div class="sponsor-thumb text-center">
-									<img src="<?=base_url('themes/bigamer');?>/assets/images/custom/sponsor.png" alt="sponsor-thumb">
+									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/custom/sponsor.png" alt="sponsor-thumb">
 								</div>
 							</div>
 						</div>
@@ -963,7 +1144,7 @@
 						<div class="sponsor-item">
 							<div class="sponsor-inner">
 								<div class="sponsor-thumb text-center">
-									<img src="<?=base_url('themes/bigamer');?>/assets/images/custom/sponsor.png" alt="sponsor-thumb">
+									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/custom/sponsor.png" alt="sponsor-thumb">
 								</div>
 							</div>
 						</div>
@@ -972,7 +1153,7 @@
 						<div class="sponsor-item">
 							<div class="sponsor-inner">
 								<div class="sponsor-thumb text-center">
-									<img src="<?=base_url('themes/bigamer');?>/assets/images/custom/sponsor.png" alt="sponsor-thumb">
+									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/custom/sponsor.png" alt="sponsor-thumb">
 								</div>
 							</div>
 						</div>
@@ -981,7 +1162,7 @@
 						<div class="sponsor-item">
 							<div class="sponsor-inner">
 								<div class="sponsor-thumb text-center">
-									<img src="<?=base_url('themes/bigamer');?>/assets/images/custom/sponsor.png" alt="sponsor-thumb">
+									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/custom/sponsor.png" alt="sponsor-thumb">
 								</div>
 							</div>
 						</div>
@@ -990,7 +1171,7 @@
 						<div class="sponsor-item">
 							<div class="sponsor-inner">
 								<div class="sponsor-thumb text-center">
-									<img src="<?=base_url('themes/bigamer');?>/assets/images/custom/sponsor.png" alt="sponsor-thumb">
+									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/custom/sponsor.png" alt="sponsor-thumb">
 								</div>
 							</div>
 						</div>
@@ -1004,7 +1185,7 @@
 						<div class="sponsor-item">
 							<div class="sponsor-inner">
 								<div class="sponsor-thumb text-center">
-									<img src="<?=base_url('themes/bigamer');?>/assets/images/custom/sponsor.png" alt="sponsor-thumb">
+									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/custom/sponsor.png" alt="sponsor-thumb">
 								</div>
 							</div>
 						</div>
@@ -1013,7 +1194,7 @@
 						<div class="sponsor-item">
 							<div class="sponsor-inner">
 								<div class="sponsor-thumb text-center">
-									<img src="<?=base_url('themes/bigamer');?>/assets/images/custom/sponsor.png" alt="sponsor-thumb">
+									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/custom/sponsor.png" alt="sponsor-thumb">
 								</div>
 							</div>
 						</div>
@@ -1027,7 +1208,7 @@
 						<div class="sponsor-item">
 							<div class="sponsor-inner">
 								<div class="sponsor-thumb text-center">
-									<img src="<?=base_url('themes/bigamer');?>/assets/images/custom/sponsor.png" alt="sponsor-thumb">
+									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/custom/sponsor.png" alt="sponsor-thumb">
 								</div>
 							</div>
 						</div>
@@ -1036,7 +1217,7 @@
 						<div class="sponsor-item">
 							<div class="sponsor-inner">
 								<div class="sponsor-thumb text-center">
-									<img src="<?=base_url('themes/bigamer');?>/assets/images/custom/sponsor.png" alt="sponsor-thumb">
+									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/custom/sponsor.png" alt="sponsor-thumb">
 								</div>
 							</div>
 						</div>
@@ -1048,37 +1229,39 @@
 	<!-- ===========Sponsor Section Ends Here========== -->
 
 	<!-- ================ footer Section start Here =============== -->
-    <footer class="footer-section">
-        <div class="footer-middle padding-bottom" style="background-image: url(<?=base_url('themes/bigamer');?>/assets/images/footer/bg-2.jpg);">
-            <div class="container">
-                <div class="row padding-lg-top">
-                    <div class="col-lg-3 col-sm-6 col-12">
-                        <div class="footer-middle-item-wrapper">
-                            <div class="footer-middle-item mb-lg-0">
-                                <div class="fm-item-title">
-                                    <h5>Tanggal Penting</h5>
+	<footer class="footer-section">
+		<div class="footer-middle padding-bottom" style="background-image: url(<?= base_url('themes/bigamer'); ?>/assets/images/footer/bg-2.jpg);">
+			<div class="container">
+				<div class="row padding-lg-top">
+					<div class="col-lg-3 col-sm-6 col-12">
+						<div class="footer-middle-item-wrapper">
+							<div class="footer-middle-item mb-lg-0">
+								<div class="fm-item-title">
+									<h5>Tanggal Penting</h5>
 									<hr>
-                                </div>
-                                <div class="fm-item-content">
+								</div>
+								<div class="fm-item-content">
 									<ul style="font-size: 15px;">
-										<li>Batas Pengumpulan Abstrak : 12 Oktober 2022</li>
-										<li>Pengumuman Penerimaan Abstrak : 24 Oktober 2022</li>
-										<li>Program Ilmiah : 17  18 November 2022 Workshop, dan 19– 20 November 2022 Simposium</li>
-										<li>E-Poster - Presentasi Oral : 19 November 2022</li>
+										<li>Batas Pengumpulan Abstrak : 21 Oktober 2022</li>
+										<li>Batas Pengumpulan Naskah Lengkap : 28 Oktober 2022</li>
+										<li>Pengumuman Penerimaan Abstrak : 04 November 2022</li>
+										<li>Program Ilmiah : 17 18 November 2022 untuk Workshop, dan 19– 20 November 2022 Simposium</li>
+										<li>E-Poster / Presentasi Oral : 19 November 2022</li>
+										<li>Pengumuman Pemenang : 20 November 2022</li>
 									</ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 col-12">
-                        <div class="footer-middle-item-wrapper">
-                            <div class="footer-middle-item mb-lg-0">
-                                <div class="fm-item-title">
-                                    <h5>Workshop</h5>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3 col-sm-6 col-12">
+						<div class="footer-middle-item-wrapper">
+							<div class="footer-middle-item mb-lg-0">
+								<div class="fm-item-title">
+									<h5>POKDI</h5>
 									<hr>
-                                </div>
-                                <div class="fm-item-content">
-                                    <ul style="font-size: 15px;">
+								</div>
+								<div class="fm-item-content">
+									<ul style="font-size: 15px;">
 										<li>Stroke dan Pembuluh Darah,</li>
 										<li>Neurointervensi</li>
 										<li>Neurointensif</li>
@@ -1089,89 +1272,89 @@
 										<li>Neuroimaging</li>
 										<li>Neuroonkologi</li>
 									</ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+								</div>
+							</div>
+						</div>
+					</div>
 					<div class="col-lg-3 col-sm-6 col-12">
-                        <div class="footer-middle-item-wrapper">
-                            <div class="footer-middle-item mb-lg-0">
-                                <div class="fm-item-title">
-                                    <h5>Biaya Registrasi</h5>
+						<div class="footer-middle-item-wrapper">
+							<div class="footer-middle-item mb-lg-0">
+								<div class="fm-item-title">
+									<h5>Biaya Registrasi Simposium</h5>
 									<hr>
-                                </div>
-                                <div class="fm-item-content">
-                                    <ul style="font-size: 15px;">
+								</div>
+								<div class="fm-item-content">
+									<ul style="font-size: 15px;">
 										<b>Early Bird</b> <br>
 										<li>Spesialist : Rp. 3.000.000</li>
 										<li>Resident : Rp. 1.500.000</li>
 										<li>GP : Rp. 1.500.000</li> <br>
-										<b>Regular</b> <br>
+										<b>Regular and Onsite</b> <br>
 										<li>Spesialist : Rp. 3.500.000</li>
 										<li>Resident : Rp. 1.750.000</li>
 										<li>GP : Rp. 1.750.000</li>
 									</ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-sm-6 col-12">
-                        <div class="footer-middle-item-wrapper">
-                            <div class="footer-middle-item mb-lg-0">
-                                <div class="fm-item-title">
-                                    <h5>Masuk / Registrasi</h5>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3 col-sm-6 col-12">
+						<div class="footer-middle-item-wrapper">
+							<div class="footer-middle-item mb-lg-0">
+								<div class="fm-item-title">
+									<h5>Masuk / Registrasi</h5>
 									<hr>
-                                </div>
-                                <div class="fm-item-content">
-                                    <div class="d-grid">
+								</div>
+								<div class="fm-item-content">
+									<div class="d-grid">
 										<a href="#sign-in" class="btn btn-edge btn-purple"> Masuk Login</a><br>
-										<a href="<?=base_url('member/register');?>" class="btn btn-edge btn-purple"> Registrasi Individu</a><br>
-										<a href="<?=base_url('member/register/group');?>" class="btn btn-edge btn-purple"> Registrasi Grup/ Kelompok</a><br>
+										<a href="<?= base_url('member/register'); ?>" class="btn btn-edge btn-purple"> Registrasi Individu</a><br>
+										<a href="<?= base_url('member/register/group'); ?>" class="btn btn-edge btn-purple"> Registrasi Grup/ Kelompok</a><br>
 									</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <div class="container">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="footer-bottom-content text-center">
-                            <p>&copy;2022 <a href="#home">PIN PERDOSSI CIREBON</a></p>
-                          	<p><a href="https://wa.me/6282154950326" target="_blank">Web Developer by CV Meta Medika - Click here to Chat WA 082154950326</a></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-    <!-- ================ footer Section end Here =============== -->
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="footer-bottom">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<div class="footer-bottom-content text-center">
+							<p>&copy;2022 <a href="#home">PIN PERDOSSI CIREBON</a></p>
+							<p><a href="https://wa.me/6282154950326" target="_blank">Web Developer by CV Meta Medika - Click here to Chat WA 082154950326</a></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<!-- ================ footer Section end Here =============== -->
 
 
 	<!-- All Needed JS -->
-	<script src="<?=base_url('themes/bigamer');?>/assets/js/vendor/jquery-3.6.0.min.js"></script>
-	<script src="<?=base_url('themes/bigamer');?>/assets/js/vendor/modernizr-3.11.2.min.js"></script>
-	<script src="<?=base_url('themes/bigamer');?>/assets/js/circularProgressBar.min.js"></script>
-	<script src="<?=base_url('themes/bigamer');?>/assets/js/isotope.pkgd.min.js"></script>
-	<script src="<?=base_url('themes/bigamer');?>/assets/js/swiper.min.js"></script>
-	<script src="<?=base_url('themes/bigamer');?>/assets/js/lightcase.js"></script>
-	<script src="<?=base_url('themes/bigamer');?>/assets/js/waypoints.min.js"></script>
-	<script src="<?=base_url('themes/bigamer');?>/assets/js/wow.min.js"></script>
-	<script src="<?=base_url('themes/bigamer');?>/assets/js/vendor/bootstrap.bundle.min.js"></script>
-	<script src="<?=base_url('themes/bigamer');?>/assets/js/plugins.js"></script>
-	<script src="<?=base_url('themes/bigamer');?>/assets/js/main.js"></script>
-	<script src="<?=base_url('themes/bigamer');?>/assets/js/custom.js"></script>
-    <script src="<?= base_url('themes/gigaland'); ?>/js/jquery.plugin.js"></script>
-    <script src="<?= base_url('themes/gigaland'); ?>/js/jquery.countTo.js"></script>
-    <script src="<?= base_url('themes/gigaland'); ?>/js/jquery.countdown.js"></script>
+	<script src="<?= base_url('themes/bigamer'); ?>/assets/js/vendor/jquery-3.6.0.min.js"></script>
+	<script src="<?= base_url('themes/bigamer'); ?>/assets/js/vendor/modernizr-3.11.2.min.js"></script>
+	<script src="<?= base_url('themes/bigamer'); ?>/assets/js/circularProgressBar.min.js"></script>
+	<script src="<?= base_url('themes/bigamer'); ?>/assets/js/isotope.pkgd.min.js"></script>
+	<script src="<?= base_url('themes/bigamer'); ?>/assets/js/swiper.min.js"></script>
+	<script src="<?= base_url('themes/bigamer'); ?>/assets/js/lightcase.js"></script>
+	<script src="<?= base_url('themes/bigamer'); ?>/assets/js/waypoints.min.js"></script>
+	<script src="<?= base_url('themes/bigamer'); ?>/assets/js/wow.min.js"></script>
+	<script src="<?= base_url('themes/bigamer'); ?>/assets/js/vendor/bootstrap.bundle.min.js"></script>
+	<script src="<?= base_url('themes/bigamer'); ?>/assets/js/plugins.js"></script>
+	<script src="<?= base_url('themes/bigamer'); ?>/assets/js/main.js"></script>
+	<script src="<?= base_url('themes/bigamer'); ?>/assets/js/custom.js"></script>
+	<script src="<?= base_url('themes/gigaland'); ?>/js/jquery.plugin.js"></script>
+	<script src="<?= base_url('themes/gigaland'); ?>/js/jquery.countTo.js"></script>
+	<script src="<?= base_url('themes/gigaland'); ?>/js/jquery.countdown.js"></script>
 
 
 	<!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
 	<script>
-		window.ga = function () {
+		window.ga = function() {
 			ga.q.push(arguments)
 		};
 		ga.q = [];
@@ -1180,15 +1363,44 @@
 		ga('set', 'anonymizeIp', true);
 		ga('set', 'transport', 'beacon');
 		ga('send', 'pageview');
-		$(function(){
+		$(function() {
 			$('.de_countdown').each(function() {
-             var y = $(this).data('year');
-             var m = $(this).data('month');
-             var d = $(this).data('day');
-             var h = $(this).data('hour');
-             $(this).countdown({until: new Date(y, m-1, d, h)});
-         });
+				var y = $(this).data('year');
+				var m = $(this).data('month');
+				var d = $(this).data('day');
+				var h = $(this).data('hour');
+				$(this).countdown({
+					until: new Date(y, m - 1, d, h)
+				});
+			});
 		})
+
+		$('.item-seven').on('click', function(e) {
+			e.preventDefault();
+			$('.one').hide();
+			$('.two').hide();
+			$('.three').hide();
+			$('.four').hide();
+			$('.five').hide();
+			$('.six').hide();
+			$('.seven').show();
+			$('#collapseWisataKuliner').addClass("show");
+		});
+
+		$('#headingWisataKuliner').on('click', function(e) {
+			$('#collapseWisataTempat').removeClass("show");
+			$('#collapseTravel').removeClass("show");
+		});
+
+		$('#headingWisataTempat').on('click', function(e) {
+			$('#collapseWisataKuliner').removeClass("show");
+			$('#collapseTravel').removeClass("show");
+		});
+
+		$('#headingTravel').on('click', function(e) {
+			$('#collapseWisataKuliner').removeClass("show");
+			$('#collapseWisataTempat').removeClass("show");
+		});
 	</script>
 
 </body>

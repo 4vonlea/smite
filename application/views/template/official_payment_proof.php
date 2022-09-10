@@ -227,7 +227,7 @@ $isGroup = ($member == null);
 		<small style="font-size:9pt;clear:both">*The amount price above has included online bank payment administration fees</small>
 
 		<p>
-			This payment proof (receipt) is a valid document and please used it properly. If needed, participants should show this receipt to the committee at the time of re-registration. Thank you
+			<strong>No refund may be allowed after transaction</strong>. This payment proof (receipt) is a valid document and please used it properly. If needed, participants should show this receipt to the committee at the time of re-registration. Thank you
 		</p>
 		<?php
 		$this->load->view("template/invoice_payment_signature");
