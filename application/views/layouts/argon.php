@@ -195,9 +195,21 @@ function hideForRole($role, $listRole)
 						</a>
 					</li>
 					<li class="nav-item  <?= hideForRole($role, ['3', '4','5']); ?>">
-						<a class="nav-link" href="<?= base_url('admin/event'); ?>">
-							<i class="ni ni-planet text-blue"></i> Events List
+						<a class="nav-link" href="#homesubmenu" data-toggle="collapse" class="dropdown-toggle">
+							<i class="ni ni-planet text-blue"></i> Events
 						</a>
+						<ul class="collapse list-unstyled" id="homesubmenu" style="padding-left: 20px;" >
+                        <li class="nav-item">
+                            <a  class="nav-link" href="<?= base_url('admin/event'); ?>">
+                                <i class="ni ni-shop text-blue"></i> List & Pricing </a>
+                            </a>
+                        </li>
+						<li class="nav-item">
+                            <a  class="nav-link" href="<?= base_url('admin/event_discount'); ?>">
+                                <i class="ni ni-money-coins text-blue"></i> Discount </a>
+                            </a>
+                        </li>
+                    </ul>
 					</li>
 					<li class="nav-item  <?= hideForRole($role, ['3']); ?>">
 						<a class="nav-link" href="<?= base_url('admin/transaction'); ?>">

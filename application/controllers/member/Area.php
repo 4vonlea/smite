@@ -274,7 +274,7 @@ class Area extends MY_Controller
 		if ($this->input->method() !== 'post')
 			show_404("Page not found !");
 		$id = $this->input->post('id');
-		$this->load->model(["Transaction_detail_m"]);
+		$this->load->model(["Transaction_detail_m","Transaction_m"]);
 		$this->Transaction_detail_m->delete($id);
 		$count = $this->Transaction_detail_m->find()->select("SUM(price) as c")
 			->where('transaction_id', $this->input->post("transaction_id"))
@@ -283,6 +283,7 @@ class Area extends MY_Controller
 		if ($count['c'] == 0) {
 			$this->Transaction_detail_m->delete(['event_pricing_id' => 0, 'transaction_id' => $this->input->post("transaction_id")]);
 		}
+		$this->Transaction_m->setDiscount($this->input->post("transaction_id"));
 		$this->output->set_content_type("application/json")
 			->_display('{"status":true}');
 	}
@@ -449,6 +450,7 @@ class Area extends MY_Controller
 			$fee->save();
 		}
 		$response['id'] = $transaction->id;
+		$this->Transaction_m->setDiscount($transaction->id);
 		$this->Transaction_m->getDB()->trans_complete();
 
 		$this->output->set_content_type("application/json")

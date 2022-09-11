@@ -263,7 +263,7 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-6">
-                                <h3>Event List</h3>
+                                <h3>Event List & Pricing</h3>
                             </div>
                             <div class="col-6 text-right">
                                 <button @click="onAdd" type="button" class="btn btn-primary"><i class="fa fa-plus"></i>

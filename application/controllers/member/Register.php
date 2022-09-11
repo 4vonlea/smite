@@ -710,7 +710,6 @@ class Register extends MY_Controller
 				$response['status'] = false;
 				$response['message'] = "You are prohibited from following !";
 			}
-			$this->Transaction_m->getDB()->trans_complete();
 		}
 		$feeAlready = false;
 		$fee = $this->Transaction_detail_m->findOne(['transaction_id' => $transaction->id, 'member_id' => $data['id'],  'event_pricing_id' => 0]);
@@ -730,6 +729,9 @@ class Register extends MY_Controller
 				$fee->save();
 			}
 		}
+		$this->Transaction_m->setDiscount($transaction->id);
+		$this->Transaction_m->getDB()->trans_complete();
+
 	}
 
 	/**
