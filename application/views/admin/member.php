@@ -115,6 +115,19 @@ $this->layout->begin_head();
 				</div>
 				<div class="card-body">
 					<div class="form-group">
+						<label class="form-check-label">NIK</label>
+						<div class="input-group">
+							<input type="text" class="form-control" v-model="profile.nik" />
+							<div class="input-group-append">
+								<button @click="checkMember" :disabled="checkingMember" class="btn btn-outline-primary" type="button">
+									Cek NIK di Database P2KB
+									<i v-if="checkingMember" class="fa fa-spin fa-spinner"></i>
+								</button>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-group">
 						<label class="form-check-label">Email</label>
 						<input type="text" class="form-control" v-model="profile.email" />
 					</div>
@@ -135,10 +148,6 @@ $this->layout->begin_head();
 					<div class="form-group">
 						<label class="form-check-label">Alternatif Status 2 (Optional)</label>
 						<input type="text" class="form-control" v-model="profile.alternatif_status2" />
-					</div>
-					<div class="form-group">
-						<label class="form-check-label">NIK</label>
-						<input type="text" class="form-control" v-model="profile.nik" />
 					</div>
 					<div class="form-group">
 						<label class="form-check-label">Fullname</label>
@@ -452,8 +461,27 @@ $this->layout->begin_head();
 			savingCheck: false,
 			savingProfile: false,
 			sendingCertificate: false,
+			checkingMember:false,
 		},
 		methods: {
+			checkMember() {
+                this.checkingMember = true;
+                $.get("<?=base_url("member/register/info_member_perdossi/");?>" + this.profile.nik, (res) => {
+                    if (res.message == "success") {
+                        Swal.fire('Info', `Keanggotaan berhasil dicek. <br/> Data KTA, Nama, Email dan No Telpon telah diubah<br/> Silakah disimpan`, 'info');
+                        this.profile.kta = res.member.perdossi_no;
+                        this.profile.fullname = `${res.member.member_title_front} ${res.member.fullname} ${res.member.member_title_back}`;
+                        this.profile.email = res.member.email;
+                        this.profile.phone = res.member.member_phone;
+                    } else {
+                        Swal.fire('Info', `NIK.${this.profile.nik} : ${res.message}`, 'info');
+                    }
+                }).always(() => {
+                    this.checkingMember = false;
+                }).fail(() => {
+                    Swal.fire('Fail', 'Failed to get member information in perdossi API', 'error')
+                })
+            },
 			formatDate(date) {
 				return moment(date).format("DD MMM YYYY, [At] HH:mm:ss");
 			},

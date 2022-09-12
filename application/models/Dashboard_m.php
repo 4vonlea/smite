@@ -191,7 +191,7 @@ class Dashboard_m extends CI_Model
 	public function getDataMember()
 	{
 		$this->load->model(["Transaction_m", "Papers_m"]);
-		$query = 'SELECT GROUP_CONCAT(t.event_id SEPARATOR ";") AS event_follow, m.id,m.fullname,m.gender,m.birthday,m.phone,m.email,m.birthday,m.city,m.address,p.`status` AS paper
+		$query = 'SELECT GROUP_CONCAT(t.event_id SEPARATOR ";") AS event_follow, m.id,m.nik,m.kta,m.fullname,m.gender,m.birthday,m.phone,m.email,m.birthday,m.city,m.address,p.`status` AS paper
 					FROM members m
 					LEFT JOIN (
 					SELECT ep.event_id,td.member_id
