@@ -61,7 +61,7 @@ class Papers_m extends MY_Model
 					return (count(explode(" ", trim($value))) <= 300);
 				}
 			]], 'errors' => ['max_word' => '{field} Maksimal 300 Kata']],
-			//			['field' => 'aims', 'label' => 'aims', 'rules' => 'required'],
+			['field' => 'member_id', 'label' => 'Participant', 'rules' => 'required'],
 			['field' => 'methods', 'label' => 'Type Of Study', 'rules' => 'required'],
 			['field' => 'category', 'label' => 'Category Paper', 'rules' => 'required'],
 			//			['field' => 'result', 'label' => 'result', 'rules' => 'required'],

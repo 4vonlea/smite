@@ -615,7 +615,9 @@ class Area extends MY_Controller
 		$this->load->library('upload', $config);
 		$this->load->model(["Papers_m","Notification_m"]);
 		$upload = $this->upload->do_upload('file');
-		$validation = $this->Papers_m->validate($this->input->post());
+		$post = $this->input->post();
+		$post['member_id'] = $this->session->user_session['id'];
+		$validation = $this->Papers_m->validate($post);
 		if ($upload && $validation) {
 			$paper = Papers_m::findOne(['id' => $this->input->post('id')]);
 			$checkSameTitle = Papers_m::findOne(['member_id'=>$this->session->user_session['id'],'title'=>$this->input->post('title',false)]);

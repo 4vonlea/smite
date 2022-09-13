@@ -183,7 +183,7 @@ $this->layout->end_head();
 						</button>
 						<button v-if="isAdmin" type="button" class="btn btn-primary m-2" data-toggle="modal" data-target="#modal-category-paper"><i class="fa fa-book"></i> Category Paper
 						</button>
-
+						<a href="<?=base_url('admin/paper/form_paper');?>" class="btn btn-primary">Add Paper</a>
 					</div>
 				</div>
 			</div>
