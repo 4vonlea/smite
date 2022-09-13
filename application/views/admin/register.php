@@ -220,6 +220,13 @@ $this->layout->begin_head();
 								</div>
 							</div>
 						</div>
+
+						<div class="form-group row">
+							<label class="col-lg-3 control-label">Status Payment</label>
+							<div class="col-lg-5">
+								<?= form_dropdown('status_payment', ['pending'=>'Pending','settlement'=>'settlement'], 'pending', [':class' => "{'is-invalid':validation_error.status}", 'class' => 'form-control', 'placeholder' => 'Select your status !', 'v-model' => 'status_payment']); ?>
+							</div>
+						</div>
 						<div class="form-group row">
 							<label class="col-lg-3 control-label">Code Reference/Message</label>
 							<div class="col-lg-5">
@@ -287,6 +294,7 @@ $this->layout->begin_head();
 			listStatus: <?= json_encode($participantsCategory); ?>,
 			status_participant: '',
 			channel: 'CASH',
+			status_payment:'pending',
 			saving: false,
 			validation_error: {},
 			events: <?= json_encode($events); ?>,

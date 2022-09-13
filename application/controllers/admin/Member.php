@@ -269,7 +269,7 @@ class Member extends Admin_Controller
 					'checkout' => 1,
 					'message_payment' => $data['message_payment'],
 					'channel' => $data['channel'],
-					'status_payment' => Transaction_m::STATUS_FINISH,
+					'status_payment' => $data['status_payment'],// Transaction_m::STATUS_FINISH,
 					'payment_proof' => $data['payment_proof'],
 					'midtrans_data' => $data['channel'] == Transaction_m::CHANNEL_GL ? json_encode(['sponsorName'=>$this->input->post("sponsor")]) : ""
 				]);
@@ -310,8 +310,11 @@ class Member extends Admin_Controller
 					$email_message = $this->load->view('template/email/success_register_onsite', $data, true);
 					$attc = [
 						$data['fullname'] . '-invoice.pdf' => $tr->exportInvoice()->output(),
-						$data['fullname'] . '-bukti_registrasi.pdf' => $tr->exportPaymentProof()->output()
 					];
+					if($tr->status_payment == Transaction_m::STATUS_FINISH){
+						$attc[$data['fullname'] . '-bukti_registrasi.pdf'] = $tr->exportPaymentProof()->output();
+					}
+
 					$details = $tr->detailsWithEvent();
 					foreach ($details as $row) {
 						if ($row->event_name) {
@@ -356,10 +359,6 @@ class Member extends Admin_Controller
 				'univDl' => $univDl,
 				'countryDl' => $countryDl,
 			];
-			// echo '<pre>';
-			// print_r($data);
-			// echo '</pre>';
-			// exit;
 			$this->layout->render("register", $data);
 		}
 	}
@@ -521,8 +520,6 @@ class Member extends Admin_Controller
 			$bill_to = $this->input->post('bill_to');
 			$email_group = $this->input->post('email_group');
 
-			$channel = 'CASH';
-			// $channel = $this->input->post('channel');
 			$id_invoice = $this->Transaction_m->generateInvoiceId();
 			$error = [];
 
@@ -564,11 +561,6 @@ class Member extends Admin_Controller
 				}
 			}
 
-			// echo '<pre>';
-			// print_r($_POST);
-			// echo '</pre>';
-			// exit;
-
 			// NOTE Validation Members
 			$count = 0;
 			foreach ($model['members'] as $key => $val) {
@@ -604,8 +596,8 @@ class Member extends Admin_Controller
 					'member_id' => "REGISTER-GROUP : {$bill_to}",
 					'checkout' => 1,
 					'message_payment' => '',
-					'channel' => $channel,
-					'status_payment' => Transaction_m::STATUS_FINISH,
+					'channel' => $this->input->post('channel'),//$channel,
+					'status_payment' => $this->input->post('status_payment'),//Transaction_m::STATUS_FINISH,
 					'payment_proof' => $data['payment_proof'],
 					'email_group' => $email_group,
 				]);
@@ -700,8 +692,10 @@ class Member extends Admin_Controller
 						$email_message = $this->load->view('template/email/success_register_onsite', $data, true);
 						$attc = [
 							$data['fullname'] . '-invoice.pdf' => $tr->exportInvoice()->output(),
-							$data['fullname'] . '-bukti_registrasi.pdf' => $tr->exportPaymentProof()->output()
 						];
+						if($this->input->post('status_payment') == Transaction_m::STATUS_FINISH){
+							$attc[$data['fullname'] . '-bukti_registrasi.pdf'] = $tr->exportPaymentProof()->output();
+						}
 						$details = $tr->detailsWithEvent();
 						foreach ($details as $row) {
 							if ($row->event_name) {

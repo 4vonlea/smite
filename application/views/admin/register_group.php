@@ -54,6 +54,20 @@ $this->layout->begin_head();
 							</div>
 						</div>
 
+						<div class="form-group row">
+							<label class="col-lg-3 control-label">Method Payment</label>
+							<div class="col-lg-5">
+								<?= form_dropdown('channel', ['CASH' => 'CASH', 'EDC' => 'EDC', 'MANUAL TRANSFER' => 'MANUAL TRANSFER', Transaction_m::CHANNEL_GL => Transaction_m::CHANNEL_GL], 'CASH', [':class' => "{'is-invalid':validation_error.status}", 'class' => 'form-control', 'placeholder' => 'Select your status !', 'v-model' => 'channel']); ?>
+							</div>
+						</div>
+
+						<div class="form-group row">
+							<label class="col-lg-3 control-label">Status Payment</label>
+							<div class="col-lg-5">
+								<?= form_dropdown('status_payment', ['pending'=>'Pending','settlement'=>'settlement'], 'pending', [':class' => "{'is-invalid':validation_error.status}", 'class' => 'form-control', 'placeholder' => 'Select your status !', 'v-model' => 'status_payment']); ?>
+							</div>
+						</div>
+
 						<!-- NOTE Events -->
 						<!-- <div class="form-group row">
 							<label class="col-lg-3 control-label">Pilih Events</label>
@@ -231,6 +245,7 @@ $this->layout->begin_head();
 			univ: "",
 			listStatus: <?= json_encode($participantsCategory); ?>,
 			channel: 'CASH',
+			status_payment:'pending',
 			saving: false,
 			validation_error: {},
 			events: <?= json_encode($events); ?>
