@@ -414,6 +414,25 @@ class Event_m extends MY_Model
 	}
 
 	/**
+	 * @param $hasheId hash SHA1 ID Transaction Details
+	 */
+	public function viewCertificate($hashedId){
+		$tr = $this->db->from("transaction_details")->join("event_pricing","event_pricing.id = event_pricing_id")
+				->join("transaction","transaction.id = transaction_id")
+				->join("members","members.id = transaction_details.member_id")
+				->join("kategory_members","kategory_members.id = status")
+				->join("events","events.id = event_pricing.event_id")
+				->where("transaction.status_payment",Transaction_m::STATUS_FINISH)
+				->where("sha1(transaction_details.id)",$hashedId)
+				->select("transaction_id,members.id,fullname,email,kategory_members.kategory as status_member,alternatif_status,alternatif_status2")
+				->select("nik,events.name as event_name,events.id as id_event")->get()->row_array();
+		return [
+			'sertifikat'=>$this->exportCertificate($tr,$tr['id_event']),
+			'data'=>$tr,
+		];
+	}
+
+	/**
 	 * @param $id
 	 * @param $data
 	 * @return Dompdf
@@ -435,8 +454,8 @@ class Event_m extends MY_Model
 				->join("transaction","transaction.id = transaction_id")
 				->where("transaction_details.member_id",$data['id'])
 				->where("transaction.status_payment",Transaction_m::STATUS_FINISH)
-				->where("event_id",$id)->select("transaction_id")->get()->row();
-			$data['qr'] = $tr->transaction_id ?? "-";
+				->where("event_id",$id)->select("transaction_id,transaction_details.id as id_detil")->get()->row();
+			$data['qr'] = $tr->transaction_id ? base_url("site/sertifikat/".sha1($tr->id_detil)) : "-";
 			$data['event_name'] = $event_name;
 			$domInvoice = new Dompdf();
 			$propery = json_decode(Settings_m::getSetting("config_cert_$id"), true);

@@ -7,7 +7,9 @@ class LogQuery {
         $db = $CI->load->database('',true);
         $username = $CI->session->user_session['username'] ?? "-";
         $ip = $CI->input->ip_address();
-        $request = json_encode(array_merge($CI->input->get(),$CI->input->post()));
+        $postData = $CI->input->post();
+        unset($postData['secondPage']);
+        $request = json_encode(array_merge($CI->input->get(),$postData));
         $controller = $CI->input->server('REQUEST_URI');
         foreach ($CI->db->queries as $key => $query) {
             $date = date('Y-m-d H:i:s');

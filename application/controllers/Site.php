@@ -372,6 +372,21 @@ class Site extends MY_Controller
         $this->VideoM->delete_komen($idkomen);
         echo json_encode(array("status" => true));
     }
+
+    public function sertifikat($hashedId,$isSertifikat = null){
+
+        $this->load->model("Event_m");
+        $viewData = $this->Event_m->viewCertificate($hashedId);
+        $viewData['hashedId'] = $hashedId;
+        if($isSertifikat && $isSertifikat != ""){
+            $viewData['sertifikat']->stream();
+        }else{
+            $viewData['ketua_panitia'] = Settings_m::getSetting("ketua_panitia");
+            $this->layout->render("site/".$this->theme."/view_sertifikat",
+                $viewData,
+            );
+        }
+    }
     
     public function test(){
         $this->load->library('Api_perdossi');
