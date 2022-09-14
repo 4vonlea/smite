@@ -413,7 +413,7 @@ class Payment extends MY_Controller
 			$sign = "##$keySignature##$rq_uuid##$rq_datetime##$order_id##$error_code##$service_name##";
 		}else if($service_name == "SENDINVOICE"){
 			$sign = "##$keySignature##$rq_uuid##$rq_datetime##$order_id##$amount##IDR##$comm_code##$service_name##";
-		}else{
+		}else {
 			$sign = "##$keySignature##$rq_datetime##$order_id##$service_name##";
 		}
 		$sign = strtoupper($sign);
@@ -482,6 +482,22 @@ class Payment extends MY_Controller
 			'signature'=>$signature,
 		]);
 		echo $response;
+	}
+
+	public function set_expired($id_invoice){
+		$espayConfig = Settings_m::getEspay();
+		$rs_date =  date("Y-m-d H:i:s");
+		$uuid = md5($rs_date);
+		$signature = $this->create_signature_espay($espayConfig['signature'],$id_invoice,'EXPIRETRANSACTION',$rs_date,$uuid,"","");
+		$response = $this->request($espayConfig['apiLink']."updateexpire",[
+			'uuid'=>$uuid,
+			'rq_datetime'=>$rs_date,
+			'comm_code'=>$espayConfig['merchantCode'],
+			'order_id'=>$id_invoice,
+			'tx_remark'=>'IDR',
+			'signature'=>$signature
+		]);
+		var_dump($response);
 	}
 
 	protected function request($url,$params){

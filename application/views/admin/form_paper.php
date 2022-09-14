@@ -344,6 +344,8 @@
                             if (response.status) {
                                 Swal.fire('Success', "Manuscript Success Submited!", 'success');
                                 window.location = "<?=base_url('admin/paper');?>";
+                            }else{
+                                page.error_upload = response.message;
                             }
                         },
                     }).always(function() {
