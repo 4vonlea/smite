@@ -490,11 +490,11 @@ class Payment extends MY_Controller
 		$uuid = md5($rs_date);
 		$signature = $this->create_signature_espay($espayConfig['signature'],$id_invoice,'EXPIRETRANSACTION',$rs_date,$uuid,"","");
 		$response = $this->request($espayConfig['apiLink']."updateexpire",[
-			'uuid'=>$uuid,
+			'rq_uuid'=>$uuid,
 			'rq_datetime'=>$rs_date,
 			'comm_code'=>$espayConfig['merchantCode'],
 			'order_id'=>$id_invoice,
-			'tx_remark'=>'IDR',
+			'tx_remark'=>'EXPIRED',
 			'signature'=>$signature
 		]);
 		var_dump($response);
