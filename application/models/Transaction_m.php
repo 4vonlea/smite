@@ -357,6 +357,7 @@ class Transaction_m extends MY_Model
 
 			if(count($criteria) > 1){
 				$discount = $this->db->where($criteria)
+							->where('JSON_LENGTH(event_combination)',count($criteria))
 							->order_by("discount","ASC")
 							->limit(1)
 							->get("event_discount")->row();
