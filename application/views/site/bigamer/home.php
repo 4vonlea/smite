@@ -128,7 +128,7 @@
 					<h1 class="header-title">PIN PERDOSSI CIREBON</h1>
 					<p style="text-transform: initial; font-size: 32px;">5.0 Neurotech : A New Innovationto Enchance <br> Neuroscience and Reshape NeuroSociety</p>
 					<p style="text-transform: initial;">17 - 20 November 2022</p>
-					<a href="https://drive.google.com/file/d/1tWvDqAwdV2EXNminwN6hdi6hzjdLZ_Iy/view?usp=sharing" class="default-button reverse-effect"><span>Unduh First Announcement disini <i class="icofont-play-alt-1"></i></span> </a>
+					<a href="https://drive.google.com/file/d/1Ec8lmPaREBlWu9cH9T2WPYeCZ-wtt0vv/view?usp=sharing" class="default-button reverse-effect"><span>Unduh Second Announcement disini (rilis 12 September 2022)<i class="icofont-play-alt-1"></i></span> </a>
 				</div>
 				<div class="banner-thumb d-flex flex-wrap justify-content-center justify-content-between align-items-center align-items-lg-end">
 					<div class="banner-thumb-img ml-xl-50-none">
@@ -323,10 +323,110 @@
 												<div class="row align-items-center justify-content-center">
 													<div class="col-md-8 order-md-2 mt-4 mt-md-0">
 														<div class="match-game-info text-center">
-															<h4><a href="" style="text-transform: initial;">Neurobehaviour</a>
+															<h4><a href="" style="text-transform: initial;">Neurobehaviour: Fit and Unfit Test</a>
 															</h4>
 															<p class="d-flex flex-wrap justify-content-center">
-																<span class="match-date">Hotel Aston Cirebon | Kamis, 17 November 2022 | Time: 07:30 - 16:30</span>
+																<span class="match-date">Hotel Aston Cirebon | 17 atau 18 November 2022 | Time: 07:30 - 16:30</span>
+															</p>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-12">
+									<div class="match-item-2 item-layer">
+										<div class="match-inner">
+											<div class="match-header d-flex flex-wrap justify-content-between align-items-center">
+												<p class="match-team-info" style="text-transform: initial;">
+													Minimal : <span class="fw-bold">30 Orang</span>
+												</p>
+												<p class="match-prize" style="text-transform: initial;">Rp. <span class="fw-bold">4 juta | Onsite: 4,5 juta</span></p>
+											</div>
+											<div class="match-content gradient-bg-blue">
+												<div class="row align-items-center justify-content-center">
+													<div class="col-md-8 order-md-2 mt-4 mt-md-0">
+														<div class="match-game-info text-center">
+															<h4><a href="" style="text-transform: initial;">Code Stroke</a>
+															</h4>
+															<p class="d-flex flex-wrap justify-content-center">
+																<span class="match-date">Hotel Aston Cirebon | Kamis, 17 November 2022 | Time: 08:00 - end</span>
+															</p>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-12">
+									<div class="match-item-2 item-layer">
+										<div class="match-inner">
+											<div class="match-header d-flex flex-wrap justify-content-between align-items-center">
+												<p class="match-team-info" style="text-transform: initial;">
+													Minimal : <span class="fw-bold">30 orang</span>
+												</p>
+												<p class="match-prize" style="text-transform: initial;">Rp. <span class="fw-bold">3,5 juta | Onsite: 4 juta</span></p>
+											</div>
+											<div class="match-content gradient-bg-blue">
+												<div class="row align-items-center justify-content-center">
+													<div class="col-md-8 order-md-2 mt-4 mt-md-0">
+														<div class="match-game-info text-center">
+															<h4><a href="" style="text-transform: initial;">Neurorestorasi: Multimodality and Comprehensive Approach of Neurorestoration-Neuroengineering to Solve Neurological Problems</a>
+															</h4>
+															<p class="d-flex flex-wrap justify-content-center">
+																<span class="match-date">Hotel Aston Cirebon | Kamis, 17 November 2022 | Time: 07:30 - 16.30 WIB</span>
+															</p>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-12">
+									<div class="match-item-2 item-layer">
+										<div class="match-inner">
+											<div class="match-header d-flex flex-wrap justify-content-between align-items-center">
+												<p class="match-team-info" style="text-transform: initial;">
+													Minimal : <span class="fw-bold">30 Orang</span>
+												</p>
+												<p class="match-prize" style="text-transform: initial;">Rp. <span class="fw-bold">4 juta | Onsite: 4,5 juta</span></p>
+											</div>
+											<div class="match-content gradient-bg-blue">
+												<div class="row align-items-center justify-content-center">
+													<div class="col-md-8 order-md-2 mt-4 mt-md-0">
+														<div class="match-game-info text-center">
+															<h4><a href="" style="text-transform: initial;">TCD/TCCD</a>
+															</h4>
+															<p class="d-flex flex-wrap justify-content-center">
+																<span class="match-date">Hotel Aston Cirebon | Kamis, 17 November 2022 | Time: 07:30 - 15.30 WIB</span>
+															</p>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-12">
+									<div class="match-item-2 item-layer">
+										<div class="match-inner">
+											<div class="match-header d-flex flex-wrap justify-content-between align-items-center">
+												<p class="match-team-info" style="text-transform: initial;">
+													Minimal : <span class="fw-bold">30 Orang</span>
+												</p>
+												<p class="match-prize" style="text-transform: initial;">Rp. <span class="fw-bold">4 juta | Onsite: 4,5 juta</span></p>
+											</div>
+											<div class="match-content gradient-bg-blue">
+												<div class="row align-items-center justify-content-center">
+													<div class="col-md-8 order-md-2 mt-4 mt-md-0">
+														<div class="match-game-info text-center">
+															<h4><a href="" style="text-transform: initial;">Neurointensive: Advance in Neurocritical Care Practice</a>
+															</h4>
+															<p class="d-flex flex-wrap justify-content-center">
+																<span class="match-date">Hotel Aston Cirebon | Kamis, 17 November 2022 | Time: 07:30 - 17:00</span>
 															</p>
 														</div>
 													</div>
@@ -348,114 +448,10 @@
 												<div class="row align-items-center justify-content-center">
 													<div class="col-md-8 order-md-2 mt-4 mt-md-0">
 														<div class="match-game-info text-center">
-															<h4><a href="" style="text-transform: initial;">Code Stroke</a>
+															<h4><a href="" style="text-transform: initial;">Neurolegal: Bedah Kasus Malpraktek Dari Sisi Etika, Disiplin Profesi Dokter Dan Hukum</a>
 															</h4>
 															<p class="d-flex flex-wrap justify-content-center">
-																<span class="match-date">Hotel Aston Cirebon | Kamis, 17 November 2022 | Time: 07:30 - 16:30</span>
-															</p>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-12">
-									<div class="match-item-2 item-layer">
-										<div class="match-inner">
-											<div class="match-header d-flex flex-wrap justify-content-between align-items-center">
-												<p class="match-team-info" style="text-transform: initial;">
-													Minimal : <span class="fw-bold">30 orang</span>
-												</p>
-												<p class="match-prize" style="text-transform: initial;">Rp. <span class="fw-bold">tba</span></p>
-											</div>
-											<div class="match-content gradient-bg-blue">
-												<div class="row align-items-center justify-content-center">
-													<div class="col-md-8 order-md-2 mt-4 mt-md-0">
-														<div class="match-game-info text-center">
-															<h4><a href="" style="text-transform: initial;">Neuro-restorasi</a>
-															</h4>
-															<p class="d-flex flex-wrap justify-content-center">
-																<span class="match-date">17 - 18
-																	November 2022 </span><span class="match-time">Time:
-																	08:00AM</span>
-															</p>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-12">
-									<div class="match-item-2 item-layer">
-										<div class="match-inner">
-											<div class="match-header d-flex flex-wrap justify-content-between align-items-center">
-												<p class="match-team-info" style="text-transform: initial;">
-													Minimal : <span class="fw-bold">30 Orang</span>
-												</p>
-												<p class="match-prize" style="text-transform: initial;">Rp. <span class="fw-bold">tba</span></p>
-											</div>
-											<div class="match-content gradient-bg-blue">
-												<div class="row align-items-center justify-content-center">
-													<div class="col-md-8 order-md-2 mt-4 mt-md-0">
-														<div class="match-game-info text-center">
-															<h4><a href="" style="text-transform: initial;">TCD/TCCD</a>
-															</h4>
-															<p class="d-flex flex-wrap justify-content-center">
-																<span class="match-date">17 - 18
-																	November 2022 </span><span class="match-time">Time:
-																	08:00AM</span>
-															</p>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-12">
-									<div class="match-item-2 item-layer">
-										<div class="match-inner">
-											<div class="match-header d-flex flex-wrap justify-content-between align-items-center">
-												<p class="match-team-info" style="text-transform: initial;">
-													Minimal : <span class="fw-bold">30 Orang</span>
-												</p>
-												<p class="match-prize" style="text-transform: initial;">Rp. <span class="fw-bold">3,5 juta | Onsite: 4 juta</span></p>
-											</div>
-											<div class="match-content gradient-bg-blue">
-												<div class="row align-items-center justify-content-center">
-													<div class="col-md-8 order-md-2 mt-4 mt-md-0">
-														<div class="match-game-info text-center">
-															<h4><a href="" style="text-transform: initial;">Neurointensif</a>
-															</h4>
-															<p class="d-flex flex-wrap justify-content-center">
-																<span class="match-date">Hotel Aston Cirebon | Kamis, 17 November 2022 | Time: 07:30 - 16:30</span>
-															</p>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-12">
-									<div class="match-item-2 item-layer">
-										<div class="match-inner">
-											<div class="match-header d-flex flex-wrap justify-content-between align-items-center">
-												<p class="match-team-info" style="text-transform: initial;">
-													Minimal : <span class="fw-bold">30 Orang</span>
-												</p>
-												<p class="match-prize" style="text-transform: initial;">Rp. <span class="fw-bold">3,5 juta | Onsite: 4 juta</span></p>
-											</div>
-											<div class="match-content gradient-bg-blue">
-												<div class="row align-items-center justify-content-center">
-													<div class="col-md-8 order-md-2 mt-4 mt-md-0">
-														<div class="match-game-info text-center">
-															<h4><a href="" style="text-transform: initial;">Bedah Kasus Malpraktek Dari Sisi Etika, Disiplin Profesi Dokter Dan Hukum</a>
-															</h4>
-															<p class="d-flex flex-wrap justify-content-center">
-																<span class="match-date">Hotel Aston Cirebon | Kamis, 17 November 2022 | Time: 07:30AM - 16:30</span>
+																<span class="match-date">Hotel Aston Cirebon | Kamis, 17 November 2022 | Time: 08:00 - 15:00 WIB</span>
 															</p>
 														</div>
 													</div>
@@ -477,18 +473,16 @@
 												<p class="match-team-info" style="text-transform: initial;">
 													Minimal : <span class="fw-bold">30 Orang</span>
 												</p>
-												<p class="match-prize" style="text-transform: initial;">Rp. <span class="fw-bold">tba</span></p>
+												<p class="match-prize" style="text-transform: initial;">Rp. <span class="fw-bold">5 juta | Onsite: 5,5 juta</span></p>
 											</div>
 											<div class="match-content gradient-bg-blue">
 												<div class="row align-items-center justify-content-center">
 													<div class="col-md-8 order-md-2 mt-4 mt-md-0">
 														<div class="match-game-info text-center">
-															<h4><a href="" style="text-transform: initial;">Botox</a>
+															<h4><a href="" style="text-transform: initial;">Injeksi Botulinum Toxin</a>
 															</h4>
 															<p class="d-flex flex-wrap justify-content-center">
-																<span class="match-date">17 - 18
-																	November 2022 </span><span class="match-time">Time:
-																	08:00AM</span>
+																<span class="match-date">RS Permata Cirebon | Jumat, 18 November 2022 | Time: 08:00 - end WIB</span>
 															</p>
 														</div>
 													</div>
@@ -504,18 +498,16 @@
 												<p class="match-team-info" style="text-transform: initial;">
 													Minimal : <span class="fw-bold">30 Orang</span>
 												</p>
-												<p class="match-prize" style="text-transform: initial;">Rp. <span class="fw-bold">tba</span></p>
+												<p class="match-prize" style="text-transform: initial;">Rp. <span class="fw-bold">3,5 juta | Onsite: 4 juta</span></p>
 											</div>
 											<div class="match-content gradient-bg-blue">
 												<div class="row align-items-center justify-content-center">
 													<div class="col-md-8 order-md-2 mt-4 mt-md-0">
 														<div class="match-game-info text-center">
-															<h4><a href="" style="text-transform: initial;">Neurogeriatri</a>
+															<h4><a href="" style="text-transform: initial;">Neurogeriatri: Basic Clinical Approach in Geriatric</a>
 															</h4>
 															<p class="d-flex flex-wrap justify-content-center">
-																<span class="match-date">17 - 18
-																	November 2022 </span><span class="match-time">Time:
-																	08:00AM</span>
+																<span class="match-date">Hotel Aston Cirebon | Jumat, 18 November 2022 | Time: 08:00 - 14:30 WIB</span>
 															</p>
 														</div>
 													</div>
@@ -531,7 +523,7 @@
 												<p class="match-team-info" style="text-transform: initial;">
 													Minimal : <span class="fw-bold">30 Orang</span>
 												</p>
-												<p class="match-prize" style="text-transform: initial;">Rp. <span class="fw-bold">tba</span></p>
+												<p class="match-prize" style="text-transform: initial;">Rp. <span class="fw-bold">4 juta | Onsite: 4,5 juta</span></p>
 											</div>
 											<div class="match-content gradient-bg-blue">
 												<div class="row align-items-center justify-content-center">
@@ -540,9 +532,7 @@
 															<h4><a href="" style="text-transform: initial;">Carotis Dupleks Ultrasound (CDU)</a>
 															</h4>
 															<p class="d-flex flex-wrap justify-content-center">
-																<span class="match-date">17 - 18
-																	November 2022 </span><span class="match-time">Time:
-																	08:00AM</span>
+																<span class="match-date">Hotel Aston Cirebon | Jumat, 18 November 2022 | Time: 07:00 - 15:30 WIB</span>
 															</p>
 														</div>
 													</div>
@@ -558,18 +548,16 @@
 												<p class="match-team-info" style="text-transform: initial;">
 													Minimal : <span class="fw-bold">30 Orang</span>
 												</p>
-												<p class="match-prize" style="text-transform: initial;">Rp. <span class="fw-bold">tba</span></p>
+												<p class="match-prize" style="text-transform: initial;">Rp. <span class="fw-bold">2,5 juta | Onsite: 3 juta</span></p>
 											</div>
 											<div class="match-content gradient-bg-blue">
 												<div class="row align-items-center justify-content-center">
 													<div class="col-md-8 order-md-2 mt-4 mt-md-0">
 														<div class="match-game-info text-center">
-															<h4><a href="" style="text-transform: initial;">Neuroonkologi</a>
+															<h4><a href="" style="text-transform: initial;">Neuroonkologi: Clinical Pearls and Pitfalls in Spinal Metastases</a>
 															</h4>
 															<p class="d-flex flex-wrap justify-content-center">
-																<span class="match-date">17 - 18
-																	November 2022 </span><span class="match-time">Time:
-																	08:00AM</span>
+																<span class="match-date">Hotel Aston Cirebon | Jumat, 18 November 2022 | Time: 09:00 - 15:00 WIB</span>
 															</p>
 														</div>
 													</div>
@@ -585,18 +573,16 @@
 												<p class="match-team-info" style="text-transform: initial;">
 													Minimal : <span class="fw-bold">30 Orang</span>
 												</p>
-												<p class="match-prize" style="text-transform: initial;">Rp. <span class="fw-bold">tba</span></p>
+												<p class="match-prize" style="text-transform: initial;">Rp. <span class="fw-bold">3,5 juta | Onsite: 4 juta</span></p>
 											</div>
 											<div class="match-content gradient-bg-blue">
 												<div class="row align-items-center justify-content-center">
 													<div class="col-md-8 order-md-2 mt-4 mt-md-0">
 														<div class="match-game-info text-center">
-															<h4><a href="" style="text-transform: initial;">Vascular Neurointervensi</a>
+															<h4><a href="" style="text-transform: initial;">Neurovascular and Stroke Intervention</a>
 															</h4>
 															<p class="d-flex flex-wrap justify-content-center">
-																<span class="match-date">17 - 18
-																	November 2022 </span><span class="match-time">Time:
-																	08:00AM</span>
+																<span class="match-date">Hotel Aston Cirebon | Jumat, 18 November 2022 | Time: 08:00 - 16:00 WIB</span>
 															</p>
 														</div>
 													</div>
@@ -612,18 +598,16 @@
 												<p class="match-team-info" style="text-transform: initial;">
 													Minimal : <span class="fw-bold">30 Orang</span>
 												</p>
-												<p class="match-prize" style="text-transform: initial;">Rp. <span class="fw-bold">tba</span></p>
+												<p class="match-prize" style="text-transform: initial;">Rp. <span class="fw-bold">3,5 juta | Onsite: 4 juta</span></p>
 											</div>
 											<div class="match-content gradient-bg-blue">
 												<div class="row align-items-center justify-content-center">
 													<div class="col-md-8 order-md-2 mt-4 mt-md-0">
 														<div class="match-game-info text-center">
-															<h4><a href="" style="text-transform: initial;">Neuroinfeksi</a>
+															<h4><a href="" style="text-transform: initial;">Neuroinfeksi: Case-based Approach in Neuro Infection</a>
 															</h4>
 															<p class="d-flex flex-wrap justify-content-center">
-																<span class="match-date">17 - 18
-																	November 2022 </span><span class="match-time">Time:
-																	08:00AM</span>
+																<span class="match-date">Hotel Aston Cirebon | Jumat, 18 November 2022 | Time: 07:30 - 16:30 WIB</span>
 															</p>
 														</div>
 													</div>
