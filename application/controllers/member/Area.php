@@ -775,8 +775,15 @@ class Area extends MY_Controller
 			$response['member'] = $detail->member ?  $detail->member->toArray() : ['member_id'=>$detail->member_id];
 			$response['finish'] = $response['status_payment'] == Transaction_m::STATUS_FINISH;
 			foreach ($detail->details as $row) {
-				$response['details'][] = $row->toArray();
+				$data = $row->toArray();
+				if($member = $row->member){
+					$data['product_name'] = $data['product_name']. " / ".$member->fullname;
+				}
+				$response['details'][] = $data;
 			}
+			usort($response['details'],function($a,$b){
+				return $b['product_name'] < $a['product_name'];
+			});
 		}
 		$response['banks'] = json_decode(Settings_m::getSetting(Settings_m::MANUAL_PAYMENT), true);
 

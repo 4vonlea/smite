@@ -17,6 +17,7 @@ class Event_discount extends Admin_Controller
 
 		$this->layout->render("event_discount",[
 			'listPricingCategory'=>$this->Event_discount_m->listPricingCategory(),
+			'listEvents'=>$this->Event_discount_m->listEvent(),
 		]);
 	}
 

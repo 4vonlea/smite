@@ -176,9 +176,9 @@
 						<th>Bill To</th>
 						<td :colspan="isGroup ? '4' : '3'">{{ isGroup ? detailModel.member_id : detailModel.member.fullname }}</td>
 					</tr>
-					<tr v-if="!isGroup">
+					<tr>
 						<th>Email</th>
-						<td :colspan="isGroup ? '4' : '3'">{{ detailModel.member.email }}</td>
+						<td :colspan="isGroup ? '4' : '3'">{{ isGroup ? detailModel.email_group : detailModel.member.email }}</td>
 					</tr>
 					<tr v-if="!isGroup">
 						<th>Address</th>
@@ -303,15 +303,15 @@
 					</tr>
 					<tr>
 						<th>Bill To</th>
-						<td :colspan="isGroup ? '4' : '3'">{{ modifyModel.member.fullname }}</td>
-					</tr>
-					<tr v-if="modifyModel.member.email">
-						<th>Email</th>
-						<td :colspan="isGroup ? '4' : '3'">{{ modifyModel.member.email }}</td>
+						<td :colspan="isGroup ? '4' : '3'">{{ isGroup ?  modifyModel.member_id : modifyModel.member.fullname }}</td>
 					</tr>
 					<tr>
+						<th>Email</th>
+						<td :colspan="isGroup ? '4' : '3'">{{ isGroup ? modifyModel.email_group : modifyModel.member.email }}</td>
+					</tr>
+					<tr v-if="!isGroup">
 						<th>Address</th>
-						<td :colspan="isGroup ? '4' : '3'">{{ modifyModel.member.address+", "+modifyModel.member.city }}</td>
+						<td :colspan="isGroup ? '4' : '3'">{{ modifyModel.member.address+", "+modifyModel.member.city_name }}</td>
 					</tr>
 					<tr>
 						<th>Amount</th>
@@ -497,9 +497,10 @@
 		computed: {
 			amount() {
 				var price = 0;
-				for (var d in this.detailModel.details) {
-					if (this.detailModel.details[d])
-						price += Number(this.detailModel.details[d].price);
+				let details = this.modifyModel.details ?? this.detailModel.details;
+				for (var d in details) {
+					if (details[d])
+						price += Number(details[d].price);
 				}
 				return this.formatCurrency(price);
 			},
@@ -522,7 +523,7 @@
 		methods: {
 			transactionsSort(data) {
 				return data.sort(function(a, b) {
-					return (a.event_pricing_id > b.event_pricing_id) ? -1 : 1;
+					return (a.product_name > b.product_name) ? -1 : 1;
 				})
 			},
 			saveModify(event) {
@@ -657,7 +658,7 @@
 					}, null, 'JSON')
 					.done(function(res) {
 						app.detailModel = res.model;
-						app.isGroup = $.isArray(app.detailModel.member);
+						app.isGroup = app.detailModel.member_id.startsWith("REGISTER-GROUP");
 						$("#modal-detail").modal("show");
 					}).fail(function(xhr) {
 						var message = xhr.getResponseHeader("Message");
@@ -676,7 +677,7 @@
 					}, null, 'JSON')
 					.done(function(res) {
 						app.modifyModel = res.model;
-						app.isGroup = $.isArray(app.modifyModel.member);
+						app.isGroup = app.modifyModel.member_id.startsWith("REGISTER-GROUP");
 						app.listEvent = res.listEvent;
 						$("#modal-modify").modal("show");
 					}).fail(function(xhr) {

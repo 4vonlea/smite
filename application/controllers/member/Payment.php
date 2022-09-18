@@ -484,23 +484,26 @@ class Payment extends MY_Controller
 		echo $response;
 	}
 
-	public function set_expired($id_invoice){
-		$espayConfig = Settings_m::getEspay();
-		$rs_date =  date("Y-m-d H:i:s");
-		$uuid = md5($rs_date);
-		$signature = $this->create_signature_espay($espayConfig['signature'],$id_invoice,'EXPIRETRANSACTION',$rs_date,$uuid,"","");
-		$response = $this->request($espayConfig['apiLink']."updateexpire",[
-			'uuid'=>$uuid,
-			'rq_datetime'=>$rs_date,
-			'comm_code'=>$espayConfig['merchantCode'],
-			'order_id'=>$id_invoice,
-			'tx_remark'=>'EXPIRED',
-			'signature'=>$signature
-		]);
-		var_dump($response);
+	public function set_expired($id_invoice,$code){
+		if($code == 'Smite2022'){
+			$espayConfig = Settings_m::getEspay();
+			$rs_date =  date("Y-m-d H:i:s");
+			$uuid = md5($rs_date);
+			$signature = $this->create_signature_espay($espayConfig['signature'],$id_invoice,'EXPIRETRANSACTION',$rs_date,$uuid,"","");
+			$response = $this->request($espayConfig['apiLink']."updateexpire",[
+				'uuid'=>$uuid,
+				'rq_datetime'=>$rs_date,
+				'comm_code'=>$espayConfig['merchantCode'],
+				'order_id'=>$id_invoice,
+				'tx_remark'=>'EXPIRED',
+				'signature'=>$signature
+			]);
+			var_dump($response);
+		}
 	}
 
 	protected function request($url,$params){
+		var_dump($params);
 		$curl = curl_init();
 			curl_setopt_array($curl, array(
 			CURLOPT_URL => $url,

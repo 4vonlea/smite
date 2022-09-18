@@ -677,7 +677,7 @@ $theme_path = base_url("themes/bigamer") . "/";
                             "using_api": 0,
                             "value": "0"
                         };
-                        total += (parseFloat(item.price_in_usd) * kurs_usd.value);
+                        total += (parseFloat(i.price_in_usd) * kurs_usd.value);
                     }
                 }
                 this.isUsd = isUsd > 0 ? true : false;

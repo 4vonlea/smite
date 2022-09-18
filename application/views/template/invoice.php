@@ -206,11 +206,11 @@ $isGroup = ($member == null);
 						echo "<tr>";
 						echo "<td style='text-align:center'>$no</td>";
 						$total += $d->price;
-						$name = ($isGroup ? $d->member_name : "");
+						$name = ($isGroup && $d->member_name ? " / ".$d->member_name : "");
 						if ($d->price_usd > 0) {
-							echo "<td>$d->product_name  / <strong>$name</strong></td><td style='text-align:center'>USD " . $d->price_usd . "</td>";
+							echo "<td>$d->product_name <strong>$name</strong></td><td style='text-align:center'>USD " . $d->price_usd . "</td>";
 						} else {
-							echo "<td>$d->product_name / <strong>$name</strong></td><td style='text-align:center'>Rp " . number_format($d->price, 2, ",", ".") . "</td>";
+							echo "<td>$d->product_name <strong>$name</strong></td><td style='text-align:center'>Rp " . number_format($d->price, 2, ",", ".") . "</td>";
 						}
 						echo "</tr>";
 						$no++;

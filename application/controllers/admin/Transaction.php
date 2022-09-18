@@ -156,14 +156,17 @@ class Transaction extends Admin_Controller
 			$response['model']['member'] = $detail->member ? $detail->member->toArray() : [];
 			$response['model']['member']['city_name'] = $detail->member && $detail->member->city_name ? $detail->member->city_name->nama : [];
 			$group = $detail->member ? false : true;
-			$response['model']['details'] = [];
+			$tempDetails = [];
 			foreach ($detail->details as $row) {
 				$temp =  $row->toArray();
-				$member = $temp['event_pricing_id'] == '0' ? [] : $row->member->toArray();
-
+				$member = in_array($temp['event_pricing_id'],['0','-2']) ? [] : $row->member->toArray();
 				$temp['isDeleted'] = 0;
-				$response['model']['details'][] = array_merge(['member' => $member], $temp);
+				$tempDetails[] = array_merge(['member' => $member], $temp);
 			}
+			usort($tempDetails,function($a,$b){
+				return $b['product_name'] < $a['product_name'];
+			});
+			$response['model']['details'] = $tempDetails;
 		}
 		$current = count($response['model']['details']) > 0 ? current($response['model']['details']) : ['member_id'=>'-'];
 		$member_id = $group ? $current['member_id'] : $response['model']['member']['id'];

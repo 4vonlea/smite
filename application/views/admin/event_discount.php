@@ -95,13 +95,18 @@
 										<th>Minimum Followed Event</th>
 										<th>
 											<button @click="addRuleCategory" class="btn btn-sm btn-primary">Add Category</button>
+											<button @click="addRuleEvent" class="btn btn-sm btn-primary">Add Event</button>
 										</th>
 									</tr>
 								</thead>
 								<tbody>
 									<tr v-for="(rule,ind) in form.event_combination.ruleCategory">
 										<td>
-											<select class="form-control" :class="{'is-invalid':validation['event_combination[ruleCategory]['+ind+'][key]']}" v-model="rule.key">
+											<select v-if="rule.key.startsWith('event_')" class="form-control" :class="{'is-invalid':validation['event_combination[ruleCategory]['+ind+'][key]']}" v-model="rule.key">
+												<option value="">-- Choose Event --</option>
+												<option v-for="cat in listEvents" :value="'event_'+cat.id"> {{ cat.name }}</option>
+											</select>
+											<select v-else class="form-control" :class="{'is-invalid':validation['event_combination[ruleCategory]['+ind+'][key]']}" v-model="rule.key">
 												<option value="">-- Choose Event Category --</option>
 												<option v-for="cat in eventCategory" :value="cat"> {{ cat }}</option>
 											</select>
@@ -158,6 +163,7 @@
 		data: {
 			formMode: 0,
 			listPricingCategory: <?= json_encode($listPricingCategory); ?>,
+			listEvents: <?= json_encode($listEvents); ?>,
 			eventCategory: <?= Settings_m::eventCategory(); ?>,
 			form: {
 				id: null,
@@ -175,6 +181,15 @@
 			},
 			validation: {},
 		},
+		computed:{
+			eventsParsed(){
+				let list = {};
+				this.listEvents.forEach( row => {
+					list['event_'+row.id] = row.name;
+				});
+				return list;
+			}
+		},
 		methods: {
 			addRule() {
 				this.formMode = 1;
@@ -191,6 +206,12 @@
 				this.form.event_combination.ruleCategory.push({
 					key: '',
 					val: 0,
+				});
+			},
+			addRuleEvent() {
+				this.form.event_combination.ruleCategory.push({
+					key: 'event_',
+					val: 1,
 				});
 			},
 			deleteRulecategory(ind) {
@@ -242,8 +263,11 @@
 						<ul>
 					`;
 					Object.keys(eventCombination).forEach( key => {
-						if(key != "pricingCategory")
+						if(key != "pricingCategory" && key.startsWith('event_')){
+							parsed += `<li>Must follow ${this.eventsParsed[key]}</li>`;
+						}else if(key != "pricingCategory"){
 							parsed += `<li>Minimum ${eventCombination[key]} event of ${key}</li>`;
+						}
 					})
 					return parsed+"</ul>";
 				} catch(e) {

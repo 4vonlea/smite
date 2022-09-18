@@ -21,6 +21,12 @@ class Event_discount_m extends MY_Model
         return $rules;
     }
 
+    public function listEvent(){
+        return $this->db->select("id,name")
+            ->from("events")
+            ->get()->result_array();
+    }
+
 
     public function listPricingCategory()
     {

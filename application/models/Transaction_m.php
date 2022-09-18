@@ -41,39 +41,40 @@ class Transaction_m extends MY_Model
 				'booking_hotel' => ['(SELECT 
 											td.transaction_id, 
 											SUM(IF(td.event_pricing_id = -1,1,0)) AS is_booking_hotel 
-									FROM transaction_details td WHERE event_pricing_id = -1 GROUP BY td.transaction_id)','booking_hotel.transaction_id = t.id','left']
+									FROM transaction_details td WHERE event_pricing_id = -1 GROUP BY td.transaction_id)', 'booking_hotel.transaction_id = t.id', 'left']
 			],
-			'select' => ['is_booking_hotel'=>'COALESCE(is_booking_hotel,0)','invoice' => 't.id', 't_id' => 't.id', 'fullname' => 'COALESCE(fullname,t.member_id)', 'status_payment','channel', 't_updated_at' => 't.updated_at', 'm_id' => 'member.id'],
+			'select' => ['is_booking_hotel' => 'COALESCE(is_booking_hotel,0)', 'invoice' => 't.id', 't_id' => 't.id', 'fullname' => 'COALESCE(fullname,t.member_id)', 'status_payment', 'channel', 't_updated_at' => 't.updated_at', 'm_id' => 'member.id'],
 			//			'filter'=>['checkout'=>'1'],
 			'sort' => ['t.updated_at', 'desc']
 		];
 	}
 
-	public function countSettlement($member_id){
-		return $this->find()->join("transaction_details dt","dt.transaction_id = transaction.id")
+	public function countSettlement($member_id)
+	{
+		return $this->find()->join("transaction_details dt", "dt.transaction_id = transaction.id")
 			->group_start()
-			->where("transaction.status_payment",self::STATUS_FINISH)
-			->or_where("channel",self::CHANNEL_GL)
+			->where("transaction.status_payment", self::STATUS_FINISH)
+			->or_where("channel", self::CHANNEL_GL)
 			->group_end()
-			->where("dt.member_id",$member_id)->count_all_results();
+			->where("dt.member_id", $member_id)->count_all_results();
 	}
 
 	public function gridDataGl($params, $relationship = [])
 	{
 		$gridConfig = $this->gridConfig();
-		$gridConfig['select'] = array_merge($gridConfig['select'],[
-			'sponsor'=>"JSON_UNQUOTE(JSON_EXTRACT(midtrans_data,'$.sponsorName'))",//"midtrans_data->>'$.sponsorName'",
-			'pay_plan_date'=>"JSON_UNQUOTE(JSON_EXTRACT(midtrans_data,'$.payPlanDate'))",//"midtrans_data->>'$.payPlanDate'",
-			'filename'=>"JSON_UNQUOTE(JSON_EXTRACT(midtrans_data,'$.fileName'))",//"midtrans_data->>'$.fileName'",
-			'receiptPayment'=>"JSON_UNQUOTE(JSON_EXTRACT(midtrans_data,'$.receiptPayment'))",//"midtrans_data->>'$.receiptPayment'",
-			'status_gl'=>"IF(message_payment = '".self::GL_PAID_MESSAGE."','Paid','Unpaid')"
+		$gridConfig['select'] = array_merge($gridConfig['select'], [
+			'sponsor' => "JSON_UNQUOTE(JSON_EXTRACT(midtrans_data,'$.sponsorName'))", //"midtrans_data->>'$.sponsorName'",
+			'pay_plan_date' => "JSON_UNQUOTE(JSON_EXTRACT(midtrans_data,'$.payPlanDate'))", //"midtrans_data->>'$.payPlanDate'",
+			'filename' => "JSON_UNQUOTE(JSON_EXTRACT(midtrans_data,'$.fileName'))", //"midtrans_data->>'$.fileName'",
+			'receiptPayment' => "JSON_UNQUOTE(JSON_EXTRACT(midtrans_data,'$.receiptPayment'))", //"midtrans_data->>'$.receiptPayment'",
+			'status_gl' => "IF(message_payment = '" . self::GL_PAID_MESSAGE . "','Paid','Unpaid')"
 		]);
-		$gridConfig['filter'] = ['channel'=>Transaction_m::CHANNEL_GL];
+		$gridConfig['filter'] = ['channel' => Transaction_m::CHANNEL_GL];
 		$data = parent::gridData($params, $gridConfig);
 		$result = $this->find()->select("COUNT(id) as total")
-			->select("COALESCE(SUM(IF(message_payment = '".self::GL_PAID_MESSAGE."',1,0)),0) as paid")
-			->select("COALESCE(SUM(IF(message_payment != '".self::GL_PAID_MESSAGE."',1,0)),0) as unpaid")
-			->where("channel",self::CHANNEL_GL)
+			->select("COALESCE(SUM(IF(message_payment = '" . self::GL_PAID_MESSAGE . "',1,0)),0) as paid")
+			->select("COALESCE(SUM(IF(message_payment != '" . self::GL_PAID_MESSAGE . "',1,0)),0) as unpaid")
+			->where("channel", self::CHANNEL_GL)
 			->get()->row_array();
 		$data['total_transaction'] = $result['total'];
 		$data['paid_transaction'] = $result['paid'];
@@ -83,16 +84,16 @@ class Transaction_m extends MY_Model
 
 	public function gridData($params, $relationship = [])
 	{
-		$global_filter = (isset($params['global_filter'])?$params['global_filter']:null);
-		if($global_filter){
-			$relationship = (count($relationship) > 0 ? $relationship:$this->gridConfig());
-			$result = $this->db->like("fullname",$global_filter)
-				->or_like("email",$global_filter)
+		$global_filter = (isset($params['global_filter']) ? $params['global_filter'] : null);
+		if ($global_filter) {
+			$relationship = (count($relationship) > 0 ? $relationship : $this->gridConfig());
+			$result = $this->db->like("fullname", $global_filter)
+				->or_like("email", $global_filter)
 				->from("members")
 				->select("transaction_id")
-				->join("transaction_details","members.id = member_id")
+				->join("transaction_details", "members.id = member_id")
 				->get();
-			foreach($result->result_array() as $row){
+			foreach ($result->result_array() as $row) {
 				$relationship['additional_search'][$row['transaction_id']] = 't.id';
 			}
 		}
@@ -138,26 +139,28 @@ class Transaction_m extends MY_Model
 			->get();
 	}
 
-	public function validateBookingHotel($room_id,$checkin,$checkout){
-		$countBooking = $this->countOverlapHotelBooking($room_id,$checkin,$checkout);
+	public function validateBookingHotel($room_id, $checkin, $checkout)
+	{
+		$countBooking = $this->countOverlapHotelBooking($room_id, $checkin, $checkout);
 		$result = $this->db->from("rooms")
-            ->where("'$checkin' BETWEEN rooms.start_date AND rooms.end_date")
-            ->where("'$checkout' BETWEEN rooms.start_date AND rooms.end_date")
-            ->select("rooms.*")
-            ->get()->row();
-		if($result){
+			->where("'$checkin' BETWEEN rooms.start_date AND rooms.end_date")
+			->where("'$checkout' BETWEEN rooms.start_date AND rooms.end_date")
+			->select("rooms.*")
+			->get()->row();
+		if ($result) {
 			return $result->quota > $countBooking;
 		}
 		return false;
 	}
 
-	public function countOverlapHotelBooking($room_id,$checkin,$checkout){
+	public function countOverlapHotelBooking($room_id, $checkin, $checkout)
+	{
 		return $this->db->from("transaction_details td")
-			->join("transaction tr","tr.id = td.transaction_id")
-			->where("status_payment !=",Transaction_m::STATUS_EXPIRE)
-			->where('td.checkout_date >',$checkin)
-			->where('td.checkin_date <',$checkout)
-			->where("room_id",$room_id)->count_all_results();
+			->join("transaction tr", "tr.id = td.transaction_id")
+			->where("status_payment !=", Transaction_m::STATUS_EXPIRE)
+			->where('td.checkout_date >', $checkin)
+			->where('td.checkin_date <', $checkout)
+			->where("room_id", $room_id)->count_all_results();
 	}
 
 	public function detailsWithEvent()
@@ -166,6 +169,7 @@ class Transaction_m extends MY_Model
 			->join("event_pricing ep", "ep.id = t.event_pricing_id", "left")
 			->join("events e", "e.id = ep.event_id", "left")
 			->join("members m", "m.id = t.member_id", "left")
+			->order_by("product_name")
 			->where("transaction_id", $this->id)->get("transaction_details t");
 		return $rs->result();
 	}
@@ -217,7 +221,7 @@ class Transaction_m extends MY_Model
 		$domInvoice->setPaper('legal');
 		$html = $this->load->view("template/invoice", [
 			'transaction' => $this,
-		],true);
+		], true);
 
 		$option = new \Dompdf\Options();
 		$option->setIsRemoteEnabled(true);
@@ -247,18 +251,19 @@ class Transaction_m extends MY_Model
 		return $dompdf;
 	}
 
-	public function findByDetail($member_id){
+	public function findByDetail($member_id)
+	{
 		$trIdList =  $this->db->select("t.id")
 			->from("transaction t")
-			->join("transaction_details td","t.id = td.transaction_id")
-			->where("td.member_id",$member_id)
+			->join("transaction_details td", "t.id = td.transaction_id")
+			->where("td.member_id", $member_id)
 			->group_by("t.id")
 			->get()->result();
 		$trIdArray = [];
-		foreach($trIdList as $row){
+		foreach ($trIdList as $row) {
 			$trIdArray[] = $row->id;
 		}
-		return $this->findAll(['id'=>$trIdArray]);
+		return $this->findAll(['id' => $trIdArray]);
 	}
 
 	public function getNotFollowedEvent($member_id)
@@ -269,7 +274,7 @@ class Transaction_m extends MY_Model
 			JOIN event_pricing ev ON ev.event_id = e.id AND ev.`condition` = km.kategory
 			WHERE ev.id NOT IN (
 			SELECT td.event_pricing_id FROM transaction_details td
-			JOIN `transaction` tr ON tr.id = td.transaction_id WHERE tr.member_id = '$member_id' AND tr.status_payment != '".self::STATUS_EXPIRE."'
+			JOIN `transaction` tr ON tr.id = td.transaction_id WHERE tr.member_id = '$member_id' AND tr.status_payment != '" . self::STATUS_EXPIRE . "'
 		)");
 		return $rs->result_array();
 	}
@@ -304,103 +309,145 @@ class Transaction_m extends MY_Model
 	{
 		$data = parent::toArray();
 		$data['paymentGatewayInfo'] = [
-			'product'=>'',
-			'productNumber'=>'',
-			'expired'=>'',
+			'product' => '',
+			'productNumber' => '',
+			'expired' => '',
 		];
-		if($data['channel'] == "ESPAY"){
-			$paymentGatewayData = json_decode($data['midtrans_data'],true);
-			if(is_array($paymentGatewayData)){
+		if ($data['channel'] == "ESPAY") {
+			$paymentGatewayData = json_decode($data['midtrans_data'], true);
+			if (is_array($paymentGatewayData)) {
 				$data['paymentGatewayInfo']['product'] = $paymentGatewayData['product_name'] ?? "";
-				$data['paymentGatewayInfo']['productNumber'] = $paymentGatewayData['product_value'] ?? ""; 
+				$data['paymentGatewayInfo']['productNumber'] = $paymentGatewayData['product_value'] ?? "";
 				$data['paymentGatewayInfo']['expired'] = $paymentGatewayData['expired'] ?? "";
 			}
 		}
 		return $data;
 	}
 
-	public function setDiscount($transaction_id){
+	public function setDiscount($transaction_id)
+	{
 		$transaction = $this->findOne($transaction_id);
-		$isGroup = strpos($transaction->member_id,"REGISTER-GROUP") !== false;
+		$isGroup = strpos($transaction->member_id, "REGISTER-GROUP") !== false;
 		$pricingCategory = $this->db->select("event_pricing.name")
-			->join("event_pricing","event_pricing.id = event_pricing_id")
-			->where("transaction_id",$transaction->id)
-			->order_by("transaction_details.updated_at","DESC")
+			->join("event_pricing", "event_pricing.id = event_pricing_id")
+			->where("transaction_id", $transaction->id)
+			->order_by("transaction_details.updated_at", "DESC")
 			->get("transaction_details")->row() ?? null;
-		if($pricingCategory){
+		if ($pricingCategory) {
 			$member_id = $transaction->member_id;
 			$groupMember = [];
 
-			if($isGroup){
+			if ($isGroup) {
 				$groupMember = $this->db->select("member_id")
 					->distinct(true)
-					->join("members","members.id = member_id")
-					->where("transaction_id",$transaction->id)
+					->join("members", "members.id = member_id")
+					->where("transaction_id", $transaction->id)
 					->get("transaction_details")->result();
-				if(count($groupMember) > 0)
+				if (count($groupMember) > 0)
 					$member_id = $groupMember[0]->member_id;
 			}
 
-			$cekFollowed = $this->db->select("events.kategory,COUNT(*) as followed")
-				->join("event_pricing","event_pricing.id = event_pricing_id")
-				->join("events","events.id = event_pricing.event_id")
-				->join("transaction","transaction.id = transaction_details.transaction_id")
-				->where("transaction_details.member_id",$member_id)
-				->where_in("transaction.status_payment",[self::STATUS_FINISH,self::STATUS_WAITING,self::STATUS_PENDING])
-				->group_by("events.kategory")
+			$cekFollowed = $this->db->select("events.kategory,events.id,events.name")
+				->join("event_pricing", "event_pricing.id = event_pricing_id")
+				->join("events", "events.id = event_pricing.event_id")
+				->join("transaction", "transaction.id = transaction_details.transaction_id")
+				->where("transaction_details.member_id", $member_id)
+				->where_in("transaction.status_payment", [self::STATUS_FINISH, self::STATUS_WAITING, self::STATUS_PENDING])
+				// ->group_by("events.kategory")
 				->get("transaction_details");
 
-			$criteria = ['JSON_EXTRACT(event_combination,"$.pricingCategory")'=>$pricingCategory->name];
-			foreach($cekFollowed->result() as $row){
-				$criteria['JSON_UNQUOTE(JSON_EXTRACT(event_combination,"$.'.$row->kategory.'")) >='] = $row->followed;
+			$ruleSatisfied['pricingCategory'] = $pricingCategory->name;
+			foreach ($cekFollowed->result() as $row) {
+				$ruleSatisfied[$row->kategory] = isset($ruleSatisfied[$row->kategory]) ?  $ruleSatisfied[$row->kategory] + 1 : 1;
+				$ruleSatisfied['event_' . $row->id] = 1;
 			}
 
-			if(count($criteria) > 1){
-				$discount = $this->db->where($criteria)
-							->where('JSON_LENGTH(event_combination)',count($criteria))
-							->order_by("discount","ASC")
-							->limit(1)
-							->get("event_discount")->row();
+			$discountList = $this->db->where(['JSON_EXTRACT(event_combination,"$.pricingCategory")' => $pricingCategory->name])
+				->order_by("discount", "ASC")
+				->get("event_discount");
+			$discountSatisfied = [];
+			$discount = null;
+			foreach ($discountList->result() as $ruleDiscount) {
+				$rules = json_decode($ruleDiscount->event_combination, true);
+				$isSatisfied = count($rules) > 0;
+				foreach ($rules as $rule => $minimumFollow) {
+					if (is_numeric($minimumFollow)) {
+						$isSatisfied = $isSatisfied && isset($ruleSatisfied[$rule]) && $ruleSatisfied[$rule] >= $minimumFollow;
+					} else {
+						$isSatisfied = $isSatisfied && isset($ruleSatisfied[$rule]) && $ruleSatisfied[$rule] == $minimumFollow;
+					}
+				}
+				if ($isSatisfied) {
+					$discountSatisfied[] = $ruleDiscount;
+				}
+				if ($isSatisfied && ($discount == null || $discount->discount < $ruleDiscount->discount)) {
+					$discount = $ruleDiscount;
+				}
 			}
+			if(isset($ruleSatisfied['Workshop']) && $ruleSatisfied['Workshop'] > 2){
+				$discount = null;
+			}
+			// var_dump($ruleSatisfied);
+			// var_dump($discount);
+			// var_dump($discountSatisfied);
 
-		
-			$transactionDetailsExist = $this->db->where(['event_pricing_id'=>'-2','transaction_id'=>$transaction->id])->get("transaction_details")->row();
-			if($discount){
-				$discountBefore = $this->db->query("SELECT COALESCE(SUM(td.price) * -1,0) as total FROM transaction_details td
+			// $criteria = ['JSON_EXTRACT(event_combination,"$.pricingCategory")'=>$pricingCategory->name];
+			// foreach($cekFollowed->result() as $row){
+			// 	$criteria['JSON_UNQUOTE(JSON_EXTRACT(event_combination,"$.'.$row->kategory.'")) >='] = $row->followed;
+			// }
+
+			// if(count($criteria) > 1){
+			// 	$discount = $this->db->where($criteria)
+			// 				->where('JSON_LENGTH(event_combination)',count($criteria))
+			// 				->order_by("discount","ASC")
+			// 				->limit(1)
+			// 				->get("event_discount")->row();
+			// }
+
+			$transactionDetailsExist = $this->db->where(['event_pricing_id' => '-2', 'transaction_id' => $transaction->id])->get("transaction_details")->row();
+			if ($discount) {
+				$discountBefore = $this->db->query("SELECT COALESCE(SUM(td.price / jumlah_member) * -1,0) as total FROM transaction_details td
+					JOIN (
+						SELECT t.id, COUNT(DISTINCT m.id) AS jumlah_member
+						FROM `transaction` t
+						JOIN transaction_details td ON td.transaction_id = t.id
+						JOIN members m ON m.id = td.member_id
+						GROUP BY t.id
+					) AS t_count_member ON t_count_member.id = td.transaction_id
 					WHERE td.transaction_id IN (
 					SELECT DISTINCT td.transaction_id FROM transaction_details td
 					JOIN transaction t ON t.id = td.transaction_id
 					WHERE td.member_id = '$transaction->member_id' AND t.status_payment IN ('settlement','pending')
 					) AND td.event_pricing_id = -2")->row();
-					
 				$discountNominal = $discount->discount - $discountBefore->total;
-				if($isGroup){
+				if ($isGroup) {
 					$discountNominal = count($groupMember) * $discountNominal;
 				}
 
 				$discountNominal = ($discountNominal <= 0) ? 0 : 0 - $discountNominal;
-				if($discountNominal != 0){
-					if($transactionDetailsExist == null){
-						$this->db->insert("transaction_details",[
-							'member_id'=>$isGroup ? $transaction->member_id : $member_id,
-							'transaction_id'=>$transaction->id,
-							'event_pricing_id'=>-2,
-							'product_name'=>"Discount : ".$discount->name. ($isGroup ? "   (x ".count($groupMember)." Member)" : ""),
-							'price'=>$discountNominal,
+				if ($discountNominal != 0) {
+					if ($transactionDetailsExist == null) {
+						$this->db->insert("transaction_details", [
+							'member_id' => $isGroup ? $transaction->member_id : $member_id,
+							'transaction_id' => $transaction->id,
+							'event_pricing_id' => -2,
+							'product_name' => "Discount : " . $discount->name . ($isGroup ? "   (x " . count($groupMember) . " Member)" : ""),
+							'price' => $discountNominal,
 						]);
-					}else{
-						$this->db->update("transaction_details",
-							['product_name'=>"Discount : ".$discount->name. ($isGroup ? "  (x ".count($groupMember)." Member)" : ""),'price'=>$discountNominal],
-							['event_pricing_id'=>'-2','transaction_id'=>$transaction->id]
+					} else {
+						$this->db->update(
+							"transaction_details",
+							['product_name' => "Discount : " . $discount->name . ($isGroup ? "  (x " . count($groupMember) . " Member)" : ""), 'price' => $discountNominal],
+							['event_pricing_id' => '-2', 'transaction_id' => $transaction->id]
 						);
 					}
 				}
-			}else{
-				if($transactionDetailsExist == null)
-					$this->db->delete("transaction_details",['event_pricing_id'=>'-2','transaction_id'=>$transaction->id]);
+			} else {
+				if ($transactionDetailsExist == null)
+					$this->db->delete("transaction_details", ['event_pricing_id' => '-2', 'transaction_id' => $transaction->id]);
 			}
-		}else{
-			$this->db->delete("transaction_details",['event_pricing_id'=>'-2','transaction_id'=>$transaction->id]);
+		} else {
+			$this->db->delete("transaction_details", ['event_pricing_id' => '-2', 'transaction_id' => $transaction->id]);
 		}
 	}
 }
