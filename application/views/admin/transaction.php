@@ -432,6 +432,13 @@
 							{{ glModel.validation_error['midtrans_data[payPlanDate]'] }}
 						</div>
 					</div>
+					<div class="form-group">
+						<label>Expired Pay Date</label>
+						<vuejs-datepicker :input-class="{'form-control':true,'is-invalid': glModel.validation_error['midtrans_data[expiredPayDate]']}" wrapper-class="" name="midtrans_data[expiredPayDate]" v-model="glModel.midtrans_data.expiredPayDate" ></vuejs-datepicker>
+						<div v-if="glModel.validation_error['midtrans_data[expiredPayDate]']" class="invalid-feedback d-block">
+							{{ glModel.validation_error['midtrans_data[expiredPayDate]'] }}
+						</div>
+					</div>
 					<div class="form-gorup">
 						<label>Guarantee Letter File <small>(pdf,jpg,jpeg Max 2 MB)</small></label>
 						<input type="file" name="fileName" :class="{'is-invalid': glModel.validation_error.fileName}" class="form-control" />
@@ -703,6 +710,7 @@
 								res.model.midtrans_data = {
 									filename:'',
 									payPlanDate:'',
+									expiredPayDate:'',
 									sponsorName:'',
 								};
 							}
@@ -710,6 +718,7 @@
 							res.model.midtrans_data = {
 								filename:'',
 								payPlanDate:'',
+								expiredPayDate:'',
 								sponsorName:'',
 							};
 						}
@@ -731,6 +740,8 @@
 				var formData = new FormData(this.$refs.formGl);
 				if(app.glModel.midtrans_data.payPlanDate)
 					formData.set("midtrans_data[payPlanDate]",moment(app.glModel.midtrans_data.payPlanDate).format('YYYY-MM-DD'));
+				if(app.glModel.midtrans_data.expiredPayDate)
+					formData.set("midtrans_data[expiredPayDate]",moment(app.glModel.midtrans_data.expiredPayDate).format('YYYY-MM-DD'));
 				this.savingGl = true;
 				$.ajax({
 					url: '<?= base_url('admin/transaction/save_gl'); ?>',

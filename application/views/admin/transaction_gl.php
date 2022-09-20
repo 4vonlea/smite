@@ -103,6 +103,17 @@
 						<span v-if="props.row.status_gl == 'Unpaid'" class="badge badge-danger">
 							{{ props.row.status_gl }}
 						</span>
+						<div v-if="props.row.status_gl == 'Unpaid' && props.row.expiredPayDate && isOverdue(props.row.expiredPayDate)">
+							<span class="badge badge-danger">
+								Overtime from  Expired Date
+							</span>
+						</div>
+						<div v-if="props.row.status_gl == 'Unpaid' && props.row.pay_plan_date && isOverdue(props.row.pay_plan_date)">
+							<span  class="badge badge-warning">
+								Overtime from Pay Plan Date
+							</span>
+						</div>
+
 						<br/>
 						<a v-if="props.row.receiptPayment" :href="'<?= base_url('admin/transaction/file_gl'); ?>/'+props.row.receiptPayment+'/true'" target="_blank" class="btn btn-sm btn-info mt-2">
 							File Receipt Payment
@@ -110,7 +121,10 @@
 
 					</template>
 					<template slot="pay_plan_date" slot-scope="props">
-						{{ props.row.pay_plan_date | formatDate }}
+						{{ props.row.pay_plan_date | formatDate }} <br/>
+						<span class="badge badge-info mt-2" style="font-size: 100%;" v-if="props.row.expiredPayDate">
+						Expired At : {{ props.row.expiredPayDate | formatDate }}
+						</span>
 					</template>
 					<template slot="t_id" slot-scope="props">
 						<div class="table-button-container">
@@ -165,6 +179,12 @@
 						<th>Pay Plan Date</th>
 						<td>
 							<vuejs-datepicker :input-class="{'form-control':true,'is-invalid': modifyModel.validation_error.payPlanDate}" wrapper-class="" name="midtrans_data[payPlanDate]" v-model="modifyModel.midtrans_data.payPlanDate"></vuejs-datepicker>
+						</td>
+					</tr>
+					<tr>
+						<th>Expired Pay Date</th>
+						<td>
+							<vuejs-datepicker :input-class="{'form-control':true,'is-invalid': modifyModel.validation_error.expiredPayDate}" wrapper-class="" name="midtrans_data[expiredPayDate]" v-model="modifyModel.midtrans_data.expiredPayDate"></vuejs-datepicker>
 						</td>
 					</tr>
 					<tr>
@@ -253,6 +273,9 @@
 			},
 		},
 		methods: {
+			isOverdue(value){
+				return moment(value).isBefore();
+			},
 			transactionsSort(data) {
 				return data.sort(function(a, b) {
 					return (a.event_pricing_id > b.event_pricing_id) ? -1 : 1;
@@ -262,6 +285,8 @@
 				var formData = new FormData(this.$refs.formModify);
 				if(this.modifyModel.midtrans_data.payPlanDate)
 					formData.set("midtrans_data[payPlanDate]",moment(this.modifyModel.midtrans_data.payPlanDate).format('YYYY-MM-DD'));
+				if(this.modifyModel.midtrans_data.expiredPayDate)
+					formData.set("midtrans_data[expiredPayDate]",moment(this.modifyModel.midtrans_data.expiredPayDate).format('YYYY-MM-DD'));
 				if(this.modifyModel.midtrans_data.fileName)
 					formData.set("midtrans_data[fileName]",this.modifyModel.midtrans_data.fileName);
 				if(this.modifyModel.midtrans_data.receiptPayment)
@@ -319,6 +344,7 @@
 									fileName: '',
 									payPlanDate: '',
 									sponsorName: '',
+									expiredPayDate:'',
 								};
 							}
 						} else {
@@ -326,6 +352,7 @@
 								fileName: '',
 								payPlanDate: '',
 								sponsorName: '',
+								expiredPayDate:'',
 							};
 						}
 						res.model.validation_error = {};

@@ -65,6 +65,7 @@ class Transaction_m extends MY_Model
 		$gridConfig['select'] = array_merge($gridConfig['select'], [
 			'sponsor' => "JSON_UNQUOTE(JSON_EXTRACT(midtrans_data,'$.sponsorName'))", //"midtrans_data->>'$.sponsorName'",
 			'pay_plan_date' => "JSON_UNQUOTE(JSON_EXTRACT(midtrans_data,'$.payPlanDate'))", //"midtrans_data->>'$.payPlanDate'",
+			'expiredPayDate' => "JSON_UNQUOTE(JSON_EXTRACT(midtrans_data,'$.expiredPayDate'))", //"midtrans_data->>'$.payPlanDate'",
 			'filename' => "JSON_UNQUOTE(JSON_EXTRACT(midtrans_data,'$.fileName'))", //"midtrans_data->>'$.fileName'",
 			'receiptPayment' => "JSON_UNQUOTE(JSON_EXTRACT(midtrans_data,'$.receiptPayment'))", //"midtrans_data->>'$.receiptPayment'",
 			'status_gl' => "IF(message_payment = '" . self::GL_PAID_MESSAGE . "','Paid','Unpaid')"
