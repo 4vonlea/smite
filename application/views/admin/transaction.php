@@ -186,7 +186,7 @@
 					</tr>
 					<tr>
 						<th>Amount</th>
-						<td :colspan="isGroup ? '4' : '3'">{{ amount }}</td>
+						<td :colspan="isGroup ? '4' : '3'">{{ amountDetail }}</td>
 					</tr>
 					<tr>
 						<th>Channel Payment</th>
@@ -315,7 +315,7 @@
 					</tr>
 					<tr>
 						<th>Amount</th>
-						<td :colspan="isGroup ? '4' : '3'">{{ amount }}</td>
+						<td :colspan="isGroup ? '4' : '3'">{{ amountModify }}</td>
 					</tr>
 					<tr>
 						<th>Channel Payment</th>
@@ -502,12 +502,20 @@
 			onlyHotel:false,
 		},
 		computed: {
-			amount() {
+			amountModify(){
 				var price = 0;
-				let details = this.modifyModel.details ?? this.detailModel.details;
-				for (var d in details) {
-					if (details[d])
-						price += Number(details[d].price);
+				for (var d in this.modifyModel.details) {
+					if (this.modifyModel.details[d])
+						price += Number(this.modifyModel.details[d].price);
+				}
+				return this.formatCurrency(price);
+
+			},
+			amountDetail() {
+				var price = 0;
+				for (var d in this.detailModel.details) {
+					if (this.detailModel.details[d])
+						price += Number(this.detailModel.details[d].price);
 				}
 				return this.formatCurrency(price);
 			},
