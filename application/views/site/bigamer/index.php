@@ -64,7 +64,11 @@
 					<p style="color: white; text-shadow: 3px 2px 1px black; font-size: 25px;">Integrasi E-Certificate ke P2KB Online hanya dapat diberikan kepada peserta yang melakukan registrasi via website</p>
 				</div>
 			</div>
-
+			<div class="row mt-3 text-center">
+				<div class="col-12">
+					<p style="color: white; text-shadow: 3px 2px 1px black; font-size: 25px;">Bagi yang sudah terdaftar, silakan Login disini.</p>
+				</div>
+			</div>
 			<div class="row mt-4 mb-5">
 				<div class="col-md-6 offset-md-3">
 					<form class="account-form" action="<?= base_url('site/login'); ?>" method="POST">
@@ -87,7 +91,7 @@
 						<?php endif; ?>
 						<div class="form-group">
 							<button type="submit" value="login" name="login" class="btn btn-edge btn-purple" style="margin-top: -3px;">
-								<span> <?= $hasSession ? "Back To Member Area" : "Sign"; ?></span>
+								<span> <?= $hasSession ? "Back To Member Area" : "Sign in / Masuk"; ?></span>
 							</button>
 						</div>
 					</form>
