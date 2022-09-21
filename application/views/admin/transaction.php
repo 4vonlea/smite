@@ -426,14 +426,14 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label>Pay Plan Date</label>
+						<label>Payment Plan Date - Sponsor</label>
 						<vuejs-datepicker :input-class="{'form-control':true,'is-invalid': glModel.validation_error['midtrans_data[payPlanDate]']}" wrapper-class="" name="midtrans_data[payPlanDate]" v-model="glModel.midtrans_data.payPlanDate" ></vuejs-datepicker>
 						<div v-if="glModel.validation_error['midtrans_data[payPlanDate]']" class="invalid-feedback d-block">
 							{{ glModel.validation_error['midtrans_data[payPlanDate]'] }}
 						</div>
 					</div>
 					<div class="form-group">
-						<label>Expired Pay Date</label>
+						<label>Payment Plan Date - Committee</label>
 						<vuejs-datepicker :input-class="{'form-control':true,'is-invalid': glModel.validation_error['midtrans_data[expiredPayDate]']}" wrapper-class="" name="midtrans_data[expiredPayDate]" v-model="glModel.midtrans_data.expiredPayDate" ></vuejs-datepicker>
 						<div v-if="glModel.validation_error['midtrans_data[expiredPayDate]']" class="invalid-feedback d-block">
 							{{ glModel.validation_error['midtrans_data[expiredPayDate]'] }}

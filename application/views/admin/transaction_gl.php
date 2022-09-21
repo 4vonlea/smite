@@ -83,7 +83,7 @@
 				</div>
 			</div>
 			<div class="table-responsive">
-				<datagrid @loaded_data="loadedGrid" ref="datagrid" api-url="<?= base_url('admin/transaction/grid_gl'); ?>" :fields="[{name:'invoice',sortField:'invoice','title':'No Invoice'}, {name:'fullname',sortField:'fullname','title':'Member Name'},{name:'status_payment',sortField:'status_payment','title':'Status Payment'},{name:'status_gl',sortField:'status_gl',title:'Status GL'},{name:'pay_plan_date',sortField:'pay_plan_date',title:'Pay Plan Date'},{name:'t_id','title':'Aksi'}]">
+				<datagrid @loaded_data="loadedGrid" ref="datagrid" api-url="<?= base_url('admin/transaction/grid_gl'); ?>" :fields="[{name:'invoice',sortField:'invoice','title':'No Invoice'}, {name:'fullname',sortField:'fullname','title':'Member Name'},{name:'status_payment',sortField:'status_payment','title':'Status Payment'},{name:'status_gl',sortField:'status_gl',title:'Status GL'},{name:'pay_plan_date',sortField:'pay_plan_date',title:'Payment Plan Date'},{name:'t_id','title':'Aksi'}]">
 					<template slot="fullname" slot-scope="props">
 						{{ props.row.fullname }} <br />
 						<span class="badge badge-info">
@@ -105,12 +105,12 @@
 						</span>
 						<div v-if="props.row.status_gl == 'Unpaid' && props.row.expiredPayDate && isOverdue(props.row.expiredPayDate)">
 							<span class="badge badge-danger">
-								Overtime from  Expired Date
+								Overtime from  Payment Plan Date - Commitee
 							</span>
 						</div>
 						<div v-if="props.row.status_gl == 'Unpaid' && props.row.pay_plan_date && isOverdue(props.row.pay_plan_date)">
 							<span  class="badge badge-warning">
-								Overtime from Pay Plan Date
+								Overtime from Payment Plan Date - Sponsor
 							</span>
 						</div>
 
@@ -121,9 +121,11 @@
 
 					</template>
 					<template slot="pay_plan_date" slot-scope="props">
-						{{ props.row.pay_plan_date | formatDate }} <br/>
+						<span class="badge badge-info mt-2" style="font-size: 100%;">
+						 	Sponsor : {{ props.row.pay_plan_date | formatDate }} <br/>
+						</span>
 						<span class="badge badge-info mt-2" style="font-size: 100%;" v-if="props.row.expiredPayDate">
-						Expired At : {{ props.row.expiredPayDate | formatDate }}
+							Commitee : {{ props.row.expiredPayDate | formatDate }}
 						</span>
 					</template>
 					<template slot="t_id" slot-scope="props">
@@ -176,13 +178,13 @@
 						</td>
 					</tr>
 					<tr>
-						<th>Pay Plan Date</th>
+						<th>Payment Plan Date - Sponsor</th>
 						<td>
 							<vuejs-datepicker :input-class="{'form-control':true,'is-invalid': modifyModel.validation_error.payPlanDate}" wrapper-class="" name="midtrans_data[payPlanDate]" v-model="modifyModel.midtrans_data.payPlanDate"></vuejs-datepicker>
 						</td>
 					</tr>
 					<tr>
-						<th>Expired Pay Date</th>
+						<th>Payment Plan Date - Committee</th>
 						<td>
 							<vuejs-datepicker :input-class="{'form-control':true,'is-invalid': modifyModel.validation_error.expiredPayDate}" wrapper-class="" name="midtrans_data[expiredPayDate]" v-model="modifyModel.midtrans_data.expiredPayDate"></vuejs-datepicker>
 						</td>
