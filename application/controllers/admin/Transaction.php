@@ -287,7 +287,7 @@ class Transaction extends Admin_Controller
 		$uploadStatusReceipt = true;
 		$this->load->library("form_validation");
 		$this->form_validation->set_rules('midtrans_data[sponsorName]', 'Sponsor', 'required');
-		$this->form_validation->set_rules('midtrans_data[payPlanDate]', 'Pay Plan Date', 'required');
+		$this->form_validation->set_rules('midtrans_data[payPlanDate]', 'Payment Plan Date', 'required');
 		$response = [
 			'status'=>true,
 			'validation_error'=>null,
