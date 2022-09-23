@@ -503,7 +503,6 @@ class Payment extends MY_Controller
 	}
 
 	protected function request($url,$params){
-		var_dump($params);
 		$curl = curl_init();
 			curl_setopt_array($curl, array(
 			CURLOPT_URL => $url,
