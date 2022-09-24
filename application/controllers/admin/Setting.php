@@ -99,6 +99,16 @@ class Setting extends Admin_Controller
 			->_display(json_encode(['status' => true]));
 	}
 
+	public function remove_second_image(){
+		$id = $this->input->post("id");
+		$status = false;
+		if(file_exists(APPPATH . "uploads/cert_template/second_page_$id.txt")){
+			$status = unlink(APPPATH . "uploads/cert_template/second_page_$id.txt");
+		}
+		$this->output
+			->set_content_type("application/json")
+			->_display(json_encode(['status' => $status]));
+	}
 
 	public function preview_nametag($id)
 	{
