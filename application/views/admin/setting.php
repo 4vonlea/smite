@@ -136,8 +136,12 @@
 									<div class="form-group row">
 										<label class="col-md-3 col-form-label">
 											Image for Second Page
+											<br/>
 											<button v-if="cert.secondPage.base64" type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#show-second-page">
 												See Image
+											</button>
+											<button v-if="cert.secondPage.base64" type="button" class="btn btn-primary btn-sm" @click="removeSecondImage">
+												Remove Image
 											</button>
 										</label>
 										<div class="col-md-3" style="padding-left: 0px;padding-right:0px;">
@@ -953,6 +957,26 @@
 					style: 'currency',
 					currency: "IDR"
 				}).format(price);
+			},
+			removeSecondImage(){
+				app.saving = true;
+				$.ajax({
+					url: "<?= base_url('admin/setting/remove_second_image'); ?>",
+					type: "POST",
+					data: {
+						id: app.selectedEvent
+					},
+				}).done(function() {
+					app.changeCertEvent();
+					Swal.fire("Success", "Second image removed !", "success");
+				}).fail(function(xhr) {
+					var message = xhr.getResponseHeader("Message");
+					if (!message)
+						message = 'Server fail to response !';
+					Swal.fire('Fail', message, 'error');
+				}).always(function() {
+					app.saving = false;
+				});
 			},
 			enableApiCurrency(e) {
 				var cur = 'IDR';

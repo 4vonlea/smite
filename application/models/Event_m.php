@@ -455,7 +455,7 @@ class Event_m extends MY_Model
 				->where("transaction_details.member_id",$data['id'])
 				->where("transaction.status_payment",Transaction_m::STATUS_FINISH)
 				->where("event_id",$id)->select("transaction_id,transaction_details.id as id_detil")->get()->row();
-			$data['qr'] = $tr->transaction_id ? base_url("site/sertifikat/".sha1($tr->id_detil)) : "-";
+			$data['qr'] = isset($tr->transaction_id) ? base_url("site/sertifikat/".sha1($tr->id_detil)) : "-";
 			$data['event_name'] = $event_name;
 			$domInvoice = new Dompdf();
 			$propery = json_decode(Settings_m::getSetting("config_cert_$id"), true);
@@ -464,7 +464,7 @@ class Event_m extends MY_Model
 				'property' => $propery,
 				'data' => $data,
 				'secondPage' => file_exists(APPPATH . "uploads/cert_template/second_page_$id.txt") ? 
-									file_get_contents(APPPATH . "uploads/cert_template/second_page_$id.txt") : ""
+									file_get_contents(APPPATH . "uploads/cert_template/second_page_$id.txt") : null
 			], true);
 			$domInvoice->setPaper("a4", "landscape");
 			$domInvoice->loadHtml($html);
