@@ -1096,7 +1096,7 @@
 						<div class="sponsor-item">
 							<div class="sponsor-inner">
 								<div class="sponsor-thumb text-center">
-									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/custom/sponsor.png" alt="sponsor-thumb">
+									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/sponsor/platinum/1_otsuka.png" alt="sponsor-thumb">
 								</div>
 							</div>
 						</div>
@@ -1105,7 +1105,7 @@
 						<div class="sponsor-item">
 							<div class="sponsor-inner">
 								<div class="sponsor-thumb text-center">
-									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/custom/sponsor.png" alt="sponsor-thumb">
+									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/sponsor/platinum/2_royal_medica.png" alt="sponsor-thumb">
 								</div>
 							</div>
 						</div>
@@ -1114,7 +1114,61 @@
 						<div class="sponsor-item">
 							<div class="sponsor-inner">
 								<div class="sponsor-thumb text-center">
-									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/custom/sponsor.png" alt="sponsor-thumb">
+									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/sponsor/platinum/3_lundbeck.png" alt="sponsor-thumb">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col">
+						<div class="sponsor-item">
+							<div class="sponsor-inner">
+								<div class="sponsor-thumb text-center">
+									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/sponsor/platinum/4_eisai.png" alt="sponsor-thumb">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col">
+						<div class="sponsor-item">
+							<div class="sponsor-inner">
+								<div class="sponsor-thumb text-center">
+									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/sponsor/platinum/5_interbat.png" alt="sponsor-thumb">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col">
+						<div class="sponsor-item">
+							<div class="sponsor-inner">
+								<div class="sponsor-thumb text-center">
+									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/sponsor/platinum/6_siemens.png" alt="sponsor-thumb">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col">
+						<div class="sponsor-item">
+							<div class="sponsor-inner">
+								<div class="sponsor-thumb text-center">
+									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/sponsor/platinum/7_wallesta.png" alt="sponsor-thumb">
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- <div class="col">
+						<div class="sponsor-item">
+							<div class="sponsor-inner">
+								<div class="sponsor-thumb text-center">
+									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/sponsor/platinum/8_" alt="sponsor-thumb">
+								</div>
+							</div>
+						</div>
+					</div> -->
+					<div class="col">
+						<div class="sponsor-item">
+							<div class="sponsor-inner">
+								<div class="sponsor-thumb text-center">
+									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/sponsor/platinum/9_kalbe_farma.png" alt="sponsor-thumb">
 								</div>
 							</div>
 						</div>
@@ -1128,7 +1182,7 @@
 						<div class="sponsor-item">
 							<div class="sponsor-inner">
 								<div class="sponsor-thumb text-center">
-									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/custom/sponsor.png" alt="sponsor-thumb">
+									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/sponsor/gold/1_dexa.png" alt="sponsor-thumb">
 								</div>
 							</div>
 						</div>
@@ -1137,7 +1191,7 @@
 						<div class="sponsor-item">
 							<div class="sponsor-inner">
 								<div class="sponsor-thumb text-center">
-									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/custom/sponsor.png" alt="sponsor-thumb">
+									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/sponsor/gold/2_mersifarma.png" alt="sponsor-thumb">
 								</div>
 							</div>
 						</div>
@@ -1146,7 +1200,7 @@
 						<div class="sponsor-item">
 							<div class="sponsor-inner">
 								<div class="sponsor-thumb text-center">
-									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/custom/sponsor.png" alt="sponsor-thumb">
+									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/sponsor/gold/3_novell.png" alt="sponsor-thumb">
 								</div>
 							</div>
 						</div>
@@ -1155,21 +1209,75 @@
 						<div class="sponsor-item">
 							<div class="sponsor-inner">
 								<div class="sponsor-thumb text-center">
-									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/custom/sponsor.png" alt="sponsor-thumb">
+									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/sponsor/gold/4_finusolprima.png" alt="sponsor-thumb">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col">
+						<div class="sponsor-item">
+							<div class="sponsor-inner">
+								<div class="sponsor-thumb text-center">
+									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/sponsor/gold/5_amarox_hetero.png" alt="sponsor-thumb">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col">
+						<div class="sponsor-item">
+							<div class="sponsor-inner">
+								<div class="sponsor-thumb text-center">
+									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/sponsor/gold/6_karindo.png" alt="sponsor-thumb">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col">
+						<div class="sponsor-item">
+							<div class="sponsor-inner">
+								<div class="sponsor-thumb text-center">
+									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/sponsor/gold/7_omron.png" alt="sponsor-thumb">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col">
+						<div class="sponsor-item">
+							<div class="sponsor-inner">
+								<div class="sponsor-thumb text-center">
+									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/sponsor/gold/8_medikon.png" alt="sponsor-thumb">
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 				<br><br>
-				<h4>Gold</h4>
+				<h4>Silver</h4>
 				<hr>
 				<div class="row g-5 justify-content-center row-cols-md-5 row-cols-sm-5 row-cols-2 mt-1">
 					<div class="col">
 						<div class="sponsor-item">
 							<div class="sponsor-inner">
 								<div class="sponsor-thumb text-center">
-									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/custom/sponsor.png" alt="sponsor-thumb">
+									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/sponsor/silver/1_abbot_indo.png" alt="sponsor-thumb">
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- <div class="col">
+						<div class="sponsor-item">
+							<div class="sponsor-inner">
+								<div class="sponsor-thumb text-center">
+									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/sponsor/silver/2_abbot_nutrition.png" alt="sponsor-thumb">
+								</div>
+							</div>
+						</div>
+					</div> -->
+					<div class="col">
+						<div class="sponsor-item">
+							<div class="sponsor-inner">
+								<div class="sponsor-thumb text-center">
+									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/sponsor/silver/3_bernofarm.png" alt="sponsor-thumb">
 								</div>
 							</div>
 						</div>
@@ -1178,21 +1286,111 @@
 						<div class="sponsor-item">
 							<div class="sponsor-inner">
 								<div class="sponsor-thumb text-center">
-									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/custom/sponsor.png" alt="sponsor-thumb">
+									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/sponsor/silver/4_fahrenheit.png" alt="sponsor-thumb">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col">
+						<div class="sponsor-item">
+							<div class="sponsor-inner">
+								<div class="sponsor-thumb text-center">
+									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/sponsor/silver/5_ferron.png" alt="sponsor-thumb">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col">
+						<div class="sponsor-item">
+							<div class="sponsor-inner">
+								<div class="sponsor-thumb text-center">
+									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/sponsor/silver/6_ikapharmindo.png" alt="sponsor-thumb">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col">
+						<div class="sponsor-item">
+							<div class="sponsor-inner">
+								<div class="sponsor-thumb text-center">
+									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/sponsor/silver/7_mitra_medika.png" alt="sponsor-thumb">
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- <div class="col">
+						<div class="sponsor-item">
+							<div class="sponsor-inner">
+								<div class="sponsor-thumb text-center">
+									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/sponsor/silver/8_.png" alt="sponsor-thumb">
+								</div>
+							</div>
+						</div>
+					</div> -->
+					<div class="col">
+						<div class="sponsor-item">
+							<div class="sponsor-inner">
+								<div class="sponsor-thumb text-center">
+									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/sponsor/silver/9_phapros.png" alt="sponsor-thumb">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col">
+						<div class="sponsor-item">
+							<div class="sponsor-inner">
+								<div class="sponsor-thumb text-center">
+									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/sponsor/silver/10_tawada.png" alt="sponsor-thumb">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col">
+						<div class="sponsor-item">
+							<div class="sponsor-inner">
+								<div class="sponsor-thumb text-center">
+									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/sponsor/silver/11_tempo.png" alt="sponsor-thumb">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col">
+						<div class="sponsor-item">
+							<div class="sponsor-inner">
+								<div class="sponsor-thumb text-center">
+									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/sponsor/silver/12_pg_health.png" alt="sponsor-thumb">
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 				<br><br>
-				<h4>Gold</h4>
+				<h4>Bronze</h4>
 				<hr>
 				<div class="row g-5 justify-content-center row-cols-md-6 row-cols-sm-6 row-cols-2 mt-1">
 					<div class="col">
 						<div class="sponsor-item">
 							<div class="sponsor-inner">
 								<div class="sponsor-thumb text-center">
-									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/custom/sponsor.png" alt="sponsor-thumb">
+									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/sponsor/bronze/1_pyridam.png" alt="sponsor-thumb">
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- <div class="col">
+						<div class="sponsor-item">
+							<div class="sponsor-inner">
+								<div class="sponsor-thumb text-center">
+									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/sponsor/bronze/2_" alt="sponsor-thumb">
+								</div>
+							</div>
+						</div>
+					</div> -->
+					<div class="col">
+						<div class="sponsor-item">
+							<div class="sponsor-inner">
+								<div class="sponsor-thumb text-center">
+									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/sponsor/bronze/3_iqvia.png" alt="sponsor-thumb">
 								</div>
 							</div>
 						</div>
@@ -1201,7 +1399,25 @@
 						<div class="sponsor-item">
 							<div class="sponsor-inner">
 								<div class="sponsor-thumb text-center">
-									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/custom/sponsor.png" alt="sponsor-thumb">
+									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/sponsor/bronze/4_etercon.png" alt="sponsor-thumb">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col">
+						<div class="sponsor-item">
+							<div class="sponsor-inner">
+								<div class="sponsor-thumb text-center">
+									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/sponsor/bronze/5_calysta.png" alt="sponsor-thumb">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col">
+						<div class="sponsor-item">
+							<div class="sponsor-inner">
+								<div class="sponsor-thumb text-center">
+									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/sponsor/bronze/6_prodia.png" alt="sponsor-thumb">
 								</div>
 							</div>
 						</div>
