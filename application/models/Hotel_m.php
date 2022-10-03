@@ -57,14 +57,19 @@ class Hotel_m extends MY_Model
             $temp[$row['booking_date']][$row['hotel_id']][$row['room_id']][$row['status_payment']]++;
             $temp[$row['booking_date']][$row['hotel_id']][$row['room_id']]['sum']++;
         }
-        return ['summary'=>$temp,'rangeDate'=>$rangeDate,'roomList'=>$roomList];
-//        echo json_encode($temp);
-        // exit;
-        // foreach($roomList as $room){
-        //     foreach($rangeDate as $date){
-        //         $countBooking = isset($temp[$date][$room['hotel_id']]['room_id'])
-        //         $summary[$room][$date] 
-        //     }
-        // }
+        $hotelAvailable = [];
+        foreach($roomList as $row){
+            foreach($rangeDate as $date){
+                if(!isset($hotelAvailable[$row['hotel_id']])){
+                    $hotelAvailable[$row['hotel_id']]['name'] = $row['hotel_name'];
+                    $hotelAvailable[$row['hotel_id']]['qouta'] = $row['quota'];
+                    $hotelAvailable[$row['hotel_id']]['booked'] = $temp[$date['date']]["H".$row['hotel_id']]["R".$row['room_id']]['sum'] ?? 0;
+                }else{
+                    $hotelAvailable[$row['hotel_id']]['qouta'] += $row['quota'];
+                    $hotelAvailable[$row['hotel_id']]['booked'] += $temp[$date['date']]["H".$row['hotel_id']]["R".$row['room_id']]['sum'] ?? 0;
+                }    
+            }
+        }
+        return ['summary'=>$temp,'rangeDate'=>$rangeDate,'roomList'=>$roomList,'availableHotel'=>$hotelAvailable];
     }
 }

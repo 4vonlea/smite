@@ -253,6 +253,22 @@
 					</div>
 				</div>
 
+				<div class="row justify-content-center g-4 mt-4">
+					<?php foreach($hotelAvailable as $hotel) : ?>
+					<div class="col-lg-3 col-sm-6 col-12">
+						<div class="contact-item text-center">
+							<div class="contact-thumb mb-4">
+								<i class="icofont icofont-hotel icofont-2x" style="position: relative; z-index: 2;"></i>
+							</div>
+							<div class="contact-content">
+								<h4 class="title"><?=$hotel['name'];?></h4>
+								<h6 class="badge badge-info bg-primary"><?= ($hotel['qouta'] > $hotel['booked']) ? "Tersedia Kamar Kosong" : "Penuh" ;?></h6>
+							</div>
+						</div>
+					</div>
+					<?php endforeach; ?>
+				</div>
+
 				<div class="row g-4 mt-4">
 					<div class="achievement-area">
 						<div class="row">

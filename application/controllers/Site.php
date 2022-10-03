@@ -36,6 +36,8 @@ class Site extends MY_Controller
 
     public function home()
     {
+        $this->load->model('Hotel_m');
+
         $category       = $this->EventM->listcategory();
         $data['query']  = $category['data'];
         $news           = $this->NewsM->listnews();
@@ -53,6 +55,7 @@ class Site extends MY_Controller
         $papercountdown = $this->SettingM->papercountdown();
         $data['papercountdown'] = $papercountdown ? date_create($papercountdown->value) : date("Y-m-d H:i:s");
         $data['hasSession'] = !$this->user_session_expired();
+        $data['hotelAvailable'] = $this->Hotel_m->summaryBooking()['availableHotel'];
         $this->load->view('site/' . $this->theme . '/home', $data);
     }
 
