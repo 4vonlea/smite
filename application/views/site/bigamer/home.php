@@ -207,6 +207,7 @@
 					</div>
 				</div> -->
 				<div class="row justify-content-center g-4 mt-4">
+                  <h3 class="mt-5 mb-3 text-center">STATUS KEPESERTAAN</h3>
 					<div class="col-lg-3 col-sm-6 col-12">
 						<div class="contact-item text-center">
 							<div class="contact-thumb mb-4">
@@ -254,6 +255,7 @@
 				</div>
 
 				<div class="row justify-content-center g-4 mt-4">
+                  <h3 class="mt-5 mb-3 text-center">STATUS KESEDIAAN KAMAR HOTEL</h3>
 					<?php foreach($hotelAvailable as $hotel) : ?>
 					<div class="col-lg-3 col-sm-6 col-12">
 						<div class="contact-item text-center">
