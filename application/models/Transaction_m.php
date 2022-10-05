@@ -146,6 +146,7 @@ class Transaction_m extends MY_Model
 		$result = $this->db->from("rooms")
 			->where("'$checkin' BETWEEN rooms.start_date AND rooms.end_date")
 			->where("'$checkout' BETWEEN rooms.start_date AND rooms.end_date")
+			->where("id",$room_id)
 			->select("rooms.*")
 			->get()->row();
 		if ($result) {
