@@ -755,7 +755,7 @@ class Member extends Admin_Controller
 			$member = $response['member'];
 			$this->Member_m->update([
 				'kta' => $member['perdossi_no'],
-				'fullname' => "$member[member_title_front] $member[fullname] $member[member_title_back]}",
+				'fullname' => "$member[member_title_front] $member[fullname] $member[member_title_back]",
 				'phone' => $member['member_phone'],
 			],$id,false);
 		}else{
