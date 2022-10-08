@@ -44,7 +44,7 @@ class Hotel_m extends MY_Model
         $result = $this->db->query($query)->result_array();
         $rangeDate = $this->db->get("temp_calendar")->result_array();
         $roomList = $this->db->join("hotels","hotels.id = hotel_id")
-                            ->select("hotels.id as hotel_id,hotels.name as hotel_name,rooms.id as room_id,rooms.name as room_name,quota")
+                            ->select("hotels.id as hotel_id,hotels.name as hotel_name,rooms.id as room_id,rooms.start_date,rooms.end_date, rooms.name as room_name,quota")
                             ->get("rooms")->result_array();
         $temp = [];
         foreach($result as $row){

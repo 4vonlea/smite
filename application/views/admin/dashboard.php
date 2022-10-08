@@ -86,55 +86,70 @@
 								<h3 class="mb-0">Partipants of Events</h3>
 							</div> -->
 							<div class="col-md-12 text-center">
-								<div class="btn-group">
+								<div class="btn-group ">
 									<div class="btn-group">
 										<button class="btn btn-primary dropdown-toggle mt-2" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+											<i class="fa fa-table"></i>
+											<span class="d-none d-md-inline">
 											Download Summary
+											</span>
 										</button>
 										<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-											<button class="dropdown-item" @click="exportSummary('excel')">As Excel</button>
-											<button class="dropdown-item" @click="exportSummary('csv')">As CSV</button>
-											<button class="dropdown-item" @click="exportSummary('pdf')">As PDF</button>
+											<button class="dropdown-item" @click="exportSummary('excel')">Summary As Excel</button>
+											<button class="dropdown-item" @click="exportSummary('csv')">Summary As CSV</button>
+											<button class="dropdown-item" @click="exportSummary('pdf')">Summary As PDF</button>
 										</div>
 									</div>
 									<div class="btn-group">
 										<button class="btn btn-primary dropdown-toggle mt-2" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										<i class="fa fa-users"></i>
+										<span class="d-none d-md-inline">
 											Download Members
+										</span>
 										</button>
 										<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-											<a class="dropdown-item" href="<?= base_url("admin/dashboard/download_member/excel"); ?>" target="_blank">As Excel</a>
-											<a class="dropdown-item" href="<?= base_url("admin/dashboard/download_member/csv"); ?>" target="_blank">As CSV</a>
-											<a class="dropdown-item" href="<?= base_url("admin/dashboard/download_member/pdf"); ?>" target="_blank">As PDF</a>
+											<a class="dropdown-item" href="<?= base_url("admin/dashboard/download_member/excel"); ?>" target="_blank">Members As Excel</a>
+											<a class="dropdown-item" href="<?= base_url("admin/dashboard/download_member/csv"); ?>" target="_blank">Members As CSV</a>
+											<a class="dropdown-item" href="<?= base_url("admin/dashboard/download_member/pdf"); ?>" target="_blank">Members As PDF</a>
 										</div>
 									</div>
 									<div class="btn-group">
 										<button class="btn btn-primary dropdown-toggle mt-2" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										<i class="fa fa-newspaper"></i>
+										<span class="d-none d-md-inline">
 											Download Participant Papers
+										</span>
 										</button>
 										<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-											<a class="dropdown-item" href="<?= base_url("admin/dashboard/download_paper/excel"); ?>" target="_blank">As Excel</a>
-											<a class="dropdown-item" href="<?= base_url("admin/dashboard/download_paper/csv"); ?>" target="_blank">As CSV</a>
-											<a class="dropdown-item" href="<?= base_url("admin/dashboard/download_paper/pdf"); ?>" target="_blank">As PDF</a>
+											<a class="dropdown-item" href="<?= base_url("admin/dashboard/download_paper/excel"); ?>" target="_blank">Participant Papers As Excel</a>
+											<a class="dropdown-item" href="<?= base_url("admin/dashboard/download_paper/csv"); ?>" target="_blank">Participant Papers As CSV</a>
+											<a class="dropdown-item" href="<?= base_url("admin/dashboard/download_paper/pdf"); ?>" target="_blank">Participant Papers As PDF</a>
 										</div>
 									</div>
 									<div class="btn-group">
 										<button class="btn btn-primary dropdown-toggle mt-2" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										<i class="fa fa-calendar-check"></i>
+										<span class="d-none d-md-inline">
 											Download Members Event
+										</span>
 										</button>
 										<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-											<a class="dropdown-item" href="<?= base_url("admin/dashboard/download_member_event/excel"); ?>" target="_blank">As Excel</a>
-											<a class="dropdown-item" href="<?= base_url("admin/dashboard/download_member_event/csv"); ?>" target="_blank">As CSV</a>
-											<a class="dropdown-item" href="<?= base_url("admin/dashboard/download_member_event/pdf"); ?>" target="_blank">As PDF</a>
+											<a class="dropdown-item" href="<?= base_url("admin/dashboard/download_member_event/excel"); ?>" target="_blank">Members Event As Excel</a>
+											<a class="dropdown-item" href="<?= base_url("admin/dashboard/download_member_event/csv"); ?>" target="_blank">Members Event As CSV</a>
+											<a class="dropdown-item" href="<?= base_url("admin/dashboard/download_member_event/pdf"); ?>" target="_blank">Members Event As PDF</a>
 										</div>
 									</div>
 									<div class="btn-group">
 										<button class="btn btn-primary dropdown-toggle mt-2" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										<i class="fa fa-tasks"></i>
+										<span class="d-none d-md-inline">
 											Download Transaksi
+										</span>
 										</button>
 										<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-											<a class="dropdown-item" href="<?= base_url("admin/dashboard/download_transaksi/excel"); ?>" target="_blank">As Excel</a>
-											<a class="dropdown-item" href="<?= base_url("admin/dashboard/download_transaksi/csv"); ?>" target="_blank">As CSV</a>
-											<a class="dropdown-item" href="<?= base_url("admin/dashboard/download_transaksi/pdf"); ?>" target="_blank">As PDF</a>
+											<a class="dropdown-item" href="<?= base_url("admin/dashboard/download_transaksi/excel"); ?>" target="_blank">Transaksi As Excel</a>
+											<a class="dropdown-item" href="<?= base_url("admin/dashboard/download_transaksi/csv"); ?>" target="_blank">Transaksi As CSV</a>
+											<a class="dropdown-item" href="<?= base_url("admin/dashboard/download_transaksi/pdf"); ?>" target="_blank">Transaksi As PDF</a>
 										</div>
 									</div>
 								</div>
@@ -156,8 +171,9 @@
 							</thead>
 							<tbody>
 								<tr v-for="room in report.summary_hotel.roomList">
-									<th>{{ room.hotel_name }} - {{ room.room_name }}</th>
+									<th style="white-space: pre-wrap;">{{ room.hotel_name }} - {{ room.room_name }}</th>
 									<td v-for="row in report.summary_hotel.rangeDate">
+										<div v-if="row.date >= room.start_date && row.date <= room.end_date">
 										<span class="badge badge-info">
 											Waiting {{ safeSummary(row.date,room.hotel_id,room.room_id,'waiting') }}
 										</span>
@@ -169,6 +185,10 @@
 										</span>
 										<hr style="margin-top: 10px;margin-bottom:10px;" />
 										<span>Quota Sisa : {{ room.quota - safeSummary(row.date,room.hotel_id,room.room_id,'sum') }}</span>
+										</div>
+										<div v-else>
+											<p>Not Available in this date</p>
+										</div>
 									</td>
 									<td>
 										<a type="button" :href="'<?=base_url('admin/dashboard/guest_hotel');?>/'+room.room_id" target="_blank" class="btn btn-primary">Download Guest List</a>
@@ -197,7 +217,7 @@
 							</thead>
 							<tbody>
 								<tr v-for="p in report.participants_event">
-									<th>{{ p.name }}</th>
+									<th style="white-space: pre-wrap;">{{ p.name }}</th>
 									<td>{{ p.number_participant }}</td>
 									<td>{{ p.kouta }}</td>
 									<!-- <td>{{ p.kouta-p.number_participant }}</td> -->

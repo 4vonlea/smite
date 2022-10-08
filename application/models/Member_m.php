@@ -4,6 +4,7 @@
 class Member_m extends MY_Model
 {
 	protected $table = "members";
+	protected $primaryKey = "id";
 	public $fillable = ['id', 'image', 'email', 'fullname','kta', 'gender', 'phone', 'birthday', 'country', 'region', 'city', 'univ', 'address', 'username_account', 'status', 'verified_by_admin', 'verified_email', 'sponsor', 'alternatif_status','alternatif_status2','nik'];
 
 	public static $proofExtension = "jpg|png|jpeg";

@@ -71,7 +71,7 @@ $this->layout->begin_head();
 					</div>
 				</div>
 				<div class="table-responsive">
-					<datagrid @loaded_data="loadedGrid" ref="datagrid" api-url="<?= base_url('admin/member/grid'); ?>" :fields="[{name:'fullname',sortField:'fullname'}, {name:'email',sortField:'email'},{name:'created_at',title:'Registered At',sortField:'created_at'},{name:'id',title:'Actions',titleClass:'action-th'}]">
+					<datagrid @loaded_data="loadedGrid" ref="datagrid" api-url="<?= base_url('admin/member/grid'); ?>" :fields="[{name:'fullname',sortField:'fullname'}, {name:'email',sortField:'email'}, {name:'kta',sortField:'kta',title:'Status Anggota'},{name:'created_at',title:'Registered At',sortField:'created_at'},{name:'id',title:'Actions',titleClass:'action-th'}]">
 						<template slot="email" slot-scope="prop">
 							{{ prop.row.email }}
 							<span v-if="prop.row.verified_email == 0" class="badge badge-warning">Unverified</span>
@@ -83,10 +83,19 @@ $this->layout->begin_head();
 						<template slot="created_at" slot-scope="prop">
 							{{ formatDate(prop.row.created_at) }}
 						</template>
+						<template slot="kta" slot-scope="prop">
+							<span v-if="prop.row.kta && prop.row.kta != '-'" class="badge badge-success">Anggota</span>
+							<span v-else-if="!prop.row.kta" class="badge badge-info">Belum Sync</span>
+							<span v-else class="badge badge-danger">Umum</span>
+						</template>
 						<template slot="id" slot-scope="props">
 							<div class="table-button-container">
 								<button v-if="props.row.verified_by_admin == 0" @click="openVerifyModal(props)" class="btn btn-warning btn-sm">
 									<span class="fa fa-pen"></span> Verify
+								</button>
+								<button :disabled="syncId == props.row.id" class="btn btn-primary btn-sm" @click="sync(props.row,$event)">
+									<span class="fa fa-sync"></span> Sync
+									<i v-if="syncId == props.row.id" class="fa fa-spin fa-spinner"></i>
 								</button>
 								<button class="btn btn-primary btn-sm" @click="detail(props.row,$event)">
 									<span class="fa fa-search"></span> Detail
@@ -462,8 +471,30 @@ $this->layout->begin_head();
 			savingProfile: false,
 			sendingCertificate: false,
 			checkingMember:false,
+			syncId:null,
 		},
 		methods: {
+			sync(member){
+				this.syncId = member.id;
+				$.post("<?=base_url("admin/member/cek_member_perdossi");?>",{
+					nik:member.nik,
+					id:member.id
+				}, (res) => {
+                    if (res.message == "success") {
+                        Swal.fire('Info', `Keanggotaan berhasil dicek. <br/> Data KTA, Nama dan No Telpon telah disinkronkan`, 'info');
+                        member.kta = res.member.perdossi_no;
+                        member.fullname = `${res.member.member_title_front} ${res.member.fullname} ${res.member.member_title_back}`;
+                        member.phone = res.member.member_phone;
+                    } else {
+                        member.kta = "-";
+                        Swal.fire('Info', `${member.fullname} dengan NIK.${member.nik} : ${res.message}`, 'info');
+                    }
+                }).always(() => {
+                    this.syncId = null;
+                }).fail(() => {
+                    Swal.fire('Fail', 'Failed to get member information in perdossi API', 'error')
+                })
+			},
 			checkMember() {
                 this.checkingMember = true;
                 $.get("<?=base_url("member/register/info_member_perdossi/");?>" + this.profile.nik, (res) => {

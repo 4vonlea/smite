@@ -744,4 +744,27 @@ class Member extends Admin_Controller
 			$this->layout->render("register_group", $data);
 		}
 	}
+
+	public function cek_member_perdossi(){
+		$this->load->model('Member_m');
+		$id = $this->input->post("id");
+		$nik = $this->input->post("nik");
+		$this->load->library('Api_perdossi');
+        $response = $this->api_perdossi->getMemberByNIK($nik);
+		if($response['message'] == "success"){
+			$member = $response['member'];
+			$this->Member_m->update([
+				'kta' => $member['perdossi_no'],
+				'fullname' => "$member[member_title_front] $member[fullname] $member[member_title_back]}",
+				'phone' => $member['member_phone'],
+			],$id,false);
+		}else{
+			$this->Member_m->update([
+				'kta' => "-"
+			],$id,false);
+		}
+        $this->output
+			->set_content_type("application/json")
+			->_display(json_encode($response));
+	}
 }
