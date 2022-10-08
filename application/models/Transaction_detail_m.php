@@ -37,6 +37,9 @@ class Transaction_detail_m extends MY_Model
 			if($datas['checkin'] == self::DATE_KHUSUS && $night < 2){
 				return "Untuk Tanggal 18 November pemesanan minimal 2 malam";
 			}
+			if($datas['checkout'] == '2022-11-19'){
+                return "Tidak diperkenankan checkout di tanggal 19, harap pilih sebelum atau sesudah tanggal 19";
+            }
 			if($checkoutDate > $checkinDate){
 				$this->load->model(["Transaction_m","Room_m"]);
 				if($this->Transaction_m->validateBookingHotel($datas['id'],$datas['checkin'],$datas['checkout'])){

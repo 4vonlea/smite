@@ -657,7 +657,7 @@ $theme_path = base_url("themes/bigamer") . "/";
                         this.valueData.email = res.member.email;
                         this.valueData.phone = res.member.member_phone;
                     } else {
-                        Swal.fire('Info', `NIK.${this.valueData.nik} : ${res.message}`, 'info');
+                        Swal.fire('Info', `NIK.${this.valueData.nik} : Data ${res.message} di Website P2KB PERDOSNI. Jangan khawatir, Anda masih dapat melanjutkan pendaftaran PIN PERDOSSI Cirebon 2022 dengan melanjutkan mengisi kolom yang kosong pada formulir ini.`, 'info');
                     }
                 }).always(() => {
                     this.checkingMember = false;
@@ -886,7 +886,7 @@ $theme_path = base_url("themes/bigamer") . "/";
                         // })
                     } else {
                         $(e.target).prop('checked', false);
-                        Swal.fire('Info', `You must follow event <b>"${event.event_required}"</b> to participate this event !`, 'info');
+                        Swal.fire('Info', `You must follow: <b>"${event.event_required}"</b> to participate this event !`, 'info');
                     }
                 } else {
                     // $.post("<?= base_url('member/register/delete_item_cart'); ?>",{
