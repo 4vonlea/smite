@@ -34,4 +34,21 @@ class Event_discount_m extends MY_Model
             ->from("event_pricing")
             ->get()->result_array();
     }
+
+    public function getLikeEvent(){
+		$result = [];
+		foreach($this->findAll() as $row){
+            $combination = json_decode($row['event_combination'],true);
+            $result[] = [
+                'event_name'=>'Discount : '.$row['name'],
+                'event_id'=>'-2',
+                'id'=>'-2',
+                'name'=>$combination['pricingCategory'] ?? "",
+                'price'=>'-'.$row['discount'],
+                'price_in_usd'=>'-'.($row['discount_usd'] ?? "0"),
+                "condition"=>$combination['pricingCategory'] ?? "",
+            ];
+        }
+        return $result;
+	}
 }

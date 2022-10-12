@@ -241,7 +241,7 @@ $this->layout->begin_head();
 							<label>Events the Followed</label>
 							<table class="table table-bordered">
 								<tr>
-									<th>d</th>
+									<th>Check</th>
 									<th>Events Name</th>
 									<th>Price</th>
 								</tr>
@@ -249,7 +249,18 @@ $this->layout->begin_head();
 									<td>
 										<input type="checkbox" v-model="selected" name="transaction[event][]" :value="[ev.id,ev.price,ev.price_in_usd,ev.product_name,ev.status]" />
 									</td>
-									<td>{{ index }} <span style="font-size: 14px;" v-if="ev.event_required">(You must follow event {{ ev.event_required }} to patcipate this event)</span>
+									<td>{{ index }} <span style="font-size: 14px;" v-if="ev.event_required">(You must follow event {{ ev.event_required }} to patcipate this event)</span></td>
+									<td>
+										<span v-show="ev.price != 0 || ev.price_in_usd == 0">{{ formatCurrency(ev.price) }}</span>
+										<span v-show="ev.price != 0 && ev.price_in_usd != 0"> / </span>
+										<span v-show="ev.price_in_usd != 0">{{formatCurrency(ev.price_in_usd, 'USD')}}</span>
+									</td>
+								</tr>
+								<tr v-for="(ev,index) in discount">
+									<td>
+										<input type="checkbox" v-model="selected" name="transaction[event][]" :value="[ev.id,ev.price,ev.price_in_usd,ev.event_name,ev.condition]" />
+									</td>
+									<td>{{ ev.event_name }}</td>
 									<td>
 										<span v-show="ev.price != 0 || ev.price_in_usd == 0">{{ formatCurrency(ev.price) }}</span>
 										<span v-show="ev.price != 0 && ev.price_in_usd != 0"> / </span>
@@ -298,6 +309,7 @@ $this->layout->begin_head();
 			saving: false,
 			validation_error: {},
 			events: <?= json_encode($events); ?>,
+			discount: <?= json_encode($discount); ?>,
 			valueData:{
                 nik:'',
                 kta:'',
@@ -350,20 +362,26 @@ $this->layout->begin_head();
 			total(idr = true) {
 				var total = 0;
 				var selected = [];
+				var kurs_usd = <?= json_encode(json_decode(Settings_m::getSetting('kurs_usd'), true)); ?>;
 				this.selected.forEach(function(item) {
 					selected.push(item[0]);
-				});
-				var events = this.filteredEvents;
-				Object.keys(events).forEach(function(key) {
-					if (selected.indexOf(events[key].id) >= 0) {
-						if (idr && events[key].price != 0) {
-							total += parseFloat(events[key].price);
-						} else {
-							kurs_usd = <?= json_encode(json_decode(Settings_m::getSetting('kurs_usd'), true)); ?>;
-							total += (parseFloat(events[key].price_in_usd) * kurs_usd.value);
-						}
+					if (idr && item[1]!= 0) {
+						total += parseFloat(item[1]);
+					} else {
+						total += (parseFloat(item[2]) * kurs_usd.value);
 					}
 				});
+				// var events = this.filteredEvents;
+				// Object.keys(events).forEach(function(key) {
+				// 	if (selected.indexOf(events[key].id) >= 0) {
+				// 		if (idr && events[key].price != 0) {
+				// 			total += parseFloat(events[key].price);
+				// 		} else {
+				// 			kurs_usd = <?= json_encode(json_decode(Settings_m::getSetting('kurs_usd'), true)); ?>;
+				// 			total += (parseFloat(events[key].price_in_usd) * kurs_usd.value);
+				// 		}
+				// 	}
+				// });
 				return total;
 			},
 			onlyNumber($event) {

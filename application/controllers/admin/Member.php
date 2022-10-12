@@ -203,7 +203,7 @@ class Member extends Admin_Controller
 
 	public function register()
 	{
-		$this->load->model(["Category_member_m", "Event_m", "Univ_m", "Country_m", "Event_pricing_m"]);
+		$this->load->model(["Category_member_m", "Event_m", "Univ_m", "Country_m", "Event_pricing_m","Event_discount_m"]);
 		$participantsCategory = Category_member_m::asList(Category_member_m::findAll(), 'id', 'kategory', 'Please Select your status');
 		if ($this->input->post()) {
 
@@ -280,12 +280,12 @@ class Member extends Admin_Controller
 
 					// NOTE Harga sesuai dengan database
 					$price = $this->Event_pricing_m->findOne(['id' => $t[0], 'condition' => $t[4]]);
-					if ($price->price != 0) {
+					if ($price && $price->price != 0) {
 						$t['1'] = $price->price;
-					} elseif($price->price_in_usd > 0) {
+					} elseif($price && $price->price_in_usd > 0) {
 						$kurs_usd = json_decode(Settings_m::getSetting('kurs_usd'), true);
 						$t['1'] = ($price->price_in_usd * $kurs_usd['value']);
-					}else{
+					}else if($price){
 						$t['1'] = $price->price;
 					}
 
@@ -356,6 +356,7 @@ class Member extends Admin_Controller
 			$data = [
 				'participantsCategory' => $participantsCategory,
 				'events' => $events,
+				'discount'=>$this->Event_discount_m->getLikeEvent(),
 				'univDl' => $univDl,
 				'countryDl' => $countryDl,
 			];

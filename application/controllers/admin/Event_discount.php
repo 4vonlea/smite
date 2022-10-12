@@ -93,4 +93,5 @@ class Event_discount extends Admin_Controller
 			$this->output->set_status_header(403);
 		}
 	}
+
 }

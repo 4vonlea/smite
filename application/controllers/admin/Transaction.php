@@ -149,7 +149,7 @@ class Transaction extends Admin_Controller
 		if ($this->input->method() != 'post')
 			show_404("Page Not Found !");
 
-		$this->load->model("Transaction_m");
+		$this->load->model(["Transaction_m","Event_discount_m"]);
 		$id = $this->input->post('id');
 		$detail = $this->Transaction_m->findOne($id);
 		if ($detail) {
@@ -171,7 +171,7 @@ class Transaction extends Admin_Controller
 		}
 		$current = count($response['model']['details']) > 0 ? current($response['model']['details']) : ['member_id'=>'-'];
 		$member_id = $group ? $current['member_id'] : $response['model']['member']['id'];
-		$response['listEvent'] = $this->Transaction_m->getNotFollowedEvent($member_id);
+		$response['listEvent'] = array_merge($this->Transaction_m->getNotFollowedEvent($member_id),$this->Event_discount_m->getLikeEvent());
 
 		$this->output
 			->set_content_type("application/json")
