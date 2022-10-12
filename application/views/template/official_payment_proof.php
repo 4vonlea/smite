@@ -235,7 +235,7 @@ $isGroup = ($member == null);
 		<p>
 			<strong>No refund may be allowed after transaction</strong>. This payment proof (receipt) is a valid document and please used it properly. If needed, participants should show this receipt to the committee at the time of re-registration. Thank you
 		</p>
-		<table style="width: 100%;">
+			<table style="width: 100%;">
 			<tr>
 				<td>
 					<img style="width:150px;position: relative;left:0;bottom:0" src="data:image/png;base64,<?= $qr; ?>" />
@@ -248,8 +248,6 @@ $isGroup = ($member == null);
 				</td>
 			</tr>
 		</table>
-
-
 	</section>
 </body>
 
