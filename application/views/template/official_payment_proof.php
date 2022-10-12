@@ -5,7 +5,7 @@
  */
 $header_image = base_url('themes/uploads/header_kop.jpg');
 ob_start();
-QRCode::png($transaction->id,false,QR_ECLEVEL_L,4,2);
+QRCode::png($transaction->id, false, QR_ECLEVEL_L, 4, 2);
 $qr = base64_encode(ob_get_clean());
 header('Content-Type: text/html');
 
@@ -202,7 +202,7 @@ $isGroup = ($member == null);
 							echo "<tr>";
 							echo "<td style='text-align:center'>$no</td>";
 							$total += $d->price;
-							$name = ($isGroup && $d->member_name ? " / ".$d->member_name : "");
+							$name = ($isGroup && $d->member_name ? " / " . $d->member_name : "");
 							if ($d->price_usd > 0) {
 								echo "<td>$d->product_name <strong>$name</strong></td><td style='text-align:center'>USD " . $d->price_usd . "</td>";
 							} else {
@@ -229,17 +229,26 @@ $isGroup = ($member == null);
 		<ul>
 			<li style="font-size:11pt">The amount price above include online bank payment administration fees</li>
 			<?php if (isset($transaction->note) && $transaction->note != "") : ?>
-			<li style="font-size:11pt"><?= $transaction->note; ?></li>
-			<?php endif;?>
+				<li style="font-size:11pt"><?= $transaction->note; ?></li>
+			<?php endif; ?>
 		</ul>
 		<p>
 			<strong>No refund may be allowed after transaction</strong>. This payment proof (receipt) is a valid document and please used it properly. If needed, participants should show this receipt to the committee at the time of re-registration. Thank you
 		</p>
-		<?php
-		$this->load->view("template/invoice_payment_signature");
-		?>
-						<img
-					style="width:100px;position: relative;left:0;bottom:0" src="data:image/png;base64,<?= $qr; ?>"/>
+		<table style="width: 100%;">
+			<tr>
+				<td>
+					<img style="width:150px;position: relative;left:0;bottom:0" src="data:image/png;base64,<?= $qr; ?>" />
+
+				</td>
+				<td>
+					<?php
+					$this->load->view("template/invoice_payment_signature");
+					?>
+				</td>
+			</tr>
+		</table>
+
 
 	</section>
 </body>
