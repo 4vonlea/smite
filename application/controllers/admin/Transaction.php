@@ -105,6 +105,7 @@ class Transaction extends Admin_Controller
 				'request'=>json_encode(array_intersect_key($data,array_flip(['id','status_payment','checkout','client_message']))),
 				'response'=>"[]",
 			]);
+			$trans->note = $data['note'];
 			$trans->status_payment = $data['status_payment'];
 			if ($trans->status_payment != Transaction_m::STATUS_WAITING) {
 				$trans->checkout = 1;

@@ -22,6 +22,7 @@ header('Content-Type: text/html');
 </style>
 <body style="width: 9.5cm;height: 13.5cm">
 <img src="<?= $image; ?>" style="height:100%;width:100%;object-fit:cover;position: absolute;"/>
+<?php if(isset($property)):?>
 <?php foreach ($property as $i=>$row): ?>
 
 	<div
@@ -35,4 +36,5 @@ header('Content-Type: text/html');
 
 	</div>
 <?php endforeach; ?>
+<?php endif;?>
 </body>

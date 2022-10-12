@@ -45,7 +45,7 @@ export default Vue.component("PageEvents", {
                                     <div :id="'accordion-'+index" class="card-body collapse show table-responsive">
                                             <div class="alert alert-success text-center" style="margin-bottom:0px" v-if="event.followed">
                                                 <h5 class="mb-0" style="color: black;">You follow this event</h5>
-                                                <!--<a class="btn btn-default" :href="'<?=base_url('member/area/card');?>/'+event.id+'/'+user.id" target="_blank">Download Name Tag</a>-->
+                                                <a class="btn btn-primary" :href="'<?=base_url('member/area/card');?>/'+event.id+'/'+user.id" target="_blank">Download Name Tag</a>
                                                 <!--<a class="btn btn-default" :href="'<?=base_url('member/area/certificate');?>/'+event.id+'/'+user.id" target="_blank">Download Certificate</a>-->
                                             </div>
                                             <div v-else >

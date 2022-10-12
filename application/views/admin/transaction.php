@@ -212,7 +212,10 @@
 						<th>{{ detailModel.channel == 'EDC' || detailModel.channel == 'MANUAL TRANSFER' ? 'Code Reference' : 'Additional Info' }}</th>
 						<td :colspan="isGroup ? '4' : '3'">{{ detailModel.message_payment }}</td>
 					</tr>
-
+					<tr>
+						<th>Note</th>
+						<td :colspan="4">{{ detailModel.note }}</td>
+					</tr>
 
 					<tr v-if="detailModel.payment_proof">
 						<th>Transfer Proof</th>
@@ -335,6 +338,12 @@
 					<tr v-if="detailModel.channel != 'ESPAY'">
 						<th>{{ modifyModel.channel == 'EDC' || modifyModel.channel == 'MANUAL TRANSFER' ? 'Code Reference' : 'Additional Info' }}</th>
 						<td :colspan="isGroup ? '4' : '3'">{{ modifyModel.message_payment }}</td>
+					</tr>
+					<tr>
+						<th>Note</th>
+						<td colspan="4">
+							<textarea v-model="modifyModel.note" class="form-control"></textarea>
+						</td>
 					</tr>
 
 					<tr v-if="modifyModel.payment_proof">

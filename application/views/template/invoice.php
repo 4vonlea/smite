@@ -188,6 +188,7 @@ $isGroup = ($member == null);
 			?>
 		</div>
 	</div>
+	
 	<div class="row">
 		<div class="">
 			<table class="table-event">
@@ -228,8 +229,12 @@ $isGroup = ($member == null);
 					</tr>
 				</tfoot>
 			</table>
-			<span style="font-size:9pt">*The amount price above include online bank payment administration fees</small>
-
+			<ul>
+			<li style="font-size:11pt">The amount price above include online bank payment administration fees</li>
+			<?php if (isset($transaction->note) && $transaction->note != "") : ?>
+			<li style="font-size:11pt"><?= $transaction->note; ?></li>
+			<?php endif;?>
+			</ul>
 		</div>
 	</div>
 	<p style="text-align:justify;text-justify:inter-word;font-size:18px">

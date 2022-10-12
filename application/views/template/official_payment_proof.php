@@ -4,6 +4,10 @@
  * @var Transaction_m $transaction
  */
 $header_image = base_url('themes/uploads/header_kop.jpg');
+ob_start();
+QRCode::png($transaction->id,false,QR_ECLEVEL_L,4,2);
+$qr = base64_encode(ob_get_clean());
+header('Content-Type: text/html');
 
 $member = $transaction->member;
 $lang['cal_january']	= "Januari";
@@ -222,16 +226,21 @@ $isGroup = ($member == null);
 				</table>
 			</div>
 		</div>
-
-
-		<small style="font-size:9pt;clear:both">*The amount price above has included online bank payment administration fees</small>
-
+		<ul>
+			<li style="font-size:11pt">The amount price above include online bank payment administration fees</li>
+			<?php if (isset($transaction->note) && $transaction->note != "") : ?>
+			<li style="font-size:11pt"><?= $transaction->note; ?></li>
+			<?php endif;?>
+		</ul>
 		<p>
 			<strong>No refund may be allowed after transaction</strong>. This payment proof (receipt) is a valid document and please used it properly. If needed, participants should show this receipt to the committee at the time of re-registration. Thank you
 		</p>
 		<?php
 		$this->load->view("template/invoice_payment_signature");
 		?>
+						<img
+					style="width:100px;position: relative;left:0;bottom:0" src="data:image/png;base64,<?= $qr; ?>"/>
+
 	</section>
 </body>
 
