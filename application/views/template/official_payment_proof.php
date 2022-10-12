@@ -5,6 +5,11 @@
  */
 $header_image = base_url('themes/uploads/header_kop.jpg');
 
+ob_start();
+QRCode::png($transaction->id,false,QR_ECLEVEL_L,4,2);
+$qr = base64_encode(ob_get_clean());
+header('Content-Type: text/html');
+
 $member = $transaction->member;
 $lang['cal_january']	= "Januari";
 $lang['cal_february']	= "Februari";
@@ -229,9 +234,19 @@ $isGroup = ($member == null);
 		<p>
 			<strong>No refund may be allowed after transaction</strong>. This payment proof (receipt) is a valid document and please used it properly. If needed, participants should show this receipt to the committee at the time of re-registration. Thank you
 		</p>
-		<?php
-		$this->load->view("template/invoice_payment_signature");
-		?>
+			<table style="width: 100%;">
+			<tr>
+				<td>
+					<img style="width:150px;position: relative;left:0;bottom:0" src="data:image/png;base64,<?= $qr; ?>" />
+
+				</td>
+				<td>
+					<?php
+					$this->load->view("template/invoice_payment_signature");
+					?>
+				</td>
+			</tr>
+		</table>
 	</section>
 </body>
 
