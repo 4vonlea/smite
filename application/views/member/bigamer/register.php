@@ -269,8 +269,8 @@ $theme_path = base_url("themes/bigamer") . "/";
                         </div>
 
                         <div class="form-group mb-2">
-                            <label>KTA Perdossi</label>
-                            <input type="text" v-model="valueData.kta" readonly :class="{'is-invalid':validation_error.kta}" class="form-control mb-0" name="kta" placeholder="Full Name" />
+                            <label>KTA Perdossi (read-only)</label>
+                            <input type="text" v-model="valueData.kta" readonly :class="{'is-invalid':validation_error.kta}" class="form-control mb-0" name="kta" placeholder="otomatis terisi ketika meng-klik tombol 'Cek NIK di Database P2KB'" />
                             <div v-if="validation_error.kta" class="invalid-feedback">
                                 {{ validation_error.kta }}
                             </div>
@@ -841,7 +841,10 @@ $theme_path = base_url("themes/bigamer") . "/";
                     Swal.fire('Fail', "Tidak bisa melakukan booking ditanggal 19 November, Mohon melakukan check-in sejak tanggal 18 November dengan durasi menginap minimal 2 malam.", 'warning');
                     return false;
                 }
-
+                if (momentCheckout.format("YYYY-MM-DD") == "2022-11-19") {
+                    Swal.fire('Fail', "Tidak diperkenankan checkout ditanggal 19 November", 'warning');
+                    return false;
+                }
                 if (momentCheckin.format("YYYY-MM-DD") == "<?= Transaction_detail_m::DATE_KHUSUS; ?>" && night < 2) {
                     Swal.fire('Fail', "Untuk Tanggal 18 November pemesanan minimal 2 malam", 'warning');
                     return false;
