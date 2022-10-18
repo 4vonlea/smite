@@ -119,7 +119,7 @@
 				<div class="row">
 					<div class="col-12">
 						<div class="footer-bottom-content text-center">
-							<p>&copy;2022 <a href="#home">PIN PERDOSSI CIREBON</a></p>
+							<p>&copy;2022 <a href="https://wa.me/6289603215099">PIN PERDOSSI CIREBON - Registrasi Chat disini : dr. Azka (+62 896-0321-5099)</a></p><br>
 							<p><a href="https://wa.me/6282154950326" target="_blank">Web Developer by CV Meta Medika - Untuk Pengembangan Website Chat disini 082154950326</a></p>
 						</div>
 					</div>
