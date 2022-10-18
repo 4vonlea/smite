@@ -356,7 +356,7 @@ class Payment extends MY_Controller
 			foreach($rs->result_array() as $row){
 				$orders[] = $row['id'];
 			}
-          echo "CHECK : ".$rs->num_rows;
+          echo "CHECK : ".$rs->num_rows();
 		}else{
 			$orders[] = urldecode($invoice);
 		}
