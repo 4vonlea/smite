@@ -344,14 +344,14 @@ class Payment extends MY_Controller
 				}
 		}else if($invoice == null){
 			$sql = "SELECT 
-					t.id,t.status_payment,
+					DISTINCT t.id,t.status_payment,
 					t.channel,
-					NOW(), 
+					CONVERT_TZ(NOW(),'SYSTEM','+08:00'), 
 					STR_TO_DATE(JSON_EXTRACT(l.response,\"$.expired\"),'\"%Y-%m-%d %H:%i:%s\"') AS ex,
 					JSON_EXTRACT(l.response,\"$.expired\") AS ex_string 
 				FROM transaction t
 				LEFT JOIN log_payment l  ON t.id = l.invoice AND l.`action` = \"check_status\"
-				WHERE t.channel = \"ESPAY\" AND ((t.status_payment = \"pending\" AND (l.id IS NULL OR NOW() >= STR_TO_DATE(JSON_EXTRACT(l.response,\"$.expired\"),'\"%Y-%m-%d %H:%i:%s\"'))) OR t.status_payment = 'need_verification')";
+				WHERE t.channel = \"ESPAY\" AND ((t.status_payment = \"pending\" AND (l.id IS NULL OR CONVERT_TZ(NOW(),'SYSTEM','+08:00') >= STR_TO_DATE(JSON_EXTRACT(l.response,\"$.expired\"),'\"%Y-%m-%d %H:%i:%s\"'))) OR t.status_payment = 'need_verification')";
 			$rs = $this->db->query($sql);
 			foreach($rs->result_array() as $row){
 				$orders[] = $row['id'];
