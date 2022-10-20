@@ -113,8 +113,7 @@ export default Vue.component("PagePaper", {
 								<td class="border-end" style="white-space: normal !important;">{{ pap.title }}</td>
 								<td class="border-end">
 									<ul class="list-group">
-										<li class="list-group-item d-flex justify-content-between align-items-center border text-light"
-											style="background-color:transparent">
+										<li class="list-group-item d-flex justify-content-between align-items-center border text-light">
 											Abstract
 											<span class="badge bg-primary badge-pill">{{ paper.status[pap.status] }}</span>
 
@@ -300,7 +299,7 @@ export default Vue.component("PagePaper", {
 							<div class="col-lg-9">
 								<textarea :disabled="detail" rows="5" @keydown='wordCount' @keyup='reduceWord'
 									:class="{'is-invalid':error_upload.introduction}" v-model="form.introduction"
-									class="form-control" name="introduction" style="background-color: transparent;">
+									class="form-control" name="introduction">
 										</textarea>
 								<div v-if="error_upload.title" class="invalid-feedback">{{ error_upload.introduction }}</div>
 								<small>{{ wordCountIntroduction }} Word (300 maximum)</small>
