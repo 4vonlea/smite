@@ -62,6 +62,67 @@ class Exporter
 		return [];
 	}
 
+	public function summaryHotelAsExcel($data){
+		$spreadsheet = new Spreadsheet();
+		$sheet = $spreadsheet->getActiveSheet();
+
+		$row = 1;
+		$col = 1;
+		$sheet->setCellValueByColumnAndRow($col,$row,"Hotel dan Ruangan")
+			  ->mergeCellsByColumnAndRow($col,$row,$col,$row+1);
+		$col++;
+		foreach($data['rangeDate'] as $range){
+			$tgl = $range['date'];
+			$sheet->setCellValueByColumnAndRow($col,$row,$tgl)
+				->setCellValueByColumnAndRow($col,$row+1,"Waiting")
+				->setCellValueByColumnAndRow($col+1,$row+1,"Pending")
+				->setCellValueByColumnAndRow($col+2,$row+1,"Settlement")
+				->setCellValueByColumnAndRow($col+3,$row+1,"Sisa Kouta")
+				->mergeCellsByColumnAndRow($col,$row,$col+3,$row);
+			$col += 4;
+		}
+		$sheet->getStyleByColumnAndRow(1, $row,$col, 2)->applyFromArray([
+			'fill' => [
+				'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+				'color' => ['argb' => $this->color_heading]
+			],
+			'alignment' => ['horizontal' => 'center'],
+			'font' => ['size' => 12]
+		]);
+
+		$row = 2;
+		foreach($data['roomList'] as $room){
+			$col=2;
+			$row++;
+			$sheet->setCellValueByColumnAndRow(1,$row,$room['hotel_name']." - ".$room['room_name']);
+			foreach($data['rangeDate'] as $range){
+				$tgl = $range['date'];
+				$summary = $data['summary'][$tgl]["H".$room['hotel_id']]["R".$room['room_id']] ?? ['waiting'=>0,'pending'=>0,'settlement'=>0,'sum'=>0];
+				if($tgl >= $room['start_date'] && $tgl <= $room['end_date']){
+					$sheet->setCellValueByColumnAndRow($col,$row,$summary['waiting']) 
+						->setCellValueByColumnAndRow($col+1,$row,$summary['pending'])
+						->setCellValueByColumnAndRow($col+2,$row,$summary['settlement'])
+						->setCellValueByColumnAndRow($col+3,$row,$room['quota']-$summary['sum']);
+				}else{
+					$sheet->setCellValueByColumnAndRow($col,$row,"Tidak Tersedia Pada Tanggal Ini")
+						->mergeCellsByColumnAndRow($col,$row,$col+3,$row);
+				}
+				$col += 4;
+			}
+		}
+		$sheet->getStyleByColumnAndRow(1,1,$col, $row)->applyFromArray([
+			'borders' => ['allBorders' => [
+				'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+				'color' => ['argb' => '000']]
+			]
+		]);
+		$writer = new Xlsx($spreadsheet);
+		header('filename:' . $this->getFilename() . '.xlsx');
+		header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+		header('Content-Disposition: attachment; filename="' . $this->getFilename() . '.xlsx"');
+		$writer->save("php://output");
+	}
+
 
 	public function asExcel($costumType = [])
 	{

@@ -161,6 +161,7 @@
 						</div>
 					</div>
 					<div v-if="showHotel" class="table-responsive">
+						<a href="<?=base_url("admin/dashboard/download_summary_hotel");?>" target="_blank" class="btn btn-primary">Download Summary Hotel</a>
 					<table class="table align-items-center table-flush">
 							<thead class="thead-light">
 								<tr>

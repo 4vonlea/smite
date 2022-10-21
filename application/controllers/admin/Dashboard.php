@@ -70,6 +70,15 @@ class Dashboard extends Admin_Controller
 		$this->export($tipe,"List of transaction",$data);
 	}
 
+	public function download_summary_hotel(){
+		$this->load->model("Hotel_m");
+		$summary = $this->Hotel_m->summaryBooking();
+		$this->load->library('Exporter');
+		$exporter = new Exporter();
+		$exporter->setTitle("Summary Hotel");
+		$exporter->summaryHotelAsExcel($summary);
+	}
+
 	public function export($tipe = null,$title = null,$data = null){
     	if($this->input->post('tipe'))
     		$tipe = $this->input->post('tipe');
