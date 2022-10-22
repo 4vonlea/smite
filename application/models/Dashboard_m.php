@@ -26,7 +26,9 @@ class Dashboard_m extends CI_Model
 		$return = $rs->row_array();
 		$queryTemp = "SELECT 
 							event_id AS id_event,
-							COUNT(event_id) as number_participant,
+							SUM(IF(status_payment = 'settlement',1,0)) as number_participant,
+							SUM(IF(status_payment = 'waiting',1,0)) as number_waiting,
+							SUM(IF(status_payment = 'pending',1,0)) as number_pending,
 							SUM(td.price) AS fund_collected,
 							SUM(IF(JSON_EXTRACT(IF(checklist = '','{}',checklist), '$.nametag') = 'true',1,0)) as nametag,
 							SUM(IF(JSON_EXTRACT(IF(checklist = '','{}',checklist), '$.seminarkit') = 'true',1,0)) as seminarkit,
@@ -34,16 +36,16 @@ class Dashboard_m extends CI_Model
 							FROM transaction_details td
 						JOIN transaction t ON t.id = td.transaction_id
 						JOIN event_pricing ep ON ep.id = td.event_pricing_id
-						WHERE t.status_payment = '" . Transaction_m::STATUS_FINISH . "'
+						WHERE t.status_payment != '" . Transaction_m::STATUS_EXPIRE . "'
 						GROUP BY event_id";
 
 		if ($this->session->has_userdata("user_session") && $this->session->user_session['role'] == User_account_m::ROLE_SUPERADMIN) {
-			$rs = $this->db->select("t.id as id_event,t.kouta,name,COALESCE(fund_collected,0) as fund_collected,COALESCE(number_participant,0) as number_participant,nametag,seminarkit,certificate")
+			$rs = $this->db->select("t.id as id_event,t.kouta,name,COALESCE(fund_collected,0) as fund_collected,COALESCE(number_participant,0) as number_participant,number_pending,number_waiting,nametag,seminarkit,certificate")
 				->join("( $queryTemp ) as c", "c.id_event = t.id", "left")
 				->from("events t")->get();
 
 		} else {
-			$rs = $this->db->select("t.id as id_event,t.kouta,name,COALESCE(number_participant,0) as number_participant,nametag,seminarkit,certificate")
+			$rs = $this->db->select("t.id as id_event,t.kouta,name,COALESCE(number_participant,0) as number_participant,number_pending,number_waiting,nametag,seminarkit,certificate")
 				->join("( $queryTemp ) as c", "c.id_event = t.id", "left")
 				->from("events t")->get();
 		}

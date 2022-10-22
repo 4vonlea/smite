@@ -162,7 +162,7 @@
 					</div>
 					<div v-if="showHotel" class="table-responsive">
 						<a href="<?=base_url("admin/dashboard/download_summary_hotel");?>" target="_blank" class="btn btn-primary">Download Summary Hotel</a>
-					<table class="table align-items-center table-flush">
+						<table class="table align-items-center table-flush">
 							<thead class="thead-light">
 								<tr>
 									<th scope="col">Hotel</th>
@@ -204,9 +204,9 @@
 							<thead class="thead-light">
 								<tr>
 									<th style="width: 40%" scope="col">Event Name</th>
-									<th style="width: 5%" scope="col">Participant</th>
+									<th style="width: 5%;white-space: pre-wrap;" scope="col">Settlement Participant</th>
 									<th style="width: 5%" scope="col">Qouta</th>
-									<!-- <th style="width: 5%" scope="col">Remaining Quota</th> -->
+									<th style="width: 5%" scope="col">Remaining Quota</th>
 									<!-- <th style="width: 5%" scope="col">Nametag Taken</th> -->
 									<!-- <th style="width: 5%" scope="col">Seminar Kit Taken</th> -->
 									<!-- <th style="width: 5%" scope="col">Certificate Taken</th> -->
@@ -221,7 +221,12 @@
 									<th style="white-space: pre-wrap;">{{ p.name }}</th>
 									<td>{{ p.number_participant }}</td>
 									<td>{{ p.kouta }}</td>
-									<!-- <td>{{ p.kouta-p.number_participant }}</td> -->
+									<td class="text-center">
+										{{ p.kouta-p.number_participant-p.number_pending-p.number_waiting }}
+										<a href="#" class="tooltip-item" data-toggle="tooltip"data-html="true" :title="'Settlement : '+p.number_participant+',<br/> Pending : '+p.number_pending+',<br/> Waiting : '+p.number_waiting">
+											<i class="fa fa-info-circle"></i>
+										</a>
+									</td>
 									<!-- <td>Taken: {{ p.nametag }} | Remaining: {{ p.number_participant - p.nametag }}</td> -->
 									<!-- <td>Taken: {{ p.seminarkit }} | Remaining: {{ p.number_participant - p.seminarkit }}</td> -->
 									<!-- <td>Taken: {{ p.certificate }} | Remaining: {{ p.number_participant - p.certificate }}</td> -->
@@ -317,7 +322,8 @@
 					}
 					}]
 				}
-			})
+			});
+			$(".tooltip-item").tooltip();
 		}
 
 	})

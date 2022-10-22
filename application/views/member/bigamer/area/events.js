@@ -50,7 +50,7 @@ export default Vue.component("PageEvents", {
                                             </div>
                                             <div v-else >
                                                 <div v-if="event.participant >= event.kouta" class="alert alert-warning text-center">
-                                                    <h4>Sorry qouta for this full event</h4>
+                                                    <h4>Sorry qouta for this event is full</h4>
                                                 </div>
                                                 <table class="table">
                                                     <thead>

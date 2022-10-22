@@ -20,6 +20,21 @@ class Event_m extends MY_Model
 		return $this->hasMany('Event_pricing_m', 'event_id');
 	}
 
+	public function remainingQouta($event_id = null){
+		$filter = "";
+		if($event_id){
+			$filter = "AND ep.event_id = $event_id";
+		}
+		$sql = "SELECT COUNT(td.id) AS reserved, ep.event_id,e.kouta FROM `transaction` t
+		JOIN transaction_details td ON td.transaction_id = t.id
+		JOIN event_pricing ep ON ep.id = td.event_pricing_id
+		JOIN events e ON e.id = ep.event_id 
+		WHERE t.status_payment != 'expired' $filter
+		GROUP BY ep.event_id";
+
+		return $this->db->query($sql);
+	}
+
 	/**
 	 * @param int | array $event_id
 	 * @param $user_status
@@ -46,6 +61,8 @@ class Event_m extends MY_Model
 		} else {
 			$avalaible = $avalaible && ($d1 < $now && $d2 >= $now);
 		}
+		$reserved = $this->remainingQouta($row['id_event'] ?? $row['event_id'])->row_array();
+		$avalaible = $avalaible && ($reserved['reserved'] < $reserved['kouta']);
 		return $avalaible;
 	}
 
@@ -70,6 +87,11 @@ class Event_m extends MY_Model
 			->join("event_pricing", "t.id = event_id")
 			->join("events evt", "evt.id = t.event_required", 'left')
 			->order_by("t.id,event_pricing.name,event_pricing.condition_date")->get();
+		$reserved = [];
+		foreach($this->remainingQouta()->result_array() as $row){
+			$reserved[$row['event_id']] = $row;
+		}
+		
 		$return = [];
 		$temp = "";
 		$tempPricing = "";
@@ -99,6 +121,10 @@ class Event_m extends MY_Model
 					$title .= $d1->format($frmt) . " - " . $d2->format($frmt);
 				}
 			}
+			$qouta = $reserved[$row['id_event']]['kouta'] ?? 0;
+			$booked = $reserved[$row['id_event']]['reserved'] ?? 0;
+			$remainingQuouta = $qouta - $booked;
+			$avalaible = $avalaible && ($remainingQuouta > 0);
 
 			if ($temp != $row['event_name'] && $avalaible) {
 				$index++;
@@ -200,7 +226,7 @@ class Event_m extends MY_Model
 			->join("transaction_details td", "td.event_pricing_id = event_pricing.id AND td.member_id = '$member_id'", "left")
 			->join("transaction tr", "tr.id = td.transaction_id", "left")
 			->order_by("t.id,event_pricing.name,event_pricing.condition_date")->get();
-		$count = $this->setAlias("t")->find()->select("t.id as id_event,t.kouta,SUM(IF(tr.status_payment = '" . Transaction_m::STATUS_FINISH . "',1,0)) as participant")
+		$count = $this->setAlias("t")->find()->select("t.id as id_event,t.kouta,SUM(IF(tr.status_payment != '" . Transaction_m::STATUS_EXPIRE . "',1,0)) as participant")
 			->join("event_pricing", "t.id = event_id")
 			->join("transaction_details td", "td.event_pricing_id = event_pricing.id", "left")
 			->join("transaction tr", "tr.id = td.transaction_id", "left")
@@ -216,11 +242,11 @@ class Event_m extends MY_Model
 		$pId = 0;
 		$frmt = "d M Y";
 		foreach ($result->result_array() as $row) {
-			if ($koutas[$row['id_event']]['participant'] < $row['kouta']) {
+			// if ($koutas[$row['id_event']]['participant'] < $row['kouta']) {
 				$avalaible = $this->validateFollowing($row, $userStatus);
-			} else {
-				$avalaible = false;
-			}
+			// } else {
+			// 	$avalaible = false;
+			// }
 			$conditionDate = explode(":", $row['condition_date']);
 			$d1 = DateTime::createFromFormat("Y-m-d", $conditionDate[0]);
 			$d2 = DateTime::createFromFormat("Y-m-d H:i", $conditionDate[1] . " 23:59");
