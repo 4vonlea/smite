@@ -1013,7 +1013,7 @@ class Register extends MY_Controller
 			->_display(json_encode($response));
 	}
 
-	public function info_member_perdossi($nik){
+	public function info_member_perdossi($nik = null){
 		$this->load->library('Api_perdossi');
         $response = $this->api_perdossi->getMemberByNIK($nik);
         $this->output
