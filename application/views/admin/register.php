@@ -28,15 +28,16 @@ $this->layout->begin_head();
                             <label class="col-lg-3 control-label">NIK</label>
 							<div class="col-lg-5">
 								<div class="input-group">
-									<input v-on:keyup.enter="checkMember" type="text" v-model="valueData.nik" :class="{'is-invalid':validation_error.nik}" class="form-control mb-0" name="nik" placeholder="NIK anda" />
+									<input maxlength="16" v-on:keyup.enter="checkMember" type="text" v-model="valueData.nik" :class="{'is-invalid':validation_error.nik}" class="form-control mb-0" name="nik" placeholder="NIK anda" />
 									<button :disabled="checkingMember" @click="checkMember" class="btn btn-primary" type="button">
 										<i v-if="checkingMember" class="fa fa-spin fa-spinner"></i> Cek
 									</button>
 								</div>
-							</div>
-                            <div v-if="validation_error.nik" class="invalid-feedback">
+								<div v-if="validation_error.nik" class="invalid-feedback d-block">
                                 {{ validation_error.nik }}
                             </div>
+
+							</div>
                         </div>
 						<div class="form-group row">
 							<label class="col-lg-3 control-label">Email</label>
@@ -104,7 +105,7 @@ $this->layout->begin_head();
 						<div class="form-group row">
                             <label class="col-lg-3 control-label">KTA Perdossi</label>
 							<div class="col-lg-5">
-								<input type="text" v-model="valueData.kta" readonly :class="{'is-invalid':validation_error.kta}" class="form-control mb-0" name="kta" placeholder="Full Name" />
+								<input type="text" v-model="valueData.kta" readonly :class="{'is-invalid':validation_error.kta}" class="form-control mb-0" name="kta" placeholder="KTA" />
 								<div v-if="validation_error.kta" class="invalid-feedback">
 									{{ validation_error.kta }}
 								</div>
