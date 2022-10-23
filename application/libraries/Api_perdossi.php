@@ -55,6 +55,6 @@ class Api_perdossi
 
         $response = curl_exec($curl);
         curl_close($curl);
-        return json_decode($response, true);
+        return json_decode($response, true) ?? ['status'=>false,'message'=>'Gagal menghubungi server P2KB'];
     }
 }
