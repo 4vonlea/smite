@@ -1461,8 +1461,8 @@
 								<div class="fm-item-content">
 									<ul style="font-size: 15px;">
 										<li>Batas Pengumpulan Abstrak : 21 Oktober 2022</li>
-										<li>Batas Pengumpulan Naskah Lengkap : 28 Oktober 2022</li>
-										<li>Pengumuman Penerimaan Abstrak : 04 November 2022</li>
+										<li>Pengumuman Penerimaan Abstrak : 24 Oktober 2022</li>
+                                      	<li>Batas Pengumpulan Naskah Lengkap : 27 Oktober 2022</li>
 										<li>Program Ilmiah : 17 18 November 2022 untuk Workshop, dan 19– 20 November 2022 Simposium</li>
 										<li>E-Poster / Presentasi Oral : 19 November 2022</li>
 										<li>Pengumuman Pemenang : 20 November 2022</li>
