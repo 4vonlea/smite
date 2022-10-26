@@ -4,7 +4,7 @@ export default Vue.component("PagePaper", {
 			<page-loader :loading="loading" :fail="fail"></page-loader>
 			<div class="modal" data-backdrop="static" id="modal-fullpaper">
 				<div class="modal-dialog modal-dialog-centered">
-					<div class="modal-content">
+					<div class="modal-content border" style="background-color:#232a5c;">
 						<!-- Modal Header -->
 						<div class="modal-header">
 							<h4 class="modal-title">Upload your Full Paper/Presentation</h4>
@@ -113,7 +113,8 @@ export default Vue.component("PagePaper", {
 								<td class="border-end" style="white-space: normal !important;">{{ pap.title }}</td>
 								<td class="border-end">
 									<ul class="list-group">
-										<li class="list-group-item d-flex justify-content-between align-items-center border text-light">
+										<li class="list-group-item d-flex justify-content-between align-items-center border text-light"
+											style="background-color:transparent">
 											Abstract
 											<span class="badge bg-primary badge-pill">{{ paper.status[pap.status] }}</span>
 
@@ -151,8 +152,7 @@ export default Vue.component("PagePaper", {
 										<hr />
 										<i class="fa" :class="[pap.fullpaper?'fa-check':'fa-times']"></i>Fullpaper File<br />
 										<i v-if="pap.status_fullpaper" class="fa"
-											:class="[pap.poster?'fa-check':'fa-times']"></i>Presentation Image/ File ({{
-										pap.type_presence }})<br />
+											:class="[pap.poster?'fa-check':'fa-times']"></i>Presentation Image/ File ({{ pap.type_presence }})<br />
 									</span>
 								</td>
 								<td>
@@ -221,7 +221,7 @@ export default Vue.component("PagePaper", {
 								Link</label>
 							<div class="col-lg-9">
 								<span v-if="form.fullpaper"><a :href="paperUrl(form.fullpaper, form.id, 'Fullpaper')">Click here</a> | </span>
-								<a v-if="form.status_fullpaper != 2" href="#" @click.prevent="modalFullpaper(form)">Change/ Upload
+								<a class="btn btn-primary" v-if="form.status_fullpaper != 2" href="#" @click.prevent="modalFullpaper(form)">Change/ Upload
 									Fullpaper </a>
 							</div>
 						</div>
