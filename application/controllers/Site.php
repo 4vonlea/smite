@@ -398,5 +398,6 @@ class Site extends MY_Controller
 
     public function wappin_callback(){
         file_put_contents(APPPATH."cache/wappin/".time().".txt",json_encode($this->input->post()));
+        echo json_encode(['status'=>'000']);
     }
 }
