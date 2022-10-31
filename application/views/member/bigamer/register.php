@@ -354,8 +354,8 @@ $theme_path = base_url("themes/bigamer") . "/";
                         </span>
                         <div class="form-group mb-2">
 
-                            <label>Nomor Whatsapp (optional)*</label>
-                            <input type="text" v-model="valueData.phone" :class="{ 'is-invalid':validation_error.phone}" @keypress="onlyNumber" class="form-control mb-0" name="phone" placeholder="Phone/WA" />
+                            <label>Nomor Whatsapp (format: 62xxxxxxxxxx)*</label>
+                            <input type="text" v-model="valueData.phone" :class="{ 'is-invalid':validation_error.phone}" @keypress="onlyNumber" class="form-control mb-0" name="phone" placeholder="62xxxxxxxxxx" />
                             <div v-if="validation_error.phone" class="invalid-feedback">
                                 {{ validation_error.phone }}
                             </div>

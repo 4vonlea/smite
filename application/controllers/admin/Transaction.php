@@ -112,11 +112,12 @@ class Transaction extends Admin_Controller
 			$trans->getDb()->trans_start();
 			$trans->save();
 			if (isset($data['details'])) {
-				foreach ($data['details'] as $dt) {
+				foreach ($data['details'] as $ind=>$dt) {
 					if (isset($dt['id'])) {
 						$detail = $this->Transaction_detail_m->findOne(['id' => $dt['id']]);
-						if ($dt['isDeleted'] == 1) {
-							$detail->delete();
+                      	if ($dt['isDeleted'] == 1) {
+                          if($detail)
+							 $detail->delete();
 						} else {
 							unset($dt['isDeleted']);
 							$detail->setAttributes($dt);
@@ -159,7 +160,7 @@ class Transaction extends Admin_Controller
 				$temp =  $row->toArray();
 				$member = in_array($temp['event_pricing_id'],['0','-2']) ? [] : $row->member->toArray();
 				$temp['isDeleted'] = 0;
-				$tempDetails[] = array_merge(['member' => $member], $temp);
+				$tempDetails[] = array_merge(['member' => ['fullname'=>$member['fullname'] ?? "",'email'=>$member['email'] ?? "", ]], $temp);
 			}
 			usort($tempDetails,function($a,$b){
 				return $b['product_name'] < $a['product_name'];
