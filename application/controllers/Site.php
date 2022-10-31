@@ -395,4 +395,8 @@ class Site extends MY_Controller
         $response = $this->api_perdossi->getMemberByNIK("3312120202760001");
         var_dump($response);
     }
+
+    public function wappin_callback(){
+        file_put_contents(APPPATH."cache/wappin/".time().".txt",json_encode($this->input->post()));
+    }
 }
