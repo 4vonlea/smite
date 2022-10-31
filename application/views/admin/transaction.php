@@ -375,7 +375,7 @@
 								<option v-for="item in listEvent" :data-product_name="`${item.event_name} (${item.condition})`" :data-price="item.price" :value="item.id"> {{ `${item.event_name} (${item.name})` }}</option>
 							</select>
 						</td>
-						<td v-else colspan="2">{{ dt.product_name }}</td>
+						<td v-else colspan="2">{{ ind+1 }}). {{ dt.product_name }}</td>
 						<td colspan="2">
 							<div class="input-group input-group-sm">
 								<input type="text" v-model="dt.price" class="form-control" aria-label="Recipient's username" aria-describedby="basic-addon2">
