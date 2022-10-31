@@ -397,7 +397,19 @@ class Site extends MY_Controller
     }
 
     public function wappin_callback(){
-        file_put_contents(APPPATH."cache/wappin/".time().".txt",json_encode($this->input->post()));
-        echo json_encode(['status'=>'000']);
+        $body = file_get_contents('php://input');
+        file_put_contents(APPPATH."cache/wappin/".time().".txt",$body);
+        $bodyJson = json_decode($body,true);
+        if(isset($bodyJson['callback_type']) && $bodyJson['callback_type'] == "message"){
+            $this->db->replace("registered_wa",['phone_number'=>$bodyJson['sender_number']]);
+            $this->load->library("Wappin", [
+                'clientId' => $this->config->item("wappin_client_id"),
+                'projectId' => $this->config->item("wappin_project_id"),
+                'secretKey' => $this->config->item("wappin_secret_key"),
+            ]);
+            $this->wappin->sendMessageOnly($bodyJson['sender_number'],Settings_m::getSetting('site_title'),"Terima kasih..\nNo Anda telah terhubung dengan Sistem Notifikasi kami");
+        }
+        $this->output->set_content_type("application/json")
+             ->_display(json_encode(['status'=>'000']));
     }
 }

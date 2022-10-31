@@ -29,6 +29,17 @@ class Wappin implements iNotification
         return trim($number);
     }
 
+    public function sendMessageOnly($to,$subject,$message){
+        $to = $this->normalizeNumber($to);
+        $response = $this->composeRequest([
+            'client_id' => $this->clientId,
+            'project_id' => $this->projectId,
+            'message_content' => $this->htmlToWaText($message),
+            'recipient_number' => $to
+        ], "https://api.wappin.id/v1/message/do-send", "POST", true);
+        return json_decode($response, true);
+    }
+
     public function sendMessage($to, $subject, $message)
     {
         return ['status'=>true,'mode'=>'skip'];
