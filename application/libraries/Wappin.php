@@ -31,6 +31,7 @@ class Wappin implements iNotification
 
     public function sendMessage($to, $subject, $message)
     {
+        return ['status'=>true,'mode'=>'skip'];
         if($to == "")
             return ['status'=>false,'message'=>'Invalid Number'];
         $to = $this->normalizeNumber($to);
@@ -46,6 +47,7 @@ class Wappin implements iNotification
 
     public function sendMessageWithAttachment($to, $subject, $message, $attachment, $fname = "")
     {
+        return ['status'=>true,'mode'=>'skip'];
         if($to == "")
             return ['status'=>false,'message'=>'Invalid Number'];
 
