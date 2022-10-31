@@ -188,10 +188,9 @@ class Transaction extends Admin_Controller
 		$member = $detail->member;
 		if($member){
 			$this->Notification_m->sendExpiredTransaction($member, $id);
-			$this->Notification_m->setType(Notification_m::TYPE_WA)
+			$status = $this->Notification_m->setType(Notification_m::TYPE_WA)
 								 ->sendExpiredTransaction($member, $id);
-			
-		}
+        }
 		$this->db->insert("log_payment",[
 			'invoice'=>$id,
 			'action'=>"set_expire",

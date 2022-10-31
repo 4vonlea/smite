@@ -34,7 +34,7 @@ class Wappin implements iNotification
         if($to == "")
             return ['status'=>false,'message'=>'Invalid Number'];
         $to = $this->normalizeNumber($to);
-        $this->sendTemplateMessage($to, "opening_conversation",$subject, ['1'=>"https://wa.me/6289603215099"]);
+        $this->sendTemplateMessage($to, "header_conversation",$subject, ['1'=>"https://wa.me/6289603215099"]);
         $response = $this->composeRequest([
             'client_id' => $this->clientId,
             'project_id' => $this->projectId,
@@ -102,6 +102,7 @@ class Wappin implements iNotification
             'client_id' => $this->clientId,
             'project_id' => $this->projectId,
             'type' => $template,
+            "language_code"=>"id",
             'recipient_number' => $to,
             'header' => ['param' => $subject],
             'params' => $bodyParams,

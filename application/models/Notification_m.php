@@ -135,7 +135,7 @@ class Notification_m extends MY_Model
     public function sendExpiredTransaction($member,$transaction_id){
         $member = is_array($member) ? (object) $member : $member;
         $response = null;
-        $subject = "Transaction Expired : $transaction_id";
+        $subject = "Transaction Expired $transaction_id";
         $message = $this->load->view("template/email/expired_transaction",['nama'=>$member->fullname],true);
         $to = $this->getType() == self::TYPE_WA ? $member->phone : $member->email;
         $response = $this->sendMessage($to, $subject, $message);
