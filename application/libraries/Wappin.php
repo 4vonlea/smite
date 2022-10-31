@@ -104,7 +104,7 @@ class Wappin implements iNotification
             'type' => $template,
             "language_code"=>"id",
             'recipient_number' => $to,
-            'header' => ['param' => $subject],
+            'header' => ['param' => substr($subject,0,60)],
             'params' => $bodyParams,
         ], "https://api.wappin.id/v1/message/do-send-hsm", "POST", true);
         return json_decode($response, true);
