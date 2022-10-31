@@ -42,9 +42,7 @@ class Job extends CI_Controller
                         $row['fullname'] = $member->fullname;
                         try{
                             $card = $member->getCard($row['event_id'])->output();
-                            if($member->email == "muhammad.zaien17@gmail.com"){
-                                $row['feedback'] = $this->Notification_m->sendNametag($member,$card,$event_name);
-                            }
+                            $row['feedback'] = $this->Notification_m->sendNametag($member,$card,$event_name);
                         }catch (Exception $ex){
                             $row['feedback'] = $ex->getMessage();
                         }
