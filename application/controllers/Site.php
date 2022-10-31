@@ -400,7 +400,7 @@ class Site extends MY_Controller
         $body = file_get_contents('php://input');
         file_put_contents(APPPATH."cache/wappin/".time().".txt",$body);
         $bodyJson = json_decode($body,true);
-        if(isset($bodyJson['callback_type']) && $bodyJson['callback_type'] == "message"){
+        if(isset($bodyJson['message_content'])){
             $this->db->replace("registered_wa",['phone_number'=>$bodyJson['sender_number']]);
             $this->load->library("Wappin", [
                 'clientId' => $this->config->item("wappin_client_id"),
