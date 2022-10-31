@@ -43,7 +43,12 @@ class Room_m extends MY_Model
             ->where("'$checkout' BETWEEN rooms.start_date AND rooms.end_date")
             ->select("rooms.*,hotels.name as hotel_name,hotels.address")
             ->get();
-        return $result->result_array();
+
+        $user = $this->session->userdata("user_session");
+        if($user && in_array($user['username'],['admin'])){
+            return $result->result_array();
+        }
+        return [];
     }
 
     public function bookedRoom($member_id){

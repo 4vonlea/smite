@@ -539,3 +539,7 @@ if (ENVIRONMENT === 'development') {
 
 $config['perdossi_username'] = "muhammad.zaien17@gmail.com";
 $config['perdossi_password'] = "123456789";
+
+$config['wappin_client_id'] = "0566";
+$config['wappin_project_id'] = "4595";
+$config['wappin_secret_key'] = "e74d052a53f59b9c3d3495bc621b33f1b55a9dd8";

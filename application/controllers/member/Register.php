@@ -268,8 +268,7 @@ class Register extends MY_Controller
 				$error['statusData'] = $this->Member_m->getDB()->trans_status() && $hotelBookingStatus;
 				$error['message'] = $this->Member_m->getDB()->error();
 				if ($error['statusData']) {
-					$email_message = $this->load->view('template/email/email_confirmation', ['token' => $token, 'name' => $data['fullname']], true);
-					$this->Notification_m->sendMessage($data['email'], 'Confirm your email to access our event', $email_message);
+					$this->Notification_m->sendEmailConfirmation($data, $token);
 				}
 			} else {
 				$error['statusData'] = false;
@@ -496,9 +495,7 @@ class Register extends MY_Controller
 							'token_reset' => "verifyemail_" . $token
 						], false);
 
-						$email_message = $this->load->view('template/email/email_confirmation', ['token' => $token, 'name' => $data['fullname']], true);
-						$this->Notification_m->sendMessage($data['email'], 'Confirm your email to access our event', $email_message);
-
+						$this->Notification_m->sendEmailConfirmation($data,$token);
 					}
 
 					/* -------------------------------------------------------------------------- */
@@ -511,42 +508,15 @@ class Register extends MY_Controller
 					$error['message'] = $this->Member_m->getDB()->error();
 
 					if ($error['statusData']) {
-						$invoiceDataPdf = $tr->exportInvoice()->output();
-						$data['participantsCategory'] = $participantsCategory;
-						$email_message = $this->load->view('template/email/success_register_onsite', $data, true);
-						$attc = [
-							$data['fullname'] . '-invoice.pdf' => $invoiceDataPdf,
-							// $data['fullname'] . '-bukti_registrasi.pdf' => $tr->exportPaymentProof()->output()
-						];
-						$details = $tr->detailsWithEvent();
-						foreach ($details as $row) {
-							if ($row->event_name) {
-								$event = [
-									'name' => $row->event_name,
-									'held_on' => $row->held_on,
-									'held_in' => $row->held_in,
-									'theme' => $row->theme
-								];
-								if (env('send_card_member', '1') == '1' && false) {
-									try {
-										$attc[$data['fullname'] . "_" . $row->event_name . ".pdf"] = $this->Member_m->getCard($row->event_id, $data)->output();
-									} catch (ErrorException $ex) {
-										log_message("error", $ex->getMessage());
-									}
-								}
-							}
-						}
-
 						if ($data) {
-							$this->Notification_m->sendMessageWithAttachment($data['email'], 'Group Registration Account Info', $email_message, $attc);
+							$this->Notification_m->sendRegisteredByOther($data,$tr,$participantsCategory);
 						}
 					}
 				}
+				$invoiceDataPdf = $tr->exportInvoice()->output();
 				$this->Notification_m->sendMessageWithAttachment($tr->email_group, 'Your Group Registration Billing', "<p>Dear Participant.</p><p>You have succesfully group registered and we have created an invoice to pay off based on your event participation. Thank you and we are happy to meet you in this event(s).</p><p>Herewith we attached your invoice to pay off. Please complete your transaction as soon as possible. Our system will automatically settle after we receive your payment. If you dont receive any further notification after completing your transferred payment for more than 1x24 hours, please contact the committee.</p><p>Thank you.</p><p>Registration Committee</p>", [
 					'invoice.pdf' => $invoiceDataPdf,
 				]);
-
-
 				$error['transactions'] = $this->getTransactions($transaction);
 			}
 			$this->output->set_content_type("application/json")
@@ -857,17 +827,11 @@ class Register extends MY_Controller
 			if ($isGroup) {
 				foreach ($data['members'] as $key => $value) {
 					$member = $this->Member_m->findOne(['id' => $value['id']]);
-					$attc = [
-						$member->fullname . '-invoice.pdf' => $transaction->exportInvoice()->output(),
-					];
-					$this->Notification_m->sendMessageWithAttachment($member->email, 'Unpaid Invoice (M-GFr)', "<p>Dear Participant.</p><p>You have succesfully group registered and we have created an invoice to pay off based on your event participation. Thank you and we are happy to meet you in this event(s).</p><p>Herewith we attached your invoice to pay off. Please complete your transaction as soon as possible. If you have fulfill your transfer, please upload your bank receipt in our designated file. If you dont receive any further notification after completing your transferred payment for more than 3x24 hours, please contact the committee.</p><p>Thank you.</p><p>Registration Committee</p>", $attc);
+					$this->Notification_m->sendInvoice($member,$transaction);
 				}
 			} else {
 				$member = $this->Member_m->findOne(['id' => $transaction->member_id]);
-				$attc = [
-					$member->fullname . '-invoice.pdf' => $transaction->exportInvoice()->output(),
-				];
-				$this->Notification_m->sendMessageWithAttachment($member->email, 'Unpaid Invoice (M-IFr)', "<p>Dear Participant.</p><p>You have succesfully registered and we have created an invoice to pay off based on your event participation. Thank you and we are happy to meet you in this event(s).</p><p>Herewith we attached your invoice to pay off. Please complete your transaction as soon as possible.  If you have fulfill your transfer, please upload your bank receipt in our designated file. If you dont receive any further notification after completing your transferred payment for more than 3x24 hours, please contact the committee.</p><p>Thank you.</p><p>Registration Committee</p>", $attc);
+				$this->Notification_m->sendInvoice($member,$transaction);
 			}
 		}
 
@@ -996,7 +960,6 @@ class Register extends MY_Controller
 			$response['data'] = $data;
 			if ($response['status'] && Settings_m::getSetting("email_receive") != "") {
 				$fullname = $mem ? $mem->fullname : $transaction['member_id'];
-
 				$email_message = "$fullname has upload a transfer proof with invoice id <b>$tran->id</b>";
 				$file[$data['file_name']] = file_get_contents(APPPATH . 'uploads/proof/' . $data['file_name']);
 				$emails = explode(",", Settings_m::getSetting("email_receive"));

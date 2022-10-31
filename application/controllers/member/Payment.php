@@ -63,33 +63,9 @@ class Payment extends MY_Controller
 				$this->load->model("Notification_m");
 				$tr = $this->Transaction_m->findOne($notif->order_id);
 				$member = $tr->member;
-
-				$invoice = $tr->exportInvoice()->output();
-				$this->Notification_m->sendMessageWithAttachment($member->email,"INVOICE","Thank you for participating on events, Below is your invoice",$invoice,"INVOICE.pdf");
-
-				$details = $tr->detailsWithEvent();
-				$file = [];
-				foreach($details as $row){
-					if($row->event_name) {
-						$event = ['name' => $row->event_name,
-							'held_on' => $row->held_on,
-							'held_in' => $row->held_in,
-							'theme' => $row->theme
-						];
-						if(env('send_card_member','1') == '1') {
-							try {
-								$file[$row->event_name . ".pdf"] = $member->getCard($row->event_id)->output();
-							}catch (ErrorException $ex){
-								log_message("error",$ex->getMessage());
-							}
-						}
-					}
-				}
-				$file['Bukti Registrasi'] = $tr->exportPaymentProof()->output();
-				$this->Notification_m->sendMessageWithAttachment($member->email,"Official Payment Proof And Name Tag","Thank you for registering and fulfilling your payment, below is offical Bukti Registrasi",$file,"OFFICIAL_BUKTI_REGISTRASI.pdf");
-
-//				$file = $tr->exportPaymentProof()->output();
-//				$this->Notification_m->sendMessageWithAttachment($member->email,"Official Bukti Registrasi-And Name Tag","Thank you for registering and fulfilling your payment, below is offical Bukti Registrasi",$file,"OFFICIAL_PAYMENT_PROOF.pdf");
+				
+				$this->Notification_m->sendPaymentProof($member,$tr);
+				$this->Notification_m->setType(Notification_m::TYPE_WA)->sendPaymentProof($member,$tr);
 			}
 		}
 	}
@@ -211,13 +187,10 @@ class Payment extends MY_Controller
 			$response['status'] = true;
 			$response['manual'] = $manual_payment;
 			$this->load->model(["Member_m","Notification_m"]);
-
 			$member = $this->Member_m->findOne(['id'=>$transaction->member_id]);
-			$attc = [
-				$member->fullname.'-invoice.pdf' => $transaction->exportInvoice()->output(),
-			];
-			$this->Notification_m->sendMessageWithAttachment($member->email, 'Invoice', "Thank you for your participation, the following is an invoice for the event you participated in", $attc);
-	
+
+			$this->Notification_m->sendInvoice($member,$transaction);
+			$this->Notification_m->setType(Notification_m::TYPE_WA)->sendInvoice($member,$transaction);
 		}
 		$this->output->set_content_type("application/json")
 			->_display(json_encode($response));
@@ -267,16 +240,6 @@ class Payment extends MY_Controller
 					$order_id,
 					30,
 				]);
-				// $response['customer_details'] = [
-				// 	'firstname'=>$member->fullname,
-				// 	'phone_number'=>$member->phone,
-				// 	'email'=>$member->email,
-				// ];
-				// $attc = [
-				// 	$member->fullname.'-invoice.pdf' => $tr->exportInvoice()->output(),
-				// ];
-				// $message = $this->load->view("template/email/send_unpaid_invoice",$member->toArray(),true);
-				// $this->Notification_m->sendMessageWithAttachment($member->email, 'Unpaid Invoice (MA)', $message, $attc);
 			}
 		}else{
 			$response['error_code'] = 1;
@@ -321,8 +284,9 @@ class Payment extends MY_Controller
 					$member = $tr->member;
 					if($member){
 						$this->load->model("Notification_m");
-						$file['Registration Proof'] = $tr->exportPaymentProof()->output();
-						$this->Notification_m->sendMessageWithAttachment($member->email,"Autosettlement Payment Proof","<p>Dear Participant.</p><p>Thank you for fulfilling your payment and we have automatically settle your transaction. We also have attached your Offical Registration Proof below. Please use it accordingly.</p><p>If you have any inquery, please contact the committee.</p><p>Thank you and we are happy to meet you in this event(s).</p><p>Registration Committee</p>",$file,"REGISTRATION_PROOF.pdf");
+
+						$this->Notification_m->sendPaymentProof($member,$tr);
+						$this->Notification_m->setType(Notification_m::TYPE_WA)->sendPaymentProof($member,$tr);
 					}
 				}
 			}
@@ -396,12 +360,11 @@ class Payment extends MY_Controller
 					if($status == Transaction_m::STATUS_EXPIRE && $tr->status_payment != Transaction_m::STATUS_EXPIRE){
 						$member = $tr->member;
 						if($member){
-							$message = $this->load->view("template/email/expired_transaction",['nama'=>$member->fullname],true);
-							$this->Notification_m->sendMessage($member->email, 'Transaction Expired : '.$order_id, $message);
+							$this->Notification_m->sendExpiredTransaction($member,$order_id);
+							$this->Notification_m->setType(Notification_m::TYPE_WA)->sendExpiredTransaction($member,$order_id);
 						}
 					}
 				}
-				// file_put_contents(APPPATH."logs/".$order_id."_status.json",$response);
 			}
 		}
 	}

@@ -226,10 +226,22 @@ function hideForRole($role, $listRole)
 							<i class="ni ni-building text-orange"></i> Hotel
 						</a>
 					</li>
-					<li class="nav-item  <?= hideForRole($role, ['3']); ?>">
-						<a class="nav-link" href="<?= base_url('admin/notification'); ?>">
-							<i class="ni ni-chat-round text-blue"></i> Message & Notification
+					<li class="nav-item">
+						<a class="nav-link" href="#subbroadcast" data-toggle="collapse" class="dropdown-toggle">
+							<i class="fa fa-bullhorn text-blue"></i> Broadcast Notification
 						</a>
+						<ul class="collapse list-unstyled" id="subbroadcast" style="padding-left: 20px;">
+							<li class="nav-item">
+								<a class="nav-link" href="<?= base_url('admin/notification/history'); ?>">
+									<i class="fa fa-history text-blue"></i> History
+								</a>
+							</li>
+							<li class="nav-item  <?= hideForRole($role, ['3']); ?>">
+								<a class="nav-link" href="<?= base_url('admin/notification'); ?>">
+									<i class="ni ni-chat-round text-blue"></i> Send Notification
+								</a>
+							</li>
+						</ul>
 					</li>
 					<li class="nav-item  <?= hideForRole($role, ['3', '4','5']); ?>">
 						<a class="nav-link" href="<?= base_url('admin/news'); ?>">

@@ -105,11 +105,9 @@ class Committee extends Admin_Controller
 		$com = $this->Committee_attributes_m->findOne($id);
 		$commiteMember = $com->committee;
 		if($commiteMember->email){
+			$commiteMember->phone = $commiteMember->no_contact;
 			$cert = $com->exportCertificate()->output();
-			$message = $this->load->view("template/email/send_certificate_event",[
-				'event_name'=>$com->event->name
-			],true);
-			$status = $this->Notification_m->sendMessageWithAttachment($commiteMember->email, "Certificate of '" . $com->event->name . "'", $message, $cert, "CERTIFICATE.pdf");
+			$status = $this->Notification_m->sendCertificate($commiteMember,Notification_m::CERT_TYPE_EVENT,$com->event->name,$cert);
 			if($status['status']){
 				$this->session->set_flashdata('message', 'Certificate sent successfully to '.$commiteMember->email);
 			redirect(base_url("admin/committee"));

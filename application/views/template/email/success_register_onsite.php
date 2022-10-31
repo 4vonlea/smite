@@ -45,16 +45,4 @@
 			<th>Status</th>
 			<td><?=$participantsCategory[$status];?></td>
 		</tr>
-		<!-- <tr>
-			<th>Jenis Kelamin</th>
-			<td><?=$gender == "M" ? "Laki-Laki":"Perempuan";?></td>
-		</tr> 
-		<tr>
-			<th>City</th>
-			<td><?=$city ?? "-"?></td>
-		</tr>
-		<tr>
-			<th>Address</th>
-			<td><?=$address ?? "-"?></td>
-		</tr> -->
 </table>

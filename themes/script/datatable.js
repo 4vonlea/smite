@@ -107,7 +107,7 @@ Vue.component('datagrid', {
                 },
                 pagination: {
                     wrapperClass: 'col pagination',
-                    activeClass: 'active',
+                    activeClass: 'active bg-primary',
                     disabledClass: 'disabled',
                     pageClass: 'btn btn-border',
                     linkClass: 'btn btn-border',
@@ -179,6 +179,7 @@ Vue.component('datagrid', {
             return f;
         },
         onPaginationData(paginationData) {
+            paginationData.current_page = Number(paginationData.current_page);
             paginationData.from = (paginationData.current_page-1)*paginationData.per_page+1;
             paginationData.to = (paginationData.current_page-1)*paginationData.per_page+paginationData.data.length;
             paginationData.last_page = Math.ceil(paginationData.total/paginationData.per_page);

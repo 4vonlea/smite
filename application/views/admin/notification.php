@@ -19,7 +19,7 @@ $this->layout->begin_head();
 						<a class="nav-link mb-sm-3 mb-md-0 active" id="tabs-icons-text-1-tab" data-toggle="tab" href="#tabs-send_message" role="tab" aria-controls="tabs-icons-text-1" aria-selected="true"><i class="ni ni-world mr-2"></i>Send Message</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-1-tab" data-toggle="tab" href="#tabs-certificate" role="tab" aria-controls="tabs-icons-text-1" aria-selected="true"><i class="ni ni-book-bookmark mr-2"></i>Send Certificate</a>
+						<a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-1-tab" data-toggle="tab" href="#tabs-certificate" role="tab" aria-controls="tabs-icons-text-1" aria-selected="true"><i class="ni ni-book-bookmark mr-2"></i>Send Certificate/Name Tag</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link mb-sm-3 mb-md-0" id="tabs-icons-text-1-tab" data-toggle="tab" href="#tabs-material" role="tab" aria-controls="tabs-icons-text-1" aria-selected="true"><i class="ni ni-book-bookmark mr-2"></i>Send Material</a>
@@ -29,7 +29,24 @@ $this->layout->begin_head();
 		</div>
 	</div>
 	<div class="row">
-		<div class="col">
+		<div class="col-12">
+			<div class="card mb-2">
+				<div class="card-header">
+					<h5>Channel Notification</h5>
+				</div>
+				<div class="card-body">
+					<div class="custom-control custom-checkbox custom-control-inline">
+						<input v-model="channel" type="radio" class="custom-control-input" id="customCheck1" name="via" value="email">
+						<label class="custom-control-label" for="customCheck1">Using Email</label>
+					</div>
+					<div class="custom-control custom-checkbox custom-control-inline">
+						<input v-model="channel" type="radio" class="custom-control-input" id="customCheck2" name="via" value="wa">
+						<label class="custom-control-label" for="customCheck2">Using WA</label>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-12">
 			<div class="card shadow">
 				<div class="card-body">
 					<div class="tab-content" id="myTabContent">
@@ -82,8 +99,8 @@ $this->layout->begin_head();
 								<vue-chosen v-model="message.to" :options="transactionStatus" placeholder="Select Transaction Status"></vue-chosen>
 							</div>
 							<div class="form-group">
-								<label>Subject</label>
-								<input type="text" v-model="message.subject" class="form-control" name="subject" />
+								<label>Subject <small>(max 300 Character)</small></label>
+								<input type="text" v-model="message.subject" class="form-control" maxlength="300" name="subject" />
 							</div>
 							<div class="form-group">
 								<label>Message</label>
@@ -97,8 +114,7 @@ $this->layout->begin_head();
 						</div>
 						<div class="tab-pane fade show" id="tabs-certificate" role="tabpanel">
 							<div class="form-group row">
-
-								<label class="form-control-label col-md-3 mt-2">Send To Participant of Event</label>
+								<label class="form-control-label col-md-3 mt-2">Send Certificate To Participant of Event</label>
 								<div class="col-md-6">
 									<?= form_dropdown('event', Event_m::asList($event, 'id', 'label'), '', ['class' => 'form-control', 'v-model' => 'cert_event', 'placeholder' => '']); ?>
 								</div>
@@ -111,14 +127,31 @@ $this->layout->begin_head();
 							</div>
 							<hr />
 							<div class="form-group row">
-
-								<label class="form-control-label col-md-3 mt-2">Send To Committee</label>
+								<label class="form-control-label col-md-3 mt-2">Send Certificate To Committee</label>
 								<div class="col-md-6">
 									<?= form_dropdown('event', Event_m::asList($event, 'id', 'label'), '', ['class' => 'form-control', 'v-model' => 'cert_event_com', 'placeholder' => '']); ?>
 								</div>
 								<div class="col-md-3">
 									<button :disabled="sendingCert" type="button" @click="sendCertCom" class="btn btn-primary">
 										<i v-if="sendingCert" class="fa fa-spin fa-spinner"></i>
+										Send
+									</button>
+								</div>
+							</div>
+							<hr />
+							<div class="form-group row">
+								<label class="form-control-label col-md-3 mt-2">Send Name Tag To Participant of Event</label>
+								<div class="col-md-6">
+									<select class="form-control" v-model="nametag">
+										<option :value="null" disabled hidden>-- Please Select Event --</option>
+										<option v-for="ev in eventList" :key="ev.id" :value="ev">
+											{{ ev.label }}
+										</option>
+									</select>
+								</div>
+								<div class="col-md-3">
+									<button :disabled="sendingNameTag" type="button" @click="sendNameTag" class="btn btn-primary">
+										<i v-if="sendingNameTag" class="fa fa-spin fa-spinner"></i>
 										Send
 									</button>
 								</div>
@@ -273,10 +306,13 @@ $this->layout->begin_head();
 				"subject": "",
 				"text": "",
 			},
+			channel:"email",
 			sendingCert: false,
 			event_notif: "",
 			cert_event: "",
 			cert_event_com: "",
+			nametag: null,
+			sendingNameTag: false,
 			pooling: {
 				title: "",
 				data: [],
@@ -284,7 +320,7 @@ $this->layout->begin_head();
 				success: 0,
 				fail: 0,
 				processed: 0,
-				failedList:[]
+				failedList: []
 			},
 			files: [],
 			listMember: <?= json_encode($memberList); ?>,
@@ -437,17 +473,17 @@ $this->layout->begin_head();
 						app.sendingMaterial = false;
 					});
 			},
-			retryPooling(){
+			retryPooling() {
 				this.pooling.data = JSON.parse(JSON.stringify(this.pooling.failedList));
 				this.pooling.failedList = [];
 				this.poolingStart(true);
 			},
 			poolingStart(isRetry) {
 				$("#modal-pooling").modal("show");
-				if(isRetry){
+				if (isRetry) {
 					this.pooling.processed -= this.pooling.fail;
 					this.pooling.fail = 0;
-				}else{
+				} else {
 					this.pooling.size = app.pooling.data.length;
 					this.pooling.success = 0;
 					this.pooling.fail = 0;
@@ -490,6 +526,31 @@ $this->layout->begin_head();
 						proses(this.pooling.url, app.pooling.data.pop());
 					}
 				}
+			},
+			sendNameTag() {
+				var url = "<?= base_url('admin/notification/init_broadcast'); ?>";
+				var app = this;
+				app.sendingNameTag = true;
+				$.post(url, {
+						subject: `Broadcast Nametag Event ${this.nametag.label}`,
+						event_id: this.nametag.id,
+						channel: this.channel,
+						type: '<?= Notification::TYPE_SENDING_NAME_TAG; ?>',
+					}, null, 'JSON')
+					.done(function(res) {
+						Swal.fire({
+							type: "success",
+							title: "Success",
+							html: res.message
+						});
+					}).fail(function(xhr) {
+						var message = xhr.getResponseHeader("Message");
+						if (!message)
+							message = 'Server fail to response !';
+						Swal.fire('Fail', message, 'error');
+					}).always(function() {
+						app.sendingNameTag = false;
+					});
 			},
 			sendCert() {
 				var url = "<?= base_url('admin/notification/send_cert/preparing'); ?>";

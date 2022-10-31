@@ -71,7 +71,7 @@ export default Vue.component("PagePaper", {
 				<div class="overflow-hidden mb-4 pb-3">
 					<p class="mb-0">If you want to participate, please upload your manuscript.</p>
 				</div>
-				<ul class="list-group list-group-horizontal flex-fill mb-2 ">
+				<ul class="list-group list-group-horizontal-md flex-fill mb-2 ">
 					<li class="list-group-item text-light border color-heading" style="background-color: transparent;">Deadline Abstract <span
 							class='badge bg-info'>{{ paper.deadline.paper_deadline | formatDate }}</span></li>
 					<li class="list-group-item text-light border color-heading" style="background-color: transparent;">Deadline Fullpaper

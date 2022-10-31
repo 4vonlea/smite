@@ -3,6 +3,12 @@
 
 class Notification extends Admin_Controller
 {
+	const TYPE_SENDING_NAME_TAG = "nametag";
+	const TYPE_SENDING_CERTIFICATE = "certificate";
+	const TYPE_SENDING_CERTIFICATE_COM = "certificate_committe";
+	const TYPE_SENDING_MESSAGE = "message";
+	const TYPE_SENDING_MATERIAL = "material";
+
 	protected $accessRule = [
 		'index' => 'view',
 		'send_cert' => 'insert',
@@ -16,12 +22,12 @@ class Notification extends Admin_Controller
 
 	public function index($send_to_person = null)
 	{
-		$this->load->model(["Event_m", "Member_m", "Category_member_m", "Transaction_m","Category_paper_m"]);
+		$this->load->model(["Event_m", "Member_m", "Category_member_m", "Transaction_m", "Category_paper_m"]);
 		$this->load->helper('form_helper');
 		$eventList = $this->Event_m->find()->select("id,name as label")->get()->result_array();
 		$statusList = $this->Category_member_m->find()->select("id,kategory as label")->get()->result_array();
-		foreach($this->Category_paper_m->findAll() as $row){
-			$eventList[] = ['id' => 'Paper;'.$row->id, 'label' => 'Paper Participant ('.$row->name.')'];
+		foreach ($this->Category_paper_m->findAll() as $row) {
+			$eventList[] = ['id' => 'Paper;' . $row->id, 'label' => 'Paper Participant (' . $row->name . ')'];
 		}
 		$memberList = $this->Member_m->find()->select("id,CONCAT(fullname,' (',email,')') as label")->get()->result_array();
 
@@ -51,15 +57,15 @@ class Notification extends Admin_Controller
 		if ($this->input->method() != 'post')
 			show_404("Page Not Found !");
 
-		$this->load->model(['Event_m', 'Settings_m','Papers_m']);
+		$this->load->model(['Event_m', 'Settings_m', 'Papers_m']);
 		if ($preparing) {
 			$id = $this->input->post("id");
-			$expl = explode(";",$id);
+			$expl = explode(";", $id);
 			$id = $expl[0] ?? $id;
 			if (Settings_m::getSetting("config_cert_$id") != "" && file_exists(APPPATH . "uploads/cert_template/$id.txt")) {
-				if($id == "Paper"){
-					$result = $this->Papers_m->certificateReciver("Participant",$expl[1] ?? null);
-				}else{
+				if ($id == "Paper") {
+					$result = $this->Papers_m->certificateReciver("Participant", $expl[1] ?? null);
+				} else {
 					$result = $this->Event_m->getParticipant()->where('t.id', $id)->get()->result_array();
 				}
 				$this->output
@@ -73,14 +79,14 @@ class Notification extends Admin_Controller
 		} else {
 			$this->load->model("Notification_m");
 			$status = [];
-			if($this->input->post("isPaper")){
+			if ($this->input->post("isPaper")) {
 				$member = $this->input->post();
 				$cert = $this->Papers_m->exportCertificate($member)->output();
-				$message = $this->load->view("template/email/send_certificate_paper",[
-					'event_name'=>'Manuscript'
-				],true);
-				$status = $this->Notification_m->sendMessageWithAttachment($member['email'], "Certificate of Manuscript",$message, $cert, "CERTIFICATE.pdf");
-			}else{
+				$message = $this->load->view("template/email/send_certificate_paper", [
+					'event_name' => 'Manuscript'
+				], true);
+				$status = $this->Notification_m->sendMessageWithAttachment($member['email'], "Certificate of Manuscript", $message, $cert, "CERTIFICATE.pdf");
+			} else {
 				$member = $this->input->post();
 				$event = [
 					'id' => $member['event_id'],
@@ -88,13 +94,13 @@ class Notification extends Admin_Controller
 				];
 				$member['status_member'] = "Peserta";
 				$cert = $this->Event_m->exportCertificate($member, $event['id'])->output();
-				$message = $this->load->view("template/email/send_certificate_event",$event,true);
-				$status = $this->Notification_m->sendMessageWithAttachment($member['email'], "Certificate of '" . $event['event_name'] . "'",$message, $cert, "CERTIFICATE.pdf");
+				$message = $this->load->view("template/email/send_certificate_event", $event, true);
+				$status = $this->Notification_m->sendMessageWithAttachment($member['email'], "Certificate of '" . $event['event_name'] . "'", $message, $cert, "CERTIFICATE.pdf");
 			}
-			
+
 			$this->output
 				->set_content_type("application/json")
-				->_display(json_encode(['status' => isset($status['labelIds']) && in_array("SENT",$status['labelIds']), 'log' => $status]));
+				->_display(json_encode(['status' => isset($status['labelIds']) && in_array("SENT", $status['labelIds']), 'log' => $status]));
 		}
 	}
 
@@ -120,14 +126,6 @@ class Notification extends Admin_Controller
 					->set_content_type("application/json")
 					->_display(json_encode(['status' => false, 'message' => "Template of certificate is not found !"]));
 			}
-		} else {
-			$this->load->model("Notification_m");
-			$post = $this->input->post();
-			$cert = $this->Committee_attributes_m->exportCertificate($post['id'])->output();
-			$status = $this->Notification_m->sendMessageWithAttachment($post['email'], "Certificate of '" . $event['event_name'] . "'", "<p>Dear Participant</p><p>Thank you for joining us on our event. We are so glad to meet and deliver you the recent knowledge and best practice for our profession.</p><p>To appreciate your presence, here we send you <strong>certificate of attendance for our event: '" . $event['event_name'] . "'</strong>. We wish to meet you again in the next event</p><p>Best Regards,</p><p>Committee</p>", $cert, "CERTIFICATE.pdf");
-			$this->output
-				->set_content_type("application/json")
-				->_display(json_encode(['status' => isset($status['labelIds']) && in_array("SENT",$status['labelIds']), 'log' => $status]));
 		}
 	}
 
@@ -166,7 +164,7 @@ class Notification extends Admin_Controller
 			$status = $this->Notification_m->sendMessageWithAttachment($member['email'], "Material of Event", "Thank you for your participation <br/> Below is your material of " . $event['name'], $material_file);
 			$this->output
 				->set_content_type("application/json")
-				->_display(json_encode(['status' => isset($status['labelIds']) && in_array("SENT",$status['labelIds']), 'log' => $status]));
+				->_display(json_encode(['status' => isset($status['labelIds']) && in_array("SENT", $status['labelIds']), 'log' => $status]));
 		}
 	}
 
@@ -317,5 +315,84 @@ class Notification extends Admin_Controller
 		$this->output
 			->set_content_type("application/json")
 			->_display(json_encode(['status' => $status, 'type' => $type, 'data' => $to, 'detail' => $responseEmail]));
+	}
+
+	public function init_broadcast()
+	{
+		$this->load->library('Uuid');
+
+		$type = $this->input->post("type");
+		$subject = $this->input->post("subject");
+		$message = $this->input->post("message");
+		$channel = $this->input->post("channel");
+		$attributes = [];
+		$id = Uuid::v4();
+		switch ($type) {
+			case self::TYPE_SENDING_NAME_TAG:
+				$this->load->model("Event_m");
+				$event_id = $this->input->post("event_id");
+				$participants = $this->Event_m->getParticipant()->where("t.id",$event_id)->get()->result();
+				$ind = 1;
+				foreach($participants as $row){
+					$attributes[] = ['id'=>$ind++,'member_id'=>$row->m_id,'event_id'=>$event_id];
+				}
+				break;
+			case self::TYPE_SENDING_CERTIFICATE:
+				break;
+			case self::TYPE_SENDING_CERTIFICATE_COM:
+				break;
+			case self::TYPE_SENDING_MESSAGE:
+				break;
+			case self::TYPE_SENDING_MATERIAL:
+				break;
+		}
+		$status = $this->db->insert("broadcast",[
+			'id'=>$id,
+			'type'=>$type,
+			'subject'=>$subject,
+			'message'=>$message,
+			'channel'=>$channel,
+			'attribute'=>json_encode($attributes),
+			'status'=>'Ready',
+		]);
+		run_job("job","run_broadcast",[$id]);
+		$responseMessage = "<p style='font-size:24px'>Broadcast berhasil dimulai</p> 
+							ID  : $id <br/>	Jumlah penerima : ".count($attributes)."<br/>
+							Ikuti link berikut untuk monitoring <a href='".base_url('admin/notification/history/'.$id)."' target='_blank'>Klik Disini</a>";
+		$this->output
+			->set_content_type("application/json")
+			->_display(json_encode(['status' => $status,'message'=>$responseMessage,'countReceiver'=>count($attributes),'id'=>$id]));
+	}
+
+	public function history($id = ""){
+		$this->layout->render("broadcast", ['id' => $id]);
+	}
+	
+	public function grid()
+	{
+		$this->load->model('Broadcast_m');
+
+		$grid = $this->Broadcast_m->gridData($this->input->get(),['select'=>['t_id'=>'t.id','id','created_at','subject','status','channel']]);
+		$this->output
+			->set_content_type("application/json")
+			->_display(json_encode($grid));
+	}
+
+	public function retry($id){
+		run_job("job","run_broadcast",[$id]);
+		$this->db->update("broadcast",['status'=>'Ready'],['id'=>$id]);
+
+		$this->output
+			->set_content_type("application/json")
+			->_display(json_encode(['status'=>true]));
+	}
+
+	public function detail_history($id){
+		$this->load->model('Broadcast_m');
+
+		$row = $this->Broadcast_m->findOne($id);
+		$this->output
+			->set_content_type("application/json")
+			->_display(json_encode($row->toArray()));
 	}
 }

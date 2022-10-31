@@ -86,7 +86,6 @@
 								<h3 class="mb-0">Partipants of Events</h3>
 							</div> -->
 							<div class="col-md-12 text-center">
-								<div class="btn-group ">
 									<div class="btn-group">
 										<button class="btn btn-primary dropdown-toggle mt-2" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 											<i class="fa fa-table"></i>
@@ -152,7 +151,6 @@
 											<a class="dropdown-item" href="<?= base_url("admin/dashboard/download_transaksi/pdf"); ?>" target="_blank">Transaksi As PDF</a>
 										</div>
 									</div>
-								</div>
 									<button class="btn btn-primary mt-2" @click="showHotel = !showHotel"> {{ showHotel ? "Hide":"Show" }} Summary Hotel</button>
 							</div>
 						</div>

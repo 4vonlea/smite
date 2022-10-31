@@ -187,7 +187,8 @@ $this->layout->end_head();
 					</div>
 				</div>
 			</div>
-			<div class="table-responsive">
+			<div class="card-body">
+			<div class="col-12 table-responsive">
 				<div class="row">
 					<div class="col-md-12">
 						<div class="dropdown">
@@ -226,8 +227,7 @@ $this->layout->end_head();
 				
 				:fields="[
 						{name:'id_paper',sortField:'id_paper','title':'ID Paper'},
-						{name:'title',sortField:'title','title':'Abstract Title'},
-						{name:'fullname',sortField:'fullname','title':'Member Name'},
+						{name:'title',sortField:'title','title':'Paper Info'},
 						{name:'score','sortField':'score'},
 						{name:'status','sortField':'status','title':'Status Abstract'},
 						{name:'type_presence','sortField':'type_presence','title':'Presentation'},
@@ -237,18 +237,14 @@ $this->layout->end_head();
 					<template slot="title" slot-scope="props">
 						<span class="badge badge-info">Category : {{ props.row.category_name ?? "Not Set"  }}</span>
 						<p style="font-size: 14px;white-space:normal">{{ props.row.title }}</p>
-					</template>
-					<?php if ($this->session->user_session['role'] == User_account_m::ROLE_ADMIN_PAPER) : ?>
-						<template slot="fullname" slot-scope="props">
-							Hidden
-						</template>
-					<?php endif; ?>
-					<template slot="fullname" slot-scope="props">
-						{{ props.row.fullname }} 
+						<?php if ($this->session->user_session['role'] == User_account_m::ROLE_ADMIN_PAPER) : ?>
+						<p>Name : Hidden</p>
+						<?php else: ?>
+						<p>Name : {{ props.row.fullname }} </p>
+						<?php endif  ?>
 						<hr style="margin-top: 10px;margin-bottom:10px;" />
 						<a v-if="props.row.status_presentasi == '<?=Papers_m::ACCEPTED;?>'" class="btn btn-sm btn-primary" target="_blank" :href="'<?=base_url('admin/paper/preview_cert');?>/'+props.row.t_id">Preview Certificate</a>
 						<button v-if="props.row.status_presentasi == '<?=Papers_m::ACCEPTED;?>'" @click="sendCertificate(props.row,$event)" class="btn btn-sm btn-primary">Send Certificate</button>
-						<hr style="margin-top: 10px;margin-bottom:10px;" />
 						<span style="font-size: 12px;" class="badge badge-info mb-1">{{ props.row.status_member }}</span><br/>
 						<span style="font-size: 12px;" class="badge badge-info mb-1">{{ props.row.phone }}</span><br/>
 						<span style="font-size: 12px;" class="badge badge-info mb-1">{{ props.row.institution }}</span> <br/>
@@ -270,7 +266,6 @@ $this->layout->end_head();
 								Status Presentation : {{ (props.row.status_fullpaper == 2 ? status[props.row.status_presentasi]:'') }}<br />
 								<a class="badge badge-info" :href="'<?= base_url('admin/paper/file'); ?>/'+props.row.poster+'/'+props.row.t_id+'/Presentation'" target="_blank" v-if="props.row.poster">File Presentation/Poster</a>
 								<a class="badge badge-info" :href="'<?= base_url('admin/paper/file'); ?>/'+props.row.voice+'/'+props.row.t_id+'/Voice'" target="_blank" v-if="props.row.voice">Voice Recording</a>
-							
 							</li>
 						</ul>
 					</template>
@@ -278,24 +273,30 @@ $this->layout->end_head();
 						{{ formatDate(props.row.t_created_at) }}
 					</template>
 					<template slot="t_id" slot-scope="props">
-						<div class="table-button-container">
-							<button @click="detail(props,$event)" class="btn btn-info btn-sm">
-								<span class="fa fa-search"></span> Detail
+						<div class="dropdown">
+							<button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Menu
 							</button>
-							<button @click="review(props,$event)" class="btn btn-warning btn-sm">
-								<span class="fa fa-edit"></span> review
-							</button>
-							<?php if ($this->session->user_session['role'] != User_account_m::ROLE_ADMIN_PAPER) : ?>
-								<button v-if="!props.row.reviewer" @click="setReviewer(props)" class="btn btn-warning btn-sm">
-									<span class="fa fa-user"></span> Set Reviewer
+							<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+								<button @click="detail(props,$event)" class="dropdown-item">
+									<span class="fa fa-search"></span> Detail
 								</button>
-							<?php endif; ?>
-							<button class="btn btn-danger btn-sm" @click="deletePaper(props,$event)">
-								<span class="fa fa-trash"></span> Delete
-							</button>
+								<button @click="review(props,$event)" class="dropdown-item">
+									<span class="fa fa-edit"></span> review
+								</button>
+								<?php if ($this->session->user_session['role'] != User_account_m::ROLE_ADMIN_PAPER) : ?>
+									<button v-if="!props.row.reviewer" @click="setReviewer(props)" class="dropdown-item">
+										<span class="fa fa-user"></span> Set Reviewer
+									</button>
+								<?php endif; ?>
+								<button class="dropdown-item" @click="deletePaper(props,$event)">
+									<span class="fa fa-trash"></span> Delete
+								</button>
+							</div>
 						</div>
 					</template>
 				</datagrid>
+			</div>
 			</div>
 		</div>
 	</div>
@@ -969,6 +970,7 @@ $this->layout->end_head();
 				this.validation = null;
 				this.detailMode = 0;
 				var inH = event.target.innerHTML;
+				console.log(this.$refs.feedbackFile);
 				this.$refs.feedbackFile.value = ""; //files[0].name;
 				this.$refs.feedbackFileFullpaper.value = ""; //files[0].name;
 				this.$refs.feedbackFilePresentasi.value = ""; //files[0].name;

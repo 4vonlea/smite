@@ -77,7 +77,8 @@ class User_account_m extends MY_Model
 
     public function selectuser($username)
     {
-        $this->db->select('username,last_reset');
+        $this->db->select('username,last_reset,email,phone');
+        $this->db->join("members","members.username_account = username","left");
         $this->db->from('user_accounts');
         $this->db->where('username', $username);
         $hasil = $this->db->get();

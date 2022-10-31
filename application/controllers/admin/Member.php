@@ -39,15 +39,14 @@ class Member extends Admin_Controller
 		$this->load->model(["User_account_m", "Notification_m"]);
 		$account = $this->User_account_m->findWithBiodata($email);
 		if ($account) {
-			$token = explode("_", $account['token_reset']);
+			$token = explode("_",$account['token_reset']);
 			if (count($token) == 0) {
 				$token[1] = uniqid();
 				$this->User_account_m->update([
-					'token_reset' => "verifyemail_" . $token
+					'token_reset' => "verifyemail_" . $token[1]
 				], ['username' => $email]);
 			}
-			$email_message = $this->load->view('template/email/email_confirmation', ['token' => $token[1], 'name' => $account['fullname']], true);
-			$this->Notification_m->sendMessage($email, 'Email Confirmation', $email_message);
+			$this->Notification_m->sendEmailConfirmation($account,$token[1]);
 			$this->output
 				->set_content_type("application/json")
 				->_display(json_encode(['status' => true, 'message' => 'Akun pengguna tidak ditemukan']));
@@ -160,17 +159,13 @@ class Member extends Admin_Controller
 	public function send_certificate()
 	{
 		if ($this->input->post()) {
-			$this->load->model(["Notification_m", "Event_m"]);
+			$this->load->model(["Notification_m", "Event_m","Member_m"]);
 			$id = $this->input->post("id");
-			$member = $this->input->post();
+			$event_name = $this->input->post("event_name");
 			if (file_exists(APPPATH . "uploads/cert_template/$id.txt")) {
-				$member['id'] = $member['m_id'];
-				$member['status_member'] = "Peserta";
-				$cert = $this->Event_m->exportCertificate($member, $id)->output();
-				$message = $this->load->view("template/email/send_certificate_event",[
-					'event_name'=>$member['event_name']
-				],true);
-				$status = $this->Notification_m->sendMessageWithAttachment($member['email'], "Certificate of '" . $member['event_name'] . "'",$message, $cert, "CERTIFICATE.pdf");
+				$member = $this->Member_m->findOne($this->input->post("m_id"));
+				$cert = $this->Event_m->exportCertificate($member->toArray(), $id)->output();
+				$status = $this->Notification_m->sendCertificate($member,Notification_m::CERT_TYPE_EVENT,$event_name,$cert);
 				$statusKirim = (isset($status['labelIds']) && in_array("SENT",$status['labelIds']));
 				$this->output
 					->set_content_type("application/json")
@@ -306,34 +301,7 @@ class Member extends Admin_Controller
 				$error['email'] = $data['email'];
 				if ($error['status']) {
 					$tr = $this->Transaction_m->findOne($id_invoice);
-					$data['participantsCategory'] = $participantsCategory;
-					$email_message = $this->load->view('template/email/success_register_onsite', $data, true);
-					$attc = [
-						$data['fullname'] . '-invoice.pdf' => $tr->exportInvoice()->output(),
-					];
-					if($tr->status_payment == Transaction_m::STATUS_FINISH){
-						$attc[$data['fullname'] . '-bukti_registrasi.pdf'] = $tr->exportPaymentProof()->output();
-					}
-
-					$details = $tr->detailsWithEvent();
-					foreach ($details as $row) {
-						if ($row->event_name) {
-							$event = [
-								'name' => $row->event_name,
-								'held_on' => $row->held_on,
-								'held_in' => $row->held_in,
-								'theme' => $row->theme
-							];
-							if (env('send_card_member', '1') == '1' && false) {
-								try {
-									$attc[$data['fullname'] . "_" . $row->event_name . ".pdf"] = $this->Member_m->getCard($row->event_id, $data)->output();
-								} catch (ErrorException $ex) {
-									log_message("error", $ex->getMessage());
-								}
-							}
-						}
-					}
-					$this->Notification_m->sendMessageWithAttachment($data['email'], 'Your registration is success (#AIR)', $email_message, $attc);
+					$this->Notification_m->sendRegisteredByOther($data,$tr,$participantsCategory);
 				}
 			} else {
 				$error['status'] = false;
@@ -689,36 +657,7 @@ class Member extends Admin_Controller
 					$error['email'] = $data['email'];
 					if ($error['status']) {
 						$tr = $this->Transaction_m->findOne($id_invoice);
-						$data['participantsCategory'] = $participantsCategory;
-						$email_message = $this->load->view('template/email/success_register_onsite', $data, true);
-						$attc = [
-							$data['fullname'] . '-invoice.pdf' => $tr->exportInvoice()->output(),
-						];
-						if($this->input->post('status_payment') == Transaction_m::STATUS_FINISH){
-							$attc[$data['fullname'] . '-bukti_registrasi.pdf'] = $tr->exportPaymentProof()->output();
-						}
-						$details = $tr->detailsWithEvent();
-						foreach ($details as $row) {
-							if ($row->event_name) {
-								$event = [
-									'name' => $row->event_name,
-									'held_on' => $row->held_on,
-									'held_in' => $row->held_in,
-									'theme' => $row->theme
-								];
-								if (env(
-									'send_card_member',
-									'1'
-								) == '1' && false) {
-									try {
-										$attc[$data['fullname'] . "_" . $row->event_name . ".pdf"] = $this->Member_m->getCard($row->event_id, $data)->output();
-									} catch (ErrorException $ex) {
-										log_message("error", $ex->getMessage());
-									}
-								}
-							}
-						}
-						$this->Notification_m->sendMessageWithAttachment($data['email'], 'Your registration is success (#AGR)', $email_message, $attc);
+						$this->Notification_m->sendRegisteredByOther($data,$tr,$participantsCategory);
 					}
 				}
 			}

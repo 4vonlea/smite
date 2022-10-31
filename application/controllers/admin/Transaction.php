@@ -26,17 +26,14 @@ class Transaction extends Admin_Controller
 		$tr = $this->Transaction_m->findOne(['id' => $id]);
 		$member = $this->Member_m->findOne(['id' => $tr->member_id]) ?? (object) ['fullname'=>str_replace("REGISTER-GROUP : ","",$tr->member_id),'email'=>$tr->email_group];
 		if ($type == "invoice") {
-			$filename = $member->fullname . "-Invoice.pdf";
-			$file = $tr->exportInvoice();
+			$result[] = $this->Notification_m->sendPaymentProof($member,$tr);
+			$this->Notification_m->setType(Notification_m::TYPE_WA);
+			$result[] = $this->Notification_m->sendInvoice($member,$tr);
 		} elseif ($type == "proof") {
-			$filename = $member->fullname . "-Bukti_Registrasi.pdf";
-			$file = $tr->exportPaymentProof();
+			$result[] = $this->Notification_m->sendPaymentProof($member,$tr);
+			$this->Notification_m->setType(Notification_m::TYPE_WA);
+			$result[] = $this->Notification_m->sendPaymentProof($member,$tr);
 		}
-		$message = "<p>Dear Participant</p>
-					<p>This is a resend email. Thank you for fulfilling your payment, we have attached your Offical Registration Proof below. Please use it accordingly. </p>
-					<p>Thank you. Best regards.<br/>
-					Committee of " . Settings_m::getSetting('site_title') . "</p>";
-		$result = $this->Notification_m->sendMessageWithAttachment($member->email, 'Resend : Registration Proof', $message, [$filename => $file->output()]);
 		$this->output
 			->set_content_type("application/json")
 			->_display(json_encode(['status' => $result]));
@@ -189,8 +186,10 @@ class Transaction extends Admin_Controller
 		$status = $detail->save();
 		$member = $detail->member;
 		if($member){
-			$message = $this->load->view("template/email/expired_transaction",['nama'=>$member->fullname],true);
-			$this->Notification_m->sendMEssage($member->email, 'Transaction Expired : '.$id, $message);
+			$this->Notification_m->sendExpiredTransaction($member, $id);
+			$this->Notification_m->setType(Notification_m::TYPE_WA)
+								 ->sendExpiredTransaction($member, $id);
+			
 		}
 		$this->db->insert("log_payment",[
 			'invoice'=>$id,
@@ -217,37 +216,15 @@ class Transaction extends Admin_Controller
 		$status = $detail->save();
 		if ($status) {
 			$member = $this->Member_m->findOne(['id' => $detail->member_id]);
-			$filename = ($member ? $member->fullname : $detail->member_id);
 			$this->db->insert("log_payment",[
 				'invoice'=>$id,
 				'action'=>"verify",
 				'request'=>json_encode(array_intersect_key($this->input->post(),array_flip(['id','status_payment','checkout','client_message']))),
 				'response'=>"[]",
 			]);
-			$attc = [
-				$filename . '-invoice.pdf' => $detail->exportInvoice()->output(),
-				$filename . '-registration_proof.pdf' => $detail->exportPaymentProof()->output()
-			];
-			$details = $detail->detailsWithEvent();
-			foreach ($details as $row) {
-				if ($row->event_name) {
-					$event = [
-						'name' => $row->event_name,
-						'held_on' => $row->held_on,
-						'held_in' => $row->held_in,
-						'theme' => $row->theme
-					];
-					if (env('send_card_member', '1') == '1' && false) {
-						try {
-							$attc[$filename . "_" . $row->event_name . ".pdf"] = $member->getCard($row->event_id)->output();
-						} catch (ErrorException $exception) {
-							log_message("error", $exception->getMessage());
-						}
-					}
-				}
-			}
 			if($member){
-				$this->Notification_m->sendMessageWithAttachment($member->email, 'Verified! Invoice & Payment Proof', "<p>Dear Participant</p><p>Thank you for fullfiling your payment. We have received yours and verified your payment.</p><p>We have attached your payment and registration proof. Please use in accordingly.</p><p>Thank you</p><p>Registration Committee.</p>", $attc);
+				$this->Notification_m->sendPaymentProof($member,$detail);
+				$this->Notification_m->setType(Notification_m::TYPE_WA)->sendPaymentProof($member,$detail);
 			}
 		}
 		$this->output

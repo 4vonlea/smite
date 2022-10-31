@@ -1,6 +1,8 @@
 <?php
 
-
+/**
+ * @property Notification_m $Notification_m
+ */
 class Paper extends Admin_Controller
 {
 	protected $accessRule = [
@@ -173,53 +175,16 @@ class Paper extends Admin_Controller
 					Papers_m::UNDER_REVIEW => 'under_review',
 				];
 				$member = $model->member;
-				$paperid = $this->Papers_m->getIdPaper($model->id);
 				foreach (array_diff_assoc(
 					['abstract' => $data['status'], 'fullpaper' => $data['status_fullpaper'], 'presentation' => $data['status_presentasi']],
 					['abstract' => $oldData['status'], 'fullpaper' => $oldData['status_fullpaper'], 'presentation' => $oldData['status_presentasi']],
 				) as $type => $status) {
 					if (isset($statusList[$status])) {
-						$file = $type . "_" . $statusList[$status];
-						$parameter = $model->toArray();
-						$parameter['fullname'] = $member->fullname;
-						$parameter['paperId'] = $paperid;
-						$parameter['institution'] = $member->institution->univ_nama;
-						$parameter['statusAbstract'] = Papers_m::$status[$parameter['status']] ?? "-";
-						$parameter['statusFullpaper'] = Papers_m::$status[$parameter['status_fullpaper']] ?? "-";
-						$parameter['statusPresentation'] = Papers_m::$status[$parameter['status_presentasi']] ?? "-";
-						$parameter['modePresentation'] = $parameter['type_presence'];
-						$parameter['feedbackAbstract'] = $parameter['message'];
-						$parameter['feedbackFullpaper'] = $parameter['feedback_fullpaper'];
-						$parameter['feedbackPresentation'] = $parameter['feedback_presentasi'];
-						$parameter['siteTitle'] = Settings_m::getSetting('site_title');
-
-						$message = $this->load->view("template/email/" . $file, $parameter, true);
-						if ($message) {
-							if ($type == "fullpaper" && ($status == Papers_m::ACCEPTED || $status == Papers_m::REJECTED)) {
-								$this->Notification_m->sendMessageWithAttachment($member->email, "Review Result $paperid", $message, ['Abstract Announcement.pdf' => $model->exportNotifPdf()->output()]);
-							} else {
-								$this->Notification_m->sendMessage($member->email, "Review Result $paperid", $message);
-							}
-						}
+						$template = $type . "_" . $statusList[$status];
+						$this->Notification_m->sendInfoPaper($template,$member,$status,$type,$model);
+						$this->Notification_m->setType(Notification_m::TYPE_WA)->sendInfoPaper($template,$member,$status,$type,$model);
 					}
 				}
-				// if ($data['status'] == Papers_m::RETURN_TO_AUTHOR || $data['status_fullpaper'] == Papers_m::RETURN_TO_AUTHOR  || $data['status_presentasi'] == Papers_m::RETURN_TO_AUTHOR) {
-				// 	$member = $model->member;
-				// 	$paperid = $this->Papers_m->getIdPaper($model->id);
-				// 	$message = "<p>Dear $member->fullname</p>
-				// 		<p>ID Paper : $paperid</p>
-				// 		<p>Please login to your account to view more detailed comments/feedback files. Please make revisions before the deadline. Thank you<p>";
-				// 	$this->Notification_m->sendMessage($member->email, "Result Of Paper Review", $message);
-				// } elseif ($data['status'] == Papers_m::ACCEPTED || $data['status_fullpaper'] == Papers_m::ACCEPTED || $data['status'] == Papers_m::REJECTED) {
-				// 	$member = $model->member;
-				// 	$paperid = $this->Papers_m->getIdPaper($model->id);
-				// 	$message = "<p>Dear $member->fullname</p>
-				// 		<p>ID Paper : $paperid</p>
-				// 		<p>Thank you for submitting your abstract to " . Settings_m::getSetting('site_title') . ". Please download your abstract result annoucement here.</p>
-				// 		<p>Best regards.<br/>
-				// 		Committee of " . Settings_m::getSetting('site_title') . "</p>";
-				// 	$this->Notification_m->sendMessageWithAttachment($member->email, "Result Of Paper Review", $message, ['Abstract Announcement.pdf' => $model->exportNotifPdf()->output()]);
-				// }
 			}
 		} else {
 			$response['status'] = false;
@@ -229,7 +194,6 @@ class Paper extends Admin_Controller
 		$this->output
 			->set_content_type("application/json")
 			->_display(json_encode($response));
-		// }
 	}
 
 	public function delete()
@@ -456,19 +420,19 @@ class Paper extends Admin_Controller
 		if ($this->input->post()) {
 			$this->load->model(["Notification_m", "Papers_m"]);
 			$id = $this->input->post("id");
-			$member = $this->input->post();
 			if (file_exists(APPPATH . "uploads/cert_template/Paper.txt")) {
 				$data = $this->Papers_m->find()->where(['papers.id' => $id])
 					->join("members", "members.id = member_id")
 					->join("settings st", 'st.name = "format_id_paper"', 'left')
-					->select("CONCAT(st.value,LPAD(papers.id,3,0)) as id_paper,fullname,type_presence,email,title,'Participant' as status")
+					->select("CONCAT(st.value,LPAD(papers.id,3,0)) as id_paper,fullname,type_presence,email,phone,title,'Participant' as status")
 					->get()->row_array();
 
-				$cert = $this->Papers_m->exportCertificate($data)->output();;
-				$message = $this->load->view("template/email/send_certificate_paper", [
-					'event_name' => "Manuscript"
-				], true);
-				$status = $this->Notification_m->sendMessageWithAttachment($data['email'], "Certificate of Manuscript", $message, $cert, "CERTIFICATE.pdf");
+				$cert = $this->Papers_m->exportCertificate($data)->output();
+				$status = $this->Notification_m->sendCertificate($data,Notification_m::CERT_TYPE_PAPER,"Certificate of Manuscript",$cert);
+				
+				$status = $this->Notification_m->setType(Notification_m::TYPE_WA)
+								->sendCertificate($data,Notification_m::CERT_TYPE_PAPER,"Certificate of Manuscript",$cert);
+				
 				$statusKirim = (isset($status['labelIds']) && in_array("SENT", $status['labelIds']));
 				$this->output
 					->set_content_type("application/json")
@@ -498,11 +462,8 @@ class Paper extends Admin_Controller
 			$id = $this->input->post("id");
 			if (file_exists(APPPATH . "uploads/cert_template/Paper.txt")) {
 				$data = $this->Paper_champion_m->champion($id);
-				$cert = $this->Papers_m->exportCertificate($data)->output();;
-				$message = $this->load->view("template/email/send_certificate_paper", [
-					'event_name' => "Manuscript"
-				], true);
-				$status = $this->Notification_m->sendMessageWithAttachment($data['email'], "Certificate of Manuscript", $message, $cert, "CERTIFICATE.pdf");
+				$cert = $this->Papers_m->exportCertificate($data)->output();
+				$status = $this->Notification_m->sendCertificate($data,Notification_m::CERT_TYPE_PAPER,"Certificate of Manuscript",$cert);
 				$statusKirim = (isset($status['labelIds']) && in_array("SENT", $status['labelIds']));
 				$this->output
 					->set_content_type("application/json")

@@ -19,20 +19,52 @@ class Job extends CI_Controller
         $tr = $this->Transaction_m->findOne(['id'=>$transaction_id]);
         $member = $tr->member;
         if($tr){
-            if($member){
-                $fullname = $member->fullname;
-    			$email = $member->email;
-            }else{
-                $fullname = str_replace("REGISTER-GROUP :","",$tr->member_id);
-    			$email = $tr->email_group;
-            }
-            $attc = [
-                $fullname.'-invoice.pdf' => $tr->exportInvoice()->output(),
-            ];
-            $message = $this->load->view("template/email/send_unpaid_invoice",['fullname'=>$fullname],true);
-            $this->Notification_m->sendMessageWithAttachment($email, 'Unpaid Invoice (MA)',$message, $attc);
+            $this->Notification_m->sendInvoice($member,$tr);
         }
     }
+
+    public function run_broadcast($id){
+        $processData = $this->db->get_where("broadcast",['id'=>$id])->row();
+        if($processData){
+            $this->load->model("Notification_m");
+            $this->db->update("broadcast",['status'=>'On Proses'],['id'=>$id]);
+            $attributes = json_decode($processData->attribute,true);
+            require_once APPPATH."controllers/admin/Notification.php";
+            switch($processData->type){
+                case Notification::TYPE_SENDING_NAME_TAG:
+                    $this->load->model("Member_m");
+                    $event_name = str_replace("Broadcast Nametag Event ","",$processData->subject);
+                    $this-> Notification_m->setType($processData->channel);
+                    foreach ($attributes as $key => $row) {
+                        $member = $this->Member_m->findOne($row['member_id']);
+                        $row['email'] = $member->email;
+                        $row['phone'] = $member->phone;
+                        $row['fullname'] = $member->fullname;
+                        try{
+                            $card = $member->getCard($row['event_id'])->output();
+                            if($member->email == "muhammad.zaien17@gmail.com"){
+                                $row['feedback'] = $this->Notification_m->sendNametag($member,$card,$event_name);
+                            }
+                        }catch (Exception $ex){
+                            $row['feedback'] = $ex->getMessage();
+                        }
+                       $attributes[$key] = $row;
+                        $this->db->update("broadcast",['attribute'=>json_encode($attributes)],['id'=>$id]);
+                    }
+                    break;
+                case Notification::TYPE_SENDING_CERTIFICATE:
+                    break;
+                case Notification::TYPE_SENDING_CERTIFICATE_COM:
+                    break;
+                case Notification::TYPE_SENDING_MESSAGE:
+                    break;
+                case Notification::TYPE_SENDING_MATERIAL:
+                    break;
+            }
+            $this->db->update("broadcast",['status'=>'Finish'],['id'=>$id]);
+        }
+    }
+
     public function test($params,$params2){
         sleep(5);
         file_put_contents("./tes.json",$params." ".$params2);
