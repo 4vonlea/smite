@@ -29,6 +29,17 @@ class Wappin implements iNotification
         return trim($number);
     }
 
+    protected function checkNumberRegistered($number){
+        $ci =& get_instance();
+        $status = $this->db->where("phone_number",$number)->count_all_results("registered_wa") > 0;
+        if($status == false){
+            $ci->load->model("Settings_m");
+            $site = Settings_m::getSetting('site_title');
+            $this->sendTemplateMessage($number,"offer_notification",$site,["1"=>$site]);
+        }
+        return $status;
+    }
+
     public function sendMessageOnly($to,$subject,$message){
         $to = $this->normalizeNumber($to);
         $response = $this->composeRequest([
@@ -45,6 +56,11 @@ class Wappin implements iNotification
         return ['status'=>true,'mode'=>'skip'];
         if($to == "")
             return ['status'=>false,'message'=>'Invalid Number'];
+    
+        if($this->checkNumberRegistered($to) == false){
+            return ['status'=>false,'message'=>'Number not registered'];
+        }
+
         $to = $this->normalizeNumber($to);
         $this->sendTemplateMessage($to, "header_conversation",$subject, ['1'=>"https://wa.me/6289603215099"]);
         $response = $this->composeRequest([
@@ -53,33 +69,33 @@ class Wappin implements iNotification
             'message_content' => $this->htmlToWaText($message),
             'recipient_number' => $to
         ], "https://api.wappin.id/v1/message/do-send", "POST", true);
-        return json_decode($response, true);
+        $responseDecoded = json_decode($response, true);
+        $responseDecoded['status'] = $responseDecoded['status'] == "200";
+        return $responseDecoded;
     }
 
     public function sendMessageWithAttachment($to, $subject, $message, $attachment, $fname = "")
     {
-        return ['status'=>true,'mode'=>'skip'];
-        if($to == "")
-            return ['status'=>false,'message'=>'Invalid Number'];
-
         $responseMessage = $this->sendMessage($to, $subject, $message);
-        $files = [];
-        if (!is_array($attachment)) {
-            $files[$fname] = $attachment;
-        } else {
-            $files = $attachment;
-        }
-        if (!file_exists(APPPATH . "cache/wappin"))
-            mkdir(APPPATH . "cache/wappin");
+        if($responseMessage['status']){
+            $files = [];
+            if (!is_array($attachment)) {
+                $files[$fname] = $attachment;
+            } else {
+                $files = $attachment;
+            }
+            if (!file_exists(APPPATH . "cache/wappin"))
+                mkdir(APPPATH . "cache/wappin");
 
-        $responseFile = [];
-        foreach ($files as $filename => $filebyte) {
-            $responseFile[] = $this->sendMedia($to, $filename, $filebyte);
+            foreach ($files as $filename => $filebyte) {
+                $responseFile = $this->sendMedia($to, $filename, $filebyte);
+                $responseMessage['status'] = $responseMessage['status'] && $responseFile['status'] == "200";
+                if($responseMessage["status"] == false){
+                    $responseMessage['message'] .= ", ".$responseFile['message'];
+                }
+            }
         }
-        return [
-            'message' => $responseMessage,
-            'files' => $responseFile
-        ];
+        return $responseMessage;
     }
 
     public function sendMedia($to, $filename, $filebyte)

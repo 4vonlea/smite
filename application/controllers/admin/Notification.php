@@ -100,7 +100,7 @@ class Notification extends Admin_Controller
 
 			$this->output
 				->set_content_type("application/json")
-				->_display(json_encode(['status' => isset($status['labelIds']) && in_array("SENT", $status['labelIds']), 'log' => $status]));
+				->_display(json_encode(['status' => $status['status'], 'log' => $status]));
 		}
 	}
 
@@ -164,7 +164,7 @@ class Notification extends Admin_Controller
 			$status = $this->Notification_m->sendMessageWithAttachment($member['email'], "Material of Event", "Thank you for your participation <br/> Below is your material of " . $event['name'], $material_file);
 			$this->output
 				->set_content_type("application/json")
-				->_display(json_encode(['status' => isset($status['labelIds']) && in_array("SENT", $status['labelIds']), 'log' => $status]));
+				->_display(json_encode(['status' => $status['status'], 'log' => $status]));
 		}
 	}
 

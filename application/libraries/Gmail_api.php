@@ -1,4 +1,5 @@
 <?php
+
 class Gmail_api implements iNotification
 {
     protected $primaryKey = "name";
@@ -50,8 +51,8 @@ class Gmail_api implements iNotification
         if($this->client == null) {
             $this->client = new Google_Client();
             $this->client->setScopes([
-                Google_Service_Gmail::GMAIL_SEND,
-                Google_Service_Gmail::MAIL_GOOGLE_COM
+                Google\Service\Gmail::GMAIL_SEND,
+                Google\Service\Gmail::MAIL_GOOGLE_COM
             ]);
             $this->client->setAuthConfig(APPPATH . 'config/google.client.oauth.json');
             $this->client->setAccessType('offline');
@@ -72,7 +73,7 @@ class Gmail_api implements iNotification
 		$from = $this->getEmail();
         $sender = $this->getSender();
 
-        $service = new Google_Service_Gmail($this->getClient());
+        $service = new Google\Service\Gmail($this->getClient());
         $strSubject = $subject;
         $strRawMessage = "From:  $sender<".$from.">\r\n";
         $strRawMessage .= "To:  <".$to.">\r\n";
@@ -84,15 +85,20 @@ class Gmail_api implements iNotification
         // The message needs to be encoded in Base64URL
         $mime = rtrim(strtr(base64_encode($strRawMessage), '+/', '-_'), '=');
         try{
-            $msg = new Google_Service_Gmail_Message();
+            $msg = new Google\Service\Gmail\Message();
             $msg->setRaw($mime);
-            $status = $service->users_messages->send("me", $msg);
-            $response['status'] = $status;
+            $statusMessage = $service->users_messages->send("me", $msg);
+            $response['status'] = (isset($statusMessage['labelIds']) && in_array("SENT",$statusMessage['labelIds']));
+            if($response['status']){
+                $response['data'] = $statusMessage;
+                $response['message'] = implode(" ",$statusMessage['labelIds']);
+            }elseif(isset($statusMessage['error'])){
+                $response['message'] = $statusMessage['error']['message'];
+            }
         }catch(Exception $e){
             $response['status'] = false;
             $response['code'] = $e->getCode();
             $response['message'] = $e->getMessage();
-
         }
         return $response;
     }
@@ -108,7 +114,7 @@ class Gmail_api implements iNotification
 		$sender = $this->getSender();
 		$finfo = new finfo(FILEINFO_MIME);
 		$boundary = uniqid(rand(), true);
-		$service = new Google_Service_Gmail($this->getClient());
+		$service = new Google\Service\Gmail($this->getClient());
 		$strSubject = $subject;
 		$strRawMessage = "From:  $sender<".$from.">\r\n";
 		$strRawMessage .= "To:  <".$to.">\r\n";
@@ -127,11 +133,24 @@ class Gmail_api implements iNotification
 			$strRawMessage .= base64_encode($attc) . "\r\n";
 		}
 
-		// The message needs to be encoded in Base64URL
-		$mime = rtrim(strtr(base64_encode($strRawMessage), '+/', '-_'), '=');
-		$msg = new Google_Service_Gmail_Message();
-		$msg->setRaw($mime);
-		$status = $service->users_messages->send("me", $msg);
-		return $status;
+        try{
+            $mime = rtrim(strtr(base64_encode($strRawMessage), '+/', '-_'), '=');
+            $msg = new Google\Service\Gmail\Message();
+            $msg->setRaw($mime);
+            $statusMessage = $service->users_messages->send("me", $msg);
+            $response['status'] = (isset($statusMessage['labelIds']) && in_array("SENT",$statusMessage['labelIds']));
+            $response['data'] = $statusMessage;
+            if($response['status']){
+                $response['data'] = $statusMessage;
+                $response['message'] = implode(" ",$statusMessage['labelIds']);
+            }elseif(isset($statusMessage['error'])){
+                $response['message'] = $statusMessage['error']['message'];
+            }
+        }catch(Exception $e){
+            $response['status'] = false;
+            $response['code'] = $e->getCode();
+            $response['message'] = $e->getMessage();
+        }
+		return $response;
 	}
 }

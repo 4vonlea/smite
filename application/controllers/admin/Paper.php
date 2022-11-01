@@ -433,11 +433,10 @@ class Paper extends Admin_Controller
 				$status = $this->Notification_m->setType(Notification_m::TYPE_WA)
 								->sendCertificate($data,Notification_m::CERT_TYPE_PAPER,"Certificate of Manuscript",$cert);
 				
-				$statusKirim = (isset($status['labelIds']) && in_array("SENT", $status['labelIds']));
 				$this->output
 					->set_content_type("application/json")
 					->_display(json_encode([
-						'status' => $statusKirim,
+						'status' => $status['status'],
 						'data' => $status,
 					]));
 			} else {
@@ -464,11 +463,10 @@ class Paper extends Admin_Controller
 				$data = $this->Paper_champion_m->champion($id);
 				$cert = $this->Papers_m->exportCertificate($data)->output();
 				$status = $this->Notification_m->sendCertificate($data,Notification_m::CERT_TYPE_PAPER,"Certificate of Manuscript",$cert);
-				$statusKirim = (isset($status['labelIds']) && in_array("SENT", $status['labelIds']));
 				$this->output
 					->set_content_type("application/json")
 					->_display(json_encode([
-						'status' => $statusKirim,
+						'status' => $status['status'],
 						'data' => $status,
 					]));
 			} else {

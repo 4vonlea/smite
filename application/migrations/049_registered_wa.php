@@ -14,6 +14,7 @@ class Migration_registered_wa extends CI_Migration
                 'type' => 'varchar',
                 'constraint' => '50',
             ],
+            'created_at datetime default current_timestamp',
         ]);
         $this->dbforge->add_key("phone_number", true);
         $this->dbforge->create_table("registered_wa", true);

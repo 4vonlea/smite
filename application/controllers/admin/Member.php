@@ -166,11 +166,10 @@ class Member extends Admin_Controller
 				$member = $this->Member_m->findOne($this->input->post("m_id"));
 				$cert = $this->Event_m->exportCertificate($member->toArray(), $id)->output();
 				$status = $this->Notification_m->sendCertificate($member,Notification_m::CERT_TYPE_EVENT,$event_name,$cert);
-				$statusKirim = (isset($status['labelIds']) && in_array("SENT",$status['labelIds']));
 				$this->output
 					->set_content_type("application/json")
 					->_display(json_encode([
-						'status'=>$statusKirim,
+						'status'=>$status['status'],
 						'data'=>$status,
 					]));
 			} else {
