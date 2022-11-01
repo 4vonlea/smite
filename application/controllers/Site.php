@@ -395,19 +395,30 @@ class Site extends MY_Controller
         $response = $this->api_perdossi->getMemberByNIK("3312120202760001");
         var_dump($response);
     }
+  
+   public function sent_template(){
+            $this->load->library("Wappin", [
+                'clientId' => $this->config->item("wappin_client_id"),
+                'projectId' => $this->config->item("wappin_project_id"),
+                'secretKey' => $this->config->item("wappin_secret_key"),
+          ]);
+          $res = $this->wappin->sendTemplateMessage("6282155708905","offer_notif","PINPERDOSSI CIREBON",['1'=>"PINPERDOSSI CIREBON 2022"]);
+        var_dump($res);
+    }
 
     public function wappin_callback(){
         $body = file_get_contents('php://input');
         file_put_contents(APPPATH."cache/wappin/".time().".txt",$body);
         $bodyJson = json_decode($body,true);
-        if(isset($bodyJson['message_content'])){
+      	//$c =  $this->db->where("phone_number",$bodyJson['sender_number'])->count_all_results("registered_wa");
+        if(isset($bodyJson['message_content']) && $bodyJson['message_content'] == "Saya Bersedia"){
             $this->db->replace("registered_wa",['phone_number'=>$bodyJson['sender_number']]);
             $this->load->library("Wappin", [
                 'clientId' => $this->config->item("wappin_client_id"),
                 'projectId' => $this->config->item("wappin_project_id"),
                 'secretKey' => $this->config->item("wappin_secret_key"),
-            ]);
-            $this->wappin->sendMessageOnly($bodyJson['sender_number'],Settings_m::getSetting('site_title'),"Terima kasih..\nNo Anda telah terhubung dengan Sistem Notifikasi kami");
+          ]);
+          $this->wappin->sendMessageOnly($bodyJson['sender_number'],Settings_m::getSetting('site_title'),"Terima kasih..\nNo Anda telah terhubung dengan Sistem Notifikasi kami");
         }
         $this->output->set_content_type("application/json")
              ->_display(json_encode(['status'=>'000']));
