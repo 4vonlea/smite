@@ -97,9 +97,9 @@ $this->layout->begin_head();
 									<span class="fa fa-sync"></span> Sync
 									<i v-if="syncId == props.row.id" class="fa fa-spin fa-spinner"></i>
 								</button>
-								<button class="btn btn-primary btn-sm" @click="detail(props.row,$event)">
-									<span class="fa fa-search"></span> Detail
-								</button>
+								<v-button class="btn btn-primary btn-sm" icon="fa fa-search" @click="detail(props.row,$event)">
+									Detail
+								</v-button>
 								<button class="btn btn-primary btn-sm" @click="edit(props)">
 									<span class="fa fa-edit"></span> Edit
 								</button>
@@ -231,7 +231,6 @@ $this->layout->begin_head();
 								<li>{{ profile.alternatif_status }}</li>
 								<li>{{ profile.alternatif_status2 }}</li>
 							</ol>
-							
 						</td>
 					</tr>
 					<tr>
@@ -445,6 +444,7 @@ $this->layout->begin_head();
 <?php $this->layout->begin_script(); ?>
 <script src="<?= base_url("themes/script/chosen/chosen.jquery.min.js"); ?>"></script>
 <script src="<?= base_url("themes/script/chosen/vue-chosen.js"); ?>"></script>
+<script src="<?= base_url("themes/script/v-button.js"); ?>"></script>
 
 <script>
 	var tempStatus = <?= json_encode($statusList); ?>;
@@ -634,7 +634,7 @@ $this->layout->begin_head();
 					app.savingCheck = false;
 				});
 			},
-			detail(profile, event, institution) {
+			detail(profile, self) {
 				$.each(this.statusList, function(i, v) {
 					if (v.id == profile.status)
 						profile.statusName = v.kategory;
@@ -644,7 +644,7 @@ $this->layout->begin_head();
 				} else {
 					profile.imageLink = `<?= base_url('themes/uploads/people.jpg'); ?>`;
 				}
-				event.target.innerHtml = "<i class='fa fa-spin fa-spinner'></i>Loading...";
+				self.toggleLoading();
 
 				$.post("<?= base_url("admin/member/get_event"); ?>", {
 					id: profile.id
@@ -659,7 +659,8 @@ $this->layout->begin_head();
 						message = 'Server fail to response !';
 					Swal.fire('Fail', message, 'error');
 				}).always(function() {
-					event.target.innerHtml = "Detail";
+					self.toggleLoading();
+
 				});
 			},
 			verify() {
