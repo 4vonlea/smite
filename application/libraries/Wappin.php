@@ -60,7 +60,15 @@ class Wappin implements iNotification
             ]);
             $ci->load->model("Settings_m");
             $site = Settings_m::getSetting('site_title');
-            $this->sendTemplateMessage($number,"offer_notification",$site,["1"=>$site]);
+            $message = $this->sendTemplateMessage($number,"offer_notification",$site,["1"=>$site]);
+            $date = date('Y-m-d H:i:s');
+            $ci->db->insert('log_proses',array(
+                'controller'=>"site",
+                'username'=>$number,
+                'request'=>json_encode($message),
+                'query'=>"WAPPIN NOT REGISTERED",
+                'date'=>$date,
+            ));
         }
         return $status;
     }
