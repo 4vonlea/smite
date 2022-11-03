@@ -31,7 +31,7 @@ class Wappin implements iNotification
 
     protected function checkNumberRegistered($number){
         $ci =& get_instance();
-        $status = $this->db->where("phone_number",$number)->count_all_results("registered_wa") > 0;
+        $status = $this->ci->db->where("phone_number",$number)->count_all_results("registered_wa") > 0;
         if($status == false){
             $ci->load->model("Settings_m");
             $site = Settings_m::getSetting('site_title');
