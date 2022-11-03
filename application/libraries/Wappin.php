@@ -33,7 +33,7 @@ class Wappin implements iNotification
         $ci =& get_instance();
         $row = $ci->db->where("phone_number",$number)->get("registered_wa")->row();
         $status = true;
-        if($row == null || $row->status = 0){
+        if($row == null || $row->status == 0){
             $status = false;
             $attachmentFile = [];
             $files = [];
