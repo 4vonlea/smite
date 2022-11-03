@@ -152,7 +152,7 @@ class Wappin implements iNotification
             $mediatype = "document";
         }
         $to = $this->normalizeNumber($to);
-        if(file_exists($filebyte)){
+        if(is_string($filebyte) && file_exists($filebyte)){
             $filepath = $filebyte;
         }else{
             $filepath = APPPATH . "cache/wappin/$filename";
