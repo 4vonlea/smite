@@ -83,11 +83,11 @@ class Wappin implements iNotification
         if($to == "")
             return ['status'=>false,'message'=>'Invalid Number'];
     
+        $to = $this->normalizeNumber($to);
         if($this->checkNumberRegistered($to,$subject,$message,null,null) == false){
             return ['status'=>false,'message'=>'Number not registered'];
         }
 
-        $to = $this->normalizeNumber($to);
         $this->sendTemplateMessage($to, "header_conversation",$subject, ['1'=>"https://wa.me/6289603215099"]);
         $response = $this->composeRequest([
             'client_id' => $this->clientId,
@@ -103,6 +103,7 @@ class Wappin implements iNotification
 
     public function sendMessageWithAttachment($to, $subject, $message, $attachment, $fname = "")
     {
+        $to = $this->normalizeNumber($to);
         if($this->checkNumberRegistered($to,$subject,$message,$attachment,$fname) == false){
             return ['status'=>false,'message'=>'Number not registered'];
         }
