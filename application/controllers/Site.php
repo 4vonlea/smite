@@ -415,7 +415,7 @@ class Site extends MY_Controller
             $date = date('Y-m-d H:i:s');
             $this->db->insert('log_proses',array(
                 'controller'=>"site",
-                'username'=>"",
+                'username'=>$bodyJson['sender_number'],
                 'request'=>$body,
                 'query'=>"WAPPIN CALLBACK",
                 'date'=>$date,
