@@ -48,12 +48,15 @@ class Wappin implements iNotification
             'message_content' => $this->htmlToWaText($message),
             'recipient_number' => $to
         ], "https://api.wappin.id/v1/message/do-send", "POST", true);
-        return json_decode($response, true);
+        $responseDecoded = json_decode($response, true);
+        $responseDecoded['code'] = $responseDecoded['status'];
+        $responseDecoded['status'] = $responseDecoded['status'] == "200";
+        return $responseDecoded;
     }
 
     public function sendMessage($to, $subject, $message)
     {
-        return ['status'=>true,'mode'=>'skip'];
+        return ['status'=>false,'message'=>'skip'];
         if($to == "")
             return ['status'=>false,'message'=>'Invalid Number'];
     
@@ -70,6 +73,7 @@ class Wappin implements iNotification
             'recipient_number' => $to
         ], "https://api.wappin.id/v1/message/do-send", "POST", true);
         $responseDecoded = json_decode($response, true);
+        $responseDecoded['code'] = $responseDecoded['status'];
         $responseDecoded['status'] = $responseDecoded['status'] == "200";
         return $responseDecoded;
     }
@@ -89,7 +93,7 @@ class Wappin implements iNotification
 
             foreach ($files as $filename => $filebyte) {
                 $responseFile = $this->sendMedia($to, $filename, $filebyte);
-                $responseMessage['status'] = $responseMessage['status'] && $responseFile['status'] == "200";
+                $responseMessage['status'] = $responseMessage['status'] && $responseFile['status'];
                 if($responseMessage["status"] == false){
                     $responseMessage['message'] .= ", ".$responseFile['message'];
                 }
@@ -121,7 +125,10 @@ class Wappin implements iNotification
             'media' => new CURLFile($filepath)
         ], "https://api.wappin.id/v1/message/do-send-media", "POST");
         unlink($filepath);
-        return json_decode($response, true);
+        $responseDecoded = json_decode($response, true);
+        $responseDecoded['code'] = $responseDecoded['status'];
+        $responseDecoded['status'] = $responseDecoded['status'] == "200";
+        return $responseDecoded;
     }
 
     public function sendTemplateMessage($to, $template, $subject, $bodyParams)
@@ -136,7 +143,10 @@ class Wappin implements iNotification
             'header' => ['param' => substr($subject,0,60)],
             'params' => $bodyParams,
         ], "https://api.wappin.id/v1/message/do-send-hsm", "POST", true);
-        return json_decode($response, true);
+        $responseDecoded = json_decode($response, true);
+        $responseDecoded['code'] = $responseDecoded['status'];
+        $responseDecoded['status'] = $responseDecoded['status'] == "200";
+        return $responseDecoded;
     }
 
     public function getToken()

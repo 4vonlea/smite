@@ -186,8 +186,9 @@ class Transaction extends Admin_Controller
 		$detail->status_payment = Transaction_m::STATUS_EXPIRE;
 		$status = $detail->save();
 		$member = $detail->member;
+		$emailStatus = [];
 		if($member){
-			$this->Notification_m->sendExpiredTransaction($member, $id);
+			$emailStatus = $this->Notification_m->sendExpiredTransaction($member, $id);
 			$status = $this->Notification_m->setType(Notification_m::TYPE_WA)
 								 ->sendExpiredTransaction($member, $id);
         }
@@ -199,7 +200,7 @@ class Transaction extends Admin_Controller
 		]);
 		$this->output
 			->set_content_type("application/json")
-			->_display(json_encode(['status' => $status]));
+			->_display(json_encode(['status' => $status,'email'=>$emailStatus]));
 	}
 
 	public function verify()

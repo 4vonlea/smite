@@ -89,10 +89,12 @@ class Gmail_api implements iNotification
             $msg->setRaw($mime);
             $statusMessage = $service->users_messages->send("me", $msg);
             $response['status'] = (isset($statusMessage['labelIds']) && in_array("SENT",$statusMessage['labelIds']));
+            $response['data'] = $statusMessage;
             if($response['status']){
-                $response['data'] = $statusMessage;
+                $response['code'] = "200";
                 $response['message'] = implode(" ",$statusMessage['labelIds']);
             }elseif(isset($statusMessage['error'])){
+                $response['code'] = $statusMessage['error']['code'];
                 $response['message'] = $statusMessage['error']['message'];
             }
         }catch(Exception $e){
@@ -141,9 +143,10 @@ class Gmail_api implements iNotification
             $response['status'] = (isset($statusMessage['labelIds']) && in_array("SENT",$statusMessage['labelIds']));
             $response['data'] = $statusMessage;
             if($response['status']){
-                $response['data'] = $statusMessage;
+                $response['code'] = "200";
                 $response['message'] = implode(" ",$statusMessage['labelIds']);
             }elseif(isset($statusMessage['error'])){
+                $response['code'] = $statusMessage['error']['code'];
                 $response['message'] = $statusMessage['error']['message'];
             }
         }catch(Exception $e){
