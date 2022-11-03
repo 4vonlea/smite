@@ -410,16 +410,17 @@ class Site extends MY_Controller
         $body = file_get_contents('php://input');
         $bodyJson = json_decode($body,true);
 
-        $date = date('Y-m-d H:i:s');
-        $this->db->insert('log_proses',array(
-            'controller'=>"site",
-            'username'=>"",
-            'request'=>$body,
-            'query'=>"WAPPIN CALLBACK",
-            'date'=>$date,
-        ));
 
         if(array_key_exists("message_content",$bodyJson) && (strtoupper($bodyJson['message_content']) == "SAYA BERSEDIA" || strtoupper($bodyJson['message_content']) == "I AGREE" || $bodyJson['message_content'] == null)){
+            $date = date('Y-m-d H:i:s');
+            $this->db->insert('log_proses',array(
+                'controller'=>"site",
+                'username'=>"",
+                'request'=>$body,
+                'query'=>"WAPPIN CALLBACK",
+                'date'=>$date,
+            ));
+    
       	    $row =  $this->db->where("phone_number",$bodyJson['sender_number'])->get("registered_wa")->row();
             if($row && $row->status == "0"){
                 $this->db->update("registered_wa",['status'=>1,'hold_message'=>"{}"],['phone_number'=>$bodyJson['sender_number']]);
