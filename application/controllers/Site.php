@@ -409,6 +409,7 @@ class Site extends MY_Controller
     public function wappin_callback(){
         $body = file_get_contents('php://input');
         file_put_contents(APPPATH."cache/wappin/".time().".txt",$body);
+        $bodyJson = json_decode($body,true);
       	//$c =  $this->db->where("phone_number",$bodyJson['sender_number'])->count_all_results("registered_wa");
         if(isset($bodyJson['message_content']) && (strtoupper($bodyJson['message_content']) == "SAYA BERSEDIA" || strtoupper($bodyJson['message_content']) == "I AGREE" || $bodyJson['message_content'] == null)){
             $this->db->replace("registered_wa",['phone_number'=>$bodyJson['sender_number']]);
