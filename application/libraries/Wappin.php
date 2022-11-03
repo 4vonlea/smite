@@ -56,7 +56,6 @@ class Wappin implements iNotification
 
     public function sendMessage($to, $subject, $message)
     {
-        return ['status'=>false,'message'=>'skip'];
         if($to == "")
             return ['status'=>false,'message'=>'Invalid Number'];
     
