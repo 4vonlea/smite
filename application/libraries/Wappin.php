@@ -29,10 +29,34 @@ class Wappin implements iNotification
         return trim($number);
     }
 
-    protected function checkNumberRegistered($number){
+    protected function checkNumberRegistered($number,$subject,$message,$attachment,$fname){
         $ci =& get_instance();
-        $status = $ci->db->where("phone_number",$number)->count_all_results("registered_wa") > 0;
-        if($status == false){
+        $row = $ci->db->where("phone_number",$number)->get("registered_wa")->row();
+        $status = true;
+        if($row == null || $row->status = 0){
+            $status = false;
+            $attachmentFile = [];
+            $files = [];
+            if (!is_array($attachment)) {
+                $files[$fname] = $attachment;
+            } else {
+                $files = $attachment;
+            }
+            if (!file_exists(APPPATH . "cache/wappin"))
+                mkdir(APPPATH . "cache/wappin");
+            foreach($files as $name=>$data){
+                $filepath = APPPATH . "cache/wappin/".time().$name;
+                file_put_contents($filepath, $data);
+            }
+            $ci->db->replace("registered_wa",[
+                'phone_number'=>$number,
+                'status'=>0,
+                'hold_message'=>json_encode([
+                    'subject'=>$subject,
+                    'message'=>$message,
+                    'attachment'=>$attachmentFile
+                ])
+            ]);
             $ci->load->model("Settings_m");
             $site = Settings_m::getSetting('site_title');
             $this->sendTemplateMessage($number,"offer_notification",$site,["1"=>$site]);
@@ -59,7 +83,7 @@ class Wappin implements iNotification
         if($to == "")
             return ['status'=>false,'message'=>'Invalid Number'];
     
-        if($this->checkNumberRegistered($to) == false){
+        if($this->checkNumberRegistered($to,$subject,$message,null,null) == false){
             return ['status'=>false,'message'=>'Number not registered'];
         }
 
@@ -79,6 +103,10 @@ class Wappin implements iNotification
 
     public function sendMessageWithAttachment($to, $subject, $message, $attachment, $fname = "")
     {
+        if($this->checkNumberRegistered($to,$subject,$message,$attachment,$fname) == false){
+            return ['status'=>false,'message'=>'Number not registered'];
+        }
+
         $responseMessage = $this->sendMessage($to, $subject, $message);
         if($responseMessage['status']){
             $files = [];
@@ -114,8 +142,12 @@ class Wappin implements iNotification
             $mediatype = "document";
         }
         $to = $this->normalizeNumber($to);
-        $filepath = APPPATH . "cache/wappin/$filename";
-        file_put_contents($filepath, $filebyte);
+        if(file_exists($filebyte)){
+            $filepath = $filebyte;
+        }else{
+            $filepath = APPPATH . "cache/wappin/$filename";
+            file_put_contents($filepath, $filebyte);
+        }
         $response =  $this->composeRequest([
             'client_id' => $this->clientId,
             'project_id' => $this->projectId,

@@ -408,18 +408,34 @@ class Site extends MY_Controller
 
     public function wappin_callback(){
         $body = file_get_contents('php://input');
-        file_put_contents(APPPATH."cache/wappin/".time().".txt",$body);
         $bodyJson = json_decode($body,true);
-      	//$c =  $this->db->where("phone_number",$bodyJson['sender_number'])->count_all_results("registered_wa");
+
+        $date = date('Y-m-d H:i:s');
+        $this->db->insert('log_proses',array(
+            'controller'=>"site",
+            'username'=>"",
+            'request'=>$body,
+            'query'=>"WAPPIN CALLBACK",
+            'date'=>$date,
+        ));
+
         if(array_key_exists("message_content",$bodyJson) && (strtoupper($bodyJson['message_content']) == "SAYA BERSEDIA" || strtoupper($bodyJson['message_content']) == "I AGREE" || $bodyJson['message_content'] == null)){
-            $this->db->replace("registered_wa",['phone_number'=>$bodyJson['sender_number']]);
-            $this->load->library("Wappin", [
-                'clientId' => $this->config->item("wappin_client_id"),
-                'projectId' => $this->config->item("wappin_project_id"),
-                'secretKey' => $this->config->item("wappin_secret_key"),
-          ]);
-          $this->wappin->sendMessageOnly($bodyJson['sender_number'],Settings_m::getSetting('site_title'),"Terima kasih..\nNo Anda telah terhubung dengan Sistem Notifikasi kami");
-        }
+      	    $row =  $this->db->where("phone_number",$bodyJson['sender_number'])->get("registered_wa")->row();
+            if($row && $row->status == "0"){
+                $this->db->update("registered_wa",['status'=>1,'hold_message'=>"{}"],['phone_number'=>$bodyJson['sender_number']]);
+                $this->load->library("Wappin", [
+                        'clientId' => $this->config->item("wappin_client_id"),
+                        'projectId' => $this->config->item("wappin_project_id"),
+                        'secretKey' => $this->config->item("wappin_secret_key"),
+                ]);
+                $messages = json_decode($row->hold_message,true);
+                if($messages){
+                    $this->wappin->sendMessageWithAttachment($bodyJson['sender_number'],$messages['subject'],$messages['message'],$messages['attachment']);
+                }else{
+                    $this->wappin->sendMessageOnly($bodyJson['sender_number'],Settings_m::getSetting('site_title'),"Terima kasih..\nNo Anda telah terhubung dengan Sistem Notifikasi kami");
+                }
+            }
+        }        
         $this->output->set_content_type("application/json")
              ->_display(json_encode(['status'=>'000']));
     }
