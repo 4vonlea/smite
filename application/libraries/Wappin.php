@@ -45,9 +45,11 @@ class Wappin implements iNotification
             if (!file_exists(APPPATH . "cache/wappin"))
                 mkdir(APPPATH . "cache/wappin");
             foreach($files as $name=>$data){
-                $filepath = APPPATH . "cache/wappin/".time().$name;
-                $attachmentFile[$name] = $filepath;
-                file_put_contents($filepath, $data);
+                if($data){
+                    $filepath = APPPATH . "cache/wappin/".time().$name;
+                    $attachmentFile[$name] = $filepath;
+                    file_put_contents($filepath, $data);
+                }
             }
             $ci->db->replace("registered_wa",[
                 'phone_number'=>$number,
