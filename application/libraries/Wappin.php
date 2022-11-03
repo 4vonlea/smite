@@ -46,6 +46,7 @@ class Wappin implements iNotification
                 mkdir(APPPATH . "cache/wappin");
             foreach($files as $name=>$data){
                 $filepath = APPPATH . "cache/wappin/".time().$name;
+                $attachmentFile[$name] = $filepath;
                 file_put_contents($filepath, $data);
             }
             $ci->db->replace("registered_wa",[
