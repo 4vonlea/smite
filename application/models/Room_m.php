@@ -44,10 +44,7 @@ class Room_m extends MY_Model
             ->select("rooms.*,hotels.name as hotel_name,hotels.address")
             ->get();
         $user = $this->session->userdata("user_session");
-        if($user && in_array($user['username'],['rsieseria@gmail.com','pandji.winata@ulm.ac.id','gatotsps99@yahoo.com'])){
-            return $result->result_array();
-        }
-        return [];
+      return $result->result_array();
     }
 
     public function bookedRoom($member_id){
