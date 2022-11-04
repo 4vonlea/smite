@@ -47,6 +47,8 @@ class Member extends Admin_Controller
 				], ['username' => $email]);
 			}
 			$this->Notification_m->sendEmailConfirmation($account,$token[1]);
+			$this->Notification_m->setType(Notification_m::TYPE_WA)->sendEmailConfirmation($account,$token[1]);
+
 			$this->output
 				->set_content_type("application/json")
 				->_display(json_encode(['status' => true, 'message' => 'Akun pengguna tidak ditemukan']));
@@ -166,6 +168,7 @@ class Member extends Admin_Controller
 				$member = $this->Member_m->findOne($this->input->post("m_id"));
 				$cert = $this->Event_m->exportCertificate($member->toArray(), $id)->output();
 				$status = $this->Notification_m->sendCertificate($member,Notification_m::CERT_TYPE_EVENT,$event_name,$cert);
+				$this->Notification_m->setType(Notification_m::TYPE_WA)->sendCertificate($member,Notification_m::CERT_TYPE_EVENT,$event_name,$cert);
 				$this->output
 					->set_content_type("application/json")
 					->_display(json_encode([
@@ -301,6 +304,8 @@ class Member extends Admin_Controller
 				if ($error['status']) {
 					$tr = $this->Transaction_m->findOne($id_invoice);
 					$this->Notification_m->sendRegisteredByOther($data,$tr,$participantsCategory);
+					$this->Notification_m->setType(Notification_m::TYPE_WA)->sendRegisteredByOther($data,$tr,$participantsCategory);
+
 				}
 			} else {
 				$error['status'] = false;
@@ -657,6 +662,8 @@ class Member extends Admin_Controller
 					if ($error['status']) {
 						$tr = $this->Transaction_m->findOne($id_invoice);
 						$this->Notification_m->sendRegisteredByOther($data,$tr,$participantsCategory);
+						$this->Notification_m->setType(Notification_m::TYPE_WA)->sendRegisteredByOther($data,$tr,$participantsCategory);
+
 					}
 				}
 			}

@@ -20,6 +20,7 @@ class Job extends CI_Controller
         $member = $tr->member;
         if($tr){
             $this->Notification_m->sendInvoice($member,$tr);
+            $this->Notification_m->setType(Notification_m::TYPE_WA)->sendInvoice($member,$tr);
         }
     }
 

@@ -269,6 +269,7 @@ class Register extends MY_Controller
 				$error['message'] = $this->Member_m->getDB()->error();
 				if ($error['statusData']) {
 					$this->Notification_m->sendEmailConfirmation($data, $token);
+					$this->Notification_m->setType(Notification_m::TYPE_WA)->sendEmailConfirmation($data,$token);
 				}
 			} else {
 				$error['statusData'] = false;
@@ -496,6 +497,8 @@ class Register extends MY_Controller
 						], false);
 
 						$this->Notification_m->sendEmailConfirmation($data,$token);
+						$this->Notification_m->setType(Notification_m::TYPE_WA)->sendEmailConfirmation($data,$token);
+
 					}
 
 					/* -------------------------------------------------------------------------- */
@@ -510,6 +513,7 @@ class Register extends MY_Controller
 					if ($error['statusData']) {
 						if ($data) {
 							$this->Notification_m->sendRegisteredByOther($data,$tr,$participantsCategory);
+							$this->Notification_m->setType(Notification_m::TYPE_WA)->sendRegisteredByOther($data,$tr,$participantsCategory);
 						}
 					}
 				}
