@@ -240,7 +240,7 @@ class Notification_m extends MY_Model
             'email'=>$member->email,
             'password'=>$member->password,
             'participantsCategory'=>$participantsCategory,
-            'status'=>$participantsCategory
+            'status'=>$member->status
         ], true);
         $attc = [
             $member->fullname . '-invoice.pdf' => $transaction->exportInvoice()->output(),
