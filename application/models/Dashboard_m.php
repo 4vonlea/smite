@@ -128,11 +128,11 @@ class Dashboard_m extends CI_Model
 	{
 		$this->load->model("Member_m");
 		$this->load->model("Transaction_m");
-		$result = $this->db->select("t.id as no_invoice, m.id as member_id, m.fullname as nama, COALESCE(e.name,'-') as acara, COALESCE(td.product_name,'-') as product_name, ep.name, td.price as harga, t.updated_at as waktu_transaksi, t.status_payment as status_pembayaran, t.message_payment as ket ")
+		$result = $this->db->select("t.id as no_invoice, m.id as member_id, IF(td.member_id != t.member_id,CONCAT(t.member_id,' / ',m.fullname ),m.fullname) as nama, COALESCE(e.name,'-') as acara, COALESCE(td.product_name,'-') as product_name, ep.name, td.price as harga, t.updated_at as waktu_transaksi, t.status_payment as status_pembayaran, t.message_payment as ket ")
 			->select("m.sponsor")
 			->from("transaction t")
-			->join("members m", "m.id = t.member_id")
-			->join("transaction_details td", "t.id = td.transaction_id", "left")
+			->join("transaction_details td", "t.id = td.transaction_id")
+			->join("members m", "m.id = td.member_id")
 			->join("event_pricing ep", "ep.id = td.event_pricing_id", "left")
 			->join("events e", "e.id = ep.event_id","left")
 			->order_by("t.id, m.id")
