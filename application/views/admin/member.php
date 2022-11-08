@@ -291,9 +291,10 @@ $this->layout->begin_head();
 								<tr v-for="ev in profile.event">
 									<td>
 										{{ ev.event_name }} <br />
-										<a :href="'<?= base_url('admin/member/card'); ?>/'+ev.event_id+'/'+profile.id" target="_blank">Download Name Tag</a> 
+										<v-button @click="sendNametag(ev,$event)" class="btn btn-primary btn-sm">Send Nametag</v-button>
 										<button :disabled="sendingCertificate" v-on:click="sendCertificate(ev)" class="btn btn-primary btn-sm"><i v-if="sendingCertificate" class="fa fa-spin fa-spinner"></i>Send Certificate</button>
-										<a class="btn btn-primary btn-sm" :href="'<?= base_url('admin/member/preview_certificate'); ?>/'+ev.event_id+'/'+profile.id" target="_blank">Preview Certificate</a> 
+										<a :href="'<?= base_url('admin/member/card'); ?>/'+ev.event_id+'/'+profile.id" target="_blank">Preview Name Tag</a> 
+										<a :href="'<?= base_url('admin/member/preview_certificate'); ?>/'+ev.event_id+'/'+profile.id" target="_blank">Preview Certificate</a> 
 									</td>
 									<td>
 										<input type="checkbox" v-model="ev.checklist.nametag" true-value="true" false-value="false" />
@@ -445,7 +446,6 @@ $this->layout->begin_head();
 <script src="<?= base_url("themes/script/chosen/chosen.jquery.min.js"); ?>"></script>
 <script src="<?= base_url("themes/script/chosen/vue-chosen.js"); ?>"></script>
 <script src="<?= base_url("themes/script/v-button.js"); ?>"></script>
-
 <script>
 	var tempStatus = <?= json_encode($statusList); ?>;
 
@@ -528,6 +528,27 @@ $this->layout->begin_head();
 					Swal.fire('Fail', "Server gagal memproses !", 'error');
 				}).always(function() {
 					app.sendingCertificate = false;
+				});
+			},
+			sendNametag(event,self) {
+				var data = {
+					id: event.event_id,
+					event_name: event.event_name,
+					m_id:this.profile.id,
+				}
+				self.toggleLoading();
+				$.post("<?= base_url("admin/member/send_nametag"); ?>", data, function(res) {
+					if (res.status)
+						Swal.fire("Success", "Nametag sended !", "success");
+					else
+						Swal.fire("Failed", res.message, "error");
+				}, "JSON").fail(function(xhr) {
+					var message = xhr.getResponseHeader("Message");
+					if (!message)
+						message = 'Server fail to response !';
+					Swal.fire('Fail', message, 'error');
+				}).always(function() {
+					self.toggleLoading();
 				});
 			},
 			sendCertificate(event) {

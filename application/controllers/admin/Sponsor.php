@@ -111,4 +111,67 @@ class Sponsor extends Admin_Controller
 			->_display(json_encode(['status' => $status, 'message' => $message]));
 	}
 
+
+	//Sponsor Stand Start Here
+
+	public function stand()
+	{
+		$this->load->model('Sponsor_stand_m');
+		$this->load->helper("form");
+		$this->layout->render('sponsor_stand',[]);
+	}
+
+	public function grid_stand()
+	{
+		$this->load->model('Sponsor_stand_m');
+		$grid = $this->Sponsor_stand_m->gridData($this->input->get());
+		$this->output
+			->set_content_type("application/json")
+			->_display(json_encode($grid));
+
+	}
+
+	public function save_stand()
+	{
+		$this->load->model('Sponsor_stand_m');
+		$id = $this->input->post('id');
+		$sponsorName = $this->input->post('sponsor');
+
+		$model = $this->Sponsor_stand_m->findOne($id);
+		if(!$model){
+			$this->load->library('Uuid');
+			$model = new Sponsor_stand_m();
+			$model->id = Uuid::v4();
+		}
+		$model->sponsor = $sponsorName;
+
+		$return['status'] = $model->save();
+		$this->output
+			->set_content_type("application/json")
+			->_display(json_encode($return));
+	}
+
+	public function delete_stand()
+	{
+		if ($this->input->method() != 'post')
+			show_404("Page Not Found !");
+
+		$this->load->model(["Sponsor_stand_m"]);
+		$id = $this->input->post("id");
+		$message = "";
+		$status =$this->Sponsor_stand_m->find()->where(['id'=>$id])->delete();
+		if($status == false)
+			$message = "Failed to sponsor, error on server !";
+
+		$this->output
+			->set_content_type("application/json")
+			->_display(json_encode(['status' => $status, 'message' => $message]));
+	}
+
+	public function qr_stand($id){
+		$this->load->model(["Sponsor_stand_m"]);
+		$status =$this->Sponsor_stand_m->getQrCard($id);
+
+	}
+
 }

@@ -11,6 +11,7 @@ class Settings_m extends MY_Model
     const MANUAL_PAYMENT = 'manual_payment';
     const ENABLE_PAYMENT = 'enable_payment';
     const ESPAY = 'espay';
+    const ONLY_ADMIN_BOOK_HOTEL = "onlyAdminBookHotel";
 
 
     /**

@@ -17,6 +17,11 @@
 							<h3>Hotel</h3>
 						</div>
 						<div class="col-9 text-right">
+							<label class="mr-1">
+								<i v-show="settingOnlyAdmin" class="fa fa-spin fa-spinner"></i>
+								<input  v-show="!settingOnlyAdmin" type="checkbox" @change="checkOnlyAdmin" v-model="onlyAdmin" />
+								Only Admin Can Book
+							</label>
 							<button class="btn btn-primary" @click="addHotel"><i class="fa fa-plus"></i>
 								Add Hotel
 							</button>
@@ -92,7 +97,7 @@
 												{{validation['rooms['+ind+'][name]']}}
 											</div>
 										</td>
-										
+
 										<td>
 											<div class="input-group input-group-alternative">
 												<div class="input-group-prepend">
@@ -159,9 +164,11 @@
 		el: '#app',
 		data: {
 			formMode: 0,
+			settingOnlyAdmin: false,
 			form: {
 				rooms: [],
 			},
+			onlyAdmin: <?= (Settings_m::getSetting(Settings_m::ONLY_ADMIN_BOOK_HOTEL) == "1" ? 1 : 0); ?>,
 			money: {
 				decimal: ',',
 				thousands: '.',
@@ -181,6 +188,14 @@
 			}
 		},
 		methods: {
+			checkOnlyAdmin() {
+				this.settingOnlyAdmin = true;
+				$.post("<?= base_url('admin/setting/save/' . Settings_m::ONLY_ADMIN_BOOK_HOTEL); ?>", {
+					value: this.onlyAdmin ? 1 : 0
+				}).always(() => {
+					this.settingOnlyAdmin = false;
+				})
+			},
 			addHotel() {
 				this.formMode = 1;
 				this.form = {

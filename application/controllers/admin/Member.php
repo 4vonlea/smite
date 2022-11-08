@@ -12,6 +12,7 @@ class Member extends Admin_Controller
 		'verify' => 'update',
 		'get_proof' => 'view',
 		'send_certificate' => 'view',
+		'send_nametag' => 'view',
 		'register' => 'insert',
 		'grid' => 'view',
 		'save_profile' => 'update',
@@ -154,6 +155,31 @@ class Member extends Admin_Controller
 				flush(); // Flush system output buffer
 				readfile($filepath);
 				break;
+			}
+		}
+	}
+
+	public function send_nametag()
+	{
+		if ($this->input->post()) {
+			$this->load->model(["Notification_m", "Event_m","Member_m"]);
+			$id = $this->input->post("id");
+			$event_name = $this->input->post("event_name");
+			if (file_exists(APPPATH . "uploads/nametag_template/$id.txt")) {
+				$member = $this->Member_m->findOne($this->input->post("m_id"));
+				$card = $member->getCard($id)->output();
+				$status = $this->Notification_m->sendNametag($member,$card,$event_name);
+				$this->Notification_m->setType(Notification_m::TYPE_WA)->sendNametag($member,$card,$event_name);
+				$this->output
+					->set_content_type("application/json")
+					->_display(json_encode([
+						'status'=>$status['status'],
+						'data'=>$status,
+					]));
+			} else {
+				$this->output
+					->set_content_type("application/json")
+					->_display(json_encode(['status' => false, 'message' => 'Template Nametag is not found ! please set on Setting']));
 			}
 		}
 	}
@@ -712,5 +738,21 @@ class Member extends Admin_Controller
         $this->output
 			->set_content_type("application/json")
 			->_display(json_encode($response));
+	}
+
+	public function search(){
+		$this->load->model('Member_m');
+		$search = $this->input->post("search");
+		$response = $this->Member_m->find()->select("id as code, CONCAT(fullname,' (',email,')') as label,status")
+									->like("fullname",$search)
+									->or_like("email",$search)
+									->get()->result_array();
+		$this->output
+			->set_content_type("application/json")
+			->_display(json_encode([
+			'search'=>$search,
+			'data'=>$response,
+		]));
+
 	}
 }

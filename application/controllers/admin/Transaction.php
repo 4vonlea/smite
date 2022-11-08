@@ -12,6 +12,7 @@ class Transaction extends Admin_Controller
 		'expire' => 'update',
 		'verify' => 'update',
 		'file' => 'view',
+		'new' => 'insert',
 	];
 
 	public function index()
@@ -260,13 +261,18 @@ class Transaction extends Admin_Controller
 	}
 
 	public function save_gl(){
+		$this->load->model("Transaction_m");
 		$id_invoice = $this->input->post("id");
 		$data = $this->input->post('midtrans_data');
 		$uploadStatus = true;
 		$uploadStatusReceipt = true;
 		$this->load->library("form_validation");
-		$this->form_validation->set_rules('midtrans_data[sponsorName]', 'Sponsor', 'required');
-		$this->form_validation->set_rules('midtrans_data[payPlanDate]', 'Payment Plan Date', 'required');
+		$this->form_validation->set_rules('channel', 'Method Payment', 'required');
+		if($this->input->post("channel") == Transaction_m::CHANNEL_GL){
+			$this->form_validation->set_rules('midtrans_data[sponsorName]', 'Sponsor', 'required');
+			$this->form_validation->set_rules('midtrans_data[payPlanDate]', 'Payment Plan Date', 'required');
+		}
+
 		$response = [
 			'status'=>true,
 			'validation_error'=>null,
@@ -316,12 +322,16 @@ class Transaction extends Admin_Controller
 			}
 		}
 		if($uploadStatus && $uploadStatusReceipt && $this->form_validation->run()){
-			$this->load->model("Transaction_m");
-			$response['status'] = $this->Transaction_m->update([
+			$data = [
 				'channel'=>$this->input->post('channel') ?? Transaction_m::CHANNEL_GL,
 				'message_payment'=>$this->input->post('message_payment') ?? "-",
-				'midtrans_data'=>json_encode($data)
-			],$id_invoice);
+				'midtrans_data'=>json_encode($data),
+			];
+			if($this->input->post("status_payment")){
+				$data['checkout'] = $this->input->post("status_payment") == Transaction_m::STATUS_WAITING ? "0" :"1";
+				$data['status_payment'] = $this->input->post("status_payment");
+			}
+			$response['status'] = $this->Transaction_m->update($data,$id_invoice);
 		}else{
 			$response['status'] = false;
 			$response['validation_error'] = array_merge(
@@ -355,10 +365,6 @@ class Transaction extends Admin_Controller
 	}
 
 
-	public function set_status_gl(){
-
-	}
-
 	public function grid_gl()
 	{
 		$this->load->model('Transaction_m');
@@ -367,5 +373,148 @@ class Transaction extends Admin_Controller
 		$this->output
 			->set_content_type("application/json")
 			->_display(json_encode($grid));
+	}
+
+	public function new(){
+		$this->load->model("Transaction_m");
+		$this->load->helper("form");
+		$this->layout->render('new_transaction');
+	}
+
+	public function get_events()
+	{
+		ini_set('memory_limit', '2048M');
+		$this->load->model(["Event_m","Room_m","Category_member_m"]);
+		$memberId = $this->input->post("member_id");
+		$status = $this->Category_member_m->findOne($this->input->post("status"));
+		$events = $this->Event_m->eventVueModel($memberId, $status->kategory,['show !='=>'3'],true);
+		$booking = $this->Room_m->bookedRoom($memberId);
+		$rangeBooking = $this->Room_m->rangeBooking();
+		$this->output->set_content_type("application/json")
+			->_display(json_encode(['status' => true, 'events' => $events,'booking'=>$booking,'rangeBooking'=>$rangeBooking]));
+	}
+
+	public function add_cart()
+	{
+		if ($this->input->method() !== 'post')
+			show_404("Page not found !");
+
+		$this->load->model(["Transaction_m", "Transaction_detail_m", "Event_m", "Event_pricing_m","Member_m"]);
+
+		$response = ['status' => true];
+		
+		$data = $this->input->post();
+		$memberId = $this->input->post("memberId");
+		$member = $this->Member_m->findOne($memberId);
+		$memberStatus = $member->status_member;
+		$transactionPost = $this->input->post("transaction");
+
+		$this->Transaction_m->getDB()->trans_start();
+
+		$transaction = null;
+		if(isset($transactionPost['id'])){
+			$idTransaction = $transactionPost['id'];
+			$transaction = $this->Transaction_m->findOne($transactionPost['id']);
+		}
+		if (!$transaction) {
+			$idTransaction = $this->Transaction_m->generateInvoiceID();
+			$transaction = new Transaction_m();
+			$transaction->id = $idTransaction;
+			$transaction->checkout = 0;
+			$transaction->status_payment = Transaction_m::STATUS_WAITING;
+			$transaction->member_id = $memberId;
+			$transaction->midtrans_data = "{}";
+			$transaction->save();
+		}
+		$detail = $this->Transaction_detail_m->findOne(['transaction_id' => $transaction->id, 'event_pricing_id' => $data['id']]);
+		if (!$detail) {
+			$detail = new Transaction_detail_m();
+		}
+	
+		// NOTE Check Required Events
+		$valid = true;
+		$message = '';
+
+		if(!isset($data['is_hotel'])){
+			$findEvent = $this->Event_m->findOne(['id' => $data['event_id']]);
+			if ($findEvent && $findEvent->event_required && $findEvent->event_required != "0") {
+				$cek = $this->Event_m->getRequiredEvent($findEvent->event_required, $memberId);
+				// NOTE Data Required Event
+				$dataEvent = $this->Event_m->findOne(['id' => $findEvent->event_required]);
+				if ($cek) {
+					if ($cek->status_payment == Transaction_m::STATUS_FINISH) {
+						$valid = true;
+					} else if (in_array($cek->status_payment, [Transaction_m::STATUS_PENDING])) {
+						$valid = false;
+						$message = "Not Available, please complete the payment !";
+					} 
+				} else {
+					$valid = false;
+					$message = "You must follow event {$dataEvent->name} to patcipate this event !";
+				}
+			}
+
+			if ($this->Event_m->validateFollowing($data['id'], $memberStatus->kategory ) && $valid) {
+
+				// NOTE Harga sesuai dengan database
+				$price = $this->Event_pricing_m->findOne(['id' => $data['id'], 'condition' => $memberStatus->kategory ]);
+				if ($price->price != 0) {
+					$data['price'] = $price->price;
+				} else {
+					$kurs_usd = json_decode(Settings_m::getSetting('kurs_usd'), true);
+					$data['price'] = ($price->price_in_usd * $kurs_usd['value']);
+				}
+
+				$detail->event_pricing_id = $data['id'];
+				$detail->transaction_id = $idTransaction;
+				$detail->price = $data['price'];
+				$detail->price_usd = $price->price_in_usd;
+				$detail->member_id = $memberId;
+				$detail->product_name = "$data[event_name] ($data[member_status])";
+				$detail->save();
+			} else {
+				$response['status'] = false;
+				$response['message'] = $message ?? "You are prohibited from following !";
+			}
+		}else{
+			$result = $this->Transaction_detail_m->bookHotel($idTransaction,$memberId,$data);
+			$data['price'] = 0;
+			if($result === true){
+				$data['price'] = 1;
+				$response['status'] = true;
+			}else{
+				$response['status'] = false;
+				$response['message'] = $result;
+			}
+		}
+		$transactionArray = $transaction->toArray();
+		$transactionArray['id'] = $idTransaction;
+		$transactionArray['midtrans_data'] = json_decode($transactionArray['midtrans_data']);
+		$response['transaction'] = $transactionArray;
+		$response['transaction_details'] = $this->Transaction_detail_m->find()->where(['transaction_id'=>$idTransaction])->get()->result_array();
+		$this->Transaction_m->setDiscount($idTransaction);
+		$this->Transaction_m->getDB()->trans_complete();
+
+		$this->output->set_content_type("application/json")
+			->_display(json_encode($response));
+	}
+
+	public function delete_item()
+	{
+		if ($this->input->method() !== 'post')
+			show_404("Page not found !");
+		$id = $this->input->post('id');
+		$this->load->model(["Transaction_detail_m","Transaction_m"]);
+		$this->Transaction_detail_m->delete($id);
+		$count = $this->Transaction_detail_m->find()->select("SUM(price) as c")
+			->where('transaction_id', $this->input->post("transaction_id"))
+			->where('event_pricing_id != ', "0")
+			->get()->row_array();
+		if ($count['c'] == 0) {
+			$this->Transaction_detail_m->delete(['event_pricing_id' => 0, 'transaction_id' => $this->input->post("transaction_id")]);
+		}
+		$this->Transaction_m->setDiscount($this->input->post("transaction_id"));
+		$this->output->set_content_type("application/json")
+			->_display('{"status":true}');
 	}
 }

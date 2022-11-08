@@ -1,4 +1,4 @@
-let template = `
+let templateHotel = `
 <div>
     <div class="row">
         <div class="d-flex flex-row align-items-end">
@@ -16,7 +16,7 @@ let template = `
                 Cari Hotel
             </button>
             <div class="dropdown show">
-            <button type="button" @click="showBooking= !showBooking" class="btn btn btn-primary ms-1">
+            <button v-show="showList" type="button" @click="showBooking= !showBooking" class="btn btn btn-primary ms-1">
                 Pesanan Anda 
                 <span class="badge bg-info bg-primary">{{ booking.length }}</span>
                 <i class="fa" :class="{'fa-chevron-right':!showBooking,'fa-chevron-down':showBooking}"></i>
@@ -99,16 +99,19 @@ let template = `
 </div>`;
 
 Vue.component('hotel-booking', {
-    template: template,
+    template: templateHotel,
     props:{
+        'postData':Object,
         'minDate': String,
         'maxDate':String,
         'searchUrl':String,
         'bookUrl':String,
         'booking':Array,
         'uniqueId':String,
+        'showList':{type:Boolean, default:true},
         'onBook':Function,
         'onDelete':Function,
+        'callback':{type:Function,default(){}},
     },
     data: () => {
         return {
@@ -147,7 +150,8 @@ Vue.component('hotel-booking', {
                     checkin:moment(this.form.checkin).format("YYYY-MM-DD"),
                     checkout:moment(this.form.checkout).format("YYYY-MM-DD"),
                     is_hotel:true,
-                    uniqueId:this.uniqueId
+                    uniqueId:this.uniqueId,
+                    ...this.postData
                 },(res)=>{
                     if(res.status){
                         this.bookingData.push({
@@ -163,7 +167,9 @@ Vue.component('hotel-booking', {
                     }else{
                         Swal.fire('Fail', res.message, 'warning');
                     }
+                    this.callback(true,res);
                 }).fail((xhr)=>{
+                    this.callback(false,res);
                     Swal.fire('Fail', "Failed to book hotels !", 'error');
                 }).always((res)=>{
                     this.processingButtonIndex = -1;

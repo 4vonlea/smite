@@ -23,14 +23,15 @@ class Event_m extends MY_Model
 	public function remainingQouta($event_id = null){
 		$filter = "";
 		if($event_id){
-			$filter = "AND ep.event_id = $event_id";
+			$filter = "WHERE ep.event_id = $event_id";
 		}
-		$sql = "SELECT COUNT(td.id) AS reserved, ep.event_id,e.kouta FROM `transaction` t
-		JOIN transaction_details td ON td.transaction_id = t.id
-		JOIN event_pricing ep ON ep.id = td.event_pricing_id
-		JOIN events e ON e.id = ep.event_id 
-		WHERE t.status_payment != 'expired' $filter
-		GROUP BY ep.event_id";
+		$sql = "SELECT COUNT(td.id) AS reserved, ep.event_id,e.kouta
+		FROM `events` e
+		JOIN event_pricing ep ON ep.event_id = e.id
+		LEFT JOIN transaction_details td ON td.event_pricing_id = ep.id
+		LEFT JOIN `transaction` t ON t.id = td.transaction_id AND t.status_payment != 'expired' 
+		$filter
+		GROUP BY e.id";
 
 		return $this->db->query($sql);
 	}
@@ -49,6 +50,7 @@ class Event_m extends MY_Model
 			$result = $this->Event_pricing_m->findOne(['id' => $event_id]);
 			$row = $result->toArray();
 		}
+		
 		$avalaible = $avalaible && $user_status == $row['condition'];
 		$conditionDate = explode(":", $row['condition_date']);
 		$now = new DateTime();
@@ -242,11 +244,7 @@ class Event_m extends MY_Model
 		$pId = 0;
 		$frmt = "d M Y";
 		foreach ($result->result_array() as $row) {
-			// if ($koutas[$row['id_event']]['participant'] < $row['kouta']) {
-				$avalaible = $this->validateFollowing($row, $userStatus);
-			// } else {
-			// 	$avalaible = false;
-			// }
+			$avalaible = $this->validateFollowing($row, $userStatus);
 			$conditionDate = explode(":", $row['condition_date']);
 			$d1 = DateTime::createFromFormat("Y-m-d", $conditionDate[0]);
 			$d2 = DateTime::createFromFormat("Y-m-d H:i", $conditionDate[1] . " 23:59");

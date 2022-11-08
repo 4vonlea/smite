@@ -211,15 +211,27 @@ function hideForRole($role, $listRole)
                         </li>
                     </ul>
 					</li>
-					<li class="nav-item  <?= hideForRole($role, ['3']); ?>">
-						<a class="nav-link" href="<?= base_url('admin/transaction'); ?>">
-							<i class="ni ni-cart text-orange"></i> Transaction
+					<li class="nav-item">
+						<a class="nav-link" href="#subtransaction" data-toggle="collapse" class="dropdown-toggle">
+							<i class="ni ni-cart text-blue"></i> Transaction
 						</a>
-					</li>
-					<li class="nav-item  <?= hideForRole($role, ['3']); ?>">
-						<a class="nav-link" href="<?= base_url('admin/transaction/gl'); ?>">
-							<i class="ni ni-cart text-orange"></i> Transaction GL
-						</a>
+						<ul class="collapse list-unstyled" id="subtransaction" style="padding-left: 20px;">
+							<li class="nav-item  <?= hideForRole($role, ['3']); ?>">
+								<a class="nav-link" href="<?= base_url('admin/transaction/new'); ?>">
+									<i class="fa fa-plus text-orange"></i> Add Transaction
+								</a>
+							</li>
+							<li class="nav-item  <?= hideForRole($role, ['3']); ?>">
+								<a class="nav-link" href="<?= base_url('admin/transaction'); ?>">
+									<i class="fa fa-list text-orange"></i> List Data
+								</a>
+							</li>
+							<li class="nav-item  <?= hideForRole($role, ['3']); ?>">
+								<a class="nav-link" href="<?= base_url('admin/transaction/gl'); ?>">
+									<i class="ni ni-cart text-green"></i> Guarantee Letter
+								</a>
+							</li>
+						</ul>
 					</li>
 					<li class="nav-item  <?= hideForRole($role, ['3']); ?>">
 						<a class="nav-link" href="<?= base_url('admin/hotel'); ?>">
@@ -254,8 +266,8 @@ function hideForRole($role, $listRole)
 						</a>
 					</li>
 					<li class="nav-item  <?= hideForRole($role, ['3', '4','5']); ?>">
-						<a class="nav-link" href="<?= base_url('admin/sponsor'); ?>">
-							<i class="ni ni-html5 text-blue"></i> Sponsor Link
+						<a class="nav-link" href="<?= base_url('admin/sponsor/stand'); ?>">
+							<i class="ni ni-html5 text-blue"></i> Stand Sponsor
 						</a>
 					</li>
 					<li class="nav-item  <?= hideForRole($role, ['3']); ?>">

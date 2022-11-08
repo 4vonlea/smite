@@ -43,10 +43,15 @@ class Room_m extends MY_Model
             ->where("'$checkout' BETWEEN rooms.start_date AND rooms.end_date")
             ->select("rooms.*,hotels.name as hotel_name,hotels.address")
             ->get();
-        $user = $this->session->userdata("user_session");
-        if($user && in_array($user['username'],['rsieseria@gmail.com','pandji.winata@ulm.ac.id','gatotsps99@yahoo.com'])){
-            return $result->result_array();
-        }
+            if(Settings_m::getSetting(Settings_m::ONLY_ADMIN_BOOK_HOTEL) == "1"){
+                $this->load->model("User_account_m");
+                $user = $this->session->userdata("user_session");
+                if($user && $user['role'] != User_account_m::ROLE_MEMBER){
+                    return $result->result_array();
+                }
+            }else{
+                return $result->result_array();
+            }
         return [];
     }
 

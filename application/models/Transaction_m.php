@@ -315,7 +315,7 @@ class Transaction_m extends MY_Model
 			'productNumber' => '',
 			'expired' => '',
 		];
-		if ($data['channel'] == "ESPAY") {
+		if (isset($data['channel']) && $data['channel'] == "ESPAY") {
 			$paymentGatewayData = json_decode($data['midtrans_data'], true);
 			if (is_array($paymentGatewayData)) {
 				$data['paymentGatewayInfo']['product'] = $paymentGatewayData['product_name'] ?? "";
