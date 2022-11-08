@@ -195,6 +195,7 @@ class Wappin implements iNotification
     public function sendTemplateMessageWithMedia($to, $template, $subject, $bodyParams,$filename,$filebyte)
     {
         $to = $this->normalizeNumber($to);
+        $ci =& get_instance();
         $ci->load->helper("file");
         $mimetype = get_mime_by_extension($filename);
         if(strpos($mimetype,"image") === 0){
