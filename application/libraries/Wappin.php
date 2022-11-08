@@ -209,17 +209,22 @@ class Wappin implements iNotification
         $filepath = APPPATH . "cache/wappin/$filename";
         file_put_contents($filepath, $filebyte);
         
-        $response = $this->composeRequest([
+        $params = [
             'client_id' => $this->clientId,
             'project_id' => $this->projectId,
             'type' => $template,
             "language_code"=>"id",
             'recipient_number' => $to,
             'header' => ['param' => substr($subject,0,60)],
-            'params' => $bodyParams,
             'media_type' => $mediatype,
             'media' => new CURLFile($filepath)
-        ], "https://api.wappin.id/v1/message/do-send-hsm-with-media", "POST", true);
+        ];
+
+        if(count($bodyParams) > 0){
+            $params['params'] = $bodyParams;
+        }
+        
+        $response = $this->composeRequest($params, "https://api.wappin.id/v1/message/do-send-hsm-with-media", "POST", true);
         $responseDecoded = json_decode($response, true);
         $responseDecoded['code'] = $responseDecoded['status'];
         $responseDecoded['status'] = $responseDecoded['status'] == "200";
