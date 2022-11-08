@@ -128,7 +128,7 @@
 					<h1 class="header-title">PIN PERDOSSI CIREBON</h1>
 					<p style="text-transform: initial; font-size: 32px;">Neurotech : A New Innovation to Enhance <br> Neuroscience and Reshape NeuroSociety 5.0</p>
 					<p style="text-transform: initial;">17 - 20 November 2022</p>
-					<a href="https://drive.google.com/file/d/1Ec8lmPaREBlWu9cH9T2WPYeCZ-wtt0vv/view?usp=sharing" class="default-button reverse-effect"><span>Unduh Second Announcement disini (rilis 12 September 2022)<i class="icofont-play-alt-1"></i></span> </a>
+					<a href="https://drive.google.com/file/d/1UoneqLS7i6vwORdP7k4WuvQXQM5n0bPe/view?usp=sharing" class="default-button reverse-effect"><span>Unduh FINAL Announcement disini (rilis 05 November 2022)<i class="icofont-play-alt-1"></i></span> </a>
 				</div>
 				<div class="banner-thumb d-flex flex-wrap justify-content-center justify-content-between align-items-center align-items-lg-end">
 					<div class="banner-thumb-img ml-xl-50-none">
@@ -207,7 +207,7 @@
 					</div>
 				</div> -->
 				<div class="row justify-content-center g-4 mt-4">
-                  <h3 class="mt-5 mb-3 text-center">STATUS KEPESERTAAN</h3>
+					<h3 class="mt-5 mb-3 text-center">STATUS KEPESERTAAN</h3>
 					<div class="col-lg-3 col-sm-6 col-12">
 						<div class="contact-item text-center">
 							<div class="contact-thumb mb-4">
@@ -255,19 +255,19 @@
 				</div>
 
 				<div class="row justify-content-center g-4 mt-4">
-                  <h3 class="mt-5 mb-3 text-center">STATUS KESEDIAAN KAMAR HOTEL</h3>
-					<?php foreach($hotelAvailable as $hotel) : ?>
-					<div class="col-lg-3 col-sm-6 col-12">
-						<div class="contact-item text-center">
-							<div class="contact-thumb mb-4">
-								<i class="icofont icofont-hotel icofont-2x" style="position: relative; z-index: 2;"></i>
-							</div>
-							<div class="contact-content">
-								<h4 class="title"><?=$hotel['name'];?></h4>
-								<h6 class="badge badge-info bg-primary"><?= ($hotel['qouta'] > $hotel['booked']) ? "Tersedia Kamar Kosong" : "Penuh" ;?></h6>
+					<h3 class="mt-5 mb-3 text-center">STATUS KESEDIAAN KAMAR HOTEL</h3>
+					<?php foreach ($hotelAvailable as $hotel) : ?>
+						<div class="col-lg-3 col-sm-6 col-12">
+							<div class="contact-item text-center">
+								<div class="contact-thumb mb-4">
+									<i class="icofont icofont-hotel icofont-2x" style="position: relative; z-index: 2;"></i>
+								</div>
+								<div class="contact-content">
+									<h4 class="title"><?= $hotel['name']; ?></h4>
+									<h6 class="badge badge-info bg-primary"><?= ($hotel['qouta'] > $hotel['booked']) ? "Tersedia Kamar Kosong" : "Penuh"; ?></h6>
+								</div>
 							</div>
 						</div>
-					</div>
 					<?php endforeach; ?>
 				</div>
 
@@ -846,7 +846,7 @@
 						<li data-filter=".four" class="item-four"><span class="category">Pedoman Ilmiah</span></li>
 						<li data-filter=".five" class="item-five"><span class="category">Sambutan</span></li>
 						<li data-filter=".six" class="item-six"><span class="category">Kepanitiaan</span></li>
-						<li data-filter=".seven" class="item-seven"><span class="category">Wisata</span></li>
+						<li data-filter=".seven" class="item-seven"><span class="category">Exploring Cirebon</span></li>
 					</ul>
 				</div>
 				<div class="masonary-gallery" style="position: relative; height: 1153.99px;">
@@ -967,8 +967,10 @@
 					<div class="col-12 masonary-item seven" style="position: absolute; left: 0px; top: 0px;  display: none;">
 						<div class="row g-4">
 							<div class="contact-item">
-								<h4>Wisata</h4>
+								<h4>Exploring Cirebon</h4>
 								<hr>
+								<a href="<?= base_url('themes/bigamer') ?>/assets/pdf/explore.pdf" class="btn btn-block btn-purple" target="_blank">Download File</a>
+								<br>
 								<div class="accordion" id="accordionExample">
 									<div class="accordion-item">
 										<h2 class="accordion-header" id="headingWisataKuliner">
@@ -1114,6 +1116,33 @@
 						<div class="sponsor-item">
 							<div class="sponsor-inner">
 								<div class="sponsor-thumb text-center">
+									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/sponsor/platinum/9_kalbe_farma.png" alt="sponsor-thumb">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col">
+						<div class="sponsor-item">
+							<div class="sponsor-inner">
+								<div class="sponsor-thumb text-center">
+									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/sponsor/platinum/12_pg_health.png" alt="sponsor-thumb">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col">
+						<div class="sponsor-item">
+							<div class="sponsor-inner">
+								<div class="sponsor-thumb text-center">
+									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/sponsor/platinum/4_eisai.png" alt="sponsor-thumb">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col">
+						<div class="sponsor-item">
+							<div class="sponsor-inner">
+								<div class="sponsor-thumb text-center">
 									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/sponsor/platinum/1_otsuka.png" alt="sponsor-thumb">
 								</div>
 							</div>
@@ -1133,15 +1162,6 @@
 							<div class="sponsor-inner">
 								<div class="sponsor-thumb text-center">
 									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/sponsor/platinum/3_lundbeck.png" alt="sponsor-thumb">
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col">
-						<div class="sponsor-item">
-							<div class="sponsor-inner">
-								<div class="sponsor-thumb text-center">
-									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/sponsor/platinum/4_eisai.png" alt="sponsor-thumb">
 								</div>
 							</div>
 						</div>
@@ -1173,20 +1193,11 @@
 							</div>
 						</div>
 					</div>
-					<!-- <div class="col">
-						<div class="sponsor-item">
-							<div class="sponsor-inner">
-								<div class="sponsor-thumb text-center">
-									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/sponsor/platinum/8_" alt="sponsor-thumb">
-								</div>
-							</div>
-						</div>
-					</div> -->
 					<div class="col">
 						<div class="sponsor-item">
 							<div class="sponsor-inner">
 								<div class="sponsor-thumb text-center">
-									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/sponsor/platinum/9_kalbe_farma.png" alt="sponsor-thumb">
+									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/sponsor/platinum/sanofi.png" alt="sponsor-thumb">
 								</div>
 							</div>
 						</div>
@@ -1282,7 +1293,7 @@
 							</div>
 						</div>
 					</div>
-					<!-- <div class="col">
+					<div class="col">
 						<div class="sponsor-item">
 							<div class="sponsor-inner">
 								<div class="sponsor-thumb text-center">
@@ -1290,7 +1301,7 @@
 								</div>
 							</div>
 						</div>
-					</div> -->
+					</div>
 					<div class="col">
 						<div class="sponsor-item">
 							<div class="sponsor-inner">
@@ -1336,15 +1347,15 @@
 							</div>
 						</div>
 					</div>
-					<!-- <div class="col">
+					<div class="col">
 						<div class="sponsor-item">
 							<div class="sponsor-inner">
 								<div class="sponsor-thumb text-center">
-									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/sponsor/silver/8_.png" alt="sponsor-thumb">
+									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/sponsor/silver/8_petan_daya.png" alt="sponsor-thumb">
 								</div>
 							</div>
 						</div>
-					</div> -->
+					</div>
 					<div class="col">
 						<div class="sponsor-item">
 							<div class="sponsor-inner">
@@ -1376,7 +1387,16 @@
 						<div class="sponsor-item">
 							<div class="sponsor-inner">
 								<div class="sponsor-thumb text-center">
-									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/sponsor/silver/12_pg_health.png" alt="sponsor-thumb">
+									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/sponsor/silver/promed.png" alt="sponsor-thumb">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col">
+						<div class="sponsor-item">
+							<div class="sponsor-inner">
+								<div class="sponsor-thumb text-center">
+									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/sponsor/silver/philips.png" alt="sponsor-thumb">
 								</div>
 							</div>
 						</div>
@@ -1395,15 +1415,42 @@
 							</div>
 						</div>
 					</div>
-					<!-- <div class="col">
+					<div class="col">
 						<div class="sponsor-item">
 							<div class="sponsor-inner">
 								<div class="sponsor-thumb text-center">
-									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/sponsor/bronze/2_" alt="sponsor-thumb">
+									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/sponsor/bronze/yarindo.png" alt="sponsor-thumb">
 								</div>
 							</div>
 						</div>
-					</div> -->
+					</div>
+					<div class="col">
+						<div class="sponsor-item">
+							<div class="sponsor-inner">
+								<div class="sponsor-thumb text-center">
+									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/sponsor/bronze/mulia_putri.png" alt="sponsor-thumb">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col">
+						<div class="sponsor-item">
+							<div class="sponsor-inner">
+								<div class="sponsor-thumb text-center">
+									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/sponsor/bronze/transfarma_medika.png" alt="sponsor-thumb">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col">
+						<div class="sponsor-item">
+							<div class="sponsor-inner">
+								<div class="sponsor-thumb text-center">
+									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/sponsor/bronze/pharos.png" alt="sponsor-thumb">
+								</div>
+							</div>
+						</div>
+					</div>
 					<div class="col">
 						<div class="sponsor-item">
 							<div class="sponsor-inner">
@@ -1418,6 +1465,15 @@
 							<div class="sponsor-inner">
 								<div class="sponsor-thumb text-center">
 									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/sponsor/bronze/4_etercon.png" alt="sponsor-thumb">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col">
+						<div class="sponsor-item">
+							<div class="sponsor-inner">
+								<div class="sponsor-thumb text-center">
+									<img src="<?= base_url('themes/bigamer'); ?>/assets/images/sponsor/bronze/sinergi_tridaya.png" alt="sponsor-thumb">
 								</div>
 							</div>
 						</div>
@@ -1462,7 +1518,7 @@
 									<ul style="font-size: 15px;">
 										<li>Batas Pengumpulan Abstrak : 21 Oktober 2022</li>
 										<li>Pengumuman Penerimaan Abstrak : 24 Oktober 2022</li>
-                                      	<li>Batas Pengumpulan Naskah Lengkap : 30 Oktober 2022</li>
+										<li>Batas Pengumpulan Naskah Lengkap : 30 Oktober 2022</li>
 										<li>Program Ilmiah : 17 18 November 2022 untuk Workshop, dan 19 20 November 2022 Simposium</li>
 										<li>E-Poster / Presentasi Oral : 19 November 2022</li>
 										<li>Pengumuman Pemenang : 20 November 2022</li>

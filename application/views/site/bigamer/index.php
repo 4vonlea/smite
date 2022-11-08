@@ -54,7 +54,7 @@
 					<a href="<?= base_url("site/home"); ?>" class="btn-main btn btn-edge-block btn-primary" style="margin-top: -10px;">Kunjungi website dan informasi lengkap disini</a><br>
 					<a href="<?= base_url('member/register'); ?>" class="btn-mai btn btn-edge-block btn-purple" style="margin-top: -10px;">Registrasi Individu</a><br>
 					<a href="<?= base_url('member/register/group'); ?>" class="btn-main btn btn-edge-block btn-primary" style="margin-top: -10px;">Registrasi Grup / Kelompok </a><br>
-					<a href="https://drive.google.com/file/d/1Ec8lmPaREBlWu9cH9T2WPYeCZ-wtt0vv/view?usp=sharing" target="blank" class="btn-mai btn btn-edge-block btn-purple" style="margin-top: -10px;">Unduh Second Announcement (rilis 12 September 2022)</a><br>
+					<a href="https://drive.google.com/file/d/1UoneqLS7i6vwORdP7k4WuvQXQM5n0bPe/view?usp=sharing" target="blank" class="btn-mai btn btn-edge-block btn-purple" style="margin-top: -10px;">Unduh FINAL Announcement disini (rilis 05 November 2022)</a><br>
 					<hr>
 				</div>
 			</div>
