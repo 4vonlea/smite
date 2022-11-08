@@ -195,6 +195,7 @@ class Wappin implements iNotification
     public function sendTemplateMessageWithMedia($to, $template, $subject, $bodyParams,$filename,$filebyte)
     {
         $to = $this->normalizeNumber($to);
+        $ci->load->helper("file");
         $mimetype = get_mime_by_extension($filename);
         if(strpos($mimetype,"image") === 0){
             $mediatype = "image";
@@ -203,7 +204,7 @@ class Wappin implements iNotification
         }else{
             $mediatype = "document";
         }
-        
+
         $filepath = APPPATH . "cache/wappin/$filename";
         file_put_contents($filepath, $filebyte);
         
