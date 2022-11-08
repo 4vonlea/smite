@@ -192,6 +192,38 @@ class Wappin implements iNotification
         return $responseDecoded;
     }
 
+    public function sendTemplateMessageWithMedia($to, $template, $subject, $bodyParams,$filename,$filebyte)
+    {
+        $to = $this->normalizeNumber($to);
+        $mimetype = get_mime_by_extension($filename);
+        if(strpos($mimetype,"image") === 0){
+            $mediatype = "image";
+        }elseif(strpos($mimetype,"audio") === 0){
+            $mediatype = "audio";
+        }else{
+            $mediatype = "document";
+        }
+        
+        $filepath = APPPATH . "cache/wappin/$filename";
+        file_put_contents($filepath, $filebyte);
+        
+        $response = $this->composeRequest([
+            'client_id' => $this->clientId,
+            'project_id' => $this->projectId,
+            'type' => $template,
+            "language_code"=>"id",
+            'recipient_number' => $to,
+            'header' => ['param' => substr($subject,0,60)],
+            'params' => $bodyParams,
+            'media_type' => $mediatype,
+            'media' => new CURLFile($filepath)
+        ], "https://api.wappin.id/v1/message/do-send-hsm-with-media", "POST", true);
+        $responseDecoded = json_decode($response, true);
+        $responseDecoded['code'] = $responseDecoded['status'];
+        $responseDecoded['status'] = $responseDecoded['status'] == "200";
+        return $responseDecoded;
+    }
+
     public function getToken()
     {
         $token = file_exists(APPPATH . "cache/wappin_token.json") ? json_decode(file_get_contents(APPPATH . "cache/wappin_token.json"), true) : [];
