@@ -22,6 +22,13 @@ class Sponsor_stand_m extends My_model
 		];
 	}
 
+	public function getListPresence(){
+		return $this->find()->join("stand_presence","stand_sponsor.id = stand_id")
+					->join("members","members.id = member_id")
+					->select("stand_sponsor.sponsor, fullname,email,phone, stand_presence.created_at")
+					->get();
+	}
+
 	public function getQrCard($id = null){
 		if($id == null){
 			$data = $this;

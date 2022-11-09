@@ -10,6 +10,9 @@
 							<h3>Sponsor Stand</h3>
 						</div>
 						<div class="col-6 text-right">
+							<a href="<?=base_url('admin/sponsor/report');?>" class="btn btn-primary">
+								Download Report
+							</a>
 							<button type="button" class="btn btn-primary" @click="onAdd">
 								Add Sponsor
 							</button>
@@ -26,8 +29,8 @@
 								<v-button @click="deleteRow(props,$event)" icon="fa fa-trash" class="btn btn-warning btn-sm">
 									Delete
 								</v-button>
-								<a :href="'<?=base_url('admin/sponsor/qr_stand');?>/'+props.row.id" target="_blank">
-									Download QR Code
+								<a :href="'<?=base_url('admin/sponsor/qr_stand');?>/'+props.row.id" class="btn btn-primary btn-sm" target="_blank">
+									<i class="fa fa-qrcode"></i> Download QR Code
 								</a>
 							</div>
 						</template>

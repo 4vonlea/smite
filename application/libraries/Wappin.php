@@ -206,10 +206,8 @@ class Wappin implements iNotification
             $mediatype = "document";
         }
 
-        //$filepath = APPPATH . "cache/wappin/$filename";
-        //file_put_contents($filepath, $filebyte);
-        $filepath = "/home/pinperdossicirebon2022.com/public_html/application/cache/wappin/1667452449Registration Proof.pdf";
-      	var_dump(file_exists($filepath));
+       $filepath = APPPATH . "cache/wappin/$filename";
+       file_put_contents($filepath, $filebyte);
         $params = [
             'client_id' => $this->clientId,
             'project_id' => $this->projectId,
@@ -217,7 +215,7 @@ class Wappin implements iNotification
             "language_code"=>"id",
             'recipient_number' => $to,
             'media_type' => $mediatype,
-            'media' => new CURLFILE($filepath)
+            'media' => new CURLFILE($filepath,$mimetype)
         ];
         $params['params'] = json_encode($bodyParams);
         
@@ -225,7 +223,7 @@ class Wappin implements iNotification
         $responseDecoded = json_decode($response, true);
         $responseDecoded['code'] = $responseDecoded['status'];
         $responseDecoded['status'] = $responseDecoded['status'] == "200";
-        //unlink($filepath);
+       unlink($filepath);
         return $responseDecoded;
     }
 

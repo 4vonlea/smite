@@ -427,7 +427,7 @@ class Site extends MY_Controller
             'secretKey' => $this->config->item("wappin_secret_key"),
         ]);
         $this->load->model("Transaction_m");
-        $tr = $this->Transaction_m->findOne("INV-20221108-00021");
+        $tr = $this->Transaction_m->findOne("INV-20221108-00033");
         $res = $this->wappin->sendTemplateMessageWithMedia("6282155708905", "tes_payment_proof", "PINPERDOSSI CIREBON", [], "Registration-Proof.pdf", $tr->exportPaymentProof()->output());
         var_dump($res);
     }

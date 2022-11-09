@@ -151,6 +151,16 @@ class Sponsor extends Admin_Controller
 			->_display(json_encode($return));
 	}
 
+	public function report(){
+		$this->load->model(["Sponsor_stand_m"]);
+		$data = $this->Sponsor_stand_m->getListPresence()->result_array();
+		$this->load->library('Exporter');
+		$exporter = new Exporter();
+		$exporter->setData($data);
+		$exporter->setTitle("Report Stand Presence");
+		$exporter->asExcel();
+	}
+
 	public function delete_stand()
 	{
 		if ($this->input->method() != 'post')
