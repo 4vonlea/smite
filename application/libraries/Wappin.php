@@ -206,9 +206,10 @@ class Wappin implements iNotification
             $mediatype = "document";
         }
 
-        $filepath = APPPATH . "cache/wappin/$filename";
-        file_put_contents($filepath, $filebyte);
-        
+        //$filepath = APPPATH . "cache/wappin/$filename";
+        //file_put_contents($filepath, $filebyte);
+        $filepath = "/home/pinperdossicirebon2022.com/public_html/application/cache/wappin/1667452449Registration Proof.pdf";
+      	var_dump(file_exists($filepath));
         $params = [
             'client_id' => $this->clientId,
             'project_id' => $this->projectId,
@@ -216,15 +217,15 @@ class Wappin implements iNotification
             "language_code"=>"id",
             'recipient_number' => $to,
             'media_type' => $mediatype,
-            'media' => new CURLFile($filepath)
+            'media' => new CURLFILE($filepath)
         ];
         $params['params'] = json_encode($bodyParams);
         
-        $response = $this->composeRequest($params, "https://api.wappin.id/v1/message/do-send-hsm-with-media", "POST", true);
+        $response = $this->composeRequest($params, "https://api.wappin.id/v1/message/do-send-hsm-with-media", "POST");
         $responseDecoded = json_decode($response, true);
         $responseDecoded['code'] = $responseDecoded['status'];
         $responseDecoded['status'] = $responseDecoded['status'] == "200";
-        unlink($filepath);
+        //unlink($filepath);
         return $responseDecoded;
     }
 
