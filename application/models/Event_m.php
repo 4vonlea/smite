@@ -25,7 +25,7 @@ class Event_m extends MY_Model
 		if($event_id){
 			$filter = "WHERE ep.event_id = $event_id";
 		}
-		$sql = "SELECT COUNT(td.id) AS reserved, ep.event_id,e.kouta
+		$sql = "SELECT COUNT(t.id) AS reserved, ep.event_id,e.kouta
 		FROM `events` e
 		JOIN event_pricing ep ON ep.event_id = e.id
 		LEFT JOIN transaction_details td ON td.event_pricing_id = ep.id
