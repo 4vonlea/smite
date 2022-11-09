@@ -170,26 +170,25 @@ class Site extends MY_Controller
         $username = $post['username'];
         if ($user = $this->AccountM->selectuser($username)) {
             $start_date = new DateTime($user->last_reset);
-            
+
             $since_start = $start_date->diff(new DateTime());
             $minutes = $since_start->days * 24 * 60;
             $minutes += $since_start->h * 60;
             $minutes += $since_start->i;
-            if($user->last_reset == null || $minutes > 30){
+            if ($user->last_reset == null || $minutes > 30) {
                 $data['password'] = rand(10000, 99999);
-                $this->AccountM->update(['password' => password_hash($data['password'], PASSWORD_DEFAULT),'last_reset'=>date("Y-m-d H:i:s")], ['username' => $username], false);
-                $this->Notification_m->sendForgetPassword($user,$data['password']);
+                $this->AccountM->update(['password' => password_hash($data['password'], PASSWORD_DEFAULT), 'last_reset' => date("Y-m-d H:i:s")], ['username' => $username], false);
+                $this->Notification_m->sendForgetPassword($user, $data['password']);
                 $this->session->set_flashdata('message', '<div class="col-lg-12 alert alert-success"><center> please check your email for your new password </center>
                 </div>');
                 redirect('site/forget', 'refresh');
-            }else{
+            } else {
                 $this->session->set_flashdata('message', '
                 <div class="col-lg-12 alert alert-danger">
                 <p>You have resetted your password recently. Please check your inbox or spam. New request may available after 30 minutes later.</p>
                 <p>If you have any issue, please contact the commiittee</p>
                 </div>');
                 redirect('site/forget', 'refresh');
-    
             }
         } else {
             $this->session->set_flashdata('message', '<div class="col-lg-12 alert alert-danger">The email is not registered
@@ -375,90 +374,95 @@ class Site extends MY_Controller
         echo json_encode(array("status" => true));
     }
 
-    public function sertifikat($hashedId,$isSertifikat = null){
+    public function sertifikat($hashedId, $isSertifikat = null)
+    {
 
         $this->load->model("Event_m");
         $viewData = $this->Event_m->viewCertificate($hashedId);
         $viewData['hashedId'] = $hashedId;
-        if($isSertifikat && $isSertifikat != ""){
+        if ($isSertifikat && $isSertifikat != "") {
             $viewData['sertifikat']->stream();
-        }else{
+        } else {
             $viewData['ketua_panitia'] = Settings_m::getSetting("ketua_panitia");
-            $this->layout->render("site/".$this->theme."/view_sertifikat",
+            $this->layout->render(
+                "site/" . $this->theme . "/view_sertifikat",
                 $viewData,
             );
         }
     }
-    
-    public function stand_presence($id){
-        $this->load->model(["Member_m","Sponsor_stand_m"]);
-        if($this->input->post()){
+
+    public function stand_presence($id)
+    {
+        $this->load->model(["Member_m", "Sponsor_stand_m"]);
+        if ($this->input->post()) {
             $member_id = $this->input->post("member_id");
-            $count = $this->db->where(['member_id'=>$member_id,'stand_id'=>$id])
-                              ->where('DATE(created_at)','DATE(now())',false)->count_all_results("stand_presence");
+            $count = $this->db->where(['member_id' => $member_id, 'stand_id' => $id])
+                ->where('DATE(created_at)', 'DATE(now())', false)->count_all_results("stand_presence");
             $message = "";
 
-            if($count !== 0){
+            if ($count !== 0) {
                 $status = false;
                 $message = "Anda sudah pernah melakukan presensi !";
-            }else{
-                $status = $this->db->insert("stand_presence",[
-                    'member_id'=>$member_id,
-                    'stand_id'=>$id,
+            } else {
+                $status = $this->db->insert("stand_presence", [
+                    'member_id' => $member_id,
+                    'stand_id' => $id,
                 ]);
             }
             $this->output->set_content_type("application/json")
-            ->_display(json_encode(['status'=>$status,'message'=>$message]));
-        }else{
+                ->_display(json_encode(['status' => $status, 'message' => $message]));
+        } else {
             $members = $this->Member_m->find()->select("CONCAT(fullname,' (',email,')') as label,id as code")->get()->result_array();
-            $this->layout->render("site/".$this->theme."/stand_presence",[
-                'members'=>$members,
-                'sponsor'=>$this->Sponsor_stand_m->findOne($id)
+            $this->layout->render("site/" . $this->theme . "/stand_presence", [
+                'members' => $members,
+                'sponsor' => $this->Sponsor_stand_m->findOne($id)
             ]);
         }
     }
-   public function sent_template(){
-            $this->load->library("Wappin", [
-                'clientId' => $this->config->item("wappin_client_id"),
-                'projectId' => $this->config->item("wappin_project_id"),
-                'secretKey' => $this->config->item("wappin_secret_key"),
-          ]);
-     	  $this->load->model("Transaction_m");
-     	  $tr = $this->Transaction_m->findOne("INV-20221108-00021");
-          $res = $this->wappin->sendTemplateMessageWithMedia("6282155708905","send_payment_proof","PINPERDOSSI CIREBON",[],"Registration-Proof.pdf",$tr->exportPaymentProof()->output());
+    public function sent_template()
+    {
+        $this->load->library("Wappin", [
+            'clientId' => $this->config->item("wappin_client_id"),
+            'projectId' => $this->config->item("wappin_project_id"),
+            'secretKey' => $this->config->item("wappin_secret_key"),
+        ]);
+        $this->load->model("Transaction_m");
+        $tr = $this->Transaction_m->findOne("INV-20221108-00021");
+        $res = $this->wappin->sendTemplateMessageWithMedia("6282155708905", "tes_payment_proof", "PINPERDOSSI CIREBON", [], "Registration-Proof.pdf", $tr->exportPaymentProof()->output());
         var_dump($res);
     }
 
-    public function wappin_callback(){
+    public function wappin_callback()
+    {
         $body = file_get_contents('php://input');
-        $bodyJson = json_decode($body,true);
-        if(array_key_exists("message_content",$bodyJson) && (strtoupper($bodyJson['message_content']) == "SAYA BERSEDIA" || strtoupper($bodyJson['message_content']) == "I AGREE" || $bodyJson['message_content'] == null)){
+        $bodyJson = json_decode($body, true);
+        if (array_key_exists("message_content", $bodyJson) && (strtoupper($bodyJson['message_content']) == "SAYA BERSEDIA" || strtoupper($bodyJson['message_content']) == "I AGREE" || $bodyJson['message_content'] == null)) {
             $date = date('Y-m-d H:i:s');
-            $this->db->insert('log_proses',array(
-                'controller'=>"site",
-                'username'=>$bodyJson['sender_number'],
-                'request'=>$body,
-                'query'=>"WAPPIN CALLBACK",
-                'date'=>$date,
+            $this->db->insert('log_proses', array(
+                'controller' => "site",
+                'username' => $bodyJson['sender_number'],
+                'request' => $body,
+                'query' => "WAPPIN CALLBACK",
+                'date' => $date,
             ));
-    
-      	    $row =  $this->db->where("phone_number",$bodyJson['sender_number'])->get("registered_wa")->row();
-            if($row && $row->status == "0"){
-                $this->db->update("registered_wa",['status'=>1,'hold_message'=>"{}"],['phone_number'=>$bodyJson['sender_number']]);
+
+            $row =  $this->db->where("phone_number", $bodyJson['sender_number'])->get("registered_wa")->row();
+            if ($row && $row->status == "0") {
+                $this->db->update("registered_wa", ['status' => 1, 'hold_message' => "{}"], ['phone_number' => $bodyJson['sender_number']]);
                 $this->load->library("Wappin", [
-                        'clientId' => $this->config->item("wappin_client_id"),
-                        'projectId' => $this->config->item("wappin_project_id"),
-                        'secretKey' => $this->config->item("wappin_secret_key"),
+                    'clientId' => $this->config->item("wappin_client_id"),
+                    'projectId' => $this->config->item("wappin_project_id"),
+                    'secretKey' => $this->config->item("wappin_secret_key"),
                 ]);
-                $messages = json_decode($row->hold_message,true);
-                if($messages){
-                    $this->wappin->sendMessageWithAttachment($bodyJson['sender_number'],$messages['subject'],$messages['message'],$messages['attachment']);
-                }else{
-                    $this->wappin->sendMessageOnly($bodyJson['sender_number'],Settings_m::getSetting('site_title'),"Terima kasih..\nNo Anda telah terhubung dengan Sistem Notifikasi kami");
+                $messages = json_decode($row->hold_message, true);
+                if ($messages) {
+                    $this->wappin->sendMessageWithAttachment($bodyJson['sender_number'], $messages['subject'], $messages['message'], $messages['attachment']);
+                } else {
+                    $this->wappin->sendMessageOnly($bodyJson['sender_number'], Settings_m::getSetting('site_title'), "Terima kasih..\nNo Anda telah terhubung dengan Sistem Notifikasi kami");
                 }
             }
-        }        
+        }
         $this->output->set_content_type("application/json")
-             ->_display(json_encode(['status'=>'000']));
+            ->_display(json_encode(['status' => '000']));
     }
 }
