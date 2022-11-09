@@ -723,6 +723,14 @@
 						if(res.model.midtrans_data){
 							try{
 								res.model.midtrans_data = JSON.parse(res.model.midtrans_data);
+								if(!res.model.midtrans_data){
+									res.model.midtrans_data = {
+										filename:'',
+										payPlanDate:'',
+										expiredPayDate:'',
+										sponsorName:'',
+									};
+								}
 							}catch{
 								res.model.midtrans_data = {
 									filename:'',
@@ -760,6 +768,7 @@
 				if(app.glModel.midtrans_data.expiredPayDate)
 					formData.set("midtrans_data[expiredPayDate]",moment(app.glModel.midtrans_data.expiredPayDate).format('YYYY-MM-DD'));
 				this.savingGl = true;
+				formData.set("channel","<?=Transaction_m::CHANNEL_GL;?>");
 				$.ajax({
 					url: '<?= base_url('admin/transaction/save_gl'); ?>',
 					type: 'POST',
