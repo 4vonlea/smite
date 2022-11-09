@@ -228,6 +228,7 @@ class Wappin implements iNotification
         $responseDecoded = json_decode($response, true);
         $responseDecoded['code'] = $responseDecoded['status'];
         $responseDecoded['status'] = $responseDecoded['status'] == "200";
+        unlink($filepath);
         return $responseDecoded;
     }
 
