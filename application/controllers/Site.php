@@ -423,7 +423,9 @@ class Site extends MY_Controller
                 'projectId' => $this->config->item("wappin_project_id"),
                 'secretKey' => $this->config->item("wappin_secret_key"),
           ]);
-          $res = $this->wappin->sendTemplateMessage("6282155708905","offer_notif","PINPERDOSSI CIREBON",['1'=>"PINPERDOSSI CIREBON 2022"]);
+     	  $this->load->model("Transaction_m");
+     	  $tr = $this->Transaction_m->findOne("INV-20221108-00021");
+          $res = $this->wappin->sendTemplateMessageWithMedia("6282155708905","send_payment_proof","PINPERDOSSI CIREBON",[],"Registration-Proof.pdf",$tr->exportPaymentProof()->output());
         var_dump($res);
     }
 
