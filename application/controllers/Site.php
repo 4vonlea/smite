@@ -390,12 +390,33 @@ class Site extends MY_Controller
         }
     }
     
-    public function test(){
-        $this->load->library('Api_perdossi');
-        $response = $this->api_perdossi->getMemberByNIK("3312120202760001");
-        var_dump($response);
+    public function stand_presence($id){
+        $this->load->model(["Member_m","Sponsor_stand_m"]);
+        if($this->input->post()){
+            $member_id = $this->input->post("member_id");
+            $count = $this->db->where(['member_id'=>$member_id,'stand_id'=>$id])
+                              ->where('DATE(created_at)','DATE(now())',false)->count_all_results("stand_presence");
+            $message = "";
+
+            if($count !== 0){
+                $status = false;
+                $message = "Anda sudah pernah melakukan presensi !";
+            }else{
+                $status = $this->db->insert("stand_presence",[
+                    'member_id'=>$member_id,
+                    'stand_id'=>$id,
+                ]);
+            }
+            $this->output->set_content_type("application/json")
+            ->_display(json_encode(['status'=>$status,'message'=>$message]));
+        }else{
+            $members = $this->Member_m->find()->select("CONCAT(fullname,' (',email,')') as label,id as code")->get()->result_array();
+            $this->layout->render("site/".$this->theme."/stand_presence",[
+                'members'=>$members,
+                'sponsor'=>$this->Sponsor_stand_m->findOne($id)
+            ]);
+        }
     }
-  
    public function sent_template(){
             $this->load->library("Wappin", [
                 'clientId' => $this->config->item("wappin_client_id"),
@@ -409,8 +430,6 @@ class Site extends MY_Controller
     public function wappin_callback(){
         $body = file_get_contents('php://input');
         $bodyJson = json_decode($body,true);
-
-
         if(array_key_exists("message_content",$bodyJson) && (strtoupper($bodyJson['message_content']) == "SAYA BERSEDIA" || strtoupper($bodyJson['message_content']) == "I AGREE" || $bodyJson['message_content'] == null)){
             $date = date('Y-m-d H:i:s');
             $this->db->insert('log_proses',array(

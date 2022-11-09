@@ -30,15 +30,17 @@ class Sponsor_stand_m extends My_model
 		}
 		require_once APPPATH . "third_party/phpqrcode/qrlib.php";
 		$params = $data->toArray();
+		$params['qrLink'] = base_url("site/stand_presence/".$data->id);
 		$params['siteTitle'] = Settings_m::getSetting('site_title');
 		$params['logoUrl'] =base_url('themes/uploads/logo.png');
 
-		$domInvoice = new Dompdf\Dompdf();
+		$domPdf = new Dompdf\Dompdf();
 
 		$html = $this->load->view("template/qr_stand",$params,true);
-		$domInvoice->setPaper("A5", "portrait");
-		$domInvoice->loadHtml($html);
-		$domInvoice->render();
+		$domPdf->setPaper("A5", "portrait");
+		$domPdf->loadHtml($html);
+		$domPdf->render();
+		$domPdf->stream("Certificate.pdf", array("Attachment" => false));
 		
 	}
 
