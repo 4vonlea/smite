@@ -215,14 +215,10 @@ class Wappin implements iNotification
             'type' => $template,
             "language_code"=>"id",
             'recipient_number' => $to,
-            'header' => ['param' => substr($subject,0,60)],
             'media_type' => $mediatype,
             'media' => new CURLFile($filepath)
         ];
-
-        if(count($bodyParams) > 0){
-            $params['params'] = $bodyParams;
-        }
+        $params['params'] = json_encode($bodyParams);
         
         $response = $this->composeRequest($params, "https://api.wappin.id/v1/message/do-send-hsm-with-media", "POST", true);
         $responseDecoded = json_decode($response, true);
