@@ -265,7 +265,7 @@ function hideForRole($role, $listRole)
 							<i class="ni ni-archive-2 text-blue"></i> Material Speaker
 						</a>
 					</li>
-					<li class="nav-item  <?= hideForRole($role, ['3', '4','5']); ?>">
+					<li class="nav-item  <?= hideForRole($role, ['3', '4']); ?>">
 						<a class="nav-link" href="<?= base_url('admin/sponsor/stand'); ?>">
 							<i class="ni ni-html5 text-blue"></i> Stand Sponsor
 						</a>
