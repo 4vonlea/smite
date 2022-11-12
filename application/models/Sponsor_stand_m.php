@@ -41,7 +41,9 @@ class Sponsor_stand_m extends My_model
 		$params['siteTitle'] = Settings_m::getSetting('site_title');
 		$params['logoUrl'] =base_url('themes/uploads/logo.png');
 
-		$domPdf = new Dompdf\Dompdf();
+      	$options = new Dompdf\Options();
+		$options->set('isRemoteEnabled', true);
+		$domPdf = new Dompdf\Dompdf($options);
 
 		$html = $this->load->view("template/qr_stand",$params,true);
 		$domPdf->setPaper("A5", "portrait");
