@@ -174,7 +174,7 @@ function hideForRole($role, $listRole)
 							<i class="ni ni-tv-2 text-primary"></i> Dashboard
 						</a>
 					</li>
-					<li class="nav-item  <?= hideForRole($role, ['3', '4','5']); ?>">
+					<li class="nav-item  <?= hideForRole($role, ['3', '4','5',User_account_m::ROLE_OPERATOR_REGISTRATION]); ?>">
 						<a class="nav-link" href="<?= base_url('admin/click_report'); ?>">
 							<i class="ni ni-check-bold text-primary"></i> Link Click Report
 						</a>
@@ -184,17 +184,17 @@ function hideForRole($role, $listRole)
 							<i class="ni ni-single-02 text-orange"></i> Members
 						</a>
 					</li>
-					<li class="nav-item ">
+					<li class="nav-item <?=hideForRole($role,[User_account_m::ROLE_OPERATOR_REGISTRATION]);?>">
 						<a class="nav-link" href="<?= base_url('admin/paper'); ?>">
 							<i class="ni ni-book-bookmark text-orange"></i> Papers
 						</a>
 					</li>
-					<li class="nav-item ">
+					<li class="nav-item <?=hideForRole($role,[User_account_m::ROLE_OPERATOR_REGISTRATION]);?>">
 						<a class="nav-link" href="<?= base_url('admin/paper/champion'); ?>">
 							<i class="ni ni-book-bookmark text-orange"></i> Papers Champion
 						</a>
 					</li>
-					<li class="nav-item  <?= hideForRole($role, ['3', '4','5']); ?>">
+					<li class="nav-item  <?= hideForRole($role, ['3', '4','5',User_account_m::ROLE_OPERATOR_REGISTRATION]); ?>">
 						<a class="nav-link" href="#homesubmenu" data-toggle="collapse" class="dropdown-toggle">
 							<i class="ni ni-planet text-blue"></i> Events
 						</a>
@@ -233,12 +233,12 @@ function hideForRole($role, $listRole)
 							</li>
 						</ul>
 					</li>
-					<li class="nav-item  <?= hideForRole($role, ['3']); ?>">
+					<li class="nav-item  <?= hideForRole($role, ['3',User_account_m::ROLE_OPERATOR_REGISTRATION]); ?>">
 						<a class="nav-link" href="<?= base_url('admin/hotel'); ?>">
 							<i class="ni ni-building text-orange"></i> Hotel
 						</a>
 					</li>
-					<li class="nav-item">
+					<li class="nav-item <?=hideForRole($role,[User_account_m::ROLE_OPERATOR_REGISTRATION]);?>">
 						<a class="nav-link" href="#subbroadcast" data-toggle="collapse" class="dropdown-toggle">
 							<i class="fa fa-bullhorn text-blue"></i> Broadcast Notification
 						</a>
@@ -255,22 +255,22 @@ function hideForRole($role, $listRole)
 							</li>
 						</ul>
 					</li>
-					<li class="nav-item  <?= hideForRole($role, ['3', '4','5']); ?>">
+					<li class="nav-item  <?= hideForRole($role, ['3', '4','5',User_account_m::ROLE_OPERATOR_REGISTRATION]); ?>">
 						<a class="nav-link" href="<?= base_url('admin/news'); ?>">
 							<i class="ni ni-book-bookmark text-blue"></i> News
 						</a>
 					</li>
-					<li class="nav-item  <?= hideForRole($role, ['3']); ?>">
+					<li class="nav-item  <?= hideForRole($role, ['3',User_account_m::ROLE_OPERATOR_REGISTRATION]); ?>">
 						<a class="nav-link" href="<?= base_url('admin/material'); ?>">
 							<i class="ni ni-archive-2 text-blue"></i> Material Speaker
 						</a>
 					</li>
-					<li class="nav-item  <?= hideForRole($role, ['3', '4']); ?>">
+					<li class="nav-item  <?= hideForRole($role, ['3', '4',User_account_m::ROLE_OPERATOR_REGISTRATION]); ?>">
 						<a class="nav-link" href="<?= base_url('admin/sponsor/stand'); ?>">
 							<i class="ni ni-html5 text-blue"></i> Stand Sponsor
 						</a>
 					</li>
-					<li class="nav-item  <?= hideForRole($role, ['3']); ?>">
+					<li class="nav-item  <?= hideForRole($role, ['3',User_account_m::ROLE_OPERATOR_REGISTRATION]); ?>">
 						<a class="nav-link" href="<?= base_url('admin/upload_video'); ?>">
 							<i class="ni ni-camera-compact text-blue"></i> Upload Video
 						</a>
@@ -282,17 +282,17 @@ function hideForRole($role, $listRole)
 							</a>
 						</li>
 					<?php endif; ?>
-					<li class="nav-item  <?= hideForRole($role, ['3']); ?>">
+					<li class="nav-item  <?= hideForRole($role, ['3',User_account_m::ROLE_OPERATOR_REGISTRATION]); ?>">
 						<a class="nav-link" href="<?= base_url('admin/committee'); ?>">
 							<i class="fa fa-bookmark text-blue"></i> Committees
 						</a>
 					</li>
-					<li class="nav-item  <?= hideForRole($role, ['3', '4','5']); ?>">
+					<li class="nav-item  <?= hideForRole($role, ['3', '4','5',User_account_m::ROLE_OPERATOR_REGISTRATION]); ?>">
 						<a class="nav-link" href="<?= base_url('admin/log_proses'); ?>">
 							<i class="fa fa-history text-red"></i> Log Aktivitas
 						</a>
 					</li>
-					<li class="nav-item  <?= hideForRole($role, ['3', '4','5']); ?>">
+					<li class="nav-item  <?= hideForRole($role, ['3', '4','5',User_account_m::ROLE_OPERATOR_REGISTRATION]); ?>">
 						<a class="nav-link" href="<?= base_url('admin/setting'); ?>">
 							<i class="ni ni-settings text-red"></i> Setting
 						</a>
@@ -322,6 +322,11 @@ function hideForRole($role, $listRole)
 					<li class="nav-item  <?= hideForRole($role, ['3', '4','5']); ?>">
 						<a class="nav-link" href="<?= base_url("admin/administration"); ?>">
 							<i class="fa fa-book text-green"></i> Administration
+						</a>
+					</li>
+					<li class="nav-item  <?= hideForRole($role, ['3', '4','5']); ?>">
+						<a class="nav-link" href="<?= base_url("admin/presence/self_registration"); ?>">
+							<i class="fa fa-portrait text-green"></i> Self Registration
 						</a>
 					</li>
 				</ul>

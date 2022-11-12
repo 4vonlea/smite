@@ -18,6 +18,7 @@ class User_account_m extends MY_Model
     const ROLE_OPERATOR = 4;
     const ROLE_MANAGER = 5;
     const ROLE_FINANCE = 6;
+    const ROLE_OPERATOR_REGISTRATION = 7; 
 
     public static $listRole = [
         self::ROLE_MEMBER => 'Member/Participant',
@@ -27,6 +28,7 @@ class User_account_m extends MY_Model
         self::ROLE_OPERATOR => 'Operator',
         self::ROLE_MANAGER => 'Manager',
         self::ROLE_FINANCE => 'Finance',
+        self::ROLE_OPERATOR_REGISTRATION => "Registration Operator",
     ];
 
     public function rules()

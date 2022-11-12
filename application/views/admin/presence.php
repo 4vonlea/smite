@@ -298,12 +298,8 @@
         methods: {
             dataManager(sortOrder, pagination) {
                 let data = this.detail.data;
-                // account for search filter
                 if (this.globalFilter) {
-                    // the text should be case insensitive
                     let txt = new RegExp(this.globalFilter, 'i')
-
-                    // search on name, email, and nickname
                     data = _.filter(data, function (item) {
                         return item.fullname.search(txt) >= 0 || item.status_member.search(txt) >= 0
                     })

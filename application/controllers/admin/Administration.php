@@ -151,7 +151,10 @@ class Administration extends Admin_Controller
 		$transaction = $this->input->post("transaction_id");
 
 		$this->load->model("Event_m");
-		$builder = $this->Event_m->getParticipant();
+		$select = "m.id as m_id,td.id as td_id, td.checklist as checklist,t.id as event_id,t.name as event_name,t.kategory as event_kategory,
+		t.held_on as event_held_on,t.held_in as event_held_in,t.theme as event_theme,m.*,km.kategory as member_status,m.alternatif_status,
+		m.alternatif_status2,td.updated_at as td_updated_at";
+		$builder = $this->Event_m->getParticipant($select);
 
 		if(isset($id))
 			$builder->where('t.id', $id);

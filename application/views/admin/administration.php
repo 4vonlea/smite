@@ -103,8 +103,30 @@ $this->layout->begin_head();
 								  :css="css.table"
 								  @vuetable:pagination-data="onPaginationData">
 							<template slot="fullname" slot-scope="props">
-								<label v-show="!props.rowData.editable">{{ props.rowData.fullname }}</label>
-								<input v-show="props.rowData.editable" class="form-control form-control-sm" type="text" v-model="props.rowData.fullname"/>
+								<p style="line-height: 1; font-weight:bold;" v-show="!props.rowData.editable">{{ props.rowData.fullname }}</p>
+								<p style="line-height: 1;" v-show="!props.rowData.editable">{{ props.rowData.email }}</p>
+								<p style="line-height: 1;" v-show="!props.rowData.editable">{{ props.rowData.phone }}</p>
+
+								<div class="input-group input-group-sm mt-1" v-show="props.rowData.editable">
+									<div class="input-group-prepend">
+										<span class="input-group-text">Fullname :</span>
+									</div>
+									<input class="form-control form-control-sm" type="text" v-model="props.rowData.fullname"/>
+								</div>
+								<div class="input-group input-group-sm mt-1" v-show="props.rowData.editable">
+									<div class="input-group-prepend">
+										<span class="input-group-text">Email :</span>
+									</div>
+	
+									<input class="form-control form-control-sm" type="text" v-model="props.rowData.email"/>
+								</div>
+								<div class="input-group input-group-sm mt-1" v-show="props.rowData.editable">
+									<div class="input-group-prepend">
+										<span class="input-group-text">Phone :</span>
+									</div>
+									<input class="form-control form-control-sm" type="text" v-model="props.rowData.phone"/>
+								</div>
+
 								<div class="float-right">
 								<a href="#" v-show="!props.rowData.editable"
 								   v-on:click.prevent="editName(props.rowData)" class="badge badge-info">Change</a>
@@ -282,6 +304,7 @@ $this->layout->begin_head();
 		},
 		created() {
 			this.fetchData();
+			this.periodicFetchData();
 		},
 		methods: {
 			downloadAll(type,step,participant){
@@ -336,7 +359,6 @@ $this->layout->begin_head();
 							if(app.pooling.retry >= maxRetry){
 								$("#modal-pooling").modal("hide");
 								Swal.fire("Failed",response.message, "error");
-
 							}else {
 								app.pooling.retry++;
 								app.downloadAll(type, step, participant);
@@ -357,7 +379,7 @@ $this->layout->begin_head();
 				}
 			},
 			editName(row) {
-				this.backupName[row.id] = row.fullname;
+				this.backupName[row.id] = {fullname:row.fullname,email:row.email,phone:row.phone};
 				row.editable = true;
 			},
 			openScanner(){
@@ -393,7 +415,8 @@ $this->layout->begin_head();
 					city: row.city,
 					address: row.address,
 					univ: row.univ,
-					id: row.id
+					id: row.id,
+					email:row.email
 				};
 				row.saving = true;
 				event.target.innerHTML = "<i class='fa fa-spin fa-spinner'></i>";
@@ -416,7 +439,9 @@ $this->layout->begin_head();
 				if(row.saving)
 					return false;
 				row.editable = false;
-				row.fullname = this.backupName[row.id];
+				row.fullname = this.backupName[row.id].fullname;
+				row.email = this.backupName[row.id].email;
+				row.phone = this.backupName[row.id].phone;
 			},
 			dataManager(sortOrder, pagination) {
 				let data = this.localData.data
@@ -472,7 +497,8 @@ $this->layout->begin_head();
 					this.isScan = false;
 					this.localData = {data: [], pagination: {}};
 				}
-				Vue.nextTick(() => this.$refs.vuetable.refresh())
+				this.fetchData(false);
+//				Vue.nextTick(() => this.$refs.vuetable.refresh())
 			},
 			changeChecklist(row) {
 				$.post("<?=base_url("admin/member/save_check");?>", {
@@ -481,6 +507,53 @@ $this->layout->begin_head();
 						id: row.td_id
 					}]
 				});
+			},
+			periodicFetchData(){
+				let periodicTimeInSecond = 10;
+				if (this.selectedEvent != "" || this.isScan) {
+					var app = this;
+					var param = {};
+					if(app.isScan && app.resultScan.length > 0){
+						if(app.resultScan[0] == "card"){
+							param.member_id = app.resultScan[1];
+							param.event_id = app.resultScan[2];
+						}else{
+							param.transaction_id = app.resultScan[1];
+						}
+					}else{
+						param.id = this.selectedEvent;
+					}
+					$.post("<?=base_url('admin/administration/get_participant');?>", param, (res) => {
+						let temp = {};
+						if(res.status && res.data){
+							$.each(res.data,(ind,row) => {
+								if (!row.checklist)
+									row.checklist = {nametag: false, seminarkit: false, taker: ""};
+								else {
+									try {
+										row.checklist = JSON.parse(row.checklist);
+										row.checklist.nametag = (row.checklist.nametag == "true");
+										row.checklist.seminarkit = (row.checklist.seminarkit == "true");
+										row.checklist.certificate = (row.checklist.certificate == "true");
+									} catch (e) {
+										row.checklist = {nametag: false, seminarkit: false,certificate:false, taker: ""};
+									}
+								}
+								temp[row.m_id] = row;
+							});
+						}
+						$.each(this.localData.data,(ind,row)=>{
+							if(temp[row.m_id] && temp[row.m_id].event_id == row.event_id && temp[row.m_id].td_updated_at > row.td_updated_at ){
+								console.log("Checked");
+								Vue.set(this.localData.data,ind,temp[row.m_id]);
+							}
+						});
+					}).always(() => {
+						setTimeout(this.periodicFetchData,1000*periodicTimeInSecond);
+					})
+				}else{
+					setTimeout(this.periodicFetchData,1000*periodicTimeInSecond);
+				}
 			},
 			fetchData(fromEventChange) {
 				if(fromEventChange)

@@ -5,6 +5,18 @@ class Presence_m extends MY_Model
 {
 	protected $table = "presence";
 	protected $primaryKey = "id";
+    protected $timestamps = false;
+
+	public function addPresenceNow($member_id,$event_id){
+		$date = new DateTime();
+		$date->setTimezone(new DateTimeZone("+7"));
+		return $this->insert([
+			'member_id'=>$member_id,
+			'event_id'=>$event_id,
+			'created_at'=>$date->format("Y-m-d H:i:s"),
+			'updated_at'=>$date->format("Y-m-d H:i:s"),
+		]);
+	}
 
 	public function getDataToday($event_id){
 		$this->load->model("Transaction_m");
