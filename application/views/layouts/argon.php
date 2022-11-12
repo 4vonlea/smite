@@ -314,12 +314,12 @@ function hideForRole($role, $listRole)
 							<i class="ni ni-spaceship text-green"></i> Group Registration
 						</a>
 					</li>
-					<li class="nav-item  <?= hideForRole($role, ['3', '4','5']); ?>">
+					<li class="nav-item  <?= hideForRole($role, ['3']); ?>">
 						<a class="nav-link" href="<?= base_url("admin/presence"); ?>">
 							<i class="ni ni-bullet-list-67 text-green"></i> Presence check
 						</a>
 					</li>
-					<li class="nav-item  <?= hideForRole($role, ['3', '4','5']); ?>">
+					<li class="nav-item  <?= hideForRole($role, ['3']); ?>">
 						<a class="nav-link" href="<?= base_url("admin/administration"); ?>">
 							<i class="fa fa-book text-green"></i> Administration
 						</a>
