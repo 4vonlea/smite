@@ -104,6 +104,7 @@ $this->layout->begin_head();
 								  @vuetable:pagination-data="onPaginationData">
 							<template slot="fullname" slot-scope="props">
 								<p style="line-height: 1; font-weight:bold;" v-show="!props.rowData.editable">{{ props.rowData.fullname }}</p>
+								<p style="line-height: 1;" v-show="!props.rowData.editable">{{ props.rowData.nik }}</p>
 								<p style="line-height: 1;" v-show="!props.rowData.editable">{{ props.rowData.email }}</p>
 								<p style="line-height: 1;" v-show="!props.rowData.editable">{{ props.rowData.phone }}</p>
 
@@ -112,6 +113,12 @@ $this->layout->begin_head();
 										<span class="input-group-text">Fullname :</span>
 									</div>
 									<input class="form-control form-control-sm" type="text" v-model="props.rowData.fullname"/>
+								</div>
+								<div class="input-group input-group-sm mt-1" v-show="props.rowData.editable">
+									<div class="input-group-prepend">
+										<span class="input-group-text">NIK :</span>
+									</div>
+									<input class="form-control form-control-sm" type="text" v-model="props.rowData.nik"/>
 								</div>
 								<div class="input-group input-group-sm mt-1" v-show="props.rowData.editable">
 									<div class="input-group-prepend">
@@ -379,7 +386,7 @@ $this->layout->begin_head();
 				}
 			},
 			editName(row) {
-				this.backupName[row.id] = {fullname:row.fullname,email:row.email,phone:row.phone};
+				this.backupName[row.id] = {fullname:row.fullname,email:row.email,phone:row.phone,nik:row.nik};
 				row.editable = true;
 			},
 			openScanner(){
@@ -410,6 +417,7 @@ $this->layout->begin_head();
 					return false;
 				var member = {
 					fullname: row.fullname,
+					nik: row.nik,
 					gender: row.gender,
 					phone: row.phone,
 					city: row.city,
@@ -442,6 +450,7 @@ $this->layout->begin_head();
 				row.fullname = this.backupName[row.id].fullname;
 				row.email = this.backupName[row.id].email;
 				row.phone = this.backupName[row.id].phone;
+				row.nik = this.backupName[row.id].nik;
 			},
 			dataManager(sortOrder, pagination) {
 				let data = this.localData.data
