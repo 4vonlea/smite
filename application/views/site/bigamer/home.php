@@ -128,7 +128,7 @@
 					<h1 class="header-title">PIN PERDOSSI CIREBON</h1>
 					<p style="text-transform: initial; font-size: 32px;">Neurotech : A New Innovation to Enhance <br> Neuroscience and Reshape NeuroSociety 5.0</p>
 					<p style="text-transform: initial;">17 - 20 November 2022</p>
-					<a href="https://drive.google.com/file/d/1Ec8lmPaREBlWu9cH9T2WPYeCZ-wtt0vv/view?usp=sharing" class="default-button reverse-effect"><span>Unduh Second Announcement disini (rilis 12 September 2022)<i class="icofont-play-alt-1"></i></span> </a>
+					<a href="https://drive.google.com/file/d/1UoneqLS7i6vwORdP7k4WuvQXQM5n0bPe/view" class="default-button reverse-effect"><span>Unduh FINAL Announcement disini (rilis 05 November 2022)<i class="icofont-play-alt-1"></i></span> </a>
 				</div>
 				<div class="banner-thumb d-flex flex-wrap justify-content-center justify-content-between align-items-center align-items-lg-end">
 					<div class="banner-thumb-img ml-xl-50-none">
