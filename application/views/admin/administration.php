@@ -107,6 +107,7 @@ $this->layout->begin_head();
 								<p style="line-height: 1;" v-show="!props.rowData.editable">{{ props.rowData.nik }}</p>
 								<p style="line-height: 1;" v-show="!props.rowData.editable">{{ props.rowData.email }}</p>
 								<p style="line-height: 1;" v-show="!props.rowData.editable">{{ props.rowData.phone }}</p>
+								<p style="line-height: 1;" v-show="!props.rowData.editable">As {{ statusMember[props.rowData.status] }}</p>
 
 								<div class="input-group input-group-sm mt-1" v-show="props.rowData.editable">
 									<div class="input-group-prepend">
@@ -132,6 +133,14 @@ $this->layout->begin_head();
 										<span class="input-group-text">Phone :</span>
 									</div>
 									<input class="form-control form-control-sm" type="text" v-model="props.rowData.phone"/>
+								</div>
+								<div class="input-group input-group-sm mt-1" v-show="props.rowData.editable">
+									<div class="input-group-prepend">
+										<span class="input-group-text">Status :</span>
+									</div>
+									<select class="form-control" v-model="props.rowData.status">
+										<option v-for="(kategory,ind) in statusMember" :value="ind">{{ kategory }}</option>
+									</select>
 								</div>
 
 								<div class="float-right">
@@ -265,6 +274,7 @@ $this->layout->begin_head();
 				title: "Name Tag"
 			}, {name: 'seminar_kit', title: "Seminar Kit"},{name:'certificate',title:'Certificate'},{name: 'taker', title: "Taker"},{name:'event_id',title:'Action'}],
 			eventList: <?=json_encode($event);?>,
+			statusMember: <?=json_encode($statusMember);?>,
 			selectedEvent: "",
 			backupName:{},
 			localData: {data: [], pagination: {}},
@@ -386,7 +396,7 @@ $this->layout->begin_head();
 				}
 			},
 			editName(row) {
-				this.backupName[row.id] = {fullname:row.fullname,email:row.email,phone:row.phone,nik:row.nik};
+				this.backupName[row.id] = {fullname:row.fullname,email:row.email,phone:row.phone,nik:row.nik,status:row.status};
 				row.editable = true;
 			},
 			openScanner(){
@@ -424,7 +434,8 @@ $this->layout->begin_head();
 					address: row.address,
 					univ: row.univ,
 					id: row.id,
-					email:row.email
+					email:row.email,
+					status:row.status
 				};
 				row.saving = true;
 				event.target.innerHTML = "<i class='fa fa-spin fa-spinner'></i>";
@@ -451,6 +462,7 @@ $this->layout->begin_head();
 				row.email = this.backupName[row.id].email;
 				row.phone = this.backupName[row.id].phone;
 				row.nik = this.backupName[row.id].nik;
+				row.status = this.backupName[row.id].status;
 			},
 			dataManager(sortOrder, pagination) {
 				let data = this.localData.data

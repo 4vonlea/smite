@@ -17,9 +17,10 @@ class Administration extends Admin_Controller
 
 	public function index()
 	{
-		$this->load->model(['Event_m']);
+		$this->load->model(['Event_m','Category_member_m']);
 		$this->layout->render("administration", [
-			'event' => Event_m::asList(Event_m::findAll(), 'id', 'name')
+			'event' => Event_m::asList(Event_m::findAll(), 'id', 'name'),
+			'statusMember' => Category_member_m::asList(Category_member_m::findAll(), 'id', 'kategory')
 		]);
 	}
 
