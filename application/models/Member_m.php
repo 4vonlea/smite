@@ -121,7 +121,7 @@ class Member_m extends MY_Model
 
 			$event = $this->Event_m->findOne($event_id);
 			$member['event_name'] = $event->name;
-			if(!in_array($member['status_member'],["Pembicara","Panitia","Moderator"])){
+			if(in_array($member['status_member'],["Spesialis","Residen","General Practitioner"])){
 				$member['status_member'] = "Peserta";
 			}
 
