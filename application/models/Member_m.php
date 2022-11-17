@@ -121,9 +121,9 @@ class Member_m extends MY_Model
 
 			$event = $this->Event_m->findOne($event_id);
 			$member['event_name'] = $event->name;
-			if($member['status_member'] != "Pembicara"){
-				$member['status_member'] = "Peserta";
-			}
+			// if($member['status_member'] != "Pembicara"){
+			// 	$member['status_member'] = "Peserta";
+			// }
 
 			$diff = array_diff(['qr', 'fullname', 'status_member', 'event_name'], array_keys($member));
 			if (count($diff) == 0) {
