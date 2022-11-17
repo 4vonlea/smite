@@ -437,7 +437,7 @@ class Member extends Admin_Controller
 		$result = $this->Event_m->getParticipant()->where('m.id', $member_id)->get();
 		$return = [];
 		foreach ($result->result_array() as $i => $row) {
-			if ($row['checklist'] != "")
+			if ($row['checklist'] != "" && $row['checklist'] != "null")
 				$row['checklist'] = json_decode($row['checklist'], true);
 			else
 				$row['checklist'] = ['nametag' => false, 'seminarkit' => false, 'taker' => ''];

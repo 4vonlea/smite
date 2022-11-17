@@ -636,6 +636,7 @@ $this->layout->begin_head();
 				var data = [];
 				$.each(app.profile.event, function(i, r) {
 					var t = r.checklist;
+					console.log(r);
 					data.push({
 						id: r.td_id,
 						checklist: t
