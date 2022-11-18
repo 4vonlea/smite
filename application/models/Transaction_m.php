@@ -453,15 +453,17 @@ class Transaction_m extends MY_Model
 		}
 	}
 
-	public function getFollowedEvent($invoiceId){
-		return $this->db->select("td.id,c.id as transaction_id,c.status_payment,td.member_id,m.fullname,e.name AS `event`,e.id AS event_id")
+	public function getFollowedEvent($idOrName){
+		return $this->db->select("DISTINCT td.id",false)
+			->select("c.id as transaction_id,c.status_payment,td.member_id,m.fullname,e.name AS `event`,e.id AS event_id")
 			->from("transaction t")
 			->join("transaction_details td","td.transaction_id = t.id OR t.member_id = td.member_id")
 			->join("`transaction` c","c.id = td.transaction_id AND c.status_payment = 'settlement'")
 			->join("event_pricing ev","ev.id = td.event_pricing_id")
 			->join("`events` e","e.id = ev.event_id")
 			->join("members m","m.id = td.member_id")
-			->where("t.id",$invoiceId)
+			->where("t.id",$idOrName)
+			->or_like("m.fullname",$idOrName)
 			->get()
 			->result_array();
 	}

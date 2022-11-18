@@ -19,7 +19,7 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-sm-12 text-center" v-if="result.length == 0">
-                            <p>Please type your "<strong>Invoice Number then press enter</strong>"" or scan your "<strong>QR Code On Payment Proof</strong>"</p>
+                            <p>Please type your "<strong>Invoice Number/Name then press enter</strong>" or scan your "<strong>QR Code On Payment Proof</strong>"</p>
                             <div class="input-group border" :class="[isFocusToScan ? 'border-success':'border-danger']">
                                 <div v-if="searching" class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon1">
