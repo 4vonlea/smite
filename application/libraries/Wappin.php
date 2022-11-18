@@ -23,7 +23,7 @@ class Wappin implements iNotification
 
     protected function normalizeNumber($number){
         $number = str_replace(["-","+"],"\n",$number);
-        if($number[0] == "0"){
+        if($number != "" && $number[0] == "0"){
             $number = "62".substr($number,1,strlen($number));
         }
         return trim($number);

@@ -40,6 +40,8 @@ class Administration extends Admin_Controller
 
 					$timeCreate = time();
 					$folderTemp = APPPATH . "uploads/tmp/$timeCreate";
+                	if(!file_exists(APPPATH."uploads/tmp/"))
+                       mkdir(APPPATH."uploads/tmp/");
 					mkdir($folderTemp);
 					$this->output->set_content_type("application/json")
 						->_display(json_encode(['status' => true, 'data' => $participant, 'timeCreate' => $timeCreate]));
