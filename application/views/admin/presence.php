@@ -413,6 +413,7 @@
 								`<p>Presence of <b>${r.fullname}</b> As <b>${r.status_member}</b></p>` +
 								`<p>Checked At <b>${moment(date).format("DD MMM YYYY, [At] HH:mm:ss")}</b></p>`,
 							showCloseButton: true,
+							timer:1200,
 						});
 						$.post("<?=base_url('admin/presence/save');?>", {
 							member_id: r.id,
@@ -422,7 +423,14 @@
 					}
 				});
 				if (found == false) {
-					Swal.fire("Info", "Participant not register on this event !", "info");
+					Swal.fire({
+						title:'<strong>Info</strong>',
+						type:'info',
+						text:'Participant not register on this event !',
+						showCloseButton:true,
+						timer:1200
+					});
+					// Swal.fire("Info", "Participant not register on this event !", "info");
 				}else{
 					app.$forceUpdate();
 				}
