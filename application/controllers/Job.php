@@ -66,7 +66,7 @@ class Job extends CI_Controller
                             if($member->email == "muhammad.zaien17@gmail.com"){
                                 $cert = $this->Event_m->exportCertificate($member->toArray(), $event['id'])->output();
                                 $row['feedback'] = $this->Notification_m->sendCertificate($member,Notification_m::CERT_TYPE_EVENT,$event['label'],$cert);
-                                unset($)
+                                unset($cert);
                             }else{
                                 $row['feedback'] = "Skip";
                             }
