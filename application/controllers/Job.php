@@ -26,6 +26,27 @@ class Job extends CI_Controller
 
     public function run_broadcast($id){
         ini_set('memory_limit', '-1');
+        $database = [
+            'hostname'=>$this->db->database,
+            'database'=>$this->db->database,
+            'username'=>$this->db->username,
+            'password'=>$this->db->password,
+            'dbdriver' => 'mysqli',
+            'dbprefix' => '',
+            'pconnect' => FALSE,
+            'db_debug' => (ENVIRONMENT !== 'production'),
+            'cache_on' => FALSE,
+            'cachedir' => '',
+            'char_set' => 'utf8',
+            'dbcollat' => 'utf8_general_ci',
+            'swap_pre' => '',
+            'encrypt' => FALSE,
+            'compress' => FALSE,
+            'stricton' => FALSE,
+            'failover' => array(),
+            'save_queries' => TRUE
+        ];
+        $this->load->database($database);
         $processData = $this->db->get_where("broadcast",['id'=>$id])->row();
         if($processData){
             $this->load->model("Notification_m");

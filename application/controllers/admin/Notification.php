@@ -77,7 +77,7 @@ class Notification extends Admin_Controller
 					->_display(json_encode(['status' => false, 'message' => "Template of certificate is not found !"]));
 			}
 		} else {
-			$this->load->model("Notification_m");
+			$this->load->model(["Notification_m","Member_m","Event_m","Papers_m"]);
 			$status = [];
 			if ($this->input->post("isPaper")) {
 				$member = $this->input->post();
@@ -87,15 +87,17 @@ class Notification extends Admin_Controller
 				], true);
 				$status = $this->Notification_m->sendMessageWithAttachment($member['email'], "Certificate of Manuscript", $message, $cert, "CERTIFICATE.pdf");
 			} else {
-				$member = $this->input->post();
-				$event = [
-					'id' => $member['event_id'],
-					'event_name' => $member['event_name']
-				];
-				$member['status_member'] = "Peserta";
-				$cert = $this->Event_m->exportCertificate($member, $event['id'])->output();
-				$message = $this->load->view("template/email/send_certificate_event", $event, true);
-				$status = $this->Notification_m->sendMessageWithAttachment($member['email'], "Certificate of '" . $event['event_name'] . "'", $message, $cert, "CERTIFICATE.pdf");
+				$status = [];
+				$post = $this->input->post();
+				$member = $this->Member_m->findOne($post['m_id']);
+				if($member->email == "muhammad.zaien17@gmail.com"){
+					$cert = $this->Event_m->exportCertificate($member->toArray(),  $post['event_id'])->output();
+					$status['wa'] = $this->Notification_m->setType(Notification_m::TYPE_WA)->sendCertificate($member,Notification_m::CERT_TYPE_EVENT, $post['event_name'],$cert);
+					$status['email'] = $this->Notification_m->sendCertificate($member,Notification_m::CERT_TYPE_EVENT, $post['event_name'],$cert);
+					$status['status'] = $status['email']['status'];
+				}else{
+					$status['status'] = true;
+				}
 			}
 
 			$this->output
