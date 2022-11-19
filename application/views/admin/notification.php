@@ -558,45 +558,22 @@ $this->layout->begin_head();
 					});
 			},
 			sendCert() {
-				var url = "<?= base_url('admin/notification/init_broadcast'); ?>";
-				var app = this;
-				app.sendingCert = true;
-				$.post(url, {
-						subject: `Send Certificate ${this.cert_event.label}`,
-						event_id: this.cert_event.id,
-						message:JSON.stringify(this.cert_event),
-						channel: this.channel,
-						type: '<?= Notification::TYPE_SENDING_CERTIFICATE; ?>',
-					}, null, 'JSON')
-					.done(function(res) {
-						Swal.fire({
-							type: "success",
-							title: "Success",
-							html: res.message
-						});
-					}).fail(function(xhr) {
-						var message = xhr.getResponseHeader("Message");
-						if (!message)
-							message = 'Server fail to response !';
-						Swal.fire('Fail', message, 'error');
-					}).always(function() {
-						app.sendingCert = false;
-					});
-				// var url = "<?= base_url('admin/notification/send_cert/preparing'); ?>";
+				// var url = "<?= base_url('admin/notification/init_broadcast'); ?>";
 				// var app = this;
 				// app.sendingCert = true;
 				// $.post(url, {
-				// 		id: this.cert_event
+				// 		subject: `Send Certificate ${this.cert_event.label}`,
+				// 		event_id: this.cert_event.id,
+				// 		message:JSON.stringify(this.cert_event),
+				// 		channel: this.channel,
+				// 		type: '<?= Notification::TYPE_SENDING_CERTIFICATE; ?>',
 				// 	}, null, 'JSON')
 				// 	.done(function(res) {
-				// 		if (res.status) {
-				// 			app.pooling.title = "Send Certificate";
-				// 			app.pooling.url = "<?= base_url('admin/notification/send_cert'); ?>";
-				// 			app.pooling.data = res.data;
-				// 			app.pooling.failedList = [];
-				// 			app.poolingStart(false);
-				// 		} else
-				// 			Swal.fire("Failed", res.message, "error");
+				// 		Swal.fire({
+				// 			type: "success",
+				// 			title: "Success",
+				// 			html: res.message
+				// 		});
 				// 	}).fail(function(xhr) {
 				// 		var message = xhr.getResponseHeader("Message");
 				// 		if (!message)
@@ -605,6 +582,29 @@ $this->layout->begin_head();
 				// 	}).always(function() {
 				// 		app.sendingCert = false;
 				// 	});
+				var url = "<?= base_url('admin/notification/send_cert/preparing'); ?>";
+				var app = this;
+				app.sendingCert = true;
+				$.post(url, {
+						id: this.cert_event
+					}, null, 'JSON')
+					.done(function(res) {
+						if (res.status) {
+							app.pooling.title = "Send Certificate";
+							app.pooling.url = "<?= base_url('admin/notification/send_cert'); ?>";
+							app.pooling.data = res.data;
+							app.pooling.failedList = [];
+							app.poolingStart(false);
+						} else
+							Swal.fire("Failed", res.message, "error");
+					}).fail(function(xhr) {
+						var message = xhr.getResponseHeader("Message");
+						if (!message)
+							message = 'Server fail to response !';
+						Swal.fire('Fail', message, 'error');
+					}).always(function() {
+						app.sendingCert = false;
+					});
 			},
 			sendCertCom() {
 				var url = "<?= base_url('admin/notification/send_cert_com/preparing'); ?>";
