@@ -234,7 +234,7 @@ class Notification_m extends MY_Model
                     '5'=>'+6287733667120'
                 ];
                 $response = $this->getClass()->sendTemplateMessageWithMedia($to,"new_send_certificate_event", $bodyParams, $certFile, "Certificate.pdf");
-                $this->getClass()->sendTemplateMessage($to,"additional_footer_send_certificate","",[]);
+                $this->getClass()->sendTemplateMessage($to,"additional_footer_send_certificate",null,[]);
             }else{
                 $response = $this->sendMessageWithAttachment($to, $subject, $message, $certFile, "certificate.pdf");
             }
