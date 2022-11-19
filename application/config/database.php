@@ -94,3 +94,25 @@ $db['default'] = array(
 	'failover' => array(),
 	'save_queries' => TRUE
 );
+
+$db['job'] = array(
+	'dsn'	=> '',
+	'hostname' => env('DB_HOSTNAME', 'localhost'),
+	'username' => env('DB_USERNAME', 'root'),
+	'password' => env('DB_PASSWORD', ''),
+	'database' => env('DB_NAME', 'seminar-dokter'),
+	'dbdriver' => 'mysqli',
+	'dbprefix' => '',
+	'pconnect' => FALSE,
+	'db_debug' => (ENVIRONMENT !== 'production'),
+	'cache_on' => FALSE,
+	'cachedir' => '',
+	'char_set' => 'utf8',
+	'dbcollat' => 'utf8_general_ci',
+	'swap_pre' => '',
+	'encrypt' => FALSE,
+	'compress' => FALSE,
+	'stricton' => FALSE,
+	'failover' => array(),
+	'save_queries' => false
+);
