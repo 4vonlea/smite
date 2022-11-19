@@ -90,14 +90,14 @@ class Notification extends Admin_Controller
 				$status = [];
 				$post = $this->input->post();
 				$member = $this->Member_m->findOne($post['m_id']);
-				if($member->email == "muhammad.zaien17@gmail.com"){
+				// if($member->email == "muhammad.zaien17@gmail.com"){
 					$cert = $this->Event_m->exportCertificate($member->toArray(),  $post['event_id'])->output();
 					$status['wa'] = $this->Notification_m->setType(Notification_m::TYPE_WA)->sendCertificate($member,Notification_m::CERT_TYPE_EVENT, $post['event_name'],$cert);
 					$status['email'] = $this->Notification_m->sendCertificate($member,Notification_m::CERT_TYPE_EVENT, $post['event_name'],$cert);
 					$status['status'] = $status['email']['status'];
-				}else{
-					$status['status'] = true;
-				}
+				// }else{
+				// 	$status['status'] = true;
+				// }
 			}
 
 			$this->output
