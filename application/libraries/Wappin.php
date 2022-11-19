@@ -192,7 +192,7 @@ class Wappin implements iNotification
         return $responseDecoded;
     }
 
-    public function sendTemplateMessageWithMedia($to, $template, $subject, $bodyParams,$filename,$filebyte)
+    public function sendTemplateMessageWithMedia($to, $template, $bodyParams,$filebyte,$filename)
     {
         $to = $this->normalizeNumber($to);
         $ci =& get_instance();
@@ -218,12 +218,12 @@ class Wappin implements iNotification
             'media' => new CURLFILE($filepath,$mimetype)
         ];
         $params['params'] = json_encode($bodyParams);
-        
+        var_dump($params);
         $response = $this->composeRequest($params, "https://api.wappin.id/v1/message/do-send-hsm-with-media", "POST");
         $responseDecoded = json_decode($response, true);
         $responseDecoded['code'] = $responseDecoded['status'];
         $responseDecoded['status'] = $responseDecoded['status'] == "200";
-       unlink($filepath);
+        unlink($filepath);
         return $responseDecoded;
     }
 

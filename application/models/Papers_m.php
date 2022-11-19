@@ -254,7 +254,7 @@ class Papers_m extends MY_Model
 
 	public function certificateReciver($defaultStatus = "Participant",$idCategory = null){
 		$return = [];
-		$participant =$this->find()->select("'1' as isPaper,fullname,type_presence,title,email,CONCAT(st.value,LPAD(papers.id,3,0)) as id_paper,'$defaultStatus' as status")
+		$participant =$this->find()->select("members.fullname,members.id as m_id, '1' as isPaper,fullname,type_presence,title,email,CONCAT(st.value,LPAD(papers.id,3,0)) as id_paper,'$defaultStatus' as status")
 				->join("members","members.id = member_id")
 				->join("settings st",'st.name = "format_id_paper"','left')
 				->where("status_presentasi",Papers_m::ACCEPTED);
@@ -265,7 +265,7 @@ class Papers_m extends MY_Model
 			$return[] = $row;
 		}
 
-		$champion =$this->find()->select("'1' as isPaper,fullname,type_presence,title,email,CONCAT(st.value,LPAD(papers.id,3,0)) as id_paper,description as status")
+		$champion =$this->find()->select("'1' as isPaper,members.id as m_id,fullname,type_presence,title,email,CONCAT(st.value,LPAD(papers.id,3,0)) as id_paper,description as status")
 				->join("paper_champion","paper_champion.paper_id = papers.id")
 				->join("members","members.id = member_id")
 				->join("settings st",'st.name = "format_id_paper"','left');

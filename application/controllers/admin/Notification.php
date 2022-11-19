@@ -338,6 +338,14 @@ class Notification extends Admin_Controller
 				}
 				break;
 			case self::TYPE_SENDING_CERTIFICATE:
+				$this->load->model("Event_m");
+				$event_id = $this->input->post("event_id");
+				if ($event_id == "Paper") {
+					$this->load->model("Papers_m");
+					$attributes = $this->Papers_m->certificateReciver("Participant", $expl[1] ?? null);
+				} else {
+					$attributes = $this->Event_m->getParticipant()->where('t.id', $event_id)->get()->result_array();
+				}
 				break;
 			case self::TYPE_SENDING_CERTIFICATE_COM:
 				break;

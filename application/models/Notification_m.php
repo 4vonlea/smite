@@ -225,7 +225,19 @@ class Notification_m extends MY_Model
 
         $to = $this->getType() == self::TYPE_WA ? $member->phone : $member->email;
         if ($template) {
-            $response = $this->sendMessageWithAttachment($to, $subject, $message, $certFile, "certificate.pdf");
+            if($this->getType() == self::TYPE_WA){
+                $bodyParams = [
+                    '1'=>$member->fullname,
+                    '2'=>$name,
+                    '3'=>$name,
+                    '4'=>'Mae',
+                    '5'=>'+6287733667120'
+                ];
+                $response = $this->getClass()->sendTemplateMessageWithMedia($to,"new_send_certificate_event", $bodyParams, $certFile, "Certificate.pdf");
+                $this->getClass()->sendTemplateMessage($to,"additional_footer_send_certificate","",[]);
+            }else{
+                $response = $this->sendMessageWithAttachment($to, $subject, $message, $certFile, "certificate.pdf");
+            }
         }
         return $response;
     }

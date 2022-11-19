@@ -14,7 +14,8 @@ if (!function_exists("run_job")) {
             if (substr(php_uname(), 0, 7) == "Windows") {
                 pclose(popen("start /B " . $cmd, "r"));
             } else {
-                exec($cmd . " > /dev/null &");
+                $filelog = $controller.$function.".html";
+                exec($cmd . " > ./application/logs/$filelog &");
             }
             return true;
         } else {

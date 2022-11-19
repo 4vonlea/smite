@@ -194,7 +194,7 @@ class Member extends Admin_Controller
 				$member = $this->Member_m->findOne($this->input->post("m_id"));
 				$cert = $this->Event_m->exportCertificate($member->toArray(), $id)->output();
 				$status = $this->Notification_m->sendCertificate($member,Notification_m::CERT_TYPE_EVENT,$event_name,$cert);
-				$this->Notification_m->setType(Notification_m::TYPE_WA)->sendCertificate($member,Notification_m::CERT_TYPE_EVENT,$event_name,$cert);
+				$status['wa'] = $this->Notification_m->setType(Notification_m::TYPE_WA)->sendCertificate($member,Notification_m::CERT_TYPE_EVENT,$event_name,$cert);
 				$this->output
 					->set_content_type("application/json")
 					->_display(json_encode([

@@ -116,7 +116,12 @@ $this->layout->begin_head();
 							<div class="form-group row">
 								<label class="form-control-label col-md-3 mt-2">Send Certificate To Participant of Event</label>
 								<div class="col-md-6">
-									<?= form_dropdown('event', Event_m::asList($event, 'id', 'label'), '', ['class' => 'form-control', 'v-model' => 'cert_event', 'placeholder' => '']); ?>
+									<select class="form-control" v-model="cert_event">
+										<option :value="null" disabled hidden>-- Please Select Event --</option>
+										<option v-for="ev in eventList" :key="ev.id" :value="ev">
+											{{ ev.label }}
+										</option>
+									</select>
 								</div>
 								<div class="col-md-3">
 									<button :disabled="sendingCert" type="button" @click="sendCert" class="btn btn-primary">
@@ -309,7 +314,7 @@ $this->layout->begin_head();
 			channel:"email",
 			sendingCert: false,
 			event_notif: "",
-			cert_event: "",
+			cert_event: null,
 			cert_event_com: "",
 			nametag: null,
 			sendingNameTag: false,
@@ -553,21 +558,22 @@ $this->layout->begin_head();
 					});
 			},
 			sendCert() {
-				var url = "<?= base_url('admin/notification/send_cert/preparing'); ?>";
+				var url = "<?= base_url('admin/notification/init_broadcast'); ?>";
 				var app = this;
 				app.sendingCert = true;
 				$.post(url, {
-						id: this.cert_event
+						subject: `Send Certificate ${this.cert_event.label}`,
+						event_id: this.cert_event.id,
+						message:JSON.stringify(this.cert_event),
+						channel: this.channel,
+						type: '<?= Notification::TYPE_SENDING_CERTIFICATE; ?>',
 					}, null, 'JSON')
 					.done(function(res) {
-						if (res.status) {
-							app.pooling.title = "Send Certificate";
-							app.pooling.url = "<?= base_url('admin/notification/send_cert'); ?>";
-							app.pooling.data = res.data;
-							app.pooling.failedList = [];
-							app.poolingStart(false);
-						} else
-							Swal.fire("Failed", res.message, "error");
+						Swal.fire({
+							type: "success",
+							title: "Success",
+							html: res.message
+						});
 					}).fail(function(xhr) {
 						var message = xhr.getResponseHeader("Message");
 						if (!message)
@@ -576,6 +582,29 @@ $this->layout->begin_head();
 					}).always(function() {
 						app.sendingCert = false;
 					});
+				// var url = "<?= base_url('admin/notification/send_cert/preparing'); ?>";
+				// var app = this;
+				// app.sendingCert = true;
+				// $.post(url, {
+				// 		id: this.cert_event
+				// 	}, null, 'JSON')
+				// 	.done(function(res) {
+				// 		if (res.status) {
+				// 			app.pooling.title = "Send Certificate";
+				// 			app.pooling.url = "<?= base_url('admin/notification/send_cert'); ?>";
+				// 			app.pooling.data = res.data;
+				// 			app.pooling.failedList = [];
+				// 			app.poolingStart(false);
+				// 		} else
+				// 			Swal.fire("Failed", res.message, "error");
+				// 	}).fail(function(xhr) {
+				// 		var message = xhr.getResponseHeader("Message");
+				// 		if (!message)
+				// 			message = 'Server fail to response !';
+				// 		Swal.fire('Fail', message, 'error');
+				// 	}).always(function() {
+				// 		app.sendingCert = false;
+				// 	});
 			},
 			sendCertCom() {
 				var url = "<?= base_url('admin/notification/send_cert_com/preparing'); ?>";

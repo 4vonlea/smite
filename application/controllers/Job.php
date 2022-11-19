@@ -35,7 +35,7 @@ class Job extends CI_Controller
                 case Notification::TYPE_SENDING_NAME_TAG:
                     $this->load->model("Member_m");
                     $event_name = str_replace("Broadcast Nametag Event ","",$processData->subject);
-                    $this-> Notification_m->setType($processData->channel);
+                    $this->Notification_m->setType($processData->channel);
                     foreach ($attributes as $key => $row) {
                         $member = $this->Member_m->findOne($row['member_id']);
                         $row['email'] = $member->email;
@@ -52,6 +52,27 @@ class Job extends CI_Controller
                     }
                     break;
                 case Notification::TYPE_SENDING_CERTIFICATE:
+                    $this->load->model(["Notification_m","Member_m","Event_m","Papers_m"]);
+                    $event = json_decode($processData->message,true);
+                    $this->Notification_m->setType($processData->channel);
+                    foreach ($attributes as $key => $row) {
+                        if(!is_numeric($event['id'])){
+                            $member = $row;
+                            $cert = $this->Papers_m->exportCertificate($member)->output();
+                            $row['feedback'] = $this->Notification_m->sendCertificate($member,Notification_m::CERT_TYPE_PAPER,"Manuscript",$cert);
+                        }else{
+                            $member = $this->Member_m->findOne($row['m_id']);
+                            if($member->email == "muhammad.zaien17@gmail.com"){
+                                $cert = $this->Event_m->exportCertificate($member->toArray(), $event['id'])->output();
+                                $row['feedback'] = $this->Notification_m->sendCertificate($member,Notification_m::CERT_TYPE_EVENT,$event['label'],$cert);
+                            }else{
+                                $row['feedback'] = "Skip";
+                            }
+                        }
+                       $attributes[$key] = $row;
+                        $this->db->update("broadcast",['attribute'=>json_encode($attributes)],['id'=>$id]);
+                    }
+                    
                     break;
                 case Notification::TYPE_SENDING_CERTIFICATE_COM:
                     break;
