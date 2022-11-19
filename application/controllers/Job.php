@@ -25,7 +25,7 @@ class Job extends CI_Controller
     }
 
     public function run_broadcast($id){
-        ini_set('memory_limit', '500M');
+        ini_set('memory_limit', '-1');
         $processData = $this->db->get_where("broadcast",['id'=>$id])->row();
         if($processData){
             $this->load->model("Notification_m");
@@ -66,6 +66,7 @@ class Job extends CI_Controller
                             if($member->email == "muhammad.zaien17@gmail.com"){
                                 $cert = $this->Event_m->exportCertificate($member->toArray(), $event['id'])->output();
                                 $row['feedback'] = $this->Notification_m->sendCertificate($member,Notification_m::CERT_TYPE_EVENT,$event['label'],$cert);
+                                unset($)
                             }else{
                                 $row['feedback'] = "Skip";
                             }
