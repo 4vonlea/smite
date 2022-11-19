@@ -157,15 +157,24 @@ class Exporter
 		foreach ($this->data as $rowData) {
 			$row++;
 			$col = 1;
+            $isValueExplicit = false;
 			foreach ($rowData as $key=>$value) {
 				if(isset($costumType[$key])){
 					switch($costumType[$key]){
 						case 'asCurrency':
 							$sheet->getStyleByColumnAndRow($col,$row)->getNumberFormat()->setFormatCode('#,##0.00');
 							break;
+                        case 'asPhone':
+                        	$isValueExplicit = true;
+                        	$value = $this->normalizeNumber($value);
+							break;
 					}
 				}
-				$sheet->setCellValueByColumnAndRow($col, $row, $value);
+              	if($isValueExplicit){
+    				$sheet->setCellValueExplicitByColumnAndRow($col, $row, $value,\PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);              
+                }else{
+					$sheet->setCellValueByColumnAndRow($col, $row, $value);
+                }
 				
 				$col++;
 			}
@@ -242,6 +251,14 @@ class Exporter
 		header('Content-Disposition: attachment; filename="' . $this->getFilename() . '.csv"');
 
 	}
+  
+  	 protected function normalizeNumber($number){
+        $number = str_replace(["-","+"],"\n",$number);
+        if($number != "" && $number[0] == "0"){
+            $number = "62".substr($number,1,strlen($number));
+        }
+        return trim($number);
+    }
 
 
 }
