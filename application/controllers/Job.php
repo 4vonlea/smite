@@ -25,6 +25,7 @@ class Job extends CI_Controller
     }
 
     public function run_broadcast($id){
+        ini_set('memory_limit', '500M');
         $processData = $this->db->get_where("broadcast",['id'=>$id])->row();
         if($processData){
             $this->load->model("Notification_m");
