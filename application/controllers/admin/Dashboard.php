@@ -95,7 +95,7 @@ class Dashboard extends Admin_Controller
 		$exporter->setData($data);
 		$exporter->setTitle($title);
 		if($tipe == 'excel'){
-			$exporter->asExcel(['price'=>'asCurrency']);
+			$exporter->asExcel(['price'=>'asCurrency','phone'=>'asPhone']);
 		}elseif($tipe == "pdf"){
 			$exporter->asPDF();
 		}elseif($tipe == "csv"){
