@@ -16,7 +16,9 @@ header('Content-Type: text/html');
 		size: a4 landscape;
 	}
 	.page-break{
-		page-break-after: always;
+		<?= isset($anotherPage) && is_array($anotherPage)  && count($anotherPage) > 0?
+		"page-break-after: always;":""
+		?>
 		height: 100%;
 		width: 100%;
 	}
@@ -43,7 +45,9 @@ header('Content-Type: text/html');
 		</div>
 	<?php endforeach; ?>
 </div>
-<?php if(isset($secondPage) && $secondPage != null):?>
-<div style="height:100%;background:url(<?= $secondPage; ?>);background-size:cover;">
-</div>
-<?php endif;?>
+<?php if(isset($anotherPage) && is_array($anotherPage)):?>
+	<?php foreach($anotherPage as $row){
+		$image = file_get_contents($row['image']);
+		echo '<div style="height:100%;background:url('.$image.');background-size:cover;"></div>';
+	}
+endif;?>

@@ -3,4 +3,3 @@
 <p>To appreciate your presence, here we send you <strong>certificate of attendance for our event:  <?=$event_name;?></strong>. We wish to meet you again in the next event</p>
 <p>Best Regards,</p>
 <p>Committee</p>
-<?=$event_name;?>

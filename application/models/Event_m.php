@@ -482,13 +482,12 @@ class Event_m extends MY_Model
 			$data['qr'] = isset($tr->transaction_id) ? base_url("site/sertifikat/".sha1($tr->id_detil)) : "-";
 			$data['event_name'] = $event_name;
 			$domInvoice = new Dompdf();
-			$propery = json_decode(Settings_m::getSetting("config_cert_$id"), true);
+			$configuration = json_decode(Settings_m::getSetting("config_cert_$id"), true);
 			$html = $this->load->view("template/certificate", [
 				'image' => file_get_contents(APPPATH . "uploads/cert_template/$id.txt"),
-				'property' => $propery,
-				'data' => $data,
-				'secondPage' => file_exists(APPPATH . "uploads/cert_template/second_page_$id.txt") ? 
-									file_get_contents(APPPATH . "uploads/cert_template/second_page_$id.txt") : null
+				'property' => $configuration['property'] ?? [],
+				'anotherPage'=>$configuration['anotherPage'] ?? [],
+				'data' => $data
 			], true);
 			$domInvoice->setPaper("a4", "landscape");
 			$domInvoice->loadHtml($html);

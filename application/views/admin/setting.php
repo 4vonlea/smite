@@ -114,12 +114,24 @@
 						<div class="tab-pane fade show" id="tabs-certificate" role="tabpanel">
 							<div class="row">
 								<div class="col">Certificate Template</div>
+								<div class="col text-right">
+								<button :disabled="savingCert" type="button" @click="saveCert" class="btn btn-primary">
+												<i v-if="savingCert" class="fa fa-spin fa-spinner"></i>
+												Save Template
+											</button>
+											<a class="btn btn-primary" :href="urlPreview" target="_blank">
+												Preview In PDF
+											</a>
+								</div>
 							</div>
 							<hr />
 							<div class="row">
 								<div class="col-md-12">
 									<div class="form-group row">
-										<label class="col-md-3 col-form-label">Template For Events</label>
+										<label class="col-md-3 col-form-label">
+											Template For Events
+											<br/><small>Dimension : 1120px x 790px </small>
+										</label>
 										<?php
 										$list = Event_m::asList($event, "id", "name");
 										$list['Paper'] = "Paper";
@@ -134,33 +146,6 @@
 										</div>
 									</div>
 									<div class="form-group row">
-										<label class="col-md-3 col-form-label">
-											Image for Second Page
-											<br/>
-											<button v-if="cert.secondPage.base64" type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#show-second-page">
-												See Image
-											</button>
-											<button v-if="cert.secondPage.base64" type="button" class="btn btn-primary btn-sm" @click="removeSecondImage">
-												Remove Image
-											</button>
-										</label>
-										<div class="col-md-3" style="padding-left: 0px;padding-right:0px;">
-											<div class="custom-file">
-												<input ref="certSecondImage" type="file" @change="setCertSecondPage" class="custom-file-input" id="customFile">
-												<label class="custom-file-label" for="customFile">{{ cert.secondPage.filename }}</label>
-											</div>
-										</div>
-										<div class="col-md-6">
-											<button :disabled="savingCert" type="button" @click="saveCert" class="btn btn-primary">
-												<i v-if="savingCert" class="fa fa-spin fa-spinner"></i>
-												Save Template
-											</button>
-											<a class="btn btn-primary" :href="urlPreview" target="_blank">
-												Preview In PDF
-											</a>
-										</div>
-									</div>
-									<div class="form-group row">
 										<label class="col-md-3 col-form-label">Parameter from Member</label>
 										<select class="form-control col-md-3" name="param" v-model="selectedParam" id="sel_param">
 												<option v-for="(val,key) in paramsCertificate" :value="key">{{ val }}</option>
@@ -169,9 +154,20 @@
 											<button type="button" @click="addPropertyCert" class="btn btn-primary">Add
 												Property
 											</button>
+											<button type="button" @click="addCertificatePage" class="btn btn-primary">
+												Add Page
+											</button>
 										</div>
 									</div>
 									<div class="form-group row">
+										<div class="col">
+											<div class="pagination">
+												<button type="button" class="btb-nav btn" :class="{'active bg-primary': currentCertificatePage == -1}"  @click="currentCertificatePage = -1">1</button>
+												<button type="button"  v-for="(page,ind) in this.cert.anotherPage" class="btb-nav btn" @click="currentCertificatePage = ind" :class="{'active bg-primary': currentCertificatePage == ind}">{{ ind+2 }}</button>
+											</div>
+										</div>
+									</div>
+									<div v-if="currentCertificatePage == -1" class="form-group row">
 										<div class="col-md-12">
 											<table class="table">
 												<thead>
@@ -208,16 +204,31 @@
 											</table>
 										</div>
 									</div>
+									<div v-if="currentCertificatePage >= 0" class="form-group row">
+										<label class="control-label col-md-3">Image File <small>Dimension : 1120px x 790px </small></label>
+										<div class="col-md-7" style="padding-left: 0px;padding-right:0px;">
+											<div class="custom-file">
+												<input ref="certSecondImage" type="file" @change="setCertSecondPage" class="custom-file-input" id="customFile">
+												<label class="custom-file-label" for="customFile">{{ cert.anotherPage[currentCertificatePage].filename }}</label>
+											</div>
+										</div>
+										<div class="col-md-2">
+											<button type="button" class="btn btn-primary" @click="deleteCertificatePage">Delete Page</button>
+										</div>
+									</div>
 									<div class="form-group">
 										<label>Preview</label>
 									</div>
 								</div>
-								<div style="position: relative">
+								<div v-if="currentCertificatePage == -1" style="position: relative">
 									<img :src="cert.image" style="width: 100%" />
 									<div v-for="(prop,k) in certProperty" @mousedown="setMouseDown(cert.property[k])" @mouseup="setMouseUp(cert.property[k])" :style="[prop.background,prop.style]">
 										<span v-if="prop.name != 'qr_code'">{{ prop.name }}</span>
 										<img v-else src="<?= base_url('themes/uploads/qrpreview.png'); ?>" :style="{height:prop.style.width,width:prop.style.width}" />
 									</div>
+								</div>
+								<div v-else>
+									<img :src="this.cert.anotherPage[currentCertificatePage].image" style="width: 100%" />
 								</div>
 							</div>
 						</div>
@@ -524,29 +535,6 @@
 		</div>
 	</div>
 </div>
-<div class="modal" id="show-second-page">
-  <div class="modal-dialog">
-    <div class="modal-content">
-
-      <!-- Modal Header -->
-      <div class="modal-header">
-        <h4 class="modal-title">Second Page</h4>
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-      </div>
-
-      <!-- Modal body -->
-      <div class="modal-body text-center">
-		<img class="img img-thumbnail" :src="cert.secondPage.base64" />
-      </div>
-
-      <!-- Modal footer -->
-      <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-      </div>
-
-    </div>
-  </div>
-</div>
 <?php $this->layout->begin_script(); ?>
 <script src="https://cdn.jsdelivr.net/npm/vue-ctk-date-time-picker@2.5.0/dist/vue-ctk-date-time-picker.umd.js" charset="utf-8"></script>
 <script src="<?= base_url("themes/script/v-money.js"); ?>"></script>
@@ -582,6 +570,7 @@
 				filename:"Select image file",
 				base64:"",
 			},
+			anotherPage:[],
 			property: []
 		}
 	}
@@ -635,6 +624,7 @@
 				emailReceive: emailReceive,
 				banks: banks
 			},
+			currentCertificatePage:-1,
 			kurs_usd: kurs_usd,
 			savingManual: false,
 			paramsEvent:<?=json_encode(['' => 'Select Parameter', 'fullname' => 'Full Name', 'email' => 'Email', 'gender' => 'Gender', 'status_member' => 'Status Of Member', 'event_name' => 'Event Name', 'alternatif_status' => 'Alternatif Status','alternatif_status2' => 'Alternatif Status 2','qr_code'=>'QR Code (ID Invoice)']);?>,
@@ -702,6 +692,16 @@
 			}
 		},
 		methods: {
+			addCertificatePage(){
+				this.cert.anotherPage.push({
+					image:null,
+					filename:null,
+				});
+			},
+			deleteCertificatePage(){
+				this.cert.anotherPage.splice(this.currentCertificatePage,1);
+				this.currentCertificatePage = this.currentCertificatePage-1;
+			},
 			saveMailer() {
 				this.savingMailer = true;
 				$.post("<?= base_url('admin/setting/save_mailer'); ?>", {
@@ -742,8 +742,8 @@
 				var file = e.target.files[0];
 				toBase64(file).then((res) => {
 					if(res){
-						this.cert.secondPage.filename = file.name;
-						this.cert.secondPage.base64 = res;
+						this.cert.anotherPage[this.currentCertificatePage].filename = file.name;
+						this.cert.anotherPage[this.currentCertificatePage].image = res;
 					}
 				})
 
@@ -784,6 +784,7 @@
 			},
 			changeCertEvent() {
 				this.loading = true;
+				this.currentCertificatePage = -1;
 				$.post("<?= base_url('admin/setting/get_cert'); ?>", {
 					id: this.selectedEvent
 				}, function(res) {
@@ -831,7 +832,6 @@
 						app.cert.base64Image = result;
 					app.cert.event = app.selectedEvent;
 					app.savingCert = true;
-
 					$.post("<?= base_url("admin/setting/save_cert"); ?>", app.cert, null, 'JSON')
 						.done(function(res) {
 							if (res.status) {

@@ -41,10 +41,14 @@ class Setting extends Admin_Controller
 	public function preview_cert($id)
 	{
 		$this->load->model("Event_m");
-		$propery = json_decode(Settings_m::getSetting("config_cert_$id"), true);
+		$configuration = json_decode(Settings_m::getSetting("config_cert_$id"), true);
 		$data['id'] = "-";
-		foreach ($propery as $field) {
-			$data[$field['name']] = "Preview $field[name]";
+		if($configuration){
+			if(isset($configuration['property']) && is_array($configuration['property'])){
+				foreach ($configuration['property'] as $field) {
+					$data[$field['name']] = "Preview $field[name]";
+				}
+			}
 		}
 		$this->Event_m->exportCertificate($data, $id)->stream('preview_cert.pdf', array('Attachment' => 0));
 	}
@@ -56,20 +60,26 @@ class Setting extends Admin_Controller
 		if (file_exists(APPPATH . "uploads/cert_template/$id.txt")) {
 			$return['fileName'] = "Select Image as Template";
 			$return['body'] = ['width' => '100%'];
-			$return['property'] = json_decode($config, true);
-			if ($return['property'] == null)
-				$return['property'] = [];
-			if(file_exists(APPPATH . "uploads/cert_template/second_page_$id.txt")){
-				$return['secondPage'] = [
-					'filename'=>"Second Page.jpg",
-					'base64'=>file_get_contents(APPPATH . "uploads/cert_template/second_page_$id.txt")
-				];
 
+			$configuration = json_decode($config, true);
+			$return['property'] = $configuration['property'] ?? [];
+			if(!isset($configuration['anotherPage'])){
+				$return['anotherPage'] = [];
+				if(file_exists(APPPATH . "uploads/cert_template/second_page_$id.txt")){
+					$return['anotherPage'][] = [
+						'filename'=>"Second Page.jpg",
+						'image'=>file_get_contents(APPPATH . "uploads/cert_template/second_page_$id.txt")
+					];
+				}
 			}else{
-				$return['secondPage'] = [
-					'filename'=>"Select image file..",
-					'base64'=>null
-				];
+				$return['anotherPage'] = $configuration['anotherPage'];
+				foreach($return['anotherPage'] as $ind=>$row){
+					if(file_exists($row['image'])){
+						$return['anotherPage'][$ind]['image'] = file_get_contents($row['image']);
+					}else{
+						$return['anotherPage'][$ind]['image'] = null;
+					}
+				}
 			}
 			$return['image'] = file_get_contents(APPPATH . "uploads/cert_template/$id.txt");
 			$return['base64Image'] = $return['image'];
@@ -85,14 +95,23 @@ class Setting extends Admin_Controller
 	public function save_cert()
 	{
 		file_put_contents(APPPATH . "uploads/cert_template/$_POST[event].txt", $_POST['base64Image']);
-		$property =  $this->input->post('property');
-		if (!$property)
-			$property = [];
-		$secondPage = $this->input->post("secondPage");
-		if(isset($secondPage['base64']) && $secondPage['base64'] != null){
-			file_put_contents(APPPATH . "uploads/cert_template/second_page_$_POST[event].txt", $_POST['secondPage']['base64']);
+		$configuration['property'] =  $this->input->post('property');
+		if (!$configuration)
+			$configuration = [];
+
+		if($this->input->post("anotherPage")){
+			foreach($this->input->post("anotherPage",false) as $ind=>$row){
+				if(isset($row['image']) && $row['image'] != null){
+					$imagePath = APPPATH . "uploads/cert_template/another_page_{$ind}_{$_POST['event']}.txt";
+					$configuration['anotherPage'][] = [
+						'filename'=>"Page ".($ind+2).".jpg",
+						'image'=>$imagePath,
+					];
+					file_put_contents($imagePath, $row['image']);
+				}
+			}
 		}
-		Settings_m::saveSetting("config_cert_$_POST[event]", $property);
+		Settings_m::saveSetting("config_cert_$_POST[event]", $configuration);
 
 		$this->output
 			->set_content_type("application/json")
