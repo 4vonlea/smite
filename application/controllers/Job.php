@@ -44,7 +44,7 @@ class Job extends CI_Controller
             'compress' => FALSE,
             'stricton' => FALSE,
             'failover' => array(),
-            'save_queries' => TRUE
+            'save_queries' => FALSE
         ];
         $this->load->database($database);
         $processData = $this->db->get_where("broadcast",['id'=>$id])->row();
