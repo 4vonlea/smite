@@ -218,7 +218,7 @@
 				this.detailMode = 1;
 				this.loadingDetail = true;
 				$.get(`<?= base_url('admin/notification/detail_history'); ?>/${id}`, (res) => {
-					let data = JSON.parse(res.attribute);
+					let data = res.attribute;// JSON.parse(res.attribute);
 					this.detailHistory = {
 						id:id,
 						info: {

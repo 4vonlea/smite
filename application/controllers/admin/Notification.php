@@ -77,7 +77,7 @@ class Notification extends Admin_Controller
 					->_display(json_encode(['status' => false, 'message' => "Template of certificate is not found !"]));
 			}
 		} else {
-			$this->load->model(["Notification_m","Member_m","Event_m","Papers_m"]);
+			$this->load->model(["Notification_m", "Member_m", "Event_m", "Papers_m"]);
 			$status = [];
 			if ($this->input->post("isPaper")) {
 				$member = $this->input->post();
@@ -89,13 +89,13 @@ class Notification extends Admin_Controller
 			} else {
 				$status = [];
 				$post = $this->input->post();
-			    $member = $this->Event_m->getParticipant()->where("m.id",$post["m_id"])->where("t.id",$post['event_id'])->get()->row_array();
-			   // $member = $this->Member_m->findOne($post['m_id']);
+				$member = $this->Event_m->getParticipant()->where("m.id", $post["m_id"])->where("t.id", $post['event_id'])->get()->row_array();
+				// $member = $this->Member_m->findOne($post['m_id']);
 				// if($member->email == "muhammad.zaien17@gmail.com"){
-					$cert = $this->Event_m->exportCertificate($member,  $post['event_id'])->output();
-					$status['wa'] = $this->Notification_m->setType(Notification_m::TYPE_WA)->sendCertificate($member,Notification_m::CERT_TYPE_EVENT, $post['event_name'],$cert);
-					$status['email'] = $this->Notification_m->sendCertificate($member,Notification_m::CERT_TYPE_EVENT, $post['event_name'],$cert);
-					$status['status'] = $status['email']['status'];
+				$cert = $this->Event_m->exportCertificate($member,  $post['event_id'])->output();
+				$status['wa'] = $this->Notification_m->setType(Notification_m::TYPE_WA)->sendCertificate($member, Notification_m::CERT_TYPE_EVENT, $post['event_name'], $cert);
+				$status['email'] = $this->Notification_m->sendCertificate($member, Notification_m::CERT_TYPE_EVENT, $post['event_name'], $cert);
+				$status['status'] = $status['email']['status'];
 				// }else{
 				// 	$status['status'] = true;
 				// }
@@ -112,7 +112,7 @@ class Notification extends Admin_Controller
 		if ($this->input->method() != 'post')
 			show_404("Page Not Found !");
 
-		$this->load->model(['Event_m', 'Committee_attributes_m','Notification_m']);
+		$this->load->model(['Event_m', 'Committee_attributes_m', 'Notification_m']);
 		if ($preparing) {
 			$id = $this->input->post("id");
 			if (Settings_m::getSetting("config_cert_$id") != "" && file_exists(APPPATH . "uploads/cert_template/$id.txt")) {
@@ -129,17 +129,17 @@ class Notification extends Admin_Controller
 					->set_content_type("application/json")
 					->_display(json_encode(['status' => false, 'message' => "Template of certificate is not found !"]));
 			}
-		}else{
+		} else {
 			$com = $this->Committee_attributes_m->findOne($this->input->post("id"));
 			$commiteMember = $com->committee;
 			$commiteMember->phone = $commiteMember->no_contact;
 			$commiteMember->fullname = $commiteMember->name;
 			$cert = $com->exportCertificate()->output();
-			if($commiteMember->email){
-				$status = $this->Notification_m->sendCertificate($commiteMember,Notification_m::CERT_TYPE_EVENT,$com->event->name,$cert);
+			if ($commiteMember->email) {
+				$status = $this->Notification_m->sendCertificate($commiteMember, Notification_m::CERT_TYPE_EVENT, $com->event->name, $cert);
 			}
-			if($commiteMember->no_contact){
-				$status = $this->Notification_m->setType(Notification_m::TYPE_WA)->sendCertificate($commiteMember,Notification_m::CERT_TYPE_EVENT,$com->event->name,$cert);
+			if ($commiteMember->no_contact) {
+				$status = $this->Notification_m->setType(Notification_m::TYPE_WA)->sendCertificate($commiteMember, Notification_m::CERT_TYPE_EVENT, $com->event->name, $cert);
 			}
 			$this->output
 				->set_content_type("application/json")
@@ -349,10 +349,10 @@ class Notification extends Admin_Controller
 			case self::TYPE_SENDING_NAME_TAG:
 				$this->load->model("Event_m");
 				$event_id = $this->input->post("event_id");
-				$participants = $this->Event_m->getParticipant()->where("t.id",$event_id)->get()->result();
+				$participants = $this->Event_m->getParticipant()->where("t.id", $event_id)->get()->result();
 				$ind = 1;
-				foreach($participants as $row){
-					$attributes[] = ['id'=>$ind++,'member_id'=>$row->m_id,'event_id'=>$event_id];
+				foreach ($participants as $row) {
+					$attributes[] = ['id' => $ind++, 'member_id' => $row->m_id, 'event_id' => $event_id];
 				}
 				break;
 			case self::TYPE_SENDING_CERTIFICATE:
@@ -372,53 +372,80 @@ class Notification extends Admin_Controller
 			case self::TYPE_SENDING_MATERIAL:
 				break;
 		}
-		$status = $this->db->insert("broadcast",[
-			'id'=>$id,
-			'type'=>$type,
-			'subject'=>$subject,
-			'message'=>$message,
-			'channel'=>$channel,
-			'attribute'=>json_encode($attributes),
-			'status'=>'Ready',
-		]);
-		run_job("job","run_broadcast",[$id]);
+
+		if (!file_exists(APPPATH . "cache/broadcast")) {
+			mkdir(APPPATH . "cache/broadcast");
+		}
+		$filename = APPPATH . "cache/broadcast/".$id . ".json";
+		if (!$fp = fopen($filename, 'a')) {
+			$status = false;
+			$responseMessage = "Cannot write a attribute file";
+		} else {
+			$status = $this->db->insert("broadcast", [
+				'id' => $id,
+				'type' => $type,
+				'subject' => $subject,
+				'message' => $message,
+				'channel' => $channel,
+				'attribute' => $filename,
+				'status' => 'Ready',
+			]);
+			foreach ($attributes as $row) {
+				fwrite($fp, json_encode($row).PHP_EOL);
+			}
+			fclose($fp);
+		}
+		run_job("job", "run_broadcast", [$id]);
 		$responseMessage = "<p style='font-size:24px'>Broadcast berhasil dimulai</p> 
-							ID  : $id <br/>	Jumlah penerima : ".count($attributes)."<br/>
-							Ikuti link berikut untuk monitoring <a href='".base_url('admin/notification/history/'.$id)."' target='_blank'>Klik Disini</a>";
+							ID  : $id <br/>	Jumlah penerima : " . count($attributes) . "<br/>
+							Ikuti link berikut untuk monitoring <a href='" . base_url('admin/notification/history/' . $id) . "' target='_blank'>Klik Disini</a>";
 		$this->output
 			->set_content_type("application/json")
-			->_display(json_encode(['status' => $status,'message'=>$responseMessage,'countReceiver'=>count($attributes),'id'=>$id]));
+			->_display(json_encode(['status' => $status, 'message' => $responseMessage, 'countReceiver' => count($attributes), 'id' => $id]));
 	}
 
-	public function history($id = ""){
+	public function history($id = "")
+	{
 		$this->layout->render("broadcast", ['id' => $id]);
 	}
-	
+
 	public function grid()
 	{
 		$this->load->model('Broadcast_m');
 
-		$grid = $this->Broadcast_m->gridData($this->input->get(),['select'=>['t_id'=>'t.id','id','created_at','subject','status','channel']]);
+		$grid = $this->Broadcast_m->gridData($this->input->get(), ['select' => ['t_id' => 't.id', 'id', 'created_at', 'subject', 'status', 'channel']]);
 		$this->output
 			->set_content_type("application/json")
 			->_display(json_encode($grid));
 	}
 
-	public function retry($id){
-		run_job("job","run_broadcast",[$id]);
-		$this->db->update("broadcast",['status'=>'Ready'],['id'=>$id]);
+	public function retry($id)
+	{
+		$status = run_job("job", "run_broadcast", [$id]);
+		$this->db->update("broadcast", ['status' => 'Ready'], ['id' => $id]);
 
 		$this->output
 			->set_content_type("application/json")
-			->_display(json_encode(['status'=>true]));
+			->_display(json_encode(['status' => $status]));
 	}
 
-	public function detail_history($id){
+	public function detail_history($id)
+	{
 		$this->load->model('Broadcast_m');
-
 		$row = $this->Broadcast_m->findOne($id);
+		$data = $row->toArray();
+		$data['attribute'] = [];
+
+		if(file_exists(APPPATH . "cache/broadcast/".$id."-result.json")){
+			$resultFile = fopen(APPPATH . "cache/broadcast/".$id."-result.json", 'r');
+			while (!feof($resultFile)) {
+				$rowRaw = fgets($resultFile); 
+				if($rowRaw != false)
+					$data['attribute'][] = json_decode($rowRaw);
+			}
+		}
 		$this->output
 			->set_content_type("application/json")
-			->_display(json_encode($row->toArray()));
+			->_display(json_encode($data));
 	}
 }

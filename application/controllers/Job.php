@@ -31,51 +31,61 @@ class Job extends CI_Controller
         if($processData){
             $this->load->model("Notification_m");
             $this->db->update("broadcast",['status'=>'On Proses'],['id'=>$id]);
-            $attributes = json_decode($processData->attribute,true);
+            if(!file_exists($processData->attribute)){
+                $this->db->update("broadcast",['status'=>'No file'],['id'=>$id]);
+                return false;
+            }
+            $sourceFile = fopen($processData->attribute, 'r');
+            $resultFile = fopen(APPPATH . "cache/broadcast/".$id."-result.json", 'w');
             require_once APPPATH."controllers/admin/Notification.php";
             switch($processData->type){
                 case Notification::TYPE_SENDING_NAME_TAG:
                     $this->load->model("Member_m");
                     $event_name = str_replace("Broadcast Nametag Event ","",$processData->subject);
                     $this->Notification_m->setType($processData->channel);
-                    foreach ($attributes as $key => $row) {
-                        $member = $this->Member_m->findOne($row['member_id']);
-                        $row['email'] = $member->email;
-                        $row['phone'] = $member->phone;
-                        $row['fullname'] = $member->fullname;
-                        try{
-                            $card = $member->getCard($row['event_id'])->output();
-                            $row['feedback'] = $this->Notification_m->sendNametag($member,$card,$event_name);
-                        }catch (Exception $ex){
-                            $row['feedback'] = $ex->getMessage();
+                    while (!feof($sourceFile)) {
+                        $rowRaw = fgets($sourceFile); 
+                        if($rowRaw != false){
+                            $row = json_decode($rowRaw,true);
+                            $member = $this->Member_m->findOne($row['member_id']);
+                            $row['email'] = $member->email;
+                            $row['phone'] = $member->phone;
+                            $row['fullname'] = $member->fullname;
+                            try{
+                                $card = $member->getCard($row['event_id'])->output();
+                                $row['feedback'] = $this->Notification_m->sendNametag($member,$card,$event_name);
+                            }catch (Exception $ex){
+                                $row['feedback'] = $ex->getMessage();
+                            }
+                            fwrite($resultFile, json_encode($row).PHP_EOL);
                         }
-                       $attributes[$key] = $row;
-                        $this->db->update("broadcast",['attribute'=>json_encode($attributes)],['id'=>$id]);
                     }
                     break;
                 case Notification::TYPE_SENDING_CERTIFICATE:
                     $this->load->model(["Notification_m","Member_m","Event_m","Papers_m"]);
                     $event = json_decode($processData->message,true);
                     $this->Notification_m->setType($processData->channel);
-                    foreach ($attributes as $key => $row) {
-                        if(!is_numeric($event['id'])){
-                            $member = $row;
-                            $cert = $this->Papers_m->exportCertificate($member)->output();
-                            $row['feedback'] = $this->Notification_m->sendCertificate($member,Notification_m::CERT_TYPE_PAPER,"Manuscript",$cert);
-                        }else{
-                            $member = $this->Member_m->findOne($row['m_id']);
-                            if($member->email == "muhammad.zaien17@gmail.com"){
-                                $cert = $this->Event_m->exportCertificate($member->toArray(), $event['id'])->output();
-                                $row['feedback'] = $this->Notification_m->sendCertificate($member,Notification_m::CERT_TYPE_EVENT,$event['label'],$cert);
-                                unset($cert);
+                    while (!feof($sourceFile)) {
+                        $rowRaw = fgets($sourceFile); 
+                        if($rowRaw != false){
+                            $row = json_decode($rowRaw,true);
+                            if(!is_numeric($event['id'])){
+                                $member = $row;
+                                $cert = $this->Papers_m->exportCertificate($member)->output();
+                                $row['feedback'] = $this->Notification_m->sendCertificate($member,Notification_m::CERT_TYPE_PAPER,"Manuscript",$cert);
                             }else{
-                                $row['feedback'] = "Skip";
+                                $member = $this->Member_m->findOne($row['m_id']);
+                                if($member->email == "muhammad.zaien17@gmail.com"){
+                                    $cert = $this->Event_m->exportCertificate($member->toArray(), $event['id'])->output();
+                                    $row['feedback'] = $this->Notification_m->sendCertificate($member,Notification_m::CERT_TYPE_EVENT,$event['label'],$cert);
+                                    unset($cert);
+                                }else{
+                                    $row['feedback'] = "Skip";
+                                }
                             }
+                            fwrite($resultFile, json_encode($row).PHP_EOL);
                         }
-                       $attributes[$key] = $row;
-                        $this->db->update("broadcast",['attribute'=>json_encode($attributes)],['id'=>$id]);
                     }
-                    
                     break;
                 case Notification::TYPE_SENDING_CERTIFICATE_COM:
                     break;
@@ -84,6 +94,8 @@ class Job extends CI_Controller
                 case Notification::TYPE_SENDING_MATERIAL:
                     break;
             }
+            fclose($resultFile);
+            fclose($sourceFile);
             $this->db->update("broadcast",['status'=>'Finish'],['id'=>$id]);
         }
     }

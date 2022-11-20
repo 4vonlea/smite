@@ -562,31 +562,34 @@ $this->layout->begin_head();
 						app.sendingNameTag = false;
 					});
 			},
+			sendCertBackground(){
+				var url = "<?= base_url('admin/notification/init_broadcast'); ?>";
+				var app = this;
+				app.sendingCert = true;
+				$.post(url, {
+						subject: `Send Certificate ${this.cert_event.label}`,
+						event_id: this.cert_event.id,
+						message:JSON.stringify(this.cert_event),
+						channel: this.channel,
+						type: '<?= Notification::TYPE_SENDING_CERTIFICATE; ?>',
+					}, null, 'JSON')
+					.done(function(res) {
+						Swal.fire({
+							type: "success",
+							title: "Success",
+							html: res.message
+						});
+					}).fail(function(xhr) {
+						var message = xhr.getResponseHeader("Message");
+						if (!message)
+							message = 'Server fail to response !';
+						Swal.fire('Fail', message, 'error');
+					}).always(function() {
+						app.sendingCert = false;
+					});
+			},
 			sendCert() {
-				// var url = "<?= base_url('admin/notification/init_broadcast'); ?>";
-				// var app = this;
-				// app.sendingCert = true;
-				// $.post(url, {
-				// 		subject: `Send Certificate ${this.cert_event.label}`,
-				// 		event_id: this.cert_event.id,
-				// 		message:JSON.stringify(this.cert_event),
-				// 		channel: this.channel,
-				// 		type: '<?= Notification::TYPE_SENDING_CERTIFICATE; ?>',
-				// 	}, null, 'JSON')
-				// 	.done(function(res) {
-				// 		Swal.fire({
-				// 			type: "success",
-				// 			title: "Success",
-				// 			html: res.message
-				// 		});
-				// 	}).fail(function(xhr) {
-				// 		var message = xhr.getResponseHeader("Message");
-				// 		if (!message)
-				// 			message = 'Server fail to response !';
-				// 		Swal.fire('Fail', message, 'error');
-				// 	}).always(function() {
-				// 		app.sendingCert = false;
-				// 	});
+				
 				var url = "<?= base_url('admin/notification/send_cert/preparing'); ?>";
 				var app = this;
 				app.sendingCert = true;
