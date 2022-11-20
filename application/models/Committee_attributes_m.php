@@ -36,13 +36,12 @@ class Committee_attributes_m extends My_model
 		if(file_exists(APPPATH."uploads/cert_template/$event->id.txt")) {
 			$event_id = $event->id;
 			$domInvoice = new Dompdf\Dompdf();
-			$propery = json_decode(Settings_m::getSetting("config_cert_$event_id"), true);
+			$configuration = json_decode(Settings_m::getSetting("config_cert_$event_id"), true);
 			$html = $this->load->view("template/certificate", [
 				'image' => file_get_contents(APPPATH . "uploads/cert_template/$event_id.txt"),
-				'property' => $propery,
-				'data' => $member,
-				'secondPage' => file_exists(APPPATH . "uploads/cert_template/second_page_".$event_id.".txt") ? 
-					file_get_contents(APPPATH . "uploads/cert_template/second_page_".$event_id.".txt") : ""
+				'property' => $configuration['property'] ?? [],
+			    'anotherPage'=>$configuration['anotherPage'] ?? [],
+				'data' => $member
 			], true);
 			$domInvoice->setPaper("a4", "landscape");
 			$domInvoice->loadHtml($html);
@@ -78,11 +77,11 @@ class Committee_attributes_m extends My_model
 			$diff = array_diff(['qr','fullname','status_member','event_name'],array_keys($member));
 			if(count($diff) == 0) {
 				$domInvoice = new Dompdf\Dompdf();
-				$propery = json_decode(Settings_m::getSetting("config_nametag_$event_id"), true);
+				$configuration = json_decode(Settings_m::getSetting("config_nametag_$event_id"), true);
 				$html = $this->load->view("template/nametag", [
 					'image' => file_get_contents(APPPATH . "uploads/nametag_template/$event_id.txt"),
-					'property' => $propery,
-					'data' => $member
+					'data' => $member,
+					'property'=>$configuration
 				], true);
 				$domInvoice->setPaper("A5", "portrait");
 				$domInvoice->loadHtml($html);

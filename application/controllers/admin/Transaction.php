@@ -427,10 +427,10 @@ class Transaction extends Admin_Controller
 			$transaction->save();
 		}
 		
-		$detail = $this->Transaction_detail_m->findOne(['transaction_id' => $idTransaction,'member_id'=>$memberId,'event_pricing_id' => $data['id']]);
-		if (!$detail) {
+		//$detail = $this->Transaction_detail_m->findOne(['transaction_id' => $idTransaction,'member_id'=>$memberId,'event_pricing_id' => $data['id']]);
+		//if (!$detail) {
 			$detail = new Transaction_detail_m();
-		}
+		//}
 	
 		// NOTE Check Required Events
 		$valid = true;

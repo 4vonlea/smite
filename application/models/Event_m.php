@@ -399,7 +399,7 @@ class Event_m extends MY_Model
 	{
 		$this->load->model("Transaction_m");
 		return $this->setAlias("t")->find()
-			->select($select ?? "m.id as m_id,td.id as td_id, td.checklist as checklist,t.id as event_id,t.name as event_name,t.kategory as event_kategory,t.held_on as event_held_on,t.held_in as event_held_in,t.theme as event_theme,m.*,km.kategory as member_status,m.alternatif_status,m.alternatif_status2")
+			->select($select ?? "m.fullname,m.email,m.phone,m.id as m_id,td.id as td_id, td.checklist as checklist,t.id as event_id,t.name as event_name,t.kategory as event_kategory,t.held_on as event_held_on,t.held_in as event_held_in,t.theme as event_theme,m.*,km.kategory as status_member,km.kategory as member_status,m.alternatif_status,m.alternatif_status2")
 			->join("event_pricing ep", "t.id = ep.event_id")
 			->join("transaction_details td", "td.event_pricing_id = ep.id")
 			->join("transaction tr", "tr.id = td.transaction_id")
@@ -481,6 +481,10 @@ class Event_m extends MY_Model
 				->where("event_id",$id)->select("transaction_id,transaction_details.id as id_detil")->get()->row();
 			$data['qr'] = isset($tr->transaction_id) ? base_url("site/sertifikat/".sha1($tr->id_detil)) : "-";
 			$data['event_name'] = $event_name;
+			//$data['status_member'] = "Peserta";
+			if(in_array($data['status_member'],["Spesialis","Residen","General Practitioner"])){
+				$data['status_member'] = "Peserta";
+			}
 			$domInvoice = new Dompdf();
 			$configuration = json_decode(Settings_m::getSetting("config_cert_$id"), true);
 			$html = $this->load->view("template/certificate", [
