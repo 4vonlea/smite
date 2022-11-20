@@ -253,6 +253,7 @@ $this->layout->begin_head();
 </div>
 <?php $this->layout->begin_script(); ?>
 <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.15/lodash.min.js"></script>
+<script src="<?= base_url("themes/script/v-button.js"); ?>"></script>
 <script type="module">
 	import QrScanner from "<?=base_url("themes/script/qr-scanner.min.js");?>";
 
