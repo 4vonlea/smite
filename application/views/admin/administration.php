@@ -170,6 +170,9 @@ $this->layout->begin_head();
 									   @change="changeChecklist(props.rowData)">
 							</template>
 							<template slot="event_id" slot-scope="props">
+								<v-button class="btn btn-sm btn-primary" @click="sendCertificate(props.rowData.id,'<?=Notification_m::TYPE_EMAIL;?>',$event)">Send Certificate<br/> Via Email</v-button>
+								<v-button class="btn btn-sm btn-primary" @click="sendCertificate(props.rowData.id,'<?=Notification_m::TYPE_WA;?>',$event)">Send Certificate<br/> Via WA</v-button>
+
 								<div class="btn-group" role="group">
 									<button id="btnGroupDrop2" type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 										Download
@@ -325,6 +328,27 @@ $this->layout->begin_head();
 			this.periodicFetchData();
 		},
 		methods: {
+			sendCertificate(member_id,channel,self){
+				self.toggleLoading();
+				$.post("<?= base_url("admin/member/send_certificate"); ?>",{
+					id:this.selectedEvent,
+					m_id:member_id,
+					event_name:this.eventList[this.selectedEvent],
+					channel:channel
+				}, function(res) {
+					if (res.status)
+						Swal.fire("Success", "Certificate sended !", "success");
+					else
+						Swal.fire("Failed", res.message, "error");
+				}, "JSON").fail(function(xhr) {
+					var message = xhr.getResponseHeader("Message");
+					if (!message)
+						message = 'Server fail to response !';
+					Swal.fire('Fail', message, 'error');
+				}).always(function() {
+					self.toggleLoading();
+				});
+			},
 			downloadAll(type,step,participant){
 				$("#modal-pooling").modal("show");
 				var prosecessingSize = 10;

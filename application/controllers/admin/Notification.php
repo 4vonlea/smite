@@ -112,14 +112,14 @@ class Notification extends Admin_Controller
 		if ($this->input->method() != 'post')
 			show_404("Page Not Found !");
 
-		$this->load->model(['Event_m', 'Committee_attributes_m']);
+		$this->load->model(['Event_m', 'Committee_attributes_m','Notification_m']);
 		if ($preparing) {
 			$id = $this->input->post("id");
 			if (Settings_m::getSetting("config_cert_$id") != "" && file_exists(APPPATH . "uploads/cert_template/$id.txt")) {
 				$result = $this->Committee_attributes_m->find()
 					->join('committee', 'committee.id = committee_id')
 					->join("events", "events.id = event_id")
-					->select('email,committee_attribute.id,events.name as event_name')
+					->select('email,committee_attribute.id,events.id as event_id,events.name as event_name')
 					->where('event_id', $id)->get();
 				$this->output
 					->set_content_type("application/json")
@@ -129,6 +129,21 @@ class Notification extends Admin_Controller
 					->set_content_type("application/json")
 					->_display(json_encode(['status' => false, 'message' => "Template of certificate is not found !"]));
 			}
+		}else{
+			$com = $this->Committee_attributes_m->findOne($this->input->post("id"));
+			$commiteMember = $com->committee;
+			$commiteMember->phone = $commiteMember->no_contact;
+			$commiteMember->fullname = $commiteMember->name;
+			$cert = $com->exportCertificate()->output();
+			if($commiteMember->email){
+				$status = $this->Notification_m->sendCertificate($commiteMember,Notification_m::CERT_TYPE_EVENT,$com->event->name,$cert);
+			}
+			if($commiteMember->no_contact){
+				$status = $this->Notification_m->setType(Notification_m::TYPE_WA)->sendCertificate($commiteMember,Notification_m::CERT_TYPE_EVENT,$com->event->name,$cert);
+			}
+			$this->output
+				->set_content_type("application/json")
+				->_display(json_encode(['status' => $status['status'], 'log' => $status]));
 		}
 	}
 

@@ -134,7 +134,12 @@ $this->layout->begin_head();
 							<div class="form-group row">
 								<label class="form-control-label col-md-3 mt-2">Send Certificate To Committee</label>
 								<div class="col-md-6">
-									<?= form_dropdown('event', Event_m::asList($event, 'id', 'label'), '', ['class' => 'form-control', 'v-model' => 'cert_event_com', 'placeholder' => '']); ?>
+									<select class="form-control" v-model="cert_event_com">
+										<option :value="null" disabled hidden>-- Please Select Event --</option>
+										<option v-for="ev in eventList" :key="ev.id" :value="ev">
+											{{ ev.label }}
+										</option>
+									</select>
 								</div>
 								<div class="col-md-3">
 									<button :disabled="sendingCert" type="button" @click="sendCertCom" class="btn btn-primary">
@@ -315,7 +320,7 @@ $this->layout->begin_head();
 			sendingCert: false,
 			event_notif: "",
 			cert_event: null,
-			cert_event_com: "",
+			cert_event_com: null,
 			nametag: null,
 			sendingNameTag: false,
 			pooling: {
@@ -611,7 +616,7 @@ $this->layout->begin_head();
 				var app = this;
 				app.sendingCert = true;
 				$.post(url, {
-						id: this.cert_event_com
+						id: this.cert_event_com.id
 					}, null, 'JSON')
 					.done(function(res) {
 						if (res.status) {
