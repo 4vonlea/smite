@@ -163,7 +163,7 @@ class Sponsor extends Admin_Controller
 			$exporter = new Exporter();
 			$exporter->setData($data);
 			$exporter->setTitle("Report Stand Presence");
-			$exporter->asExcel();
+			$exporter->asExcel(['phone'=>'asPhone']);
 		}else{
 			show_404();
 		}
