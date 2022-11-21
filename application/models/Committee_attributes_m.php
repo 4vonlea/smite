@@ -30,7 +30,7 @@ class Committee_attributes_m extends My_model
 			'event_name'=>$event->name,
 			'alternatif_status'=>$com->status,
 			'alternatif_status2'=>$com->status,
-			'qr' => $com->status.":".$com->committee->name,
+			'qr' => base_url("site/sertifikat_committee")."/".sha1($com->id),
 		];
 		require_once APPPATH . "third_party/phpqrcode/qrlib.php";
 		if(file_exists(APPPATH."uploads/cert_template/$event->id.txt")) {

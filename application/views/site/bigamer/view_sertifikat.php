@@ -59,7 +59,7 @@
                         Sertifikat
                     </div>
                     <div class="card-body">
-                        <pdfviewer :file="filePdf" download-link="<?=base_url("site/sertifikat/$hashedId/download");?>"></pdfviewer>
+                        <pdfviewer :file="filePdf" download-link="<?=$url;?>"></pdfviewer>
                     </div>
                 </div>
             </div>

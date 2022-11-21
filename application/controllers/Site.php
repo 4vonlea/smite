@@ -384,9 +384,37 @@ class Site extends MY_Controller
             $viewData['sertifikat']->stream();
         } else {
             $viewData['ketua_panitia'] = Settings_m::getSetting("ketua_panitia");
+            $viewData['url'] = base_url('site/sertifikat/'.$hashedId.'/sertifikat');
             $this->layout->render(
                 "site/" . $this->theme . "/view_sertifikat",
                 $viewData,
+            );
+        }
+    }
+
+    public function sertifikat_committee($hashedId, $isSertifikat = null)
+    {
+
+        $this->load->model("Committee_attributes_m");
+        $committee = $this->Committee_attributes_m->findOne(['sha1(id)'=>$hashedId]);
+        if ($isSertifikat && $isSertifikat != "") {
+            $committee->exportCertificate()->stream();
+        } else {
+            $viewData['nik'] = "-";
+            $viewData['fullname'] = $committee->committee->name;
+            $viewData['email'] = $committee->committee->email;
+			$viewData['status_member'] = $committee->status;
+			$viewData['event_name'] = $committee->event->name;
+            $url = base_url('site/sertifikat_committee/'.$hashedId.'/sertifikat');
+            $this->layout->render(
+                "site/" . $this->theme . "/view_sertifikat",
+                [
+                    'hashedId'=>$hashedId,
+                    'data'=>$viewData,
+                    'ketua_panitia'=>Settings_m::getSetting("ketua_panitia"),
+                    'url'=>$url,
+                    'sertifikat'=>$committee->exportCertificate(),
+                ],
             );
         }
     }
