@@ -124,7 +124,7 @@
                                                 <?php if (in_array($userDetail['status'], $statusToUpload)) : ?>
                                                     <li><a href="<?= base_url('member/area'); ?>#/material">Unggah Materi</a></li>
                                                 <?php endif; ?>
-                                                <li><a href="<?= base_url('member/area'); ?>#/sertifikat">Unduh Certificate</a></li>
+                                                <!-- <li><a href="<?= base_url('member/area'); ?>#/sertifikat">Unduh Certificate</a></li> -->
                                                 <li><a href="<?= base_url('member/area'); ?>#/presentation">Daftar Presentasi Ilmiah</a></li>
                                             </ul>
                                         </li>

@@ -192,13 +192,13 @@ $this->layout->begin_head();
                 'title': 'Material Upload'
             }
         },
-        {
-            path: '/sertifikat',
-            component: PageSertifikat,
-            meta: {
-                'title': 'Download Sertifikat'
-            }
-        },
+        // {
+        //     path: '/sertifikat',
+        //     component: PageSertifikat,
+        //     meta: {
+        //         'title': 'Download Sertifikat'
+        //     }
+        // },
         {
             path: '/presentation',
             component: PagePresentation,
