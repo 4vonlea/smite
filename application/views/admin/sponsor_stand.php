@@ -32,6 +32,10 @@
 								<a :href="'<?=base_url('admin/sponsor/qr_stand');?>/'+props.row.id" class="btn btn-primary btn-sm" target="_blank">
 									<i class="fa fa-qrcode"></i> Download QR Code
 								</a>
+								<a :href="'<?=base_url('admin/sponsor/report');?>/'+props.row.id" target="_blank" class="btn btn-primary btn-sm">
+									<i class="fa fa-file"></i>
+									Download Report
+								</a>
 							</div>
 						</template>
 					</datagrid>

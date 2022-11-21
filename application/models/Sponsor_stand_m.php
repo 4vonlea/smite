@@ -25,8 +25,9 @@ class Sponsor_stand_m extends My_model
 	public function getListPresence(){
 		return $this->find()->join("stand_presence","stand_sponsor.id = stand_id")
 					->join("members","members.id = member_id")
-					->select("stand_sponsor.sponsor, fullname,email,phone, stand_presence.created_at")
-					->get();
+					->join("univ","univ_id = members.univ","left")
+					->join("kategory_members", "kategory_members.id = members.status","left")
+					->select("stand_sponsor.sponsor, fullname,univ.univ_nama as institution,kategory_members.kategory as status, email,phone, stand_presence.created_at");
 	}
 
 	public function getQrCard($id = null){
