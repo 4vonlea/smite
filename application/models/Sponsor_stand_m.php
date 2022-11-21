@@ -27,7 +27,8 @@ class Sponsor_stand_m extends My_model
 					->join("members","members.id = member_id")
 					->join("univ","univ_id = members.univ","left")
 					->join("kategory_members", "kategory_members.id = members.status","left")
-					->select("stand_sponsor.sponsor as Stand Name, fullname,univ.univ_nama as institution,kategory_members.kategory as status, email,phone, stand_presence.created_at");
+					->join("wilayah", "wilayah.kode = members.city","left")
+					->select("stand_sponsor.sponsor as `Stand Name`, fullname,univ.univ_nama as institution,kategory_members.kategory as status,COALESCE(wilayah.nama,city) as kota, stand_presence.created_at");
 	}
 
 	public function getQrCard($id = null){
