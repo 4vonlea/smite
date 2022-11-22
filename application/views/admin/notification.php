@@ -618,11 +618,11 @@ $this->layout->begin_head();
 				var app = this;
 				app.sendingCert = true;
 				$.post(url, {
-						subject: `Send Certificate ${this.cert_event_com.label}`,
+						subject: `Send Certificate Committee ${this.cert_event_com.label}`,
 						id: this.cert_event_com.id,
 						message:JSON.stringify(this.cert_event_com),
 						channel: this.channel,
-						type: '<?= Notification::TYPE_SENDING_CERTIFICATE; ?>',
+						type: '<?= Notification::TYPE_SENDING_CERTIFICATE_COM; ?>',
 					}, null, 'JSON')
 					.done(function(res) {
 						Swal.fire({
