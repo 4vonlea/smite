@@ -619,7 +619,7 @@ $this->layout->begin_head();
 				app.sendingCert = true;
 				$.post(url, {
 						subject: `Send Certificate Committee ${this.cert_event_com.label}`,
-						id: this.cert_event_com.id,
+						event_id: this.cert_event_com.id,
 						message:JSON.stringify(this.cert_event_com),
 						channel: this.channel,
 						type: '<?= Notification::TYPE_SENDING_CERTIFICATE_COM; ?>',
