@@ -106,7 +106,7 @@ class Job extends CI_Controller
                                 }
                             }
                             if ($processData->channel == Notification_m::TYPE_WA) {
-                                if ($commiteMember->no_contact && $commiteMember->no_contact == "6282155708905") {
+                                if ($commiteMember->no_contact) {
                                     $row['feedback']  = $this->Notification_m->setType(Notification_m::TYPE_WA)->sendCertificate($commiteMember, Notification_m::CERT_TYPE_EVENT, $com->event->name, $cert);
                                 } else {
                                     $row['feedback'] = "Phone number not found";
