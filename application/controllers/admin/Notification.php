@@ -390,6 +390,7 @@ class Notification extends Admin_Controller
 				'message' => $message,
 				'channel' => $channel,
 				'attribute' => $filename,
+				'count_receiver' => count($attributes),
 				'status' => 'Ready',
 			]);
 			foreach ($attributes as $row) {

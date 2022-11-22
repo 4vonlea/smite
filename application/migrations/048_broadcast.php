@@ -37,6 +37,9 @@ class Migration_broadcast extends CI_Migration
             'attribute' => [
                 'type' => 'longtext',
             ],
+            'count_receiver'=> [
+                'type' => 'int'
+            ],
             'created_at datetime default current_timestamp',
         ]);
         $this->dbforge->add_key("id", true);

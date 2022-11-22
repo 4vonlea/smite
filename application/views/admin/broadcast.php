@@ -68,7 +68,10 @@
 				<div class="col-md-9">
 					<div class="card mb-4">
 						<div class="card-header">
-							<h4 class="card-title">List Receiver</h4>
+							<h4 class="card-title">
+								List Receiver
+								{{ detailHistory.data.length }} of {{ detailHistory.info.countReceiver }}
+							</h4>
 						</div>
 						<div class="card-body table-responsive">
 							<div v-show="loadingDetail" class="text-center">
@@ -227,6 +230,7 @@
 							type: res.type,
 							channel:res.channel,
 							status: res.status,
+							countReceiver:res.count_receiver,
 							created_at: res.created_at
 						},
 						"pagination": {
