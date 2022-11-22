@@ -92,6 +92,7 @@ class Job extends CI_Controller
                     while (!feof($sourceFile)) {
                         $rowRaw = fgets($sourceFile);
                         if ($rowRaw != false) {
+                            $row = json_decode($rowRaw, true);
                             $com = $this->Committee_attributes_m->findOne($row['id']);
                             $commiteMember = $com->committee;
                             $commiteMember->phone = $commiteMember->no_contact;
