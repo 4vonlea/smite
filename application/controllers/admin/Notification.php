@@ -367,7 +367,7 @@ class Notification extends Admin_Controller
 					->join('committee', 'committee.id = committee_id')
 					->join("events", "events.id = event_id")
 					->select('email,committee_attribute.id,events.id as event_id,events.name as event_name')
-					->where('event_id', $event_id)->get();
+					->where('event_id', $event_id)->get()->result_array();
 				break;
 			case self::TYPE_SENDING_MESSAGE:
 				break;
