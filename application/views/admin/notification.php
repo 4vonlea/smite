@@ -124,7 +124,7 @@ $this->layout->begin_head();
 									</select>
 								</div>
 								<div class="col-md-3">
-									<button :disabled="sendingCert" type="button" @click="sendCert" class="btn btn-primary">
+									<button :disabled="sendingCert" type="button" @click="sendCertBackground" class="btn btn-primary">
 										<i v-if="sendingCert" class="fa fa-spin fa-spinner"></i>
 										Send
 									</button>
@@ -142,7 +142,7 @@ $this->layout->begin_head();
 									</select>
 								</div>
 								<div class="col-md-3">
-									<button :disabled="sendingCert" type="button" @click="sendCertCom" class="btn btn-primary">
+									<button :disabled="sendingCert" type="button" @click="sendCertComBackground" class="btn btn-primary">
 										<i v-if="sendingCert" class="fa fa-spin fa-spinner"></i>
 										Send
 									</button>
@@ -589,7 +589,6 @@ $this->layout->begin_head();
 					});
 			},
 			sendCert() {
-				
 				var url = "<?= base_url('admin/notification/send_cert/preparing'); ?>";
 				var app = this;
 				app.sendingCert = true;
@@ -605,6 +604,32 @@ $this->layout->begin_head();
 							app.poolingStart(false);
 						} else
 							Swal.fire("Failed", res.message, "error");
+					}).fail(function(xhr) {
+						var message = xhr.getResponseHeader("Message");
+						if (!message)
+							message = 'Server fail to response !';
+						Swal.fire('Fail', message, 'error');
+					}).always(function() {
+						app.sendingCert = false;
+					});
+			},
+			sendCertComBackground() {
+				var url = "<?= base_url('admin/notification/init_broadcast'); ?>";
+				var app = this;
+				app.sendingCert = true;
+				$.post(url, {
+						subject: `Send Certificate ${this.cert_event_com.label}`,
+						id: this.cert_event_com.id,
+						message:JSON.stringify(this.cert_event_com),
+						channel: this.channel,
+						type: '<?= Notification::TYPE_SENDING_CERTIFICATE; ?>',
+					}, null, 'JSON')
+					.done(function(res) {
+						Swal.fire({
+							type: "success",
+							title: "Success",
+							html: res.message
+						});
 					}).fail(function(xhr) {
 						var message = xhr.getResponseHeader("Message");
 						if (!message)
