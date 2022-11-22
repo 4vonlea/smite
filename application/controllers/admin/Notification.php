@@ -366,21 +366,13 @@ class Notification extends Admin_Controller
 				}
 				break;
 			case self::TYPE_SENDING_CERTIFICATE_COM:
-				$id = $this->input->post("id");
-				if (Settings_m::getSetting("config_cert_$id") != "" && file_exists(APPPATH . "uploads/cert_template/$id.txt")) {
-					$result = $this->Committee_attributes_m->find()
-						->join('committee', 'committee.id = committee_id')
-						->join("events", "events.id = event_id")
-						->select('email,committee_attribute.id,events.id as event_id,events.name as event_name')
-						->where('event_id', $id)->get();
-					$this->output
-						->set_content_type("application/json")
-						->_display(json_encode(['status' => true, 'data' => $result->result_array()]));
-				} else {
-					$this->output
-						->set_content_type("application/json")
-						->_display(json_encode(['status' => false, 'message' => "Template of certificate is not found !"]));
-				}
+				$event_id = $this->input->post("event_id");
+				$this->load->model(["Committee_attributes_m"]);
+				$attributes = $this->Committee_attributes_m->find()
+					->join('committee', 'committee.id = committee_id')
+					->join("events", "events.id = event_id")
+					->select('email,committee_attribute.id,events.id as event_id,events.name as event_name')
+					->where('event_id', $event_id)->get();
 				break;
 			case self::TYPE_SENDING_MESSAGE:
 				break;
