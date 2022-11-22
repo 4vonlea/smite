@@ -74,7 +74,7 @@ class Job extends CI_Controller
                                 $cert = $this->Papers_m->exportCertificate($member)->output();
                                 $row['feedback'] = $this->Notification_m->sendCertificate($member,Notification_m::CERT_TYPE_PAPER,"Manuscript",$cert);
                             }else{
-                                $member = $this->Event_m->getParticipant()->where("m.id",$row['m_id'])->where("t.id",$row['m_id'])->get()->row_array();
+                                $member = $this->Event_m->getParticipant()->where("m.id",$row['m_id'])->where("t.id",$event['id'])->get()->row_array();
                                 if($member['email'] == "muhammad.zaien17@gmail.com"){
                                     $cert = $this->Event_m->exportCertificate($member, $row['m_id'])->output();
                                     $row['feedback'] = $this->Notification_m->sendCertificate($member,Notification_m::CERT_TYPE_EVENT,$event['label'],$cert);
