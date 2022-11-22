@@ -112,6 +112,10 @@ class Job extends CI_Controller
                                     $row['feedback'] = "Phone number not found";
                                 }
                             }
+                            $row['phone'] = $commiteMember->no_contact;
+                            $row['email'] = $commiteMember->email;
+                            $row['fullname'] = $commiteMember->fullname;
+
                             fwrite($resultFile, json_encode($row) . PHP_EOL);
                         }
                     }
