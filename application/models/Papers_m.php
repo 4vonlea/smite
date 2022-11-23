@@ -285,13 +285,13 @@ class Papers_m extends MY_Model
 		if (file_exists(APPPATH . "uploads/cert_template/$id.txt")) {
 			$data['qr'] = $data['id_paper'];
 			$domInvoice = new Dompdf\Dompdf();
-			$propery = json_decode(Settings_m::getSetting("config_cert_$id"), true);
+			$configuration = json_decode(Settings_m::getSetting("config_cert_$id"), true);
+
 			$html = $this->load->view("template/certificate", [
 				'image' => file_get_contents(APPPATH . "uploads/cert_template/$id.txt"),
-				'property' => $propery,
-				'data' => $data,
-				'secondPage' => file_exists(APPPATH . "uploads/cert_template/second_page_$id.txt") ? 
-						file_get_contents(APPPATH . "uploads/cert_template/second_page_$id.txt") : ""
+				'property' => $configuration['property'] ?? [],
+				'anotherPage'=>$configuration['anotherPage'] ?? [],
+				'data' => $data
 			], true);
 			$domInvoice->setPaper("a4", "landscape");
 			$domInvoice->loadHtml($html);
