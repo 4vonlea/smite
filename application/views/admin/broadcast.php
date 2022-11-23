@@ -208,17 +208,20 @@
 					cancelButtonText: `Only Failed`,
 					cancelButtonColor: '#d33',
 				}).then((result) => {
-					let type = "";
+					let type = null;
+					console.log(result);
 					if (result.value) {
 						type = "all";
-					}else{
+					}else if(result.dismiss == "cancel"){
 						type ="onlyFailed";
 					}
-					$.post(`<?= base_url('admin/notification/retry'); ?>/${id}`,{type:type},(res) => {
-						if(res.status){
-							app.$refs.grid.reload();
-						}
-					})
+					if(type){
+						$.post(`<?= base_url('admin/notification/retry'); ?>/${id}`,{type:type},(res) => {
+							if(res.status){
+								app.$refs.grid.reload();
+							}
+						})
+					}
 				})
 			},
 			detail(id) {

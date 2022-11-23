@@ -444,13 +444,13 @@ class Notification extends Admin_Controller
 					}else{
 						unset($row['before']);
 					}
+					fwrite($sourceFile, json_encode($row) . PHP_EOL);
 				}
-				fwrite($sourceFile, json_encode($row) . PHP_EOL);
 			}
 		}
 		$status = run_job("job", "run_broadcast", [$id]);
 		$this->db->update("broadcast", ['status' => 'Ready'], ['id' => $id]);
-
+		$status = true;
 		$this->output
 			->set_content_type("application/json")
 			->_display(json_encode(['status' => $status]));
