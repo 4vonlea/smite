@@ -51,6 +51,7 @@ class Setting extends Admin_Controller
 			}
 		}
 		if($id == "Paper"){
+			$data['id_paper'] = "SAMPLE";
 			$this->Papers_m->exportCertificate($data, $id)->stream('preview_cert.pdf', array('Attachment' => 0));
 		}else{
 			$this->Event_m->exportCertificate($data, $id)->stream('preview_cert.pdf', array('Attachment' => 0));
