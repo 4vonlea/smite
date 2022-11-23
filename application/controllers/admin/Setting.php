@@ -40,7 +40,7 @@ class Setting extends Admin_Controller
 
 	public function preview_cert($id)
 	{
-		$this->load->model("Event_m");
+		$this->load->model(["Event_m","Papers_m"]);
 		$configuration = json_decode(Settings_m::getSetting("config_cert_$id"), true);
 		$data['id'] = "-";
 		if($configuration){
@@ -50,7 +50,11 @@ class Setting extends Admin_Controller
 				}
 			}
 		}
-		$this->Event_m->exportCertificate($data, $id)->stream('preview_cert.pdf', array('Attachment' => 0));
+		if($id == "Paper"){
+			$this->Papers_m->exportCertificate($data, $id)->stream('preview_cert.pdf', array('Attachment' => 0));
+		}else{
+			$this->Event_m->exportCertificate($data, $id)->stream('preview_cert.pdf', array('Attachment' => 0));
+		}
 	}
 
 	public function get_cert()
