@@ -107,8 +107,8 @@ class Job extends CI_Controller
                                 break;
                         }
                     }
+                    fwrite($resultFile, json_encode($row) . PHP_EOL);
                 }
-                fwrite($resultFile, json_encode($row) . PHP_EOL);
             }
             fclose($resultFile);
             fclose($sourceFile);
