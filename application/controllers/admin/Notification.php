@@ -364,11 +364,14 @@ class Notification extends Admin_Controller
 			case self::TYPE_SENDING_CERTIFICATE_COM:
 				$event_id = $this->input->post("event_id");
 				$this->load->model(["Committee_attributes_m"]);
-				$attributes = $this->Committee_attributes_m->find()
+				$query = $this->Committee_attributes_m->find()
 					->join('committee', 'committee.id = committee_id')
 					->join("events", "events.id = event_id")
-					->select('email,committee_attribute.id,events.id as event_id,events.name as event_name')
-					->where('event_id', $event_id)->get()->result_array();
+					->select('email,committee_attribute.id,events.id as event_id,events.name as event_name');
+				if($event_id != "all"){
+					$query->where('event_id', $event_id);
+				}
+				$attributes = $query->get()->result_array();
 				break;
 			case self::TYPE_SENDING_MESSAGE:
 				break;
