@@ -49,15 +49,19 @@ class Job extends CI_Controller
                         $rowRaw = fgets($sourceFile);
                         if ($rowRaw != false) {
                             $row = json_decode($rowRaw, true);
-                            $member = $this->Member_m->findOne($row['member_id']);
-                            $row['email'] = $member->email;
-                            $row['phone'] = $member->phone;
-                            $row['fullname'] = $member->fullname;
-                            try {
-                                $card = $member->getCard($row['event_id'])->output();
-                                $row['feedback'] = $this->Notification_m->sendNametag($member, $card, $event_name);
-                            } catch (Exception $ex) {
-                                $row['feedback'] = $ex->getMessage();
+                            if(!isset($row['before'])){
+                                $member = $this->Member_m->findOne($row['member_id']);
+                                $row['email'] = $member->email;
+                                $row['phone'] = $member->phone;
+                                $row['fullname'] = $member->fullname;
+                                try {
+                                    $card = $member->getCard($row['event_id'])->output();
+                                    $row['feedback'] = $this->Notification_m->sendNametag($member, $card, $event_name);
+                                } catch (Exception $ex) {
+                                    $row['feedback'] = $ex->getMessage();
+                                }
+                            }else{
+                                $row['feedback'] = ['status'=>true,'message'=>'Berhasil pada pengiriman sebelumnya'];
                             }
                             fwrite($resultFile, json_encode($row) . PHP_EOL);
                         }
@@ -71,15 +75,19 @@ class Job extends CI_Controller
                         $rowRaw = fgets($sourceFile);
                         if ($rowRaw != false) {
                             $row = json_decode($rowRaw, true);
-                            if (!is_numeric($event['id'])) {
-                                $member = $row;
-                                $cert = $this->Papers_m->exportCertificate($member)->output();
-                                $row['feedback'] = $this->Notification_m->sendCertificate($member, Notification_m::CERT_TYPE_PAPER, "Certificate of Manuscript", $cert);
-                            } else {
-                                $member = $this->Event_m->getParticipant()->where("m.id", $row['m_id'])->where("t.id", $event['id'])->get()->row_array();
-                                $cert = $this->Event_m->exportCertificate($member, $event['id'])->output();
-                                $row['feedback'] = $this->Notification_m->sendCertificate($member, Notification_m::CERT_TYPE_EVENT, $event['label'], $cert);
-                                unset($cert);
+                            if(!isset($row['before'])){
+                                if (!is_numeric($event['id'])) {
+                                    $member = $row;
+                                    $cert = $this->Papers_m->exportCertificate($member)->output();
+                                    $row['feedback'] = $this->Notification_m->sendCertificate($member, Notification_m::CERT_TYPE_PAPER, "Certificate of Manuscript", $cert);
+                                } else {
+                                    $member = $this->Event_m->getParticipant()->where("m.id", $row['m_id'])->where("t.id", $event['id'])->get()->row_array();
+                                    $cert = $this->Event_m->exportCertificate($member, $event['id'])->output();
+                                    $row['feedback'] = $this->Notification_m->sendCertificate($member, Notification_m::CERT_TYPE_EVENT, $event['label'], $cert);
+                                    unset($cert);
+                                }
+                            }else{
+                                $row['feedback'] = ['status'=>true,'message'=>'Berhasil pada pengiriman sebelumnya'];
                             }
                             fwrite($resultFile, json_encode($row) . PHP_EOL);
                         }
@@ -93,29 +101,32 @@ class Job extends CI_Controller
                         $rowRaw = fgets($sourceFile);
                         if ($rowRaw != false) {
                             $row = json_decode($rowRaw, true);
-                            $com = $this->Committee_attributes_m->findOne($row['id']);
-                            $commiteMember = $com->committee;
-                            $commiteMember->phone = $commiteMember->no_contact;
-                            $commiteMember->fullname = $commiteMember->name;
-                            $cert = $com->exportCertificate()->output();
-                            if ($processData->channel == Notification_m::TYPE_EMAIL) {
-                                if ($commiteMember->email) {
-                                    $row['feedback']  = $this->Notification_m->sendCertificate($commiteMember, Notification_m::CERT_TYPE_EVENT, $com->event->name, $cert);
-                                } else {
-                                    $row['feedback'] = "Email not found";
+                            if(!isset($row['before'])){
+                                $com = $this->Committee_attributes_m->findOne($row['id']);
+                                $commiteMember = $com->committee;
+                                $commiteMember->phone = $commiteMember->no_contact;
+                                $commiteMember->fullname = $commiteMember->name;
+                                $cert = $com->exportCertificate()->output();
+                                if ($processData->channel == Notification_m::TYPE_EMAIL) {
+                                    if ($commiteMember->email) {
+                                        $row['feedback']  = $this->Notification_m->sendCertificate($commiteMember, Notification_m::CERT_TYPE_EVENT, $com->event->name, $cert);
+                                    } else {
+                                        $row['feedback'] = "Email not found";
+                                    }
                                 }
-                            }
-                            if ($processData->channel == Notification_m::TYPE_WA) {
-                                if ($commiteMember->no_contact) {
-                                    $row['feedback']  = $this->Notification_m->setType(Notification_m::TYPE_WA)->sendCertificate($commiteMember, Notification_m::CERT_TYPE_EVENT, $com->event->name, $cert);
-                                } else {
-                                    $row['feedback'] = "Phone number not found";
+                                if ($processData->channel == Notification_m::TYPE_WA) {
+                                    if ($commiteMember->no_contact) {
+                                        $row['feedback']  = $this->Notification_m->setType(Notification_m::TYPE_WA)->sendCertificate($commiteMember, Notification_m::CERT_TYPE_EVENT, $com->event->name, $cert);
+                                    } else {
+                                        $row['feedback'] = "Phone number not found";
+                                    }
                                 }
+                                $row['phone'] = $commiteMember->no_contact;
+                                $row['email'] = $commiteMember->email;
+                                $row['fullname'] = $commiteMember->fullname;
+                            }else{
+                                $row['feedback'] = ['status'=>true,'message'=>'Berhasil pada pengiriman sebelumnya'];
                             }
-                            $row['phone'] = $commiteMember->no_contact;
-                            $row['email'] = $commiteMember->email;
-                            $row['fullname'] = $commiteMember->fullname;
-
                             fwrite($resultFile, json_encode($row) . PHP_EOL);
                         }
                     }

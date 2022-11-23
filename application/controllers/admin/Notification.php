@@ -428,6 +428,26 @@ class Notification extends Admin_Controller
 
 	public function retry($id)
 	{
+		$type = $this->input->post("type");
+		$sourcePath = APPPATH . "cache/broadcast/" . $id . ".json";
+		$resultPath = APPPATH . "cache/broadcast/" . $id . "-result.json";
+		if(file_exists($resultPath)){
+            $sourceFile = fopen($sourcePath, 'w');
+            $resultFile = fopen($resultPath, 'r');
+			while (!feof($resultFile)) {
+				$rowRaw = fgets($resultFile);
+				if ($rowRaw != false) {
+					$row = json_decode($rowRaw, true);
+					$statusSending = $row['feedback']['status'] ?? false;
+					if($statusSending && $type == "onlyFailed"){
+						$row['before'] = true;
+					}else{
+						unset($row['before']);
+					}
+				}
+				fwrite($sourceFile, json_encode($row) . PHP_EOL);
+			}
+		}
 		$status = run_job("job", "run_broadcast", [$id]);
 		$this->db->update("broadcast", ['status' => 'Ready'], ['id' => $id]);
 

@@ -23,7 +23,7 @@
 							<span>{{ props.row.created_at | formatDate}}</span>
 						</template>
 						<template slot="id" slot-scope="props">
-							<button class="btn btn-primary btn-sm" @click="retry(props.row.id)">
+							<button v-if="props.row.status == 'Finish'" class="btn btn-primary btn-sm" @click="retry(props.row.id)">
 								<span class="fa fa-edit"></span> Retry
 							</button>
 							<button class="btn btn-info btn-sm" @click="detail(props.row.id)">
@@ -199,22 +199,26 @@
 			},
 			retry(id) {
 				Swal.fire({
-					title: 'Are you sure?',
-					text: "Are you sure to repeat this process !",
+					title: 'You will repeat this process !',
+					text: "Please choose list receiver to resend ?",
 					type: 'warning',
+					showDenyButton: true,
 					showCancelButton: true,
-					confirmButtonColor: '#3085d6',
+					confirmButtonText: 'All Receiver',
+					cancelButtonText: `Only Failed`,
 					cancelButtonColor: '#d33',
-					confirmButtonText: 'Yes'
 				}).then((result) => {
-					console.log(result);
+					let type = "";
 					if (result.value) {
-						$.get(`<?= base_url('admin/notification/retry'); ?>/${id}`, (res) => {
-							if(res.status){
-								app.$refs.grid.reload();
-							}
-						})
+						type = "all";
+					}else{
+						type ="onlyFailed";
 					}
+					$.post(`<?= base_url('admin/notification/retry'); ?>/${id}`,{type:type},(res) => {
+						if(res.status){
+							app.$refs.grid.reload();
+						}
+					})
 				})
 			},
 			detail(id) {
