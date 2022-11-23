@@ -136,7 +136,7 @@ $this->layout->begin_head();
 								<div class="col-md-6">
 									<select class="form-control" v-model="cert_event_com">
 										<option :value="null" disabled hidden>-- Please Select Event --</option>
-										<option :value="{label:'All Event',id:'all'}" :key="all">All Event</option>
+										<option :value="{label:'All Event',id:'all'}" key="all">All Event</option>
 										<option v-for="ev in eventList" :key="ev.id" :value="ev">
 											{{ ev.label }}
 										</option>

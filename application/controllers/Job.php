@@ -60,8 +60,6 @@ class Job extends CI_Controller
                                 } catch (Exception $ex) {
                                     $row['feedback'] = $ex->getMessage();
                                 }
-                            }else{
-                                $row['feedback'] = ['status'=>true,'message'=>'Berhasil pada pengiriman sebelumnya'];
                             }
                             fwrite($resultFile, json_encode($row) . PHP_EOL);
                         }
@@ -86,8 +84,6 @@ class Job extends CI_Controller
                                     $row['feedback'] = $this->Notification_m->sendCertificate($member, Notification_m::CERT_TYPE_EVENT, $event['label'], $cert);
                                     unset($cert);
                                 }
-                            }else{
-                                $row['feedback'] = ['status'=>true,'message'=>'Berhasil pada pengiriman sebelumnya'];
                             }
                             fwrite($resultFile, json_encode($row) . PHP_EOL);
                         }
@@ -124,8 +120,6 @@ class Job extends CI_Controller
                                 $row['phone'] = $commiteMember->no_contact;
                                 $row['email'] = $commiteMember->email;
                                 $row['fullname'] = $commiteMember->fullname;
-                            }else{
-                                $row['feedback'] = ['status'=>true,'message'=>'Berhasil pada pengiriman sebelumnya'];
                             }
                             fwrite($resultFile, json_encode($row) . PHP_EOL);
                         }
