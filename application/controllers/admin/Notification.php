@@ -463,12 +463,21 @@ class Notification extends Admin_Controller
 		$data = $row->toArray();
 		$data['attribute'] = [];
 
+		$data['successCount'] = 0;
 		if(file_exists(APPPATH . "cache/broadcast/".$id."-result.json")){
 			$resultFile = fopen(APPPATH . "cache/broadcast/".$id."-result.json", 'r');
 			while (!feof($resultFile)) {
 				$rowRaw = fgets($resultFile); 
-				if($rowRaw != false)
-					$data['attribute'][] = json_decode($rowRaw);
+				if($rowRaw != false){
+					$row = json_decode($rowRaw,true);
+					if(isset($row['feedback']['status']) &&  $row['feedback']['status'] == true){
+						$data['successCount']++;
+						$row['result'] = "Success";
+					}else{
+						$row['result'] = "Failed";
+					}
+					$data['attribute'][] = $row;
+				}
 			}
 		}
 		$this->output

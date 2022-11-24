@@ -72,13 +72,21 @@
 								List Receiver
 								{{ detailHistory.data.length }} of {{ detailHistory.info.countReceiver }}
 							</h4>
+							<p>
+								Succes Count : <span>{{ detailHistory.info.successCount }}</span>
+							</p>
 						</div>
 						<div class="card-body table-responsive">
 							<div v-show="loadingDetail" class="text-center">
 								<i class="fa fa-spin fa-spinner fa-3x"></i>
 								<h3>Loading Data</h3>
 							</div>
-							<vuetable v-show="!loadingDetail" ref="vuetable" :fields="['fullname', 'email', 'phone', 'feedback']" :api-mode="false" :data="detailHistory" :per-page="10" :data-total="detailHistory.data.length" :data-manager="dataManager" data-path="data" pagination-path="pagination" :css="css.table" @vuetable:pagination-data="onPaginationData"></vuetable>
+							<input v-show="!loadingDetail" type="text" placeholder="Type to search then press enter" @keyup.enter="doFilter" class="form-control mb-1" v-model="searchValue" />
+							<vuetable v-show="!loadingDetail" ref="vuetable" :fields="[{name:'fullname'}, {name:'email'}, {name:'phone'}, {name:'result'}]" :api-mode="false" :data="detailHistory" :per-page="10" :data-total="detailHistory.data.length" :data-manager="dataManager" data-path="data" pagination-path="pagination" :css="css.table" @vuetable:pagination-data="onPaginationData">
+								<template slot="result" slot-scope="props">
+									{{ props.rowData.result }} <button @click="showFeedback(props.rowData)" class="btn btn-default btn-sm"><i class="fa fa-info"></i></button>
+								</template>
+							</vuetable>
 							<div class="row mt-3 mb-3">
 								<vuetable-pagination-info ref="paginationInfo" no-data-template="No Data Available !" :css="css.info"></vuetable-pagination-info>
 								<vuetable-pagination ref="pagination" :css="css.pagination" @vuetable-pagination:change-page="onChangePage"></vuetable-pagination>
@@ -108,6 +116,33 @@
 	.vuetable-td-feedback {
 		white-space: pre-wrap !important;
 	}
+
+	pre {
+		outline: 1px solid #ccc;
+		padding: 5px;
+		margin: 5px;
+		text-align: left !important;
+	}
+
+	.string {
+		color: green;
+	}
+
+	.number {
+		color: darkorange;
+	}
+
+	.boolean {
+		color: blue;
+	}
+
+	.null {
+		color: magenta;
+	}
+
+	.key {
+		color: red;
+	}
 </style>
 <?php $this->layout->end_head();; ?>
 <?php $this->layout->begin_script(); ?>
@@ -124,8 +159,9 @@
 		data: {
 			detailMode: 0,
 			loadingDetail: false,
+			searchValue: "",
 			detailHistory: {
-				id:null,
+				id: null,
 				info: {},
 				data: [],
 				pagination: {}
@@ -173,6 +209,35 @@
 			}
 		},
 		methods: {
+			syntaxHighlight(json) {
+                json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function(match) {
+                    var cls = 'number';
+                    if (/^"/.test(match)) {
+                        if (/:$/.test(match)) {
+                            cls = 'key';
+                        } else {
+                            cls = 'string';
+                        }
+                    } else if (/true|false/.test(match)) {
+                        cls = 'boolean';
+                    } else if (/null/.test(match)) {
+                        cls = 'null';
+                    }
+                    return '<span class="' + cls + '">' + match + '</span>';
+                });
+            },
+			showFeedback(row) {
+                let jsonFeedback = this.syntaxHighlight(JSON.stringify(row.feedback, null, 2));
+				Swal.fire({
+					title: '<strong>Detail Feedback</strong>',
+					type: 'info',
+					html: `<pre>${jsonFeedback}</pre>`
+				});
+			},
+			doFilter() {
+				Vue.nextTick(() => this.$refs.vuetable.refresh())
+			},
 			onPaginationData(paginationData) {
 				this.$refs.pagination.setPaginationData(paginationData);
 				this.$refs.paginationInfo.setPaginationData(paginationData);
@@ -182,10 +247,10 @@
 			},
 			dataManager(sortOrder, pagination) {
 				let data = this.detailHistory.data;
-				if (this.globalFilter) {
-					let txt = new RegExp(this.globalFilter, 'i')
+				if (this.searchValue && this.searchValue != "") {
+					let txt = new RegExp(this.searchValue, 'i')
 					data = _.filter(data, function(item) {
-						return item.module.search(txt) >= 0;
+						return item.fullname.search(txt) >= 0 || item.email.search(txt) >= 0 || item.phone.search(txt) >= 0 || item.result.search(txt) >= 0;
 					})
 				}
 				if (sortOrder.length > 0) {
@@ -212,12 +277,14 @@
 					console.log(result);
 					if (result.value) {
 						type = "all";
-					}else if(result.dismiss == "cancel"){
-						type ="onlyFailed";
+					} else if (result.dismiss == "cancel") {
+						type = "onlyFailed";
 					}
-					if(type){
-						$.post(`<?= base_url('admin/notification/retry'); ?>/${id}`,{type:type},(res) => {
-							if(res.status){
+					if (type) {
+						$.post(`<?= base_url('admin/notification/retry'); ?>/${id}`, {
+							type: type
+						}, (res) => {
+							if (res.status) {
 								app.$refs.grid.reload();
 							}
 						})
@@ -228,16 +295,17 @@
 				this.detailMode = 1;
 				this.loadingDetail = true;
 				$.get(`<?= base_url('admin/notification/detail_history'); ?>/${id}`, (res) => {
-					let data = res.attribute;// JSON.parse(res.attribute);
+					let data = res.attribute; // JSON.parse(res.attribute);
 					this.detailHistory = {
-						id:id,
+						id: id,
 						info: {
 							subject: res.subject,
 							message: res.message,
 							type: res.type,
-							channel:res.channel,
+							channel: res.channel,
 							status: res.status,
-							countReceiver:res.count_receiver,
+							countReceiver: res.count_receiver,
+							successCount: res.successCount,
 							created_at: res.created_at
 						},
 						"pagination": {
