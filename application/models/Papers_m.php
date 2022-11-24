@@ -125,7 +125,7 @@ class Papers_m extends MY_Model
 				'score',
 				'voice'
 			],
-			'include_search_field'=>['transaction_status','univ.univ_nama','phone']
+			'include_search_field'=>['transaction_status','univ.univ_nama','phone','fullname']
 		];
 		$config =  array_merge($default, $option);
 		return $config;
