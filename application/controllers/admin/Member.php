@@ -220,7 +220,6 @@ class Member extends Admin_Controller
 		$member = $this->Event_m->getParticipant()->where("m.id",$profile_id)->where("t.id",$event_id)->get()->row_array();
 		if (file_exists(APPPATH . "uploads/cert_template/$event_id.txt")) {
 			$member['id'] = $member['m_id'];
-		//	$member['status_member'] = "Peserta";
 			$this->Event_m->exportCertificate($member, $event_id)->stream('preview_cert.pdf', array('Attachment' => 0));
 		} else {
 			$this->output

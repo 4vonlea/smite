@@ -35,7 +35,7 @@ class Administration extends Admin_Controller
 			$event_id = $this->input->post("event_id");
 			switch ($action) {
 				case "retrieval":
-					$rs = $this->Event_m->getParticipant()->where("t.id", $event_id)->select("m.id as m_id,km.kategory as status_member,m.alternatif_status,alternatif_status2")->get();
+					$rs = $this->Event_m->getParticipant("m.id as m_id,t.id as event_id")->where("t.id", $event_id)->get();
 					$participant = $rs->result_array();
 
 					$timeCreate = time();
@@ -52,21 +52,14 @@ class Administration extends Admin_Controller
 						$timeCreate = $this->input->post("timeCreate");
 						$folderTemp = APPPATH . "uploads/tmp/$timeCreate";
 						foreach ($participant as $row) {
-							$member = [
-								'fullname' => $row['fullname'],
-								'email' => $row['email'],
-								'status_member' => $row['status_member'],
-								'id' => $row['m_id'],
-								'alternatif_status'=>$row['alternatif_status'],
-								'alternatif_status2'=>$row['alternatif_status2'],
-							];
+							$member = $this->Event_m->getParticipant()->where("m.id", $row['m_id'])->where("t.id", $row['event_id'])->get()->row_array();
 							if ($type == 'certificate') {
 								$member['status_member'] = "Peserta";
 								$dom = $this->Event_m->exportCertificate($member, $event_id);
 							} elseif ($type == 'nametag') {
 								$dom = $this->Member_m->getCard($event_id, $member);
 							}
-							file_put_contents($folderTemp . "/$row[id].pdf", $dom->output());
+							file_put_contents($folderTemp . "/$row[m_id].pdf", $dom->output());
 						}
 						$this->output->set_content_type("application/json")
 							->_display(json_encode(['status' => true,'processed'=>count($participant)]));
@@ -122,8 +115,7 @@ class Administration extends Admin_Controller
 	public function certificate($event_id, $member_id)
 	{
 		$this->load->model(["Member_m", "Event_m"]);
-		$member = $this->Member_m->setAlias('t')->find()->join('kategory_members kt', 'kt.id = t.status ')
-			->select('t.id,fullname,email,kt.kategory as status_member,alternatif_status,alternatif_status2')->where("t.id", $member_id)->get()->row_array();
+		$member = $this->Event_m->getParticipant()->where("m.id", $member_id)->where("t.id", $event_id)->get()->row_array();
 		if (file_exists(APPPATH . "uploads/cert_template/$event_id.txt")) {
 			$member['status_member'] = "Peserta";
 			$this->Event_m->exportCertificate($member, $event_id)->stream("Certificate.pdf", array("Attachment" => false));

@@ -121,11 +121,13 @@ class Transaction extends Admin_Controller
 							 $detail->delete();
 						} else {
 							unset($dt['isDeleted']);
+							$dt['product_name'] = preg_replace('/\[.*\]/',"",$dt['product_name']);
 							$detail->setAttributes($dt);
 							$detail->save();
 						}
 					} else {
 						unset($dt['isDeleted']);
+						$dt['product_name'] = preg_replace('/\[.*\]/',"",$dt['product_name']);
 						$this->Transaction_detail_m->insert($dt);
 					}
 				}
@@ -387,7 +389,7 @@ class Transaction extends Admin_Controller
 		$this->load->model(["Event_m","Room_m","Category_member_m"]);
 		$memberId = $this->input->post("member_id");
 		$status = $this->Category_member_m->findOne($this->input->post("status"));
-		$events = $this->Event_m->eventVueModel($memberId, $status->kategory,['show !='=>'3'],true);
+		$events = $this->Event_m->eventVueModel($memberId,"all",['show !='=>'3'],true);
 		$booking = $this->Room_m->bookedRoom($memberId);
 		$rangeBooking = $this->Room_m->rangeBooking();
 		$this->output->set_content_type("application/json")

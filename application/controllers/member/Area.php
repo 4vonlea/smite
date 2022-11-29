@@ -59,9 +59,7 @@ class Area extends MY_Controller
 		$this->load->model(["Event_m", "Member_m"]);
 		$member = $this->input->post();
 		if (file_exists(APPPATH . "uploads/cert_template/$event_id.txt")) {
-			$member = Member_m::findOne(['username_account' => $this->session->user_session['username']])
-				->toArray();
-			$member['status_member'] = "Peserta";
+			$member = $this->Event_m->getParticipant()->where("m.id", $member)->where("t.id", $event_id)->get()->row_array();
 			$this->Event_m->exportCertificate($member, $event_id)->stream("certificate.pdf", array("Attachment" => false));
 		} else {
 			show_error("Sertifikat belum tersedia. Sertifikat dapat didownload setelah acara selesai", 400, "Not Yet Available");

@@ -64,7 +64,7 @@ class Notification extends Admin_Controller
 			$id = $expl[0] ?? $id;
 			if (Settings_m::getSetting("config_cert_$id") != "" && file_exists(APPPATH . "uploads/cert_template/$id.txt")) {
 				if ($id == "Paper") {
-					$result = $this->Papers_m->certificateReciver("Participant", $expl[1] ?? null);
+					$result = $this->Papers_m->certificateReceiver("Participant", $expl[1] ?? null);
 				} else {
 					$result = $this->Event_m->getParticipant()->where('t.id', $id)->get()->result_array();
 				}
@@ -356,7 +356,7 @@ class Notification extends Admin_Controller
 				if (!is_numeric($event_id)) {
 					$expl = explode(";", $event_id);
 					$this->load->model("Papers_m");
-					$attributes = $this->Papers_m->certificateReciver("Peserta", $expl[1] ?? null);
+					$attributes = $this->Papers_m->certificateReceiver("Peserta", $expl[1] ?? null);
 				} else {
 					$attributes = $this->Event_m->getParticipant()->where('t.id', $event_id)->get()->result_array();
 				}

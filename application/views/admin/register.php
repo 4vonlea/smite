@@ -8,6 +8,11 @@
 $this->layout->begin_head();
 ?>
 <link href="<?= base_url(); ?>themes/script/chosen/chosen.css" rel="stylesheet">
+<style>
+	.cursor-pointer:hover{
+		cursor: pointer;	
+	}
+</style>
 <?php $this->layout->end_head(); ?>
 
 <div class="header bg-primary pb-8 pt-5 pt-md-8" xmlns:v-bind="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml"></div>
@@ -242,34 +247,60 @@ $this->layout->begin_head();
 							<label>Events the Followed</label>
 							<table class="table table-bordered">
 								<tr>
-									<th>Check</th>
 									<th>Events Name</th>
 									<th>Price</th>
 								</tr>
-								<tr v-for="(ev,index) in filteredEvents">
-									<td>
-										<input type="checkbox" v-model="selected" name="transaction[event][]" :value="[ev.id,ev.price,ev.price_in_usd,ev.product_name,ev.status]" />
-									</td>
-									<td>{{ index }} <span style="font-size: 14px;" v-if="ev.event_required">(You must follow event {{ ev.event_required }} to patcipate this event)</span></td>
-									<td>
-										<span v-show="ev.price != 0 || ev.price_in_usd == 0">{{ formatCurrency(ev.price) }}</span>
-										<span v-show="ev.price != 0 && ev.price_in_usd != 0"> / </span>
-										<span v-show="ev.price_in_usd != 0">{{formatCurrency(ev.price_in_usd, 'USD')}}</span>
-									</td>
-								</tr>
-								<tr v-for="(ev,index) in discount">
-									<td>
-										<input type="checkbox" v-model="selected" name="transaction[event][]" :value="[ev.id,ev.price,ev.price_in_usd,ev.event_name,ev.condition]" />
-									</td>
-									<td>{{ ev.event_name }}</td>
-									<td>
-										<span v-show="ev.price != 0 || ev.price_in_usd == 0">{{ formatCurrency(ev.price) }}</span>
-										<span v-show="ev.price != 0 && ev.price_in_usd != 0"> / </span>
-										<span v-show="ev.price_in_usd != 0">{{formatCurrency(ev.price_in_usd, 'USD')}}</span>
-									</td>
-								</tr>
+								<tbody v-for="(evList,event_name) in filteredEvents">
+									<tr>
+										<th colspan="2">
+											<label class="control-label h3 cursor-pointer" role="button">
+												<i :class="[showList.indexOf(event_name) !== -1 ? 'fa fa-caret-down':'fa fa-caret-right']"></i>
+												<input type="checkbox" v-model="showList" :value="event_name" class="hidden" />
+													{{event_name }}
+											</label>
+										</th>
+									</tr>
+									<tr v-for="ev in evList" v-show="showList.indexOf(event_name) !== -1">
+										<td>
+											<label class="control-label h4 font-weight-normal">
+												<input type="checkbox" v-model="selected" name="transaction[event][]" :value="[ev.id,ev.price,ev.price_in_usd,ev.product_name,ev.status]" />
+												{{ ev.event_name }} 
+												<br/><span style="font-size: 14px;" v-if="ev.event_required">(Required to follow {{ ev.event_required }})</span>
+											</label>
+										</td>
+										<td>
+											<span v-show="ev.price != 0 || ev.price_in_usd == 0">{{ formatCurrency(ev.price) }}</span>
+											<span v-show="ev.price != 0 && ev.price_in_usd != 0"> / </span>
+											<span v-show="ev.price_in_usd != 0">{{formatCurrency(ev.price_in_usd, 'USD')}}</span>
+										</td>
+									</tr>
+								</tbody>
+								<tbody>
+									<tr>
+										<th colspan="2">
+											<label class="control-label h3 cursor-pointer" role="button">
+												<i :class="[showList.indexOf('diskon') !== -1 ? 'fa fa-caret-down':'fa fa-caret-right']"></i>
+												<input type="checkbox" v-model="showList" value="diskon" class="hidden" />
+												Diskon
+											</label>
+										</th>
+									</tr>
+									<tr v-for="(ev,index) in discount" v-show="showList.indexOf('diskon') !== -1">
+										<td>
+											<label class="control-label h4 font-weight-normal">
+											<input type="checkbox" v-model="selected" name="transaction[event][]" :value="[ev.id,ev.price,ev.price_in_usd,ev.event_name,ev.condition]" />
+											{{ ev.event_name }}
+											</label>
+										</td>
+										<td>
+											<span v-show="ev.price != 0 || ev.price_in_usd == 0">{{ formatCurrency(ev.price) }}</span>
+											<span v-show="ev.price != 0 && ev.price_in_usd != 0"> / </span>
+											<span v-show="ev.price_in_usd != 0">{{formatCurrency(ev.price_in_usd, 'USD')}}</span>
+										</td>
+									</tr>
+								</tbody>
 								<tfoot>
-									<th colspan="2">Total Price</th>
+									<th>Total Price</th>
 									<th>
 										{{ formatCurrency(total()) }}
 										<input type="text" hidden name="transaction[total_price]" v-model="total()" />
@@ -318,6 +349,7 @@ $this->layout->begin_head();
                 email:'',
                 phone:'',
             },
+			showList:[],
             checkingMember:false,
 
 		},
@@ -329,16 +361,23 @@ $this->layout->begin_head();
 					this.events.forEach(function(item, index) {
 						if (item.pricingName.length > 0) {
 							Object.keys(item.pricingName[0].pricing).forEach(function(key) {
-								if (key == status) {
-									rt[item.name] = item.pricingName[0].pricing[key];
-									rt[item.name].product_name = `${item.name} (${status})`;
-									rt[item.name].status = `${status}`;
-									rt[item.name].event_required = item.event_required;
-								}
+								// if (key == status) {
+									
+									let temp = item.pricingName[0].pricing[key];
+									temp.event_name = `${item.name} (${key})`;
+									temp.product_name = `${item.name} (${key})`;
+									temp.status = `${status}`;
+									temp.event_required = item.event_required;
+									if(!rt[item.name])
+										rt[item.name] = [];
+
+									rt[item.name].push(temp);
+								// }
 							})
 						}
 					});
 				}
+				console.log(rt);
 				return rt;
 			}
 		},

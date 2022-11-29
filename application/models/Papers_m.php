@@ -252,7 +252,7 @@ class Papers_m extends MY_Model
 		return $this->hasOne("Category_paper_m", "id", "category");
 	}
 
-	public function certificateReciver($defaultStatus = "Participant",$idCategory = null){
+	public function certificateReceiver($defaultStatus = "Participant",$idCategory = null){
 		$return = [];
 		$participant =$this->find()->select("members.fullname,members.id as m_id, '1' as isPaper,fullname,type_presence,title,email,phone,CONCAT(st.value,LPAD(papers.id,3,0)) as id_paper,'$defaultStatus' as status")
 				->join("members","members.id = member_id")
