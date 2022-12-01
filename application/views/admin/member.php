@@ -290,7 +290,8 @@ $this->layout->begin_head();
 								</tr>
 								<tr v-for="ev in profile.event">
 									<td>
-										{{ ev.event_name }} <br />
+										<h5>{{ ev.event_name }} as <span class="badge badge-info">{{ ev.status_member }}</span> </h5> 
+										<hr style="margin: 15px 0px;"/>
 										<v-button @click="sendNametag(ev,$event)" class="btn btn-primary btn-sm">Send Nametag</v-button>
 										<button :disabled="sendingCertificate" v-on:click="sendCertificate(ev)" class="btn btn-primary btn-sm"><i v-if="sendingCertificate" class="fa fa-spin fa-spinner"></i>Send Certificate</button>
 										<a :href="'<?= base_url('admin/member/card'); ?>/'+ev.event_id+'/'+profile.id" target="_blank">Preview Name Tag</a> 

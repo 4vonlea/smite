@@ -372,7 +372,7 @@
 						<td v-if="!dt.id" colspan="2">
 							<select class="form-control" @change="changeEvent($event,dt)" v-model="dt.event_pricing_id">
 								<option value="0">Select Event</option>
-								<option v-for="item in listEvent" :data-product_name="`${item.event_name} [${item.name}]`" :data-price="item.price" :value="item.id"> {{ `${item.event_name} [${item.name}]` }}</option>
+								<option v-for="item in listEvent" :data-product_name="`${item.event_name} [${item.name}]`" :data-price="item.price" :value="item.id"> {{ `${item.event_name} [${item.name} Price]` }}</option>
 							</select>
 						</td>
 						<td v-else colspan="2">{{ ind+1 }}). {{ dt.product_name }}</td>
