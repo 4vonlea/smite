@@ -41,7 +41,9 @@
                             </div>
                         </div>
                         <div class="text-right mt-3">
-                            <button class="btn btn-primary" @click="finish">Finish</button>
+                            <div class="d-grid gap-2">
+                              <button class="btn btn-primary" @click="finish">Selesai</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -50,6 +52,7 @@
     </div>
 </section>
 <?php $this->layout->begin_script(); ?>
+<script src="<?= base_url("themes/script/sweetalert2@8.js"); ?>"></script>
 <script type="module">
     var app = new Vue({
         el: "#app",
@@ -67,8 +70,10 @@
         },
         methods: {
             keepFocus() {
-                console.log("Return Focus");
-                this.$refs.inputScan.focus();
+                if(this.$refs.inputScan){
+                    this.$refs.inputScan.focus();
+                    console.log("Return Focus");
+                }
             },
             finish() {
                 this.result = [];

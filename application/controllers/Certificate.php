@@ -33,7 +33,7 @@ class Certificate extends MY_Controller
 		$this->load->model("Transaction_m");
 		$data = $this->Transaction_m->getFollowedEvent($id);
 		$status = count($data) > 0;
-		$message = $status ? "Success in retrieving data" : "The transaction is not found or has not been settled";
+		$message = $status ? "Success in retrieving data" : "Nama atau Transaksi tidak ditemukan/belum selesai";
         foreach($data as $i=>$row){
             $data[$i]['id'] = sha1($row['id']);
         }
