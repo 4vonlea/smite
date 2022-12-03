@@ -555,7 +555,8 @@ $this->layout->begin_head();
 			sendCertificate(event) {
 				app.sendingCertificate = true;
 				var data = {
-					td_id:event.td_id
+					td_id:event.td_id,
+					channel:'email'
 				}
 				$.post("<?= base_url("admin/member/send_certificate"); ?>", data, function(res) {
 					if (res.status)

@@ -193,11 +193,11 @@ class Member extends Admin_Controller
 			$event_name = $member['event_name'];
 			if ($member && file_exists(APPPATH . "uploads/cert_template/$member[event_id].txt")) {
 				$cert = $this->Event_m->exportCertificate($member, $member['event_id'])->output();
-				if($this->input->post("channel") == Notification_m::TYPE_WA){
+				if($this->input->post("channel")){
+					$status = $this->Notification_m->setType($this->input->post("channel"))->sendCertificate($member,Notification_m::CERT_TYPE_EVENT,$event_name,$cert);
+				}else{
 					$status = $this->Notification_m->sendCertificate($member,Notification_m::CERT_TYPE_EVENT,$event_name,$cert);
 					$status['wa'] = $this->Notification_m->setType(Notification_m::TYPE_WA)->sendCertificate($member,Notification_m::CERT_TYPE_EVENT,$event_name,$cert);
-				}else{
-					$status = $this->Notification_m->setType($this->input->post("channel"))->sendCertificate($member,Notification_m::CERT_TYPE_EVENT,$event_name,$cert);
 				}
 				$this->output
 					->set_content_type("application/json")
