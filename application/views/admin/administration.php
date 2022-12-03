@@ -323,7 +323,8 @@ $this->layout->begin_head();
 			sendCertificate(transactiDetailId,channel,self){
 				self.toggleLoading();
 				$.post("<?= base_url("admin/member/send_certificate"); ?>",{
-					td_id:transactiDetailId
+					td_id:transactiDetailId,
+					channel:channel,
 				}, function(res) {
 					if (res.status)
 						Swal.fire("Success", "Certificate sended !", "success");
