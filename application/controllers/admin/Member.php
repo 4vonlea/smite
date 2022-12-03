@@ -188,14 +188,13 @@ class Member extends Admin_Controller
 	{
 		if ($this->input->post()) {
 			$this->load->model(["Notification_m", "Event_m","Member_m"]);
-			$id = $this->input->post("id");
+			$transactionDetailId = $this->input->post("td_id");
 			$event_name = $this->input->post("event_name");
-			if (file_exists(APPPATH . "uploads/cert_template/$id.txt")) {
-				$member = $this->Event_m->getParticipant()->where("m.id",$this->input->post("m_id"))->where("t.id",$id)->get()->row_array();
-				$cert = $this->Event_m->exportCertificate($member, $id)->output();
+			$member = $this->Event_m->getParticipant()->where("td.id",$transactionDetailId)->get()->row_array();
+			if ($member && file_exists(APPPATH . "uploads/cert_template/$member[event_id]].txt")) {
+				$cert = $this->Event_m->exportCertificate($member, $member['event_id'])->output();
 				if($this->input->post("channel")){
 					$status = $this->Notification_m->setType($this->input->post("channel"))->sendCertificate($member,Notification_m::CERT_TYPE_EVENT,$event_name,$cert);
-
 				}else{
 					$status = $this->Notification_m->sendCertificate($member,Notification_m::CERT_TYPE_EVENT,$event_name,$cert);
 					$status['wa'] = $this->Notification_m->setType(Notification_m::TYPE_WA)->sendCertificate($member,Notification_m::CERT_TYPE_EVENT,$event_name,$cert);

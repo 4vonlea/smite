@@ -162,8 +162,8 @@ $this->layout->begin_head();
 									   @change="changeChecklist(props.rowData)">
 							</template>
 							<template slot="event_id" slot-scope="props">
-								<v-button class="btn btn-sm btn-primary" @click="sendCertificate(props.rowData.id,'<?=Notification_m::TYPE_EMAIL;?>',$event)">Send Certificate<br/> Via Email</v-button>
-								<v-button class="btn btn-sm btn-primary" @click="sendCertificate(props.rowData.id,'<?=Notification_m::TYPE_WA;?>',$event)">Send Certificate<br/> Via WA</v-button>
+								<v-button class="btn btn-sm btn-primary" @click="sendCertificate(props.rowData.td_id,'<?=Notification_m::TYPE_EMAIL;?>',$event)">Send Certificate<br/> Via Email</v-button>
+								<v-button class="btn btn-sm btn-primary" @click="sendCertificate(props.rowData.td_id,'<?=Notification_m::TYPE_WA;?>',$event)">Send Certificate<br/> Via WA</v-button>
 
 								<div class="btn-group" role="group">
 									<button id="btnGroupDrop2" type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
