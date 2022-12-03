@@ -191,7 +191,7 @@ class Member extends Admin_Controller
 			$transactionDetailId = $this->input->post("td_id");
 			$event_name = $this->input->post("event_name");
 			$member = $this->Event_m->getParticipant()->where("td.id",$transactionDetailId)->get()->row_array();
-			if ($member && file_exists(APPPATH . "uploads/cert_template/$member[event_id]].txt")) {
+			if ($member && file_exists(APPPATH . "uploads/cert_template/$member[event_id].txt")) {
 				$cert = $this->Event_m->exportCertificate($member, $member['event_id'])->output();
 				if($this->input->post("channel")){
 					$status = $this->Notification_m->setType($this->input->post("channel"))->sendCertificate($member,Notification_m::CERT_TYPE_EVENT,$event_name,$cert);
