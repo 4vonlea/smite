@@ -8,6 +8,7 @@
 		white-space: initial !important;
 	}
 </style>
+<link rel="stylesheet" href="https://unpkg.com/vue-select@latest/dist/vue-select.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/vue-ctk-date-time-picker@2.5.0/dist/vue-ctk-date-time-picker.css">
 <?php $this->layout->end_head(); ?>
 <div class="header bg-primary pb-8 pt-5 pt-md-8">
@@ -365,15 +366,12 @@
 						<th colspan="2" v-if="isGroup">Member Name</th>
 						<th colspan="2">Event Name</th>
 						<th :colspan="[isGroup ? '2' : '1']">Price</th>
-						<th v-if="!isGroup"><button @click="modifyModel.details.push({member_id:modifyModel.member.id,transaction_id:modifyModel.id,event_pricing_id:0,product_name:'',price:0,isDeleted:0})" class="btn btn-primary btn-sm">Add Item</button></th>
+						<th v-if="!isGroup"><button @click="modifyModel.details.push({member_id:modifyModel.member.id,transaction_id:modifyModel.id,event_pricing_id:null,product_name:'',price:0,isDeleted:0})" class="btn btn-primary btn-sm">Add Item</button></th>
 					</tr>
 					<tr v-for="(dt,ind) in modifySort" :class="{'bg-red':dt.isDeleted}">
 						<td colspan="2" v-if="isGroup">{{ dt.member.fullname }} <br/> {{ dt.member.email }}</td>
 						<td v-if="!dt.id" colspan="2">
-							<select class="form-control" @change="changeEvent($event,dt)" v-model="dt.event_pricing_id">
-								<option value="0">Select Event</option>
-								<option v-for="item in listEvent" :data-product_name="`${item.event_name} [${item.name}]`" :data-price="item.price" :value="item.id"> {{ `${item.event_name} [${item.name} Price]` }}</option>
-							</select>
+							<v-select @input="changeEvent($event,dt)" @open="scrollModal" placeholder="Search Event" :options="eventSelection" :value="dt.product_name"></v-select>
 						</td>
 						<td v-else colspan="2">{{ ind+1 }}). {{ dt.product_name }}</td>
 						<td colspan="2">
@@ -469,10 +467,12 @@
 <?php $this->layout->begin_script(); ?>
 <script src="<?= base_url("themes/script/vuejs-datepicker.min.js"); ?>"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue-ctk-date-time-picker@2.5.0/dist/vue-ctk-date-time-picker.umd.js" charset="utf-8"></script>
+<script src="https://unpkg.com/vue-select@latest"></script>
 
 <script>
 	var info = <?= json_encode(Transaction_m::$transaction_status); ?>;
     Vue.component('vue-ctk-date-time-picker', window['vue-ctk-date-time-picker']);
+    Vue.component('v-select', VueSelect.VueSelect);
 	var app = new Vue({
 		el: '#app',
 		components: {
@@ -520,6 +520,9 @@
 				return this.formatCurrency(price);
 
 			},
+			jQuery(){
+				return window.jQuery;
+			},
 			amountDetail() {
 				var price = 0;
 				for (var d in this.detailModel.details) {
@@ -527,6 +530,13 @@
 						price += Number(this.detailModel.details[d].price);
 				}
 				return this.formatCurrency(price);
+			},
+			eventSelection(){
+				let temp = [];
+				this.listEvent.forEach((row) => {
+					temp.push({label:`${row.event_name} (${row.condition}) [${row.name}]`,code:row.id,price:row.price});
+				});
+				return temp;
 			},
 			detailSort() {
 				return this.transactionsSort(this.detailModel.details);
@@ -545,6 +555,11 @@
 			}
 		},
 		methods: {
+			scrollModal(){
+				Vue.nextTick(()=>{
+					$("#modal-modify .modal-body").animate({ scrollTop: $("#modal-modify .modal-body").height() }, "slow");
+				});
+			},
 			transactionsSort(data) {
 				return data.sort(function(a, b) {
 					return (a.product_name > b.product_name) ? -1 : 1;
@@ -580,11 +595,17 @@
 				}
 
 			},
-			changeEvent(event, dt) {
-				let options = event.target.options;
-				let selectedIndex = event.target.selectedIndex;
-				dt.price = options[selectedIndex].dataset.price;
-				dt.product_name = options[selectedIndex].dataset.product_name;
+			changeEvent(row, dt) {
+				console.log(row,dt);
+				if(row){
+					dt.event_pricing_id = row.code
+					dt.price = row.price;
+					dt.product_name = row.label
+				}else{
+					dt.event_pricing_id = null;
+					dt.price = 0;
+					dt.product_name = null;
+				}
 			},
 			saveEditDetail(id, ind) {
 				app.sendingUniquePrice = true;

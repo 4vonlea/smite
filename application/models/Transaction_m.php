@@ -277,6 +277,7 @@ class Transaction_m extends MY_Model
 			WHERE ev.id NOT IN (
 			SELECT td.event_pricing_id FROM transaction_details td
 			JOIN `transaction` tr ON tr.id = td.transaction_id WHERE tr.member_id = '$member_id' AND tr.status_payment != '" . self::STATUS_EXPIRE . "'
+			ORDER BY e.id
 		)");
 		return $rs->result_array();
 	}
