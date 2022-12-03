@@ -34,7 +34,7 @@
                                     </span>
                                     <div class="d-flex flex-column ms-4">
                                         <h4 class="mb-1 text-dark">{{ row.fullname }}</h4>
-                                        <p class="mb-1 text-muted">{{row.event}}</p>
+                                        <p class="mb-1 text-muted">{{row.event}} as {{ row.status_member }}</p>
                                     </div>
                                 </div>
                                 <a target="_blank" :href="'<?= base_url('certificate/claim'); ?>/'+`${row.id}`" class="btn btn-purple">Download Certificate</a>

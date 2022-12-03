@@ -455,7 +455,7 @@ class Transaction_m extends MY_Model
 
 	public function getFollowedEvent($idOrName){
 		return $this->db->select("DISTINCT td.id",false)
-			->select("c.id as transaction_id,c.status_payment,td.member_id,m.fullname,e.name AS `event`,e.id AS event_id")
+			->select("c.id as transaction_id,c.status_payment,td.member_id,m.fullname,e.name AS `event`,ev.condition as status_member,e.id AS event_id")
 			->from("transaction t")
 			->join("transaction_details td","td.transaction_id = t.id OR t.member_id = td.member_id")
 			->join("`transaction` c","c.id = td.transaction_id AND c.status_payment = 'settlement'")
