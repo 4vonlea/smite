@@ -320,13 +320,10 @@ $this->layout->begin_head();
 			this.periodicFetchData();
 		},
 		methods: {
-			sendCertificate(member_id,channel,self){
+			sendCertificate(transactiDetailId,channel,self){
 				self.toggleLoading();
 				$.post("<?= base_url("admin/member/send_certificate"); ?>",{
-					id:this.selectedEvent,
-					m_id:member_id,
-					event_name:this.eventList[this.selectedEvent],
-					channel:channel
+					td_id:transactiDetailId
 				}, function(res) {
 					if (res.status)
 						Swal.fire("Success", "Certificate sended !", "success");
