@@ -178,7 +178,7 @@ $this->layout->begin_head();
 										Download
 									</button>
 									<div class="dropdown-menu" aria-labelledby="btnGroupDrop2">
-										<a target="_blank" class="dropdown-item" :href="'<?=base_url('admin/administration/certificate');?>/'+props.rowData.event_id+'/'+props.rowData.id">Certificate</a>
+										<a target="_blank" class="dropdown-item" :href="'<?=base_url('admin/administration/certificate');?>/'+props.rowData.td_id">Certificate</a>
 										<a target="_blank" class="dropdown-item" :href="'<?=base_url('admin/administration/card');?>/'+props.rowData.event_id+'/'+props.rowData.id">Name Tag</a>
 									</div>
 								</div>

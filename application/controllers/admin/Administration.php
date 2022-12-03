@@ -112,13 +112,13 @@ class Administration extends Admin_Controller
 		}
 	}
 
-	public function certificate($event_id, $member_id)
+	public function certificate($transactionDetailId)
 	{
 		$this->load->model(["Member_m", "Event_m"]);
-		$member = $this->Event_m->getParticipant()->where("m.id", $member_id)->where("t.id", $event_id)->get()->row_array();
-		if (file_exists(APPPATH . "uploads/cert_template/$event_id.txt")) {
+		$member = $this->Event_m->getParticipant()->where("td.id", $transactionDetailId)->get()->row_array();
+		if (file_exists(APPPATH . "uploads/cert_template/$member[event_id].txt")) {
 			$member['status_member'] = "Peserta";
-			$this->Event_m->exportCertificate($member, $event_id)->stream("Certificate.pdf", array("Attachment" => false));
+			$this->Event_m->exportCertificate($member, $member['event_id'])->stream("Certificate.pdf", array("Attachment" => false));
 		} else {
 			show_error("Template Certificate is not found ! please set on Setting");
 		}
