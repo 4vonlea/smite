@@ -15,14 +15,30 @@ class Event_m extends MY_Model
 		];
 	}
 
+	public function gridConfig($option = array())
+	{
+		$countParticipantQuery = "SELECT COUNT(td.id) AS jumlahParticipant, ep.event_id FROM transaction_details td
+		JOIN `transaction` tr ON tr.id = td.transaction_id
+		JOIN event_pricing ep ON ep.id = td.event_pricing_id
+		WHERE tr.status_payment = 'settlement'
+		GROUP BY ep.event_id";
+
+		return [
+			'relationships' => [
+				'countParticipant' => ["({$countParticipantQuery})", 'countParticipant.event_id = t.id', 'left'],
+			],
+		];
+	}
+
 	public function event_pricings()
 	{
 		return $this->hasMany('Event_pricing_m', 'event_id');
 	}
 
-	public function remainingQouta($event_id = null){
+	public function remainingQouta($event_id = null)
+	{
 		$filter = "";
-		if($event_id){
+		if ($event_id) {
 			$filter = "WHERE ep.event_id = $event_id";
 		}
 		$sql = "SELECT COUNT(t.id) AS reserved, ep.event_id,e.kouta
@@ -50,7 +66,7 @@ class Event_m extends MY_Model
 			$result = $this->Event_pricing_m->findOne(['id' => $event_id]);
 			$row = $result->toArray();
 		}
-		
+
 		$avalaible = $avalaible && ($user_status == $row['condition'] || $user_status == 'all');
 		$conditionDate = explode(":", $row['condition_date']);
 		$now = new DateTime();
@@ -90,10 +106,10 @@ class Event_m extends MY_Model
 			->join("events evt", "evt.id = t.event_required", 'left')
 			->order_by("t.id,event_pricing.name,event_pricing.condition_date")->get();
 		$reserved = [];
-		foreach($this->remainingQouta()->result_array() as $row){
+		foreach ($this->remainingQouta()->result_array() as $row) {
 			$reserved[$row['event_id']] = $row;
 		}
-		
+
 		$return = [];
 		$temp = "";
 		$tempPricing = "";
@@ -192,15 +208,15 @@ class Event_m extends MY_Model
 				}
 			}
 		}
-		usort($return,function($a,$b){
+		usort($return, function ($a, $b) {
 			return $a['name'] <=> $b['name'];
 		});
 		return $return;
 	}
 
-	public function eventVueModel($member_id = '', $userStatus = '', $filter = [],$onLyFollowed = false)
+	public function eventVueModel($member_id = '', $userStatus = '', $filter = [], $onLyFollowed = false)
 	{
-		if($onLyFollowed == false){
+		if ($onLyFollowed == false) {
 			$filter = array_merge($filter, ['show' => '1']);
 		}
 		$this->load->model("Transaction_m");
@@ -222,7 +238,7 @@ class Event_m extends MY_Model
 				t.kategory,
 				t.special_link")
 			->where($filter)
-			->or_where("td.id IS NOT NULL",null)
+			->or_where("td.id IS NOT NULL", null)
 			->join("event_pricing", "t.id = event_id")
 			->join("events evt", "evt.id = t.event_required", 'left')
 			->join("transaction_details td", "td.event_pricing_id = event_pricing.id AND td.member_id = '$member_id'", "left")
@@ -292,7 +308,7 @@ class Event_m extends MY_Model
 							]
 						]
 					],
-					'hasCertificate'=>file_exists(APPPATH . "uploads/cert_template/$row[id_event].txt"),
+					'hasCertificate' => file_exists(APPPATH . "uploads/cert_template/$row[id_event].txt"),
 					'memberStatus' => [$row['condition']]
 				];
 				$tempPricing = $row['name_pricing'];
@@ -407,7 +423,7 @@ class Event_m extends MY_Model
 			->join("kategory_members km", "km.id = m.status")
 			->where("tr.status_payment", Transaction_m::STATUS_FINISH);
 	}
-	
+
 	/**
 	 * @param null $event_id
 	 * @return CI_DB_query_builder
@@ -418,10 +434,10 @@ class Event_m extends MY_Model
 		return $this->setAlias("t")->find()
 			->select("t.id as event_id,t.name as event_name,t.kategory as event_kategory,t.held_on as event_held_on,t.held_in as event_held_in,t.theme as event_theme,COUNT(tr.id) as countParticipant")
 			->join("event_pricing ep", "t.id = ep.event_id")
-			->join("transaction_details td", "td.event_pricing_id = ep.id","left")
-			->join("transaction tr", "tr.id = td.transaction_id AND tr.status_payment = '".Transaction_m::STATUS_FINISH."'","left")
-			->join("members m", "m.id = td.member_id","left")
-			->join("kategory_members km", "km.id = m.status","left")
+			->join("transaction_details td", "td.event_pricing_id = ep.id", "left")
+			->join("transaction tr", "tr.id = td.transaction_id AND tr.status_payment = '" . Transaction_m::STATUS_FINISH . "'", "left")
+			->join("members m", "m.id = td.member_id", "left")
+			->join("kategory_members km", "km.id = m.status", "left")
 			->group_by("t.id");
 	}
 	public function get_pricing($id, $id2)
@@ -440,19 +456,20 @@ class Event_m extends MY_Model
 	/**
 	 * @param $hasheId hash SHA1 ID Transaction Details
 	 */
-	public function viewCertificate($hashedId){
-		$tr = $this->db->from("transaction_details")->join("event_pricing","event_pricing.id = event_pricing_id")
-				->join("transaction","transaction.id = transaction_id")
-				->join("members","members.id = transaction_details.member_id")
-				->join("kategory_members","kategory_members.id = status")
-				->join("events","events.id = event_pricing.event_id")
-				->where("transaction.status_payment",Transaction_m::STATUS_FINISH)
-				->where("sha1(transaction_details.id)",$hashedId)
-				->select("transaction_id,members.id,fullname,email,kategory_members.kategory as status_member,alternatif_status,alternatif_status2")
-				->select("nik,events.name as event_name,events.id as id_event")->get()->row_array();
+	public function viewCertificate($hashedId)
+	{
+		$tr = $this->db->from("transaction_details")->join("event_pricing", "event_pricing.id = event_pricing_id")
+			->join("transaction", "transaction.id = transaction_id")
+			->join("members", "members.id = transaction_details.member_id")
+			->join("kategory_members", "kategory_members.id = status")
+			->join("events", "events.id = event_pricing.event_id")
+			->where("transaction.status_payment", Transaction_m::STATUS_FINISH)
+			->where("sha1(transaction_details.id)", $hashedId)
+			->select("transaction_id,members.id,fullname,email,kategory_members.kategory as status_member,alternatif_status,alternatif_status2")
+			->select("nik,events.name as event_name,events.id as id_event")->get()->row_array();
 		return [
-			'sertifikat'=>$this->exportCertificate($tr,$tr['id_event']),
-			'data'=>$tr,
+			'sertifikat' => $this->exportCertificate($tr, $tr['id_event']),
+			'data' => $tr,
 		];
 	}
 
@@ -471,18 +488,18 @@ class Event_m extends MY_Model
 			$event_name = $rs->name ?? "Not Found";
 		}
 
-		$this->load->model(['Settings_m','Transaction_m']);
+		$this->load->model(['Settings_m', 'Transaction_m']);
 		require_once APPPATH . "third_party/phpqrcode/qrlib.php";
 		if (file_exists(APPPATH . "uploads/cert_template/$id.txt")) {
-			$tr = $this->db->from("transaction_details")->join("event_pricing","event_pricing.id = event_pricing_id")
-				->join("transaction","transaction.id = transaction_id")
-				->where("transaction_details.member_id",$data['id'])
-				->where("transaction.status_payment",Transaction_m::STATUS_FINISH)
-				->where("event_id",$id)->select("transaction_id,transaction_details.id as id_detil")->get()->row();
-			$data['qr'] = isset($tr->transaction_id) ? base_url("site/sertifikat/".sha1($tr->id_detil)) : "-";
+			$tr = $this->db->from("transaction_details")->join("event_pricing", "event_pricing.id = event_pricing_id")
+				->join("transaction", "transaction.id = transaction_id")
+				->where("transaction_details.member_id", $data['id'])
+				->where("transaction.status_payment", Transaction_m::STATUS_FINISH)
+				->where("event_id", $id)->select("transaction_id,transaction_details.id as id_detil")->get()->row();
+			$data['qr'] = isset($tr->transaction_id) ? base_url("site/sertifikat/" . sha1($tr->id_detil)) : "-";
 			$data['event_name'] = $event_name;
 			//$data['status_member'] = "Peserta";
-			if(in_array($data['status_member'],["Spesialis","Residen","General Practitioner"])){
+			if (in_array($data['status_member'], ["Spesialis", "Residen", "General Practitioner"])) {
 				$data['status_member'] = "Peserta";
 			}
 			$domInvoice = new Dompdf();
@@ -490,7 +507,7 @@ class Event_m extends MY_Model
 			$html = $this->load->view("template/certificate", [
 				'image' => file_get_contents(APPPATH . "uploads/cert_template/$id.txt"),
 				'property' => $configuration['property'] ?? [],
-				'anotherPage'=>$configuration['anotherPage'] ?? [],
+				'anotherPage' => $configuration['anotherPage'] ?? [],
 				'data' => $data
 			], true);
 			$domInvoice->setPaper("a4", "landscape");
@@ -520,8 +537,79 @@ class Event_m extends MY_Model
 			->join('transaction_details td', 'td.event_pricing_id = ep.id')
 			->join('transaction t', 't.id = td.transaction_id')
 			->where('e.id', $event_id)
-			->where("status_payment !=",Transaction_m::STATUS_EXPIRE)
+			->where("status_payment !=", Transaction_m::STATUS_EXPIRE)
 			->where('td.member_id', $member_id);
 		return $this->db->get()->row();
+	}
+
+	public function saveMap($id, $data)
+	{
+		return $this->update(['p2kb_mapping' => json_encode($data)], ['id' => $id], false);
+	}
+
+	public function getMapping($id)
+	{
+		$this->load->model("Category_member_m");
+		$map = [];
+		$row = $this->find()->where("id", $id)->select("id,name,p2kb_mapping")->get()->row();
+		if ($row) {
+			$map['id'] = $row->id;
+			$map['name'] = $row->name;
+			$map['map'] = json_decode($row->p2kb_mapping, true) ?? [];
+			$map['statusList'] = $this->Category_member_m->find()->get()->result_array();
+			foreach ($map['statusList'] as $status) {
+				if (!isset($map['map'][$status['kategory']])) {
+					$map['map'][$status['kategory']] = ['aktivitas' => null, 'jenisAktivitas' => null, 'skp' => null];
+				}
+			}
+		}
+		return $map;
+	}
+
+	public function getDataPushP2KB($transactionDetailId)
+	{
+		$siteTitle = Settings_m::getSetting("site_title");
+		$member = $this->getParticipant()->select("m.p2kb_member_id")->where("td.id",$transactionDetailId)->get()->row_array();
+		if(!$member)
+			return "Data Member Tidak Ditemukan";
+
+		$event = $this->findOne($member['event_id']);
+		$row = $this->find()->where("id", $member['event_id'])->select("id,name,p2kb_mapping")->get()->row();
+
+		if($member['p2kb_member_id'] == "")
+			return "Member tidak terdaftar pada database P2KB";
+
+		$ref_member_id = $member['p2kb_member_id'];	
+
+		$map = json_decode($row->p2kb_mapping, true) ?? [];
+		if(!isset( $map[$member['status_member']]['aktivitas']['aktivitas_code']))
+			return "Mapping Aktivitas untuk status $member[status_member] tidak ditemukan, Harap cek kembali";
+		$aktivitasCode = $map[$member['status_member']]['aktivitas']['aktivitas_code'];
+
+		if(!isset( $map[$member['status_member']]['nilaiSkp']['skp']))
+			return "Mapping Nilai SKP untuk status $member[status_member] tidak ditemukan, Harap cek kembali";
+		$skp =  $map[$member['status_member']]['nilaiSkp']['skp'];
+
+		$judul = $event['name'];
+		$lokasi = $event['held_in'];
+		$date = json_decode($event['held_on'],true) ?? ['start'=>'','end'=>''];
+		$noRegistrasi = "TD-".$transactionDetailId;
+		$certificate = $this->exportCertificate($member,$member['event_id']);
+		file_put_contents("./application/cache/$transactionDetailId.pdf",$certificate->output());
+		
+		return [
+			"aktivitas_code" => $aktivitasCode,// "101",
+			"judul" =>$judul,// "Panitia PINPERDOSSI",
+			"acara" =>$siteTitle,// "Perdossi 2020",
+			"lokasi" => $lokasi,
+			"start_date" => $date['start'],
+			"end_date" => $date['end'],
+			"no_registrasi" => $noRegistrasi,//"PINCI-01",
+			"ref_member_id" =>  $ref_member_id,
+			"skp" => $skp,// "5",
+			"usr_crt" => $noRegistrasi,//"PINCI-01",
+			"usr_upd" => "generate-event-pin-".$noRegistrasi,
+			"berkas" => base64_encode($certificate->output())
+		];
 	}
 }

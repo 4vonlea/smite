@@ -7,7 +7,12 @@
 $this->layout->begin_head();
 ?>
 <link href="<?= base_url(); ?>themes/script/chosen/chosen.css" rel="stylesheet">
-
+<style>
+	.disabled{
+		cursor: not-allowed;
+		opacity: 0.4;
+	}
+</style>
 <?php $this->layout->end_head(); ?>
 <div class="header bg-primary pb-8 pt-5 pt-md-8">
 	<div class="container-fluid">
@@ -64,6 +69,7 @@ $this->layout->begin_head();
 							<h3>Members</h3>
 						</div>
 						<div class="col-6 text-right">
+							<v-button @click="syncAllMember($event,'start')" type="button" class="btn btn-primary" icon="fa fa-sync">Sync All Member To P2KB</v-button>
 							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-particant-status"><i class="fa fa-book"></i> Member Status
 								List
 							</button>
@@ -442,11 +448,46 @@ $this->layout->begin_head();
 		</div>
 	</div>
 </div>
+<div class="modal" id="modal-sync-all-member" data-backdrop="static">
+	<div class="modal-dialog">
+		<div class="modal-content table-responsive">
+			<div class="modal-header">
+				<h4>Sync All Member To P2KB Database</h4>
+			</div>
+			<div class="modal-body">
+				<div class="progress" style="height: 35px;">
+					<div class="progress-bar progress-bar-striped" role="progressbar" :style="{width: syncAll.progress+'%'}" aria-valuemin="0" aria-valuemax="100">
+						{{ syncAll.processed }} of {{ syncAll.total }}
+					</div>
+				</div>
+				<ul class="list-group list-group-flush">
+					<li class="list-group-item">Total Data
+						<span class="badge badge-primary badge-pill">{{syncAll.total}}</span>
+					</li>
+					<li class="list-group-item">A P2KB Member
+						<span class="badge badge-primary badge-pill">{{syncAll.member}}</span>
+					</li>
+					<li class="list-group-item">Not A P2KB Member
+						<span class="badge badge-primary badge-pill">{{syncAll.notMember}}</span>
+					</li>
+					<li class="list-group-item">Failed To Sync
+						<span class="badge badge-primary badge-pill">{{syncAll.failed}}</span>
+						<button v-if="syncAll.status != 'processing' && syncAll.failedList.length > 0" @click="downloadFailedSync" class="btn btn-info btn-sm ml-2">Download List</button>
+					</li>
+				</ul>
+			</div>
+			<div class="modal-footer">
+				<button :disabled="syncAll.status == 'processing'" type="button" :class="{disabled:syncAll.status == 'processing'}" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
 
 <?php $this->layout->begin_script(); ?>
 <script src="<?= base_url("themes/script/chosen/chosen.jquery.min.js"); ?>"></script>
 <script src="<?= base_url("themes/script/chosen/vue-chosen.js"); ?>"></script>
 <script src="<?= base_url("themes/script/v-button.js"); ?>"></script>
+<script lang="javascript" src="https://cdn.sheetjs.com/xlsx-0.19.1/package/dist/xlsx.full.min.js"></script>
 <script>
 	var tempStatus = <?= json_encode($statusList); ?>;
 
@@ -473,8 +514,64 @@ $this->layout->begin_head();
 			sendingCertificate: false,
 			checkingMember:false,
 			syncId:null,
+			syncAll:{status:'',processed:0,total:0,failed:0,notMember:0,member:0,progress:0,data:[],failedList:[]}
 		},
 		methods: {
+			downloadFailedSync(){
+				const worksheet = XLSX.utils.json_to_sheet(this.syncAll.failedList);
+				const workbook = XLSX.utils.book_new();
+				XLSX.utils.book_append_sheet(workbook, worksheet, "List");
+				XLSX.writeFile(workbook, "Failed List Sync.xlsx", { compression: true });
+			},
+			syncAllMember(selfButton,type){
+				if(type == 'start'){
+					selfButton.toggleLoading();
+					$.get("<?=base_url('admin/member/get_all_member');?>",(res)=>{
+						this.syncAll.failed = 0;
+						this.syncAll.member = 0;
+						this.syncAll.notMember = 0;
+						this.syncAll.total = res.data.length;
+						this.syncAll.data = res.data;
+						this.syncAll.status = 'processing';
+						this.syncAll.processed = 0;
+						this.syncAll.failedList = [];
+						$("#modal-sync-all-member").modal("show");
+						this.syncAllMember(selfButton,'process');
+						this.syncAllMember(selfButton,'process');
+						this.syncAllMember(selfButton,'process');
+					}).always(() => {
+						selfButton.toggleLoading();
+					});
+				}else if(type == 'process'){
+					let member = this.syncAll.data.pop();
+					$.post("<?=base_url("admin/member/cek_member_perdossi");?>",{
+						nik:member.nik,
+						id:member.id
+					}, (res) => {
+						if(res.status == false){
+							this.syncAll.failed++;
+							member.feedback = res.message;
+							this.syncAll.failedList.push(member);
+						}else if (res.message == "success") {
+							this.syncAll.member++;
+						} else {
+							this.syncAll.notMember++;
+						}
+					}).always(() => {
+						this.syncAll.processed++;
+						this.syncAll.progress = Math.round(this.syncAll.processed / this.syncAll.total * 100)
+						if(this.syncAll.data.length > 0){
+							this.syncAllMember(selfButton,'process');
+						}else{
+							this.syncAll.status = "finish";
+						}
+					}).fail((xhr) => {
+						this.syncAll.failed++;
+						member.feedback = xhr.responseText;
+						this.syncAll.failedList.push(member);
+					});
+				}
+			},
 			sync(member){
 				this.syncId = member.id;
 				$.post("<?=base_url("admin/member/cek_member_perdossi");?>",{
@@ -505,6 +602,7 @@ $this->layout->begin_head();
                         this.profile.fullname = `${res.member.member_title_front} ${res.member.fullname} ${res.member.member_title_back}`;
                         this.profile.email = res.member.email;
                         this.profile.phone = res.member.member_phone;
+						this.profile.p2kb_member_id = res.member.member_id;
                     } else {
                         Swal.fire('Info', `NIK.${this.profile.nik} : ${res.message}`, 'info');
                     }

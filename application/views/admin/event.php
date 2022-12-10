@@ -18,8 +18,7 @@
         </div>
     </div>
     <transition name="fade" mode="out-in">
-
-        <div v-if="form.show" key="form" class="row">
+        <div v-if="mode == 'form'" key="form" class="row">
             <div class="col-xl-12">
                 <div class="card bg-secondary shadow">
                     <div class="card-header bg-white border-0">
@@ -67,7 +66,7 @@
                                         <div class="form-group focused">
                                             <label class="form-control-label" for="input-username">Held On
                                                 (Date)</label>
-                                            <input :disabled="detailMode" type="text" class="form-control form-control-alternative" v-model="form.model.held_on" placeholder="Example 20 August 2019">
+                                            <vue-ctk-date-time-picker only-date range :disabled="detailMode" :no-label="true" format="YYYY-MM-DD" formatted="DD MMMM YYYY" v-model="form.model.held_on"></vue-ctk-date-time-picker>
                                         </div>
                                     </div>
                                 </div>
@@ -154,7 +153,6 @@
                                 Event Pricing
                                 <button v-if="!detailMode" type="button" class="btn btn-primary btn-sm" v-on:click="addPricing"><i class="fa fa-plus"></i> Add Price Category
                                 </button>
-
                             </h6>
                             <div class="pl-lg-4">
                                 <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
@@ -187,7 +185,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">From</span>
                                                     </div>
-                                                    <vuejs-datepicker :disabled="detailMode" input-class="form-control" wrapper-class="wrapper-datepicker" :value="form.model.date" v-model="eventPrice.dateFrom" name="uniquename">
+                                                    <vuejs-datepicker :disabled="detailMode" input-class="form-control" wrapper-class="wrapper-datepicker" :value="form.model.date" v-model="eventPrice.dateFrom" name="fromdate">
                                                     </vuejs-datepicker>
                                                 </div>
                                             </div>
@@ -196,7 +194,7 @@
                                                     <div class="input-group-prepend">
                                                         <span class="input-group-text">To</span>
                                                     </div>
-                                                    <vuejs-datepicker :disabled="detailMode" input-class="form-control" wrapper-class="wrapper-datepicker" v-model="eventPrice.dateTo" :value="form.model.date" name="uniquename"></vuejs-datepicker>
+                                                    <vuejs-datepicker :disabled="detailMode" input-class="form-control" wrapper-class="wrapper-datepicker" v-model="eventPrice.dateTo" :value="form.model.date" name="todate"></vuejs-datepicker>
                                                 </div>
                                             </div>
                                         </div>
@@ -257,7 +255,7 @@
                 </div>
             </div>
         </div>
-        <div v-else="!form.show" key="table" class="row">
+        <div v-if="mode == 'table'" key="table" class="row">
             <div class="col-xl-12">
                 <div class="card shadow">
                     <div class="card-header">
@@ -273,8 +271,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="table-responsive">
-                        <datagrid ref="datagrid" api-url="<?= base_url('admin/event/grid'); ?>" :fields="[{name:'name',sortField:'name'}, {name:'kategory',sortField:'kategory','title':'Category'},{name:'id',title:'Actions',titleClass:'action-th'}]">
+                    <div class="card-body table-responsive">
+                        <datagrid ref="datagrid" api-url="<?= base_url('admin/event/grid'); ?>" :fields="[{name:'name',sortField:'name'}, {name:'kategory',sortField:'kategory','title':'Category'},{name:'jumlahParticipant',sortField:'jumlahParticipant',title:'Participant'},{name:'id',title:'Actions',titleClass:'action-th'}]">
                             <template slot="id" slot-scope="props">
                                 <div class="table-button-container">
                                     <button @click="editRow(props)" class="btn btn-warning btn-sm">
@@ -440,6 +438,7 @@
             </div>
         </div>
     </div>
+    
 </div>
 <!-- Table -->
 
@@ -449,13 +448,29 @@
     .pre-line {
         white-space: inherit !important;
     }
+
+    .vuetable-td-name {
+        white-space: pre-line !important;
+        width: 400px;
+    }
+
+    .disabled{
+		cursor: not-allowed;
+		opacity: 0.4;
+	}
 </style>
+<link rel="stylesheet" href="https://unpkg.com/vue-select@latest/dist/vue-select.css">
 <?php $this->layout->end_head(); ?>
 
 <?php $this->layout->begin_script(); ?>
 <script src="<?= base_url("themes/script/v-money.js"); ?>"></script>
 <script src="<?= base_url("themes/script/vuejs-datepicker.min.js"); ?>"></script>
 <script src="https://cdn.jsdelivr.net/npm/vue-ctk-date-time-picker@2.5.0/dist/vue-ctk-date-time-picker.umd.js" charset="utf-8"></script>
+<script src="<?= base_url("themes/script/v-button.js"); ?>"></script>
+<script src="https://unpkg.com/vue-select@latest"></script>
+<script src="<?= base_url("themes/script/v-mapping-p2kb.js"); ?>"></script>
+<script lang="javascript" src="https://cdn.sheetjs.com/xlsx-0.19.1/package/dist/xlsx.full.min.js"></script>
+
 <script>
     var tempCategory = <?= Settings_m::eventCategory(); ?>;
 
@@ -492,12 +507,14 @@
             return moment(value).format('DD MMMM YYYY HH:mm')
         }
     });
+    Vue.component('v-select', VueSelect.VueSelect);
     var app = new Vue({
         el: '#app',
         components: {
             vuejsDatepicker,
         },
         data: {
+            mode: "table",
             new_event_category: '',
             message: '',
             error: null,
@@ -524,23 +541,24 @@
                 model: model()
             },
             loadedSpeaker: 0,
-            loadEvent:true,
-            eventList : [],
+            loadEvent: true,
+            eventList: [],
+            
         },
-        watch:{
-            'form.show':function(newVal){
-                if(newVal){
+        watch: {
+            'mode': function(newVal) {
+                if (newVal == "form") {
                     this.loadEvent = true;
-                    $.get("<?=base_url('admin/event/list_event');?>",function(res){
+                    $.get("<?= base_url('admin/event/list_event'); ?>", function(res) {
                         app.eventList = res.data
-                    }).always(function(){
+                    }).always(function() {
                         app.loadEvent = false;
                     })
-                }else{
+                } else {
                     this.loadEvent = false;
                 }
             }
-        },  
+        },
         methods: {
             sortingZoomLink() {
                 this.form.model.special_link.sort((a, b) => {
@@ -608,10 +626,47 @@
             },
             onAdd: function() {
                 this.form.title = "Add Event";
-                this.form.show = true;
+                this.mode = "form";
                 this.form.model = model();
                 this.error = null;
                 this.detailMode = false;
+            },
+            saveMap(self) {
+                self.toggleLoading();
+                $.post("<?= base_url('admin/event/map'); ?>/" + this.mapping.id, {
+                        map: this.mapping.map
+                    }, null, 'JSON')
+                    .done(function(res, text, xhr) {
+                        if (res.status)
+                            app.mode = "table";
+                        else
+                            Swal.fire('Fail', res.message, 'warning');
+                    }).fail(function(xhr) {
+                        app.error = xhr.responseJSON;
+                        var message = xhr.getResponseHeader("Message");
+                        if (message) {
+                            Swal.fire('Fail', message, 'error');
+                        }
+                    }).always(function() {
+                        self.toggleLoading();
+                    });
+            },
+            getMap(self, props) {
+                self.toggleLoading();
+                var url = "<?= base_url('admin/event/map'); ?>/" + props.row.id;
+                $.get(url)
+                    .done((res) => {
+                        this.mode = "mapping";
+                        this.mapping = res.data;
+                        this.listAktivitas = res.aktivitas;
+                    }).fail((xhr) => {
+                        var message = xhr.getResponseHeader("Message");
+                        if (!message)
+                            message = 'Server fail to response !';
+                        Swal.fire('Fail', message, 'error');
+                    }).always(() => {
+                        self.toggleLoading();
+                    });
             },
             detailRow: function(row) {
                 this.form.title = "Detail Event";
@@ -621,7 +676,7 @@
                         id: row.row.id
                     }, null, 'JSON')
                     .done(function(res) {
-                        app.form.show = true;
+                        app.mode = "form";
                         app.form.model = res;
                         app.detailMode = true;
                     }).fail(function(xhr) {
@@ -644,7 +699,7 @@
                         id: row.row.id
                     }, null, 'JSON')
                     .done(function(res) {
-                        app.form.show = true;
+                        app.mode = "form";
                         if (res.special_link.length > 0) {
                             app.form.saving = true;
                             app.loadedSpeaker = 0;
@@ -707,7 +762,7 @@
 
             },
             formCancel: function() {
-                this.form.show = false;
+                this.mode = "table";
             },
             addEventCategory: function() {
                 if (this.new_event_category != "") {
@@ -791,7 +846,7 @@
                 $.post("<?= base_url('admin/event/save'); ?>", this.form.model, null, 'JSON')
                     .done(function(res, text, xhr) {
                         app.message = res.msg;
-                        app.form.show = false;
+                        app.mode = "table";
                     }).fail(function(xhr) {
                         app.error = xhr.responseJSON;
                         var message = xhr.getResponseHeader("Message");

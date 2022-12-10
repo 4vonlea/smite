@@ -732,6 +732,7 @@ class Member extends Admin_Controller
 				'kta' => $member['perdossi_no'],
 				'fullname' => "$member[member_title_front] $member[fullname] $member[member_title_back]",
 				'phone' => $member['member_phone'],
+				'p2kb_member_id'=>$member['member_id']
 			],$id,false);
 		}else{
 			$this->Member_m->update([
@@ -741,6 +742,15 @@ class Member extends Admin_Controller
         $this->output
 			->set_content_type("application/json")
 			->_display(json_encode($response));
+	}
+
+	public function get_all_member(){
+		$this->load->model('Member_m');
+		$this->output
+		->set_content_type("application/json")
+		->_display(json_encode([
+			'data'=>$this->Member_m->find()->select("id,nik,fullname")->limit(10)->get()->result_array(),
+		]));
 	}
 
 	public function search(){

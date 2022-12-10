@@ -225,6 +225,7 @@ $theme_path = base_url("themes/bigamer") . "/";
                           	<small>(wajib diisi untuk integrasi P2KB)</small>
                             <div class="input-group">
                                 <input v-on:keyup.enter="checkMember" type="text" v-model="valueData.nik" :class="{'is-invalid':validation_error.nik}" class="form-control mb-0" name="nik" placeholder="NIK anda" />
+                                <input type="hidden" :value="valueData.p2kb_member_id" name="p2kb_member_id"/>
                                 <button :disabled="checkingMember" @click="checkMember" class="btn btn-primary" type="button">
                                     <i v-if="checkingMember" class="fa fa-spin fa-spinner"></i> Cek NIK di Database P2KB
                                 </button>
@@ -552,6 +553,7 @@ $theme_path = base_url("themes/bigamer") . "/";
                 fullname: '',
                 email: '',
                 phone: '',
+                p2kb_member_id:'',
             },
             uniqueid: "<?= $uniqueId; ?>",
             statusList: <?= json_encode($statusList); ?>,
@@ -656,6 +658,7 @@ $theme_path = base_url("themes/bigamer") . "/";
                         this.valueData.fullname = `${res.member.member_title_front} ${res.member.fullname} ${res.member.member_title_back}`;
                         this.valueData.email = res.member.email;
                         this.valueData.phone = res.member.member_phone;
+                        this.valueData.p2kb_member_id = res.member.member_id;
                     } else {
                         Swal.fire('Info', `NIK.${this.valueData.nik} : Data ${res.message} di Website P2KB PERDOSNI. Jangan khawatir, Anda masih dapat melanjutkan pendaftaran PIN PERDOSSI Cirebon 2022 dengan melanjutkan mengisi kolom yang kosong pada formulir ini.`, 'info');
                     }

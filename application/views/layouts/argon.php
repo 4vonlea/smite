@@ -275,6 +275,11 @@ function hideForRole($role, $listRole)
 							<i class="ni ni-camera-compact text-blue"></i> Upload Video
 						</a>
 					</li>
+					<li class="nav-item  <?= hideForRole($role, ['3',User_account_m::ROLE_OPERATOR_REGISTRATION]); ?>">
+						<a class="nav-link" href="<?= base_url('admin/push_p2kb'); ?>">
+							<i class="fa fa-upload text-blue"></i> Push To P2KB
+						</a>
+					</li>
 					<?php if ($role == '1' || $role == '4' || $role == '5') : ?>
 						<li class="nav-item">
 							<a class="nav-link" href="<?= base_url('admin/account'); ?>">

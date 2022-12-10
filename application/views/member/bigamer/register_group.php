@@ -806,6 +806,7 @@ $theme_path = base_url("themes/bigamer") . "/";
                         member.fullname = `${res.member.member_title_front} ${res.member.fullname} ${res.member.member_title_back}`;
                         member.email = res.member.email;
                         member.phone = res.member.member_phone;
+                        member.p2kb_member_id = res.member.member_id;
                     }
                 }).always(() => {
                     member.checking = false;
@@ -827,6 +828,7 @@ $theme_path = base_url("themes/bigamer") . "/";
                     message_payment: '',
                     nik: '',
                     checking: false,
+                    p2kb_member_id:'',
                     validation_error: {}
                 });
 

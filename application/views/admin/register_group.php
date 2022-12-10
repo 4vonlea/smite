@@ -360,6 +360,7 @@ $this->layout->begin_head();
                             member.fullname = `${res.member.member_title_front} ${res.member.fullname} ${res.member.member_title_back}`;
                             member.email = res.member.email;
                             member.phone = res.member.member_phone;
+							member.p2kb_member_id = res.member.member_id;
                     }
                 }).always(()=>{
                     member.checking = false;

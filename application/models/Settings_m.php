@@ -114,12 +114,12 @@ class Settings_m extends MY_Model
         return [];
     }
 
-    public static function getSetting($name)
+    public static function getSetting($name,$defaultValue = "")
     {
         $setting = Settings_m::findOne(['name' => $name]);
         if ($setting)
             return $setting->value;
-        return "";
+        return $defaultValue;
     }
 
     /**

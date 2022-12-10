@@ -179,7 +179,7 @@ $this->layout->end_head();
 								<a class="dropdown-item" href="<?= base_url('admin/paper/download_all_files/voice'); ?>">Voice Recording</a>
 							</div>
 						</div>
-						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-setting"><i class="fa fa-book"></i> Setting Due Date & Cut Off
+						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-setting"><i class="fa fa-book"></i> Setting Date
 						</button>
 						<button v-if="isAdmin" type="button" class="btn btn-primary m-2" data-toggle="modal" data-target="#modal-category-paper"><i class="fa fa-book"></i> Category Paper
 						</button>
@@ -305,7 +305,7 @@ $this->layout->end_head();
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title">Setting Due Date & Cut Off</h5>
+				<h5 class="modal-title">Setting Date</h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
@@ -336,6 +336,14 @@ $this->layout->end_head();
 				<div class="form-group">
 					<label>Presentation Cut Off Date</label>
 					<vue-ctk-date-time-picker :no-label="true" format="YYYY-MM-DD HH:mm:ss" formatted="DD MMMM YYYY HH:mm" v-model="setting_date.presentation_cutoff"></vue-ctk-date-time-picker>
+				</div>
+				<div class="form-group">
+					<label>Presentation Date (For Mapping P2KB</label>
+					<vue-ctk-date-time-picker range :no-label="true" format="YYYY-MM-DD" formatted="DD MMMM YYYY" only-date v-model="setting_date.presentation_date"></vue-ctk-date-time-picker>
+				</div>
+				<div class="form-group">
+					<label>Presentation Location (For Mapping P2KB)</label>
+					<input type="text" class="form-control" v-model="setting_date.presentation_location"/>
 				</div>
 			</div>
 			<div class="modal-footer">
@@ -769,6 +777,8 @@ $this->layout->end_head();
 				fullpaper_cutoff: "<?= Settings_m::getSetting('fullpaper_cutoff'); ?>",
 				presentation_deadline: "<?= Settings_m::getSetting('presentation_deadline'); ?>",
 				presentation_cutoff: "<?= Settings_m::getSetting('presentation_cutoff'); ?>",
+				presentation_date: <?= Settings_m::getSetting('presentation_date',"{}"); ?>,
+				presentation_location: "<?= Settings_m::getSetting('presentation_location'); ?>",
 			},
 			new_category_paper: '',
 			categoryPaper: <?= json_encode($categoryPaper); ?>,
