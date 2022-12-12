@@ -544,7 +544,7 @@ class Event_m extends MY_Model
 
 	public function saveMap($id, $data)
 	{
-		return $this->update(['p2kb_mapping' => json_encode($data)], ['id' => $id], false);
+		return $this->update(['p2kb_mapping' => $data], ['id' => $id], false);
 	}
 
 	public function getMapping($id)

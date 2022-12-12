@@ -356,7 +356,7 @@
             saveMap(self) {
                 self.toggleLoading();
                 $.post("<?= base_url('admin/push_p2kb/map'); ?>/" + this.mapping.id, {
-                        map: this.mapping.map
+                        map: JSON.stringify(this.mapping.map)
                     }, null, 'JSON')
                     .done(function(res, text, xhr) {
                         if (res.status)
