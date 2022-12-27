@@ -749,7 +749,7 @@ class Member extends Admin_Controller
 		$this->output
 		->set_content_type("application/json")
 		->_display(json_encode([
-			'data'=>$this->Member_m->find()->select("id,nik,fullname")->limit(10)->get()->result_array(),
+			'data'=>$this->Member_m->find()->select("id,nik,fullname")->get()->result_array(),
 		]));
 	}
 

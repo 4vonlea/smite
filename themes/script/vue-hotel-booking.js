@@ -3,11 +3,11 @@ let templateHotel = `
     <div class="row">
         <div class="d-flex flex-row align-items-end">
             <div class="me-2">
-                <label>Check-in</label><br/>
+                <label :class="labelClass">Check-in</label><br/>
                 <date-picker :disabled-date="disabledDate" :formatter="momentFormat" v-model="form.checkin" />
             </div>
             <div class="me-2">
-                <label>Check-out</label><br/>
+                <label :class="labelClass">Check-out</label><br/>
                 <date-picker :disabled-date="disabledDate" :formatter="momentFormat" v-model="form.checkout" />
             </div>
             <span v-if="night" class="badge bg-info me-2">{{ night }} Malam</span>
@@ -31,14 +31,14 @@ let templateHotel = `
     <div class="row">
         <div class="col">
             <div v-if="hotels && hotels.length == 0" class="alert alert-info text-center">
-                <p>Mohon Maaf tidak tersedia Hotel pada tanggal yang anda pilih</p>
+                Mohon Maaf tidak tersedia Hotel pada tanggal yang anda pilih
             </div>
         </div>
     </div>
     <div class="row row-cols-1 row-cols-md-3 g-4">
         <div v-if="showBooking"  class="col-md-12">
             <div class="card">
-                <div class="card-header  bg-purple">
+                <div class="card-header card-bg card__shadow">
                     <p class="card-title text-light fw-bold">Hotel Pesanan Anda</p>
                 </div>
                 <div class="card-body">
@@ -112,6 +112,7 @@ Vue.component('hotel-booking', {
         'onBook':Function,
         'onDelete':Function,
         'callback':{type:Function,default(){}},
+        'labelClass':[Object,String],
     },
     data: () => {
         return {

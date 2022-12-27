@@ -30,6 +30,9 @@ class Notification_m extends MY_Model
     public function getValue($name, $isJson = false)
     {
         $token = $this->findOne(['name' => $name]);
+        if($isJson){
+            return json_decode($token->value,true) ?? [];
+        }
         return ($token ? ($isJson ?  json_decode($token->value, true) : $token->value) : ($isJson ? [] : '{}'));
     }
 

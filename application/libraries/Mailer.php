@@ -17,9 +17,8 @@ class Mailer implements iNotification
         $mail->isSMTP();                                            // Send using SMTP
         $mail->Host       = $params['smtp_host'];                    // Set the SMTP server to send through
         $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-        $mail->Username   = $params['email'];                     // SMTP username
+        $mail->Username   = $params['username'];                     // SMTP username
         $mail->Password   = $params['password'];                               // SMTP password
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
         $mail->Port       = $params['smtp_port'];
         $mail->SMTPOptions = array(
             'ssl' => array(

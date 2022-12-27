@@ -154,15 +154,15 @@
                         </li>
                         <li class="list-group-item">Failed
                             <span class="badge badge-primary badge-pill">{{pushP2KB.failed}}</span>
-                            <button v-if="pushP2KB.status != 'processing' && pushP2KB.failedList.length > 0" @click="downloadFailedPush" class="btn btn-info btn-sm ml-2">Download List</button>
                         </li>
                     </ul>
                 </div>
                 <div class="modal-footer">
+                    <button v-if="pushP2KB.status != 'processing' && pushP2KB.processed == pushP2KB.total && pushP2KB.resultList.length > 0" @click="downloadResultPush" class="btn btn-info ml-2">Download Result</button>
                     <v-button v-if="pushP2KB.mode =='preparing'" class="btn btn-primary" @click="startPush($event,'start')" icon="fa fa-start">
                         Start
                     </v-button>
-                    <button :disabled="pushP2KB.status == 'processing'" type="button" :class="{disabled:pushP2KB.status == 'processing'}" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button :disabled="pushP2KB.status == 'processing' && pushP2KB.processed != pushP2KB.total" type="button" :class="{disabled:pushP2KB.status == 'processing'}" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>
@@ -214,7 +214,7 @@
                 status: '',
                 success: 0,
                 failed: 0,
-                failedList: [],
+                resultList: [],
                 data: [],
                 processed: 0,
                 message: '',
@@ -285,11 +285,11 @@
             this.fetchAccess();
         },
         methods: {
-            downloadFailedPush() {
-                const worksheet = XLSX.utils.json_to_sheet(this.pushP2KB.failedList);
+            downloadResultPush() {
+                const worksheet = XLSX.utils.json_to_sheet(this.pushP2KB.resultList);
                 const workbook = XLSX.utils.book_new();
                 XLSX.utils.book_append_sheet(workbook, worksheet, "List");
-                XLSX.writeFile(workbook, "Pushing Failed List .xlsx", {
+                XLSX.writeFile(workbook, "Pushing Result List .xlsx", {
                     compression: true
                 });
             },
@@ -307,11 +307,13 @@
                             this.pushP2KB.data = res.data;
                             this.pushP2KB.status = 'processing';
                             this.pushP2KB.processed = 0;
-                            this.pushP2KB.failedList = [];
+                            this.pushP2KB.resultList = [];
                             this.pushP2KB.mode = 'sync';
                             this.startPush(selfButton, 'process');
-                            this.startPush(selfButton, 'process');
-                            this.startPush(selfButton, 'process');
+                            if (this.pushP2KB.data.length > 0) 
+                                this.startPush(selfButton, 'process');
+                            if (this.pushP2KB.data.length > 0) 
+                                this.startPush(selfButton, 'process');
                         } else {
                             this.pushP2KB.mode = 'cannot_start';
                             this.pushP2KB.message = res.message;
@@ -325,13 +327,13 @@
                         event_id:this.pushP2KB.eventId,
                         participant:participant
                     }, (res) => {
+                        participant.feedback = JSON.stringify(res);
                         if (res.status) {
                             this.pushP2KB.success++;
                         } else {
-                            participant.feedback = JSON.stringify(res);
                             this.pushP2KB.failed++;
-                            this.pushP2KB.failedList.push(participant);
                         }
+                        this.pushP2KB.resultList.push(participant);
                     }).always(() => {
                         this.pushP2KB.processed++;
                         this.pushP2KB.progress = Math.round(this.pushP2KB.processed / this.pushP2KB.total * 100)
@@ -343,7 +345,7 @@
                     }).fail((xhr) => {
                         this.pushP2KB.failed++;
                         participant.feedback = xhr.responseText;
-                        this.pushP2KB.failedList.push(participant);
+                        this.pushP2KB.resultList.push(participant);
                     });
                 }
             },
@@ -351,6 +353,8 @@
                 this.pushP2KB.eventId = row.id;
                 this.pushP2KB.eventName = row.name;
                 this.pushP2KB.mode = "preparing";
+                this.pushP2KB.processed = 0;
+                this.pushP2KB.resultList = [];
                 $("#modal-push-p2kb").modal("show");
             },
             saveMap(self) {

@@ -499,7 +499,7 @@ class Event_m extends MY_Model
 			$data['qr'] = isset($tr->transaction_id) ? base_url("site/sertifikat/" . sha1($tr->id_detil)) : "-";
 			$data['event_name'] = $event_name;
 			//$data['status_member'] = "Peserta";
-			if (in_array($data['status_member'], ["Spesialis", "Residen", "General Practitioner"])) {
+			if (isset($data['status_member']) && in_array($data['status_member'], ["Spesialis", "Residen", "General Practitioner"])) {
 				$data['status_member'] = "Peserta";
 			}
 			$domInvoice = new Dompdf();
@@ -584,12 +584,13 @@ class Event_m extends MY_Model
 		$map = json_decode($row->p2kb_mapping, true) ?? [];
 		if(!isset( $map[$member['status_member']]['aktivitas']['aktivitas_code']))
 			return "Mapping Aktivitas untuk status $member[status_member] tidak ditemukan, Harap cek kembali";
-		$aktivitasCode = $map[$member['status_member']]['aktivitas']['aktivitas_code'];
+		//$aktivitasCode = $map[$member['status_member']]['aktivitas']['aktivitas_code'];
 
 		if(!isset( $map[$member['status_member']]['nilaiSkp']['skp']))
 			return "Mapping Nilai SKP untuk status $member[status_member] tidak ditemukan, Harap cek kembali";
 		$skp =  $map[$member['status_member']]['nilaiSkp']['skp'];
-
+		$roleEvent =  $map[$member['status_member']]['nilaiSkp']['ref_role_code'];
+		$option =  $map[$member['status_member']]['nilaiSkp']['role_id'];
 		$judul = $event['name'];
 		$lokasi = $event['held_in'];
 		$date = json_decode($event['held_on'],true) ?? ['start'=>'','end'=>''];
@@ -598,17 +599,18 @@ class Event_m extends MY_Model
 		file_put_contents("./application/cache/$transactionDetailId.pdf",$certificate->output());
 		
 		return [
-			"aktivitas_code" => $aktivitasCode,// "101",
+			"select_event" => $roleEvent,// "101",
 			"judul" =>$judul,// "Panitia PINPERDOSSI",
 			"acara" =>$siteTitle,// "Perdossi 2020",
 			"lokasi" => $lokasi,
-			"start_date" => $date['start'],
-			"end_date" => $date['end'],
+			"start_date" => $date['start'] ?? "",
+			"end_date" => $date['end'] ?? "",
 			"no_registrasi" => $noRegistrasi,//"PINCI-01",
-			"ref_member_id" =>  $ref_member_id,
+			"ref_member_id" => 3639,// $ref_member_id,
 			"skp" => $skp,// "5",
 			"usr_crt" => $noRegistrasi,//"PINCI-01",
 			"usr_upd" => "generate-event-pin-".$noRegistrasi,
+			"option" => $option,
 			"berkas" => base64_encode($certificate->output())
 		];
 	}

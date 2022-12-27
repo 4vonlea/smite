@@ -119,7 +119,7 @@ class Push_p2kb extends Admin_Controller
         if($eventId == "paper"){
             $query = $this->Papers_m->certificateReceiverQuery();
         }else{
-            $query = $this->Event_m->getParticipant("td.id as id,m.fullname,m.nik,ep.condition as status_member")
+            $query = $this->Event_m->getParticipant("td.id as id,m.fullname,m.nik,ep.condition as status_member,m.p2kb_member_id")
                 ->where("t.id", $eventId);
         }
 
@@ -168,6 +168,7 @@ class Push_p2kb extends Admin_Controller
         }else{
             $response['status'] = false;
             $response['message'] = $data;
+            $response['statusResponse'] = "Gagal";
         }
         $this->output->set_content_type("application/json")
             ->_display(json_encode($response));

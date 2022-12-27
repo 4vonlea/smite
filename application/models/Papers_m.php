@@ -377,11 +377,13 @@ class Papers_m extends MY_Model
 
 		if(!isset( $map[$member['status']]['aktivitas']['aktivitas_code']))
 			return "Mapping Aktivitas untuk status $member[status] tidak ditemukan, Harap cek kembali";
-		$aktivitasCode = $map[$member['status']]['aktivitas']['aktivitas_code'];
+		// $aktivitasCode = $map[$member['status']]['aktivitas']['aktivitas_code'];
 
 		if(!isset( $map[$member['status']]['nilaiSkp']['skp']))
 			return "Mapping Nilai SKP untuk status $member[status] tidak ditemukan, Harap cek kembali";
 		$skp =  $map[$member['status']]['nilaiSkp']['skp'];
+		$roleEvent =  $map[$member['status_member']]['nilaiSkp']['ref_role_code'];
+		$option =  $map[$member['status_member']]['nilaiSkp']['role_id'];
 
 		$noRegistrasi = "PP-".$id;
 
@@ -391,17 +393,18 @@ class Papers_m extends MY_Model
 		$dateRaw = Settings_m::getSetting("presentation_date");
 		$date = json_decode($dateRaw,true) ?? ['start'=>'','end'=>''];
 		return [
-			"aktivitas_code" => $aktivitasCode,// "101",
+			"select_event" => $roleEvent,// "101",
 			"judul" =>"Paper/Manuscript Submission on ".$siteTitle,// "Panitia PINPERDOSSI",
 			"acara" =>$siteTitle,// "Perdossi 2020",
 			"lokasi" => $location,
-			"start_date" => $date['start'],
-			"end_date" => $date['end'],
+			"start_date" => $date['start'] ?? "",
+			"end_date" => $date['end'] ??"",
 			"no_registrasi" => $noRegistrasi,//"PINCI-01",
 			"ref_member_id" =>  $ref_member_id,
 			"skp" => $skp,// "5",
 			"usr_crt" => $noRegistrasi,//"PINCI-01",
 			"usr_upd" => "generate-event-pin-".$noRegistrasi,
+			"option" => $option,
 			"berkas" => base64_encode($certificate->output())
 		];
 	}

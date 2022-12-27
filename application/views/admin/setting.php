@@ -375,6 +375,10 @@
 										<input type="text" class="form-control" v-model="mailer.email" />
 									</div>
 									<div class="form-group">
+										<label class="form-control-label">Username</label>
+										<input type="text" class="form-control" v-model="mailer.username" />
+									</div>
+									<div class="form-group">
 										<label class="form-control-label">Password</label>
 										<input type="text" class="form-control" v-model="mailer.password" />
 									</div>
@@ -604,7 +608,7 @@
 			espay: <?= json_encode(Settings_m::getEspay()); ?>,
 			enablePayment: <?= json_encode(Settings_m::getEnablePayment()); ?>,
 			typeMailer: "<?= $this->Notification_m->getDefaultMailer() ?>",
-			mailer: <?= $this->Notification_m->getValue(Notification_m::SETTING_MAILER) ?>,
+			mailer: <?= json_encode($this->Notification_m->getValue(Notification_m::SETTING_MAILER,true),JSON_FORCE_OBJECT); ?>,
 			logo_src: '<?= base_url('themes/uploads/logo.png'); ?>',
 			form: {
 				preface: <?= json_encode(Settings_m::getSetting('preface')); ?>,
