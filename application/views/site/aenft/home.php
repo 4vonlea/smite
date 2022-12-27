@@ -333,16 +333,21 @@
                     <div class="col-lg-6 text-center mb-4">
                         <h4>Masuk Login</h4>
                         <form name="contactForm" id="contact_form" class="form-border" method="post" action="<?= base_url('site/login'); ?>">
-                            <div class="field-set mb-2">
-                                <input type="text" name="username" id="email" class="form-control" placeholder="Email">
-                            </div>
-                            <div class="field-set mb-2">
-                                <input type="password" name="password" id="password" class="form-control" placeholder="Password">
-                            </div>
-                            <a href="<?= base_url('site/forget'); ?>" class="mb-2">Lupa Password ?</a>
+                            <?php if (!$hasSession) : ?>
+                                <div class="field-set mb-2">
+                                    <input type="text" name="username" id="email" class="form-control" placeholder="Email">
+                                </div>
+                                <div class="field-set mb-2">
+                                    <input type="password" name="password" id="password" class="form-control" placeholder="Password">
+                                </div>
+                                <a href="<?= base_url('site/forget'); ?>" class="mb-2">Lupa Password ?</a>
+                            <?php endif;?>
+
                             <div class="d-grid">
                                 <button type="submit" name="login" value="login" class="btn btn-round btn-primary mt-2">
-                                    <i class="fa-solid fa-sign-in"></i> Sign </button><br>
+                                    <span> <?= $hasSession ? "Back To Member Area" : "<i class='fa-solid fa-sign-in'></i> Sign in / Masuk"; ?></span>
+                                </button>
+                                    <br>
                             </div>
                         </form>
                     </div>

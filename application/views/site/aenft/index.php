@@ -65,18 +65,22 @@
                     <div class="box">
                         <h6>Bagi yang sudah terdaftar, silakan Login disini.</h6>
                         <br>
+
                         <form action="<?= base_url('site/login'); ?>" method="post">
-                            <div class="inputBox">
-                                <input type="text" name="username" required="">
-                                <label for="">Username</label>
-                            </div>
-                            <div class="inputBox">
-                                <input type="password" name="password" required="">
-                                <label for="">Password</label>
-                            </div>
-                            <div class="text-end text-white mb-3" style="margin-top: -20px; font-size: 14px; text-decoration: underline;">
-                                <a href="#">Lupa Password ?</a>
-                            </div>
+                            <?php if (!$hasSession) : ?>
+                                <div class="inputBox">
+                                    <input type="text" name="username" required="">
+                                    <label for="">Username</label>
+                                </div>
+                                <div class="inputBox">
+                                    <input type="password" name="password" required="">
+                                    <label for="">Password</label>
+                                </div>
+                                <div class="text-end text-white mb-3" style="margin-top: -20px; font-size: 14px; text-decoration: underline;">
+                                    <a href="#">Lupa Password ?</a>
+                                </div>
+                            <?php endif;?>
+
                             <button type="submit" value="login" name="login" class="btn btn-primary w-100" style="margin-top: -3px;">
 								<span> <?= $hasSession ? "Back To Member Area" : "Sign in / Masuk"; ?></span>
 							</button>
