@@ -224,6 +224,8 @@ class Transaction_m extends MY_Model
 		$html = $this->load->view("template/invoice", [
 			'transaction' => $this,
 		], true);
+		echo $html;
+		exit;
 
 		$option = new \Dompdf\Options();
 		$option->setIsRemoteEnabled(true);
