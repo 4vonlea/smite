@@ -35,12 +35,12 @@
             <div class="container">
                 <div class="cs-main_header_in">
                     <div class="cs-main_header_left">
-                        <a class="cs-site_branding cs-accent_color" href="<?=base_url('site/home');?>">
+                        <a class="cs-site_branding cs-accent_color" href="<?= base_url('site/home'); ?>">
                             <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/logo.png" alt="Logo" class="cs-hide_dark">
                             <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/logo.png" alt="Logo" class="cs-hide_white">
                         </a>
                     </div>
-                    <div class="cs-main_header_center">
+                    <!-- <div class="cs-main_header_center">
                         <div class="cs-nav">
                             <ul class="cs-nav_list">
                                 <li><a href="#home" class="cs-smoth_scroll">Beranda</a></li>
@@ -48,10 +48,10 @@
                                 <li><a href="#event" class="cs-smoth_scroll">Kegiatan</a></li>
                             </ul>
                         </div>
-                    </div>
+                    </div> -->
                     <div class="cs-main_header_right">
                         <div class="cs-toolbox">
-                            <a href="<?=base_url('member/register');?>" class="cs-btn cs-btn_filed cs-accent_btn">
+                            <a href="<?= base_url('member/register'); ?>" class="cs-btn cs-btn_filed cs-accent_btn">
                                 <i class="fa-solid fa-clipboard-user"></i>
                                 <span>Registrasi</span>
                             </a>
@@ -66,6 +66,30 @@
 
     <!-- Start Hero -->
     <div id="home" class="cs-hero cs-style1 cs-type2 cs-bg text-center  cs-ripple_version" data-src="<?= base_url('themes/aenft'); ?>/assets/img/konas/bg-head.jpg" id="home">
+        <nav class="floating-menu">
+            <ul class="main-menu">
+                <li>
+                    <a href="#home" class="ripple cs-smoth_scroll">
+                        <i class="fa fa-home fa-lg"></i>
+                        <span>Beranda</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#login" class="ripple cs-smoth_scroll">
+                        <i class="fa fa-sign-in fa-lg"></i>
+                        <span>Login</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#event" class="ripple cs-smoth_scroll">
+                        <i class="fa fa-calendar-alt fa-lg"></i>
+                        <span>Kegiatan</span>
+
+                    </a>
+                </li>
+            </ul>
+            <div class="menu-bg"></div>
+        </nav>
         <div class="cs-dark_overlay"></div>
         <div class="container">
             <div class="cs-hero_img wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.3s">
@@ -140,7 +164,7 @@
                         <div class="cs-member_info">
                             <h2 class="cs-font_22 cs-font_16_sm cs-m0">Peserta</h2>
                             <div class="cs-height_5 cs-height_lg_5"></div>
-                            <p data-count-to="1216" class="odometer cs-m0"></p>
+                            <p data-count-to="<?php echo $participant; ?>" class="odometer cs-m0"></p>
                             <div class="cs-height_20 cs-height_lg_20"></div>
                         </div>
                     </div>
@@ -156,7 +180,7 @@
                         <div class="cs-member_info">
                             <h2 class="cs-font_22 cs-font_16_sm cs-m0">Abstract</h2>
                             <div class="cs-height_5 cs-height_lg_5"></div>
-                            <p data-count-to="101" class="odometer cs-m0"></p>
+                            <p data-count-to="<?php echo $paper; ?>" class="odometer cs-m0"></p>
                             <div class="cs-height_20 cs-height_lg_20"></div>
                         </div>
                     </div>
@@ -251,16 +275,16 @@
                             <div class="col-lg-6 col-sm-12 mb-4">
                                 <h3 class="cs-iconbox_title cs-font_28 cs-font_22_sm cs-m0">Abstract Countdown</h3>
                                 <div class="cs-height_10 cs-height_lg_10"></div>
-                                <div class="cs-iconbox_subtitle">(October 21, 2022)</div>
+                                <div class="cs-iconbox_subtitle">(<?= date_format($papercountdown, "F d, Y"); ?>)</div>
                                 <div class="cs-height_10 cs-height_lg_10"></div>
-                                <h4 class="cs-iconbox_icon cs-font_26 cs-font_20_sm cs-m0">0h 0m 0s</h4>
+                                <div class="de_countdown h4 cs-iconbox_icon cs-font_26 cs-font_20_sm cs-m0" data-year="<?= date_format($papercountdown, "Y"); ?>" data-month="<?= date_format($papercountdown, "m"); ?>" data-day="<?= date_format($papercountdown, "d"); ?>" data-hour="<?= date_format($papercountdown, "H"); ?>"></div>
                             </div>
                             <div class="col-lg-6 col-sm-12 mb-4">
                                 <h3 class="cs-iconbox_title cs-font_28 cs-font_22_sm cs-m0">Event Countdown</h3>
                                 <div class="cs-height_10 cs-height_lg_10"></div>
-                                <div class="cs-iconbox_subtitle">(October 19, 2022)</div>
+                                <div class="cs-iconbox_subtitle">(<?= date_format($eventcountdown, "F d, Y"); ?>)</div>
                                 <div class="cs-height_10 cs-height_lg_10"></div>
-                                <h4 class="cs-iconbox_icon cs-font_26 cs-font_20_sm cs-m0">0h 0m 0s</h4>
+                                <div class="de_countdown h4 cs-iconbox_icon cs-font_26 cs-font_20_sm cs-m0" data-year="<?= date_format($eventcountdown, "Y"); ?>" data-month="<?= date_format($eventcountdown, "m"); ?>" data-day="<?= date_format($eventcountdown, "d"); ?>" data-hour="<?= date_format($eventcountdown, "H"); ?>"></div>
                             </div>
                         </div>
                     </div>
@@ -341,13 +365,13 @@
                                     <input type="password" name="password" id="password" class="form-control" placeholder="Password">
                                 </div>
                                 <a href="<?= base_url('site/forget'); ?>" class="mb-2">Lupa Password ?</a>
-                            <?php endif;?>
+                            <?php endif; ?>
 
                             <div class="d-grid">
                                 <button type="submit" name="login" value="login" class="btn btn-round btn-primary mt-2">
                                     <span> <?= $hasSession ? "Back To Member Area" : "<i class='fa-solid fa-sign-in'></i> Sign in / Masuk"; ?></span>
                                 </button>
-                                    <br>
+                                <br>
                             </div>
                         </form>
                     </div>
@@ -369,12 +393,12 @@
             <div class="row mt-3">
                 <div class="col-lg-6 col-md-6 mb-2">
                     <div class="d-grid text-center">
-                        <a href="<?=base_url('member/register');?>" class="cs-btn cs-btn_filed btn-col"><span> <i class="fa-solid fa-clipboard-user"></i> Registrasi Individu</span> </a>
+                        <a href="<?= base_url('member/register'); ?>" class="cs-btn cs-btn_filed btn-col"><span> <i class="fa-solid fa-clipboard-user"></i> Registrasi Individu</span> </a>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <div class="d-grid text-center">
-                        <a href="<?=base_url('member/register/group');?>" class="cs-btn cs-btn_filed btn-col"><span> <i class="fa-solid fa-user-group"></i> Registrasi Grup / Kelompok</span> </a>
+                        <a href="<?= base_url('member/register/group'); ?>" class="cs-btn cs-btn_filed btn-col"><span> <i class="fa-solid fa-user-group"></i> Registrasi Grup / Kelompok</span> </a>
                     </div>
                 </div>
             </div>
@@ -800,9 +824,9 @@
                                 </div>
                                 <div class="fm-item-content">
                                     <div class="d-grid">
-                                        <a href="<?=base_url('site/login');?>" class="btn btn-primary mt-3"><i class="fa-solid fa-sign-in"></i> Masuk Login</a>
-                                        <a href="<?=base_url('member/register');?>" class="btn btn-primary mt-2"><i class="fa-solid fa-clipboard-user"></i> Registrasi Individu</a>
-                                        <a href="<?=base_url('member/register/group');?>" class="btn btn-primary mt-2"><i class="fa-solid fa-user-group"></i> Registrasi Grup / Kelompok</a>
+                                        <a href="<?= base_url('site/login'); ?>" class="btn btn-primary mt-3"><i class="fa-solid fa-sign-in"></i> Masuk Login</a>
+                                        <a href="<?= base_url('member/register'); ?>" class="btn btn-primary mt-2"><i class="fa-solid fa-clipboard-user"></i> Registrasi Individu</a>
+                                        <a href="<?= base_url('member/register/group'); ?>" class="btn btn-primary mt-2"><i class="fa-solid fa-user-group"></i> Registrasi Grup / Kelompok</a>
                                     </div>
                                 </div>
                             </div>
@@ -831,8 +855,8 @@
                     <circle cx="200" cy="200" r="155" stroke-dasharray="30 30 80 30" />
                 </g>
                 <g id="notes" stroke="none">
-                    <path d="M232 120C232 106.7 242.7 96 256 96C269.3 96 280 106.7 280 120V243.2L365.3 300C376.3 307.4 379.3 322.3 371.1 333.3C364.6 344.3 349.7 347.3 338.7 339.1L242.7 275.1C236 271.5 232 264 232 255.1L232 120zM256 0C397.4 0 512 114.6 512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256C0 114.6 114.6 0 256 0zM48 256C48 370.9 141.1 464 256 464C370.9 464 464 370.9 464 256C464 141.1 370.9 48 256 48C141.1 48 48 141.1 48 256z"/>
-                    <path d="M232 120C232 106.7 242.7 96 256 96C269.3 96 280 106.7 280 120V243.2L365.3 300C376.3 307.4 379.3 322.3 371.1 333.3C364.6 344.3 349.7 347.3 338.7 339.1L242.7 275.1C236 271.5 232 264 232 255.1L232 120zM256 0C397.4 0 512 114.6 512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256C0 114.6 114.6 0 256 0zM48 256C48 370.9 141.1 464 256 464C370.9 464 464 370.9 464 256C464 141.1 370.9 48 256 48C141.1 48 48 141.1 48 256z"/>
+                    <path d="M232 120C232 106.7 242.7 96 256 96C269.3 96 280 106.7 280 120V243.2L365.3 300C376.3 307.4 379.3 322.3 371.1 333.3C364.6 344.3 349.7 347.3 338.7 339.1L242.7 275.1C236 271.5 232 264 232 255.1L232 120zM256 0C397.4 0 512 114.6 512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256C0 114.6 114.6 0 256 0zM48 256C48 370.9 141.1 464 256 464C370.9 464 464 370.9 464 256C464 141.1 370.9 48 256 48C141.1 48 48 141.1 48 256z" />
+                    <path d="M232 120C232 106.7 242.7 96 256 96C269.3 96 280 106.7 280 120V243.2L365.3 300C376.3 307.4 379.3 322.3 371.1 333.3C364.6 344.3 349.7 347.3 338.7 339.1L242.7 275.1C236 271.5 232 264 232 255.1L232 120zM256 0C397.4 0 512 114.6 512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256C0 114.6 114.6 0 256 0zM48 256C48 370.9 141.1 464 256 464C370.9 464 464 370.9 464 256C464 141.1 370.9 48 256 48C141.1 48 48 141.1 48 256z" />
                 </g>
             </symbol>
         </defs>
@@ -846,8 +870,24 @@
     <script src="<?= base_url('themes/aenft'); ?>/assets/js/plugins/ripples.min.js"></script>
     <script src="<?= base_url('themes/aenft'); ?>/assets/js/main.js"></script>
     <script src="<?= base_url('themes/aenft'); ?>/assets/js/custom.js"></script>
-    <script src="<?= base_url('themes/aenft'); ?>/assets/fontawesome/js/all.min.js"></script>
     <script src="<?= base_url('themes/aenft'); ?>/assets/js/plugins/bootstrap.bundle.min.js"></script>
+
+    <script src="<?= base_url('themes/gigaland'); ?>/js/jquery.plugin.js"></script>
+    <script src="<?= base_url('themes/gigaland'); ?>/js/jquery.countTo.js"></script>
+    <script src="<?= base_url('themes/gigaland'); ?>/js/jquery.countdown.js"></script>
+    <script>
+        $(function() {
+            $('.de_countdown').each(function() {
+                var y = $(this).data('year');
+                var m = $(this).data('month');
+                var d = $(this).data('day');
+                var h = $(this).data('hour');
+                $(this).countdown({
+                    until: new Date(y, m - 1, d, h)
+                });
+            });
+        })
+    </script>
 </body>
 
 </html>

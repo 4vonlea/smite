@@ -1,9 +1,110 @@
+.floating-menu {
+    border-radius: 100px;
+    z-index: 999;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    left: 10px;
+    position: fixed;
+    display: inline-block;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%)
+}
+
+.main-menu {
+    margin: 0;
+    padding-left: 0;
+    list-style: none
+}
+
+.main-menu li a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    color: #fff;
+    border-radius: 50px;
+    position: relative;
+    -webkit-transition: none;
+    -o-transition: none;
+    transition: none
+}
+/* .main-menu li:hover .submenu{
+    display: inline;
+} */
+.main-menu li .submenu {
+    margin-left: 10;
+    padding-left: 0;
+    list-style: none
+}
+
+.main-menu li a:hover {
+    background: rgba(244, 244, 244, .3)
+}
+
+.menu-bg {
+    /* background-image: -webkit-linear-gradient(top, #1C5E91 0, #167699 100%);
+    background-image: -o-linear-gradient(top, #1C5E91 0, #167699 100%);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#1C5E91), to(#167699));
+    background-image: linear-gradient(to bottom, #1C5E91 0, #167699 100%);
+    background-repeat: repeat-x; */
+    background-color: #0052FF;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50px;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    -webkit-transition: .1s;
+    -o-transition: .1s;
+    transition: .1s
+}
+
+.ripple {
+    position: relative;
+    overflow: hidden;
+    transform: translate3d(0, 0, 0)
+}
+
+.ripple > span {
+    margin-top: 10px;
+    font-size: 10px;
+    white-space: pre-line;
+    text-align: center;
+    line-height: 15px;
+}
+
+.ripple:after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    background-image: radial-gradient(circle, #000 10%, transparent 10.01%);
+    background-repeat: no-repeat;
+    background-position: 50%;
+    transform: scale(10, 10);
+    opacity: 0;
+    transition: transform .5s, opacity 1s
+}
+
+.ripple:active:after {
+    transform: scale(0, 0);
+    opacity: .2;
+    transition: 0s
+}
+
 .btn-round {
     border-radius: 20px;
     color: whitesmoke;
 }
 
-.btn-round:hover{
+.btn-round:hover {
     font-weight: 600;
     color: whitesmoke;
 }
@@ -12,15 +113,16 @@
     background-color: rgba(0, 82, 255, 0.2);
 }
 
-.card-bg{
+.card-bg {
     background-color: #283645;
     border-color: #283645;
 }
-.card-header-bg{
+
+.card-header-bg {
     background-color: #0B9EEA;
 }
 
-.card-header-bg2{
+.card-header-bg2 {
     background-color: #0fa091;
 }
 
@@ -50,11 +152,11 @@
 
 .card__shadow:hover {
     box-shadow: 0 10px 30px 0 rgba(102, 201, 229, 0.4);
-    -webkit-transform: translate(0,-10px);
-    transform: translate(0,-10px);
+    -webkit-transform: translate(0, -10px);
+    transform: translate(0, -10px);
 }
 
-[class*=card__shadow]{
+[class*=card__shadow] {
     -webkit-transition: all .5s ease;
     transition: all .5s ease;
 }
@@ -111,69 +213,77 @@ button.accordion.is-open {
 }
 
 .event {
-	display: block;
+    display: block;
 }
-.event .event-filter{
-	text-align: center;
+
+.event .event-filter {
+    text-align: center;
 }
-.event .event-filter .filter-item{
-	color: #ffffff;
+
+.event .event-filter .filter-item {
+    color: #ffffff;
     border: 1px solid white;
-	text-transform: uppercase;
-	display: inline-block;
+    text-transform: uppercase;
+    display: inline-block;
     border-radius: 20px;
     margin-right: 5px;
     margin-bottom: 10px;
-	cursor: pointer;
+    cursor: pointer;
     padding: 8px 20px 8px 20px;
-	line-height: 1;
-	transition: all 0.3s ease;
+    line-height: 1;
+    transition: all 0.3s ease;
 }
-.event .event-filter .filter-item.active{
-	color: white;
-	border-color : #0fa091;
+
+.event .event-filter .filter-item.active {
+    color: white;
+    border-color: #0fa091;
     background: #0fa091;
 }
-.event .event-item{
-	/* width: calc(100% / 3); */
-	padding: 3px;
+
+.event .event-item {
+    /* width: calc(100% / 3); */
+    padding: 3px;
 
 }
 
-.event .event-item.show{
-	animation: fadeIn 0.5s ease;
+.event .event-item.show {
+    animation: fadeIn 0.5s ease;
 }
 
-.event .event-item ul li{
+.event .event-item ul li {
     list-style-type: none;
     margin-left: -15px;
 }
 
-@keyframes fadeIn{
-	0%{
-		opacity: 0;
-	}
-	100%{
-		opacity: 1;
-	}
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
-.event .event-item.hide{
-	display: none;
+
+.event .event-item.hide {
+    display: none;
 }
 
 /*responsive*/
-@media(max-width: 491px){
-	.event .event-item{
-		width: 50%;
-	}
+@media(max-width: 491px) {
+    .event .event-item {
+        width: 50%;
+    }
 }
-@media(max-width: 467px){
-    .event .event-item{
-		width: 100%;
-	}
-	.event .event-filter .filter-item{
-		margin-bottom: 10px;
-	}
+
+@media(max-width: 467px) {
+    .event .event-item {
+        width: 100%;
+    }
+
+    .event .event-filter .filter-item {
+        margin-bottom: 10px;
+    }
 }
 
 
@@ -226,28 +336,28 @@ button.accordion.is-open {
     cursor: pointer;
 }
 
-.sponsor img{
-	width: 100%;
+.sponsor img {
+    width: 100%;
     border: 3px solid #0FA091;
 }
 
 .sponsor_shadow:hover {
     box-shadow: 0 10px 30px 0 rgba(102, 201, 229, 0.4);
-    -webkit-transform: translate(0,-10px);
-    transform: translate(0,-10px);
+    -webkit-transform: translate(0, -10px);
+    transform: translate(0, -10px);
 }
 
-[class*=sponsor_shadow]{
+[class*=sponsor_shadow] {
     -webkit-transition: all .5s ease;
     transition: all .5s ease;
 }
 
-.fm-item-content ul li{
+.fm-item-content ul li {
     list-style-type: none;
     margin-left: -15px;
 }
 
-.fm-item-content b{
+.fm-item-content b {
     margin-left: -15px;
 }
 
@@ -261,7 +371,7 @@ button.accordion.is-open {
     margin: -7px;
 }
 
-.cs-cta.cs-style2 .cs-cta_btns > * {
+.cs-cta.cs-style2 .cs-cta_btns>* {
     margin: 7px;
 }
 
@@ -274,7 +384,7 @@ button.accordion.is-open {
 .cs-dark .cs-cta.cs-style2 {
     background: linear-gradient(108.18deg, rgba(65, 92, 216, 0.2) -2.02%, rgba(64, 159, 13, 0.2) 100%);
     -webkit-backdrop-filter: blur(10px);
-            backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
 }
 
 .cs-cta.cs-style3 {
@@ -287,7 +397,7 @@ button.accordion.is-open {
     margin: -7px;
 }
 
-.cs-cta.cs-style3 .cs-cta_btns > * {
+.cs-cta.cs-style3 .cs-cta_btns>* {
     margin: 7px;
 }
 
@@ -300,7 +410,7 @@ button.accordion.is-open {
 .cs-dark .cs-cta.cs-style3 {
     background: linear-gradient(108.18deg, rgba(30, 160, 224, 0.247) -2.02%, rgba(84, 24, 212, 0.2) 100%);
     -webkit-backdrop-filter: blur(10px);
-            backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
 }
 
 /* .box {
@@ -317,66 +427,71 @@ button.accordion.is-open {
 } */
 
 .box h2 {
-	margin: 0 0 30px;
-	padding: 0;
-	color: #FFF;
-	text-align: center;
+    margin: 0 0 30px;
+    padding: 0;
+    color: #FFF;
+    text-align: center;
 }
 
 .inputBox {
-	position: relative;
+    position: relative;
 }
+
 .box .inputBox input {
-	width: 100%;
-	padding: 10px 0;
-	font-size: 16px;
-	color: #FFF;
-	letter-spacing: 1px;
-	margin-bottom: 30px;
-	border: none;
-	border-bottom: 1px solid #FFF;
-	outline: none;
-	background: transparent;
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #FFF;
+    letter-spacing: 1px;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid #FFF;
+    outline: none;
+    background: transparent;
 }
+
 .box .inputBox label {
-	position: absolute;
-	top: 0;
-	left: 0;
-	padding: 10px 0;
-	font-size: 16px;
-	color: #FFF;
-	pointer-events: none;
-	transition: .5s;
-	animation: LabelOnLoad 1s forwards 0s ease;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #FFF;
+    pointer-events: none;
+    transition: .5s;
+    animation: LabelOnLoad 1s forwards 0s ease;
 }
-@keyframes LabelOnLoad{
-    0%{
+
+@keyframes LabelOnLoad {
+    0% {
         transform: rotate(0) translateY(-19px);
         opacity: 0;
-        }
-    100%{
+    }
+
+    100% {
         transform: rotate(0) translateY(0);
         opacity: 1;
-        }
+    }
 }
-.box .inputBox input:focus ~ label, 
-.box .inputBox input:valid ~ label {
-	top: -19px;
-	left:0;
-	color: white;
-	font-size: 12px;
+
+.box .inputBox input:focus~label,
+.box .inputBox input:valid~label {
+    top: -19px;
+    left: 0;
+    color: white;
+    font-size: 12px;
 }
 
 .box input[type='submit'] {
-	background: transparent;
-	border: none;
-	outline: none;
-	color: #FFF;
-	background: white;
-	padding: 10px 20px;
-	cursor: pointer;
-	border-radius: 5px;
-	font-size: 14px;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #FFF;
+    background: white;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
 }
 
 .cs-btn_danger {
@@ -389,7 +504,7 @@ button.accordion.is-open {
     color: #fff;
 }
 
-.cs-nav .cs-nav_list > li {
+.cs-nav .cs-nav_list>li {
     margin-right: 18px;
     height: inherit;
 }
@@ -421,84 +536,87 @@ button.accordion.is-open {
 }
 
 .logosvg {
-	fill: black;
-	stroke: black;
+    fill: black;
+    stroke: black;
 }
 
 #ticket {
-	color: white;
+    color: white;
     align-items: center;
     justify-content: center;
-	font-family: sans-serif;
-	font-family: "Acme", sans-serif;
-	background-color: rgb(200, 50, 5);
-	background-image: linear-gradient(
-			to bottom right,
-			rgba(255, 150, 0, 0.5),
-			rgba(10, 10, 150, 0.5)
-		),
-		url("https://www.transparenttextures.com/patterns/cream-paper.png");
-	position: relative;
+    font-family: sans-serif;
+    font-family: "Acme", sans-serif;
+    background-color: rgb(200, 50, 5);
+    background-image: linear-gradient(to bottom right,
+            rgba(255, 150, 0, 0.5),
+            rgba(10, 10, 150, 0.5)),
+        url("https://www.transparenttextures.com/patterns/cream-paper.png");
+    position: relative;
 }
 
-#ticket > *:not(.background) {
-	filter: drop-shadow(0.05em 0.05em black);
+#ticket>*:not(.background) {
+    filter: drop-shadow(0.05em 0.05em black);
 }
+
 #ticket .background {
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	overflow: hidden;
-	opacity: 0.15;
-	filter: drop-shadow(0.25em 0.25em black);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    opacity: 0.15;
+    filter: drop-shadow(0.25em 0.25em black);
 }
+
 #ticket .background .logosvg {
-	fill: var(--color);
-	stroke: var(--color);
-	position: absolute;
-	height: 100%;
-	width: 100%;
+    fill: var(--color);
+    stroke: var(--color);
+    position: absolute;
+    height: 100%;
+    width: 100%;
 }
+
 #ticket .background .logosvg.left {
-	--color: rgb(194, 171, 95);
-	top: 0;
-	left: 0;
-	transform: translate(-50%, -50%) scale(3);
+    --color: rgb(194, 171, 95);
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%) scale(3);
 }
+
 #ticket .background .logosvg.right {
-	--color: rgb(100, 13, 24);
-	bottom: 0;
-	right: 0;
-	transform: translate(50%, 50%) scale(3);
+    --color: rgb(100, 13, 24);
+    bottom: 0;
+    right: 0;
+    transform: translate(50%, 50%) scale(3);
 }
 
 #ticket .barcode {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 4em;
-	border-right: 0.05em dashed rgb(223, 223, 223);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 4em;
+    border-right: 0.05em dashed rgb(223, 223, 223);
 }
 
 #ticket .barcode-container {
-	transform: rotate(-90deg);
-	position: relative;
-	line-height: 1em;
-}
-#ticket .barcode-container::after {
-	content: attr(title);
-	font-family: "Libre Barcode 128", cursive;
-	font-size: 3em;
-	position: absolute;
-	bottom: 100%;
-	left: 50%;
-	transform: translateX(-50%);
-}
-#ticket .barcode-container::before {
-	content: attr(title);
-	position: absolute;
-	top: 100%;
-	left: 50%;
-	transform: translateX(-50%);
+    transform: rotate(-90deg);
+    position: relative;
+    line-height: 1em;
 }
 
+#ticket .barcode-container::after {
+    content: attr(title);
+    font-family: "Libre Barcode 128", cursive;
+    font-size: 3em;
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#ticket .barcode-container::before {
+    content: attr(title);
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+}

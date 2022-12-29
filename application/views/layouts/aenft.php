@@ -42,73 +42,30 @@
             <div class="container">
                 <div class="cs-main_header_in">
                     <div class="cs-main_header_left">
-                        <a class="cs-site_branding cs-accent_color" href="<?=base_url('site/home');?>">
+                        <a class="cs-site_branding cs-accent_color" href="<?= base_url('site/home'); ?>">
                             <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/logo.png" alt="Logo" class="cs-hide_dark">
                             <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/logo.png" alt="Logo" class="cs-hide_white">
                         </a>
                     </div>
                     <div class="cs-main_header_center">
-                        <div class="cs-nav">
-                            <ul class="cs-nav_list">
-                            <?php if (isset($isLogin)) { ?>
-                                    <!-- mainmenu begin -->
-                                    <?php
-                                        $member = $this->router->class == "area";
-                                        $userDetail = array_merge($user->toArray(), ['status_member' => $user->status_member->kategory]);
-                                    ?>
-                                        <li>
-                                            <a href="<?= base_url('site/home'); ?>#content">Beranda<span></span></a>
-                                        </li>
-                                        <li>
-                                            <a href="<?= base_url('member/area'); ?>#/profile">Profil<span></span></a>
-                                        </li>
-                                        <?php if($hasSettlementTransaction):?>
-                                        <li>
-                                            <a href="<?= base_url('member/area'); ?>#/paper">Kirim Abstrak<span></span></a>
-                                        </li>
-                                        <?php endif;?>
-                                        <li class="menu-item-has-children">
-                                            <a class="active" href="#">Purchase<span></span></a><span></span>
-                                            <ul class="submenu">
-                                                <li><a href="<?= base_url('member/area'); ?>#/events">Pilih Kegiatan</a></li>
-                                                <li><a href="<?= base_url('member/area'); ?>#/billing">Keranjang dan Pembayaran</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="menu-item-has-children">
-                                            <a class="active" href="#">On Event<span></span></a><span></span>
-                                            <ul class="submenu">
-                                                <li><a href="<?= base_url('member/area'); ?>#/webminar">Webinar Link</a></li>
-                                                <?php if (in_array($userDetail['status'], $statusToUpload)) : ?>
-                                                    <li><a href="<?= base_url('member/area'); ?>#/material">Unggah Materi</a></li>
-                                                <?php endif; ?>
-                                                <!-- <li><a href="<?= base_url('member/area'); ?>#/sertifikat">Unduh Certificate</a></li> -->
-                                                <li><a href="<?= base_url('member/area'); ?>#/presentation">Daftar Presentasi Ilmiah</a></li>
-                                            </ul>
-                                        </li>
-                            <?php } else{ ?>
-                                <li><a href="<?=base_url('site/home');?>#home" class="cs-smoth_scroll">Beranda</a></li>
-                                <li><a href="<?=base_url('site/home');?>#login" class="cs-smoth_scroll">Masuk Login</a></li>
-                                <li><a href="<?=base_url('site/home');?>#event" class="cs-smoth_scroll">Kegiatan</a></li>
-                                <?php } ?>
-                            </ul>
-                        </div>
+
                     </div>
                     <div class="cs-main_header_right">
-                        <?php if(isset($isLogin)):?>
+                        <?php if (isset($isLogin)) : ?>
                             <div class="cs-toolbox">
                                 <a href="<?= base_url('member/area/logout'); ?>" class="cs-btn cs-btn_filed cs-btn_danger">
                                     <i class="fa fa-arrow-right-from-bracket"></i>
                                     <span>Logout</span>
                                 </a>
                             </div>
-                        <?php else:?>
+                        <?php else : ?>
                             <div class="cs-toolbox">
                                 <a href="<?= base_url('member/register'); ?>" class="cs-btn cs-btn_filed cs-accent_btn">
                                     <i class="fa-solid fa-clipboard-user"></i>
                                     &nbsp;<span>Registrasi</span>
                                 </a>
                             </div>
-                        <?php endif;?>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
@@ -116,7 +73,79 @@
     </header>
     <!-- End Header Section -->
     <div class="cs-height_95 cs-height_lg_95"></div>
-    <?=$content;?>
+    <nav class="floating-menu">
+        <ul class="main-menu">
+            <?php if (isset($isLogin)) { ?>
+                <!-- mainmenu begin -->
+                <?php
+                $member = $this->router->class == "area";
+                $userDetail = array_merge($user->toArray(), ['status_member' => $user->status_member->kategory]);
+                ?>
+                <li>
+                    <a class="ripple cs-smoth_scroll" href="<?= base_url('site/home'); ?>#content">
+                        <i class="fa fa-home fa-lg"></i>
+                        <span>Beranda</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="ripple" href="<?= base_url('member/area'); ?>#/profile">
+                        <i class="fa fa-user fa-lg"></i>
+                        <span>Profil</span>
+                    </a>
+                </li>
+                <?php if ($hasSettlementTransaction) : ?>
+                    <li>
+                        <a class="ripple" href="<?= base_url('member/area'); ?>#/paper">
+                            <i class="fa fa-paper-plane fa-lg"></i>
+                            <span>Kirim Abstrak</span>
+                        </a>
+                    </li>
+                <?php endif; ?>
+                <li>
+                    <a class="ripple" href="<?= base_url('member/area'); ?>#/events">
+                        <i class="fa fa-calendar fa-lg"></i>
+                        <span>Pilih Kegiatan</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="ripple" href="<?= base_url('member/area'); ?>#/billing">
+                        <i class="fa fa-cart-shopping fa-lg"></i>
+                        <span>Pembayaran</span>
+                    </a>
+                </li>
+                <!-- <li>
+                    <a href="<?= base_url('member/area'); ?>#/webminar">
+                        <i class="fa fa-cart-shopping fa-lg"></i>
+                        <span>Webinar Link</span>
+                    </a>
+                </li> -->
+                <?php if (in_array($userDetail['status'], $statusToUpload)) : ?>
+                    <li>
+                        <a class="ripple" href="<?= base_url('member/area'); ?>#/material">
+                            <i class="fa fa-upload fa-lg"></i>
+                            <span>Unggah Materi</span>
+                        </a>
+                    </li>
+                <?php endif; ?>
+                <!-- <li><a href="<?= base_url('member/area'); ?>#/sertifikat">Unduh Certificate</a></li> -->
+                <li>
+                    <a class="ripple" href="<?= base_url('member/area'); ?>#/presentation">
+                    <i class="fas fa-file-powerpoint"></i>
+                        <span>Presentasi
+                            Ilmiah</span>
+                    </a>            
+                </li>
+
+            <?php } else { ?>
+                <li><a href="<?= base_url('site/home'); ?>#home" class="ripple cs-smoth_scroll"><i class="fa fa-home fa-lg"></i></a></li>
+                <li><a href="<?= base_url('site/home'); ?>#login" class="ripple cs-smoth_scroll"><i class="fa fa-sign-in fa-lg"></i></a></li>
+                <li><a href="<?= base_url('site/home'); ?>#event" class="ripple cs-smoth_scroll"><i class="fa fa-calendar fa-lg"></i></a></li>
+            <?php } ?>
+        </ul>
+        <div class="menu-bg"></div>
+
+    </nav>
+    <?= $content; ?>
     <div class="cs-height_75 cs-height_lg_45"></div>
     <div class="cs-footer_wrap">
         <div class="wow fadeIn" data-wow-duration="1s" data-wow-delay="0.2s">
@@ -227,8 +256,8 @@
                     <circle cx="200" cy="200" r="155" stroke-dasharray="30 30 80 30" />
                 </g>
                 <g id="notes" stroke="none">
-                    <path d="M232 120C232 106.7 242.7 96 256 96C269.3 96 280 106.7 280 120V243.2L365.3 300C376.3 307.4 379.3 322.3 371.1 333.3C364.6 344.3 349.7 347.3 338.7 339.1L242.7 275.1C236 271.5 232 264 232 255.1L232 120zM256 0C397.4 0 512 114.6 512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256C0 114.6 114.6 0 256 0zM48 256C48 370.9 141.1 464 256 464C370.9 464 464 370.9 464 256C464 141.1 370.9 48 256 48C141.1 48 48 141.1 48 256z"/>
-                    <path d="M232 120C232 106.7 242.7 96 256 96C269.3 96 280 106.7 280 120V243.2L365.3 300C376.3 307.4 379.3 322.3 371.1 333.3C364.6 344.3 349.7 347.3 338.7 339.1L242.7 275.1C236 271.5 232 264 232 255.1L232 120zM256 0C397.4 0 512 114.6 512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256C0 114.6 114.6 0 256 0zM48 256C48 370.9 141.1 464 256 464C370.9 464 464 370.9 464 256C464 141.1 370.9 48 256 48C141.1 48 48 141.1 48 256z"/>
+                    <path d="M232 120C232 106.7 242.7 96 256 96C269.3 96 280 106.7 280 120V243.2L365.3 300C376.3 307.4 379.3 322.3 371.1 333.3C364.6 344.3 349.7 347.3 338.7 339.1L242.7 275.1C236 271.5 232 264 232 255.1L232 120zM256 0C397.4 0 512 114.6 512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256C0 114.6 114.6 0 256 0zM48 256C48 370.9 141.1 464 256 464C370.9 464 464 370.9 464 256C464 141.1 370.9 48 256 48C141.1 48 48 141.1 48 256z" />
+                    <path d="M232 120C232 106.7 242.7 96 256 96C269.3 96 280 106.7 280 120V243.2L365.3 300C376.3 307.4 379.3 322.3 371.1 333.3C364.6 344.3 349.7 347.3 338.7 339.1L242.7 275.1C236 271.5 232 264 232 255.1L232 120zM256 0C397.4 0 512 114.6 512 256C512 397.4 397.4 512 256 512C114.6 512 0 397.4 0 256C0 114.6 114.6 0 256 0zM48 256C48 370.9 141.1 464 256 464C370.9 464 464 370.9 464 256C464 141.1 370.9 48 256 48C141.1 48 48 141.1 48 256z" />
                 </g>
             </symbol>
         </defs>
@@ -245,8 +274,10 @@
     <script src="<?= base_url('themes/aenft'); ?>/assets/js/plugins/bootstrap.bundle.min.js"></script>
     <script src="<?= base_url("themes/script/moment.min.js"); ?>"></script>
     <script type="text/javascript">
-      // Notice how this gets configured before we load Font Awesome
-      window.FontAwesomeConfig = { autoReplaceSvg: false }
+        // Notice how this gets configured before we load Font Awesome
+        window.FontAwesomeConfig = {
+            autoReplaceSvg: false
+        }
     </script>
     <?= $script_js; ?>
 </body>
