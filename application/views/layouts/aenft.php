@@ -137,9 +137,10 @@
                 </li>
 
             <?php } else { ?>
-                <li><a href="<?= base_url('site/home'); ?>#home" class="ripple cs-smoth_scroll"><i class="fa fa-home fa-lg"></i></a></li>
-                <li><a href="<?= base_url('site/home'); ?>#login" class="ripple cs-smoth_scroll"><i class="fa fa-sign-in fa-lg"></i></a></li>
-                <li><a href="<?= base_url('site/home'); ?>#event" class="ripple cs-smoth_scroll"><i class="fa fa-calendar fa-lg"></i></a></li>
+                <li><a href="<?= base_url('site/home'); ?>#home" class="ripple cs-smoth_scroll"><i class="fa fa-home fa-lg"></i><span>Beranda</span></a></li>
+                <li><a href="<?= base_url('site/home'); ?>#login" class="ripple cs-smoth_scroll"><i class="fa fa-sign-in fa-lg"></i><span>Login</span></a></li>
+                <li><a href="<?= base_url('site/home'); ?>#event" class="ripple cs-smoth_scroll"><i class="fa fa-calendar fa-lg"></i><span>Kegiatan</span></a></li>
+                <li><a href="<?= base_url('site/home'); ?>#news" class="ripple cs-smoth_scroll"><i class="fa fa-newspaper fa-lg"></i><span>Berita</span></a></li>
             <?php } ?>
         </ul>
         <div class="menu-bg"></div>

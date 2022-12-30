@@ -56,6 +56,9 @@ class Site extends MY_Controller
         $data['papercountdown'] = $papercountdown ? date_create($papercountdown->value) : date("Y-m-d H:i:s");
         $data['hasSession'] = !$this->user_session_expired();
         $data['hotelAvailable'] = $this->Hotel_m->summaryBooking()['availableHotel'];
+
+        $data['allNews'] = $this->NewsM->find()->where(['is_show' => 1])->limit(8)->get()->custom_result_object("News_m");
+
         $this->load->view('site/' . $this->theme . '/home', $data);
     }
 

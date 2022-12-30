@@ -247,6 +247,7 @@ class Wappin implements iNotification
 
     protected function composeRequest($data, $url, $method = "GET", $isJson = false, $token = null)
     {
+        return ['status'=>true,'access_token'=>'','code'=>'200','message'=>''];
         $curl = curl_init();
         if ($token == null)
             $token = "Bearer ".$this->getToken();

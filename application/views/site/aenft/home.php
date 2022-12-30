@@ -17,6 +17,29 @@
     <link rel="stylesheet" href="<?= base_url('themes/aenft'); ?>/assets/css/style.css">
     <link rel="stylesheet" href="<?= base_url('themes/aenft'); ?>/assets/css/custom.css">
     <link rel="stylesheet" href="<?= base_url('themes/aenft'); ?>/assets/fontawesome/css/all.min.css">
+    <style>
+        .scrollbar{
+            scrollbar-width: thin;
+        }
+        .scrollbar::-webkit-scrollbar
+        {
+            width: 5px;
+            background-color: #F5F5F5;
+        }
+
+        .scrollbar::-webkit-scrollbar-track
+        {
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+            background-color: #F5F5F5;
+        }
+
+
+        .scrollbar::-webkit-scrollbar-thumb
+        {
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+            background-color: #555;
+        }
+    </style>
 </head>
 
 <body class="cs-dark">
@@ -84,7 +107,12 @@
                     <a href="#event" class="ripple cs-smoth_scroll">
                         <i class="fa fa-calendar-alt fa-lg"></i>
                         <span>Kegiatan</span>
-
+                    </a>
+                </li>
+                <li>
+                    <a href="#news" class="ripple cs-smoth_scroll">
+                        <i class="fa fa-newspaper fa-lg"></i>
+                        <span>Berita</span>
                     </a>
                 </li>
             </ul>
@@ -617,6 +645,31 @@
                         <a href="http://wa.me/6281391701913" target="_BLANK" class="btn btn-sm btn-primary mt-1"><i class="fa-brands fa-whatsapp"></i> CS 1</a><br>
                         <a href="http://wa.me/6281391701913" target="_BLANK" class="btn btn-sm btn-primary mt-1"><i class="fa-brands fa-whatsapp"></i> CS2</a><br>
                     </div>
+                </div>
+            </div>
+            <div class="cs-height_50 cs-height_lg_30"></div>
+        </div>
+    </section>
+
+    <section id="news">
+        <div class="cs-height_70 cs-height_lg_40"></div>
+        <div class="container">
+            <div class="cs-seciton_heading cs-style1 text-uppercase text-center wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s">
+                <h3 class="cs-section_title cs-font_16 cs-font_14_sm cs-gradient_color">INFO</h3>
+                <h2 class="cs-section_subtitle cs-m0 cs-font_36 cs-font_24_sm">Berita Terbaru </h2>
+            </div>
+            <div class="row col-12">
+                <a href="<?=base_url('site/all_news');?>" class="text-end h5">Lihat Semua</a>
+                <div style="overflow-x: auto;" class="row scrollbar flex-row flex-nowrap row-cols-md-3 row-cols-sm-3 row-cols-1 mt-2 wow fadeIn" data-wow-duration="1s" data-wow-delay="0.2s">
+                    <?php foreach ($allNews as $news) : ?>
+                        <a href="<?= base_url('site/readnews/' . $news->id); ?>" class="card card-bg card__shadow mb-2 me-2" style="width: 18rem;">
+                            <img class="card-img-top" src="<?=$news->imageCover();?>" width="250px" height="250px" alt="Card image cap">
+                            <div class="card-body">
+                                <h5 class="card-title"><?= $news->title; ?></h5>
+                                <p class="card-text"><?= news_date($news->created_at); ?></p>
+                            </div>
+                        </a>
+                    <?php endforeach; ?>
                 </div>
             </div>
             <div class="cs-height_50 cs-height_lg_30"></div>

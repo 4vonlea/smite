@@ -76,5 +76,31 @@ function comma($number)
         $i++;
     }
     return $results;
-
 }
+/**
+ * @params $date DateTime 
+ */
+function indo_date($date){
+    $formatDate = $date->format("Y-n-d-w-H-i-s");
+    $splitDate = explode("-",$formatDate);
+    $month = [1=>'Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+    $dayOfWeek = ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+    return "{$dayOfWeek[$splitDate[3]]}, {$splitDate[2]} {$month[$splitDate[1]]} {$splitDate[0]} ";
+}
+
+function news_date($date){
+    $newsDate = new DateTime($date);
+    $now = new DateTime();
+    $diff = $newsDate->diff($now);
+    $hours = $diff->h;
+    $hours = $hours + ($diff->days*24);
+
+    if($hours <= 24){
+        return "$hours Jam yang lalu";
+    }else if($hours > 24 && $hours <= 48){
+        return "Kemarin";
+    }else{
+        return indo_date($newsDate);
+    }
+}
+

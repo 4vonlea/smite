@@ -95,7 +95,7 @@
 			"searchreplace table template visualblocks wordcount responsivefilemanager filemanager"
 		],
 		toolbar:
-			"code undo redo | bold italic | forecolor backcolor  | alignleft aligncenter alignright alignjustify | bullist numlist | link image responsivefilemanager | pagebreak",
+			"code undo redo | bold italic | forecolor backcolor  | formatselect | alignleft aligncenter alignright alignjustify | bullist numlist | link image responsivefilemanager | pagebreak",
 		image_advtab: true,
 		relative_urls:false,
 		external_filemanager_path: "<?=base_url('filemanager');?>/",
@@ -111,7 +111,7 @@
 		methods: {
 			addNews(){
 				this.formMode = 1;
-				this.form = {};
+				this.form = {is_show:1};
 				tinymce.get("content_area").setContent("");
 			},
 			editNews(row) {
