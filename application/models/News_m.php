@@ -43,7 +43,7 @@ class News_m extends MY_Model
 		if($img){
 			return $img->attributes->getNamedItem("src")->value;
 		}
-		return "https://via.placeholder.com/250";
+		return "https://via.placeholder.com/250?text=No+Image";
 	}
 
 	protected function sanitize($node){
