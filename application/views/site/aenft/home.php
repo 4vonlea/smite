@@ -658,6 +658,7 @@
                 <h3 class="cs-section_title cs-font_16 cs-font_14_sm cs-gradient_color">INFO</h3>
                 <h2 class="cs-section_subtitle cs-m0 cs-font_36 cs-font_24_sm">Berita Terbaru </h2>
             </div>
+            <?php if(count($allNews) > 0):?>
             <div class="row col-12">
                 <a href="<?=base_url('site/all_news');?>" class="text-end h5">Lihat Semua</a>
                 <div style="overflow-x: auto;" class="row scrollbar flex-row flex-nowrap row-cols-md-3 row-cols-sm-3 row-cols-1 mt-2 wow fadeIn" data-wow-duration="1s" data-wow-delay="0.2s">
@@ -672,6 +673,11 @@
                     <?php endforeach; ?>
                 </div>
             </div>
+            <?php else:?>
+                <div class="row col-12">
+                    <div class="alert alert-info text-center mt-2">Mohon Maaf, Belum Ada Berita Yang Tersedia</div>
+                </div>
+            <?php endif;?>
             <div class="cs-height_50 cs-height_lg_30"></div>
         </div>
     </section>
