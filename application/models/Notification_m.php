@@ -322,7 +322,7 @@ class Notification_m extends MY_Model
             $urlImageHeader = "cid:img_email_header"; //base_url('themes/img/email_header.jpg');
         }
 
-        $wrapperMessage = "<body style='background-color:#f6f6f6';><strong>#Email ini tidak dipantau, mohon jangan dibalas#<br/>Untuk membalas, silakan email ke pincirebon2022@gmail.com</strong><br/><br/><hr/>";
+        $wrapperMessage = "<body style='background-color:#f6f6f6';><strong>#Email ini tidak dipantau, mohon jangan dibalas#</strong><br/><br/><hr/>";
         $wrapperMessage .= "<div style='padding:10px;width:45%;background-color:white;margin-right:auto;margin-left:auto;'><br/><img width='100%' src='" . $urlImageHeader . "'/>";
         $wrapperMessage .= $message;
         $wrapperMessage .= "<img width='100%' src='" . $urlImageFooter . "'/><br/></div>";
