@@ -18,25 +18,23 @@
     <link rel="stylesheet" href="<?= base_url('themes/aenft'); ?>/assets/css/custom.css">
     <link rel="stylesheet" href="<?= base_url('themes/aenft'); ?>/assets/fontawesome/css/all.min.css">
     <style>
-        .scrollbar{
+        .scrollbar {
             scrollbar-width: thin;
         }
-        .scrollbar::-webkit-scrollbar
-        {
+
+        .scrollbar::-webkit-scrollbar {
             width: 5px;
             background-color: #F5F5F5;
         }
 
-        .scrollbar::-webkit-scrollbar-track
-        {
-            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        .scrollbar::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
             background-color: #F5F5F5;
         }
 
 
-        .scrollbar::-webkit-scrollbar-thumb
-        {
-            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+        .scrollbar::-webkit-scrollbar-thumb {
+            -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
             background-color: #555;
         }
     </style>
@@ -76,7 +74,7 @@
                         <div class="cs-toolbox">
                             <a href="<?= base_url('member/register'); ?>" class="cs-btn cs-btn_filed cs-accent_btn">
                                 <i class="fa-solid fa-clipboard-user"></i>
-                                <span>Registrasi</span>
+                                <span> Registrasi</span>
                             </a>
                         </div>
                     </div>
@@ -88,7 +86,7 @@
     <div class="cs-height_80 cs-height_lg_80"></div>
 
     <!-- Start Hero -->
-    <div id="home" class="cs-hero cs-style1 cs-type2 cs-bg text-center  cs-ripple_version" data-src="<?= base_url('themes/aenft'); ?>/assets/img/konas/bg-head.jpg" id="home">
+    <div id="home" class="cs-hero cs-style1 cs-type2 cs-bg text-center cs-ripple_version" data-src="<?= base_url('themes/aenft'); ?>/assets/img/konas/bg-head.jpg" id="home">
         <nav class="floating-menu">
             <ul class="main-menu">
                 <li>
@@ -332,7 +330,7 @@
                 <div class="card card-bg card__shadow">
                     <div class="cs-cta cs-style3 cs-accent_bg">
                         <h4>Simposium Nasional</h4>
-                        <p class="px-2 mt-1 mb-3"><i class="fa fa-info-circle"></i> Hotel Aston Cirebon, 19 - 20 November 2022 | Time: 08:00AM</p>
+                        <p class="px-2 mt-1 mb-3"><i class="fa fa-info-circle"></i> Padma Hotel Semarang, 4 - 5 Agustus 2023 | Time: 08:00AM</p>
                         <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Kuota : <span class="fw-bold">1500 Orang</span></span>
                         <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Spesialis | Residen | Dokter Umum</span>
                     </div>
@@ -347,26 +345,49 @@
     <section>
         <div class="container">
             <div class="cs-seciton_heading cs-style1 wow fadeInUp text-center" data-wow-duration="1s" data-wow-delay="0.2s">
-                <h2 class="cs-section_subtitle cs-m0 cs-font_36 cs-font_24_sm text-uppercase">WORKSHOP</h2>
+                <h2 class="cs-section_subtitle cs-m0 cs-font_36 cs-font_24_sm text-uppercase">WORKSHOP FULL-DAY</h2>
                 <div class="cs-height_30 cs-height_lg_15"></div>
                 <div class="row">
                     <div class="col-lg-6 col-sm-12 col-12 mb-3">
                         <div class="card card-bg card__shadow">
                             <div class="cs-cta cs-style3 cs-accent_bg">
-                                <h4>Neurobehaviour: Fit and Unfit Test</h4>
-                                <p class="px-2 mt-1 mb-3"><i class="fa fa-info-circle"></i> Hotel Aston Cirebon | 17 atau 18 November 2022 | Time: 07:30 - 16:30</p>
-                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Minimal : <span class="fw-bold">30 orang</span></span>
-                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Rp. <span class="fw-bold">2,5 juta | Onsite: 3 juta</span></span>
+                                <h4>Belum Tersedia</h4>
+                                <p class="px-2 mt-1 mb-3"><i class="fa fa-info-circle"></i> Padma Hotel Semarang | 2 - 3 Agustus 2023 |</p>
+                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Minimal : <span class="fw-bold">Belum Tersedia</span></span>
+                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Rp. <span class="fw-bold">Belum Tersedia</span></span>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-6 col-sm-12 col-12 mb-3">
                         <div class="card card-bg card__shadow">
                             <div class="cs-cta cs-style3 cs-accent_bg">
-                                <h4>Injeksi Botulinum Toxin</h4>
-                                <p class="px-2 mt-1 mb-3"><i class="fa fa-info-circle"></i> RS Permata Cirebon | Jumat, 18 November 2022 | Time: 08:00 - end WIB</p>
-                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Minimal : <span class="fw-bold">30 orang</span></span>
-                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Rp. <span class="fw-bold">5 juta | Onsite: 5,5 juta</span></span>
+                                <h4>Belum Tersedia</h4>
+                                <p class="px-2 mt-1 mb-3"><i class="fa fa-info-circle"></i> Padma Hotel Semarang | 2 - 3 Agustus 2023 |</p>
+                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Minimal : <span class="fw-bold">Belum Tersedia</span></span>
+                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Rp. <span class="fw-bold">Belum Tersedia</span></span>
+                            </div>
+                        </div>
+                    </div>
+                 <h2 class="cs-section_subtitle cs-m0 cs-font_36 cs-font_24_sm text-uppercase">WORKSHOP HALF-DAY</h2>
+                <div class="cs-height_30 cs-height_lg_15"></div>
+                <div class="row">
+                    <div class="col-lg-6 col-sm-12 col-12 mb-3">
+                        <div class="card card-bg card__shadow">
+                            <div class="cs-cta cs-style3 cs-accent_bg">
+                                <h4>Belum Tersedia</h4>
+                                <p class="px-2 mt-1 mb-3"><i class="fa fa-info-circle"></i> Padma Hotel Semarang | 2 - 3 Agustus 2023 |</p>
+                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Minimal : <span class="fw-bold">Belum Tersedia</span></span>
+                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Rp. <span class="fw-bold">Belum Tersedia</span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-12 col-12 mb-3">
+                        <div class="card card-bg card__shadow">
+                            <div class="cs-cta cs-style3 cs-accent_bg">
+                                <h4>Belum Tersedia</h4>
+                                <p class="px-2 mt-1 mb-3"><i class="fa fa-info-circle"></i> Padma Hotel Semarang | 2 - 3 Agustus 2023 |</p>
+                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Minimal : <span class="fw-bold">Belum Tersedia</span></span>
+                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Rp. <span class="fw-bold">Belum Tersedia</span></span>
                             </div>
                         </div>
                     </div>
@@ -377,45 +398,43 @@
 
     <div class="cs-height_75 cs-height_lg_45"></div>
 
-    <section id="login">
+    <section id="login" class="cs-bg p-5" data-src="<?= base_url('themes/aenft'); ?>/assets/img/konas/img4.jpg">
         <div class="container wow fadeIn" data-wow-duration="1s" data-wow-delay="0.2s">
-            <div class="cs-cta cs-style1 cs-accent_bg">
-                <h2 class="cs-section_subtitle cs-m0 cs-font_36 cs-font_24_sm text-uppercase text-center mb-5">Masuk / Registrasi</h2>
-                <div class="row">
-                    <div class="col-lg-6 text-center mb-4">
-                        <h4>Masuk Login</h4>
-                        <form name="contactForm" id="contact_form" class="form-border" method="post" action="<?= base_url('site/login'); ?>">
-                            <?php if (!$hasSession) : ?>
-                                <div class="field-set mb-2">
-                                    <input type="text" name="username" id="email" class="form-control" placeholder="Email">
-                                </div>
-                                <div class="field-set mb-2">
-                                    <input type="password" name="password" id="password" class="form-control" placeholder="Password">
-                                </div>
-                                <a href="<?= base_url('site/forget'); ?>" class="mb-2">Lupa Password ?</a>
-                            <?php endif; ?>
-
-                            <div class="d-grid">
-                                <button type="submit" name="login" value="login" class="btn btn-round btn-primary mt-2">
-                                    <span> <?= $hasSession ? "Back To Member Area" : "<i class='fa-solid fa-sign-in'></i> Sign in / Masuk"; ?></span>
-                                </button>
-                                <br>
+            <h2 class="cs-section_subtitle cs-m0 cs-font_36 cs-font_24_sm text-uppercase text-center mb-5">Masuk / Registrasi</h2>
+            <div class="row">
+                <div class="col-lg-6 text-center mb-4">
+                    <h4>Masuk Login</h4>
+                    <form name="contactForm" id="contact_form" class="form-border" method="post" action="<?= base_url('site/login'); ?>">
+                        <?php if (!$hasSession) : ?>
+                            <div class="field-set mb-2">
+                                <input type="text" name="username" id="email" class="form-control" placeholder="Email">
                             </div>
-                        </form>
-                    </div>
-                    <div class="col-lg-6">
-                        <h4 class="text-center">Cara Pendaftaran</h4>
-                        <p>
-                        <ol>
-                            <li>Klik <b>Registrasi dibawah</b>, dan isi profil anda</li>
-                            <li>Pilih kegiatan yang ini diikuti</li>
-                            <li>Lakukan pembayaran secara online</li>
-                            <li>Bukti Pembayaran dan Registrasi akan dikirimkan via email. Mohon dibawa saat registrasi ulang</li>
-                        </ol>
-                        </p>
-                        <p class="mt-minus2"><i class="fa-solid fa-envelope circle-icon"></i>1 Email per Account</p>
-                        <p class="mt-minus2"><i class="fa-solid fa-id-card circle-icon"></i>Sertifikat akan dikirimkan melalui Email</p>
-                    </div>
+                            <div class="field-set mb-2">
+                                <input type="password" name="password" id="password" class="form-control" placeholder="Password">
+                            </div>
+                            <a href="<?= base_url('site/forget'); ?>" class="mb-2">Lupa Password ?</a>
+                        <?php endif; ?>
+
+                        <div class="d-grid">
+                            <button type="submit" name="login" value="login" class="btn btn-round btn-primary mt-2">
+                                <span> <?= $hasSession ? "Back To Member Area" : "<i class='fa-solid fa-sign-in'></i> Sign in / Masuk"; ?></span>
+                            </button>
+                            <br>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-lg-6">
+                    <h4 class="text-center">Cara Pendaftaran</h4>
+                    <p>
+                    <ol>
+                        <li>Klik <b>Registrasi dibawah</b>, dan isi profil anda</li>
+                        <li>Pilih kegiatan yang ini diikuti</li>
+                        <li>Lakukan pembayaran secara online</li>
+                        <li>Bukti Pembayaran dan Registrasi akan dikirimkan via email. Mohon dibawa saat registrasi ulang</li>
+                    </ol>
+                    </p>
+                    <p class="mt-minus2"><i class="fa-solid fa-envelope circle-icon"></i>1 Email per Account</p>
+                    <p class="mt-minus2"><i class="fa-solid fa-id-card circle-icon"></i>Sertifikat akan dikirimkan melalui Email</p>
                 </div>
             </div>
             <div class="row mt-3">
@@ -443,26 +462,27 @@
             <div class="wow fadeIn" data-wow-duration="1s" data-wow-delay="0.2s">
                 <button class="accordion mt-4">Video Registrasi menggunakan pembayaran online</button>
                 <div class="accordion-content">
-                    <embed src="https://drive.google.com/file/d/13_Z82olwb4yH0wP2GVV759NvRyH0vCAG/preview" width="100%" height="600px" align="center" allow="autoplay" class="mt-3 mb-3"></embed>
+                    <embed src="#" width="100%" height="600px" align="center" allow="autoplay" class="mt-3 mb-3"></embed>
                 </div>
                 <button class="accordion mt-2">Video Registrasi secara berkelompok</button>
                 <div class="accordion-content">
-                    <embed src="https://drive.google.com/file/d/13ZerYtQAIFnXv1TJt6OhErM2oHbn9NhK/preview" width="100%" height="600px" align="center" allow="autoplay" class="mt-3 mb-3"></embed>
+                    <embed src="#" width="100%" height="600px" align="center" allow="autoplay" class="mt-3 mb-3"></embed>
                 </div>
                 <button class="accordion mt-2">Video Tutorial melakukan booking hotel</button>
                 <div class="accordion-content">
-                    <embed src="https://drive.google.com/file/d/13eQq8c-MMS_Oi2pL5sfzLbNYzcHuSbSk/preview" width="100%" height="600px" align="center" allow="autoplay" class="mt-3 mb-3"></embed>
+                    <embed src="#" width="100%" height="600px" align="center" allow="autoplay" class="mt-3 mb-3"></embed>
                 </div>
                 <button class="accordion mt-2">Video Tutorial Submisi Abstrak</button>
                 <div class="accordion-content">
-                    <embed src="https://drive.google.com/file/d/13YwOoIZWjs0D2F3IWZLClXgn9OdO82wq/preview" width="100%" height="600px" align="center" allow="autoplay" class="mt-3 mb-3"></embed>
+                    <embed src="#" width="100%" height="600px" align="center" allow="autoplay" class="mt-3 mb-3"></embed>
                 </div>
             </div>
             <div class="cs-height_50 cs-height_lg_30"></div>
         </div>
     </section>
 
-    <section id="event" class="event">
+    <div class="cs-height_70 cs-height_lg_40"></div>
+    <section id="event" class="event cs-bg" data-src="<?= base_url('themes/aenft'); ?>/assets/img/konas/bg-head1.jpg">
         <div class="cs-height_70 cs-height_lg_40"></div>
         <div class="container">
             <div class="cs-seciton_heading cs-style1 text-uppercase text-center wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s">
@@ -487,12 +507,10 @@
                         <h4>Tanggal Penting</h4>
                         <hr class="mb-4">
                         <ul>
-                            <li>Batas Pengumpulan Abstrak : 21 Oktober 2022</li>
-                            <li>Batas Pengumpulan Naskah Lengkap : 28 Oktober 2022</li>
-                            <li>Pengumuman Penerimaan Abstrak : 04 November 2022</li>
-                            <li>Program Ilmiah : 17 18 November 2022 untuk Workshop, dan 19 – 20 November 2022 Simposium</li>
-                            <li>E-Poster / Presentasi Oral : 19 November 2022</li>
-                            <li>Pengumuman Pemenang : 20 November 2022</li>
+                            <li>Early Registration : Januari - 30 April 2023</li>
+                            <li>Batas Pengumpulan Abstrak : 1 Juli 2023</li>
+                            <li>Pengumuman Penerimaan Abstrak : 20 Juli 2023</li>
+                            <li>Late Registration : 1 Mei - 1 Agustus 2023</li>
                         </ul>
                     </div>
                 </div>
@@ -504,11 +522,11 @@
                     <ul>
                         <li>
                             <i class="fa-solid fa-info-circle"></i> Apakah kegiatan ini dilakukan secara daring atau luring?<br>
-                            - Kegiatan ini dilakukan secara daring di Aston Hotel, Cirebon
+                            - Kegiatan ini dilakukan secara daring di Padma Hotel, Semarang
                         </li>
                         <li>
                             <i class="fa-solid fa-info-circle"></i> Bagaimana caranya login?<br>
-                            - Login menggunakan email user yang telah terdaftar di web https://https://pinperdossicirebon2022.com/ dengan password masing-masing.
+                            - Login menggunakan email user yang telah terdaftar di web https://kongresnasionalperdosni2023.com dengan password masing-masing.
                         </li>
                         <li>
                             <i class="fa-solid fa-info-circle"></i> Bagaimana jika saya lupa password?<br>
@@ -516,7 +534,7 @@
                         </li>
                         <li>
                             <i class="fa-solid fa-info-circle"></i> Saya tidak mengetahui username saya?<br>
-                            - Silakan lakukan pencarian di inbox email dengan kata kunci: PIN PERDOSSI 2022 untuk mengetahui notifikasi username anda saat selesai mendaftar
+                            - Silakan lakukan pencarian di inbox email dengan kata kunci: KONGRES PERDOSNI 2023 untuk mengetahui notifikasi username anda saat selesai mendaftar
                         </li>
                         <li>
                             <i class="fa-solid fa-info-circle"></i> Saya didaftarkan oleh pihak sponsor, bagaimana caranya login?<br>
@@ -540,7 +558,7 @@
                 <div class="cs-iconbox cs-style1 cs-white_bg">
                     <h4>Pedoman Ilmiah</h4>
                     <hr class="mb-4">
-                    <a href="<?= base_url('themes/aenft'); ?>/assets/pdf/20220903%20-%20Ketentuan%20eposter%20dan%20oral%20compressed.pdf" target="_blank" class="btn btn-success btn-round"><i class="fa-solid fa-chart-gantt"></i> Ketentuan Oral dan E-poster (diperbaharui 3 September 2022)</a>
+                    <a href="#" target="_blank" class="btn btn-success btn-round"><i class="fa-solid fa-chart-gantt"></i> Ketentuan Oral dan E-poster (tba)</a>
                 </div>
             </div>
             <div class="event-item sambutan hide">
@@ -554,7 +572,7 @@
                 <div class="cs-iconbox cs-style1 cs-white_bg">
                     <h4>Kepanitiaan KONSI XI PERDOSSI 2023 SEMARANG</h4>
                     <hr class="mb-4">
-                    <embed src="<?= base_url('themes/aenft'); ?>/assets/pdf/kepanitiaan.pdf" width="100%" height="600px" align="center"></embed>
+                    <embed src="<?= base_url('themes/aenft'); ?>/assets/pdf/sambutan.pdf" width="100%" height="600px" align="center"></embed>
                 </div>
             </div>
             <div class="event-item explore hide">
@@ -562,7 +580,7 @@
                     <h4>EXPLORING SEMARANG</h4>
                     <hr class="mb-4">
                     <div class="d-grid gap-2">
-                        <a href="<?= base_url('themes/aenft'); ?>/assets/pdf/explore.pdf" class="btn btn-primary" target="_blank"><i class="fa-solid fa-download"></i> Download File</a>
+                        <a href="#" class="btn btn-primary" target="_blank"><i class="fa-solid fa-download"></i> Download File</a>
                     </div>
                     <button class="accordion mt-4">Wisata Kuliner</button>
                     <div class="accordion-content">
@@ -598,8 +616,7 @@
                     </div>
                     <div class="overlay text-center">
                         <h5 class="mb-2">Sekretariat</h5><br>
-                        <a href="http://wa.me/6281391701913" target="_BLANK" class="btn btn-sm btn-primary mt-1"><i class="fa-brands fa-whatsapp"></i> CS 1</a><br>
-                        <a href="http://wa.me/6281391701913" target="_BLANK" class="btn btn-sm btn-primary mt-1"><i class="fa-brands fa-whatsapp"></i> CS2</a><br>
+                        <a href="http://wa.me/628112524392" target="_BLANK" class="btn btn-sm btn-primary mt-1"><i class="fa-brands fa-whatsapp"></i>dr. Gita</a><br>
                     </div>
                 </div>
                 <div class="card-cp">
@@ -609,8 +626,7 @@
                     </div>
                     <div class="overlay text-center">
                         <h5 class="mb-2">Registrasi</h5><br>
-                        <a href="http://wa.me/6281391701913" target="_BLANK" class="btn btn-sm btn-primary mt-1"><i class="fa-brands fa-whatsapp"></i> CS 1</a><br>
-                        <a href="http://wa.me/6281391701913" target="_BLANK" class="btn btn-sm btn-primary mt-1"><i class="fa-brands fa-whatsapp"></i> CS2</a><br>
+                        <a href="http://wa.me/6281229570815" target="_BLANK" class="btn btn-sm btn-primary mt-1"><i class="fa-brands fa-whatsapp"></i>dr. Resita</a><br>
                     </div>
                 </div>
                 <div class="card-cp">
@@ -620,9 +636,7 @@
                     </div>
                     <div class="overlay text-center">
                         <h5 class="mb-2">Ilmiah</h5><br>
-                        <a href="http://wa.me/6281391701913" target="_BLANK" class="btn btn-sm btn-primary mt-1"><i class="fa-brands fa-whatsapp"></i> CS 1</a><br>
-                        <a href="http://wa.me/6281391701913" target="_BLANK" class="btn btn-sm btn-primary mt-1"><i class="fa-brands fa-whatsapp"></i> CS2</a><br>
-                    </div>
+                        <a href="http://wa.me/#" target="_BLANK" class="btn btn-sm btn-primary mt-1"><i class="fa-brands fa-whatsapp"></i>CS1</a><br>                    </div>
                 </div>
                 <div class="card-cp">
                     <div class="name-tag text-center">
@@ -631,19 +645,17 @@
                     </div>
                     <div class="overlay text-center">
                         <h5 class="mb-2">Akomodasi</h5><br>
-                        <a href="http://wa.me/6281391701913" target="_BLANK" class="btn btn-sm btn-primary mt-1"><i class="fa-brands fa-whatsapp"></i> CS 1</a><br>
-                        <a href="http://wa.me/6281391701913" target="_BLANK" class="btn btn-sm btn-primary mt-1"><i class="fa-brands fa-whatsapp"></i> CS2</a><br>
+                        <a href="http://wa.me/62811283395" target="_BLANK" class="btn btn-sm btn-primary mt-1"><i class="fa-brands fa-whatsapp"></i>dr. Jeffri</a><br>
                     </div>
                 </div>
                 <div class="card-cp">
                     <div class="name-tag text-center">
                         <img src="<?= base_url('themes/aenft'); ?>/assets/img/cs/cs6.png" alt="">
-                        <h5>Dana dan Sponsorship</h5>
+                        <h5>Sponsorship</h5>
                     </div>
                     <div class="overlay text-center">
-                        <h5 class="mb-2">Dana dan Sponsorship</h5><br>
-                        <a href="http://wa.me/6281391701913" target="_BLANK" class="btn btn-sm btn-primary mt-1"><i class="fa-brands fa-whatsapp"></i> CS 1</a><br>
-                        <a href="http://wa.me/6281391701913" target="_BLANK" class="btn btn-sm btn-primary mt-1"><i class="fa-brands fa-whatsapp"></i> CS2</a><br>
+                        <h5 class="mb-2">Sponsorship</h5><br>
+                        <a href="http://wa.me/6285210100670" target="_BLANK" class="btn btn-sm btn-primary mt-1"><i class="fa-brands fa-whatsapp"></i>dr. Zizah</a><br>
                     </div>
                 </div>
             </div>
@@ -651,33 +663,33 @@
         </div>
     </section>
 
-    <section id="news">
+    <section id="news" class="cs-bg" data-src="<?= base_url('themes/aenft'); ?>/assets/img/konas/img6.jpg">
         <div class="cs-height_70 cs-height_lg_40"></div>
         <div class="container">
             <div class="cs-seciton_heading cs-style1 text-uppercase text-center wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s">
                 <h3 class="cs-section_title cs-font_16 cs-font_14_sm cs-gradient_color">INFO</h3>
                 <h2 class="cs-section_subtitle cs-m0 cs-font_36 cs-font_24_sm">Berita Terbaru </h2>
             </div>
-            <?php if(count($allNews) > 0):?>
-            <div class="row col-12">
-                <a href="<?=base_url('site/all_news');?>" class="text-end h5">Lihat Semua</a>
-                <div style="overflow-x: auto;" class="row scrollbar flex-row flex-nowrap row-cols-md-3 row-cols-sm-3 row-cols-1 mt-2 wow fadeIn" data-wow-duration="1s" data-wow-delay="0.2s">
-                    <?php foreach ($allNews as $news) : ?>
-                        <a href="<?= base_url('site/readnews/' . $news->id); ?>" class="card card-bg card__shadow mb-2 me-2" style="width: 18rem;">
-                            <img class="card-img-top" src="<?=$news->imageCover();?>" width="250px" height="250px" alt="Card image cap">
-                            <div class="card-body">
-                                <h5 class="card-title"><?= $news->title; ?></h5>
-                                <p class="card-text"><?= news_date($news->created_at); ?></p>
-                            </div>
-                        </a>
-                    <?php endforeach; ?>
+            <?php if (count($allNews) > 0) : ?>
+                <div class="row col-12">
+                    <a href="<?= base_url('site/all_news'); ?>" class="text-end h5">Lihat Semua</a>
+                    <div style="overflow-x: auto;" class="row scrollbar flex-row flex-nowrap row-cols-md-3 row-cols-sm-3 row-cols-1 mt-2 wow fadeIn" data-wow-duration="1s" data-wow-delay="0.2s">
+                        <?php foreach ($allNews as $news) : ?>
+                            <a href="<?= base_url('site/readnews/' . $news->id); ?>" class="card card-bg card__shadow mb-2 me-2" style="width: 18rem;">
+                                <img class="card-img-top" src="<?= $news->imageCover(); ?>" width="250px" height="250px" alt="Card image cap">
+                                <div class="card-body">
+                                    <h5 class="card-title"><?= $news->title; ?></h5>
+                                    <p class="card-text"><?= news_date($news->created_at); ?></p>
+                                </div>
+                            </a>
+                        <?php endforeach; ?>
+                    </div>
                 </div>
-            </div>
-            <?php else:?>
+            <?php else : ?>
                 <div class="row col-12">
                     <div class="alert alert-info text-center mt-2">Mohon Maaf, Belum Ada Berita Yang Tersedia</div>
                 </div>
-            <?php endif;?>
+            <?php endif; ?>
             <div class="cs-height_50 cs-height_lg_30"></div>
         </div>
     </section>
@@ -818,12 +830,10 @@
                                 </div>
                                 <div class="fm-item-content">
                                     <ul class="mt-3">
-                                        <li>Batas Pengumpulan Abstrak : 21 Oktober 2022</li>
-                                        <li>Pengumuman Penerimaan Abstrak : 24 Oktober 2022</li>
-                                        <li>Batas Pengumpulan Naskah Lengkap : 30 Oktober 2022</li>
-                                        <li>Program Ilmiah : 17 18 November 2022 untuk Workshop, dan 19 20 November 2022 Simposium</li>
-                                        <li>E-Poster / Presentasi Oral : 19 November 2022</li>
-                                        <li>Pengumuman Pemenang : 20 November 2022</li>
+                                        <li>Early Registration : Januari - 30 April 2023</li>
+                                        <li>Batas Pengumpulan Abstrak : 1 Juli 2023</li>
+                                        <li>Pengumuman Penerimaan Abstrak : 20 Juli 2023</li>
+                                        <li>Late Registration : 1 Mei - 1 Agustus 2023</li>
                                     </ul>
                                 </div>
                             </div>
@@ -862,13 +872,14 @@
                                 <div class="fm-item-content">
                                     <ul class="mt-3">
                                         <b>Early Bird</b> <br>
-                                        <li>Spesialist : Rp. 3.000.000</li>
-                                        <li>Resident : Rp. 1.500.000</li>
-                                        <li>GP : Rp. 1.500.000</li> <br>
-                                        <b>Regular and Onsite</b> <br>
                                         <li>Spesialist : Rp. 3.500.000</li>
-                                        <li>Resident : Rp. 1.750.000</li>
-                                        <li>GP : Rp. 1.750.000</li>
+                                        <li>Dokter Umum/PPDS : Rp. 2.000.000</li>
+                                        <b>Late</b> <br>
+                                        <li>Spesialist : Rp. 4.000.000</li>
+                                        <li>Dokter Umum/PPDS : Rp. 2.250.000</li>
+                                        <b>Onsite</b> <br>
+                                        <li>Spesialist : Rp. 4.500.000</li>
+                                        <li>Dokter Umum/PPDS : Rp. 2.500.000</li>
                                     </ul>
                                 </div>
                             </div>
@@ -898,7 +909,7 @@
         <!-- Start Footer -->
         <footer class="cs-footer text-center">
             <div class="container mt-4">
-                <div class="cs-copyright text-center wow fadeIn" data-wow-duration="1s" data-wow-delay="0.5s">Copyright © 2022. All Rights Reserved by <span class="cs-primary_font cs-primary_color">AENFT</span></div>
+                <div class="cs-copyright text-center wow fadeIn" data-wow-duration="1s" data-wow-delay="0.5s"><p>&copy; 2023 License to #Panitia KONAS PERDOSNI Semarang#</p><p>Developed by #CV. Meta Medika#</p><span class="cs-primary_font cs-primary_color"></span></div>
             </div>
             <div class="cs-height_25 cs-height_lg_25"></div>
         </footer>

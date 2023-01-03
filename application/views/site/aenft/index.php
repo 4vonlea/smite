@@ -51,7 +51,7 @@
                         <a href="<?= base_url('member/register/group'); ?>" class="btn btn-success"><i class="fa-solid fa-user-group fa-2x mt-1"></i><br> Registrasi Grup / Kelompok</a>
                     </div>
                     <div class="col-lg-3 col-md-3 col-12 d-grid gap-2 mb-1">
-                        <a href="https://drive.google.com/file/d/1UoneqLS7i6vwORdP7k4WuvQXQM5n0bPe/view?usp=sharing" target="_blank" class="btn btn-primary"><i class="fa-solid fa-cloud-arrow-down fa-2x mt-1"></i> <br> Unduh FINAL Announcement disini (rilis 05 November 2022)</a>
+                        <a href="#" target="_blank" class="btn btn-primary"><i class="fa-solid fa-cloud-arrow-down fa-2x mt-1"></i> <br> Unduh First Announcement disini (tba)</a>
                     </div>
                 </div>
                 <hr class="mt-3 mb-3">
@@ -95,16 +95,16 @@
 
     <div class="cs-footer_wrap">
         <div class="row align-items-center wow fadeIn" data-wow-duration="1s" data-wow-delay="0.5s">
-            <div class="col-lg-6">
+            <!-- <div class="col-lg-6">
                 <img src="<?= base_url('themes/aenft'); ?>/assets/images/custom/footer1.jpg" width="100%">
             </div>
             <div class="col-lg-6">
                 <img src="<?= base_url('themes/aenft'); ?>/assets/images/custom/footer2.jpeg" width="100%">
-            </div>
+            </div>-->
         </div>
         <footer class="cs-footer text-center">
             <div class="container mt-4">
-                <div class="cs-copyright text-center wow fadeIn" data-wow-duration="1s" data-wow-delay="0.5s">Copyright © 2022. All Rights Reserved by <span class="cs-primary_font cs-primary_color">AENFT</span></div>
+                <div class="cs-copyright text-center wow fadeIn" data-wow-duration="1s" data-wow-delay="0.5s"><p>&copy; 2023 License to #Panitia KONAS PERDOSNI Semarang#</p><p>Developed by #CV. Meta Medika#</p><span class="cs-primary_font cs-primary_color"></span></div>
             </div>
             <div class="cs-height_25 cs-height_lg_25"></div>
         </footer>
