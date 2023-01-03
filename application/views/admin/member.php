@@ -8,7 +8,7 @@ $this->layout->begin_head();
 ?>
 <link href="<?= base_url(); ?>themes/script/chosen/chosen.css" rel="stylesheet">
 <style>
-	.disabled{
+	.disabled {
 		cursor: not-allowed;
 		opacity: 0.4;
 	}
@@ -69,7 +69,15 @@ $this->layout->begin_head();
 							<h3>Members</h3>
 						</div>
 						<div class="col-6 text-right">
-							<v-button @click="syncAllMember($event,'start')" type="button" class="btn btn-primary" icon="fa fa-sync">Sync All Member To P2KB</v-button>
+							<div class="btn-group">
+								<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								<i class="fa fa-sync"></i> Sync Member To P2KB
+								</button>
+								<div class="dropdown-menu">
+									<v-button @click="syncAllMember($event,'start','all')" type="button" class="dropdown-item">All Member</v-button>
+									<v-button @click="syncAllMember($event,'start','partial')" type="button" class="dropdown-item">Failed Only</v-button>
+								</div>
+							</div>
 							<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-particant-status"><i class="fa fa-book"></i> Member Status
 								List
 							</button>
@@ -296,12 +304,12 @@ $this->layout->begin_head();
 								</tr>
 								<tr v-for="ev in profile.event">
 									<td>
-										<h5>{{ ev.event_name }} as <span class="badge badge-info">{{ ev.status_member }}</span> </h5> 
-										<hr style="margin: 15px 0px;"/>
+										<h5>{{ ev.event_name }} as <span class="badge badge-info">{{ ev.status_member }}</span> </h5>
+										<hr style="margin: 15px 0px;" />
 										<v-button @click="sendNametag(ev,$event)" class="btn btn-primary btn-sm">Send Nametag</v-button>
 										<button :disabled="sendingCertificate" v-on:click="sendCertificate(ev)" class="btn btn-primary btn-sm"><i v-if="sendingCertificate" class="fa fa-spin fa-spinner"></i>Send Certificate</button>
-										<a :href="'<?= base_url('admin/member/card'); ?>/'+ev.event_id+'/'+profile.id" target="_blank">Preview Name Tag</a> 
-										<a :href="'<?= base_url('admin/member/preview_certificate'); ?>/'+ev.td_id" target="_blank">Preview Certificate</a> 
+										<a :href="'<?= base_url('admin/member/card'); ?>/'+ev.event_id+'/'+profile.id" target="_blank">Preview Name Tag</a>
+										<a :href="'<?= base_url('admin/member/preview_certificate'); ?>/'+ev.td_id" target="_blank">Preview Certificate</a>
 									</td>
 									<td>
 										<input type="checkbox" v-model="ev.checklist.nametag" true-value="true" false-value="false" />
@@ -512,21 +520,33 @@ $this->layout->begin_head();
 			savingCheck: false,
 			savingProfile: false,
 			sendingCertificate: false,
-			checkingMember:false,
-			syncId:null,
-			syncAll:{status:'',processed:0,total:0,failed:0,notMember:0,member:0,progress:0,data:[],failedList:[]}
+			checkingMember: false,
+			syncId: null,
+			syncAll: {
+				status: '',
+				processed: 0,
+				total: 0,
+				failed: 0,
+				notMember: 0,
+				member: 0,
+				progress: 0,
+				data: [],
+				failedList: []
+			}
 		},
 		methods: {
-			downloadFailedSync(){
+			downloadFailedSync() {
 				const worksheet = XLSX.utils.json_to_sheet(this.syncAll.failedList);
 				const workbook = XLSX.utils.book_new();
 				XLSX.utils.book_append_sheet(workbook, worksheet, "List");
-				XLSX.writeFile(workbook, "Failed List Sync.xlsx", { compression: true });
+				XLSX.writeFile(workbook, "Failed List Sync.xlsx", {
+					compression: true
+				});
 			},
-			syncAllMember(selfButton,type){
-				if(type == 'start'){
+			syncAllMember(selfButton, type,partData) {
+				if (type == 'start') {
 					selfButton.toggleLoading();
-					$.get("<?=base_url('admin/member/get_all_member');?>",(res)=>{
+					$.get("<?= base_url('admin/member/get_all_member'); ?>/"+partData, (res) => {
 						this.syncAll.failed = 0;
 						this.syncAll.member = 0;
 						this.syncAll.notMember = 0;
@@ -535,24 +555,28 @@ $this->layout->begin_head();
 						this.syncAll.status = 'processing';
 						this.syncAll.processed = 0;
 						this.syncAll.failedList = [];
+						if(res.data.length > 0){
 						$("#modal-sync-all-member").modal("show");
-						this.syncAllMember(selfButton,'process');
-						this.syncAllMember(selfButton,'process');
-						this.syncAllMember(selfButton,'process');
+							this.syncAllMember(selfButton, 'process',partData);
+							this.syncAllMember(selfButton, 'process',partData);
+							this.syncAllMember(selfButton, 'process',partData);
+						}else{
+							Swal.fire('Info', `Tidak ada data yang dapat disync`, 'info');
+						}
 					}).always(() => {
 						selfButton.toggleLoading();
 					});
-				}else if(type == 'process'){
+				} else if (type == 'process') {
 					let member = this.syncAll.data.pop();
-					$.post("<?=base_url("admin/member/cek_member_perdossi");?>",{
-						nik:member.nik,
-						id:member.id
+					$.post("<?= base_url("admin/member/cek_member_perdossi"); ?>", {
+						nik: member.nik,
+						id: member.id
 					}, (res) => {
-						if(res.status == false){
+						if (res.status == false) {
 							this.syncAll.failed++;
 							member.feedback = res.message;
 							this.syncAll.failedList.push(member);
-						}else if (res.message == "success") {
+						} else if (res.message == "success") {
 							this.syncAll.member++;
 						} else {
 							this.syncAll.notMember++;
@@ -560,9 +584,9 @@ $this->layout->begin_head();
 					}).always(() => {
 						this.syncAll.processed++;
 						this.syncAll.progress = Math.round(this.syncAll.processed / this.syncAll.total * 100)
-						if(this.syncAll.data.length > 0){
-							this.syncAllMember(selfButton,'process');
-						}else{
+						if (this.syncAll.data.length > 0) {
+							this.syncAllMember(selfButton, 'process',partData);
+						} else {
 							this.syncAll.status = "finish";
 						}
 					}).fail((xhr) => {
@@ -572,46 +596,46 @@ $this->layout->begin_head();
 					});
 				}
 			},
-			sync(member){
+			sync(member) {
 				this.syncId = member.id;
-				$.post("<?=base_url("admin/member/cek_member_perdossi");?>",{
-					nik:member.nik,
-					id:member.id
+				$.post("<?= base_url("admin/member/cek_member_perdossi"); ?>", {
+					nik: member.nik,
+					id: member.id
 				}, (res) => {
-                    if (res.message == "success") {
-                        Swal.fire('Info', `Keanggotaan berhasil dicek. <br/> Data KTA, Nama dan No Telpon telah disinkronkan`, 'info');
-                        member.kta = res.member.perdossi_no;
-                        member.fullname = `${res.member.member_title_front} ${res.member.fullname} ${res.member.member_title_back}`;
-                        member.phone = res.member.member_phone;
-                    } else {
-                        member.kta = "-";
-                        Swal.fire('Info', `${member.fullname} dengan NIK.${member.nik} : ${res.message}`, 'info');
-                    }
-                }).always(() => {
-                    this.syncId = null;
-                }).fail(() => {
-                    Swal.fire('Fail', 'Failed to get member information in perdossi API', 'error')
-                })
+					if (res.message == "success") {
+						Swal.fire('Info', `Keanggotaan berhasil dicek. <br/> Data KTA, Nama dan No Telpon telah disinkronkan`, 'info');
+						member.kta = res.member.perdossi_no;
+						member.fullname = `${res.member.member_title_front} ${res.member.fullname} ${res.member.member_title_back}`;
+						member.phone = res.member.member_phone;
+					} else {
+						member.kta = "-";
+						Swal.fire('Info', `${member.fullname} dengan NIK.${member.nik} : ${res.message}`, 'info');
+					}
+				}).always(() => {
+					this.syncId = null;
+				}).fail(() => {
+					Swal.fire('Fail', 'Failed to get member information in perdossi API', 'error')
+				})
 			},
 			checkMember() {
-                this.checkingMember = true;
-                $.get("<?=base_url("member/register/info_member_perdossi/");?>" + this.profile.nik, (res) => {
-                    if (res.message == "success") {
-                        Swal.fire('Info', `Keanggotaan berhasil dicek. <br/> Data KTA, Nama, Email dan No Telpon telah diubah<br/> Silakah disimpan`, 'info');
-                        this.profile.kta = res.member.perdossi_no;
-                        this.profile.fullname = `${res.member.member_title_front} ${res.member.fullname} ${res.member.member_title_back}`;
-                        this.profile.email = res.member.email;
-                        this.profile.phone = res.member.member_phone;
+				this.checkingMember = true;
+				$.get("<?= base_url("member/register/info_member_perdossi/"); ?>" + this.profile.nik, (res) => {
+					if (res.message == "success") {
+						Swal.fire('Info', `Keanggotaan berhasil dicek. <br/> Data KTA, Nama, Email dan No Telpon telah diubah<br/> Silakah disimpan`, 'info');
+						this.profile.kta = res.member.perdossi_no;
+						this.profile.fullname = `${res.member.member_title_front} ${res.member.fullname} ${res.member.member_title_back}`;
+						this.profile.email = res.member.email;
+						this.profile.phone = res.member.member_phone;
 						this.profile.p2kb_member_id = res.member.member_id;
-                    } else {
-                        Swal.fire('Info', `NIK.${this.profile.nik} : ${res.message}`, 'info');
-                    }
-                }).always(() => {
-                    this.checkingMember = false;
-                }).fail(() => {
-                    Swal.fire('Fail', 'Failed to get member information in perdossi API', 'error')
-                })
-            },
+					} else {
+						Swal.fire('Info', `NIK.${this.profile.nik} : ${res.message}`, 'info');
+					}
+				}).always(() => {
+					this.checkingMember = false;
+				}).fail(() => {
+					Swal.fire('Fail', 'Failed to get member information in perdossi API', 'error')
+				})
+			},
 			formatDate(date) {
 				return moment(date).format("DD MMM YYYY, [At] HH:mm:ss");
 			},
@@ -629,11 +653,11 @@ $this->layout->begin_head();
 					app.sendingCertificate = false;
 				});
 			},
-			sendNametag(event,self) {
+			sendNametag(event, self) {
 				var data = {
 					id: event.event_id,
 					event_name: event.event_name,
-					m_id:this.profile.id,
+					m_id: this.profile.id,
 				}
 				self.toggleLoading();
 				$.post("<?= base_url("admin/member/send_nametag"); ?>", data, function(res) {
@@ -653,8 +677,8 @@ $this->layout->begin_head();
 			sendCertificate(event) {
 				app.sendingCertificate = true;
 				var data = {
-					td_id:event.td_id,
-					channel:'email'
+					td_id: event.td_id,
+					channel: 'email'
 				}
 				$.post("<?= base_url("admin/member/send_certificate"); ?>", data, function(res) {
 					if (res.status)
@@ -673,10 +697,10 @@ $this->layout->begin_head();
 			saveProfile() {
 				app.savingProfile = true;
 				$.post("<?= base_url("admin/member/save_profile"); ?>", app.profile, function(res) {
-					if (res.status){
+					if (res.status) {
 						app.profile.username_account = app.profile.email;
 						Swal.fire("Success", "Profile Saved !", "success");
-					}else
+					} else
 						Swal.fire("Failed", (res.message ? res.message : "Failed to save data !"), "error");
 				}, "JSON").fail(function(xhr) {
 					var message = xhr.getResponseHeader("Message");

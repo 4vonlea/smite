@@ -734,22 +734,27 @@ class Member extends Admin_Controller
 				'phone' => $member['member_phone'],
 				'p2kb_member_id'=>$member['member_id']
 			],$id,false);
-		}else{
+		}else if($response['message'] == "Anggota tidak ditemukan"){
 			$this->Member_m->update([
 				'kta' => "-"
-			],$id,false);
+			],$id,false);			
 		}
         $this->output
 			->set_content_type("application/json")
 			->_display(json_encode($response));
 	}
 
-	public function get_all_member(){
+	public function get_all_member($type){
 		$this->load->model('Member_m');
+		if($type == "partial"){
+			$data = $this->Member_m->find()->select("id,nik,fullname")->where("kta IS NULL")->or_where("kta","")->get()->result_array();
+		} else{
+			$data = $this->Member_m->find()->select("id,nik,fullname")->get()->result_array();
+		}
 		$this->output
 		->set_content_type("application/json")
 		->_display(json_encode([
-			'data'=>$this->Member_m->find()->select("id,nik,fullname")->get()->result_array(),
+			'data'=>$data,
 		]));
 	}
 
