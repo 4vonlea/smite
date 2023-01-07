@@ -616,7 +616,7 @@
                     </div>
                     <div class="overlay text-center">
                         <h5 class="mb-2">Sekretariat</h5><br>
-                        <a href="http://wa.me/628112524392" target="_BLANK" class="btn btn-sm btn-primary mt-1"><i class="fa-brands fa-whatsapp"></i>dr. Gita</a><br>
+                        <a href="http://wa.me/628112524392" target="_BLANK" class="btn btn-sm btn-primary mt-1"><i class="fa-brands fa-whatsapp"></i> dr. Gita</a><br>
                     </div>
                 </div>
                 <div class="card-cp">
@@ -626,7 +626,7 @@
                     </div>
                     <div class="overlay text-center">
                         <h5 class="mb-2">Registrasi</h5><br>
-                        <a href="http://wa.me/6281229570815" target="_BLANK" class="btn btn-sm btn-primary mt-1"><i class="fa-brands fa-whatsapp"></i>dr. Resita</a><br>
+                        <a href="http://wa.me/6281229570815" target="_BLANK" class="btn btn-sm btn-primary mt-1"><i class="fa-brands fa-whatsapp"></i> dr. Resita</a><br>
                     </div>
                 </div>
                 <div class="card-cp">
@@ -636,7 +636,7 @@
                     </div>
                     <div class="overlay text-center">
                         <h5 class="mb-2">Ilmiah</h5><br>
-                        <a href="http://wa.me/#" target="_BLANK" class="btn btn-sm btn-primary mt-1"><i class="fa-brands fa-whatsapp"></i>CS1</a><br>                    </div>
+                        <a href="http://wa.me/6281324475795" target="_BLANK" class="btn btn-sm btn-primary mt-1"><i class="fa-brands fa-whatsapp"></i> dr. Didi</a><br>                    </div>
                 </div>
                 <div class="card-cp">
                     <div class="name-tag text-center">
@@ -645,7 +645,7 @@
                     </div>
                     <div class="overlay text-center">
                         <h5 class="mb-2">Akomodasi</h5><br>
-                        <a href="http://wa.me/62811283395" target="_BLANK" class="btn btn-sm btn-primary mt-1"><i class="fa-brands fa-whatsapp"></i>dr. Jeffri</a><br>
+                        <a href="http://wa.me/62811283395" target="_BLANK" class="btn btn-sm btn-primary mt-1"><i class="fa-brands fa-whatsapp"></i> dr. Jeffri</a><br>
                     </div>
                 </div>
                 <div class="card-cp">
@@ -655,7 +655,7 @@
                     </div>
                     <div class="overlay text-center">
                         <h5 class="mb-2">Sponsorship</h5><br>
-                        <a href="http://wa.me/6285210100670" target="_BLANK" class="btn btn-sm btn-primary mt-1"><i class="fa-brands fa-whatsapp"></i>dr. Zizah</a><br>
+                        <a href="http://wa.me/6285210100670" target="_BLANK" class="btn btn-sm btn-primary mt-1"><i class="fa-brands fa-whatsapp"></i> dr. Zizah</a><br>
                     </div>
                 </div>
             </div>
