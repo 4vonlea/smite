@@ -62,7 +62,7 @@ class Setting extends Admin_Controller
 	{
 		$id = $this->input->post('id');
 		$config = Settings_m::getSetting("config_cert_$id");
-		if (file_exists(APPPATH . "uploads/cert_template/$id.txt")) {
+		if (file_exists("./application/uploads/cert_template/$id.txt")) {
 			$return['fileName'] = "Select Image as Template";
 			$return['body'] = ['width' => '100%'];
 
@@ -70,10 +70,10 @@ class Setting extends Admin_Controller
 			$return['property'] = $configuration['property'] ?? [];
 			if(!isset($configuration['anotherPage'])){
 				$return['anotherPage'] = [];
-				if(file_exists(APPPATH . "uploads/cert_template/second_page_$id.txt")){
+				if(file_exists("./application/uploads/cert_template/second_page_$id.txt")){
 					$return['anotherPage'][] = [
 						'filename'=>"Second Page.jpg",
-						'image'=>file_get_contents(APPPATH . "uploads/cert_template/second_page_$id.txt")
+						'image'=>file_get_contents("./application/uploads/cert_template/second_page_$id.txt")
 					];
 				}
 			}else{
@@ -86,7 +86,7 @@ class Setting extends Admin_Controller
 					}
 				}
 			}
-			$return['image'] = file_get_contents(APPPATH . "uploads/cert_template/$id.txt");
+			$return['image'] = file_get_contents("./application/uploads/cert_template/$id.txt");
 			$return['base64Image'] = $return['image'];
 			$this->output
 				->set_content_type("application/json")
@@ -99,7 +99,7 @@ class Setting extends Admin_Controller
 	}
 	public function save_cert()
 	{
-		file_put_contents(APPPATH . "uploads/cert_template/$_POST[event].txt", $_POST['base64Image']);
+		file_put_contents("./application/uploads/cert_template/$_POST[event].txt", $_POST['base64Image']);
 		$configuration['property'] =  $this->input->post('property');
 		if (!$configuration)
 			$configuration = [];
@@ -107,7 +107,7 @@ class Setting extends Admin_Controller
 		if($this->input->post("anotherPage")){
 			foreach($this->input->post("anotherPage",false) as $ind=>$row){
 				if(isset($row['image']) && $row['image'] != null){
-					$imagePath = APPPATH . "uploads/cert_template/another_page_{$ind}_{$_POST['event']}.txt";
+					$imagePath = "./application/uploads/cert_template/another_page_{$ind}_{$_POST['event']}.txt";
 					$configuration['anotherPage'][] = [
 						'filename'=>"Page ".($ind+2).".jpg",
 						'image'=>$imagePath,
@@ -126,8 +126,8 @@ class Setting extends Admin_Controller
 	public function remove_second_image(){
 		$id = $this->input->post("id");
 		$status = false;
-		if(file_exists(APPPATH . "uploads/cert_template/second_page_$id.txt")){
-			$status = unlink(APPPATH . "uploads/cert_template/second_page_$id.txt");
+		if(file_exists("./application/uploads/cert_template/second_page_$id.txt")){
+			$status = unlink("./application/uploads/cert_template/second_page_$id.txt");
 		}
 		$this->output
 			->set_content_type("application/json")
@@ -149,13 +149,13 @@ class Setting extends Admin_Controller
 	{
 		$id = $this->input->post('id');
 		$config = Settings_m::getSetting("config_nametag_$id");
-		if (file_exists(APPPATH . "uploads/nametag_template/$id.txt")) {
+		if (file_exists("./application/uploads/nametag_template/$id.txt")) {
 			$return['fileName'] = "Select Image as Template";
 			$return['body'] = ['width' => '100%'];
 			$return['property'] = json_decode($config, true);
 			if ($return['property'] == null)
 				$return['property'] = [];
-			$return['image'] = file_get_contents(APPPATH . "uploads/nametag_template/$id.txt");
+			$return['image'] = file_get_contents("./application/uploads/nametag_template/$id.txt");
 			$return['base64Image'] = $return['image'];
 			$this->output
 				->set_content_type("application/json")
@@ -168,7 +168,7 @@ class Setting extends Admin_Controller
 	}
 	public function save_nametag()
 	{
-		file_put_contents(APPPATH . "uploads/nametag_template/$_POST[event].txt", $_POST['base64Image']);
+		file_put_contents("./application/uploads/nametag_template/$_POST[event].txt", $_POST['base64Image']);
 		$property =  $this->input->post('property');
 		if (!$property)
 			$property = [];

@@ -125,7 +125,7 @@
 								</div>
 							</div>
 							<hr />
-							<div class="row">
+							<div class="row justify-content-center">
 								<div class="col-md-12">
 									<div class="form-group row">
 										<label class="col-md-3 col-form-label">
@@ -220,7 +220,7 @@
 										<label>Preview</label>
 									</div>
 								</div>
-								<div v-if="currentCertificatePage == -1" style="position: relative">
+								<div v-if="currentCertificatePage == -1" style="position: relative;border:1px solid;padding:23px">
 									<img :src="cert.image" style="width: 100%" />
 									<div v-for="(prop,k) in certProperty" @mousedown="setMouseDown(cert.property[k])" @mouseup="setMouseUp(cert.property[k])" :style="[prop.background,prop.style]">
 										<span v-if="prop.name != 'qr_code'">{{ prop.name }}</span>
