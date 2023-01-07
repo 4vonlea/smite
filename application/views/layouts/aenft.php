@@ -161,12 +161,10 @@
                                 </div>
                                 <div class="fm-item-content">
                                     <ul class="mt-3">
-                                        <li>Batas Pengumpulan Abstrak : 21 Oktober 2022</li>
-                                        <li>Pengumuman Penerimaan Abstrak : 24 Oktober 2022</li>
-                                        <li>Batas Pengumpulan Naskah Lengkap : 30 Oktober 2022</li>
-                                        <li>Program Ilmiah : 17 18 November 2022 untuk Workshop, dan 19 20 November 2022 Simposium</li>
-                                        <li>E-Poster / Presentasi Oral : 19 November 2022</li>
-                                        <li>Pengumuman Pemenang : 20 November 2022</li>
+  										<li>Early Registration : Januari - 30 April 2023</li>
+                                        <li>Batas Pengumpulan Abstrak : 1 Juli 2023</li>
+                                        <li>Pengumuman Penerimaan Abstrak : 20 Juli 2023</li>
+                                        <li>Late Registration : 1 Mei - 1 Agustus 2023</li>
                                     </ul>
                                 </div>
                             </div>
@@ -205,13 +203,14 @@
                                 <div class="fm-item-content">
                                     <ul class="mt-3">
                                         <b>Early Bird</b> <br>
-                                        <li>Spesialist : Rp. 3.000.000</li>
-                                        <li>Resident : Rp. 1.500.000</li>
-                                        <li>GP : Rp. 1.500.000</li> <br>
-                                        <b>Regular and Onsite</b> <br>
                                         <li>Spesialist : Rp. 3.500.000</li>
-                                        <li>Resident : Rp. 1.750.000</li>
-                                        <li>GP : Rp. 1.750.000</li>
+                                        <li>Dokter Umum/PPDS : Rp. 2.000.000</li>
+                                        <b>Late</b> <br>
+                                        <li>Spesialist : Rp. 4.000.000</li>
+                                        <li>Dokter Umum/PPDS : Rp. 2.250.000</li>
+                                        <b>Onsite</b> <br>
+                                        <li>Spesialist : Rp. 4.500.000</li>
+                                        <li>Dokter Umum/PPDS : Rp. 2.500.000</li>
                                     </ul>
                                 </div>
                             </div>
@@ -241,7 +240,7 @@
         <!-- Start Footer -->
         <footer class="cs-footer text-center">
             <div class="container mt-4">
-                <div class="cs-copyright text-center wow fadeIn" data-wow-duration="1s" data-wow-delay="0.5s">Copyright © 2022. All Rights Reserved by <span class="cs-primary_font cs-primary_color">AENFT</span></div>
+                <div class="cs-copyright text-center wow fadeIn" data-wow-duration="1s" data-wow-delay="0.5s"><p>&copy; 2023 License to #Panitia KONAS PERDOSNI Semarang#</p><p>Developed by #CV. Meta Medika#</p> <span class="cs-primary_font cs-primary_color"></span></div>
             </div>
             <div class="cs-height_25 cs-height_lg_25"></div>
         </footer>
