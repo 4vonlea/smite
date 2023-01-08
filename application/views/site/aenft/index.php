@@ -32,7 +32,18 @@
 
     <!-- Start Hero -->
     <div id="home" class="cs-hero cs-style1 cs-type2 cs-bg text-center  cs-ripple_version" data-src="<?= base_url('themes/aenft'); ?>/assets/img/konas/bg-head.jpg" id="home">
-        <div class="cs-dark_overlay"></div>
+        <div class="cs-dark_overlay">
+            
+        </div>
+        <div class="dropdown mt-3 ms-3" style="position: absolute; right: 5px; top:5px;">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="fa fa-language"></i> <?= ucfirst($this->config->item("language")); ?>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item" href="<?= current_url() . "?language=english"; ?>">English</a></li>
+                <li><a class="dropdown-item" href="<?= current_url() . "?language=indonesia"; ?>">Indonesia</a></li>
+            </ul>
+        </div>
         <div class="container">
             <div class="cs-hero_img wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.3s">
                 <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/logo.png" style="width: 100%; max-width: 320px; height: auto;">
@@ -42,28 +53,28 @@
                 <h3 class="cs-hero_subtitle text-uppercase">2 - 6 Agustus 2023</h3>
                 <div class="row mt-5 align-middle">
                     <div class="col-lg-3 col-md-3 col-12 d-grid gap-2 mb-1">
-                        <a href="<?= base_url('site/home'); ?>" class="btn btn-success"><i class="fa-solid fa-earth-asia fa-2x mt-1"></i><br> Kunjungi website dan informasi lengkap disini</a>
+                        <a href="<?= base_url('site/home'); ?>" class="btn btn-success"><i class="fa-solid fa-earth-asia fa-2x mt-1"></i><br> <?=lang("visit_website_and_information");?></a>
                     </div>
                     <div class="col-lg-3 col-md-3 col-12 d-grid gap-2 mb-1">
-                        <a href="<?= base_url('member/register'); ?>" class="btn btn-primary"><i class="fa-solid fa-clipboard-user fa-2x mt-1"></i> <br>Registrasi Individu</a>
+                        <a href="<?= base_url('member/register'); ?>" class="btn btn-primary"><i class="fa-solid fa-clipboard-user fa-2x mt-1"></i> <br><?=lang("individual_registration");?></a>
                     </div>
                     <div class="col-lg-3 col-md-3 col-12 d-grid gap-2 mb-1">
-                        <a href="<?= base_url('member/register/group'); ?>" class="btn btn-success"><i class="fa-solid fa-user-group fa-2x mt-1"></i><br> Registrasi Grup / Kelompok</a>
+                        <a href="<?= base_url('member/register/group'); ?>" class="btn btn-success"><i class="fa-solid fa-user-group fa-2x mt-1"></i><br><?=lang("group_registration");?></a>
                     </div>
                     <div class="col-lg-3 col-md-3 col-12 d-grid gap-2 mb-1">
-                        <a href="#" target="_blank" class="btn btn-primary"><i class="fa-solid fa-cloud-arrow-down fa-2x mt-1"></i> <br> Unduh First Announcement disini (tba)</a>
+                        <a href="#" target="_blank" class="btn btn-primary"><i class="fa-solid fa-cloud-arrow-down fa-2x mt-1"></i> <br> <?=lang("download");?> First Announcement (tba)</a>
                     </div>
                 </div>
                 <hr class="mt-3 mb-3">
                 <div class="text-center">
                     <div class="col-12">
-                        <h6>Registrasi Simposium, Workshop dan Hotel hanya dapat dilakukan melalui website. Panitia tidak menerima pendaftaran melalui mekanisme lain.</h6>
-                        <h6>Integrasi E-Certificate ke P2KB Online hanya dapat diberikan kepada peserta yang melakukan registrasi via website</h6>
+                        <h6><?=lang("announce_1");?></h6>
+                        <h6><?=lang("announce_2");?></h6>
                     </div>
                 </div>
                 <div class="d-grid gap-2 col-md-6 offset-md-3 mt-3 mb-3">
                     <div class="box">
-                        <h6>Bagi yang sudah terdaftar, silakan Login disini.</h6>
+                        <h6><?=lang('announce_3');?></h6>
                         <br>
 
                         <form action="<?= base_url('site/login'); ?>" method="post">
@@ -77,13 +88,13 @@
                                     <label for="">Password</label>
                                 </div>
                                 <div class="text-end text-white mb-3" style="margin-top: -20px; font-size: 14px; text-decoration: underline;">
-                                    <a href="#">Lupa Password ?</a>
+                                    <a href="#"><?= lang("forgot_password"); ?>?</a>
                                 </div>
-                            <?php endif;?>
+                            <?php endif; ?>
 
                             <button type="submit" value="login" name="login" class="btn btn-primary w-100" style="margin-top: -3px;">
-								<span> <?= $hasSession ? "Back To Member Area" : "Sign in / Masuk"; ?></span>
-							</button>
+                                <span> <?= $hasSession ? lang("back_to_member_area") : lang("login"); ?></span>
+                            </button>
                         </form>
                     </div>
                 </div>
@@ -104,7 +115,10 @@
         </div>
         <footer class="cs-footer text-center">
             <div class="container mt-4">
-                <div class="cs-copyright text-center wow fadeIn" data-wow-duration="1s" data-wow-delay="0.5s"><p>&copy; 2023 License to #Panitia KONAS PERDOSNI Semarang#</p><p>Developed by #CV. Meta Medika#</p><span class="cs-primary_font cs-primary_color"></span></div>
+                <div class="cs-copyright text-center wow fadeIn" data-wow-duration="1s" data-wow-delay="0.5s">
+                    <p>&copy; 2023 License to #Panitia KONAS PERDOSNI Semarang#</p>
+                    <p>Developed by #CV. Meta Medika#</p><span class="cs-primary_font cs-primary_color"></span>
+                </div>
             </div>
             <div class="cs-height_25 cs-height_lg_25"></div>
         </footer>

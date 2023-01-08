@@ -296,7 +296,7 @@ class Payment extends MY_Controller
 		echo implode(",",[$success_flag,$error_message,$reconcile_id ,$order_id,$reconcile_datetime]);
 	}
 
-	apublic function check_payment($invoice = null){
+	public function check_payment($invoice = null){
 		$orders = [];
 		$this->load->model(["Transaction_m","Notification_m"]);
 		if($invoice === null && $this->session->has_userdata("user_session")){

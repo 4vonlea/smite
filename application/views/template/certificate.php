@@ -37,7 +37,7 @@ header('Content-Type: text/html');
 </head>
 
 <body>
-	<div class="page-break" style="background:url(<?= $image; ?>);background-size:cover;">
+	<div class="page-break" style="background:url(<?= $image; ?>);background-size:contain;">
 		<?php if (isset($property)) foreach ($property as $i => $row) : ?>
 			<div style="color:#fff;text-align:center;font-size:<?= $row['style']['fontSize']; ?>px ;font-weight:<?= $row['style']['fontWeight']; ?>;position: absolute;z-index: <?= $i; ?>;width:<?= $row['style']['width']; ?>%;top:<?= $row['style']['top']; ?>%;left: <?= $row['style']['left']; ?>%">
 				<?php if ($row['name'] == 'qr_code') : ?>
@@ -51,7 +51,7 @@ header('Content-Type: text/html');
 	<?php if (isset($anotherPage) && is_array($anotherPage)) : ?>
 	<?php foreach ($anotherPage as $row) {
 			$image = file_get_contents($row['image']);
-			echo '<div style="height:97%;background:url(' . $image . ');background-size:cover;"></div>';
+			echo '<div style="height:97%;background:url(' . $image . ');background-size:contain;"></div>';
 		}
 	endif; ?>
 </body>

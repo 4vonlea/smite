@@ -29,7 +29,7 @@ class Member_m extends MY_Model
 			//			['field' => 'city', 'rules' => 'required'],
 			['field' => 'univ', 'label' => 'Institution', 'rules' => 'required'],
 			['field' => 'country', 'label' => 'Country', 'rules' => 'required'],
-			['field' => 'nik', 'label' => 'NIK', 'rules' => 'required|exact_length[16]'],
+			['field' => 'nik', 'label' => 'NIK', 'rules' => 'required|exact_length[16]|is_unique[members.nik]'],
 			['field' => 'phone', 'label' => 'Phone/WA', 'rules' => 'numeric'],
 			['field' => 'birthday', 'label' => 'Birthday', 'rules' => 'required'],
 		];

@@ -51,21 +51,30 @@
 
                     </div>
                     <div class="cs-main_header_right">
-                        <?php if (isset($isLogin)) : ?>
-                            <div class="cs-toolbox">
+
+                        <div class="cs-toolbox">
+                            <?php if (isset($isLogin)) : ?>
                                 <a href="<?= base_url('member/area/logout'); ?>" class="cs-btn cs-btn_filed cs-btn_danger">
                                     <i class="fa fa-arrow-right-from-bracket"></i>
                                     <span>Logout</span>
                                 </a>
-                            </div>
-                        <?php else : ?>
-                            <div class="cs-toolbox">
+                            <?php else : ?>
                                 <a href="<?= base_url('member/register'); ?>" class="cs-btn cs-btn_filed cs-accent_btn">
                                     <i class="fa-solid fa-clipboard-user"></i>
-                                    &nbsp;<span>Registrasi</span>
+                                    &nbsp;<span><?=lang("registration");?></span>
                                 </a>
+                            <?php endif; ?>
+
+                            <div class="dropdown ms-2">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa fa-language"></i> <?= ucfirst($this->config->item("language")); ?>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                    <li><a class="dropdown-item" href="<?= current_url() . "?language=english"; ?>">English</a></li>
+                                    <li><a class="dropdown-item" href="<?= current_url() . "?language=indonesia"; ?>">Indonesia</a></li>
+                                </ul>
                             </div>
-                        <?php endif; ?>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -84,33 +93,33 @@
                 <li>
                     <a class="ripple cs-smoth_scroll" href="<?= base_url('site/home'); ?>#content">
                         <i class="fa fa-home fa-lg"></i>
-                        <span>Beranda</span>
+                        <span><?=lang("home");?></span>
                     </a>
                 </li>
                 <li>
                     <a class="ripple" href="<?= base_url('member/area'); ?>#/profile">
                         <i class="fa fa-user fa-lg"></i>
-                        <span>Profil</span>
+                        <span><?=lang("profile");?></span>
                     </a>
                 </li>
                 <?php if ($hasSettlementTransaction) : ?>
                     <li>
                         <a class="ripple" href="<?= base_url('member/area'); ?>#/paper">
                             <i class="fa fa-paper-plane fa-lg"></i>
-                            <span>Kirim Abstrak</span>
+                            <span><?=lang("send_abstrack");?></span>
                         </a>
                     </li>
                 <?php endif; ?>
                 <li>
                     <a class="ripple" href="<?= base_url('member/area'); ?>#/events">
                         <i class="fa fa-calendar fa-lg"></i>
-                        <span>Pilih Kegiatan</span>
+                        <span><?=lang("select_event");?></span>
                     </a>
                 </li>
                 <li>
                     <a class="ripple" href="<?= base_url('member/area'); ?>#/billing">
                         <i class="fa fa-cart-shopping fa-lg"></i>
-                        <span>Pembayaran</span>
+                        <span><?=lang("payment");?></span>
                     </a>
                 </li>
                 <!-- <li>
@@ -123,24 +132,23 @@
                     <li>
                         <a class="ripple" href="<?= base_url('member/area'); ?>#/material">
                             <i class="fa fa-upload fa-lg"></i>
-                            <span>Unggah Materi</span>
+                            <span><?=lang("upload_material");?></span>
                         </a>
                     </li>
                 <?php endif; ?>
                 <!-- <li><a href="<?= base_url('member/area'); ?>#/sertifikat">Unduh Certificate</a></li> -->
                 <li>
                     <a class="ripple" href="<?= base_url('member/area'); ?>#/presentation">
-                    <i class="fas fa-file-powerpoint"></i>
-                        <span>Presentasi
-                            Ilmiah</span>
-                    </a>            
+                        <i class="fas fa-file-powerpoint"></i>
+                        <span><?=lang("scientifict_presentation");?></span>
+                    </a>
                 </li>
 
             <?php } else { ?>
-                <li><a href="<?= base_url('site/home'); ?>#home" class="ripple cs-smoth_scroll"><i class="fa fa-home fa-lg"></i><span>Beranda</span></a></li>
-                <li><a href="<?= base_url('site/home'); ?>#login" class="ripple cs-smoth_scroll"><i class="fa fa-sign-in fa-lg"></i><span>Login</span></a></li>
-                <li><a href="<?= base_url('site/home'); ?>#event" class="ripple cs-smoth_scroll"><i class="fa fa-calendar fa-lg"></i><span>Kegiatan</span></a></li>
-                <li><a href="<?= base_url('site/home'); ?>#news" class="ripple cs-smoth_scroll"><i class="fa fa-newspaper fa-lg"></i><span>Berita</span></a></li>
+                <li><a href="<?= base_url('site/home'); ?>#home" class="ripple cs-smoth_scroll"><i class="fa fa-home fa-lg"></i><span><?=lang("home");?></span></a></li>
+                <li><a href="<?= base_url('site/home'); ?>#login" class="ripple cs-smoth_scroll"><i class="fa fa-sign-in fa-lg"></i><span><?=lang("login");?></span></a></li>
+                <li><a href="<?= base_url('site/home'); ?>#event" class="ripple cs-smoth_scroll"><i class="fa fa-calendar fa-lg"></i><span><?=lang("event");?></span></a></li>
+                <li><a href="<?= base_url('site/home'); ?>#news" class="ripple cs-smoth_scroll"><i class="fa fa-newspaper fa-lg"></i><span><?=lang("news");?></span></a></li>
             <?php } ?>
         </ul>
         <div class="menu-bg"></div>
@@ -156,12 +164,12 @@
                         <div class="footer-middle-item-wrapper">
                             <div class="footer-middle-item mb-lg-0">
                                 <div class="fm-item-title">
-                                    <h5>Tanggal Penting</h5>
+                                    <h5><?=lang("important_date");?></h5>
                                     <hr>
                                 </div>
                                 <div class="fm-item-content">
                                     <ul class="mt-3">
-  										<li>Early Registration : Januari - 30 April 2023</li>
+                                        <li>Early Registration : Januari - 30 April 2023</li>
                                         <li>Batas Pengumpulan Abstrak : 1 Juli 2023</li>
                                         <li>Pengumuman Penerimaan Abstrak : 20 Juli 2023</li>
                                         <li>Late Registration : 1 Mei - 1 Agustus 2023</li>
@@ -226,8 +234,8 @@
                                 <div class="fm-item-content">
                                     <div class="d-grid">
                                         <a href="<?= base_url('site/login'); ?>" class="btn btn-primary mt-3"><i class="fa-solid fa-sign-in"></i> Masuk Login</a>
-                                        <a href="<?= base_url('member/register'); ?>" class="btn btn-primary mt-2"><i class="fa-solid fa-clipboard-user"></i> Registrasi Individu</a>
-                                        <a href="<?= base_url('member/register/group'); ?>" class="btn btn-primary mt-2"><i class="fa-solid fa-user-group"></i> Registrasi Grup / Kelompok</a>
+                                        <a href="<?= base_url('member/register'); ?>" class="btn btn-primary mt-2"><i class="fa-solid fa-clipboard-user"></i> <?=lang("individual_registration");?></a>
+                                        <a href="<?= base_url('member/register/group'); ?>" class="btn btn-primary mt-2"><i class="fa-solid fa-user-group"></i> <?=lang("group_registration");?></a>
                                     </div>
                                 </div>
                             </div>
@@ -240,7 +248,10 @@
         <!-- Start Footer -->
         <footer class="cs-footer text-center">
             <div class="container mt-4">
-                <div class="cs-copyright text-center wow fadeIn" data-wow-duration="1s" data-wow-delay="0.5s"><p>&copy; 2023 License to #Panitia KONAS PERDOSNI Semarang#</p><p>Developed by #CV. Meta Medika#</p> <span class="cs-primary_font cs-primary_color"></span></div>
+                <div class="cs-copyright text-center wow fadeIn" data-wow-duration="1s" data-wow-delay="0.5s">
+                    <p>&copy; 2023 License to #Panitia KONAS PERDOSNI Semarang#</p>
+                    <p>Developed by #CV. Meta Medika#</p> <span class="cs-primary_font cs-primary_color"></span>
+                </div>
             </div>
             <div class="cs-height_25 cs-height_lg_25"></div>
         </footer>

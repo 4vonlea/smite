@@ -14,6 +14,15 @@ class MY_Controller extends CI_Controller
         parent::__construct();
         $this->load->library('session');
         $this->load->helper('untung_helper');
+
+        $language = $this->input->get("language");
+        if($language){
+            $this->session->set_userdata("language",$language);
+        }else{
+            $language = $this->session->language ?? $this->config->item("language");
+        }
+        $this->config->set_item('language',$language);
+        $this->lang->load('page', $language);
     }
 
     protected function user_session_expired(){

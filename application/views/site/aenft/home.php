@@ -73,9 +73,17 @@
                     <div class="cs-main_header_right">
                         <div class="cs-toolbox">
                             <a href="<?= base_url('member/register'); ?>" class="cs-btn cs-btn_filed cs-accent_btn">
-                                <i class="fa-solid fa-clipboard-user"></i>
-                                <span> Registrasi</span>
+                                <i class="fa-solid fa-clipboard-user"></i>&nbsp;<span><?=lang("registration");?></span>
                             </a>
+                        </div>
+                        <div class="dropdown ms-2">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa fa-language"></i> <?= ucfirst($this->config->item("language")); ?>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li><a class="dropdown-item" href="<?= current_url() . "?language=english"; ?>">English</a></li>
+                                <li><a class="dropdown-item" href="<?= current_url() . "?language=indonesia"; ?>">Indonesia</a></li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -92,25 +100,25 @@
                 <li>
                     <a href="#home" class="ripple cs-smoth_scroll">
                         <i class="fa fa-home fa-lg"></i>
-                        <span>Beranda</span>
+                        <span><?=lang("home");?></span>
                     </a>
                 </li>
                 <li>
                     <a href="#login" class="ripple cs-smoth_scroll">
                         <i class="fa fa-sign-in fa-lg"></i>
-                        <span>Login</span>
+                        <span><?=lang("login");?></span>
                     </a>
                 </li>
                 <li>
                     <a href="#event" class="ripple cs-smoth_scroll">
                         <i class="fa fa-calendar-alt fa-lg"></i>
-                        <span>Kegiatan</span>
+                        <span><?=lang("event");?></span>
                     </a>
                 </li>
                 <li>
                     <a href="#news" class="ripple cs-smoth_scroll">
                         <i class="fa fa-newspaper fa-lg"></i>
-                        <span>Berita</span>
+                        <span><?=lang("news");?></span>
                     </a>
                 </li>
             </ul>

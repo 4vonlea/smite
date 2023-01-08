@@ -1,0 +1,21 @@
+<?php
+$lang['forgot_password'] = "Forgot Password";
+$lang['visit_website_and_information'] = "Visit website and more information";
+$lang['individual_registration'] = "Individual Registration";
+$lang['group_registration'] = "Group Registration";
+$lang['download'] = "Download";
+$lang['home'] = "Home";
+$lang['login'] = "Login";
+$lang['event'] = "Event";
+$lang['news'] = "News";
+$lang['send_abstrack'] = "Send Abstract";
+$lang['profile'] = "Profile";
+$lang['payment'] = "Payment";
+$lang['upload_material'] = "Upload Material";
+$lang['scientific_presentation'] = "Scientific Presentation";
+$lang['important_date'] = "Important Date";
+$lang['registration'] = "Registration";
+$lang['back_to_member_area'] = "Back To Member Area";
+$lang['announce_1'] = "Registrasi Simposium, Workshop dan Hotel hanya dapat dilakukan melalui website. Panitia tidak menerima pendaftaran melalui mekanisme lain.";
+$lang['announce_2'] = "Integrasi E-Certificate ke P2KB Online hanya dapat diberikan kepada peserta yang melakukan registrasi via website";
+$lang['announce_3'] = "Bagi yang sudah terdaftar, silakan Login disini.";
