@@ -140,7 +140,7 @@
                 <li>
                     <a class="ripple" href="<?= base_url('member/area'); ?>#/presentation">
                         <i class="fas fa-file-powerpoint"></i>
-                        <span><?=lang("scientifict_presentation");?></span>
+                        <span><?=lang("scientific_presentation");?></span>
                     </a>
                 </li>
 

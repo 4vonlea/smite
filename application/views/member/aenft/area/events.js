@@ -82,6 +82,7 @@ export default Vue.component("PageEvents", {
                                     </div>
                                 </div>
 							</div>
+                            <!--
                             <div class="card card-achievement" v-if="showCategory == 'hotel-booking'">
                                 <div class="card-header card-bg card__shadow">
                                     <h4 class="card-title m-0">
@@ -92,6 +93,7 @@ export default Vue.component("PageEvents", {
                                     <hotel-booking label-class="text-dark" :booking="booking" :book-url="baseUrl+'add_cart'" :search-url="appUrl+'/api/available_room'" :min-date="minBookingDate" :max-date="maxBookingDate"></hotel-booking>
                                 </div>
                             </div>
+                            -->
 						</div>
 					</div>
 					<div class="row">

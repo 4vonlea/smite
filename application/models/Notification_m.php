@@ -323,7 +323,7 @@ class Notification_m extends MY_Model
         }
 
         $wrapperMessage = "<body style='background-color:#f6f6f6';><strong>#Email ini tidak dipantau, mohon jangan dibalas#</strong><br/><br/><hr/>";
-        $wrapperMessage .= "<div style='padding:10px;width:45%;background-color:white;margin-right:auto;margin-left:auto;'><br/><img width='100%' src='" . $urlImageHeader . "'/>";
+        $wrapperMessage .= "<div style='padding:10px;width:45vw;font-size:12pt;background-color:white;margin-right:auto;margin-left:auto;'><br/><img width='100%' src='" . $urlImageHeader . "'/>";
         $wrapperMessage .= $message;
         $wrapperMessage .= "<img width='100%' src='" . $urlImageFooter . "'/><br/></div>";
         $wrapperMessage .= "</body>";

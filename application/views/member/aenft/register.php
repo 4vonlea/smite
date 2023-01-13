@@ -39,10 +39,10 @@ $theme_path = base_url("themes/aenft") . "/";
             <img src="<?= $theme_path; ?>assets/img/konas/logo.png" style="width: 100%; max-width: 320px; height: auto;">
         </div>
         <div class="cs-hero_text wow fadeIn" data-wow-duration="1s" data-wow-delay="0.45s" style="margin-top: -50px;">
-            <h1 class="cs-hero_title text-uppercase cs-font_60 cs-font_36_sm cs-bold">Registrasi Individu</h1>
+            <h1 class="cs-hero_title text-uppercase cs-font_60 cs-font_36_sm cs-bold"><?=lang("individual_registration");?></h1>
             <ol class="breadcrumb justify-content-center mb-0">
-                <li class="breadcrumb-item"><a href="index.html">Beranda</a></li>
-                <li class="breadcrumb-item active text-info" aria-current="page"><i class="fa-solid fa-clipboard-user"></i> Registrasi</li>
+                <li class="breadcrumb-item"><a href="index.html"><?=lang("home");?></a></li>
+                <li class="breadcrumb-item active text-info" aria-current="page"><i class="fa-solid fa-clipboard-user"></i> <?=lang("registration");?></li>
             </ol>
         </div>
     </div>
@@ -55,21 +55,20 @@ $theme_path = base_url("themes/aenft") . "/";
         <!-- NOTE Setelah Submmit -->
         <div v-if="page == 'registered'" class="col-lg-12">
             <div class="alert alert-success">
-                <h4 class="text-dark"><i class="fa fa-info"></i> Akun anda telah dibuat</h4>
-                <p>Kami telah mengirimkan email konfirmasi, mohon cek inbox / spam. Untuk menyelesaikan pendaftaran, klik <i>link konfirmasi</i>yang terdapat didalam email.
-                    Silakan hubungi kami bila memerlukan bantuan.</p>
+                <h4 class="text-dark"><i class="fa fa-info"></i> <?=lang("account_created");?></h4>
+                <p><?=lang("account_created_notification");?></p>
             </div>
 
             <div class="card">
                 <div class="card-header card-bg card__shadow text-center">
-                    <h4 class="m-0 p-0"><strong class="font-weight-extra-bold ">Informasi Tagihan</strong></h4>
+                    <h4 class="m-0 p-0"><strong class="font-weight-extra-bold "><?=lang("billing_information");?></strong></h4>
                 </div>
                 <div class="card-body">
                     <table class="table">
                         <thead>
-                            <th>Nama Kegiatan</th>
+                            <th><?=lang("event_name");?></th>
                             <th>
-                                <p>Harga
+                                <p><?=lang("price");?>
                                     <span v-show="isUsd">
                                         (<span style="color:#F4AD39;font-size:12px">Converted to rupiah</span>)
                                     </span>
@@ -115,8 +114,8 @@ $theme_path = base_url("themes/aenft") . "/";
             </div>
 
             <div class="alert alert-success mt-2">
-                <h4 class="text-dark"><i class="fa fa-info"></i> Konfirmasi Pembayaran</h4>
-                <p><strong>Untuk konfirmasi pembayaran, silakan login, kemudian masuk ke menu "keranjang dan pembayaran"</strong></p>
+                <h4 class="text-dark"><i class="fa fa-info"></i> <?=lang("payment_confirmation");?></h4>
+                <p><strong><?=lang("payment_confirmation_info");?></strong></p>
             </div>
         </div>
 
@@ -158,15 +157,15 @@ $theme_path = base_url("themes/aenft") . "/";
 
             <div class="card  mt-2">
                 <div class="card-header card-bg card__shadow text-center">
-                    <h4 class="m-0 p-0"><strong class="font-weight-extra-bold ">Kegiatan</strong></h4>
+                    <h4 class="m-0 p-0"><strong class="font-weight-extra-bold "><?=lang("event");?></strong></h4>
                 </div>
                 <div class="card-body">
                     <table class="table">
                         <thead>
                             <th></th>
-                            <th>Nama Kegiatan</th>
+                            <th><?=lang("event_name");?></th>
                             <th>
-                                <p>Harga
+                                <p><?=lang("price");?>
                                     <span v-show="isUsd">
                                         (<span style="color:#F4AD39">Converted to rupiah</span>)
                                     </span>
@@ -289,8 +288,8 @@ $theme_path = base_url("themes/aenft") . "/";
                         </div>
                     </span>
                     <div class="form-group mb-2">
-                        <label> Nama Lengkap*</label>
-                        <small>Mohon isi lengkap dengan gelar untuk sertifikat, perubahan nama setelah registrasi tidak dapat dilakukan</small>
+                        <label><?=lang("fullname");?>*</label>
+                        <small><?=lang("fullname_form_information");?></small>
                         <input type="text" v-model="valueData.fullname" :class="{'is-invalid':validation_error.fullname}" class="form-control mb-0" name="fullname" placeholder="Full Name" />
                         <div v-if="validation_error.fullname" class="invalid-feedback">
                             {{ validation_error.fullname }}
@@ -407,7 +406,7 @@ $theme_path = base_url("themes/aenft") . "/";
                         <div class="alert alert-primary">
                             <h4 class="text-black"><i class="icofont icofont-info-circle"></i> <b>Event</b></h4>
                             <p class="text-center">Pilih kegiatan yang ingin anda ikuti. Untuk kenyamaan anda, Kami harap pembayaran dapat langsung dilakukan tanpa penundaan setelah checkout.</p>
-                            <p class="text-center">Untuk Hotel, TIDAK dapat dipesan menggunakan Guarantee Letter</p>
+                            <p class="text-center">Untuk Hotel, TiDAK dapat dipesan menggunakan Guarantee Letter</p>
                         </div>
                         <div class="row mt-2">
                             <div class="col-md-12">
@@ -415,9 +414,9 @@ $theme_path = base_url("themes/aenft") . "/";
                                     <li v-for="cat in filteredEvent" class="nav-item">
                                         <span style="cursor: pointer;" class="nav-link" @click="showCategory = cat.category" :class="{'active':showCategory == cat.category}">{{ cat.category }}</span>
                                     </li>
-                                    <li class="nav-item" style="cursor:pointer">
+                                    <!-- <li class="nav-item" style="cursor:pointer">
                                         <span class="nav-link" @click="showCategory = 'hotel-booking'" :class="{'active':showCategory == 'hotel-booking'}"> Hotel Booking </span>
-                                    </li>
+                                    </li> -->
                                 </ul>
                             </div>
                         </div>
