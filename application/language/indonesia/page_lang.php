@@ -29,3 +29,5 @@ $lang['payment_confirmation'] = "Konfirmasi Pembayaran";
 $lang['payment_confirmation_info'] = 'Untuk konfirmasi pembayaran, silakan login, kemudian masuk ke menu "keranjang dan pembayaran"';
 $lang['fullname'] = "Nama Lengkap";
 $lang['fullname_form_information'] = "Mohon isi lengkap dengan gelar untuk sertifikat, perubahan nama setelah registrasi tidak dapat dilakukan";
+$lang['attention'] = "Perhatian";
+$lang['email_attention'] = "Pastikan email yang terdaftar dapat diakses oleh anda. Link konfirmasi akan dikirimkan ke email tersebut. Mohon cek inbox atau spam";

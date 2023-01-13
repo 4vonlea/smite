@@ -29,3 +29,6 @@ $lang['payment_confirmation'] = "Payment Confirmation";
 $lang['payment_confirmation_info'] = 'To confirm payment, please log in, then enter the "Cart and Payment" menu';
 $lang['fullname'] = "Fullname";
 $lang['fullname_form_information'] = "Please fill in the complete title for the certificate, name changes after registration cannot be made";
+$lang['attention'] = "Attention";
+$lang['email_attention'] = "Make sure the registered email can be accessed by you. A confirmation link will be sent to that email. Please check inbox or spam";
+

@@ -213,8 +213,8 @@ $theme_path = base_url("themes/aenft") . "/";
         <!-- NOTE Sebelum Submit -->
         <div v-show="page == 'register'">
             <div class="alert alert-primary" role="alert">
-                <h4 class="text-primary text-uppercase"><i class="fa-solid fa-info-circle"></i> Perhatian</h4>
-                <p class="mt-minus2">Pastikan email yang terdaftar dapat diakses oleh anda. Link konfirmasi akan dikirimkan ke email tersebut. Mohon cek inbox atau spam</p>
+                <h4 class="text-primary text-uppercase"><i class="fa-solid fa-info-circle"></i> <?=lang('attention');?></h4>
+                <p class="mt-minus2"><?=lang('email_attention');?></p>
             </div>
             <div class="cs-iconbox cs-style1 cs-white_bg">
                 <h4 class="text-center text-uppercase">Registrasi Sekarang</h4>
