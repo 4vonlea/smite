@@ -234,13 +234,10 @@ class Payment extends MY_Controller
 			$response['amount'] = $amount;
 			$response['trx_date'] = $date;
 			$response['installment_period'] = "30D";
-			if($member){
-				$result = run_job("job","send_unpaid_invoice",[
-					$member->id,
-					$order_id,
-					30,
-				]);
-			}
+			$result = run_job("job","send_unpaid_invoice",[
+				$order_id,
+				30,
+			]);
 		}else{
 			$response['error_code'] = 1;
 			$response['error_message'] = "Invalid Order ID";

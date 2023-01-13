@@ -10,7 +10,7 @@ class Job extends CI_Controller
         }
     }
 
-    public function send_unpaid_invoice($member_id, $transaction_id, $sleep = 0)
+    public function send_unpaid_invoice($transaction_id, $sleep = 0)
     {
         if ($sleep > 0) {
             sleep($sleep);
