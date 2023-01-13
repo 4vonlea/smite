@@ -73,7 +73,7 @@
                     <div class="cs-main_header_right">
                         <div class="cs-toolbox">
                             <a href="<?= base_url('member/register'); ?>" class="cs-btn cs-btn_filed cs-accent_btn">
-                                <i class="fa-solid fa-clipboard-user"></i>&nbsp;<span><?=lang("registration");?></span>
+                                <i class="fa-solid fa-clipboard-user"></i>&nbsp;<span><?= lang("registration"); ?></span>
                             </a>
                         </div>
                         <div class="dropdown ms-2">
@@ -100,25 +100,25 @@
                 <li>
                     <a href="#home" class="ripple cs-smoth_scroll">
                         <i class="fa fa-home fa-lg"></i>
-                        <span><?=lang("home");?></span>
+                        <span><?= lang("home"); ?></span>
                     </a>
                 </li>
                 <li>
                     <a href="#login" class="ripple cs-smoth_scroll">
                         <i class="fa fa-sign-in fa-lg"></i>
-                        <span><?=lang("login");?></span>
+                        <span><?= lang("login"); ?></span>
                     </a>
                 </li>
                 <li>
                     <a href="#event" class="ripple cs-smoth_scroll">
                         <i class="fa fa-calendar-alt fa-lg"></i>
-                        <span><?=lang("event");?></span>
+                        <span><?= lang("event"); ?></span>
                     </a>
                 </li>
                 <li>
                     <a href="#news" class="ripple cs-smoth_scroll">
                         <i class="fa fa-newspaper fa-lg"></i>
-                        <span><?=lang("news");?></span>
+                        <span><?= lang("news"); ?></span>
                     </a>
                 </li>
             </ul>
@@ -231,64 +231,158 @@
             </div>
             <div class="cs-height_50 cs-height_lg_30"></div>
             <div class="row wow fadeIn" data-wow-duration="1s" data-wow-delay="0.4s">
-                <div class="col-lg-3 col-sm-6">
-                    <div class="cs-team cs-style1 text-center cs-white_bg">
+                <div class="col-lg-4 col-sm-6">
+                    <div class="cs-team cs-style1 text-center cs-white_bg" data-bs-toggle="modal" data-bs-target="#hotel1">
                         <div class="cs-height_30 cs-height_lg_30"></div>
                         <div class="cs-member_thumb">
                             <i class="i-col fa-solid fa-building-circle-check fa-3x wow pulse" data-wow-iteration="infinite" data-wow-duration="1500ms"></i>
                         </div>
                         <div class="cs-height_25 cs-height_lg_25"></div>
                         <div class="cs-member_info">
-                            <h2 class="cs-font_22 cs-font_16_sm cs-m0">Hotel A</h2>
+                            <h2 class="cs-font_22 cs-font_16_sm cs-m0">Grand Candi</h2>
                             <div class="cs-height_5 cs-height_lg_5"></div>
+                            <div class="text-center mt-0 mb-1">
+                                <i class="fa-solid fa-star i-col"></i>
+                                <i class="fa-solid fa-star i-col"></i>
+                                <i class="fa-solid fa-star i-col"></i>
+                                <i class="fa-solid fa-star i-col"></i>
+                                <i class="fa-solid fa-star i-col"></i>
+                            </div>
+                            <p>
+                                Jarak ke Venue : <span class="fw-bold">1,4 km</span><br>
+                                <span class="fw-bold">± 4 menit</span> berkendara
+                            </p>
                             <h6 class="badge bg-primary">Tersedia Kamar Kosong</h6>
                             <div class="cs-height_20 cs-height_lg_20"></div>
                         </div>
                     </div>
                     <div class="cs-height_25 cs-height_lg_25"></div>
                 </div>
-                <div class="col-lg-3 col-sm-6">
-                    <div class="cs-team cs-style1 text-center cs-white_bg">
+                <div class="col-lg-4 col-sm-6">
+                    <div class="cs-team cs-style1 text-center cs-white_bg" data-bs-toggle="modal" data-bs-target="#hotel2">
                         <div class="cs-height_30 cs-height_lg_30"></div>
                         <div class="cs-member_thumb">
                             <i class="i-col fa-solid fa-building-circle-check fa-3x wow pulse" data-wow-iteration="infinite" data-wow-duration="1500ms"></i>
                         </div>
                         <div class="cs-height_25 cs-height_lg_25"></div>
                         <div class="cs-member_info">
-                            <h2 class="cs-font_22 cs-font_16_sm cs-m0">Hotel B</h2>
+                            <h2 class="cs-font_22 cs-font_16_sm cs-m0">Patra</h2>
                             <div class="cs-height_5 cs-height_lg_5"></div>
+                            <div class="text-center mt-0 mb-1">
+                                <i class="fa-solid fa-star i-col"></i>
+                                <i class="fa-solid fa-star i-col"></i>
+                                <i class="fa-solid fa-star i-col"></i>
+                                <i class="fa-solid fa-star i-col"></i>
+                            </div>
+                            <p>
+                                Jarak ke Venue : <span class="fw-bold">1,5 km</span><br>
+                                <span class="fw-bold">± 5 menit</span> berkendara
+                            </p>
                             <h6 class="badge bg-primary">Tersedia Kamar Kosong</h6>
                             <div class="cs-height_20 cs-height_lg_20"></div>
                         </div>
                     </div>
                     <div class="cs-height_25 cs-height_lg_25"></div>
                 </div>
-                <div class="col-lg-3 col-sm-6">
-                    <div class="cs-team cs-style1 text-center cs-white_bg">
+                <div class="col-lg-4 col-sm-6">
+                    <div class="cs-team cs-style1 text-center cs-white_bg" data-bs-toggle="modal" data-bs-target="#hotel3">
                         <div class="cs-height_30 cs-height_lg_30"></div>
                         <div class="cs-member_thumb">
                             <i class="i-col fa-solid fa-building-circle-check fa-3x wow pulse" data-wow-iteration="infinite" data-wow-duration="1500ms"></i>
                         </div>
                         <div class="cs-height_25 cs-height_lg_25"></div>
                         <div class="cs-member_info">
-                            <h2 class="cs-font_22 cs-font_16_sm cs-m0">Hotel C</h2>
+                            <h2 class="cs-font_22 cs-font_16_sm cs-m0">Arrus</h2>
                             <div class="cs-height_5 cs-height_lg_5"></div>
+                            <div class="text-center mt-0 mb-1">
+                                <i class="fa-solid fa-star i-col"></i>
+                                <i class="fa-solid fa-star i-col"></i>
+                                <i class="fa-solid fa-star i-col"></i>
+                                <i class="fa-solid fa-star i-col"></i>
+                            </div>
+                            <p>
+                                Jarak ke Venue : <span class="fw-bold">1,9 km</span><br>
+                                <span class="fw-bold">± 4 menit</span> berkendara
+                            </p>
                             <h6 class="badge bg-primary">Tersedia Kamar Kosong</h6>
                             <div class="cs-height_20 cs-height_lg_20"></div>
                         </div>
                     </div>
                     <div class="cs-height_25 cs-height_lg_25"></div>
                 </div>
-                <div class="col-lg-3 col-sm-6">
-                    <div class="cs-team cs-style1 text-center cs-white_bg">
+                <div class="col-lg-4 col-sm-6">
+                    <div class="cs-team cs-style1 text-center cs-white_bg" data-bs-toggle="modal" data-bs-target="#hotel4">
                         <div class="cs-height_30 cs-height_lg_30"></div>
                         <div class="cs-member_thumb">
                             <i class="i-col fa-solid fa-building-circle-check fa-3x wow pulse" data-wow-iteration="infinite" data-wow-duration="1500ms"></i>
                         </div>
                         <div class="cs-height_25 cs-height_lg_25"></div>
                         <div class="cs-member_info">
-                            <h2 class="cs-font_22 cs-font_16_sm cs-m0">Hotel D</h2>
+                            <h2 class="cs-font_22 cs-font_16_sm cs-m0">Louis Kienne</h2>
                             <div class="cs-height_5 cs-height_lg_5"></div>
+                            <div class="text-center mt-0 mb-1">
+                                <i class="fa-solid fa-star i-col"></i>
+                                <i class="fa-solid fa-star i-col"></i>
+                                <i class="fa-solid fa-star i-col"></i>
+                                <i class="fa-solid fa-star i-col"></i>
+                            </div>
+                            <p>
+                                Jarak ke Venue : <span class="fw-bold">3,4 km</span><br>
+                                <span class="fw-bold">± 9 menit</span> berkendara
+                            </p>
+                            <h6 class="badge bg-primary">Tersedia Kamar Kosong</h6>
+                            <div class="cs-height_20 cs-height_lg_20"></div>
+                        </div>
+                    </div>
+                    <div class="cs-height_25 cs-height_lg_25"></div>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <div class="cs-team cs-style1 text-center cs-white_bg" data-bs-toggle="modal" data-bs-target="#hotel5">
+                        <div class="cs-height_30 cs-height_lg_30"></div>
+                        <div class="cs-member_thumb">
+                            <i class="i-col fa-solid fa-building-circle-check fa-3x wow pulse" data-wow-iteration="infinite" data-wow-duration="1500ms"></i>
+                        </div>
+                        <div class="cs-height_25 cs-height_lg_25"></div>
+                        <div class="cs-member_info">
+                            <h2 class="cs-font_22 cs-font_16_sm cs-m0">Novotel</h2>
+                            <div class="cs-height_5 cs-height_lg_5"></div>
+                            <div class="text-center mt-0 mb-1">
+                                <i class="fa-solid fa-star i-col"></i>
+                                <i class="fa-solid fa-star i-col"></i>
+                                <i class="fa-solid fa-star i-col"></i>
+                                <i class="fa-solid fa-star i-col"></i>
+                            </div>
+                            <p>
+                                Jarak ke Venue : <span class="fw-bold">4,9 km</span><br>
+                                <span class="fw-bold">± 9 menit</span> berkendara
+                            </p>
+                            <h6 class="badge bg-primary">Tersedia Kamar Kosong</h6>
+                            <div class="cs-height_20 cs-height_lg_20"></div>
+                        </div>
+                    </div>
+                    <div class="cs-height_25 cs-height_lg_25"></div>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <div class="cs-team cs-style1 text-center cs-white_bg" data-bs-toggle="modal" data-bs-target="#hotel6">
+                        <div class="cs-height_30 cs-height_lg_30"></div>
+                        <div class="cs-member_thumb">
+                            <i class="i-col fa-solid fa-building-circle-check fa-3x wow pulse" data-wow-iteration="infinite" data-wow-duration="1500ms"></i>
+                        </div>
+                        <div class="cs-height_25 cs-height_lg_25"></div>
+                        <div class="cs-member_info">
+                            <h2 class="cs-font_22 cs-font_16_sm cs-m0">Gumaya</h2>
+                            <div class="cs-height_5 cs-height_lg_5"></div>
+                            <div class="text-center mt-0 mb-1">
+                                <i class="fa-solid fa-star i-col"></i>
+                                <i class="fa-solid fa-star i-col"></i>
+                                <i class="fa-solid fa-star i-col"></i>
+                                <i class="fa-solid fa-star i-col"></i>
+                                <i class="fa-solid fa-star i-col"></i>
+                            </div>
+                            <p>
+                                Jarak ke Venue : <span class="fw-bold">5,6 km</span><br>
+                                <span class="fw-bold">± 10 menit</span> berkendara
+                            </p>
                             <h6 class="badge bg-primary">Tersedia Kamar Kosong</h6>
                             <div class="cs-height_20 cs-height_lg_20"></div>
                         </div>
@@ -359,7 +453,7 @@
                     <div class="col-lg-6 col-sm-12 col-12 mb-3">
                         <div class="card card-bg card__shadow">
                             <div class="cs-cta cs-style3 cs-accent_bg">
-                                <h4>Belum Tersedia</h4>
+                                <h4>Neurovascular</h4>
                                 <p class="px-2 mt-1 mb-3"><i class="fa fa-info-circle"></i> Padma Hotel Semarang | 2 - 3 Agustus 2023 |</p>
                                 <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Minimal : <span class="fw-bold">Belum Tersedia</span></span>
                                 <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Rp. <span class="fw-bold">Belum Tersedia</span></span>
@@ -369,20 +463,7 @@
                     <div class="col-lg-6 col-sm-12 col-12 mb-3">
                         <div class="card card-bg card__shadow">
                             <div class="cs-cta cs-style3 cs-accent_bg">
-                                <h4>Belum Tersedia</h4>
-                                <p class="px-2 mt-1 mb-3"><i class="fa fa-info-circle"></i> Padma Hotel Semarang | 2 - 3 Agustus 2023 |</p>
-                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Minimal : <span class="fw-bold">Belum Tersedia</span></span>
-                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Rp. <span class="fw-bold">Belum Tersedia</span></span>
-                            </div>
-                        </div>
-                    </div>
-                 <h2 class="cs-section_subtitle cs-m0 cs-font_36 cs-font_24_sm text-uppercase">WORKSHOP HALF-DAY</h2>
-                <div class="cs-height_30 cs-height_lg_15"></div>
-                <div class="row">
-                    <div class="col-lg-6 col-sm-12 col-12 mb-3">
-                        <div class="card card-bg card__shadow">
-                            <div class="cs-cta cs-style3 cs-accent_bg">
-                                <h4>Belum Tersedia</h4>
+                                <h4>Neurorestorasi</h4>
                                 <p class="px-2 mt-1 mb-3"><i class="fa fa-info-circle"></i> Padma Hotel Semarang | 2 - 3 Agustus 2023 |</p>
                                 <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Minimal : <span class="fw-bold">Belum Tersedia</span></span>
                                 <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Rp. <span class="fw-bold">Belum Tersedia</span></span>
@@ -392,16 +473,199 @@
                     <div class="col-lg-6 col-sm-12 col-12 mb-3">
                         <div class="card card-bg card__shadow">
                             <div class="cs-cta cs-style3 cs-accent_bg">
-                                <h4>Belum Tersedia</h4>
+                                <h4>Neurotrauma</h4>
                                 <p class="px-2 mt-1 mb-3"><i class="fa fa-info-circle"></i> Padma Hotel Semarang | 2 - 3 Agustus 2023 |</p>
                                 <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Minimal : <span class="fw-bold">Belum Tersedia</span></span>
                                 <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Rp. <span class="fw-bold">Belum Tersedia</span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-12 col-12 mb-3">
+                        <div class="card card-bg card__shadow">
+                            <div class="cs-cta cs-style3 cs-accent_bg">
+                                <h4>Neuropediatri</h4>
+                                <p class="px-2 mt-1 mb-3"><i class="fa fa-info-circle"></i> Padma Hotel Semarang | 2 - 3 Agustus 2023 |</p>
+                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Minimal : <span class="fw-bold">Belum Tersedia</span></span>
+                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Rp. <span class="fw-bold">Belum Tersedia</span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-12 col-12 mb-3">
+                        <div class="card card-bg card__shadow">
+                            <div class="cs-cta cs-style3 cs-accent_bg">
+                                <h4>Neuroonkologi</h4>
+                                <p class="px-2 mt-1 mb-3"><i class="fa fa-info-circle"></i> Padma Hotel Semarang | 2 - 3 Agustus 2023 |</p>
+                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Minimal : <span class="fw-bold">Belum Tersedia</span></span>
+                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Rp. <span class="fw-bold">Belum Tersedia</span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-12 col-12 mb-3">
+                        <div class="card card-bg card__shadow">
+                            <div class="cs-cta cs-style3 cs-accent_bg">
+                                <h4>Sleep disorder</h4>
+                                <p class="px-2 mt-1 mb-3"><i class="fa fa-info-circle"></i> Padma Hotel Semarang | 2 - 3 Agustus 2023 |</p>
+                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Minimal : <span class="fw-bold">Belum Tersedia</span></span>
+                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Rp. <span class="fw-bold">Belum Tersedia</span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-12 col-12 mb-3">
+                        <div class="card card-bg card__shadow">
+                            <div class="cs-cta cs-style3 cs-accent_bg">
+                                <h4>Neuroinfeksi</h4>
+                                <p class="px-2 mt-1 mb-3"><i class="fa fa-info-circle"></i> Padma Hotel Semarang | 2 - 3 Agustus 2023 |</p>
+                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Minimal : <span class="fw-bold">Belum Tersedia</span></span>
+                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Rp. <span class="fw-bold">Belum Tersedia</span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-12 col-12 mb-3">
+                        <div class="card card-bg card__shadow">
+                            <div class="cs-cta cs-style3 cs-accent_bg">
+                                <h4>Nyeri Kepala</h4>
+                                <p class="px-2 mt-1 mb-3"><i class="fa fa-info-circle"></i> Padma Hotel Semarang | 2 - 3 Agustus 2023 |</p>
+                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Minimal : <span class="fw-bold">Belum Tersedia</span></span>
+                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Rp. <span class="fw-bold">Belum Tersedia</span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-12 col-12 mb-3">
+                        <div class="card card-bg card__shadow">
+                            <div class="cs-cta cs-style3 cs-accent_bg">
+                                <h4>Neurobehavior</h4>
+                                <p class="px-2 mt-1 mb-3"><i class="fa fa-info-circle"></i> Padma Hotel Semarang | 2 - 3 Agustus 2023 |</p>
+                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Minimal : <span class="fw-bold">Belum Tersedia</span></span>
+                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Rp. <span class="fw-bold">Belum Tersedia</span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-12 col-12 mb-3">
+                        <div class="card card-bg card__shadow">
+                            <div class="cs-cta cs-style3 cs-accent_bg">
+                                <h4>Neurootologi-Neurooftamologi</h4>
+                                <p class="px-2 mt-1 mb-3"><i class="fa fa-info-circle"></i> Padma Hotel Semarang | 2 - 3 Agustus 2023 |</p>
+                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Minimal : <span class="fw-bold">Belum Tersedia</span></span>
+                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Rp. <span class="fw-bold">Belum Tersedia</span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-12 col-12 mb-3">
+                        <div class="card card-bg card__shadow">
+                            <div class="cs-cta cs-style3 cs-accent_bg">
+                                <h4>Neurointervensi</h4>
+                                <p class="px-2 mt-1 mb-3"><i class="fa fa-info-circle"></i> Padma Hotel Semarang | 2 - 3 Agustus 2023 |</p>
+                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Minimal : <span class="fw-bold">Belum Tersedia</span></span>
+                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Rp. <span class="fw-bold">Belum Tersedia</span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-12 col-12 mb-3">
+                        <div class="card card-bg card__shadow">
+                            <div class="cs-cta cs-style3 cs-accent_bg">
+                                <h4>Nyeri</h4>
+                                <p class="px-2 mt-1 mb-3"><i class="fa fa-info-circle"></i> Padma Hotel Semarang | 2 - 3 Agustus 2023 |</p>
+                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Minimal : <span class="fw-bold">Belum Tersedia</span></span>
+                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Rp. <span class="fw-bold">Belum Tersedia</span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-12 col-12 mb-3">
+                        <div class="card card-bg card__shadow">
+                            <div class="cs-cta cs-style3 cs-accent_bg">
+                                <h4>Neurointensive</h4>
+                                <p class="px-2 mt-1 mb-3"><i class="fa fa-info-circle"></i> Padma Hotel Semarang | 2 - 3 Agustus 2023 |</p>
+                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Minimal : <span class="fw-bold">Belum Tersedia</span></span>
+                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Rp. <span class="fw-bold">Belum Tersedia</span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-12 col-12 mb-3">
+                        <div class="card card-bg card__shadow">
+                            <div class="cs-cta cs-style3 cs-accent_bg">
+                                <h4>Gangguan Gerak</h4>
+                                <p class="px-2 mt-1 mb-3"><i class="fa fa-info-circle"></i> Padma Hotel Semarang | 2 - 3 Agustus 2023 |</p>
+                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Minimal : <span class="fw-bold">Belum Tersedia</span></span>
+                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Rp. <span class="fw-bold">Belum Tersedia</span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-12 col-12 mb-3">
+                        <div class="card card-bg card__shadow">
+                            <div class="cs-cta cs-style3 cs-accent_bg">
+                                <h4>Neurogeriatri</h4>
+                                <p class="px-2 mt-1 mb-3"><i class="fa fa-info-circle"></i> Padma Hotel Semarang | 2 - 3 Agustus 2023 |</p>
+                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Minimal : <span class="fw-bold">Belum Tersedia</span></span>
+                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Rp. <span class="fw-bold">Belum Tersedia</span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-12 col-12 mb-3">
+                        <div class="card card-bg card__shadow">
+                            <div class="cs-cta cs-style3 cs-accent_bg">
+                                <h4>Epilepsi</h4>
+                                <p class="px-2 mt-1 mb-3"><i class="fa fa-info-circle"></i> Padma Hotel Semarang | 2 - 3 Agustus 2023 |</p>
+                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Minimal : <span class="fw-bold">Belum Tersedia</span></span>
+                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Rp. <span class="fw-bold">Belum Tersedia</span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-12 col-12 mb-3">
+                        <div class="card card-bg card__shadow">
+                            <div class="cs-cta cs-style3 cs-accent_bg">
+                                <h4>Neuroimaging</h4>
+                                <p class="px-2 mt-1 mb-3"><i class="fa fa-info-circle"></i> Padma Hotel Semarang | 2 - 3 Agustus 2023 |</p>
+                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Minimal : <span class="fw-bold">Belum Tersedia</span></span>
+                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Rp. <span class="fw-bold">Belum Tersedia</span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-12 col-12 mb-3">
+                        <div class="card card-bg card__shadow">
+                            <div class="cs-cta cs-style3 cs-accent_bg">
+                                <h4>Neuroepidemiologi</h4>
+                                <p class="px-2 mt-1 mb-3"><i class="fa fa-info-circle"></i> Padma Hotel Semarang | 2 - 3 Agustus 2023 |</p>
+                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Minimal : <span class="fw-bold">Belum Tersedia</span></span>
+                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Rp. <span class="fw-bold">Belum Tersedia</span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-sm-12 col-12 mb-3">
+                        <div class="card card-bg card__shadow">
+                            <div class="cs-cta cs-style3 cs-accent_bg">
+                                <h4>Neurofisiologi</h4>
+                                <p class="px-2 mt-1 mb-3"><i class="fa fa-info-circle"></i> Padma Hotel Semarang | 2 - 3 Agustus 2023 |</p>
+                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Minimal : <span class="fw-bold">Belum Tersedia</span></span>
+                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Rp. <span class="fw-bold">Belum Tersedia</span></span>
+                            </div>
+                        </div>
+                    </div>
+                    <h2 class="cs-section_subtitle cs-m0 cs-font_36 cs-font_24_sm text-uppercase">WORKSHOP HALF-DAY</h2>
+                    <div class="cs-height_30 cs-height_lg_15"></div>
+                    <div class="row">
+                        <div class="col-lg-6 col-sm-12 col-12 mb-3">
+                            <div class="card card-bg card__shadow">
+                                <div class="cs-cta cs-style3 cs-accent_bg">
+                                    <h4>Belum Tersedia</h4>
+                                    <p class="px-2 mt-1 mb-3"><i class="fa fa-info-circle"></i> Padma Hotel Semarang | 2 - 3 Agustus 2023 |</p>
+                                    <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Minimal : <span class="fw-bold">Belum Tersedia</span></span>
+                                    <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Rp. <span class="fw-bold">Belum Tersedia</span></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-sm-12 col-12 mb-3">
+                            <div class="card card-bg card__shadow">
+                                <div class="cs-cta cs-style3 cs-accent_bg">
+                                    <h4>Belum Tersedia</h4>
+                                    <p class="px-2 mt-1 mb-3"><i class="fa fa-info-circle"></i> Padma Hotel Semarang | 2 - 3 Agustus 2023 |</p>
+                                    <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Minimal : <span class="fw-bold">Belum Tersedia</span></span>
+                                    <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Rp. <span class="fw-bold">Belum Tersedia</span></span>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
     </section>
 
     <div class="cs-height_75 cs-height_lg_45"></div>
@@ -516,7 +780,7 @@
                         <hr class="mb-4">
                         <ul>
                             <li>Early Registration : Januari - 30 April 2023</li>
-                            <li>Batas Pengumpulan Abstrak : 1 Juli 2023</li>
+                            <li>Pengumpulan Abstrak : April - Mei 2023</li>
                             <li>Pengumuman Penerimaan Abstrak : 20 Juli 2023</li>
                             <li>Late Registration : 1 Mei - 1 Agustus 2023</li>
                         </ul>
@@ -559,7 +823,7 @@
                 <div class="cs-iconbox cs-style1 cs-white_bg">
                     <h4>Jadwal Acara</h4>
                     <hr class="mb-4">
-                    <a href="" target="_blank" class="btn btn-info btn-round"><i class="fa-solid fa-calendar-check"></i> Jadwal Acara</a>
+                    <a href="<?= base_url('themes/aenft'); ?>/assets/pdf/jadwal.pdf" target="_blank" class="btn btn-info btn-round"><i class="fa-solid fa-calendar-check"></i> Jadwal Acara</a>
                 </div>
             </div>
             <div class="event-item pedoman hide">
@@ -580,7 +844,7 @@
                 <div class="cs-iconbox cs-style1 cs-white_bg">
                     <h4>Kepanitiaan KONSI XI PERDOSSI 2023 SEMARANG</h4>
                     <hr class="mb-4">
-                    <embed src="<?= base_url('themes/aenft'); ?>/assets/pdf/sambutan.pdf" width="100%" height="600px" align="center"></embed>
+                    <embed src="<?= base_url('themes/aenft'); ?>/assets/pdf/panitia.pdf" width="100%" height="600px" align="center"></embed>
                 </div>
             </div>
             <div class="event-item explore hide">
@@ -620,50 +884,31 @@
                 <div class="card-cp">
                     <div class="name-tag text-center">
                         <img src="<?= base_url('themes/aenft'); ?>/assets/img/cs/cs1.png" alt="">
-                        <h5>Sekretariat</h5>
-                    </div>
-                    <div class="overlay text-center">
-                        <h5 class="mb-2">Sekretariat</h5><br>
-                        <a href="http://wa.me/628112524392" target="_BLANK" class="btn btn-sm btn-primary mt-1"><i class="fa-brands fa-whatsapp"></i> dr. Gita</a><br>
-                    </div>
-                </div>
-                <div class="card-cp">
-                    <div class="name-tag text-center">
-                        <img src="<?= base_url('themes/aenft'); ?>/assets/img/cs/cs2.png" alt="">
                         <h5>Registrasi</h5>
                     </div>
                     <div class="overlay text-center">
                         <h5 class="mb-2">Registrasi</h5><br>
-                        <a href="http://wa.me/6281229570815" target="_BLANK" class="btn btn-sm btn-primary mt-1"><i class="fa-brands fa-whatsapp"></i> dr. Resita</a><br>
+                        <a href="http://wa.me/6282136020451" target="_BLANK" class="btn btn-sm btn-primary mt-1"><i class="fa-brands fa-whatsapp"></i> dr. Yolanda</a><br>
                     </div>
                 </div>
                 <div class="card-cp">
                     <div class="name-tag text-center">
                         <img src="<?= base_url('themes/aenft'); ?>/assets/img/cs/cs3.png" alt="">
-                        <h5>Ilmiah</h5>
+                        <h5>Poster / Ilmiah</h5>
                     </div>
                     <div class="overlay text-center">
-                        <h5 class="mb-2">Ilmiah</h5><br>
-                        <a href="http://wa.me/6281324475795" target="_BLANK" class="btn btn-sm btn-primary mt-1"><i class="fa-brands fa-whatsapp"></i> dr. Didi</a><br>                    </div>
+                        <h5 class="mb-2">Poster / Ilmiah</h5><br>
+                        <a href="http://wa.me/6285329709625" target="_BLANK" class="btn btn-sm btn-primary mt-1"><i class="fa-brands fa-whatsapp"></i> dr. Nabil</a><br>
+                    </div>
                 </div>
                 <div class="card-cp">
                     <div class="name-tag text-center">
                         <img src="<?= base_url('themes/aenft'); ?>/assets/img/cs/cs4.png" alt="">
-                        <h5>Akomodasi</h5>
+                        <h5>Ladies Program</h5>
                     </div>
                     <div class="overlay text-center">
-                        <h5 class="mb-2">Akomodasi</h5><br>
-                        <a href="http://wa.me/62811283395" target="_BLANK" class="btn btn-sm btn-primary mt-1"><i class="fa-brands fa-whatsapp"></i> dr. Jeffri</a><br>
-                    </div>
-                </div>
-                <div class="card-cp">
-                    <div class="name-tag text-center">
-                        <img src="<?= base_url('themes/aenft'); ?>/assets/img/cs/cs6.png" alt="">
-                        <h5>Sponsorship</h5>
-                    </div>
-                    <div class="overlay text-center">
-                        <h5 class="mb-2">Sponsorship</h5><br>
-                        <a href="http://wa.me/6285210100670" target="_BLANK" class="btn btn-sm btn-primary mt-1"><i class="fa-brands fa-whatsapp"></i> dr. Zizah</a><br>
+                        <h5 class="mb-2">Ladies Program</h5><br>
+                        <a href="http://wa.me/" target="_BLANK" class="btn btn-sm btn-primary mt-1"><i class="fa-brands fa-whatsapp"></i> dr. ...</a><br>
                     </div>
                 </div>
             </div>
@@ -839,7 +1084,7 @@
                                 <div class="fm-item-content">
                                     <ul class="mt-3">
                                         <li>Early Registration : Januari - 30 April 2023</li>
-                                        <li>Batas Pengumpulan Abstrak : 1 Juli 2023</li>
+                                        <li>Pengumpulan Abstrak : April - Mei 2023</li>
                                         <li>Pengumuman Penerimaan Abstrak : 20 Juli 2023</li>
                                         <li>Late Registration : 1 Mei - 1 Agustus 2023</li>
                                     </ul>
@@ -856,15 +1101,25 @@
                                 </div>
                                 <div class="fm-item-content">
                                     <ul class="mt-3">
-                                        <li>Stroke dan Pembuluh Darah,</li>
-                                        <li>Neurointervensi</li>
-                                        <li>Neurointensif</li>
-                                        <li>Neurobehaviour</li>
+                                        <li>Neurovascular</li>
                                         <li>Neurorestorasi</li>
-                                        <li>Neurogeriatri</li>
-                                        <li>Neuroinfeksi</li>
-                                        <li>Neuroimaging</li>
+                                        <li>Neurotrauma</li>
+                                        <li>Neuropediatri</li>
                                         <li>Neuroonkologi</li>
+                                        <li>Sleep disorder</li>
+                                        <li>Neuroinfeksi</li>
+                                        <li>Nyeri Kepala</li>
+                                        <li>Neurobehavior</li>
+                                        <li>Neurootologi-Neurooftamologi</li>
+                                        <li>Neurointervensi</li>
+                                        <li>Nyeri</li>
+                                        <li>Neurointensive</li>
+                                        <li>Gangguan Gerak</li>
+                                        <li>Neurogeriatri</li>
+                                        <li>Epilepsi</li>
+                                        <li>Neuroimaging</li>
+                                        <li>Neuroepidemiologi</li>
+                                        <li>Neurofisiologi</li>
                                     </ul>
                                 </div>
                             </div>
@@ -917,7 +1172,10 @@
         <!-- Start Footer -->
         <footer class="cs-footer text-center">
             <div class="container mt-4">
-                <div class="cs-copyright text-center wow fadeIn" data-wow-duration="1s" data-wow-delay="0.5s"><p>&copy; 2023 License to #Panitia KONAS PERDOSNI Semarang#</p><p>Developed by #CV. Meta Medika#</p><span class="cs-primary_font cs-primary_color"></span></div>
+                <div class="cs-copyright text-center wow fadeIn" data-wow-duration="1s" data-wow-delay="0.5s">
+                    <p>&copy; 2023 License to #Panitia KONAS PERDOSNI Semarang#</p>
+                    <p>Developed by #CV. Meta Medika#</p><span class="cs-primary_font cs-primary_color"></span>
+                </div>
             </div>
             <div class="cs-height_25 cs-height_lg_25"></div>
         </footer>
@@ -939,6 +1197,124 @@
             </symbol>
         </defs>
     </svg>
+
+    <div class="modal fade text-black" id="hotel1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="hotel1Label" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-black" id="hotel1Label">
+                        Grand Candi |
+                        <i class="fa-solid fa-star fa-1x"></i>
+                        <i class="fa-solid fa-star fa-1x"></i>
+                        <i class="fa-solid fa-star fa-1x"></i>
+                        <i class="fa-solid fa-star fa-1x"></i>
+                        <i class="fa-solid fa-star fa-1x"></i>
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3959.9399793095554!2d110.42050421455953!3d-7.0163412949318245!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e708b5844fd9841%3A0x9af9a992c52c211a!2sGrand%20Candi%20Hotel!5e0!3m2!1sen!2sid!4v1673595569981!5m2!1sen!2sid" width="100%" height="450px" style="border:0;" allowfullscreen="yes" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade text-black" id="hotel2" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="hotel1Label" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-black" id="hotel1Label">
+                        Patra |
+                        <i class="fa-solid fa-star fa-1x"></i>
+                        <i class="fa-solid fa-star fa-1x"></i>
+                        <i class="fa-solid fa-star fa-1x"></i>
+                        <i class="fa-solid fa-star fa-1x"></i>
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3959.9657193207986!2d110.41827861455951!3d-7.0133145949339575!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e708b7eb54f1bff%3A0xcfe42ae1e8fde612!2sPatra%20Semarang%20Hotel%20%26%20Convention!5e0!3m2!1sen!2sid!4v1673596710568!5m2!1sen!2sid" width="100%" height="450px" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade text-black" id="hotel3" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="hotel1Label" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-black" id="hotel1Label">
+                        Arrus |
+                        <i class="fa-solid fa-star fa-1x"></i>
+                        <i class="fa-solid fa-star fa-1x"></i>
+                        <i class="fa-solid fa-star fa-1x"></i>
+                        <i class="fa-solid fa-star fa-1x"></i>
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3959.8867429900956!2d110.41986021455946!3d-7.022597094927406!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e708ba80e8ead0d%3A0xcd2d78df546af4a8!2sHotel%20Aruss%20Semarang!5e0!3m2!1sen!2sid!4v1673597084013!5m2!1sen!2sid" width="100%" height="450px" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade text-black" id="hotel4" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="hotel1Label" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-black" id="hotel1Label">
+                        Louis Kienne |
+                        <i class="fa-solid fa-star fa-1x"></i>
+                        <i class="fa-solid fa-star fa-1x"></i>
+                        <i class="fa-solid fa-star fa-1x"></i>
+                        <i class="fa-solid fa-star fa-1x"></i>
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.204505299054!2d110.4077006217121!3d-6.985174178813799!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e708b4f8e9149b7%3A0xfbac2ca871304049!2sLK%20Hotel%20Pandanaran%20Semarang!5e0!3m2!1sen!2sid!4v1673597158604!5m2!1sen!2sid" width="100%" height="450px" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade text-black" id="hotel5" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="hotel1Label" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-black" id="hotel1Label">
+                        Novotel |
+                        <i class="fa-solid fa-star fa-1x"></i>
+                        <i class="fa-solid fa-star fa-1x"></i>
+                        <i class="fa-solid fa-star fa-1x"></i>
+                        <i class="fa-solid fa-star fa-1x"></i>
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.259346691499!2d110.41228481455923!3d-6.978695294958423!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e708b52741bef77%3A0xcb5219107dbe142a!2sNovotel%20Semarang!5e0!3m2!1sen!2sid!4v1673597193143!5m2!1sen!2sid" width="100%" height="450px" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade text-black" id="hotel6" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="hotel1Label" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-black" id="hotel1Label">
+                        Gumaya |
+                        <i class="fa-solid fa-star fa-1x"></i>
+                        <i class="fa-solid fa-star fa-1x"></i>
+                        <i class="fa-solid fa-star fa-1x"></i>
+                        <i class="fa-solid fa-star fa-1x"></i>
+                        <i class="fa-solid fa-star fa-1x"></i>
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.2676274740884!2d110.41796081455932!3d-6.977716494959166!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e708b54831ad7bf%3A0x1e7ba1dedde1dd1c!2sGumaya%20Tower%20Hotel!5e0!3m2!1sen!2sid!4v1673597258763!5m2!1sen!2sid" width="100%" height="450px" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Script -->
     <script src="<?= base_url('themes/aenft'); ?>/assets/js/plugins/jquery-3.6.0.min.js"></script>
