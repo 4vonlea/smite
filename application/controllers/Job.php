@@ -20,8 +20,14 @@ class Job extends CI_Controller
         $tr = $this->Transaction_m->findOne(['id' => $transaction_id]);
         $member = $tr->member;
         if ($tr) {
-            $this->Notification_m->sendInvoice($member, $tr);
-            $this->Notification_m->setType(Notification_m::TYPE_WA)->sendInvoice($member, $tr);
+            if($member){
+                $this->Notification_m->sendInvoice($member, $tr);
+                $this->Notification_m->setType(Notification_m::TYPE_WA)->sendInvoice($member, $tr);
+            }else{
+                $fullname = explode(":",$tr->member_id)[1] ?? "-";
+                $group = ['email'=>$tr->email_group,"phone"=>"0","fullname"=>$fullname];
+                $this->Notification_m->sendInvoice($group, $tr);
+            }
         }
     }
 

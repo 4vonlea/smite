@@ -11,6 +11,7 @@ $lang['news'] = "News";
 $lang['send_abstrack'] = "Send Abstract";
 $lang['profile'] = "Profile";
 $lang['payment'] = "Payment";
+$lang['select_event'] = "Select <br/> Event";
 $lang['upload_material'] = "Upload Material";
 $lang['scientific_presentation'] = "Scientific Presentation";
 $lang['important_date'] = "Important Date";
