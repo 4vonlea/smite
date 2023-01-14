@@ -880,15 +880,25 @@
                 <h3 class="cs-section_title cs-font_16 cs-font_14_sm cs-gradient_color">Info</h3>
                 <h2 class="cs-section_subtitle cs-m0 cs-font_36 cs-font_24_sm">Contact Person</h2>
             </div>
-            <div class="row g-5 justify-content-center row-cols-md-3 row-cols-sm-3 row-cols-1 mt-2 wow fadeIn" data-wow-duration="1s" data-wow-delay="0.2s">
+            <div class="row g-5 justify-content-center row-cols-md-4 row-cols-sm-4 row-cols-1 mt-2 wow fadeIn" data-wow-duration="1s" data-wow-delay="0.2s">
                 <div class="card-cp">
                     <div class="name-tag text-center">
                         <img src="<?= base_url('themes/aenft'); ?>/assets/img/cs/cs1.png" alt="">
+                        <h5>Sekretariat</h5>
+                    </div>
+                    <div class="overlay text-center">
+                        <h5 class="mb-2">Sekretariat</h5><br>
+                        <a href="http://wa.me/628112524392" target="_BLANK" class="btn btn-sm btn-primary mt-1"><i class="fa-brands fa-whatsapp"></i> dr. Gita</a><br>
+                    </div>
+                </div>
+                <div class="card-cp">
+                    <div class="name-tag text-center">
+                        <img src="<?= base_url('themes/aenft'); ?>/assets/img/cs/cs2.png" alt="">
                         <h5>Registrasi</h5>
                     </div>
                     <div class="overlay text-center">
                         <h5 class="mb-2">Registrasi</h5><br>
-                        <a href="http://wa.me/6282136020451" target="_BLANK" class="btn btn-sm btn-primary mt-1"><i class="fa-brands fa-whatsapp"></i> dr. Yolanda</a><br>
+                        <a href="http://wa.me/62882007080200" target="_BLANK" class="btn btn-sm btn-primary mt-1"><i class="fa-brands fa-whatsapp"></i> dr. Resita</a><br>
                     </div>
                 </div>
                 <div class="card-cp">
@@ -898,7 +908,8 @@
                     </div>
                     <div class="overlay text-center">
                         <h5 class="mb-2">Poster / Ilmiah</h5><br>
-                        <a href="http://wa.me/6285329709625" target="_BLANK" class="btn btn-sm btn-primary mt-1"><i class="fa-brands fa-whatsapp"></i> dr. Nabil</a><br>
+                        <a href="http://wa.me/6281327150069" target="_BLANK" class="btn btn-sm btn-primary mt-1"><i class="fa-brands fa-whatsapp"></i> dr. Nondang (Ilmiah)</a><br>
+                        <a href="http://wa.me/6281321532753 " target="_BLANK" class="btn btn-sm btn-primary mt-3"><i class="fa-brands fa-whatsapp"></i> dr. Nabil (Poster)</a><br>
                     </div>
                 </div>
                 <div class="card-cp">
@@ -908,7 +919,7 @@
                     </div>
                     <div class="overlay text-center">
                         <h5 class="mb-2">Ladies Program</h5><br>
-                        <a href="http://wa.me/" target="_BLANK" class="btn btn-sm btn-primary mt-1"><i class="fa-brands fa-whatsapp"></i> dr. ...</a><br>
+                        <a href="http://wa.me/6281290911717" target="_BLANK" class="btn btn-sm btn-primary mt-1"><i class="fa-brands fa-whatsapp"></i> dr. Dhilla</a><br>
                     </div>
                 </div>
             </div>
