@@ -717,6 +717,11 @@
 			modify(row) {
 				app.$refs.datagrid.loading = true;
 				var url = "<?= base_url('admin/transaction/detail'); ?>";
+				this.modifyModel = {
+					member: {},
+					details: [],
+					status_payment: ""
+				};
 				$.post(url, {
 						id: row.row.invoice
 					}, null, 'JSON')
