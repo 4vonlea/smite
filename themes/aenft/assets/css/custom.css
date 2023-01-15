@@ -74,6 +74,7 @@
     white-space: pre-line;
     text-align: center;
     line-height: 15px;
+    max-width: min-content;
 }
 
 .ripple:after {
