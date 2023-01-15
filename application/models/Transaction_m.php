@@ -31,7 +31,7 @@ class Transaction_m extends MY_Model
 
 	const GL_PAID_MESSAGE = "Guarantee letter Paid";
 
-	const ADMIN_FEE_START = 8000;
+	const ADMIN_FEE_START = 7500;
 
 	public function gridConfig($options = array())
 	{

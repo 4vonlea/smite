@@ -137,9 +137,9 @@
                 </blockquote>
                 <h3 class="cs-hero_subtitle cs-font_22 cs-font_18_sm cs-body_line_height">2 - 6 Agustus 2023</h3>
                 <div class="cs-btn_group">
-                    <a href="#" class="btn btn-primary btn-round">
+                    <a href="https://drive.google.com/file/d/1KOGtX9jb7_VlDZpuWJ-TkHvONmbqC35N/view?usp=share_link" class="btn btn-primary btn-round">
                         <i class="fa fa-info-circle"></i>
-                        <span>Open Registration in January 2023</span>
+                        <span>Open Registration in January 2023, Download First Announcement (Update 15 January 2023)</span>
                     </a>
                 </div>
             </div>
@@ -166,7 +166,7 @@
                         <div class="cs-member_info">
                             <h2 class="cs-font_22 cs-font_16_sm cs-m0">Pembicara</h2>
                             <div class="cs-height_5 cs-height_lg_5"></div>
-                            <p data-count-to="113" class="odometer cs-m0"></p>
+                            <p data-count-to="tba" class="odometer cs-m0"></p>
                             <div class="cs-height_20 cs-height_lg_20"></div>
                         </div>
                     </div>
@@ -182,7 +182,7 @@
                         <div class="cs-member_info">
                             <h2 class="cs-font_22 cs-font_16_sm cs-m0">Moderator</h2>
                             <div class="cs-height_5 cs-height_lg_5"></div>
-                            <p data-count-to="37" class="odometer cs-m0"></p>
+                            <p data-count-to="tba" class="odometer cs-m0"></p>
                             <div class="cs-height_20 cs-height_lg_20"></div>
                         </div>
                     </div>
@@ -226,7 +226,7 @@
         <div class="cs-height_50 cs-height_lg_20"></div>
         <div class="container">
             <div class="cs-seciton_heading cs-style1 text-uppercase wow fadeInUp text-center" data-wow-duration="1s" data-wow-delay="0.2s">
-                <h3 class="cs-section_title cs-font_16 cs-font_14_sm cs-gradient_color">Status Kesediaan</h3>
+                <h3 class="cs-section_title cs-font_16 cs-font_14_sm cs-gradient_color">Daftar Hotel</h3>
                 <h2 class="cs-section_subtitle cs-m0 cs-font_36 cs-font_24_sm">Kamar Hotel</h2>
             </div>
             <div class="cs-height_50 cs-height_lg_30"></div>
@@ -252,7 +252,7 @@
                                 Jarak ke Venue : <span class="fw-bold">1,4 km</span><br>
                                 <span class="fw-bold">± 4 menit</span> berkendara
                             </p>
-                            <h6 class="badge bg-primary">Tersedia Kamar Kosong</h6>
+                            <!--<h6 class="badge bg-primary">Tersedia Kamar Kosong</h6>-->
                             <div class="cs-height_20 cs-height_lg_20"></div>
                         </div>
                     </div>
@@ -266,7 +266,7 @@
                         </div>
                         <div class="cs-height_25 cs-height_lg_25"></div>
                         <div class="cs-member_info">
-                            <h2 class="cs-font_22 cs-font_16_sm cs-m0">Patra</h2>
+                            <h2 class="cs-font_22 cs-font_16_sm cs-m0">Venue: Patra</h2>
                             <div class="cs-height_5 cs-height_lg_5"></div>
                             <div class="text-center mt-0 mb-1">
                                 <i class="fa-solid fa-star i-col"></i>
@@ -278,7 +278,7 @@
                                 Jarak ke Venue : <span class="fw-bold">1,5 km</span><br>
                                 <span class="fw-bold">± 5 menit</span> berkendara
                             </p>
-                            <h6 class="badge bg-primary">Tersedia Kamar Kosong</h6>
+                            <!--<h6 class="badge bg-primary">Tersedia Kamar Kosong</h6>-->
                             <div class="cs-height_20 cs-height_lg_20"></div>
                         </div>
                     </div>
@@ -304,7 +304,7 @@
                                 Jarak ke Venue : <span class="fw-bold">1,9 km</span><br>
                                 <span class="fw-bold">± 4 menit</span> berkendara
                             </p>
-                            <h6 class="badge bg-primary">Tersedia Kamar Kosong</h6>
+                            <!--<h6 class="badge bg-primary">Tersedia Kamar Kosong</h6>-->
                             <div class="cs-height_20 cs-height_lg_20"></div>
                         </div>
                     </div>
@@ -330,7 +330,7 @@
                                 Jarak ke Venue : <span class="fw-bold">3,4 km</span><br>
                                 <span class="fw-bold">± 9 menit</span> berkendara
                             </p>
-                            <h6 class="badge bg-primary">Tersedia Kamar Kosong</h6>
+                            <!--<h6 class="badge bg-primary">Tersedia Kamar Kosong</h6>-->
                             <div class="cs-height_20 cs-height_lg_20"></div>
                         </div>
                     </div>
@@ -356,7 +356,7 @@
                                 Jarak ke Venue : <span class="fw-bold">4,9 km</span><br>
                                 <span class="fw-bold">± 9 menit</span> berkendara
                             </p>
-                            <h6 class="badge bg-primary">Tersedia Kamar Kosong</h6>
+                            <!--<h6 class="badge bg-primary">Tersedia Kamar Kosong</h6>-->
                             <div class="cs-height_20 cs-height_lg_20"></div>
                         </div>
                     </div>
@@ -383,7 +383,7 @@
                                 Jarak ke Venue : <span class="fw-bold">5,6 km</span><br>
                                 <span class="fw-bold">± 10 menit</span> berkendara
                             </p>
-                            <h6 class="badge bg-primary">Tersedia Kamar Kosong</h6>
+                            <!--<h6 class="badge bg-primary">Tersedia Kamar Kosong</h6>-->
                             <div class="cs-height_20 cs-height_lg_20"></div>
                         </div>
                     </div>
@@ -640,7 +640,7 @@
                             </div>
                         </div>
                     </div>
-                    <h2 class="cs-section_subtitle cs-m0 cs-font_36 cs-font_24_sm text-uppercase">WORKSHOP HALF-DAY</h2>
+                    <!--<h2 class="cs-section_subtitle cs-m0 cs-font_36 cs-font_24_sm text-uppercase">WORKSHOP HALF-DAY</h2>
                     <div class="cs-height_30 cs-height_lg_15"></div>
                     <div class="row">
                         <div class="col-lg-6 col-sm-12 col-12 mb-3">
@@ -663,7 +663,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div>-->
                 </div>
             </div>
     </section>
