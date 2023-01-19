@@ -235,11 +235,7 @@ $theme_path = base_url("themes/aenft") . "/";
                     </div>
                     <div class="form-group mb-2">
                         <label>Email*</label>
-<<<<<<< HEAD
                         <small>(wajib sama dengan email p2kb, isian ini akan menjadi username anda)</small>
-=======
-                        <small>(isian ini akan menjadi username anda)</small>
->>>>>>> origin/master
                         <input type="text" v-model="valueData.email" :class="{'is-invalid': validation_error.email}" class="form-control mb-0" name="email" placeholder="Email" :disabled="isEmail" />
                         <div v-if="validation_error.email" class="invalid-feedback">
                             {{ validation_error.email }}
