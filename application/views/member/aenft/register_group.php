@@ -381,7 +381,11 @@ $theme_path = base_url("themes/aenft") . "/";
                                                                 </div>
                                                             </div>
                                                             <div class="form-group col-6 p-2">
+<<<<<<< HEAD
                                                                 <label class="control-label text-light">Email (wajib sama dengan email p2kb)</label>
+=======
+                                                                <label class="control-label text-light">Email</label>
+>>>>>>> origin/master
                                                                 <input type="text" v-model="member.email" placeholder="Email" :class="{'is-invalid': member.validation_error.email}" class="form-control mb-0" name="email" />
                                                                 <div v-if="member.validation_error.email" class="invalid-feedback">
                                                                     {{ member.validation_error.email }}

@@ -62,7 +62,11 @@
                         <a href="<?= base_url('member/register/group'); ?>" class="btn btn-success"><i class="fa-solid fa-user-group fa-2x mt-1"></i><br><?=lang("group_registration");?></a>
                     </div>
                     <div class="col-lg-3 col-md-3 col-12 d-grid gap-2 mb-1">
+<<<<<<< HEAD
                         <a href="https://drive.google.com/file/d/1-W3ZyKGKAtLteoR7JQrkgQam-RzYvgfJ/view?usp=share_link" target="_blank" class="btn btn-primary"><i class="fa-solid fa-cloud-arrow-down fa-2x mt-1"></i> <br> <?=lang("download");?> First Announcement (Update 19 January 2023)</a>
+=======
+                        <a href="https://drive.google.com/file/d/1KOGtX9jb7_VlDZpuWJ-TkHvONmbqC35N/view?usp=share_link" target="_blank" class="btn btn-primary"><i class="fa-solid fa-cloud-arrow-down fa-2x mt-1"></i> <br> <?=lang("download");?> First Announcement (Update 15 January 2023)</a>
+>>>>>>> origin/master
                     </div>
                 </div>
                 <hr class="mt-3 mb-3">
