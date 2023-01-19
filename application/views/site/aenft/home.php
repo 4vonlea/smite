@@ -131,7 +131,6 @@
             </div>
             <div class="cs-hero_text wow fadeIn" data-wow-duration="1s" data-wow-delay="0.45s" style="margin-top: -50px;">
                 <h1 class="cs-hero_title text-uppercase cs-font_60 cs-font_36_sm cs-bold">KONAS XI PERDOSSI 2023 SEMARANG</h1>
-<<<<<<< HEAD
                 <!--<h3 class="cs-hero_subtitle cs-font_20 cs-font_16_sm cs-body_line_height">In Conjunction with</h3><br>
                 <blockquote>
                     <h2 class="cs-hero_secondary_title cs-font_40 cs-font_24_sm">The 17th International Congress of <br> Asian Society Againts Dementia (ASAD)</h2>
@@ -141,17 +140,6 @@
                     <a href="https://drive.google.com/file/d/1-W3ZyKGKAtLteoR7JQrkgQam-RzYvgfJ/view?usp=share_link" class="btn btn-primary btn-round">
                         <i class="fa fa-info-circle"></i>
                         <span>Open Registration in January 2023, Download First Announcement (Update 19 January 2023)</span>
-=======
-                <h3 class="cs-hero_subtitle cs-font_20 cs-font_16_sm cs-body_line_height">In Conjunction with</h3><br>
-                <blockquote>
-                    <h2 class="cs-hero_secondary_title cs-font_40 cs-font_24_sm">The 17th International Congress of <br> Asian Society Againts Dementia (ASAD)</h2>
-                </blockquote>
-                <h3 class="cs-hero_subtitle cs-font_22 cs-font_18_sm cs-body_line_height">2 - 6 Agustus 2023</h3>
-                <div class="cs-btn_group">
-                    <a href="https://drive.google.com/file/d/1KOGtX9jb7_VlDZpuWJ-TkHvONmbqC35N/view?usp=share_link" class="btn btn-primary btn-round">
-                        <i class="fa fa-info-circle"></i>
-                        <span>Open Registration in January 2023, Download First Announcement (Update 15 January 2023)</span>
->>>>>>> origin/master
                     </a>
                 </div>
             </div>
@@ -239,11 +227,7 @@
         <div class="container">
             <div class="cs-seciton_heading cs-style1 text-uppercase wow fadeInUp text-center" data-wow-duration="1s" data-wow-delay="0.2s">
                 <h3 class="cs-section_title cs-font_16 cs-font_14_sm cs-gradient_color">Daftar Hotel</h3>
-<<<<<<< HEAD
                 <!--<h2 class="cs-section_subtitle cs-m0 cs-font_36 cs-font_24_sm">Kamar Hotel</h2>-->
-=======
-                <h2 class="cs-section_subtitle cs-m0 cs-font_36 cs-font_24_sm">Kamar Hotel</h2>
->>>>>>> origin/master
             </div>
             <div class="cs-height_50 cs-height_lg_30"></div>
             <div class="row wow fadeIn" data-wow-duration="1s" data-wow-delay="0.4s">
@@ -344,11 +328,7 @@
                             </div>
                             <p>
                                 Jarak ke Venue : <span class="fw-bold">3,4 km</span><br>
-<<<<<<< HEAD
-                                <span class="fw-bold"> 9 menit</span> berkendara
-=======
                                 <span class="fw-bold">± 9 menit</span> berkendara
->>>>>>> origin/master
                             </p>
                             <!--<h6 class="badge bg-primary">Tersedia Kamar Kosong</h6>-->
                             <div class="cs-height_20 cs-height_lg_20"></div>
@@ -453,11 +433,7 @@
                     <div class="cs-cta cs-style3 cs-accent_bg">
                         <h4>Simposium Nasional</h4>
                         <p class="px-2 mt-1 mb-3"><i class="fa fa-info-circle"></i> Padma Hotel Semarang, 4 - 5 Agustus 2023 | Time: 08:00AM</p>
-<<<<<<< HEAD
                         <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Kuota : <span class="fw-bold">3000 Orang</span></span>
-=======
-                        <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Kuota : <span class="fw-bold">1500 Orang</span></span>
->>>>>>> origin/master
                         <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Spesialis | Residen | Dokter Umum</span>
                     </div>
                 </div>
@@ -471,11 +447,7 @@
     <section>
         <div class="container">
             <div class="cs-seciton_heading cs-style1 wow fadeInUp text-center" data-wow-duration="1s" data-wow-delay="0.2s">
-<<<<<<< HEAD
                 <h2 class="cs-section_subtitle cs-m0 cs-font_36 cs-font_24_sm text-uppercase">WORKSHOP</h2>
-=======
-                <h2 class="cs-section_subtitle cs-m0 cs-font_36 cs-font_24_sm text-uppercase">WORKSHOP FULL-DAY</h2>
->>>>>>> origin/master
                 <div class="cs-height_30 cs-height_lg_15"></div>
                 <div class="row">
                     <div class="col-lg-6 col-sm-12 col-12 mb-3">
@@ -762,7 +734,6 @@
             <div class="wow fadeIn" data-wow-duration="1s" data-wow-delay="0.2s">
                 <button class="accordion mt-4">Video Registrasi menggunakan pembayaran online</button>
                 <div class="accordion-content">
-<<<<<<< HEAD
                     <embed src="https://drive.google.com/file/d/1AAbZZ9lENoCZlWRzrPogUTe4Tb_9VyKg/preview" width="100%" height="600px" align="center" allow="autoplay" class="mt-3 mb-3"></embed>
                 </div>
                 <button class="accordion mt-2">Video Registrasi secara berkelompok</button>
@@ -776,21 +747,6 @@
                 <button class="accordion mt-2">Video Tutorial Submisi Abstrak</button>
                 <div class="accordion-content">
                     <embed src="https://drive.google.com/file/d/1A1ptqak2pL9YLsK9GdHsQ5Kp5YUWlyQN/preview" width="100%" height="600px" align="center" allow="autoplay" class="mt-3 mb-3"></embed>
-=======
-                    <embed src="#" width="100%" height="600px" align="center" allow="autoplay" class="mt-3 mb-3"></embed>
-                </div>
-                <button class="accordion mt-2">Video Registrasi secara berkelompok</button>
-                <div class="accordion-content">
-                    <embed src="#" width="100%" height="600px" align="center" allow="autoplay" class="mt-3 mb-3"></embed>
-                </div>
-                <button class="accordion mt-2">Video Tutorial melakukan booking hotel</button>
-                <div class="accordion-content">
-                    <embed src="#" width="100%" height="600px" align="center" allow="autoplay" class="mt-3 mb-3"></embed>
-                </div>
-                <button class="accordion mt-2">Video Tutorial Submisi Abstrak</button>
-                <div class="accordion-content">
-                    <embed src="#" width="100%" height="600px" align="center" allow="autoplay" class="mt-3 mb-3"></embed>
->>>>>>> origin/master
                 </div>
             </div>
             <div class="cs-height_50 cs-height_lg_30"></div>
@@ -838,11 +794,7 @@
                     <ul>
                         <li>
                             <i class="fa-solid fa-info-circle"></i> Apakah kegiatan ini dilakukan secara daring atau luring?<br>
-<<<<<<< HEAD
                             - Kegiatan ini dilakukan secara luring di Padma Hotel, Semarang
-=======
-                            - Kegiatan ini dilakukan secara daring di Padma Hotel, Semarang
->>>>>>> origin/master
                         </li>
                         <li>
                             <i class="fa-solid fa-info-circle"></i> Bagaimana caranya login?<br>
