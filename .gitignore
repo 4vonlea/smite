@@ -51,8 +51,16 @@ themes/uploads/fullpaper_all.zip
 themes/uploads/presentation_all.zip
 
 
+themes/uploads/*
+!themes/uploads/index.html
+!themes/uploads/paid.jpg
+!themes/uploads/payment_required.jpg
+!themes/uploads/people.jpg
+
 application/uploads/material/*
 !application/uploads/material/index.html
+
+!themes/uploads/speaker/index.html
 
 themes/uploads/profile/*
 !themes/uploads/profile/index.html
