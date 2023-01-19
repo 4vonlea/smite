@@ -1,0 +1,34 @@
+<?php
+$lang['forgot_password'] = "Forgot Password";
+$lang['visit_website_and_information'] = "Visit website and more information";
+$lang['individual_registration'] = "Individual Registration";
+$lang['group_registration'] = "Group Registration";
+$lang['download'] = "Download";
+$lang['home'] = "Home";
+$lang['login'] = "Login";
+$lang['event'] = "Event";
+$lang['news'] = "News";
+$lang['send_abstrack'] = "Send Abstract";
+$lang['profile'] = "Profile";
+$lang['payment'] = "Payment";
+$lang['select_event'] = "Select <br/> Event";
+$lang['upload_material'] = "Upload Material";
+$lang['scientific_presentation'] = "Scientific Presentation";
+$lang['important_date'] = "Important Date";
+$lang['registration'] = "Registration";
+$lang['back_to_member_area'] = "Back To Member Area";
+$lang['announce_1'] = "Symposium, Workshop and Hotel Registration can only be done through the website. The committee does not accept registration through other mechanisms.";
+$lang['announce_2'] = "E-Certificate integration into P2KB Online can only be given to participants who register via the website";
+$lang['announce_3'] = "For those who have registered, please login here.";
+$lang['account_created'] = "Your account has been created";
+$lang['account_created_notification'] = "We have sent a confirmation email, please check your inbox/spam. To complete registration, click the <i>confirmation link</i> contained in the email. Please contact us if you need assistance.";
+$lang['billing_information'] = "Billing Information";
+$lang['event_name'] = "Nama Kegiatan";
+$lang['price'] = "Price";
+$lang['payment_confirmation'] = "Payment Confirmation";
+$lang['payment_confirmation_info'] = 'To confirm payment, please log in, then enter the "Cart and Payment" menu';
+$lang['fullname'] = "Fullname";
+$lang['fullname_form_information'] = "Please fill in the complete title for the certificate, name changes after registration cannot be made";
+$lang['attention'] = "Attention";
+$lang['email_attention'] = "Make sure the registered email can be accessed by you. A confirmation link will be sent to that email. Please check inbox or spam";
+
