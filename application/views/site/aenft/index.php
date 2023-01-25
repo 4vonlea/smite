@@ -33,7 +33,7 @@
     <!-- Start Hero -->
     <div id="home" class="cs-hero cs-style1 cs-type2 cs-bg text-center  cs-ripple_version" data-src="<?= base_url('themes/aenft'); ?>/assets/img/konas/bg-head.jpg" id="home">
         <div class="cs-dark_overlay">
-            
+
         </div>
         <div class="dropdown mt-3 ms-3" style="position: absolute; right: 5px; top:5px;">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -53,28 +53,28 @@
                 <h3 class="cs-hero_subtitle text-uppercase">2 - 6 Agustus 2023</h3>
                 <div class="row mt-5 align-middle">
                     <div class="col-lg-3 col-md-3 col-12 d-grid gap-2 mb-1">
-                        <a href="<?= base_url('site/home'); ?>" class="btn btn-success"><i class="fa-solid fa-earth-asia fa-2x mt-1"></i><br> <?=lang("visit_website_and_information");?></a>
+                        <a href="<?= base_url('site/home'); ?>" class="btn btn-success"><i class="fa-solid fa-earth-asia fa-2x mt-1"></i><br> <?= lang("visit_website_and_information"); ?></a>
                     </div>
                     <div class="col-lg-3 col-md-3 col-12 d-grid gap-2 mb-1">
-                        <a href="<?= base_url('member/register'); ?>" class="btn btn-primary"><i class="fa-solid fa-clipboard-user fa-2x mt-1"></i> <br><?=lang("individual_registration");?></a>
+                        <a href="<?= base_url('member/register'); ?>" class="btn btn-primary"><i class="fa-solid fa-clipboard-user fa-2x mt-1"></i> <br><?= lang("individual_registration"); ?></a>
                     </div>
                     <div class="col-lg-3 col-md-3 col-12 d-grid gap-2 mb-1">
-                        <a href="<?= base_url('member/register/group'); ?>" class="btn btn-success"><i class="fa-solid fa-user-group fa-2x mt-1"></i><br><?=lang("group_registration");?></a>
+                        <a href="<?= base_url('member/register/group'); ?>" class="btn btn-success"><i class="fa-solid fa-user-group fa-2x mt-1"></i><br><?= lang("group_registration"); ?></a>
                     </div>
                     <div class="col-lg-3 col-md-3 col-12 d-grid gap-2 mb-1">
-                        <a href="https://drive.google.com/file/d/1-W3ZyKGKAtLteoR7JQrkgQam-RzYvgfJ/view?usp=share_link" target="_blank" class="btn btn-primary"><i class="fa-solid fa-cloud-arrow-down fa-2x mt-1"></i> <br> <?=lang("download");?> First Announcement (Update 19 January 2023)</a>
+                        <a href="https://drive.google.com/file/d/1-W3ZyKGKAtLteoR7JQrkgQam-RzYvgfJ/view?usp=share_link" target="_blank" class="btn btn-primary"><i class="fa-solid fa-cloud-arrow-down fa-2x mt-1"></i> <br> <?= lang("download"); ?> First Announcement (Update 19 January 2023)</a>
                     </div>
                 </div>
                 <hr class="mt-3 mb-3">
                 <div class="text-center">
                     <div class="col-12">
-                        <h6><?=lang("announce_1");?></h6>
-                        <h6><?=lang("announce_2");?></h6>
+                        <h6><?= lang("announce_1"); ?></h6>
+                        <h6><?= lang("announce_2"); ?></h6>
                     </div>
                 </div>
                 <div class="d-grid gap-2 col-md-6 offset-md-3 mt-3 mb-3">
                     <div class="box">
-                        <h6><?=lang('announce_3');?></h6>
+                        <h6><?= lang('announce_3'); ?></h6>
                         <br>
 
                         <form action="<?= base_url('site/login'); ?>" method="post">
@@ -106,12 +106,9 @@
 
     <div class="cs-footer_wrap">
         <div class="row align-items-center wow fadeIn" data-wow-duration="1s" data-wow-delay="0.5s">
-            <!-- <div class="col-lg-6">
-                <img src="<?= base_url('themes/aenft'); ?>/assets/images/custom/footer1.jpg" width="100%">
+            <div class="col-lg-12">
+                <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/konas.jpg" width="100%">
             </div>
-            <div class="col-lg-6">
-                <img src="<?= base_url('themes/aenft'); ?>/assets/images/custom/footer2.jpeg" width="100%">
-            </div>-->
         </div>
         <footer class="cs-footer text-center">
             <div class="container mt-4">
