@@ -393,7 +393,7 @@ export default Vue.component("PageBilling", {
 				if(selected && selected.key == "manualPayment")
 					this.checkoutManual();
 				if(selected && selected.key == "espay"){
-					new bootstrap.Modal(document.getElementById('#modal-select-payment'), {backdrop:true}).show();
+					$("#modal-select-payment").modal("show");
 				}
 			}else{
 				Swal.fire('Info',"Please Select Payment method !",'warning');
