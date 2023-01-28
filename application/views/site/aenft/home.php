@@ -226,7 +226,7 @@
         <div class="cs-height_50 cs-height_lg_20"></div>
         <div class="container">
             <div class="cs-seciton_heading cs-style1 text-uppercase wow fadeInUp text-center" data-wow-duration="1s" data-wow-delay="0.2s">
-                <h3 class="cs-section_title cs-font_16 cs-font_14_sm cs-gradient_color">Daftar Hotel</h3>
+                <h3 class="cs-section_title cs-font_16 cs-font_14_sm cs-gradient_color">Daftar Hotel Terdekat</h3>
                 <!--<h2 class="cs-section_subtitle cs-m0 cs-font_36 cs-font_24_sm">Kamar Hotel</h2>-->
             </div>
             <div class="cs-height_50 cs-height_lg_30"></div>
@@ -266,7 +266,7 @@
                         </div>
                         <div class="cs-height_25 cs-height_lg_25"></div>
                         <div class="cs-member_info">
-                            <h2 class="cs-font_22 cs-font_16_sm cs-m0">Venue: Patra</h2>
+                            <h2 class="cs-font_22 cs-font_16_sm cs-m0">Patra</h2>
                             <div class="cs-height_5 cs-height_lg_5"></div>
                             <div class="text-center mt-0 mb-1">
                                 <i class="fa-solid fa-star i-col"></i>
