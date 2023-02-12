@@ -41,11 +41,11 @@
 </head>
 
 <body class="cs-dark">
-    <div class="cs-preloader cs-white_bg cs-center">
+    <!-- <div class="cs-preloader cs-white_bg cs-center">
         <div class="cs-preloader_in">
             <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/logo.png" alt="Logo">
         </div>
-    </div>
+    </div> -->
 
     <button class="btn btn-sm btn-primary position-fixed bottom-0 end-0 translate-middle d-none" onclick="scrollToTop()" id="back-to-up">
         <i class="fa fa-arrow-up" aria-hidden="true"></i>
