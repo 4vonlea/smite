@@ -561,9 +561,12 @@ class Register extends MY_Controller
 					$bill_to = $transaction->member_id;
 					$bill_to_input = str_replace("REGISTER-GROUP : ", "", $transaction->member_id);
 					$listMember = $this->Transaction_detail_m->find()->where("transaction_id", $id_invoice)
-						->join("members", "members.id = transaction_details.member_id")->select("members.*")
+						->join("members", "members.id = transaction_details.member_id")
+						->join("kategory_members km","km.id = members.status")
+						->select("members.*,km.kategory as status_text")
 						->get()->result();
 					$members = [];
+					$status_selected = "";$status_text = "";
 					foreach ($listMember as $key => $dataMember) {
 						$members[$key]['id_invoice'] = $id_invoice;
 						$members[$key]['bill_to'] = $bill_to;
@@ -578,11 +581,13 @@ class Register extends MY_Controller
 						$members[$key]['p2kb_member_id'] = $dataMember->p2kb_member_id;
 						$members[$key]['status'] = $dataMember->status;
 						$members[$key]['validation_error'] = ['nik'=>null];
+						$status_selected = $dataMember->status;
+						$status_text = $dataMember->status_text;
 					}
 					$data['continueTransaction'] = (array_merge(
 						$error,
 						[
-							'status' => $status,
+							'status' => ['status_selected'=>$status_selected,'status_text'=>$status_text],
 							'data' => [
 								'bill_to' => $bill_to_input,
 								'id_invoice' => $id_invoice,

@@ -544,6 +544,8 @@ $theme_path = base_url("themes/aenft") . "/";
                 this.page = 'payment';
                 this.data = this.continueTransaction.data; //JSON.parse(JSON.stringify(res.data));
                 this.members = this.continueTransaction.data.members; //JSON.parse(JSON.stringify(res.data.members))
+                this.status_selected = this.continueTransaction.status.status_selected;
+                this.status_text = this.continueTransaction.status.status_text;
                 this.transactions = this.continueTransaction.transactions ? this.continueTransaction.transactions.cart : [];
                 Vue.nextTick(() => {
                     app.initEspayFrame();
