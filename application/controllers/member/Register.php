@@ -578,6 +578,9 @@ class Register extends MY_Controller
 						$members[$key]['birthday'] = $dataMember->birthday;
 						$members[$key]['sponsor'] = $bill_to_input;
 						$members[$key]['nik'] = $dataMember->nik;
+						$members[$key]['fullname'] = $dataMember->fullname;
+						$members[$key]['email'] = $dataMember->email;
+						$members[$key]['univ'] = $dataMember->univ;
 						$members[$key]['p2kb_member_id'] = $dataMember->p2kb_member_id;
 						$members[$key]['status'] = $dataMember->status;
 						$members[$key]['validation_error'] = ['nik'=>null];
