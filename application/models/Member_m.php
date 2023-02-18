@@ -12,10 +12,7 @@ class Member_m extends MY_Model
 	public function rules($insert = false)
 	{
 		$this->load->model("Univ_m");
-		$validations = '|is_unique[members.email]';
-		if (isset($_POST['group']) || isset($_POST['update'])) {
-			$validations = '';
-		}
+		$validations = '|is_unique_or_match[members,email,nik]';
 		$rules = [
 			[
 				'field' => 'email', 'label' => 'Email', 'rules' => "required|max_length[100]|valid_email{$validations}",
@@ -25,11 +22,9 @@ class Member_m extends MY_Model
 			['field' => 'confirm_password', 'label' => 'Confirm Password', 'rules' => 'required|matches[password]'],
 			['field' => 'status', 'label' => 'Status', 'rules' => 'required'],
 			['field' => 'fullname', 'label' => 'Full Name', 'rules' => 'required|max_length[100]'],
-			//			['field' => 'address', 'rules' => 'required'],
-			//			['field' => 'city', 'rules' => 'required'],
 			['field' => 'univ', 'label' => 'Institution', 'rules' => 'required'],
 			['field' => 'country', 'label' => 'Country', 'rules' => 'required'],
-			['field' => 'nik', 'label' => 'NIK', 'rules' => 'required|exact_length[16]|is_unique[members.nik]'],
+			['field' => 'nik', 'label' => 'NIK', 'rules' => 'required|exact_length[16]|is_unique_or_match[members,nik,email]'],
 			['field' => 'phone', 'label' => 'Phone/WA', 'rules' => 'numeric'],
 			['field' => 'birthday', 'label' => 'Birthday', 'rules' => 'required'],
 		];

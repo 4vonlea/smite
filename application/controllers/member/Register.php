@@ -422,7 +422,7 @@ class Register extends MY_Controller
 			}
 
 			$error = [];
-			if ($count > 0 || $validationError || $isRequired > 0) {
+			if ($count > 0 || $validationError || $isRequired > 0 || count($eventAdded) == 0) {
 				$status = false;
 			} else {
 				$status = true;
@@ -497,7 +497,6 @@ class Register extends MY_Controller
 
 						$this->Notification_m->sendEmailConfirmation($data,$token);
 						$this->Notification_m->setType(Notification_m::TYPE_WA)->sendEmailConfirmation($data,$token);
-
 					}
 
 					/* -------------------------------------------------------------------------- */
