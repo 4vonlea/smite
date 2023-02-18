@@ -20,11 +20,11 @@
 </head>
 
 <body class="cs-dark">
-    <div class="cs-preloader cs-white_bg cs-center">
+    <!-- <div class="cs-preloader cs-white_bg cs-center">
         <div class="cs-preloader_in">
             <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/logo.png" alt="Logo">
         </div>
-    </div>
+    </div> -->
 
     <button class="btn btn-sm btn-primary position-fixed bottom-0 end-0 translate-middle d-none" onclick="scrollToTop()" id="back-to-up">
         <i class="fa fa-arrow-up" aria-hidden="true"></i>
@@ -103,6 +103,57 @@
         </div>
     </div>
     <!-- End Hero -->
+
+    <div id="demo" class="carousel slide" data-bs-ride="carousel">
+
+        <!-- The slideshow/carousel -->
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/bg/1.jpg" alt="" class="d-block" style="width:100%">
+            </div>
+            <div class="carousel-item">
+                <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/bg/2.jpeg" alt="" class="d-block" style="width:100%">
+            </div>
+            <div class="carousel-item">
+                <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/bg/3.jpg" alt="" class="d-block" style="width:100%">
+            </div>
+            <div class="carousel-item">
+                <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/bg/4.jpg" alt="" class="d-block" style="width:100%">
+            </div>
+            <div class="carousel-item">
+                <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/bg/5.jpg" alt="" class="d-block" style="width:100%">
+            </div>
+            <div class="carousel-item">
+                <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/bg/6.jpg" alt="" class="d-block" style="width:100%">
+            </div>
+            <div class="carousel-item">
+                <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/bg/7.jpg" alt="" class="d-block" style="width:100%">
+            </div>
+            <div class="carousel-item">
+                <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/bg/8.jpg" alt="" class="d-block" style="width:100%">
+            </div>
+            <div class="carousel-item">
+                <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/bg/9.jpg" alt="" class="d-block" style="width:100%">
+            </div>
+            <div class="carousel-item">
+                <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/bg/10.jpg" alt="" class="d-block" style="width:100%">
+            </div>
+            <div class="carousel-item">
+                <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/bg/11.jpg" alt="" class="d-block" style="width:100%">
+            </div>
+            <div class="carousel-item">
+                <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/bg/12.jpg" alt="" class="d-block" style="width:100%">
+            </div>
+        </div>
+
+        <!-- Left and right controls/icons -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#demo" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#demo" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </button>
+    </div>
 
     <div class="cs-footer_wrap">
         <div class="row align-items-center wow fadeIn" data-wow-duration="1s" data-wow-delay="0.5s">

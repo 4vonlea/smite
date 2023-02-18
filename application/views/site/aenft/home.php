@@ -41,11 +41,11 @@
 </head>
 
 <body class="cs-dark">
-    <div class="cs-preloader cs-white_bg cs-center">
+    <!-- <div class="cs-preloader cs-white_bg cs-center">
         <div class="cs-preloader_in">
             <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/logo.png" alt="Logo">
         </div>
-    </div>
+    </div> -->
 
     <button class="btn btn-sm btn-primary position-fixed bottom-0 end-0 translate-middle d-none" onclick="scrollToTop()" id="back-to-up">
         <i class="fa fa-arrow-up" aria-hidden="true"></i>
@@ -227,6 +227,38 @@
         <div class="container">
             <div class="cs-seciton_heading cs-style1 text-uppercase wow fadeInUp text-center" data-wow-duration="1s" data-wow-delay="0.2s">
                 <h3 class="cs-section_title cs-font_16 cs-font_14_sm cs-gradient_color">Daftar Hotel</h3>
+            </div>
+            <div class="cs-height_25 cs-height_lg_25"></div>
+            <div class="row wow fadeIn" data-wow-duration="1s" data-wow-delay="0.4s">
+                <div class="col-12">
+                    <div class="cs-team cs-style1 text-center cs-white_bg" data-bs-toggle="modal" data-bs-target="#venue">
+                        <div class="cs-height_30 cs-height_lg_30"></div>
+                        <div class="cs-member_thumb">
+                            <i class="i-col fa-solid fa-building-circle-check fa-3x wow pulse" data-wow-iteration="infinite" data-wow-duration="1500ms"></i>
+                        </div>
+                        <div class="cs-height_25 cs-height_lg_25"></div>
+                        <div class="cs-member_info">
+                            <h2 class="cs-font_22 cs-font_16_sm cs-m0">Padma Hotel Semarang</h2>
+                            <div class="cs-height_5 cs-height_lg_5"></div>
+                            <div class="text-center mt-0 mb-1">
+                                <i class="fa-solid fa-star i-col"></i>
+                                <i class="fa-solid fa-star i-col"></i>
+                                <i class="fa-solid fa-star i-col"></i>
+                                <i class="fa-solid fa-star i-col"></i>
+                                <i class="fa-solid fa-star i-col"></i>
+                            </div>
+                            <p>
+                                Jl. Sultan Agung No. 86, Kota Semarang, Jawa Tengah
+                            </p>
+                            <div class="cs-height_20 cs-height_lg_20"></div>
+                        </div>
+                    </div>
+                    <div class="cs-height_25 cs-height_lg_25"></div>
+                </div>
+            </div>
+            <div class="cs-height_50 cs-height_lg_30"></div>
+            <div class="cs-seciton_heading cs-style1 text-uppercase wow fadeInUp text-center" data-wow-duration="1s" data-wow-delay="0.2s">
+                <h3 class="cs-section_title cs-font_16 cs-font_14_sm cs-gradient_color">Daftar Hotel Terdekat</h3>
                 <!--<h2 class="cs-section_subtitle cs-m0 cs-font_36 cs-font_24_sm">Kamar Hotel</h2>-->
             </div>
             <div class="cs-height_50 cs-height_lg_30"></div>
@@ -266,7 +298,7 @@
                         </div>
                         <div class="cs-height_25 cs-height_lg_25"></div>
                         <div class="cs-member_info">
-                            <h2 class="cs-font_22 cs-font_16_sm cs-m0">Venue: Patra</h2>
+                            <h2 class="cs-font_22 cs-font_16_sm cs-m0">Patra</h2>
                             <div class="cs-height_5 cs-height_lg_5"></div>
                             <div class="text-center mt-0 mb-1">
                                 <i class="fa-solid fa-star i-col"></i>
@@ -1208,6 +1240,27 @@
             </symbol>
         </defs>
     </svg>
+
+    <div class="modal fade text-black" id="venue" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="hotel1Label" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-black" id="hotel1Label">
+                        Padma Hotel Semarang |
+                        <i class="fa-solid fa-star fa-1x"></i>
+                        <i class="fa-solid fa-star fa-1x"></i>
+                        <i class="fa-solid fa-star fa-1x"></i>
+                        <i class="fa-solid fa-star fa-1x"></i>
+                        <i class="fa-solid fa-star fa-1x"></i>
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d15840.005173334745!2d110.4165291!3d-7.0091294!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x695373881ac0dbf0!2sPadma%20Hotel%20Semarang!5e0!3m2!1sen!2sid!4v1674867433995!5m2!1sen!2sid" width="100%" height="450px" style="border:0;" allowfullscreen="yes" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="modal fade text-black" id="hotel1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="hotel1Label" aria-hidden="true">
         <div class="modal-dialog modal-xl modal-dialog-centered">
