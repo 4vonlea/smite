@@ -575,6 +575,7 @@ class Register extends MY_Controller
 						$members[$key]['birthday'] = $dataMember->birthday;
 						$members[$key]['sponsor'] = $bill_to_input;
 						$members[$key]['nik'] = $dataMember->nik;
+						$members[$key]['p2kb_member_id'] = $dataMember->p2kb_member_id;
 						$members[$key]['status'] = $dataMember->status;
 					}
 					$data['continueTransaction'] = (array_merge(
