@@ -408,7 +408,6 @@ class Register extends MY_Controller
 				$members[$key]['country'] = '0';
 				$members[$key]['birthday'] = date('Y-m-d');
 				$members[$key]['sponsor'] = $bill_to_input;
-				$members[$key]['checking'] = false;
 				$members[$key]['status'] = $statusParticipant;
 				if (!$this->Member_m->validate($members[$key]) || !$this->handlingProof('proof', $members[$key]['id'], $need_verify)) {
 					$error['statusData'] = false;
@@ -584,6 +583,7 @@ class Register extends MY_Controller
 						$members[$key]['p2kb_member_id'] = $dataMember->p2kb_member_id;
 						$members[$key]['status'] = $dataMember->status;
 						$members[$key]['validation_error'] = ['nik'=>null];
+						$members[$key]['checking'] = false;
 						$status_selected = $dataMember->status;
 						$status_text = $dataMember->status_text;
 					}
