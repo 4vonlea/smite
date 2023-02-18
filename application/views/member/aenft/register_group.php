@@ -509,7 +509,6 @@ $theme_path = base_url("themes/aenft") . "/";
             saving: false,
             validation_error: {},
             page: 'register',
-
             paymentMethod: [],
             selectedPaymentMethod: '',
             events: <?= json_encode($events) ?>,

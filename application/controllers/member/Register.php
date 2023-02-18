@@ -577,6 +577,7 @@ class Register extends MY_Controller
 						$members[$key]['nik'] = $dataMember->nik;
 						$members[$key]['p2kb_member_id'] = $dataMember->p2kb_member_id;
 						$members[$key]['status'] = $dataMember->status;
+						$members[$key]['validation_error'] = ['nik'=>null];
 					}
 					$data['continueTransaction'] = (array_merge(
 						$error,
@@ -587,7 +588,6 @@ class Register extends MY_Controller
 								'id_invoice' => $id_invoice,
 								'email_group' => $transaction->email_group,
 								'members' => $members,
-								'validation_error' => ['nik'=>null],
 							]
 						]
 					));
