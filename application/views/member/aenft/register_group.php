@@ -225,7 +225,7 @@ $theme_path = base_url("themes/aenft") . "/";
                     <i v-if="saving" class="fa fa-spin fa-spinner"></i>
                     Checkout
                 </button>
-                <button type="button" @click="page = 'register'" class="btn btn-primary">
+                <button v-if="allowBack" type="button" @click="page = 'register'" class="btn btn-primary">
                     Back
                 </button>
             </div>
@@ -521,6 +521,7 @@ $theme_path = base_url("themes/aenft") . "/";
             isUsd: false,
             continueTransaction: <?= isset($continueTransaction) ? json_encode($continueTransaction) : "null"; ?>,
             showCategory: "",
+            allowBack:true,
         },
         mounted: function() {
 
@@ -547,6 +548,7 @@ $theme_path = base_url("themes/aenft") . "/";
                 this.status_selected = this.continueTransaction.status.status_selected;
                 this.status_text = this.continueTransaction.status.status_text;
                 this.transactions = this.continueTransaction.transactions ? this.continueTransaction.transactions.cart : [];
+                this.allowBack = false;
                 Vue.nextTick(() => {
                     app.initEspayFrame();
                 });
