@@ -520,7 +520,7 @@ $theme_path = base_url("themes/aenft") . "/";
             members: [],
             data: {},
             isUsd: false,
-            continueTransaction: <?= isset($continueTransaction) ? json_encode($continueTransaction) : "{}"; ?>,
+            continueTransaction: <?= isset($continueTransaction) ? json_encode($continueTransaction) : "null"; ?>,
             showCategory: "",
         },
         mounted: function() {
@@ -541,7 +541,7 @@ $theme_path = base_url("themes/aenft") . "/";
             })
 
             this.paymentMethod = tempPayment;
-            if (this.continueTransaction.transactions) {
+            if (this.continueTransaction) {
                 this.page = 'payment';
                 this.data = this.continueTransaction.data; //JSON.parse(JSON.stringify(res.data));
                 this.members = this.continueTransaction.members; //JSON.parse(JSON.stringify(res.data.members))
