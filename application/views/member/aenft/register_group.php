@@ -543,7 +543,6 @@ $theme_path = base_url("themes/aenft") . "/";
             this.paymentMethod = tempPayment;
             if (this.continueTransaction) {
                 this.page = 'payment';
-                this.data = this.continueTransaction.data; //JSON.parse(JSON.stringify(res.data));
                 this.members = this.continueTransaction.data.members; //JSON.parse(JSON.stringify(res.data.members))
                 this.transactions = this.continueTransaction.transactions ? this.continueTransaction.transactions.cart : [];
                 Vue.nextTick(() => {
