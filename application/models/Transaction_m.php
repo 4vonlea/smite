@@ -302,8 +302,9 @@ class Transaction_m extends MY_Model
 	 */
 	public function getTransactionGroup($id)
 	{
-		$rs = $this->db->select("t.checkout, ts.*")
+		$rs = $this->db->select("t.checkout, ts.*,CONCAT(ts.product_name,' - ',m.fullname) as product_name")
 			->join("transaction_details ts", "t.id = ts.transaction_id")
+			->join("members m","m.id = ts.member_id","left")
 			->where("t.id", $id)->get("{$this->table} t");
 		return $rs->result();
 	}
