@@ -556,39 +556,41 @@ class Register extends MY_Controller
 
 			if ($id_invoice) {
 				$transaction = $this->Transaction_m->findOne($id_invoice);
-				$error['transactions'] = $this->getTransactions($transaction);
-				$bill_to = $transaction->member_id;
-				$bill_to_input = str_replace("REGISTER-GROUP : ", "", $transaction->member_id);
-				$listMember = $this->Transaction_detail_m->find()->where("transaction_id", $id_invoice)
-					->join("members", "members.id = transaction_details.member_id")->select("members.*")
-					->get()->result();
-				$members = [];
-				foreach ($listMember as $key => $dataMember) {
-					$members[$key]['id_invoice'] = $id_invoice;
-					$members[$key]['bill_to'] = $bill_to;
-					$members[$key]['bill_to_input'] = $bill_to_input;
-					$members[$key]['id'] = $dataMember->id;
-					$members[$key]['phone'] = $dataMember->phone;
-					$members[$key]['region'] = $dataMember->region;
-					$members[$key]['country'] = $dataMember->country;
-					$members[$key]['birthday'] = $dataMember->birthday;
-					$members[$key]['sponsor'] = $bill_to_input;
+				if($transaction->status_payment == Transaction_m::STATUS_WAITING){
+					$error['transactions'] = $this->getTransactions($transaction);
+					$bill_to = $transaction->member_id;
+					$bill_to_input = str_replace("REGISTER-GROUP : ", "", $transaction->member_id);
+					$listMember = $this->Transaction_detail_m->find()->where("transaction_id", $id_invoice)
+						->join("members", "members.id = transaction_details.member_id")->select("members.*")
+						->get()->result();
+					$members = [];
+					foreach ($listMember as $key => $dataMember) {
+						$members[$key]['id_invoice'] = $id_invoice;
+						$members[$key]['bill_to'] = $bill_to;
+						$members[$key]['bill_to_input'] = $bill_to_input;
+						$members[$key]['id'] = $dataMember->id;
+						$members[$key]['phone'] = $dataMember->phone;
+						$members[$key]['region'] = $dataMember->region;
+						$members[$key]['country'] = $dataMember->country;
+						$members[$key]['birthday'] = $dataMember->birthday;
+						$members[$key]['sponsor'] = $bill_to_input;
 
-					$members[$key]['status'] = $dataMember->status;
-				}
-				$data['continueTransaction'] = (array_merge(
-					$error,
-					[
-						'status' => $status,
-						'data' => [
-							'bill_to' => $bill_to_input,
-							'id_invoice' => $id_invoice,
-							'email_group' => $transaction->email_group,
-							'members' => $members,
-							'validation_error' => [],
+						$members[$key]['status'] = $dataMember->status;
+					}
+					$data['continueTransaction'] = (array_merge(
+						$error,
+						[
+							'status' => $status,
+							'data' => [
+								'bill_to' => $bill_to_input,
+								'id_invoice' => $id_invoice,
+								'email_group' => $transaction->email_group,
+								'members' => $members,
+								'validation_error' => [],
+							]
 						]
-					]
-				));
+					));
+				}
 			}
 			$this->layout->render('member/' . $this->theme . '/register_group', $data);
 		}
