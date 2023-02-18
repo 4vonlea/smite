@@ -587,7 +587,7 @@ class Register extends MY_Controller
 								'id_invoice' => $id_invoice,
 								'email_group' => $transaction->email_group,
 								'members' => $members,
-								'validation_error' => [],
+								'validation_error' => ['nik'=>null],
 							]
 						]
 					));
