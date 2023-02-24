@@ -862,7 +862,7 @@
                 <div class="cs-iconbox cs-style1 cs-white_bg">
                     <h4>Pedoman Ilmiah</h4>
                     <hr class="mb-4">
-                    <a href="#" target="_blank" class="btn btn-success btn-round"><i class="fa-solid fa-chart-gantt"></i> Ketentuan Oral dan E-poster (tba)</a>
+                    <a href="https://drive.google.com/file/d/1uszw547D0P1CRhoHMOFEFvk4-hzQEyc8/view?usp=share_link" target="_blank" class="btn btn-success btn-round"><i class="fa-solid fa-chart-gantt"></i> Ketentuan Oral dan E-poster (23 Feb 2023)</a>
                 </div>
             </div>
             <div class="event-item sambutan hide">
