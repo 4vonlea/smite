@@ -659,7 +659,7 @@ $theme_path = base_url("themes/aenft") . "/";
                         this.valueData.phone = res.member.member_phone;
                         this.valueData.p2kb_member_id = res.member.member_id;
                     } else {
-                        Swal.fire('Info', `NIK.${this.valueData.nik} : Data ${res.message} di Website P2KB PERDOSNI. Jangan khawatir, Anda masih dapat melanjutkan pendaftaran PIN PERDOSSI Cirebon 2022 dengan melanjutkan mengisi kolom yang kosong pada formulir ini.`, 'info');
+                        Swal.fire('Info', `NIK.${this.valueData.nik} : Data ${res.message} di Website P2KB PERDOSNI. Jangan khawatir, Anda masih dapat melanjutkan pendaftaran KONAS PERDOSSI Semarang 2023 dengan melanjutkan mengisi kolom yang kosong pada formulir ini.`, 'info');
                     }
                 }).always(() => {
                     this.checkingMember = false;
