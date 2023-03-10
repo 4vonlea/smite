@@ -234,9 +234,8 @@ $theme_path = base_url("themes/aenft") . "/";
         <!-- NOTE Sebelum Submit -->
         <div v-if="page == 'register'" class="cs-iconbox cs-style1 cs-white_bg">
             <div class="alert alert-primary" role="alert">
-                <h4 class="text-black"><i class="icofont icofont-info-circle"></i> <b>Attention</h4>
-                <p>Make sure the email address entered is valid and you can access it because we will send an activation code via that email. Your account cannot be used until it is activated first.</p></b>
-            </div>
+                <h4 class="text-black"><i class="icofont icofont-info-circle"></i> <b>Perhatian.</h4>
+                <p><span style="color: #ff0000;"><strong>1. Pembayaran tidak dapat di <em>refund</em></strong></span></p><p><span style="color: #000000;">2. Pastikan alamat email yang dimasukkan valid dan dapat Anda akses karena kami akan mengirimkan kode aktivasi melalui email tersebut. Akun Anda tidak dapat digunakan kecuali jika sudah&nbsp; diaktifkan terlebih dahulu.</span></p>            </div>
             <form id="form-register" class="form-border" ref="form">
                 <div class="de_tab tab_simple">
                     <!-- <p>

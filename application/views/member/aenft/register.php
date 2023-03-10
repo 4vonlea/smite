@@ -217,7 +217,7 @@ $theme_path = base_url("themes/aenft") . "/";
                 <p class="mt-minus2"><?=lang('email_attention');?></p>
             </div>
             <div class="cs-iconbox cs-style1 cs-white_bg">
-                <h4 class="text-center text-uppercase">Registrasi Sekarang</h4>
+                <h4 class="text-center text-uppercase">Registrasi Sekarang. <p><span style="color: #ffff00;"><strong>Pembayaran tidak dapat di <em>refund</em></strong></span></p></h4>
                 <form id="form-register" style="text-align: left; font-size: 18px; font-weight: 500;" ref="form">
                     <div class="form-group mb-2">
                         <label>NIK KTP*</label>
@@ -516,7 +516,7 @@ $theme_path = base_url("themes/aenft") . "/";
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header bg-secondary">
-                    <h4 class="modal-title">Pilih metode pembayaran</h4>
+                    <h4 class="modal-title">Pilih metode pembayaran. <p><span style="color: #ffff00;"><strong>Perhatian! Pembayaran tidak dapat di <em>refund</em></strong></span></p></h4>
                     <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
