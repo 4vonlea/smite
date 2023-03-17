@@ -317,10 +317,7 @@ class Payment extends MY_Controller
 				$orders[] = $row['id'];
 			}
           echo "CHECK : ".$rs->num_rows();
-		}else{
-			$orders[] = urldecode($invoice);
 		}
-
 		$espayConfig = Settings_m::getEspay();
 
 		foreach($orders as $order_id){
