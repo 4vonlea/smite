@@ -113,6 +113,7 @@ $this->layout->begin_head();
 <script src="https://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
 <script src="https://unpkg.com/vue2-datepicker@3.11.0" charset="utf-8"></script>
 <script src="<?= base_url("themes/script/vue-hotel-booking.js?") . time(); ?>"></script>
+<script src="<?= base_url("themes/script/vue-select-event.js?") . time(); ?>"></script>
 <script src="<?= base_url("themes/script/vue-select/vue-select.js"); ?>"></script>
 <!--<script src="https://unpkg.com/vue-select@latest"></script>-->
 <script src="<?= base_url("themes/script/v-button.js"); ?>"></script>

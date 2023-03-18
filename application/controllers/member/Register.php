@@ -676,6 +676,14 @@ class Register extends MY_Controller
 
 	}
 
+	public function clear_session(){
+		$this->session->set_userdata('transaksiFinish','1');
+		$this->session->unset_userdata("tempMemberId");
+		$this->session->unset_userdata("tempStatusMember");
+		$this->session->unset_userdata("tempStatusId");
+		redirect(base_url('member/register'));
+	}
+
 	/**
 	 * checkout
 	 *

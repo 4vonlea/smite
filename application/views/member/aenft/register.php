@@ -413,8 +413,19 @@ $theme_path = base_url("themes/aenft") . "/";
                             <i class="fa fa-spin fa-spinner fa-4x"></i>
                             <p>Loading Events Data</p>
                         </div>
-                        <select-event v-if="!loadingEvent" add-cart-url="<?= base_url('member/register/add_cart'); ?>" :events="events" :show-hotel-booking="false">
-                            <hotel-booking label-class="text-dark" :unique-id="tempMemberId" :on-delete="onCancelBooking" :on-book="onBooking" :booking="hotelBooking.booking" book-url="<?= base_url('member/register/add_cart'); ?>" search-url="<?= base_url('api/available_room'); ?>" :min-date="hotelBooking.minBookingDate" :max-date="hotelBooking.maxBookingDate"></hotel-booking>
+                        <select-event  v-if="!loadingEvent" add-cart-url="<?= base_url('member/register/add_cart'); ?>" :events="events" :show-hotel-booking="false">
+                            <template v-slot:hotel-component>
+                                <hotel-booking label-class="text-dark" :unique-id="tempMemberId" :on-delete="onCancelBooking" :on-book="onBooking" :booking="hotelBooking.booking" book-url="<?= base_url('member/register/add_cart'); ?>" search-url="<?= base_url('api/available_room'); ?>" :min-date="hotelBooking.minBookingDate" :max-date="hotelBooking.maxBookingDate"></hotel-booking>
+                            </template>
+                            <template v-slot:footer="props">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class=" text-right alert alert-info">
+                                            <span>Jumlah event yang diikuti : {{ props.count }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </template>
                         </select-event>
                     </div>
                 </form>

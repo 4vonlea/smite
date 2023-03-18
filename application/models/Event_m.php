@@ -295,7 +295,7 @@ class Event_m extends MY_Model
 			}
 			$added = ($row['followed'] != null && $row['checkout'] == 0 ? 1 : 0);
 			$waiting_payment = ($row['checkout'] == 1 && !in_array($row['status_payment'], [Transaction_m::STATUS_FINISH, Transaction_m::STATUS_UNFINISH, Transaction_m::STATUS_EXPIRE, Transaction_m::STATUS_DENY]));
-			if ($temp != $row['event_name']) {
+			if ($temp != $row['event_name'] && $avalaible) {
 				$index++;
 				$return[$index] = [
 					'id' => $row['id_event'],
@@ -334,7 +334,7 @@ class Event_m extends MY_Model
 				$tempPricing = $row['name_pricing'];
 				$pId = 0;
 				$temp = $row['event_name'];
-			} else {
+			} else if($avalaible) {
 				if ($return[$index]['followed'] == false && ($row['checkout'] == 1 && $row['followed'] != null && $row['status_payment'] == Transaction_m::STATUS_FINISH)) {
 					$return[$index]['followed'] = true;
 				}

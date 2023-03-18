@@ -90,14 +90,10 @@ let templateSelectEvent = `
                 </h4>
             </div>
             <div class="card-body collapse show table-responsive">
-                <slot></slot>
+                <slot name="hotel-component"></slot>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12 text-right alert alert-info">
-                <span>Jumlah event yang diikuti : {{ countAdded }}</span>
-            </div>
-        </div>
+        <slot name="footer" v-bind:count="countAdded"></slot>
     </div>
 </section>
 `;
@@ -118,8 +114,6 @@ Vue.component('select-event', {
         addCartUrl:{
             type:String,
         }
-    },
-    mounted(){
     },
     computed:{
         eventCategory() {
@@ -145,6 +139,10 @@ Vue.component('select-event', {
                     category[categoryGroup] = objectGroup;
                 }
             });
+            let [firstKey] = Object.keys(category);
+            if(firstKey){
+                this.showCategory = category[firstKey].name;
+            }
             return category;
         },
         countAdded() {
@@ -167,8 +165,10 @@ Vue.component('select-event', {
             adding:false,
         }
     },
+    mounted(){
+     
+    },
     methods:{
-       
         addToCart(event, statusMember, event_name, event_id) {
             var page = this;
             this.adding = true;

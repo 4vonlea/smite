@@ -311,7 +311,7 @@ $theme_path = base_url("themes/aenft") . "/";
                                                                                 <span v-if="pricing.pricing[member].price != 0 && pricing.pricing[member].price_in_usd != 0"> / </span>
                                                                                 <span v-if="pricing.pricing[member].price_in_usd != 0">{{formatCurrency(pricing.pricing[member].price_in_usd, 'USD')}}</span>
                                                                                 <div v-if="member == status_text" class="form-check form-switch d-flex justify-content-center">
-                                                                                    <input type="checkbox" :id="`switch-unlock_${member}_${event.name}`" :value="pricing.pricing[member].added" class="form-check-input" :class="pricing.pricing[member].event_required_id" v-model="pricing.pricing[member].added" @click="addEvent($event,pricing.pricing[member],member,event.name)">
+                                                                                    <input type="checkbox" :id="`switch-unlock_${member}_${event.name}`" :value="pricing.pricing[member].added" class="form-check-input" :class="pricing.pricing[member].event_required_id" v-model="pricing.pricing[member].added" @click="addEvent($event,pricing.pricing[member],member,event)">
                                                                                     <label :for="`switch-unlock_${member}_${event.name}`"></label>
                                                                                 </div>
                                                                                 <div v-else>
@@ -774,12 +774,34 @@ $theme_path = base_url("themes/aenft") . "/";
                 }
                 return isRequired;
             },
-            addEvent(e, event, member, event_name) {
+            checkOverlap(event){
+                try{
+                    let eventHold = JSON.parse(event.held_on);
+                    let countOverlap = 0;
+                    this.eventAdded.forEach(evendExists => {
+                        let eventExistHold = JSON.parse(evendExists.held_on);
+                        if(Date.parse(eventExistHold.end) >= Date.parse(eventHold.start) && Date.parse(eventExistHold.start) <= Date.parse(eventHold.end)){
+                            countOverlap++;
+                        }
+                    })                
+                    return countOverlap > 0;    
+                }catch(e){
+                    console.log(e);
+                    return true;
+                }
+            },
+            addEvent(e, event, member, eventParent) {
                 let isRequired = this.checkRequirement(event.event_required_id);
+                let isOverlap = this.checkOverlap(eventParent);
+               
                 if (e.target.checked) {
-                    if (isRequired) {
+                    if(isOverlap){
+                        $(e.target).prop('checked', false);
+                        Swal.fire('Info', `The Selected event overlap with another event!`, 'info');
+                    }else if (isRequired) {
                         event.member_status = member;
-                        event.event_name = event_name;
+                        event.event_name = eventParent.name;
+                        event.held_on = eventParent.held_on;
                         this.eventAdded.push(event);
                     } else {
                         $(e.target).prop('checked', false);
