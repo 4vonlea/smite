@@ -9,11 +9,11 @@ class Member_m extends MY_Model
 
 	public static $proofExtension = "jpg|png|jpeg";
 
-	public function rules($insert = false)
+	public function rules($canUpdateNik = false)
 	{
 		$this->load->model("Univ_m");
 		$validations = '|is_unique[members.email]';
-		if (isset($_POST['group']) || isset($_POST['update'])) {
+		if (isset($_POST['group']) || isset($_POST['update']) || $canUpdateNik) {
 			$validations = '';
 		}
 		$rules = [
@@ -25,11 +25,9 @@ class Member_m extends MY_Model
 			['field' => 'confirm_password', 'label' => 'Confirm Password', 'rules' => 'required|matches[password]'],
 			['field' => 'status', 'label' => 'Status', 'rules' => 'required'],
 			['field' => 'fullname', 'label' => 'Full Name', 'rules' => 'required|max_length[100]'],
-			//			['field' => 'address', 'rules' => 'required'],
-			//			['field' => 'city', 'rules' => 'required'],
 			['field' => 'univ', 'label' => 'Institution', 'rules' => 'required'],
 			['field' => 'country', 'label' => 'Country', 'rules' => 'required'],
-			['field' => 'nik', 'label' => 'NIK', 'rules' => 'required|exact_length[16]|is_unique[members.nik]'],
+			['field' => 'nik', 'label' => 'NIK', 'rules' => 'required|exact_length[16]'.($canUpdateNik ? "" : "|is_unique[members.nik]")],
 			['field' => 'phone', 'label' => 'Phone/WA', 'rules' => 'numeric'],
 			['field' => 'birthday', 'label' => 'Birthday', 'rules' => 'required'],
 		];
@@ -42,10 +40,6 @@ class Member_m extends MY_Model
 		if (isset($_POST['country']) && $_POST['country'] == Country_m::COUNTRY_OTHER) {
 			$rules[] = ['field' => 'other_country', 'label' => 'Other Country', 'rules' => 'required'];
 		}
-
-		// if (isset($_POST['selectedPaymentMethod'])) {
-		// 	$rules[] = ['field' => 'selectedPaymentMethod', 'label' => 'Payment Method', 'rules' => 'required'];
-		// }
 		return $rules;
 	}
 

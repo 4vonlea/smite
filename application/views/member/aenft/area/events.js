@@ -24,18 +24,23 @@ export default Vue.component("PageEvents", {
                         <div class="col-md-12">
                             <ul class="nav nav-pills mb-2">
                                 <li v-for="cat in eventCategory" style="cursor:pointer" class="nav-item">
-                                    <span class="nav-link" @click="showCategory = cat" :class="{'active':showCategory == cat}">{{ cat }}</span>
+                                    <span class="nav-link text-center" @click="showCategory = cat.name" :class="{'active':showCategory == cat.name}">
+                                        <span>{{ cat.category }}</span>
+                                        <span class="d-block">{{ cat.heldOn }}</span>
+                                    </span>
                                 </li>
+                                <!--
                                 <li class="nav-item" style="cursor:pointer">
                                     <span class="nav-link" @click="showCategory = 'hotel-booking'"  :class="{'active':showCategory == 'hotel-booking'}"> Hotel Booking </span>
                                 </li>
+                                -->
                             </ul>
                         </div>
                     </div>
 					<div class="row">
 						<div class="accordion accordion-quaternary col-md-12">
 							<div v-for="(event, index) in events" class="mt-2" v-bind:key="index">
-                                <div class="card card-achievement" v-if="showCategory == event.category">
+                                <div class="card card-achievement" v-if="showCategory == event.categoryGroup">
                                     <div class="card-header card-bg card__shadow">
                                         <h4 class="card-title m-0">
                                             {{ event.name }} 
@@ -126,10 +131,26 @@ export default Vue.component("PageEvents", {
     },
     computed: {
         eventCategory() {
-            let category = [];
+            let category = {};
             this.events.forEach(function (val) {
-                if (category.includes(val.category) == false) {
-                    category.push(val.category);
+                let heldOn = "";
+                try{
+                    let heldOnObject = JSON.parse(val.held_on);
+                    heldOn = heldOnObject.start == heldOnObject.end ? 
+                                                        moment(heldOnObject.start).format("DD MMM YYYY") :
+                                                        `${moment(heldOnObject.start).format("DD MMM YYYY")} - ${moment(heldOnObject.end).format("DD MMM YYYY")}` ;
+                }catch (e){
+
+                }
+                let categoryGroup = `${val.category} ${heldOn}`;
+                val.categoryGroup = categoryGroup;
+                let objectGroup = {
+                    name : categoryGroup,
+                    category : val.category,
+                    heldOn : heldOn
+                }
+                if (typeof category[categoryGroup] == 'undefined') {
+                    category[categoryGroup] = objectGroup;
                 }
             });
             return category;

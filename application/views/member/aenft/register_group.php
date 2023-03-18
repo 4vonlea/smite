@@ -272,8 +272,11 @@ $theme_path = base_url("themes/aenft") . "/";
                                         <div class="row mt-2">
                                             <div class="col-md-12">
                                                 <ul class="nav nav-pills">
-                                                    <li v-for="cat in filteredEvent" class="nav-item">
-                                                        <span class="nav-link" @click="showCategory = cat.category" :class="{'active':showCategory == cat.category}">{{ cat.category }}</span>
+                                                    <li v-for="cat in eventCategory" style="cursor:pointer" class="nav-item">
+                                                            <span class="nav-link text-center" @click="showCategory = cat.name" :class="{'active':showCategory == cat.name}">
+                                                            <span>{{ cat.category }}</span>
+                                                            <span class="d-block">{{ cat.heldOn }}</span>
+                                                        </span>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -281,7 +284,7 @@ $theme_path = base_url("themes/aenft") . "/";
                                         <div class="row">
                                             <div class="accordion accordion-quaternary col-md-12">
                                                 <div v-for="(event, index) in filteredEvent" v-bind:key="index">
-                                                    <div class="card card-default mt-2" v-show="showCategory == event.category">
+                                                    <div class="card card-default mt-2" v-show="showCategory == event.categoryGroup">
                                                         <div class="card-header card-bg card__shadow ">
                                                             <h4 class="card-title m-0">
                                                                 {{ event.name }} <br />
@@ -532,7 +535,6 @@ $theme_path = base_url("themes/aenft") . "/";
             }];
             $.each(paymentData, function(i, v) {
                 let sp = v.split(";");
-                console.log(sp)
                 tempPayment.push({
                     key: sp[0],
                     desc: sp[1]
@@ -551,7 +553,6 @@ $theme_path = base_url("themes/aenft") . "/";
                 Vue.nextTick(() => {
                     app.initEspayFrame();
                 });
-                console.log(this.data);
             }
             if (this.events.length > 0) {
                 this.showCategory = this.events[0].category
@@ -559,10 +560,26 @@ $theme_path = base_url("themes/aenft") . "/";
         },
         computed: {
             eventCategory() {
-                let category = [];
-                this.events.forEach(function(val) {
-                    if (category.includes(val.category) == false) {
-                        category.push(val.category);
+                let category = {};
+                this.filteredEvent.forEach(function (val) {
+                    let heldOn = "";
+                    try{
+                        let heldOnObject = JSON.parse(val.held_on);
+                        heldOn = heldOnObject.start == heldOnObject.end ? 
+                                                            moment(heldOnObject.start).format("DD MMM YYYY") :
+                                                            `${moment(heldOnObject.start).format("DD MMM YYYY")} - ${moment(heldOnObject.end).format("DD MMM YYYY")}` ;
+                    }catch (e){
+
+                    }
+                    let categoryGroup = `${val.category} ${heldOn}`;
+                    val.categoryGroup = categoryGroup;
+                    let objectGroup = {
+                        name : categoryGroup,
+                        category : val.category,
+                        heldOn : heldOn
+                    }
+                    if (typeof category[categoryGroup] == 'undefined') {
+                        category[categoryGroup] = objectGroup;
                     }
                 });
                 return category;
@@ -634,7 +651,6 @@ $theme_path = base_url("themes/aenft") . "/";
                 return total;
             },
             onlyNumber($event) {
-                //console.log($event.keyCode); //keyCodes value
                 let keyCode = ($event.keyCode ? $event.keyCode : $event.which);
                 if ((keyCode < 48 || keyCode > 57) && keyCode !== 46) { // 46 is dot
                     $event.preventDefault();
@@ -688,7 +704,6 @@ $theme_path = base_url("themes/aenft") . "/";
                 });
             },
             initEspayFrame() {
-                console.log("Init Espay");
                 var invoiceID = app.data.id_invoice;
                 var apiKeyEspay = "<?= Settings_m::getEspay()['apiKey']; ?>";
                 var data = {
@@ -697,7 +712,6 @@ $theme_path = base_url("themes/aenft") . "/";
                     backUrl: `<?= base_url('member/register/check_invoice'); ?>/${invoiceID}`,
                 };
                 if (typeof SGOSignature !== "undefined") {
-                    console.log(SGOSignature);
                     var sgoPlusIframe = document.getElementById("sgoplus-iframe");
                     if (sgoPlusIframe !== null)
                         sgoPlusIframe.src = SGOSignature.getIframeURL(data);
@@ -838,7 +852,6 @@ $theme_path = base_url("themes/aenft") . "/";
         $(document).on('change', '.chosen', function() {
             // app.univ = $(this).data('index');
             app.members[$(this).data('index')].univ = $(this).val();
-            console.log(app.members[$(this).data('index')].univ)
         });
 
         // NOTE Status change event set null

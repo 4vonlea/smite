@@ -456,250 +456,35 @@
 
     <div class="cs-height_50 cs-height_lg_20"></div>
 
-    <section>
-        <div class="container">
-            <div class="cs-seciton_heading cs-style1 wow fadeInUp text-center" data-wow-duration="1s" data-wow-delay="0.2s">
-                <h2 class="cs-section_subtitle cs-m0 cs-font_36 cs-font_24_sm text-uppercase">Simposium</h2>
-                <div class="cs-height_30 cs-height_lg_15"></div>
-                <div class="card card-bg card__shadow">
-                    <div class="cs-cta cs-style3 cs-accent_bg">
-                        <h4>Simposium Nasional</h4>
-                        <p class="px-2 mt-1 mb-3"><i class="fa fa-info-circle"></i> Padma Hotel Semarang, 4 - 5 Agustus 2023 | Time: 08:00AM</p>
-                        <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Kuota : <span class="fw-bold">3000 Orang</span></span>
-                        <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Spesialis | Residen | Dokter Umum</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-    <div class="cs-height_70 cs-height_lg_40"></div>
-
-    <section>
-        <div class="container">
-            <div class="cs-seciton_heading cs-style1 wow fadeInUp text-center" data-wow-duration="1s" data-wow-delay="0.2s">
-                <h2 class="cs-section_subtitle cs-m0 cs-font_36 cs-font_24_sm text-uppercase">WORKSHOP</h2>
-                <div class="cs-height_30 cs-height_lg_15"></div>
-                <div class="row">
-                    <div class="col-lg-6 col-sm-12 col-12 mb-3">
-                        <div class="card card-bg card__shadow">
-                            <div class="cs-cta cs-style3 cs-accent_bg">
-                                <h4>Neurovascular</h4>
-                                <p class="px-2 mt-1 mb-3"><i class="fa fa-info-circle"></i> Padma Hotel Semarang | 2 - 3 Agustus 2023 |</p>
-                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Minimal : <span class="fw-bold">Belum Tersedia</span></span>
-                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Rp. <span class="fw-bold">Belum Tersedia</span></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-sm-12 col-12 mb-3">
-                        <div class="card card-bg card__shadow">
-                            <div class="cs-cta cs-style3 cs-accent_bg">
-                                <h4>Neurorestorasi</h4>
-                                <p class="px-2 mt-1 mb-3"><i class="fa fa-info-circle"></i> Padma Hotel Semarang | 2 - 3 Agustus 2023 |</p>
-                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Minimal : <span class="fw-bold">Belum Tersedia</span></span>
-                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Rp. <span class="fw-bold">Belum Tersedia</span></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-sm-12 col-12 mb-3">
-                        <div class="card card-bg card__shadow">
-                            <div class="cs-cta cs-style3 cs-accent_bg">
-                                <h4>Neurotrauma</h4>
-                                <p class="px-2 mt-1 mb-3"><i class="fa fa-info-circle"></i> Padma Hotel Semarang | 2 - 3 Agustus 2023 |</p>
-                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Minimal : <span class="fw-bold">Belum Tersedia</span></span>
-                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Rp. <span class="fw-bold">Belum Tersedia</span></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-sm-12 col-12 mb-3">
-                        <div class="card card-bg card__shadow">
-                            <div class="cs-cta cs-style3 cs-accent_bg">
-                                <h4>Neuropediatri</h4>
-                                <p class="px-2 mt-1 mb-3"><i class="fa fa-info-circle"></i> Padma Hotel Semarang | 2 - 3 Agustus 2023 |</p>
-                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Minimal : <span class="fw-bold">Belum Tersedia</span></span>
-                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Rp. <span class="fw-bold">Belum Tersedia</span></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-sm-12 col-12 mb-3">
-                        <div class="card card-bg card__shadow">
-                            <div class="cs-cta cs-style3 cs-accent_bg">
-                                <h4>Neuroonkologi</h4>
-                                <p class="px-2 mt-1 mb-3"><i class="fa fa-info-circle"></i> Padma Hotel Semarang | 2 - 3 Agustus 2023 |</p>
-                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Minimal : <span class="fw-bold">Belum Tersedia</span></span>
-                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Rp. <span class="fw-bold">Belum Tersedia</span></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-sm-12 col-12 mb-3">
-                        <div class="card card-bg card__shadow">
-                            <div class="cs-cta cs-style3 cs-accent_bg">
-                                <h4>Sleep disorder</h4>
-                                <p class="px-2 mt-1 mb-3"><i class="fa fa-info-circle"></i> Padma Hotel Semarang | 2 - 3 Agustus 2023 |</p>
-                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Minimal : <span class="fw-bold">Belum Tersedia</span></span>
-                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Rp. <span class="fw-bold">Belum Tersedia</span></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-sm-12 col-12 mb-3">
-                        <div class="card card-bg card__shadow">
-                            <div class="cs-cta cs-style3 cs-accent_bg">
-                                <h4>Neuroinfeksi</h4>
-                                <p class="px-2 mt-1 mb-3"><i class="fa fa-info-circle"></i> Padma Hotel Semarang | 2 - 3 Agustus 2023 |</p>
-                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Minimal : <span class="fw-bold">Belum Tersedia</span></span>
-                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Rp. <span class="fw-bold">Belum Tersedia</span></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-sm-12 col-12 mb-3">
-                        <div class="card card-bg card__shadow">
-                            <div class="cs-cta cs-style3 cs-accent_bg">
-                                <h4>Nyeri Kepala</h4>
-                                <p class="px-2 mt-1 mb-3"><i class="fa fa-info-circle"></i> Padma Hotel Semarang | 2 - 3 Agustus 2023 |</p>
-                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Minimal : <span class="fw-bold">Belum Tersedia</span></span>
-                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Rp. <span class="fw-bold">Belum Tersedia</span></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-sm-12 col-12 mb-3">
-                        <div class="card card-bg card__shadow">
-                            <div class="cs-cta cs-style3 cs-accent_bg">
-                                <h4>Neurobehavior</h4>
-                                <p class="px-2 mt-1 mb-3"><i class="fa fa-info-circle"></i> Padma Hotel Semarang | 2 - 3 Agustus 2023 |</p>
-                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Minimal : <span class="fw-bold">Belum Tersedia</span></span>
-                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Rp. <span class="fw-bold">Belum Tersedia</span></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-sm-12 col-12 mb-3">
-                        <div class="card card-bg card__shadow">
-                            <div class="cs-cta cs-style3 cs-accent_bg">
-                                <h4>Neurootologi-Neurooftamologi</h4>
-                                <p class="px-2 mt-1 mb-3"><i class="fa fa-info-circle"></i> Padma Hotel Semarang | 2 - 3 Agustus 2023 |</p>
-                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Minimal : <span class="fw-bold">Belum Tersedia</span></span>
-                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Rp. <span class="fw-bold">Belum Tersedia</span></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-sm-12 col-12 mb-3">
-                        <div class="card card-bg card__shadow">
-                            <div class="cs-cta cs-style3 cs-accent_bg">
-                                <h4>Neurointervensi</h4>
-                                <p class="px-2 mt-1 mb-3"><i class="fa fa-info-circle"></i> Padma Hotel Semarang | 2 - 3 Agustus 2023 |</p>
-                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Minimal : <span class="fw-bold">Belum Tersedia</span></span>
-                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Rp. <span class="fw-bold">Belum Tersedia</span></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-sm-12 col-12 mb-3">
-                        <div class="card card-bg card__shadow">
-                            <div class="cs-cta cs-style3 cs-accent_bg">
-                                <h4>Nyeri</h4>
-                                <p class="px-2 mt-1 mb-3"><i class="fa fa-info-circle"></i> Padma Hotel Semarang | 2 - 3 Agustus 2023 |</p>
-                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Minimal : <span class="fw-bold">Belum Tersedia</span></span>
-                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Rp. <span class="fw-bold">Belum Tersedia</span></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-sm-12 col-12 mb-3">
-                        <div class="card card-bg card__shadow">
-                            <div class="cs-cta cs-style3 cs-accent_bg">
-                                <h4>Neurointensive</h4>
-                                <p class="px-2 mt-1 mb-3"><i class="fa fa-info-circle"></i> Padma Hotel Semarang | 2 - 3 Agustus 2023 |</p>
-                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Minimal : <span class="fw-bold">Belum Tersedia</span></span>
-                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Rp. <span class="fw-bold">Belum Tersedia</span></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-sm-12 col-12 mb-3">
-                        <div class="card card-bg card__shadow">
-                            <div class="cs-cta cs-style3 cs-accent_bg">
-                                <h4>Gangguan Gerak</h4>
-                                <p class="px-2 mt-1 mb-3"><i class="fa fa-info-circle"></i> Padma Hotel Semarang | 2 - 3 Agustus 2023 |</p>
-                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Minimal : <span class="fw-bold">Belum Tersedia</span></span>
-                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Rp. <span class="fw-bold">Belum Tersedia</span></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-sm-12 col-12 mb-3">
-                        <div class="card card-bg card__shadow">
-                            <div class="cs-cta cs-style3 cs-accent_bg">
-                                <h4>Neurogeriatri</h4>
-                                <p class="px-2 mt-1 mb-3"><i class="fa fa-info-circle"></i> Padma Hotel Semarang | 2 - 3 Agustus 2023 |</p>
-                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Minimal : <span class="fw-bold">Belum Tersedia</span></span>
-                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Rp. <span class="fw-bold">Belum Tersedia</span></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-sm-12 col-12 mb-3">
-                        <div class="card card-bg card__shadow">
-                            <div class="cs-cta cs-style3 cs-accent_bg">
-                                <h4>Epilepsi</h4>
-                                <p class="px-2 mt-1 mb-3"><i class="fa fa-info-circle"></i> Padma Hotel Semarang | 2 - 3 Agustus 2023 |</p>
-                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Minimal : <span class="fw-bold">Belum Tersedia</span></span>
-                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Rp. <span class="fw-bold">Belum Tersedia</span></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-sm-12 col-12 mb-3">
-                        <div class="card card-bg card__shadow">
-                            <div class="cs-cta cs-style3 cs-accent_bg">
-                                <h4>Neuroimaging</h4>
-                                <p class="px-2 mt-1 mb-3"><i class="fa fa-info-circle"></i> Padma Hotel Semarang | 2 - 3 Agustus 2023 |</p>
-                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Minimal : <span class="fw-bold">Belum Tersedia</span></span>
-                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Rp. <span class="fw-bold">Belum Tersedia</span></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-sm-12 col-12 mb-3">
-                        <div class="card card-bg card__shadow">
-                            <div class="cs-cta cs-style3 cs-accent_bg">
-                                <h4>Neuroepidemiologi</h4>
-                                <p class="px-2 mt-1 mb-3"><i class="fa fa-info-circle"></i> Padma Hotel Semarang | 2 - 3 Agustus 2023 |</p>
-                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Minimal : <span class="fw-bold">Belum Tersedia</span></span>
-                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Rp. <span class="fw-bold">Belum Tersedia</span></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-sm-12 col-12 mb-3">
-                        <div class="card card-bg card__shadow">
-                            <div class="cs-cta cs-style3 cs-accent_bg">
-                                <h4>Neurofisiologi</h4>
-                                <p class="px-2 mt-1 mb-3"><i class="fa fa-info-circle"></i> Padma Hotel Semarang | 2 - 3 Agustus 2023 |</p>
-                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Minimal : <span class="fw-bold">Belum Tersedia</span></span>
-                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Rp. <span class="fw-bold">Belum Tersedia</span></span>
-                            </div>
-                        </div>
-                    </div>
-                    <!--<h2 class="cs-section_subtitle cs-m0 cs-font_36 cs-font_24_sm text-uppercase">WORKSHOP HALF-DAY</h2>
+    <?php foreach($eventsList as $groupEvent):?>
+        <section>
+            <div class="container">
+                <div class="cs-seciton_heading cs-style1 wow fadeInUp text-center" data-wow-duration="1s" data-wow-delay="0.2s">
+                    <h2 class="cs-section_subtitle cs-m0 cs-font_36 cs-font_24_sm text-uppercase">
+                        <?=$groupEvent['kategory'];?>
+                    </h2>
+                    <h5><?=$groupEvent['heldOn'];?></h5>
                     <div class="cs-height_30 cs-height_lg_15"></div>
                     <div class="row">
-                        <div class="col-lg-6 col-sm-12 col-12 mb-3">
-                            <div class="card card-bg card__shadow">
-                                <div class="cs-cta cs-style3 cs-accent_bg">
-                                    <h4>Belum Tersedia</h4>
-                                    <p class="px-2 mt-1 mb-3"><i class="fa fa-info-circle"></i> Padma Hotel Semarang | 2 - 3 Agustus 2023 |</p>
-                                    <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Minimal : <span class="fw-bold">Belum Tersedia</span></span>
-                                    <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Rp. <span class="fw-bold">Belum Tersedia</span></span>
-                                </div>
+                    <?php
+                        $colWidth = count($groupEvent['list']) == 1 ? 'col-12' : 'col-6';
+                    ?>
+                    <?php foreach($groupEvent['list'] as $event):?>
+                        <div class="<?=$colWidth;?> card card-bg card__shadow mb-2">
+                            <div class="cs-cta cs-style3 cs-accent_bg">
+                                <h4><?=$event['name'];?></h4>
+                                <p class="px-2 mt-1 mb-3"><i class="fa fa-info-circle"></i> <?=$event['held_in'];?>, <?=$groupEvent['heldOn'];?></p>
+                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Kuota : <span class="fw-bold"><?=$event['kouta'];?> Orang</span></span>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-sm-12 col-12 mb-3">
-                            <div class="card card-bg card__shadow">
-                                <div class="cs-cta cs-style3 cs-accent_bg">
-                                    <h4>Belum Tersedia</h4>
-                                    <p class="px-2 mt-1 mb-3"><i class="fa fa-info-circle"></i> Padma Hotel Semarang | 2 - 3 Agustus 2023 |</p>
-                                    <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Minimal : <span class="fw-bold">Belum Tersedia</span></span>
-                                    <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Rp. <span class="fw-bold">Belum Tersedia</span></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>-->
+                        <?php endforeach;?>
+                    </div>
                 </div>
             </div>
-    </section>
+        </section>
+        <div class="cs-height_70 cs-height_lg_40"></div>
 
+    <?php endforeach;?>
     <div class="cs-height_75 cs-height_lg_45"></div>
 
     <section id="login" class="cs-bg p-5" data-src="<?= base_url('themes/aenft'); ?>/assets/img/konas/img4.jpg">

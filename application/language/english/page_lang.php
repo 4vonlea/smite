@@ -31,4 +31,5 @@ $lang['fullname'] = "Fullname";
 $lang['fullname_form_information'] = "Please fill in the complete title for the certificate, name changes after registration cannot be made";
 $lang['attention'] = "Attention";
 $lang['email_attention'] = "Make sure the registered email can be accessed by you. A confirmation link will be sent to that email. Please check inbox or spam";
-
+$lang['qouta_reached'] = "The Selected event not available/qouta has been reached";
+$lang['event_overlap'] = "The Selected event overlap with another ordered event";

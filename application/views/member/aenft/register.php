@@ -39,10 +39,10 @@ $theme_path = base_url("themes/aenft") . "/";
             <img src="<?= $theme_path; ?>assets/img/konas/logo.png" style="width: 100%; max-width: 320px; height: auto;">
         </div>
         <div class="cs-hero_text wow fadeIn" data-wow-duration="1s" data-wow-delay="0.45s" style="margin-top: -50px;">
-            <h1 class="cs-hero_title text-uppercase cs-font_60 cs-font_36_sm cs-bold"><?=lang("individual_registration");?></h1>
+            <h1 class="cs-hero_title text-uppercase cs-font_60 cs-font_36_sm cs-bold"><?= lang("individual_registration"); ?></h1>
             <ol class="breadcrumb justify-content-center mb-0">
-                <li class="breadcrumb-item"><a href="index.html"><?=lang("home");?></a></li>
-                <li class="breadcrumb-item active text-info" aria-current="page"><i class="fa-solid fa-clipboard-user"></i> <?=lang("registration");?></li>
+                <li class="breadcrumb-item"><a href="index.html"><?= lang("home"); ?></a></li>
+                <li class="breadcrumb-item active text-info" aria-current="page"><i class="fa-solid fa-clipboard-user"></i> <?= lang("registration"); ?></li>
             </ol>
         </div>
     </div>
@@ -55,20 +55,20 @@ $theme_path = base_url("themes/aenft") . "/";
         <!-- NOTE Setelah Submmit -->
         <div v-if="page == 'registered'" class="col-lg-12">
             <div class="alert alert-success">
-                <h4 class="text-dark"><i class="fa fa-info"></i> <?=lang("account_created");?></h4>
-                <p><?=lang("account_created_notification");?></p>
+                <h4 class="text-dark"><i class="fa fa-info"></i> <?= lang("account_created"); ?></h4>
+                <p><?= lang("account_created_notification"); ?></p>
             </div>
 
             <div class="card">
                 <div class="card-header card-bg card__shadow text-center">
-                    <h4 class="m-0 p-0"><strong class="font-weight-extra-bold "><?=lang("billing_information");?></strong></h4>
+                    <h4 class="m-0 p-0"><strong class="font-weight-extra-bold "><?= lang("billing_information"); ?></strong></h4>
                 </div>
                 <div class="card-body">
                     <table class="table">
                         <thead>
-                            <th><?=lang("event_name");?></th>
+                            <th><?= lang("event_name"); ?></th>
                             <th>
-                                <p><?=lang("price");?>
+                                <p><?= lang("price"); ?>
                                     <span v-show="isUsd">
                                         (<span style="color:#F4AD39;font-size:12px">Converted to rupiah</span>)
                                     </span>
@@ -84,7 +84,7 @@ $theme_path = base_url("themes/aenft") . "/";
                         <tfoot>
                             <tr>
                                 <td class="text-right font-weight-bold">Total :</td>
-                                <td>{{ formatCurrency(totalPrice()) }}</td>
+                                <td>{{ formatCurrency(totalPrice) }}</td>
                             </tr>
                         </tfoot>
                     </table>
@@ -93,9 +93,9 @@ $theme_path = base_url("themes/aenft") . "/";
 
             <div class="col-sm-6 mt-2" v-for="account in paymentBank">
                 <div class="card">
-                <div class="card-header card-bg card__shadow ">
-                            <h3 class="card-title card-title text-dark">{{ account.bank }}</h3>
-                        </div>
+                    <div class="card-header card-bg card__shadow ">
+                        <h3 class="card-title card-title text-dark">{{ account.bank }}</h3>
+                    </div>
                     <div class="card-body">
                         <table class="table">
                             <tr>
@@ -114,8 +114,8 @@ $theme_path = base_url("themes/aenft") . "/";
             </div>
 
             <div class="alert alert-success mt-2">
-                <h4 class="text-dark"><i class="fa fa-info"></i> <?=lang("payment_confirmation");?></h4>
-                <p><strong><?=lang("payment_confirmation_info");?></strong></p>
+                <h4 class="text-dark"><i class="fa fa-info"></i> <?= lang("payment_confirmation"); ?></h4>
+                <p><strong><?= lang("payment_confirmation_info"); ?></strong></p>
             </div>
         </div>
 
@@ -133,22 +133,22 @@ $theme_path = base_url("themes/aenft") . "/";
                             <tr>
                                 <td>Email</td>
                                 <td class="text-center">:</td>
-                                <th>{{data.email}}</th>
+                                <th>{{valueData.email}}</th>
                             </tr>
                             <tr>
                                 <td>Nama</td>
                                 <td class="text-center">:</td>
-                                <th>{{data.fullname}}</th>
+                                <th>{{valueData.fullname}}</th>
                             </tr>
                             <tr>
                                 <td>Member ID</td>
                                 <td class="text-center">:</td>
-                                <th>{{data.id}}</th>
+                                <th>{{valueData.id}}</th>
                             </tr>
                             <tr>
                                 <td>Invoice ID</td>
                                 <td class="text-center">:</td>
-                                <th>{{data.id_invoice}}</th>
+                                <th>{{transaction.id}}</th>
                             </tr>
                         </tbody>
                     </table>
@@ -157,15 +157,15 @@ $theme_path = base_url("themes/aenft") . "/";
 
             <div class="card  mt-2">
                 <div class="card-header card-bg card__shadow text-center">
-                    <h4 class="m-0 p-0"><strong class="font-weight-extra-bold "><?=lang("event");?></strong></h4>
+                    <h4 class="m-0 p-0"><strong class="font-weight-extra-bold "><?= lang("event"); ?></strong></h4>
                 </div>
                 <div class="card-body">
                     <table class="table">
                         <thead>
                             <th></th>
-                            <th><?=lang("event_name");?></th>
+                            <th><?= lang("event_name"); ?></th>
                             <th>
-                                <p><?=lang("price");?>
+                                <p><?= lang("price"); ?>
                                     <span v-show="isUsd">
                                         (<span style="color:#F4AD39">Converted to rupiah</span>)
                                     </span>
@@ -173,7 +173,7 @@ $theme_path = base_url("themes/aenft") . "/";
                             </th>
                         </thead>
                         <tbody>
-                            <tr v-for="item in transactionsSort">
+                            <tr v-for="item in transaction.details">
                                 <td></td>
                                 <td>{{ item.product_name}}</td>
                                 <td>{{ formatCurrency(item.price) }}</td>
@@ -183,7 +183,7 @@ $theme_path = base_url("themes/aenft") . "/";
                             <tr>
                                 <td></td>
                                 <td class="text-right font-weight-bold">Total :</td>
-                                <td>{{ formatCurrency((totalPrice())) }}</td>
+                                <td>{{ formatCurrency((totalPrice)) }}</td>
                             </tr>
                         </tfoot>
                     </table>
@@ -213,11 +213,12 @@ $theme_path = base_url("themes/aenft") . "/";
         <!-- NOTE Sebelum Submit -->
         <div v-show="page == 'register'">
             <div class="alert alert-primary" role="alert">
-                <h4 class="text-primary text-uppercase"><i class="fa-solid fa-info-circle"></i> <?=lang('attention');?></h4>
-                <p class="mt-minus2"><?=lang('email_attention');?></p>
+                <h4 class="text-primary text-uppercase"><i class="fa-solid fa-info-circle"></i> <?= lang('attention'); ?></h4>
+                <p class="mt-minus2"><?= lang('email_attention'); ?></p>
             </div>
             <div class="cs-iconbox cs-style1 cs-white_bg">
-                <h4 class="text-center text-uppercase">Registrasi Sekarang. <p><span style="color: #ffff00;"><strong>Pembayaran tidak dapat di <em>refund</em></strong></span></p></h4>
+                <h4 class="text-center text-uppercase">Registrasi Sekarang. <p><span style="color: #ffff00;"><strong>Pembayaran tidak dapat di <em>refund</em></strong></span></p>
+                </h4>
                 <form id="form-register" style="text-align: left; font-size: 18px; font-weight: 500;" ref="form">
                     <div class="form-group mb-2">
                         <label>NIK KTP*</label>
@@ -262,7 +263,7 @@ $theme_path = base_url("themes/aenft") . "/";
                     <div class="form-group mb-2">
 
                         <label>Status*</label>
-                        <?= form_dropdown('status', $participantsCategory, '', [':class' => "{'is-invalid':validation_error.status}", 'id' => 'status', 'v-model' => 'status_selected', 'class' => 'form-control mb-0', 'placeholder' => 'Select your status !']); ?>
+                        <?= form_dropdown('status', $participantsCategory, '', [':class' => "{'is-invalid':validation_error.status}", '@change' => 'statusChange', 'id' => 'status', 'v-model' => 'status_selected', 'class' => 'form-control mb-0', 'placeholder' => 'Select your status !']); ?>
                         <div v-if="validation_error.status" class="invalid-feedback">
                             {{ validation_error.status }}
                         </div>
@@ -288,8 +289,8 @@ $theme_path = base_url("themes/aenft") . "/";
                         </div>
                     </span>
                     <div class="form-group mb-2">
-                        <label><?=lang("fullname");?>*</label>
-                        <small><?=lang("fullname_form_information");?></small>
+                        <label><?= lang("fullname"); ?>*</label>
+                        <small><?= lang("fullname_form_information"); ?></small>
                         <input type="text" v-model="valueData.fullname" :class="{'is-invalid':validation_error.fullname}" class="form-control mb-0" name="fullname" placeholder="Full Name" />
                         <div v-if="validation_error.fullname" class="invalid-feedback">
                             {{ validation_error.fullname }}
@@ -401,135 +402,54 @@ $theme_path = base_url("themes/aenft") . "/";
                     </span>
 
                     <!-- NOTE Events -->
-                    <div class="col-lg-12" v-if="status_selected">
+                    <div class="col-lg-12">
                         <hr />
                         <div class="alert alert-primary">
                             <h4 class="text-black"><i class="icofont icofont-info-circle"></i> <b>Event</b></h4>
                             <p class="text-center">Pilih kegiatan yang ingin anda ikuti. Untuk kenyamaan anda, Kami harap pembayaran dapat langsung dilakukan tanpa penundaan setelah checkout.</p>
-                            <p class="text-center">Untuk Hotel, TiDAK dapat dipesan menggunakan Guarantee Letter</p>
+                            <p class="text-center">Untuk Hotel, Tidak dapat dipesan menggunakan Guarantee Letter</p>
                         </div>
-                        <div class="row mt-2">
-                            <div class="col-md-12">
-                                <ul class="nav nav-pills">
-                                    <li v-for="cat in filteredEvent" class="nav-item">
-                                        <span style="cursor: pointer;" class="nav-link" @click="showCategory = cat.category" :class="{'active':showCategory == cat.category}">{{ cat.category }}</span>
-                                    </li>
-                                    <!-- <li class="nav-item" style="cursor:pointer">
-                                        <span class="nav-link" @click="showCategory = 'hotel-booking'" :class="{'active':showCategory == 'hotel-booking'}"> Hotel Booking </span>
-                                    </li> -->
-                                </ul>
-                            </div>
+                        <div v-if="loadingEvent" class="alert alert-info text-center">
+                            <i class="fa fa-spin fa-spinner fa-4x"></i>
+                            <p>Loading Events Data</p>
                         </div>
-                        <div class="row">
-                            <div class="accordion accordion-quaternary col-md-12">
-                                <div v-for="(event, index) in filteredEvent" v-bind:key="index">
-                                    <div class="card mt-2" v-show="showCategory == event.category">
-                                        <div class="card-header card-bg card__shadow">
-                                            <h4 class="card-title m-0">
-                                                {{ event.name }}
-                                                <br /><span style="font-size: 14px;" v-if="event.event_required">(You must follow event "{{ event.event_required }}" to participate this event)</span>
-                                            </h4>
-                                        </div>
-                                        <div :id="'accordion-'+index" class="collapse show table-responsive">
-                                            <div>
-                                                <div v-if="event.participant >= event.kouta" class="alert alert-warning text-center">
-                                                    <h4>Maaf, kuota telah penuh</h4>
-                                                </div>
-                                                <table class="table">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>Kategori</th>
-                                                            <th v-for="pricing in event.pricingName" class="text-center"><span v-html="pricing.title"></span></th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr v-for="member in event.memberStatus">
-                                                            <td>{{ member }}</td>
-                                                            <td v-for="pricing in event.pricingName" class="text-center">
-                                                                <span v-if="pricing.pricing[member]">
-
-                                                                    <span v-show="pricing.pricing[member].price != 0">{{ formatCurrency(pricing.pricing[member].price) }}</span>
-                                                                    <span v-show="pricing.pricing[member].price != 0 && pricing.pricing[member].price_in_usd != 0"> / </span>
-                                                                    <span v-show="pricing.pricing[member].price_in_usd != 0">{{formatCurrency(pricing.pricing[member].price_in_usd, 'USD')}}</span>
-
-                                                                    <div v-if="member == status_text" class="form-check form-switch d-flex justify-content-center">
-                                                                        <input type="checkbox" :id="`switch-unlock_${member}_${event.name}`" :value="pricing.pricing[member].added" class="form-check-input" :class="pricing.pricing[member].event_required_id" v-model="pricing.pricing[member].added" @click="addEvent($event,pricing.pricing[member],member,event.name)">
-                                                                        <label :for="`switch-unlock_${member}_${event.name}`"></label>
-                                                                    </div>
-                                                                    <div v-else>
-                                                                        <button type="button" v-if="member != status_text" style="cursor:not-allowed;color:#fff;" aria-disabled="true" disabled class="btn btn-sm btn-danger">Not Available</button>
-                                                                    </div>
-                                                                    <!-- <button type="button" @click="addEvent(pricing.pricing[member],member,event.name)" v-if="member == status_text" :disabled="pricing.pricing[member].added" class="btn btn-sm btn-warning">Add Event</button> -->
-                                                                </span>
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="card" v-if="showCategory == 'hotel-booking'">
-                                    <div class="card-header card-bg card__shadow">
-                                        <h4 class="card-title m-0">
-                                            Hotel Booking
-                                        </h4>
-                                    </div>
-                                    <div class="card-body collapse show table-responsive">
-                                        <hotel-booking label-class="text-dark" :unique-id="uniqueid" :on-delete="onCancelBooking" :on-book="onBooking" :booking="hotelBooking.booking" book-url="<?= base_url('member/register/add_cart'); ?>" search-url="<?= base_url('api/available_room'); ?>" :min-date="hotelBooking.minBookingDate" :max-date="hotelBooking.maxBookingDate"></hotel-booking>
-                                    </div>
-                                </div>
-                                <div class="card mt-2">
-                                    <div class="card-header card-bg card__shadow text-center" style="color: #fff;">
-                                        <b>{{ formatCurrency(total()) }}</b>
-                                        <span v-show="isUsd">
-                                            <br>
-                                            <p style="font-size: 12px;">(Converted to rupiah)</p>
-                                        </span>
-                                    </div>
-                                </div>
-                                <div v-if="validation_error.eventAdded" style="font-size: 1em;" class="alert alert-danger mt-1 text-center">
-                                    {{ validation_error.eventAdded }}
-                                </div>
-                                <div v-if="validation_error.requiredEvent" style="font-size: 1em;" class="alert alert-danger mt-1 text-center">
-                                    {{ validation_error.requiredEvent }}
-                                </div>
-                            </div>
-                        </div>
+                        <select-event v-if="!loadingEvent" add-cart-url="<?= base_url('member/register/add_cart'); ?>" :events="events" :show-hotel-booking="false">
+                            <hotel-booking label-class="text-dark" :unique-id="tempMemberId" :on-delete="onCancelBooking" :on-book="onBooking" :booking="hotelBooking.booking" book-url="<?= base_url('member/register/add_cart'); ?>" search-url="<?= base_url('api/available_room'); ?>" :min-date="hotelBooking.minBookingDate" :max-date="hotelBooking.maxBookingDate"></hotel-booking>
+                        </select-event>
                     </div>
                 </form>
-
-            <hr />
-            <div class="col-lg-12 text-center pt-4">
-                <button :disabled="saving" type="button" @click="register" style="width:300px;" class="btn btn-primary">
-                    <i v-if="saving" class="fa fa-spin fa-spinner"></i>
-                    Next
-                </button>
+                <hr />
+                <div class="col-lg-12 text-center pt-4">
+                    <button :disabled="saving" type="button" @click="register" style="width:300px;" class="btn btn-primary">
+                        <i v-if="saving" class="fa fa-spin fa-spinner"></i>
+                        Next
+                    </button>
+                </div>
             </div>
-            </div>
-
         </div>
     </div>
 </section>
 
 <div class="modal" id="modal-select-payment">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header bg-secondary">
-                    <h4 class="modal-title">Pilih metode pembayaran. <p><span style="color: #ffff00;"><strong>Perhatian! Pembayaran tidak dapat di <em>refund</em></strong></span></p></h4>
-                    <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <iframe id="sgoplus-iframe" sandbox="allow-same-origin allow-scripts allow-top-navigation allow-forms" style="width:100%"></iframe>
-                </div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-secondary">
+                <h4 class="modal-title">Pilih metode pembayaran. <p><span style="color: #ffff00;"><strong>Perhatian! Pembayaran tidak dapat di <em>refund</em></strong></span></p>
+                </h4>
+                <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <iframe id="sgoplus-iframe" sandbox="allow-same-origin allow-scripts allow-top-navigation allow-forms" style="width:100%"></iframe>
             </div>
         </div>
     </div>
+</div>
 <?php $this->layout->begin_script(); ?>
 <script src="<?= base_url("themes/script/sweetalert2@8.js"); ?>"></script>
 <script src="<?= base_url("themes/script/vuejs-datepicker.min.js"); ?>"></script>
 <script src="<?= base_url("themes/script/chosen/chosen.jquery.min.js"); ?>"></script>
 <script src="https://unpkg.com/vue2-datepicker@3.11.0" charset="utf-8"></script>
+<script src="<?= base_url("themes/script/vue-select-event.js?") ?>"></script>
 <script src="<?= base_url("themes/script/vue-hotel-booking.js?") ?>"></script>
 <script src="<?= base_url("themes/script/vue-espay.js") ?>"></script>
 <script src="https://unpkg.com/vue-select@latest"></script>
@@ -546,17 +466,11 @@ $theme_path = base_url("themes/aenft") . "/";
             vuejsDatepicker
         },
         data: {
-            valueData: {
-                nik: '',
-                kta: '',
-                fullname: '',
-                email: '',
-                phone: '',
-                p2kb_member_id: '',
-            },
-            uniqueid: "<?= $uniqueId; ?>",
+            valueData: <?= json_encode($defaultMember ? $defaultMember->toArray() : [], JSON_FORCE_OBJECT); ?>,
+            loadingEvent: false,
+            tempMemberId: "<?= $tempMemberId; ?>",
             statusList: <?= json_encode($statusList); ?>,
-            status_selected: "",
+            status_selected: "<?= $this->session->userdata('tempStatusId'); ?>",
             status_text: "",
             univList: <?= json_encode($participantsUniv); ?>,
             univ_selected: "",
@@ -568,18 +482,14 @@ $theme_path = base_url("themes/aenft") . "/";
             page: 'register',
             paymentMethod: [],
             selectedPaymentMethod: '',
-            events: <?= json_encode($events) ?>,
-            eventAdded: [],
-            adding: false,
-            transactions: null,
+            events: [],
             paymentBank: null,
             city: "",
             haveSponsor: '0',
             isEmail: false,
-            data: {},
             isUsd: false,
             checkingMember: false,
-            showCategory: '',
+            transaction: {},
             hotelBooking: {
                 booking: [],
                 minBookingDate: '<?= $rangeBooking['start']; ?>',
@@ -587,13 +497,14 @@ $theme_path = base_url("themes/aenft") . "/";
             }
         },
         mounted: function() {
-
-            // NOTE Set Payment Method
             let paymentData = <?= json_encode($paymentMethod) ?>;
             let tempPayment = [{
                 key: "",
                 desc: "Select Payment Method"
             }];
+            if (this.status_selected != "") {
+                this.statusChange();
+            }
             $.each(paymentData, function(i, v) {
                 let sp = v.split(";");
                 tempPayment.push({
@@ -601,9 +512,6 @@ $theme_path = base_url("themes/aenft") . "/";
                     desc: sp[1]
                 });
             })
-            if (this.events.length > 0) {
-                this.showCategory = this.events[0].category
-            }
             this.paymentMethod = tempPayment;
         },
         computed: {
@@ -627,28 +535,34 @@ $theme_path = base_url("themes/aenft") . "/";
                 });
                 return ret;
             },
-            transactionsSort() {
-                return this.transactions.sort(function(a, b) {
-                    return (a.event_pricing_id > b.event_pricing_id) ? -1 : 1;
-                })
-            },
-            filteredEvent() {
-                var statusSelected = this.status_selected;
-                var status = this.statusList.find(data => data.id == statusSelected);
-                status = status ? status.kategory : '';
+            totalPrice() {
+                var total = 0;
+                if (this.transaction.details) {
+                    this.transaction.details.forEach((item) => {
+                        total += Number(item.price);
+                        console.log(total,item  );
 
-                var events = [];
-                if (this.events) {
-                    this.events.forEach(function(item, index) {
-                        if ($.inArray(status, item.memberStatus) !== -1) {
-                            events.push(item);
-                        }
-                    });
+                    })
                 }
-                return events;
-            }
+                return total;
+            },
         },
         methods: {
+            statusChange() {
+                var status = this.statusList.find(data => data.id == this.status_selected);
+                this.loadingEvent = true;
+                $.post("<?= base_url('member/register/get_events'); ?>", {
+                    status: status.kategory,
+                    statusId: this.status_selected
+                }, (res) => {
+                    this.events = res.events;
+                }).fail((err) => {
+                    Swal.fire('Fail', 'Failed to get event data', 'error')
+                }).always(() => {
+                    this.loadingEvent = false;
+
+                })
+            },
             checkMember() {
                 this.checkingMember = true;
                 $.get("<?= base_url('member/register/info_member_perdossi'); ?>/" + this.valueData.nik, (res) => {
@@ -667,48 +581,7 @@ $theme_path = base_url("themes/aenft") . "/";
                     Swal.fire('Fail', 'Failed to get member information in perdossi API', 'error')
                 })
             },
-            totalPrice(idr = true) {
-                var total = 0;
-                var isUsd = 0;
-                for (var i in this.transactions) {
-                    if (idr && this.transactions[i].price != 0) {
-                        total += parseFloat(this.transactions[i].price);
-                    } else {
-                        isUsd += 1;
-                        kurs_usd = {
-                            "using_api": 0,
-                            "value": "0"
-                        };
-                        total += (parseFloat(i.price_in_usd) * kurs_usd.value);
-                    }
-                }
-                this.isUsd = isUsd > 0 ? true : false;
-                return total;
-            },
-            total(idr = true) {
-                var total = 0;
-                var isUsd = 0;
-                this.eventAdded.forEach((item, index) => {
-                    if (idr && item.price != 0) {
-                        total += parseFloat(item.price);
-                    } else {
-                        isUsd += 1;
-
-                        kurs_usd = {
-                            "using_api": 0,
-                            "value": "0"
-                        };
-                        total += (parseFloat(item.price_in_usd) * kurs_usd.value);
-                    }
-                })
-                this.hotelBooking.booking.forEach(room => {
-                    total += room.price;
-                })
-                this.isUsd = isUsd > 0 ? true : false;
-                return total;
-            },
             onlyNumber($event) {
-                //console.log($event.keyCode); //keyCodes value
                 let keyCode = ($event.keyCode ? $event.keyCode : $event.which);
                 if ((keyCode < 48 || keyCode > 57) && keyCode !== 46) { // 46 is dot
                     $event.preventDefault();
@@ -719,17 +592,13 @@ $theme_path = base_url("themes/aenft") . "/";
                 // var birthday = moment(formData.get('birthday')).format("Y-MM-DD");
                 var birthday = moment().format("Y-MM-DD");
                 formData.set("birthday", birthday);
-
-                // NOTE Data Event dan Payment
                 if (this.city)
                     formData.append('city', this.city.key);
-                formData.append('eventAdded', JSON.stringify(app.eventAdded));
-                formData.append('data', JSON.stringify(app.data));
-                formData.append('paymentMethod', app.paymentMethod);
-                formData.append('uniqueId', this.uniqueid);
+                formData.append('tempMemberId', this.tempMemberId);
                 formData.append('booking', JSON.stringify(this.hotelBooking.booking));
 
                 this.saving = true;
+                this.validation_error = {};
                 $.ajax({
                     url: '<?= base_url('member/register'); ?>',
                     type: 'POST',
@@ -751,10 +620,9 @@ $theme_path = base_url("themes/aenft") . "/";
                         Swal.fire('Fail', res.message, 'error');
                     } else {
                         app.page = 'payment';
-                        app.data = res.data;
-                        app.isEmail = app.data.email != '' ? true : false;
-                        app.transactions = res.transactions.cart;
-                        app.initEspayFrame();
+                        app.valueData = res.data;
+                        app.transaction = res.transaction
+                        app.initEspayFrame(res.transaction.id);
                     }
                 }).fail(function(res) {
                     Swal.fire('Fail', 'Server fail to response !', 'error');
@@ -762,8 +630,7 @@ $theme_path = base_url("themes/aenft") . "/";
                     app.saving = false;
                 });
             },
-            initEspayFrame() {
-                var invoiceID = app.data.id_invoice;
+            initEspayFrame(invoiceID) {
                 var apiKeyEspay = "<?= Settings_m::getEspay()['apiKey']; ?>";
                 var data = {
                     key: apiKeyEspay,
@@ -779,31 +646,27 @@ $theme_path = base_url("themes/aenft") . "/";
             },
             checkout() {
                 let selected = app.paymentMethod.find(data => data.key == app.selectedPaymentMethod);
-                if (selected && selected.key == "espay") {
-                    modalPayment.show();
-                } else if (selected && selected.key == "manualPayment") {
+                if (selected) {
                     var formData = new FormData(this.$refs.form);
-                    // var birthday = moment(formData.get('birthday')).format("Y-MM-DD");
                     var birthday = moment().format("Y-MM-DD");
                     formData.set("birthday", birthday);
-
-                    // NOTE Data Event dan Payment
-                    formData.append('data', JSON.stringify(app.data));
-                    formData.append('selectedPaymentMethod', app.selectedPaymentMethod);
-
+                    formData.append('paymentMethod', selected.key);
                     this.saving = true;
                     $.ajax({
                         url: '<?= base_url('member/register/checkout'); ?>',
                         type: 'POST',
-                        contentType: false,
-                        cache: false,
-                        processData: false,
-                        data: formData
+                        data: {
+                            paymentMethod:selected.key,
+                            id_invoice:this.transaction.id, 
+                        }
                     }).done(function(res) {
                         if (res.statusData == false && res.validation_error) {
                             app.validation_error = res.validation_error;
                         } else if (res.statusData == false && res.message) {
                             Swal.fire('Fail', res.message, 'error');
+                        } else if (selected.key == "espay") {
+                            modalPayment.show();
+
                         } else {
                             app.page = 'registered';
                             app.paymentBank = res.response.manual;
@@ -822,15 +685,6 @@ $theme_path = base_url("themes/aenft") . "/";
                     style: 'currency',
                     currency: currency
                 }).format(price);
-            },
-            // NOTE Menambah dan Menghapus Event
-            checkRequirement(event_required_id) {
-                let isRequired = true;
-                if (event_required_id != null && event_required_id != 0) {
-                    find = this.eventAdded.find(data => data.id_event == event_required_id);
-                    isRequired = find ? true : false;
-                }
-                return isRequired;
             },
             onCancelBooking(ind, room) {
                 this.hotelBooking.booking.splice(ind, 1);
@@ -859,68 +713,12 @@ $theme_path = base_url("themes/aenft") . "/";
                         checkin: momentCheckin.format("YYYY-MM-DD"),
                         checkout: momentCheckout.format("YYYY-MM-DD"),
                         price: night * parseFloat(room.price),
-                        uniqueId: this.uniqueid
+                        tempMemberId: this.tempMemberId
                     });
                     Swal.fire('Berhasil', "Hotel berhasil ditambahkan !", 'success');
                 } else {
                     Swal.fire('Fail', "Tanggal Checkout harus lebih dari tanggal checkin", 'warning');
                 }
-            },
-            addEvent(e, event, member, event_name) {
-                let isRequired = this.checkRequirement(event.event_required_id);
-                if (e.target.checked) {
-                    if (isRequired) {
-                        // $.post("<?= base_url('member/register/add_cart'); ?>",{
-                        //     uniqueId:this.uniqueid,
-                        //     id:event.id,
-                        //     event_id:event.id_event,
-                        //     member_status:member,
-                        //     event_name:event_name,
-                        // },(res)=>{
-                        //     if(res.status){
-                        event.member_status = member;
-                        event.event_name = event_name;
-                        // event.transaction_detail_id = res.transaction_detail_id;
-                        // event.transaction_id = res.id;
-                        this.eventAdded.push(event);
-                        // }
-                        // }).always(() => {
-
-                        // }).fail((xhr)=>{
-                        //     Swal.fire('Fail', 'Server fail to response !', 'error');
-                        // })
-                    } else {
-                        $(e.target).prop('checked', false);
-                        Swal.fire('Info', `You must follow: <b>"${event.event_required}"</b> to participate this event !`, 'info');
-                    }
-                } else {
-                    // $.post("<?= base_url('member/register/delete_item_cart'); ?>",{
-                    //     id:event.transaction_detail_id,
-                    //     transaction_id:event.transaction_id
-                    // },(res)=>{
-                    //     if(res.status){
-                    let eventId = event.id_event;
-                    app.removeEvent(event.id_event);
-                    //     }
-                    // }).fail((xhr)=>{
-                    //     Swal.fire('Fail', 'Server fail to response !', 'error');
-                    // }).always((xhr)=>{
-
-                    // })
-                }
-            },
-            removeEvent(id) {
-                app.eventAdded.forEach((data) => {
-                    if (id != 'undefined') {
-                        if (data.id_event == id) {
-                            app.eventAdded = app.eventAdded.filter(data => data.id_event != id);
-                            $(`.${data.id_event}`).prop('checked', false);
-                        }
-                        if (data.event_required_id == id) {
-                            app.removeEvent(data.id_event);
-                        }
-                    }
-                });
             },
             formatDate(date) {
                 return moment(date).format("DD MMM YYYY, [At] HH:mm:ss");

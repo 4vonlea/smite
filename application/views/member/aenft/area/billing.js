@@ -481,8 +481,12 @@ export default Vue.component("PageBilling", {
 			}).then((result) => {
 				if(result.value){
 					page.loading = true;
-					$.post(page.baseUrl+"delete_item_cart",item,function () {
-						page.fetchTransaction();
+					$.post(page.baseUrl+"delete_item_cart",item,function (response) {
+						if(response.status){
+							page.fetchTransaction();
+						}else{
+							Swal.fire("Info",response.message,'info');
+						}
 					}).always(function () {
 						page.loading = false;
 					});

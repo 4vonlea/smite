@@ -3,6 +3,12 @@
 /**
  * Class Register
  * @property Member_m $Member_m
+ * @property Event_m $Event_m
+ * @property Room_m $Room_m
+ * @property CI_Output $output
+ * @property CI_Input $input
+ * @property Notification_m $Notification_m
+ * @property CI_Form_validation $form_validation
  */
 
 class Register extends MY_Controller
@@ -17,6 +23,26 @@ class Register extends MY_Controller
 		$this->load->model(['Sponsor_link_m']);
 	}
 
+	public function get_events()
+	{
+		ini_set('memory_limit', '2048M');
+		if ($this->input->method() !== 'post')
+			show_404("Page not found !");
+		$this->load->model(["Event_m","Room_m"]);
+		$oldStatus = $this->session->userdata('tempStatusMember');
+		if($oldStatus !=  $this->input->post("status")){
+			$this->session->set_userdata('tempStatusMember',$this->input->post("status"));
+			$this->session->set_userdata('tempStatusId',$this->input->post("statusId"));
+			$this->load->model("Transaction_detail_m");
+			$this->Transaction_detail_m->find()->where("member_id",$this->session->userdata('tempMemberId'))->delete();	
+		}
+		$events = $this->Event_m->eventVueModel($this->session->userdata('tempMemberId'), $this->input->post("status"),[],false);
+		$booking = $this->Room_m->bookedRoom($this->session->userdata('tempMemberId'));
+		$rangeBooking = $this->Room_m->rangeBooking();
+		$this->output->set_content_type("application/json")
+			->_display(json_encode(['status' => true, 'events' => $events,'booking'=>$booking,'rangeBooking'=>$rangeBooking]));
+	}
+
 	public function add_cart()
 	{
 		if ($this->input->method() !== 'post')
@@ -26,14 +52,14 @@ class Register extends MY_Controller
 		$data = $this->input->post();
 		$this->load->model(["Transaction_m", "Transaction_detail_m", "Event_m", "Event_pricing_m"]);
 		$this->Transaction_m->getDB()->trans_start();
-		$transaction = $this->Transaction_m->findOne(['member_id' => $data['uniqueId'], 'checkout' => 0]);
+		$transaction = $this->Transaction_m->findOne(['member_id' => $this->session->userdata('tempMemberId'), 'checkout' => 0]);
 		if (!$transaction) {
 			$id = $this->Transaction_m->generateInvoiceID();
 			$transaction = new Transaction_m();
 			$transaction->id = $id;
 			$transaction->checkout = 0;
 			$transaction->status_payment = Transaction_m::STATUS_WAITING;
-			$transaction->member_id = $data['uniqueId'];
+			$transaction->member_id = $this->session->userdata('tempMemberId');
 			$transaction->save();
 			$transaction->id = $id;
 		}
@@ -49,54 +75,31 @@ class Register extends MY_Controller
 			$feeAlready = true;
 		}
 
-		// NOTE Check Required Events
-		$valid = true;
-		$message = '';
-
 		if(!isset($data['is_hotel'])){
-			$findEvent = $this->Event_m->findOne(['id' => $data['event_id']]);
-			if ($findEvent && $findEvent->event_required && $findEvent->event_required != "0") {
-				$cek = $this->Event_m->getRequiredEvent($findEvent->event_required,  $data['uniqueId']);
-				// NOTE Data Required Event
-				$dataEvent = $this->Event_m->findOne(['id' => $findEvent->event_required]);
-				if ($cek) {
-					if ($cek->status_payment == Transaction_m::STATUS_FINISH) {
-						$valid = true;
-					} else if (in_array($cek->status_payment, [Transaction_m::STATUS_PENDING])) {
-						$valid = false;
-						$message = "Not Available, please complete the payment !";
-					} 
-				} else {
-					$valid = false;
-					$message = "You must follow event {$dataEvent->name} to patcipate this event !";
-				}
-			}
-
-			if ($this->Event_m->validateFollowing($data['id'], $data['member_status']) && $valid) {
-
+			$addEventStatus = $this->Transaction_detail_m->validateAddEvent($data['id'], $this->session->userdata('tempMemberId'),$this->session->userdata('tempStatusMember'));
+			if ($addEventStatus === true) {
 				// NOTE Harga sesuai dengan database
-				$price = $this->Event_pricing_m->findOne(['id' => $data['id'], 'condition' => $data['member_status']]);
+				$price = $this->Event_pricing_m->findOne(['id' => $data['id'], 'condition' => $this->session->userdata('tempStatusMember')]);
 				if ($price->price != 0) {
 					$data['price'] = $price->price;
 				} else {
 					$kurs_usd = json_decode(Settings_m::getSetting('kurs_usd'), true);
 					$data['price'] = ($price->price_in_usd * $kurs_usd['value']);
 				}
-
 				$detail->event_pricing_id = $data['id'];
 				$detail->transaction_id = $transaction->id;
 				$detail->price = $data['price'];
 				$detail->price_usd = $price->price_in_usd;
-				$detail->member_id =  $data['uniqueId'];
+				$detail->member_id = $this->session->userdata('tempMemberId');
 				$detail->product_name = "$data[event_name] ($data[member_status])";
 				$detail->save();
 				
 			} else {
 				$response['status'] = false;
-				$response['message'] = $message ?? "You are prohibited from following !";
+				$response['message'] = $addEventStatus ?? "You are prohibited from following !";
 			}
 		}else{
-			$result = $this->Transaction_detail_m->bookHotel($transaction->id, $data['uniqueId'],$data);
+			$result = $this->Transaction_detail_m->bookHotel($transaction->id,$this->session->userdata('tempMemberId'),$data);
 			$data['price'] = 0;
 			if($result === true){
 				$data['price'] = 1;
@@ -107,20 +110,33 @@ class Register extends MY_Controller
 			}
 		}
 
-		$response['transaction_detail_id'] = $this->Transaction_detail_m->getLastInsertID();
 		if ($data['price'] > 0 && $feeAlready == false) {
 			$fee->event_pricing_id = 0; //$data['id'];
 			$fee->transaction_id = $transaction->id;
 			$fee->price = Transaction_m::ADMIN_FEE_START + rand(100, 500); //"6000";//$data['price'];
-			$fee->member_id =  $data['uniqueId'];
+			$fee->member_id = $this->session->userdata('tempMemberId');
 			$fee->product_name = "Admin Fee";
 			$fee->save();
 		}
 		$response['id'] = $transaction->id;
+		$this->Transaction_m->setDiscount($transaction->id);
 		$this->Transaction_m->getDB()->trans_complete();
+
 		$this->output->set_content_type("application/json")
 			->_display(json_encode($response));
 	}
+
+	public function delete_item_cart()
+	{
+		if ($this->input->method() !== 'post')
+			show_404("Page not found !");
+		$id = $this->input->post('id');
+		$this->load->model(["Transaction_detail_m"]);
+		
+		$this->output->set_content_type("application/json")
+			->_display(json_encode($this->Transaction_detail_m->deleteItem($id,$this->input->post("transaction_id"))));
+	}
+
 
 	public function index()
 	{
@@ -132,6 +148,7 @@ class Register extends MY_Controller
 		$this->load->model('Transaction_detail_m');
 		$this->load->model('Room_m');
 		$this->load->model('Wilayah_m');
+		$this->load->model(['Member_m', 'User_account_m', 'Notification_m']);
 
 		$status = $this->Category_member_m->find()->select("id,kategory,need_verify")->where('is_hide', '0')->get()->result_array();
 		$univ = $this->Univ_m->find()->select("univ_id, univ_nama")->order_by('univ_id')->get()->result_array();
@@ -139,48 +156,23 @@ class Register extends MY_Controller
 		$country[] = ['id' => Country_m::COUNTRY_OTHER, 'name' => 'Other Country'];
 		$kabupaten = $this->Wilayah_m->getKabupatenKota()->result_array();
 		if ($this->input->post()) {
-
-			$eventAdded = json_decode($this->input->post('eventAdded'));
-			// NOTE Validasi Event Required
-			$isRequired = 0;
-			foreach ($eventAdded as $key => $value) {
-				if (isset($value->event_required) && $value->event_required_id != '' && $value->event_required_id != "0") {
-					$findRequired = array_search($value->event_required_id, array_column($eventAdded, 'id_event'));
-					if ($findRequired === false) {
-						$isRequired += 1;
-					}
-				}
-			}
-
 			$this->load->model(['Member_m', 'User_account_m', 'Notification_m']);
 			$this->load->library('Uuid');
 
 			$data = $this->input->post();
-			unset($data['eventAdded']);
-			unset($data['data']);
-			unset($data['paymentMethod']);
-
-			$dataSebelumnya = json_decode($this->input->post('data'));
-			$dataSebelumnya = (array) $dataSebelumnya;
-			$bookingHotel = json_decode($this->input->post("booking"),true);
-			if (isset($dataSebelumnya['email']) && $dataSebelumnya['email'] != '') {
-				$_POST['update'] = true;
-				$data['email'] = $dataSebelumnya['email'];
-			}
-			// NOTE Hapus Transactions Detail jika sudah dikirim id_invoice
-			if (isset($dataSebelumnya['id_invoice']) && $dataSebelumnya['id_invoice'] != '') {
-				$this->Transaction_detail_m->delete(['transaction_id' => $dataSebelumnya['id_invoice']]);
-			}
-
-			$data['id'] = (isset($dataSebelumnya['id']) && $dataSebelumnya['id'] != '') ? $dataSebelumnya['id'] : Uuid::v4();
-			$data['id_invoice'] = (isset($dataSebelumnya['id_invoice']) && $dataSebelumnya['id_invoice'] != '') ? $dataSebelumnya['id_invoice'] : $this->Transaction_m->generateInvoiceID();
-
-			$data['sponsor'] = $data['haveSponsor'] ? $data['sponsor'] : '';
-
 			$univ = Univ_m::withKey($univ, "univ_id");
 			$status = Category_member_m::withKey($status, "id");
 			$need_verify = (isset($status[$data['status']]) && $status[$data['status']]['need_verify'] == "1");
-			if (($this->Member_m->validate($data) && $this->handlingProof('proof', $data['id'], $need_verify)) && (count($eventAdded) > 0 || count($bookingHotel) > 0) && $isRequired == 0) {
+			$dataMember = $this->Member_m->findOne(['id' => $this->session->userdata("tempMemberId") ?? "-"]);
+			$rules = $this->Member_m->rules($dataMember && 
+									$this->session->userdata('transaksiFinish') == '0' &&
+									$dataMember->nik == $data['nik'] && $dataMember->email == $data['email']
+								);
+			$this->load->library("Form_validation");
+			$this->form_validation->set_rules($rules);
+			$this->form_validation->set_data($data);
+			$transaction = [];
+			if (($this->form_validation->run() && $this->handlingProof('proof', $data['nik'], $need_verify))) {
 				$data['username_account'] = $data['email'];
 				$data['verified_by_admin'] = !$need_verify;
 				$data['verified_email'] = 0;
@@ -200,10 +192,10 @@ class Register extends MY_Controller
 					$data['country'] = $this->Country_m->last_insert_id;
 				}
 
-				// NOTE Insert or Update Member
-				$dataMember = $this->Member_m->findOne(['email' => $data['email']]);
+				$id = Uuid::v4();
 				if ($dataMember) {
 					$id = $dataMember->id;
+					$data['id'] = $id;
 					$dataMember = $dataMember->toArray();
 					foreach ($dataMember as $key => $value) {
 						if (isset($data[$key])) {
@@ -211,8 +203,6 @@ class Register extends MY_Controller
 						}
 					}
 					$this->Member_m->update($dataMember, $id, false);
-
-					// NOTE Accounts
 					$this->User_account_m->update([
 						'username' => $data['email'],
 						'password' => password_hash($data['password'], PASSWORD_DEFAULT),
@@ -220,9 +210,8 @@ class Register extends MY_Controller
 						'token_reset' => "verifyemail_" . $token
 					], $data['email'], false);
 				} else {
+					$data['id'] = $id;
 					$this->Member_m->insert(array_intersect_key($data, array_flip($this->Member_m->fillable)), false);
-
-					// NOTE Accounts
 					$this->User_account_m->insert([
 						'username' => $data['email'],
 						'password' => password_hash($data['password'], PASSWORD_DEFAULT),
@@ -230,74 +219,43 @@ class Register extends MY_Controller
 						'token_reset' => "verifyemail_" . $token
 					], false);
 				}
-
-				/* -------------------------------------------------------------------------- */
-				/*                              NOTE Transactions                             */
-				/* -------------------------------------------------------------------------- */
-				$transaction = $this->Transaction_m->findOne(['member_id' => $data['id'], 'checkout' => 0]);
-				if (!$transaction) {
-					$id = $data['id_invoice'];
-					$transaction = new Transaction_m();
-					$transaction->id = $id;
-					$transaction->checkout = 0;
-					$transaction->status_payment = Transaction_m::STATUS_WAITING;
-					$transaction->member_id = $data['id'];
-					$transaction->save();
-					$transaction->id = $id;
-				}
-				$hotelBookingStatus = true;
-				foreach($bookingHotel as $hotel){
-					$result = $this->Transaction_detail_m->bookHotel($transaction->id,$data['id'],[
-						'id'=>$hotel['id'],
-						'checkin'=>$hotel['checkin'],
-						'checkout'=>$hotel['checkout']
-					]);
-					$data['price'] = 0;
-					if($result !== true){
-						$hotelBookingStatus = false;
-						$error['statusData'] = false;
-						$error['validation_error']['eventAdded'] = $result;
-						break;
-					}
-				}
-				$this->transactions($data, $eventAdded, $transaction);
-
-				$error['transactions'] = $this->getTransactions($transaction);
-
+				$tempMemberId = $this->session->userdata("tempMemberId");
+				$transactionRow = $this->Transaction_m->findOne(["member_id"=>$tempMemberId]);
+				$transaction = $transactionRow->toArray();
+				$transaction['details'] = $this->Transaction_detail_m->find()->where(['transaction_id'=>$transactionRow->id])->get()->result_array();
+				$this->Transaction_m->find()->where("member_id",$tempMemberId)->set(['member_id'=>$id])->update();
+				$this->Transaction_detail_m->find()->where("member_id",$tempMemberId)->set(['member_id'=>$id])->update();
 				$this->Member_m->getDB()->trans_complete();
-				$error['statusData'] = $this->Member_m->getDB()->trans_status() && $hotelBookingStatus;
+				$error['statusData'] = $this->Member_m->getDB()->trans_status();
 				$error['message'] = $this->Member_m->getDB()->error();
 				if ($error['statusData']) {
+					$this->session->set_userdata("tempMemberId",$id);
 					$this->Notification_m->sendEmailConfirmation($data, $token);
 					$this->Notification_m->setType(Notification_m::TYPE_WA)->sendEmailConfirmation($data,$token);
 				}
 			} else {
 				$error['statusData'] = false;
-				$error['validation_error'] = array_merge(
-					$this->Member_m->getErrors(),
-					[
-						'proof' => (isset($this->upload) ? $this->upload->display_errors("", "") : null),
-						'eventAdded' => (count($eventAdded) == 0 && count($bookingHotel) == 0)  ? 'Choose at least 1 event' : '',
-						'requiredEvent' => $isRequired > 0 ? 'Please select required event' : '',
-					],
-				);
+				$error['validation_error'] = $this->form_validation->error_array();
 			}
 			$this->output->set_content_type("application/json")
-				->set_output(json_encode(array_merge($error, ['data' => $data])));
+				->set_output(json_encode(array_merge($error, ['data' => $data,'transaction'=>$transaction])));
 		} else {
 			$this->load->helper("form");
 			$participantsCategory = Category_member_m::asList($status, 'id', 'kategory', 'Please Select your status');
 			$participantsUniv = Univ_m::asList($univ, 'univ_id', 'univ_nama', 'Please Select your institution');
 			$participantsCountry = Country_m::asList($country, 'id', 'name', 'Please Select your country');
-
+			if(!$this->session->has_userdata('tempMemberId')){
+				$this->session->set_userdata("tempMemberId",uniqid());
+			}
+			$this->session->set_userdata('transaksiFinish','0');
 			$data = [
-				'uniqueId'=>uniqid(),
+				'tempMemberId'=>$this->session->userdata('tempMemberId'),
+				'defaultMember'=>$this->Member_m->findOne($this->session->userdata('tempMemberId')),
 				'participantsCategory' => $participantsCategory,
 				'participantsUniv' => $participantsUniv,
 				'participantsCountry' => $participantsCountry,
 				'statusList' => $status,
 				'univlist' => $univ,
-				'events' => $this->getEvents(),
 				'paymentMethod' => Settings_m::getEnablePayment(),
 				'rangeBooking'=> $this->Room_m->rangeBooking(),
 				'kabupatenList'=>$kabupaten,
@@ -728,13 +686,16 @@ class Register extends MY_Controller
 	public function checkout($isGroup = false)
 	{
 		$post = $this->input->post();
-		$data = json_decode($post['data'], true);
-		// $data['id'] = $isGroup ? $data['bill_to'] : $data['id'];
-
-		$find = $isGroup ? ['id' => $data['id_invoice']] : ['member_id' => $data['id'], 'checkout' => 0];
-
+		$find =  ['id' => $post['id_invoice']];
 		$this->load->model("Transaction_m");
-		if ($this->config->item("use_midtrans")) {
+		$this->session->set_userdata('transaksiFinish','1');
+		$this->session->unset_userdata("tempMemberId");
+		$this->session->unset_userdata("tempStatusMember");
+		$this->session->unset_userdata("tempStatusId");
+		if($post['paymentMethod'] == "espay"){
+			$response['status'] = true;
+			$response['message'] = "Transaksi selesai";
+		}else if ($this->config->item("use_midtrans")) {
 			$transaction = $this->Transaction_m->findOne($find);
 			if ($transaction) {
 				$total_price = 0;
@@ -782,9 +743,7 @@ class Register extends MY_Controller
 						'last_name' => $lastname,
 						'address' => $data['address'],
 						'city' => $data['city'],
-						//			'postal_code'   => "",
 						'phone' => $data['phone'],
-						//			'country_code'  => 'IDN'
 					);
 
 					$customer_details = array(
@@ -849,7 +808,6 @@ class Register extends MY_Controller
 			}
 		}
 
-		$post['data'] = $data;
 		$this->output->set_content_type("application/json")
 			->set_output(json_encode(['data' => $post, 'response' => $response]));
 	}

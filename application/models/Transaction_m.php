@@ -328,6 +328,7 @@ class Transaction_m extends MY_Model
 		return $data;
 	}
 
+
 	public function setDiscount($transaction_id)
 	{
 		$transaction = $this->findOne($transaction_id);
@@ -357,7 +358,7 @@ class Transaction_m extends MY_Model
 				->join("transaction", "transaction.id = transaction_details.transaction_id")
 				->where("transaction_details.member_id", $member_id)
 				->where_in("transaction.status_payment", [self::STATUS_FINISH, self::STATUS_WAITING, self::STATUS_PENDING])
-				// ->group_by("events.kategory")
+				->group_by("events.id")
 				->get("transaction_details");
 
 			$ruleSatisfied['pricingCategory'] = $pricingCategory->name;
@@ -391,22 +392,6 @@ class Transaction_m extends MY_Model
 			if(isset($ruleSatisfied['Workshop']) && $ruleSatisfied['Workshop'] > 2){
 				$discount = null;
 			}
-			// var_dump($ruleSatisfied);
-			// var_dump($discount);
-			// var_dump($discountSatisfied);
-
-			// $criteria = ['JSON_EXTRACT(event_combination,"$.pricingCategory")'=>$pricingCategory->name];
-			// foreach($cekFollowed->result() as $row){
-			// 	$criteria['JSON_UNQUOTE(JSON_EXTRACT(event_combination,"$.'.$row->kategory.'")) >='] = $row->followed;
-			// }
-
-			// if(count($criteria) > 1){
-			// 	$discount = $this->db->where($criteria)
-			// 				->where('JSON_LENGTH(event_combination)',count($criteria))
-			// 				->order_by("discount","ASC")
-			// 				->limit(1)
-			// 				->get("event_discount")->row();
-			// }
 
 			$transactionDetailsExist = $this->db->where(['event_pricing_id' => '-2', 'transaction_id' => $transaction->id])->get("transaction_details")->row();
 			if ($discount) {
@@ -447,8 +432,7 @@ class Transaction_m extends MY_Model
 					}
 				}
 			} else {
-				if ($transactionDetailsExist == null)
-					$this->db->delete("transaction_details", ['event_pricing_id' => '-2', 'transaction_id' => $transaction->id]);
+				$this->db->delete("transaction_details", ['event_pricing_id' => '-2', 'transaction_id' => $transaction->id]);
 			}
 		} else {
 			$this->db->delete("transaction_details", ['event_pricing_id' => '-2', 'transaction_id' => $transaction->id]);

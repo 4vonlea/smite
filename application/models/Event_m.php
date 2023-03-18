@@ -35,6 +35,20 @@ class Event_m extends MY_Model
 		return $this->hasMany('Event_pricing_m', 'event_id');
 	}
 
+	public function groupByHeldOn(){
+		$return = [];
+		foreach($this->find()->get()->result_array() as $row){
+			$heldOn = json_decode($row['held_on'],true);
+			$startDate = $heldOn['start'] != "" ? DateTime::createFromFormat('Y-m-d', $heldOn['start'])->format("d M Y"):"";
+			$endDate = $heldOn['end'] != "" ? DateTime::createFromFormat('Y-m-d', $heldOn['end'])->format("d M Y"):"";
+			$heldOnString = ($startDate == $endDate ? $startDate : "$startDate - $endDate");
+			$title = $row['kategory']. " ".$heldOnString;
+			$return[$title]['kategory'] = $row['kategory'];
+			$return[$title]['heldOn'] = $heldOnString;
+			$return[$title]['list'][] = $row;
+		}
+		return $return;
+	}
 	public function remainingQouta($event_id = null)
 	{
 		$filter = "";
@@ -53,17 +67,17 @@ class Event_m extends MY_Model
 	}
 
 	/**
-	 * @param int | array $event_id
+	 * @param int | array $event_pricing_id
 	 * @param $user_status
 	 */
-	public function validateFollowing($event_id, $user_status)
+	public function validateFollowing($event_pricing_id, $user_status)
 	{
 		$avalaible = true;
-		if (is_array($event_id))
-			$row = $event_id;
+		if (is_array($event_pricing_id))
+			$row = $event_pricing_id;
 		else {
 			$this->load->model("Event_pricing_m");
-			$result = $this->Event_pricing_m->findOne(['id' => $event_id]);
+			$result = $this->Event_pricing_m->findOne(['id' => $event_pricing_id]);
 			$row = $result->toArray();
 		}
 
@@ -97,6 +111,7 @@ class Event_m extends MY_Model
 				event_pricing.id as id_price,
 				evt.name as event_required,
 				t.event_required as event_required_id,
+				t.held_on
 			")
 			->select("condition,
 				condition_date,
@@ -169,7 +184,9 @@ class Event_m extends MY_Model
 							]
 						]
 					],
-					'memberStatus' => [$row['condition']]
+					'memberStatus' => [$row['condition']],
+					'held_on'=>$row['held_on'],
+					'categoryGroup'=>$row['kategory'],
 				];
 				$tempPricing = $row['name_pricing'];
 				$pId = 0;
@@ -231,7 +248,8 @@ class Event_m extends MY_Model
 				t.event_required as event_required_id,
 				td.id as followed,
 				COALESCE(checkout,0) as checkout,
-				tr.status_payment
+				tr.status_payment,
+				t.held_on
 			")
 			->select("condition,
 				condition_date,
@@ -243,7 +261,7 @@ class Event_m extends MY_Model
 			->join("events evt", "evt.id = t.event_required", 'left')
 			->join("transaction_details td", "td.event_pricing_id = event_pricing.id AND td.member_id = '$member_id'", "left")
 			->join("transaction tr", "tr.id = td.transaction_id", "left")
-			->order_by("t.id,event_pricing.name,event_pricing.condition_date")->get();
+			->order_by("t.id,t.kategory,event_pricing.name,event_pricing.condition_date")->get();
 		$count = $this->setAlias("t")->find()->select("t.id as id_event,t.kouta,SUM(IF(tr.status_payment != '" . Transaction_m::STATUS_EXPIRE . "',1,0)) as participant")
 			->join("event_pricing", "t.id = event_id")
 			->join("transaction_details td", "td.event_pricing_id = event_pricing.id", "left")
@@ -308,6 +326,8 @@ class Event_m extends MY_Model
 							]
 						]
 					],
+					'held_on'=>$row['held_on'],
+					'categoryGroup'=>$row['kategory'],
 					'hasCertificate' => file_exists(APPPATH . "uploads/cert_template/$row[id_event].txt"),
 					'memberStatus' => [$row['condition']]
 				];

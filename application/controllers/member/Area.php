@@ -4,6 +4,15 @@
  * Class Area
  * @property Member_m $Member_m
  * @property User_account_m $User_account_m
+ * @property Event_m $Event_m
+ * @property Transaction_m $Transaction_m
+ * @property Transaction_detail_m $Transaction_detail_m
+ * @property Papers_m $Papers_m
+ * @property Room_m $Room_m
+ * @property CI_Output $output
+ * @property CI_Router $router
+ * @property MY_Form_validation $form_validation
+ * @property CI_Upload $upload
  */
 
 class Area extends MY_Controller
@@ -272,18 +281,10 @@ class Area extends MY_Controller
 		if ($this->input->method() !== 'post')
 			show_404("Page not found !");
 		$id = $this->input->post('id');
-		$this->load->model(["Transaction_detail_m","Transaction_m"]);
-		$this->Transaction_detail_m->delete($id);
-		$count = $this->Transaction_detail_m->find()->select("SUM(price) as c")
-			->where('transaction_id', $this->input->post("transaction_id"))
-			->where('event_pricing_id != ', "0")
-			->get()->row_array();
-		if ($count['c'] == 0) {
-			$this->Transaction_detail_m->delete(['event_pricing_id' => 0, 'transaction_id' => $this->input->post("transaction_id")]);
-		}
-		$this->Transaction_m->setDiscount($this->input->post("transaction_id"));
+		$this->load->model(["Transaction_detail_m"]);
+		
 		$this->output->set_content_type("application/json")
-			->_display('{"status":true}');
+			->_display(json_encode($this->Transaction_detail_m->deleteItem($id,$this->input->post("transaction_id"))));
 	}
 
 	public function delete_paper()
@@ -381,31 +382,9 @@ class Area extends MY_Controller
 			$feeAlready = true;
 		}
 
-		// NOTE Check Required Events
-		$valid = true;
-		$message = '';
-
 		if(!isset($data['is_hotel'])){
-			$findEvent = $this->Event_m->findOne(['id' => $data['event_id']]);
-			if ($findEvent && $findEvent->event_required && $findEvent->event_required != "0") {
-				$cek = $this->Event_m->getRequiredEvent($findEvent->event_required, $this->session->user_session['id']);
-				// NOTE Data Required Event
-				$dataEvent = $this->Event_m->findOne(['id' => $findEvent->event_required]);
-				if ($cek) {
-					if ($cek->status_payment == Transaction_m::STATUS_FINISH) {
-						$valid = true;
-					} else if (in_array($cek->status_payment, [Transaction_m::STATUS_PENDING])) {
-						$valid = false;
-						$message = "Not Available, please complete the payment !";
-					} 
-				} else {
-					$valid = false;
-					$message = "You must follow event {$dataEvent->name} to patcipate this event !";
-				}
-			}
-
-			if ($this->Event_m->validateFollowing($data['id'], $this->session->user_session['status_name']) && $valid) {
-
+			$addEventStatus = $this->Transaction_detail_m->validateAddEvent($data['id'], $this->session->user_session['id']);
+			if ($addEventStatus === true) {
 				// NOTE Harga sesuai dengan database
 				$price = $this->Event_pricing_m->findOne(['id' => $data['id'], 'condition' => $this->session->user_session['status_name']]);
 				if ($price->price != 0) {
@@ -414,7 +393,6 @@ class Area extends MY_Controller
 					$kurs_usd = json_decode(Settings_m::getSetting('kurs_usd'), true);
 					$data['price'] = ($price->price_in_usd * $kurs_usd['value']);
 				}
-
 				$detail->event_pricing_id = $data['id'];
 				$detail->transaction_id = $transaction->id;
 				$detail->price = $data['price'];
@@ -425,7 +403,7 @@ class Area extends MY_Controller
 				
 			} else {
 				$response['status'] = false;
-				$response['message'] = $message ?? "You are prohibited from following !";
+				$response['message'] = $addEventStatus ?? "You are prohibited from following !";
 			}
 		}else{
 			$result = $this->Transaction_detail_m->bookHotel($transaction->id,$this->session->user_session['id'],$data);
