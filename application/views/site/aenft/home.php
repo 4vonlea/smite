@@ -456,35 +456,35 @@
 
     <div class="cs-height_50 cs-height_lg_20"></div>
 
-    <?php foreach($eventsList as $groupEvent):?>
+    <?php foreach ($eventsList as $groupEvent) : ?>
         <section>
             <div class="container">
                 <div class="cs-seciton_heading cs-style1 wow fadeInUp text-center" data-wow-duration="1s" data-wow-delay="0.2s">
                     <h2 class="cs-section_subtitle cs-m0 cs-font_36 cs-font_24_sm text-uppercase">
-                        <?=$groupEvent['kategory'];?>
+                        <?= $groupEvent['kategory']; ?>
                     </h2>
-                    <h5><?=$groupEvent['heldOn'];?></h5>
+                    <h5><?= $groupEvent['heldOn']; ?></h5>
                     <div class="cs-height_30 cs-height_lg_15"></div>
                     <div class="row">
-                    <?php
+                        <?php
                         $colWidth = count($groupEvent['list']) == 1 ? 'col-12' : 'col-6';
-                    ?>
-                    <?php foreach($groupEvent['list'] as $event):?>
-                        <div class="<?=$colWidth;?> card card-bg card__shadow mb-2">
-                            <div class="cs-cta cs-style3 cs-accent_bg">
-                                <h4><?=$event['name'];?></h4>
-                                <p class="px-2 mt-1 mb-3"><i class="fa fa-info-circle"></i> <?=$event['held_in'];?>, <?=$groupEvent['heldOn'];?></p>
-                                <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Kuota : <span class="fw-bold"><?=$event['kouta'];?> Orang</span></span>
+                        ?>
+                        <?php foreach ($groupEvent['list'] as $event) : ?>
+                            <div class="<?= $colWidth; ?> card card-bg card__shadow mb-2">
+                                <div class="cs-cta cs-style3 cs-accent_bg">
+                                    <h4><?= $event['name']; ?></h4>
+                                    <p class="px-2 mt-1 mb-3"><i class="fa fa-info-circle"></i> <?= $event['held_in']; ?>, <?= $groupEvent['heldOn']; ?></p>
+                                    <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Kuota : <span class="fw-bold"><?= $event['kouta']; ?> Orang</span></span>
+                                </div>
                             </div>
-                        </div>
-                        <?php endforeach;?>
+                        <?php endforeach; ?>
                     </div>
                 </div>
             </div>
         </section>
         <div class="cs-height_70 cs-height_lg_40"></div>
 
-    <?php endforeach;?>
+    <?php endforeach; ?>
     <div class="cs-height_75 cs-height_lg_45"></div>
 
     <section id="login" class="cs-bg p-5" data-src="<?= base_url('themes/aenft'); ?>/assets/img/konas/img4.jpg">
@@ -588,6 +588,8 @@
                     <span class="filter-item" data-filter="sambutan">Sambutan</span>
                     <span class="filter-item" data-filter="panitia">Kepanitiaan</span>
                     <span class="filter-item" data-filter="explore">Explore Semarang</span>
+                    <span class="filter-item" data-filter="ladpro">Ladies Program</span>
+                    <span class="filter-item" data-filter="neuro">Nerutotech Competition</span>
                 </div>
             </div>
             <div class="event-item tanggal">
@@ -683,6 +685,32 @@
                     <div class="accordion-content">
                         <embed src="<?= base_url('themes/aenft'); ?>/assets/images/custom/s&k.jpeg" width="100%" align="center" allow="autoplay" class="mt-3 mb-3"></embed>
                     </div>
+                </div>
+            </div>
+
+            <div class="event-item ladpro hide">
+                <div class="cs-iconbox cs-style1 cs-white_bg">
+                    <h4>Ladies Program KONAS PERDOSSI</h4>
+                    <hr class="mb-4">
+                    <i class="fa-solid fa-info-circle"></i> Waktu Kegiatan : <b>Sabtu, 5 Agustus 2023</b><br>
+                    <div class="my-2"></div>
+
+                    <i class="fa-solid fa-info-circle"></i> <b>Term and Condition :</b>
+                    <ol class="mb-2 mt-1" style="padding-left: 40px;">
+                        <li>Peserta Ladies Program <b>mendaftar</b> melalui akun peserta KONAS di website <b>konasperdossi2023.com</b> (mencantumkan nama peserta dan kontak yang dapat dihubungi)</li>
+                        <li>Peserta Ladies Program <b>maksimal 2 orang</b> terdaftar dari setiap akun peserta KONAS</li>
+                        <li>Ladies Program akan diselenggarakan jika memenuhi <b>kuota minimal 50 orang</b></li>
+                    </ol>
+                    <i class="fa-solid fa-info-circle"></i> <b>Lokasi Wisata :</b>
+                    <embed src="<?= base_url('themes/aenft'); ?>/assets/img/konas/ladpro.png" class="mt-3" width="100%" align="center"></embed>
+                </div>
+            </div>
+
+            <div class="event-item neuro hide">
+                <div class="cs-iconbox cs-style1 cs-white_bg">
+                    <h4>Neurotech Competition</h4>
+                    <hr class="mb-4">
+                    <embed src="<?= base_url('themes/aenft'); ?>/assets/pdf/neurotech_competitioin.pdf" width="100%" height="600px" align="center"></embed>
                 </div>
             </div>
 
