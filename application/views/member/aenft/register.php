@@ -657,7 +657,6 @@ $theme_path = base_url("themes/aenft") . "/";
             },
             checkout() {
                 let selected = app.paymentMethod.find(data => data.key == app.selectedPaymentMethod);
-                console.log(selected);
                 if (selected.key) {
                     var formData = new FormData(this.$refs.form);
                     var birthday = moment().format("Y-MM-DD");
