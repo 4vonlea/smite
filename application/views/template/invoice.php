@@ -88,7 +88,7 @@ $isGroup = ($member == null);
 	</footer>
 	<section>
 		<h4 style="text-align: center;">INVOICE</h4>
-		<p>Dear Participant <?= $member->sponsor ?? $transaction->member_id; ?></p>
+		<p>Dear Participant <?= $member ?  $member->fullname : $transaction->member_id; ?></p>
 		<p style="text-align:justify;text-justify:inter-word;">Here we send the bill of payment as a form of official statement. Please complete this payment immediately
 			<?php if (is_array($payment) && count($payment) == 1 && $transaction->channel == "MANUAL TRANSFER") : ?>
 				via Bank <?= $payment[0]['bank']; ?> No <?= $payment[0]['no_rekening']; ?> a.n <?= $payment[0]['holder']; ?>
