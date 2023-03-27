@@ -155,13 +155,13 @@ class Transaction extends Admin_Controller
 		$detail = $this->Transaction_m->findOne($id);
 		if ($detail) {
 			$response['model'] = $detail->toArray();
-			$response['model']['member'] = $detail->member ? $detail->member->toArray() : [];
-			$response['model']['member']['city_name'] = $detail->member && $detail->member->city_name ? $detail->member->city_name->nama : [];
+			$response['model']['member'] = $detail->member ? $detail->member->toArray() : ['fullname'=>'Waiting Checkout','address'=>"Not set"];
+			$response['model']['member']['city_name'] = $detail->member && $detail->member->city_name ? $detail->member->city_name->nama : "";
 			$group = $detail->member ? false : true;
 			$tempDetails = [];
 			foreach ($detail->details as $row) {
 				$temp =  $row->toArray();
-				$member = in_array($temp['event_pricing_id'],['0','-2']) ? [] : $row->member->toArray();
+				$member = in_array($temp['event_pricing_id'],['0','-2']) ? [] : ($row->member ? $row->member->toArray() : [] );
 				$temp['isDeleted'] = 0;
 				$tempDetails[] = array_merge(['member' => ['fullname'=>$member['fullname'] ?? "",'email'=>$member['email'] ?? "", ]], $temp);
 			}
