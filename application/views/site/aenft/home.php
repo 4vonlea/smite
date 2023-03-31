@@ -475,6 +475,7 @@
                                     <h4><?= $event['name']; ?></h4>
                                     <p class="px-2 mt-1 mb-3"><i class="fa fa-info-circle"></i> <?= $event['held_in']; ?>, <?= $groupEvent['heldOn']; ?></p>
                                     <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Kuota : <span class="fw-bold"><?= $event['kouta']; ?> Orang</span></span>
+                                    <p><span class="fw-bold"><?=$event['description'];?></span></p>
                                 </div>
                             </div>
                         <?php endforeach; ?>
