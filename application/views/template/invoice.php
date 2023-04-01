@@ -175,7 +175,7 @@ $isGroup = ($member == null);
 	<div class="row">
 		<div class="col">Payment Method</div>
 		<div class="col2">:</div>
-		<div>
+		<div class="col3">
 			<?= strtoupper($transaction->channel); ?> -
 			<?php
 			$data = $transaction->toArray();
@@ -183,12 +183,21 @@ $isGroup = ($member == null);
 				echo $data['paymentGatewayInfo']['product'] . "";
 			}
 			if ($data['paymentGatewayInfo']['productNumber']) {
-				echo " / " . $data['paymentGatewayInfo']['productNumber'] . "<br/>";
+				echo " / " . $data['paymentGatewayInfo']['productNumber'] . ",<br/>";
 			}
+          	
 			?>
 		</div>
 	</div>
-	
+	<?php 	if($data['paymentGatewayInfo']['expired']){ ?>
+  	<div class="row">
+		<div class="col">Payment Expired On</div>
+		<div class="col2">:</div>
+      	<div>
+            	<?=date("d F Y \a\\t H:i:s A", strtotime($data['paymentGatewayInfo']['expired']));?>
+      </div>
+  </div>
+    <?php } ?>
 	<div class="row">
 		<div class="">
 			<table class="table-event">
