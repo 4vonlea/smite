@@ -657,7 +657,7 @@ $theme_path = base_url("themes/aenft") . "/";
             },
             checkout() {
                 let selected = app.paymentMethod.find(data => data.key == app.selectedPaymentMethod);
-                if (selected.key) {
+                if (selected && selected.key) {
                     var formData = new FormData(this.$refs.form);
                     var birthday = moment().format("Y-MM-DD");
                     formData.set("birthday", birthday);
@@ -677,7 +677,6 @@ $theme_path = base_url("themes/aenft") . "/";
                             Swal.fire('Fail', res.message, 'error');
                         } else if (selected.key == "espay") {
                             modalPayment.show();
-
                         } else {
                             app.page = 'registered';
                             app.paymentBank = res.response.manual;
