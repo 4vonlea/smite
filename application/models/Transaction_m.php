@@ -146,7 +146,7 @@ class Transaction_m extends MY_Model
 		$result = $this->db->from("rooms")
 			->where("'$checkin' BETWEEN rooms.start_date AND rooms.end_date")
 			->where("'$checkout' BETWEEN rooms.start_date AND rooms.end_date")
-			->where("id",$room_id)
+			->where("id", $room_id)
 			->select("rooms.*")
 			->get()->row();
 		if ($result) {
@@ -304,7 +304,7 @@ class Transaction_m extends MY_Model
 	{
 		$rs = $this->db->select("t.checkout, ts.*,IFNULL(CONCAT(ts.product_name,' - ',m.fullname),ts.product_name) as product_name")
 			->join("transaction_details ts", "t.id = ts.transaction_id")
-			->join("members m","m.id = ts.member_id","left")
+			->join("members m", "m.id = ts.member_id", "left")
 			->where("t.id", $id)->get("{$this->table} t");
 		return $rs->result();
 	}
@@ -389,7 +389,7 @@ class Transaction_m extends MY_Model
 					$discount = $ruleDiscount;
 				}
 			}
-			if(isset($ruleSatisfied['Workshop']) && $ruleSatisfied['Workshop'] > 2){
+			if (isset($ruleSatisfied['Workshop']) && $ruleSatisfied['Workshop'] > 2) {
 				$discount = null;
 			}
 
@@ -439,17 +439,18 @@ class Transaction_m extends MY_Model
 		}
 	}
 
-	public function getFollowedEvent($idOrName){
-		return $this->db->select("DISTINCT td.id",false)
-			->select("c.id as transaction_id,c.status_payment,td.member_id,m.fullname,e.name AS `event`,ev.condition as status_member,e.id AS event_id")
+	public function getFollowedEvent($idOrName)
+	{
+		return $this->db->select("DISTINCT td.id", false)
+			->select("c.id as transaction_id,e.session,c.status_payment,td.member_id,m.fullname,e.name AS `event`,ev.condition as status_member,e.id AS event_id")
 			->from("transaction t")
-			->join("transaction_details td","td.transaction_id = t.id OR t.member_id = td.member_id")
-			->join("`transaction` c","c.id = td.transaction_id AND c.status_payment = 'settlement'")
-			->join("event_pricing ev","ev.id = td.event_pricing_id")
-			->join("`events` e","e.id = ev.event_id")
-			->join("members m","m.id = td.member_id")
-			->where("t.id",$idOrName)
-			->or_like("m.fullname",$idOrName)
+			->join("transaction_details td", "td.transaction_id = t.id OR t.member_id = td.member_id")
+			->join("`transaction` c", "c.id = td.transaction_id AND c.status_payment = 'settlement'")
+			->join("event_pricing ev", "ev.id = td.event_pricing_id")
+			->join("`events` e", "e.id = ev.event_id")
+			->join("members m", "m.id = td.member_id")
+			->where("t.id", $idOrName)
+			->or_like("m.fullname", $idOrName)
 			->get()
 			->result_array();
 	}

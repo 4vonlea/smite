@@ -4,21 +4,22 @@
 class Dashboard_m extends CI_Model
 {
 
-	public function guestList($room_id){
-		return $this->db->join("transaction t","t.id = transaction_id")
-				->join("rooms r","r.id = room_id")
-				->join("hotels h","h.id = r.hotel_id")
-				->join("members m","m.id = td.member_id")
-				->where("event_pricing_id","-1")
-				->where("r.id",$room_id)
-				->where("status_payment !=","expired")
-				->select("td.transaction_id as id_transaksi,m.fullname,h.name as hotel_name,r.name as room,status_payment,DATE_FORMAT(td.checkin_date,'%d %M %Y') as checkin,DATE_FORMAT(td.checkout_date,'%d %M %Y') as checkout")
-				->get("transaction_details td")
-				->result_array();
+	public function guestList($room_id)
+	{
+		return $this->db->join("transaction t", "t.id = transaction_id")
+			->join("rooms r", "r.id = room_id")
+			->join("hotels h", "h.id = r.hotel_id")
+			->join("members m", "m.id = td.member_id")
+			->where("event_pricing_id", "-1")
+			->where("r.id", $room_id)
+			->where("status_payment !=", "expired")
+			->select("td.transaction_id as id_transaksi,m.fullname,h.name as hotel_name,r.name as room,status_payment,DATE_FORMAT(td.checkin_date,'%d %M %Y') as checkin,DATE_FORMAT(td.checkout_date,'%d %M %Y') as checkout")
+			->get("transaction_details td")
+			->result_array();
 	}
 	public function getData()
 	{
-		$this->load->model(["Transaction_m","Hotel_m"]);
+		$this->load->model(["Transaction_m", "Hotel_m"]);
 		$return = [];
 		$rs = $this->db->select("COUNT(m.id) AS total_members,SUM(IF(m.verified_by_admin = 0,1,0)) AS unverified_members, SUM(IF(p.id IS NOT NULL,1,0)) AS participants_paper", false)
 			->join("papers p", "p.member_id = m.id", "left")
@@ -40,12 +41,11 @@ class Dashboard_m extends CI_Model
 						GROUP BY event_id";
 
 		if ($this->session->has_userdata("user_session") && $this->session->user_session['role'] == User_account_m::ROLE_SUPERADMIN) {
-			$rs = $this->db->select("t.id as id_event,t.kouta,name,COALESCE(fund_collected,0) as fund_collected,COALESCE(number_participant,0) as number_participant,number_pending,number_waiting,nametag,seminarkit,certificate")
+			$rs = $this->db->select("t.id as id_event,t.session,t.kouta,name,COALESCE(fund_collected,0) as fund_collected,COALESCE(number_participant,0) as number_participant,number_pending,number_waiting,nametag,seminarkit,certificate")
 				->join("( $queryTemp ) as c", "c.id_event = t.id", "left")
 				->from("events t")->get();
-
 		} else {
-			$rs = $this->db->select("t.id as id_event,t.kouta,name,COALESCE(number_participant,0) as number_participant,number_pending,number_waiting,nametag,seminarkit,certificate")
+			$rs = $this->db->select("t.id as id_event,t.session,t.kouta,name,COALESCE(number_participant,0) as number_participant,number_pending,number_waiting,nametag,seminarkit,certificate")
 				->join("( $queryTemp ) as c", "c.id_event = t.id", "left")
 				->from("events t")->get();
 		}
@@ -58,22 +58,22 @@ class Dashboard_m extends CI_Model
 											LEFT JOIN `events` ev ON ev.id = ep.event_id
 											GROUP BY t.id,ev.id")->result_array();
 		$chartResult = [];
-		foreach($countByStatus as $row){
-			if($row['event'] != ""){
+		foreach ($countByStatus as $row) {
+			if ($row['event'] != "") {
 				$chartResult[$row['event_id']]['title'] = $row['event'];
 				$chartResult[$row['event_id']]['data']['labels'][] = $row['status'];
 				$chartResult[$row['event_id']]['data']['datasets'][0]['label'] = 'Participant';
 				$chartResult[$row['event_id']]['data']['datasets'][0]['backgroundColor'] = '#f87979';
-				$chartResult[$row['event_id']]['data']['datasets'][0]['data'][] =$row['jumlah'];
+				$chartResult[$row['event_id']]['data']['datasets'][0]['data'][] = $row['jumlah'];
 			}
-		}					
-		$participantEvent = $rs->result_array();		
+		}
+		$participantEvent = $rs->result_array();
 		$adminfee = $this->db->select("0 as id_event,'-'  as kouta,'Admin Fee' as name,SUM(price) as fund_collected, COUNT(dt.id) as number_participant,'-' as nametag,'-' as seminarkit,'-' as certificate")
-				->join("transaction t","t.id = dt.transaction_id")
-				->where("t.status_payment",Transaction_m::STATUS_FINISH)
-				->where("dt.event_pricing_id","0")
-				->from("transaction_details dt")->get()->row_array();
-		if($adminfee){
+			->join("transaction t", "t.id = dt.transaction_id")
+			->where("t.status_payment", Transaction_m::STATUS_FINISH)
+			->where("dt.event_pricing_id", "0")
+			->from("transaction_details dt")->get()->row_array();
+		if ($adminfee) {
 			$participantEvent[] = $adminfee;
 		}
 		$return['charts'] = $chartResult;
@@ -106,20 +106,20 @@ class Dashboard_m extends CI_Model
 				DATE_FORMAT(p.updated_at,'%d %M %Y at %H:%i') as reviewed_on")
 			->from("papers p")
 			->join("members m", "m.id = p.member_id")
-			->join("univ","univ = univ_id")
-			->join("kategory_members","kategory_members.id = m.status")
-			->join("settings st",'st.name = "format_id_paper"')
-			->join("category_paper","category = category_paper.id")
+			->join("univ", "univ = univ_id")
+			->join("kategory_members", "kategory_members.id = m.status")
+			->join("settings st", 'st.name = "format_id_paper"')
+			->join("category_paper", "category = category_paper.id")
 			->join("user_accounts u", "u.username = p.reviewer", "left")
 			->join('(SELECT t.id, GROUP_CONCAT(DISTINCT CONCAT(t.id,": ",t.status_payment)) AS status_payment,td.member_id FROM transaction_details td
 			JOIN transaction t ON t.id = td.transaction_id
-			GROUP BY td.member_id) as payment','payment.member_id = m.id','left')
+			GROUP BY td.member_id) as payment', 'payment.member_id = m.id', 'left')
 			->order_by("p.id")
 			->get()->result_array();
 		foreach ($result as $i => $row) {
-			$result[$i]['status_abstract'] = isset(Papers_m::$status[$row['status_abstract']]) ? Papers_m::$status[$row['status_abstract']]:'-';
-			$result[$i]['status_fullpaper'] = isset(Papers_m::$status[$row['status_fullpaper']]) ? Papers_m::$status[$row['status_fullpaper']]:'-';
-			$result[$i]['status_presentasi'] = isset(Papers_m::$status[$row['status_presentasi']]) ?Papers_m::$status[$row['status_presentasi']]:'-';
+			$result[$i]['status_abstract'] = isset(Papers_m::$status[$row['status_abstract']]) ? Papers_m::$status[$row['status_abstract']] : '-';
+			$result[$i]['status_fullpaper'] = isset(Papers_m::$status[$row['status_fullpaper']]) ? Papers_m::$status[$row['status_fullpaper']] : '-';
+			$result[$i]['status_presentasi'] = isset(Papers_m::$status[$row['status_presentasi']]) ? Papers_m::$status[$row['status_presentasi']] : '-';
 		}
 		return $result;
 	}
@@ -132,9 +132,9 @@ class Dashboard_m extends CI_Model
 			->select("m.sponsor")
 			->from("transaction t")
 			->join("transaction_details td", "t.id = td.transaction_id")
-			->join("members m", "m.id = td.member_id","left")
+			->join("members m", "m.id = td.member_id", "left")
 			->join("event_pricing ep", "ep.id = td.event_pricing_id", "left")
-			->join("events e", "e.id = ep.event_id","left")
+			->join("events e", "e.id = ep.event_id", "left")
 			->order_by("t.id, m.id")
 			->get()->result_array();
 		return $result;
@@ -157,20 +157,20 @@ class Dashboard_m extends CI_Model
 		return $result;
 	}
 
-//	public function get_event($id) {
-//		$this->load->model("Member_m");
-//		$this->load->model("Transaction_m");
-//		$result = $this->db->select("e.name as Acara")
-//			->from("members m")
-//			->join("transaction t","m.id = t.member_id", "left")
-//			->join("transaction_details td","t.id = td.transaction_id", "left")
-//			->join("event_pricing ep", "ep.id = td.event_pricing_id")
-//			->join("events e", "e.id = ep.event_id")
-//			->where("m.id", $id)
-//			->where("t.status_payment", "SETTLEMENT")
-//			->get()->result_array();
-//		return $result;
-//	}
+	//	public function get_event($id) {
+	//		$this->load->model("Member_m");
+	//		$this->load->model("Transaction_m");
+	//		$result = $this->db->select("e.name as Acara")
+	//			->from("members m")
+	//			->join("transaction t","m.id = t.member_id", "left")
+	//			->join("transaction_details td","t.id = td.transaction_id", "left")
+	//			->join("event_pricing ep", "ep.id = td.event_pricing_id")
+	//			->join("events e", "e.id = ep.event_id")
+	//			->where("m.id", $id)
+	//			->where("t.status_payment", "SETTLEMENT")
+	//			->get()->result_array();
+	//		return $result;
+	//	}
 
 	public function getParticipant($event_id)
 	{
@@ -186,7 +186,7 @@ class Dashboard_m extends CI_Model
 			->join("members m", "m.id = td.member_id ")
 			->join("univ", "univ.univ_id = m.univ", "left")
 			->join("kategory_members kt", "kt.id = m.status ")
-			->join("wilayah", "wilayah.kode = m.city","left")
+			->join("wilayah", "wilayah.kode = m.city", "left")
 			->join("event_pricing ep", "ep.id = td.event_pricing_id")
 			->join("events e", "e.id = ep.event_id")
 			->where("event_id", $event_id)->where("status_payment", Transaction_m::STATUS_FINISH)
@@ -224,5 +224,4 @@ class Dashboard_m extends CI_Model
 		}
 		return $data;
 	}
-
 }

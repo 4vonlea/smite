@@ -272,21 +272,35 @@
                         </div>
                     </div>
                     <div class="card-body table-responsive">
-                        <datagrid ref="datagrid" api-url="<?= base_url('admin/event/grid'); ?>" :fields="[{name:'name',sortField:'name'}, {name:'kategory',sortField:'kategory','title':'Category'},{name:'jumlahParticipant',sortField:'jumlahParticipant',title:'Participant'},{name:'id',title:'Actions',titleClass:'action-th'}]">
+                        <datagrid ref="datagrid" api-url="<?= base_url('admin/event/grid'); ?>" :sort-list="[{field:'name',sortField:'name','title':'Event'},{field:'kategory',sortField:'kategory','title':'Category'},{field:'jumlahParticipant',sortField:'jumlahParticipant',title:'Participant'}]" :fields="[{name:'name',sortField:'name','title':'Event Name & Category',width:'40%'}, {name:'session',sortField:'kategory','title':'Session List'},{name:'jumlahParticipant',sortField:'jumlahParticipant',title:'Participant',width:'10%'},{name:'id',title:'Actions',titleClass:'action-th'}]">
+                            <template slot="name" slot-scope="props">
+                                <span>{{ props.row.name }}</span><br />
+                                <span class="badge badge-info">{{ props.row.kategory }}</span>
+                            </template>
+                            <template slot="session" slot-scope="props">
+                                <ul class="list-group list-group-flush" style="white-space: nowrap;">
+                                    <li v-for="(val,index) in sessionArray(props.row.session)" :key="val+index" class="list-group-item d-flex justify-content-between align-items-center">
+                                        {{ val }}
+                                        <button @click="deleteSession(index,sessionArray(props.row.session),props.row)" class="btn btn-sm btn-danger">
+                                            <i class="fa fa-trash"></i>
+                                        </button>
+                                    </li>
+                                </ul>
+                            </template>
                             <template slot="id" slot-scope="props">
-                                <div class="table-button-container">
-                                    <button @click="editRow(props)" class="btn btn-warning btn-sm">
+                                <div class="row">
+                                    <button @click="editRow(props)" class="btn btn-warning btn-sm mt-2">
                                         <span class="fa fa-pen"></span> Edit
                                     </button>
-                                    <button @click="detailRow(props)" class="btn btn-info btn-sm">
+                                    <button @click="detailRow(props)" class="btn btn-info btn-sm mt-2">
                                         <span class="fa fa-search"></span> Detail
                                     </button>
-                                    <button @click="deleteRow(props)" class="btn btn-danger btn-sm">
+                                    <button @click="openSession(props.row)" class="btn btn-sm btn-info mt-2"><i class="fa fa-plus"></i> New Session</button>
+                                    <button @click="deleteRow(props)" class="btn btn-danger btn-sm mt-2">
                                         <span class="fa fa-trash"></span> Delete
                                     </button>
                                 </div>
                             </template>
-
                         </datagrid>
                     </div>
                 </div>
@@ -438,7 +452,23 @@
             </div>
         </div>
     </div>
-    
+
+    <div class="modal fade" id="modal-session">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">New Session</h4>
+                </div>
+                <div class="modal-body">
+                    <input type="text" v-model="newSession.value" class="form-control" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <v-button type="button" @click="addSession" class="btn btn-primary">Save</v-button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <!-- Table -->
 
@@ -454,10 +484,14 @@
         width: 400px;
     }
 
-    .disabled{
-		cursor: not-allowed;
-		opacity: 0.4;
-	}
+    .disabled {
+        cursor: not-allowed;
+        opacity: 0.4;
+    }
+
+    .table td {
+        white-space: pre-wrap !important;
+    }
 </style>
 <link rel="stylesheet" href="https://unpkg.com/vue-select@latest/dist/vue-select.css">
 <?php $this->layout->end_head(); ?>
@@ -525,6 +559,7 @@
                 precision: 0,
                 masked: false
             },
+            newSession: {},
             linkData: {
                 model: {
                     speakers: [],
@@ -543,7 +578,7 @@
             loadedSpeaker: 0,
             loadEvent: true,
             eventList: [],
-            
+
         },
         watch: {
             'mode': function(newVal) {
@@ -560,6 +595,78 @@
             }
         },
         methods: {
+            addSession(self) {
+                var url = "<?= base_url('admin/event/save_session'); ?>";
+                console.log(this.newSession);
+                this.newSession.session.push(this.newSession.value);
+                self.toggleLoading();
+                $.post(url, {
+                        id: this.newSession.id,
+                        session: this.newSession.session
+                    }, null)
+                    .done(function(res) {
+                        if (res.status) {
+                            app.$refs.datagrid.refresh();
+                            $("#modal-session").modal("hide");
+                        }
+                    }).fail(function(xhr) {
+                        var message = xhr.getResponseHeader("Message");
+                        if (!message)
+                            message = 'Server fail to response !';
+                        Swal.fire('Fail', message, 'error');
+                    }).always(() => {
+                        self.toggleLoading();
+                    });
+            },
+            openSession(row) {
+                this.newSession = {
+                    id: row.id,
+                    session: this.sessionArray(row.session),
+                    value: ''
+                };
+                console.log(this.newSession, row);
+                $("#modal-session").modal("show");
+            },
+            deleteSession(indexItem, session, row) {
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: `You will delete '${session[indexItem]}' session !`,
+                    type: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.value) {
+                        session.splice(indexItem, 1);
+                        var url = "<?= base_url('admin/event/save_session'); ?>";
+                        $.post(url, {
+                                id: row.id,
+                                session: session
+                            }, null)
+                            .done(function() {
+                                row.session = JSON.stringify(session);
+                                // app.$refs.datagrid.refresh();
+                            }).fail(function(xhr) {
+                                var message = xhr.getResponseHeader("Message");
+                                if (!message)
+                                    message = 'Server fail to response !';
+                                Swal.fire('Fail', message, 'error');
+                            });
+                    }
+                });
+            },
+            sessionArray(session) {
+                if (session) {
+                    try {
+                        return JSON.parse(session);
+                    } catch (e) {
+                        console.log(e);
+                        return [];
+                    }
+                }
+                return [];
+            },
             sortingZoomLink() {
                 this.form.model.special_link.sort((a, b) => {
                     return new Date(a.date) - new Date(b.date)

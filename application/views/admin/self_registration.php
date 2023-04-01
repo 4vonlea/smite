@@ -35,17 +35,28 @@
                         </div>
                         <div class="col-sm-12 col-md-6 offset-md-3" v-if="result.length > 0">
                             <div class="list-group">
-                                <div v-for="row in result" :key="row.id" class="list-group-item d-flex justify-content-between align-items-center">
-                                    <div class="d-flex flex-row align-items-center">
-                                        <span class="bg-info rounded-circle text-center" style="width: 40px;height:40px;padding:8px">
-                                            {{ row.event[0] }}
-                                        </span>
-                                        <div class="d-flex flex-column ml-4">
-                                            <h4 class="mb-1">{{ row.fullname }}</h4>
-                                            <p class="mb-1 text-muted">{{row.event}}</p>
+                                <div v-for="row in result" :key="row.id" class="list-group-item d-flex  flex-column">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="d-flex flex-row align-items-center">
+                                            <span class="bg-info rounded-circle text-center" style="width: 40px;height:40px;padding:8px">
+                                                {{ row.event[0] }}
+                                            </span>
+                                            <div class="d-flex flex-column ml-4">
+                                                <h4 class="mb-1">{{ row.fullname }}</h4>
+                                                <p class="mb-1 text-muted">{{row.event}}</p>
+                                            </div>
                                         </div>
+                                        <a target="_blank" :href="'<?= base_url('admin/presence/card_and_presence'); ?>/'+`${row.event_id}/${row.member_id}/${row.id}`" class="btn btn-info">Print Nametag</a>
                                     </div>
-                                    <a target="_blank" :href="'<?=base_url('admin/presence/card_and_presence');?>/'+`${row.event_id}/${row.member_id}/${row.id}`" class="btn btn-info">Print Nametag</a>
+                                    <div class="d-flex flex-column align-items-center">
+                                        <span v-if="row.session.length > 0" class="mt-2">Presence Check</span>
+                                        <div v-if="row.session.length > 0">
+                                            <span v-for="session in row.session" class="mr-1">
+                                                <v-button v-if="!presenceExist(session,row)" type="button" @click="(self)=>addPresence(self,session,row)" class="btn btn-sm btn-info">{{ session }}</v-button>
+                                            </span>
+                                        </div>
+                                        <v-button v-if="row.session.length == 0 && !presenceExist('',row)" type="button" @click="(self)=>addPresence(self,'',row)" class="btn btn-sm btn-info">Presence Check</v-button>
+                                    </div>
                                 </div>
                             </div>
                             <div class="text-right mt-3">
@@ -59,6 +70,7 @@
     </div>
 </div>
 <?php $this->layout->begin_script(); ?>
+<script src="<?= base_url("themes/script/v-button.js"); ?>"></script>
 <script type="module">
     var app = new Vue({
         el: "#app",
@@ -66,18 +78,19 @@
             isFocusToScan: true,
             inputScanValue: '',
             result: [],
+            presenceData: {},
             searching: false,
         },
         computed: {
 
         },
-        mounted(){
+        mounted() {
             this.$refs.inputScan.focus();
         },
         methods: {
             keepFocus() {
-                console.log("Return Focus");
-                this.$refs.inputScan.focus();
+                if (this.$refs.inputScan)
+                    this.$refs.inputScan.focus();
             },
             finish() {
                 this.result = [];
@@ -86,18 +99,64 @@
                     this.$refs.inputScan.focus();
                 });
             },
+            presenceExist(session, row) {
+                return this.presenceData[row.event_id] && this.presenceData[row.event_id].session.includes(session);
+            },
+            addPresence(self, session, row) {
+                self.toggleLoading();
+                var date = new Date();
+                $.post("<?= base_url('admin/presence/save'); ?>", {
+                    member_id: row.member_id,
+                    event_id: row.event_id,
+                    session: session,
+                }).done(() => {
+                    Swal.fire({
+                        title: '<strong>Presence Checked</strong>',
+                        type: 'success',
+                        html: `<p>Presence of <b>${row.fullname}</b> As <b>${row.status_member}</b></p>` +
+                            `<p>Checked At <b>${moment(date).format("DD MMM YYYY, [At] HH:mm:ss")}</b></p>`,
+                        showCloseButton: true,
+                        timer: 2000,
+                    });
+                    if (this.presenceData[row.event_id]) {
+                        this.presenceData[row.event_id].session.push(session);
+                    } else {
+                        Vue.set(this.presenceData, row.event_id, {
+                            session: [session],
+                            member_id: row.member_id,
+                            date: moment().format("YYYY-MM-DD")
+                        })
+                    }
+
+                }).always(() => {
+                    self.toggleLoading();
+                });
+            },
             doSearchScan() {
                 this.searching = true;
                 $.post("<?= base_url('admin/presence/get_event_transaction'); ?>", {
-                    invoice_id:this.inputScanValue,
-                }).done((res)=>{
-                    if(res.status){
+                    invoice_id: this.inputScanValue,
+                }).done((res) => {
+                    if (res.status) {
+                        $.each(res.data, function(i, v) {
+                            let session = [];
+                            try {
+                                session = JSON.parse(v.session);
+                                if (!session) {
+                                    session = [];
+                                }
+                            } catch (e) {
+                                console.log(e);
+                            }
+                            res.data[i].session = session;
+                        });
+                        this.presenceData = res.presenceData;
                         this.result = res.data;
-                    }else{
+                    } else {
                         Swal.fire("Info", res.message, "info");
                     }
-                }).fail(()=>{
-					Swal.fire("Failed", "Failed connect to server, Please try again !", "danger");
+                }).fail(() => {
+                    Swal.fire("Failed", "Failed connect to server, Please try again !", "danger");
                 }).always(() => {
                     this.searching = false;
                 })

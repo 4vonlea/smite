@@ -3,6 +3,7 @@
 /**
  * Class Event
  * @property Event_m $Event_m
+ * @property CI_Output $output
  */
 class Event extends Admin_Controller
 {
@@ -62,7 +63,7 @@ class Event extends Admin_Controller
             $data = $event->toArray();
             $data['special_link'] = $data['special_link'] == "" || $data['special_link'] == "null" ? [] : json_decode($data['special_link']);
             $data['event_pricing'] = $this->Event_pricing_m->reverseParseForm($event->event_pricings);
-            $data['held_on'] = json_decode($data['held_on'],true);
+            $data['held_on'] = json_decode($data['held_on'], true);
             $this->output
                 ->set_content_type("application/json")
                 ->_display(json_encode($data));
@@ -99,6 +100,20 @@ class Event extends Admin_Controller
         /* it will return image name if image is saved successfully 
         or it will return error on failing to save image. */
         return $fullname;
+    }
+
+    public function save_session()
+    {
+        if ($this->input->is_ajax_request()) {
+            $this->load->model('Event_m');
+            $event_id = $this->input->post("id");
+            $session = $this->input->post("session");
+            $this->output
+                ->set_content_type("application/json")
+                ->_display(json_encode([
+                    'status' => $this->Event_m->update(['session' => json_encode($session)], ['id' => $event_id], false)
+                ]));
+        }
     }
 
     public function save()
@@ -216,11 +231,10 @@ class Event extends Admin_Controller
             ->_display(json_encode($response));
     }
 
-    public function list_event(){
+    public function list_event()
+    {
         $this->load->model('Event_m');
         $this->output->set_content_type("application/json")
-            ->_display(json_encode(['data'=>$this->Event_m->find()->get()->result_array()]));
-
+            ->_display(json_encode(['data' => $this->Event_m->find()->get()->result_array()]));
     }
-
 }
