@@ -121,7 +121,7 @@
 				</div>
 			</div>
 			<div class="table-responsive">
-				<datagrid @loaded_data="loadedGrid" ref="datagrid" api-url="<?= base_url('admin/transaction/grid'); ?>" :sort-list="[{field:'invoice',sortField:'invoice','title':'No Invoice'}, {field:'fullname',sortField:'fullname','title':'Member Name'},{field:'status_payment',sortField:'status_payment',title:'Status Payment'},{field:'t_updated_at',sortField:'t_updated_at',title:'Date'},{field:'is_booking_hotel',sortField:'is_booking_hotel','title':'Booking Hotel'}]" :fields="[{name:'invoice',sortField:'invoice','title':'No Invoice'}, {name:'fullname',sortField:'fullname','title':'Member Name'},{name:'status_payment',sortField:'status_payment'},{name:'t_updated_at',sortField:'t_updated_at',title:'Date'},{name:'t_id','title':'Aksi'}]">
+				<datagrid @loaded_data="loadedGrid" ref="datagrid" api-url="<?= base_url('admin/transaction/grid'); ?>" :sort-list="[{field:'invoice',sortField:'invoice','title':'No Invoice'}, {field:'fullname',sortField:'fullname','title':'Member Name'},{field:'status_payment',sortField:'status_payment',title:'Status Payment'},{field:'t_updated_at',sortField:'t_updated_at',title:'Last Update'},{field:'is_booking_hotel',sortField:'is_booking_hotel','title':'Booking Hotel'}]" :fields="[{name:'invoice',sortField:'invoice','title':'No Invoice'}, {name:'fullname',sortField:'fullname','title':'Member Name'},{name:'status_payment',sortField:'status_payment'},{name:'t_updated_at',sortField:'t_updated_at',title:'Last Update'},{name:'t_id','title':'Aksi'}]">
 					<template slot="status_payment" slot-scope="props">
 						{{ props.row.status_payment.toUpperCase() }}
 						<br/>
@@ -168,7 +168,7 @@
 						<th>Invoice Number</th>
 						<td>{{ detailModel.id }}</td>
 						<th>Invoice Date</th>
-						<td :colspan="[isGroup? '2' : '1']">{{ detailModel.updated_at }}</td>
+						<td :colspan="[isGroup? '2' : '1']">{{ detailModel.created_at }}</td>
 					</tr>
 					<tr>
 						<th class="text-center" :colspan="[isGroup? '5' : '4']">Billing Information</th>
@@ -195,11 +195,14 @@
 							{{ detailModel.channel }}
 							<div v-if="detailModel.paymentGatewayInfo.product" class="card mt-3">
 								<div class="card-body">
-									<h5 class="card-title">
-										Bank Info : {{ detailModel.paymentGatewayInfo.product }}
+									<h5 class="card-text">
+                                      <span class="text-muted">Bank : </span>{{ detailModel.paymentGatewayInfo.product }}
 									</h5>
 									<h5 class="card-text">
-										Account Number : {{ detailModel.paymentGatewayInfo.productNumber}}
+										<span class="text-muted">Account Number : </span>{{ detailModel.paymentGatewayInfo.productNumber}}
+									</h5>
+                                  <h5 class="card-text">
+                                    <span class="text-muted">Expired At : </span>{{ moment(detailModel.paymentGatewayInfo.expired).format("DD MMM YYYY, HH:mm")}}
 									</h5>
 								</div>
 							</div>
@@ -651,6 +654,9 @@
 			loadedGrid: function(data) {
 				this.pagination = data;
 			},
+            moment(date){
+              	return moment(date);
+            },
 			expirePayment() {
 				var url = "<?= base_url('admin/transaction/expire'); ?>";
 				var app = this;
