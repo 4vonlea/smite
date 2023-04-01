@@ -61,7 +61,7 @@
                             <?php else : ?>
                                 <a href="<?= base_url('member/register'); ?>" class="cs-btn cs-btn_filed cs-accent_btn">
                                     <i class="fa-solid fa-clipboard-user"></i>
-                                    &nbsp;<span><?=lang("registration");?></span>
+                                    &nbsp;<span><?= lang("registration"); ?></span>
                                 </a>
                             <?php endif; ?>
 
@@ -93,33 +93,39 @@
                 <li>
                     <a class="ripple cs-smoth_scroll" href="<?= base_url('site/home'); ?>#content">
                         <i class="fa fa-home fa-lg"></i>
-                        <span><?=lang("home");?></span>
+                        <span><?= lang("home"); ?></span>
                     </a>
                 </li>
                 <li>
                     <a class="ripple" href="<?= base_url('member/area'); ?>#/profile">
                         <i class="fa fa-user fa-lg"></i>
-                        <span><?=lang("profile");?></span>
+                        <span><?= lang("profile"); ?></span>
                     </a>
                 </li>
                 <?php if ($hasSettlementTransaction) : ?>
                     <li>
                         <a class="ripple" href="<?= base_url('member/area'); ?>#/paper">
                             <i class="fa fa-paper-plane fa-lg"></i>
-                            <span><?=lang("send_abstrack");?></span>
+                            <span><?= lang("send_abstrack"); ?></span>
                         </a>
                     </li>
                 <?php endif; ?>
                 <li>
                     <a class="ripple" href="<?= base_url('member/area'); ?>#/events">
                         <i class="fa fa-calendar fa-lg"></i>
-                        <span><?=lang("select_event");?></span>
+                        <span><?= lang("select_event"); ?></span>
                     </a>
                 </li>
                 <li>
                     <a class="ripple" href="<?= base_url('member/area'); ?>#/billing">
                         <i class="fa fa-cart-shopping fa-lg"></i>
-                        <span><?=lang("payment");?></span>
+                        <span><?= lang("payment"); ?></span>
+                    </a>
+                </li>
+                <li>
+                    <a class="ripple" href="<?= base_url('member/area'); ?>#/com_program">
+                        <i class="far fa-calendar-check fa-lg"></i>
+                        <span><?= lang("com_program"); ?></span>
                     </a>
                 </li>
                 <!-- <li>
@@ -132,7 +138,7 @@
                     <li>
                         <a class="ripple" href="<?= base_url('member/area'); ?>#/material">
                             <i class="fa fa-upload fa-lg"></i>
-                            <span><?=lang("upload_material");?></span>
+                            <span><?= lang("upload_material"); ?></span>
                         </a>
                     </li>
                 <?php endif; ?>
@@ -140,15 +146,15 @@
                 <li>
                     <a class="ripple" href="<?= base_url('member/area'); ?>#/presentation">
                         <i class="fas fa-file-powerpoint"></i>
-                        <span><?=lang("scientific_presentation");?></span>
+                        <span><?= lang("scientific_presentation"); ?></span>
                     </a>
                 </li>
 
             <?php } else { ?>
-                <li><a href="<?= base_url('site/home'); ?>#home" class="ripple cs-smoth_scroll"><i class="fa fa-home fa-lg"></i><span><?=lang("home");?></span></a></li>
-                <li><a href="<?= base_url('site/home'); ?>#login" class="ripple cs-smoth_scroll"><i class="fa fa-sign-in fa-lg"></i><span><?=lang("login");?></span></a></li>
-                <li><a href="<?= base_url('site/home'); ?>#event" class="ripple cs-smoth_scroll"><i class="fa fa-calendar fa-lg"></i><span><?=lang("event");?></span></a></li>
-                <li><a href="<?= base_url('site/home'); ?>#news" class="ripple cs-smoth_scroll"><i class="fa fa-newspaper fa-lg"></i><span><?=lang("news");?></span></a></li>
+                <li><a href="<?= base_url('site/home'); ?>#home" class="ripple cs-smoth_scroll"><i class="fa fa-home fa-lg"></i><span><?= lang("home"); ?></span></a></li>
+                <li><a href="<?= base_url('site/home'); ?>#login" class="ripple cs-smoth_scroll"><i class="fa fa-sign-in fa-lg"></i><span><?= lang("login"); ?></span></a></li>
+                <li><a href="<?= base_url('site/home'); ?>#event" class="ripple cs-smoth_scroll"><i class="fa fa-calendar fa-lg"></i><span><?= lang("event"); ?></span></a></li>
+                <li><a href="<?= base_url('site/home'); ?>#news" class="ripple cs-smoth_scroll"><i class="fa fa-newspaper fa-lg"></i><span><?= lang("news"); ?></span></a></li>
             <?php } ?>
         </ul>
         <div class="menu-bg"></div>
@@ -164,7 +170,7 @@
                         <div class="footer-middle-item-wrapper">
                             <div class="footer-middle-item mb-lg-0">
                                 <div class="fm-item-title">
-                                    <h5><?=lang("important_date");?></h5>
+                                    <h5><?= lang("important_date"); ?></h5>
                                     <hr>
                                 </div>
                                 <div class="fm-item-content">
@@ -234,8 +240,8 @@
                                 <div class="fm-item-content">
                                     <div class="d-grid">
                                         <a href="<?= base_url('site/login'); ?>" class="btn btn-primary mt-3"><i class="fa-solid fa-sign-in"></i> Masuk Login</a>
-                                        <a href="<?= base_url('member/register'); ?>" class="btn btn-primary mt-2"><i class="fa-solid fa-clipboard-user"></i> <?=lang("individual_registration");?></a>
-                                        <a href="<?= base_url('member/register/group'); ?>" class="btn btn-primary mt-2"><i class="fa-solid fa-user-group"></i> <?=lang("group_registration");?></a>
+                                        <a href="<?= base_url('member/register'); ?>" class="btn btn-primary mt-2"><i class="fa-solid fa-clipboard-user"></i> <?= lang("individual_registration"); ?></a>
+                                        <a href="<?= base_url('member/register/group'); ?>" class="btn btn-primary mt-2"><i class="fa-solid fa-user-group"></i> <?= lang("group_registration"); ?></a>
                                     </div>
                                 </div>
                             </div>

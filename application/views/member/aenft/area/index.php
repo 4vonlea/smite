@@ -22,6 +22,7 @@ $this->layout->begin_head();
     .tab-content>table.active {
         display: table;
     }
+
     .light-select .chosen-container-single .chosen-single {
         filter: none;
         border: none;
@@ -29,6 +30,7 @@ $this->layout->begin_head();
         height: 38px;
         padding-top: 5px;
     }
+
     .cover {
         /* position:absolute;
         padding:20px;
@@ -37,21 +39,22 @@ $this->layout->begin_head();
         left:0;
         width: 100%;
         height: 100%; */
-        background:rgba(0,0,0,0.75);
+        background: rgba(0, 0, 0, 0.75);
         /* z-index: 2000; */
         /* overflow: hidden; */
     }
+
     .vuetable th {
         text-align: center;
         color: white;
         background-color: #198747;
     }
+
     .chosen-container-single .chosen-single {
         height: 38px;
         border-radius: 3px;
         border: 1px solid #CCCCCC;
     }
-
 </style>
 <link rel="stylesheet" type="text/css" href="https://unpkg.com/vue2-datepicker@3.11.0/index.css">
 <!--<link rel="stylesheet" href="https://unpkg.com/vue-select@latest/dist/vue-select.css">-->
@@ -61,17 +64,17 @@ $this->layout->begin_head();
     <div id="cover-presentation" class="mfp-wrap mfp-close-btn-in mfp-auto-cursor mfp-ready cover" style="display:none" v-show="presentationCover.isShow">
         <div class="row">
             <div class="col-md-11 col-sm-9">
-               
+
             </div>
             <div class="col-md-1 col-sm-3 mb-1">
                 <button @click="togglePresentation('#','#')" class="btn btn-danger">Close</button>
             </div>
             <div class="col-12">
-                <iframe :src='presentationCover.link' width='100%' :height='presentationCover.height' frameborder='0'></iframe>  
+                <iframe :src='presentationCover.link' width='100%' :height='presentationCover.height' frameborder='0'></iframe>
                 <audio controls autoplay muted>
                     <source :src="presentationCover.voiceLink" type="audio/mpeg">
                     Your browser does not support the audio element.
-                </audio>              
+                </audio>
             </div>
         </div>
     </div>
@@ -79,7 +82,7 @@ $this->layout->begin_head();
         <div class="d-grid gap-2">
             <a class="btn btn-primary mb-3"><i class="fa fa-circle-info"></i> information</a>
         </div>
-            <!-- <div class="col-lg-2">
+        <!-- <div class="col-lg-2">
                 <div class="field-set" style="color:#F4AD39;">
                     <img :src="image_link" id="click_profile_img" class="d-banner-img-edit img-fluid" alt="" onclick="$('#file-profile').click();">
                     <input id="file-profile" accept="image/*" @change="uploadImage" type="file" ref="file" style="display: none">
@@ -131,6 +134,7 @@ $this->layout->begin_head();
     import PageMaterial from "<?= base_url("member/area/page/material"); ?>";
     import PagePresentation from "<?= base_url("member/area/page/presentation"); ?>";
     import PageSertifikat from "<?= base_url("member/area/page/sertifikat"); ?>";
+    import PageComProgram from "<?= base_url("member/area/page/com_program"); ?>";
 
     var userD = <?= json_encode($userDetail); ?>;
     Vue.use(VueRouter);
@@ -184,6 +188,13 @@ $this->layout->begin_head();
             }
         },
         {
+            path: '/com_program',
+            component: PageComProgram,
+            meta: {
+                'title': 'Complimentary Program'
+            }
+        },
+        {
             path: '/sertifikat',
             component: PageSertifikat,
             meta: {
@@ -221,15 +232,21 @@ $this->layout->begin_head();
         }
     })
 
+    Vue.filter('formatDate', function(value) {
+        if (value) {
+            return moment(value).format('DD MMMM YYYY')
+        }
+    });
+
     var app = new Vue({
         router,
         'el': '#app',
-        data:{
-            presentationCover:{
-                isShow:false,
-                link:"#",
-                voiceLink:"#",
-                height:"600px",
+        data: {
+            presentationCover: {
+                isShow: false,
+                link: "#",
+                voiceLink: "#",
+                height: "600px",
             }
         },
         methods: {
@@ -256,15 +273,15 @@ $this->layout->begin_head();
                     }
                 });
             },
-            togglePresentation(filename,voice,id){
+            togglePresentation(filename, voice, id) {
                 this.presentationCover.isShow = !this.presentationCover.isShow;
-                this.presentationCover.height = ($(window).height()-130)+"px";
+                this.presentationCover.height = ($(window).height() - 130) + "px";
                 $("#cover-presentation").removeAttr("style");
-                if(this.presentationCover.isShow){
-                    this.presentationCover.voiceLink = this.baseUrl+"file_presentation/"+voice+'/'+id;
-                    this.presentationCover.link = "https://view.officeapps.live.com/op/view.aspx?src=<?=base_url('application/uploads/papers');?>/"+filename;
+                if (this.presentationCover.isShow) {
+                    this.presentationCover.voiceLink = this.baseUrl + "file_presentation/" + voice + '/' + id;
+                    this.presentationCover.link = "https://view.officeapps.live.com/op/view.aspx?src=<?= base_url('application/uploads/papers'); ?>/" + filename;
                     document.documentElement.style.overflow = "hidden";
-                }else{
+                } else {
                     document.documentElement.style.overflow = "scroll";
                     this.presentationCover.voiceLink = "#";
                     this.presentationCover.link = "#";

@@ -1,5 +1,5 @@
 export default Vue.component("PageBilling", {
-    template: `
+	template: `
         <div class="cs-iconbox cs-style1 cs-white_bg">
             <page-loader :loading="loading" :fail="fail"></page-loader>
             <div v-if="!loading">
@@ -306,186 +306,206 @@ export default Vue.component("PageBilling", {
 			</div>
         </div>
     `,
-    data: function () {
-        return {
+	data: function () {
+		return {
 			current_invoice: "",
 			loading: false,
 			fail: false,
 			checking_out: false,
 			cart: null,
 			transaction: null,
-			detailModel: {status_payment: "",paymentGatewayInfo:{},member:{}},
-			manual_payment: {"banks":[{'bank': 'BNI', 'no_rekening': "0212", "holder": "Muhammad Zaien"}],"ammount":0},
-			upload:{},
-			paymentMethod:[{key:"0",desc:"Select Payment Method"}],
-			selectedPaymentMethod:0,
-			upload_validation:{invalid:false,message_invalid:""},
-		}
-    },
+			detailModel: { status_payment: "", paymentGatewayInfo: {}, member: {} },
+			manual_payment: {
+				banks: [{ bank: "BNI", no_rekening: "0212", holder: "Muhammad Zaien" }],
+				ammount: 0,
+			},
+			upload: {},
+			paymentMethod: [{ key: "0", desc: "Select Payment Method" }],
+			selectedPaymentMethod: 0,
+			upload_validation: { invalid: false, message_invalid: "" },
+		};
+	},
 	created() {
-		this.fetchTransaction()
+		this.fetchTransaction();
 	},
 	watch: {
-		'$route': 'fetchTransaction'
+		$route: "fetchTransaction",
 	},
-	computed:{
-    	totalPrice(){
-    		var total = 0;
-			for(var i in this.cart){
-				total+=Number(this.cart[i].price);
+	computed: {
+		totalPrice() {
+			var total = 0;
+			for (var i in this.cart) {
+				total += Number(this.cart[i].price);
 			}
 			return total;
 		},
-		detailEspay(){
-			if(this.detailModel.midtrans_data)
+		detailEspay() {
+			if (this.detailModel.midtrans_data)
 				return JSON.parse(this.detailModel.midtrans_data);
 			return {};
 		},
-		amount(){
+		amount() {
 			var price = 0;
-			for(var d in this.detailModel.details){
-				if(this.detailModel.details[d])
+			for (var d in this.detailModel.details) {
+				if (this.detailModel.details[d])
 					price += Number(this.detailModel.details[d].price);
 			}
 			return this.formatCurrency(price);
 		},
-		cartSort(){
-    		return this.cart.sort(function (a,b) {
-				return (a.event_pricing_id > b.event_pricing_id) ? -1:1;
-			})
-		}
+		cartSort() {
+			return this.cart.sort(function (a, b) {
+				return a.event_pricing_id > b.event_pricing_id ? -1 : 1;
+			});
+		},
 	},
 	methods: {
-    	fileChange(event){
+		fileChange(event) {
 			this.$refs.labelFile.innerHTML = event.currentTarget.files[0].name;
 		},
-    	uploadProof(evt,upload){
-    		var page = this;
+		uploadProof(evt, upload) {
+			var page = this;
 			var btn = evt.currentTarget;
 			btn.innerHTML = "<i class='fa fa-spin fa-spinner'></i>";
 			$.ajax({
-				url:page.appUrl+"member/area/upload_proof",
+				url: page.appUrl + "member/area/upload_proof",
 				cache: false,
-				type:'POST',
-				contentType:false,
-				processData:false,
-				dataType:"JSON",
-				data:new FormData(page.$refs.formUpload),
-				success:function (res) {
-					if(res.status == false && res.message){
+				type: "POST",
+				contentType: false,
+				processData: false,
+				dataType: "JSON",
+				data: new FormData(page.$refs.formUpload),
+				success: function (res) {
+					if (res.status == false && res.message) {
 						page.upload_validation.invalid = true;
 						page.upload_validation.message_invalid = res.message;
-					}else if(res.status){
+					} else if (res.status) {
 						upload.status_payment = res.data.status_payment;
 						$("#modal-upload-proof").modal("hide");
-
 					}
-				}
-			}).fail(function () {
-
-			}).always(function () {
-				btn.innerHTML = "Upload";
-			});
+				},
+			})
+				.fail(function () {})
+				.always(function () {
+					btn.innerHTML = "Upload";
+				});
 		},
-		checkout(){
-			if(this.selectedPaymentMethod > 0){
+		checkout() {
+			if (this.selectedPaymentMethod > 0) {
 				let selected = this.paymentMethod[this.selectedPaymentMethod];
-				if(selected && selected.key == "manualPayment")
-					this.checkoutManual();
-				if(selected && selected.key == "espay"){
+				if (selected && selected.key == "manualPayment") this.checkoutManual();
+				if (selected && selected.key == "espay") {
 					$("#modal-select-payment").modal("show");
 				}
-			}else{
-				Swal.fire('Info',"Please Select Payment method !",'warning');
+			} else {
+				Swal.fire("Info", "Please Select Payment method !", "warning");
 			}
-				
 		},
-    	checkoutManual(){
-    		var page =this;
-    		page.checking_out = true;
-    		$.ajax({
-				url:page.appUrl+"member/payment/checkout",
+		checkoutManual() {
+			var page = this;
+			page.checking_out = true;
+			$.ajax({
+				url: page.appUrl + "member/payment/checkout",
 				cache: false,
-				type:'POST',
-				dataType:"JSON",
-				success:function (res) {
-					if(res.status && res.info) {
-						Swal.fire('Success',res.message,'info');
+				type: "POST",
+				dataType: "JSON",
+				success: function (res) {
+					if (res.status && res.info) {
+						Swal.fire("Success", res.message, "info");
 						page.fetchTransaction();
-					}else if(res.status && res.manual){
+					} else if (res.status && res.manual) {
 						page.manual_payment.ammount = page.totalPrice;
 						page.manual_payment.banks = res.manual;
 						page.fetchTransaction();
 						$("#modal-manual_payment").modal("show");
-					}else if(res.status){
-						snap.pay(res.token,{
-							onSuccess: function(result){
-								$.post(page.appUrl+"member/payment/after_checkout",{id:res.invoice,message_payment:result.status_message},function () {
-									page.fetchTransaction();
-								});
+					} else if (res.status) {
+						snap.pay(res.token, {
+							onSuccess: function (result) {
+								$.post(
+									page.appUrl + "member/payment/after_checkout",
+									{ id: res.invoice, message_payment: result.status_message },
+									function () {
+										page.fetchTransaction();
+									}
+								);
 							},
-							onPending: function(result){
-								$.post(page.appUrl+"member/payment/after_checkout",{id:res.invoice,message_payment:result.status_message},function () {
-									page.fetchTransaction();
-								});
+							onPending: function (result) {
+								$.post(
+									page.appUrl + "member/payment/after_checkout",
+									{ id: res.invoice, message_payment: result.status_message },
+									function () {
+										page.fetchTransaction();
+									}
+								);
 							},
-							onError: function(result){
-								$.post(page.appUrl+"member/payment/after_checkout",{id:res.invoice,message_payment:result.status_message,error:'error'},function () {
-									page.fetchTransaction();
-								});
-							}
+							onError: function (result) {
+								$.post(
+									page.appUrl + "member/payment/after_checkout",
+									{
+										id: res.invoice,
+										message_payment: result.status_message,
+										error: "error",
+									},
+									function () {
+										page.fetchTransaction();
+									}
+								);
+							},
 						});
-					}else{
-						Swal.fire('Fail',res.message,'error');
+					} else {
+						Swal.fire("Fail", res.message, "error");
 					}
-				}
-			}).fail(function () {
-				Swal.fire('Fail',"Failed getting token !",'error');
-			}).always(function () {
-				page.checking_out = false;
+				},
 			})
+				.fail(function () {
+					Swal.fire("Fail", "Failed getting token !", "error");
+				})
+				.always(function () {
+					page.checking_out = false;
+				});
 		},
-		modalProof(item){
-    		this.upload = {};
-    		this.upload_validation = {invalid:false,message_invalid:""};
+		modalProof(item) {
+			this.upload = {};
+			this.upload_validation = { invalid: false, message_invalid: "" };
 			this.$refs.formUpload.reset();
 			this.$refs.labelFile.innerHTML = "Choose File ...";
 			this.upload = item;
 			$("#modal-upload-proof").modal("show");
 		},
-    	detailTransaction(item,event){
-    		var page = this;
+		detailTransaction(item, event) {
+			var page = this;
 			event.toggleLoading();
 			console.log(event.target);
-			var url = page.appUrl+"member/area/detail_transaction";
-			$.post(url,{id:item.id},null,'JSON')
+			var url = page.appUrl + "member/area/detail_transaction";
+			$.post(url, { id: item.id }, null, "JSON")
 				.done(function (res) {
 					page.detailModel = res;
 					$("#modal-detail").modal("show");
-				}).fail(function (xhr) {
-				Swal.fire("Failed","Failed to load data !","error");
-			}).always(function () {
-				event.toggleLoading();
-			});
+				})
+				.fail(function (xhr) {
+					Swal.fire("Failed", "Failed to load data !", "error");
+				})
+				.always(function () {
+					event.toggleLoading();
+				});
 		},
-    	unfollow(item){
-    		var page = this;
+		unfollow(item) {
+			var page = this;
 			Swal.fire({
 				title: "Are you sure ?",
 				text: `You will delete "${item.product_name}" From cart`,
-				type: 'warning',
+				type: "warning",
 				showCancelButton: true,
-				confirmButtonColor: '#3085d6',
-				cancelButtonColor: '#d33',
-				confirmButtonText: 'Yes, delete it!'
+				confirmButtonColor: "#3085d6",
+				cancelButtonColor: "#d33",
+				confirmButtonText: "Yes, delete it!",
 			}).then((result) => {
-				if(result.value){
+				if (result.value) {
 					page.loading = true;
-					$.post(page.baseUrl+"delete_item_cart",item,function (response) {
-						if(response.status){
+					$.post(page.baseUrl + "delete_item_cart", item, function (response) {
+						if (response.status) {
 							page.fetchTransaction();
-						}else{
-							Swal.fire("Info",response.message,'info');
+						} else {
+							Swal.fire("Info", response.message, "info");
 						}
 					}).always(function () {
 						page.loading = false;
@@ -497,51 +517,57 @@ export default Vue.component("PageBilling", {
 			var page = this;
 			page.loading = true;
 			page.fail = false;
-			$.get(this.appUrl+"/member/payment/check_payment")
-			.always(function(){
+			$.get(this.appUrl + "/member/payment/check_payment").always(function () {
 				$.post(page.baseUrl + "get_transaction", null, function (res) {
 					if (res.status) {
 						page.current_invoice = res.current_invoice;
 						page.cart = res.cart;
 						page.transaction = res.transaction;
-						$.each(res.paymentMethod,function(i,v){
+						$.each(res.paymentMethod, function (i, v) {
 							let sp = v.split(";");
-							page.paymentMethod.push({key:sp[0],desc:sp[1]});
-						})
+							page.paymentMethod.push({ key: sp[0], desc: sp[1] });
+						});
 						var invoiceID = this.current_invoice;
 						var data = {
 							key: page.apiKeyEspay,
 							paymentId: res.current_invoice,
-							backUrl: page.appUrl+`member/area/redirect_client/billing/${invoiceID}`,
+							backUrl:
+								page.appUrl +
+								`member/area/redirect_client/billing/${invoiceID}`,
 						};
-						if(typeof SGOSignature !== "undefined"){
+						if (typeof SGOSignature !== "undefined") {
 							var sgoPlusIframe = document.getElementById("sgoplus-iframe");
-							if (sgoPlusIframe !== null) 
+							if (sgoPlusIframe !== null)
 								sgoPlusIframe.src = SGOSignature.getIframeURL(data);
 							SGOSignature.receiveForm();
 						}
 					} else {
 						page.fail = true;
 					}
-				}).fail(function () {
-					page.fail = true;
-				}).always(function () {
-					page.loading = false;
-				});
+				})
+					.fail(function () {
+						page.fail = true;
+					})
+					.always(function () {
+						page.loading = false;
+					});
 			});
 		},
-		formatCurrency(price){
-			return new Intl.NumberFormat("id-ID",{ style: 'currency',currency:"IDR"} ).format(price);
+		formatCurrency(price) {
+			return new Intl.NumberFormat("id-ID", {
+				style: "currency",
+				currency: "IDR",
+			}).format(price);
 		},
-		formatDate(date){
+		formatDate(date) {
 			return moment(date).format("DD MMM YYYY, [At] HH:mm:ss");
 		},
-		sumPrice(detail){
-    		var total = 0;
-    		for(var dt in detail){
-    			total+= Number(detail[dt].price);
+		sumPrice(detail) {
+			var total = 0;
+			for (var dt in detail) {
+				total += Number(detail[dt].price);
 			}
-    		return this.formatCurrency(total);
-		}
-	}
+			return this.formatCurrency(total);
+		},
+	},
 });

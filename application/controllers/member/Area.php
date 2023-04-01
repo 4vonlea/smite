@@ -13,6 +13,7 @@
  * @property CI_Router $router
  * @property MY_Form_validation $form_validation
  * @property CI_Upload $upload
+ * @property CI_DB $db
  */
 
 class Area extends MY_Controller
@@ -50,7 +51,7 @@ class Area extends MY_Controller
 			'user' => $user,
 			'statusToUpload' => json_decode(Settings_m::getSetting("status_to_upload"), true) ?? [],
 			'isLogin' => $this->user_session_expired(),
-			'hasSettlementTransaction'=>$this->Transaction_m->countSettlement($user->id) > 0,
+			'hasSettlementTransaction' => $this->Transaction_m->countSettlement($user->id) > 0,
 		];
 		$this->layout->render('index', $data);
 	}
@@ -90,44 +91,44 @@ class Area extends MY_Controller
 	{
 		if ($this->input->post()) {
 			$data = $this->input->post();
-		$model = Member_m::findOne(['username_account' => $this->session->user_session['username']]);
-		$account = $model->account;
-		$user_session = $this->session->userdata("user_session");
-		$data['email'] = trim($data['email']);
-		if ($model->email != $data['email']) {
-			if ($account) {
-				$account->username = $data['email'];
-				$check = $account->toArray();
-				$check['username'] = $data['email'];
-				if ($account->validate($check)) {
-					$account->save();
-					$data['username_account'] = trim($data['email']);
-					$user_session['username'] = trim($data['username_account']);
+			$model = Member_m::findOne(['username_account' => $this->session->user_session['username']]);
+			$account = $model->account;
+			$user_session = $this->session->userdata("user_session");
+			$data['email'] = trim($data['email']);
+			if ($model->email != $data['email']) {
+				if ($account) {
+					$account->username = $data['email'];
+					$check = $account->toArray();
+					$check['username'] = $data['email'];
+					if ($account->validate($check)) {
+						$account->save();
+						$data['username_account'] = trim($data['email']);
+						$user_session['username'] = trim($data['username_account']);
+					} else {
+						$this->output
+							->set_content_type("application/json")
+							->_display(json_encode(['status' => false, 'message' => "Username/Email sudah dipakai oleh member lain"]));
+						exit;
+					}
 				} else {
-					$this->output
-						->set_content_type("application/json")
-						->_display(json_encode(['status' => false, 'message' => "Username/Email sudah dipakai oleh member lain"]));
-					exit;
+					$token = uniqid();
+					$this->User_account_m->insert([
+						'username' => $data['email'],
+						'password' => password_hash("1q2w3e4r", PASSWORD_DEFAULT),
+						'role' => 0,
+						'token_reset' => "verifyemail_" . $token
+					], false);
+					$user_session['username'] = $data['username_account'];
 				}
-			} else {
-				$token = uniqid();
-				$this->User_account_m->insert([
-					'username' => $data['email'],
-					'password' => password_hash("1q2w3e4r", PASSWORD_DEFAULT),
-					'role' => 0,
-					'token_reset' => "verifyemail_" . $token
-				], false);
-				$user_session['username'] = $data['username_account'];
 			}
-		}
-		$model->setAttributes($data);
-		$status = $model->save(false);
-		if($status){
-			$this->session->set_userdata("user_session",$user_session);
-		}
-		$this->output
-			->set_content_type("application/json")
-			->_display(json_encode(['status' => $status, 'message' => $model->getErrors()]));
+			$model->setAttributes($data);
+			$status = $model->save(false);
+			if ($status) {
+				$this->session->set_userdata("user_session", $user_session);
+			}
+			$this->output
+				->set_content_type("application/json")
+				->_display(json_encode(['status' => $status, 'message' => $model->getErrors()]));
 			// $post = $this->input->post();
 			// $user = Member_m::findOne(['username_account' => $this->session->user_session['username']]);
 			// $user->setAttributes($post);
@@ -167,18 +168,68 @@ class Area extends MY_Controller
 		}
 	}
 
+	public function save_com_participant()
+	{
+		$program_id = $this->input->post("program_id");
+		$participant = $this->input->post("participants");
+		$this->load->model("Com_participant_m");
+		$this->load->model("Transaction_m");
+		$this->db->trans_start();
+		$user = Member_m::findOne(['username_account' => $this->session->user_session['username']]);
+		$this->load->library('form_validation');
+
+		$status = true;
+		foreach ($participant as $index => $row) {
+			$this->form_validation->set_rules([
+				['field' => 'name', 'label' => 'Name', 'rules' => 'required'],
+				['field' => 'contact', 'label' => 'Contact', 'rules' => 'required|numeric|max_length[15]'],
+			]);
+			$this->form_validation->set_data($row);
+			if ($this->form_validation->run()) {
+				$participant[$index]['validation'] = [];
+				$data = [
+					'name' => $row['name'],
+					'contact' => $row['contact'],
+					'program_id' => $program_id,
+					'member_id' => $user->id,
+				];
+				if (isset($row['id'])) {
+					$this->Com_participant_m->update($data, $row['id']);
+				} else {
+					$this->Com_participant_m->insert($data);
+					$participant[$index]['id'] = $this->db->insert_id();
+				}
+			} else {
+				$participant[$index]['validation'] = $this->form_validation->error_array();
+				$status = false;
+			}
+			$this->form_validation->reset_validation();
+		}
+		$this->db->trans_complete();
+		$this->output->set_content_type("application/json")
+			->_display(json_encode(['status' => $status && $this->db->trans_status(), 'participants' => $participant, 'message' =>  $this->db->error()['message']]));
+	}
+
+	public function get_com_program()
+	{
+		$this->load->model("Complimentary_program_m");
+		$programs = $this->Complimentary_program_m->find()->get()->result_array();
+		$this->output->set_content_type("application/json")
+			->_display(json_encode(['status' => true, 'programs' => $programs,]));
+	}
+
 	public function get_events()
 	{
 		ini_set('memory_limit', '2048M');
 		if ($this->input->method() !== 'post')
 			show_404("Page not found !");
-		$this->load->model(["Event_m","Room_m"]);
+		$this->load->model(["Event_m", "Room_m"]);
 		$onLyFollowed = $this->input->post("onlyFollowed") == '1';
-		$events = $this->Event_m->eventVueModel($this->session->user_session['id'], $this->session->user_session['status_name'],[],$onLyFollowed);
+		$events = $this->Event_m->eventVueModel($this->session->user_session['id'], $this->session->user_session['status_name'], [], $onLyFollowed);
 		$booking = $this->Room_m->bookedRoom($this->session->user_session['id']);
 		$rangeBooking = $this->Room_m->rangeBooking();
 		$this->output->set_content_type("application/json")
-			->_display(json_encode(['status' => true, 'events' => $events,'booking'=>$booking,'rangeBooking'=>$rangeBooking]));
+			->_display(json_encode(['status' => true, 'events' => $events, 'booking' => $booking, 'rangeBooking' => $rangeBooking]));
 	}
 
 	public function file_presentation($name, $id)
@@ -282,9 +333,9 @@ class Area extends MY_Controller
 			show_404("Page not found !");
 		$id = $this->input->post('id');
 		$this->load->model(["Transaction_detail_m"]);
-		
+
 		$this->output->set_content_type("application/json")
-			->_display(json_encode($this->Transaction_detail_m->deleteItem($id,$this->input->post("transaction_id"))));
+			->_display(json_encode($this->Transaction_detail_m->deleteItem($id, $this->input->post("transaction_id"))));
 	}
 
 	public function delete_paper()
@@ -382,7 +433,7 @@ class Area extends MY_Controller
 			$feeAlready = true;
 		}
 
-		if(!isset($data['is_hotel'])){
+		if (!isset($data['is_hotel'])) {
 			$addEventStatus = $this->Transaction_detail_m->validateAddEvent($data['id'], $this->session->user_session['id']);
 			if ($addEventStatus === true) {
 				// NOTE Harga sesuai dengan database
@@ -400,18 +451,17 @@ class Area extends MY_Controller
 				$detail->member_id = $this->session->user_session['id'];
 				$detail->product_name = "$data[event_name] ($data[member_status])";
 				$detail->save();
-				
 			} else {
 				$response['status'] = false;
 				$response['message'] = $addEventStatus ?? "You are prohibited from following !";
 			}
-		}else{
-			$result = $this->Transaction_detail_m->bookHotel($transaction->id,$this->session->user_session['id'],$data);
+		} else {
+			$result = $this->Transaction_detail_m->bookHotel($transaction->id, $this->session->user_session['id'], $data);
 			$data['price'] = 0;
-			if($result === true){
+			if ($result === true) {
 				$data['price'] = 1;
 				$response['status'] = true;
-			}else{
+			} else {
 				$response['status'] = false;
 				$response['message'] = $result;
 			}
@@ -461,7 +511,7 @@ class Area extends MY_Controller
 			->_display(json_encode($response));
 	}
 
-	 
+
 
 	public function file($name, $id, $type = 'Abstract')
 	{
@@ -511,7 +561,7 @@ class Area extends MY_Controller
 		// if ($type == 'Oral') {
 		// 	$ext = 'ppt|pptx|pdf';
 		// } else if ($type == 'Moderated Poster' || $type == 'Viewed Poster') {
-			$ext = 'jpg|png|jpeg|ppt|ppt|pptx|pdf|mp3|m4a|rar|zip';
+		$ext = 'jpg|png|jpeg|ppt|ppt|pptx|pdf|mp3|m4a|rar|zip';
 		// }
 
 		$configFullpaper = [
@@ -530,7 +580,7 @@ class Area extends MY_Controller
 			'upload_path' => APPPATH . 'uploads/papers/',
 			'allowed_types' => "mp3|m4a",
 			'max_size' => 500000,
-			'file_name' => 'VOICE_'.$this->input->post("id"),
+			'file_name' => 'VOICE_' . $this->input->post("id"),
 		];
 		$this->upload->initialize($configFullpaper);
 		$statusFullpaper = $this->upload->do_upload('fullpaper');
@@ -589,25 +639,25 @@ class Area extends MY_Controller
 		$config['file_name']        = 'abstract' . date("Ymdhis"); //$this->session->user_session['id'];
 
 		$this->load->library('upload', $config);
-		$this->load->model(["Papers_m","Notification_m"]);
+		$this->load->model(["Papers_m", "Notification_m"]);
 		$upload = $this->upload->do_upload('file');
 		$post = $this->input->post();
 		$post['member_id'] = $this->session->user_session['id'];
 		$validation = $this->Papers_m->validate($post);
 		if ($upload && $validation) {
 			$paper = Papers_m::findOne(['id' => $this->input->post('id')]);
-			$checkSameTitle = Papers_m::findOne(['member_id'=>$this->session->user_session['id'],'title'=>$this->input->post('title',false)]);
+			$checkSameTitle = Papers_m::findOne(['member_id' => $this->session->user_session['id'], 'title' => $this->input->post('title', false)]);
 			$isNew = false;
 			$response['check'] = $checkSameTitle;
-			if (!$paper || $paper->id == 0){
-				if($checkSameTitle){
+			if (!$paper || $paper->id == 0) {
+				if ($checkSameTitle) {
 					$paper = $checkSameTitle;
-				}else{
+				} else {
 					$isNew = true;
 					$paper = new Papers_m();
 				}
 			}
-          
+
 			$this->load->model(["Category_paper_m"]);
 			$category = $this->Category_paper_m->find()->where('name', $this->input->post('category'))->get()->row_array();
 
@@ -615,9 +665,9 @@ class Area extends MY_Controller
 			$paper->member_id = $this->session->user_session['id'];
 			$paper->filename = $data['file_name'];
 			$paper->status = 1;
-			$paper->title = $this->input->post('title',false);
+			$paper->title = $this->input->post('title', false);
 			$paper->type = $this->input->post('type');
-			$paper->introduction = $this->input->post('introduction',false);
+			$paper->introduction = $this->input->post('introduction', false);
 			$paper->methods = $this->input->post('methods');
 			$paper->category = $category['id'];
 			if ($this->input->post("type_study_other")) {
@@ -636,14 +686,14 @@ class Area extends MY_Controller
 			$response['status'] = true;
 			$response['paper'] = $paper->toArray();
 			$response['isNew'] = $isNew;
-			if($isNew){
+			if ($isNew) {
 				$user = Member_m::findOne(['username_account' => $this->session->user_session['username']]);
-				$email_message = $this->load->view("template/email/abstract_received",[
+				$email_message = $this->load->view("template/email/abstract_received", [
 					'id' => $this->Papers_m->getIdPaper($paper->id),
-					'title'=>$this->input->post("title"),
-					'name'=>$user->fullname,
-					'email'=>$user->email,
-				],true);
+					'title' => $this->input->post("title"),
+					'name' => $user->fullname,
+					'email' => $user->email,
+				], true);
 				$this->Notification_m->sendMessage($user->email, 'Abstract Received', $email_message);
 			}
 		} else {
@@ -712,10 +762,10 @@ class Area extends MY_Controller
 			$tran = $this->Transaction_m->findOne($id);
 			$tran->client_message = $message;
 			$tran->payment_proof =  $data['file_name'];
-			if($tran->status_payment == Transaction_m::STATUS_PENDING){
+			if ($tran->status_payment == Transaction_m::STATUS_PENDING) {
 				$tran->status_payment = Transaction_m::STATUS_NEED_VERIFY;
 				$data['status_payment'] =  Transaction_m::STATUS_NEED_VERIFY;
-			}else{
+			} else {
 				$data['status_payment'] = $tran->status_payment;
 			}
 			$mem = $this->Member_m->findOne($tran->member_id);
@@ -748,16 +798,16 @@ class Area extends MY_Controller
 		$detail = $this->Transaction_m->findOne($id);
 		if ($detail) {
 			$response = $detail->toArray();
-			$response['member'] = $detail->member ?  $detail->member->toArray() : ['member_id'=>$detail->member_id];
+			$response['member'] = $detail->member ?  $detail->member->toArray() : ['member_id' => $detail->member_id];
 			$response['finish'] = $response['status_payment'] == Transaction_m::STATUS_FINISH;
 			foreach ($detail->details as $row) {
 				$data = $row->toArray();
-				if($member = $row->member){
-					$data['product_name'] = $data['product_name']. " / ".$member->fullname;
+				if ($member = $row->member) {
+					$data['product_name'] = $data['product_name'] . " / " . $member->fullname;
 				}
 				$response['details'][] = $data;
 			}
-			usort($response['details'],function($a,$b){
+			usort($response['details'], function ($a, $b) {
 				return $b['product_name'] < $a['product_name'];
 			});
 		}
@@ -785,7 +835,7 @@ class Area extends MY_Controller
 
 	public function count_followed_events()
 	{
-		$this->load->model(['Transaction_m', 'Member_m', 'Univ_m', 'Country_m','Wilayah_m']);
+		$this->load->model(['Transaction_m', 'Member_m', 'Univ_m', 'Country_m', 'Wilayah_m']);
 		$c = $this->Member_m->countFollowedEvent($this->session->user_session['id']);
 		$univ = $this->Univ_m->find()->order_by("univ_nama")->get();
 		$country = $this->Country_m->find()->order_by("name")->get();
@@ -802,22 +852,23 @@ class Area extends MY_Controller
 			]));
 	}
 
-	public function like_presentation(){
+	public function like_presentation()
+	{
 		$username = $this->session->user_session['username'];
 		$id = $this->input->post("id");
 		$action = $this->input->post("action");
 		$status = false;
-		if($action == "add"){
-			$status = $this->db->insert("video_like",[
-				'video_id'=>$id,
-				'username'=>$username
+		if ($action == "add") {
+			$status = $this->db->insert("video_like", [
+				'video_id' => $id,
+				'username' => $username
 			]);
-		}else{
-			$status = $this->db->delete("video_like",['video_id'=>$id,'username'=>$username]);
+		} else {
+			$status = $this->db->delete("video_like", ['video_id' => $id, 'username' => $username]);
 		}
 		$this->output
 			->set_content_type("application/json")
-			->_display(json_encode(['status'=>$status]));
+			->_display(json_encode(['status' => $status]));
 	}
 
 	public function redirect_client($name)

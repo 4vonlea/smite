@@ -33,3 +33,4 @@ $lang['attention'] = "Perhatian";
 $lang['email_attention'] = "Pastikan email yang terdaftar dapat diakses oleh anda. Link konfirmasi akan dikirimkan ke email tersebut. Mohon cek inbox atau spam";
 $lang['qouta_reached'] = "Event yang dipilih tidak tersedia/kouta sudah penuh";
 $lang['event_overlap'] = "Event yang anda pilih berbarengan dengan event lain yang sudah anda pesan";
+$lang['com_program'] = "Complimentary Program";
