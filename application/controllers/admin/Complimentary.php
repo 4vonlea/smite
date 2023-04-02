@@ -32,22 +32,34 @@ class Complimentary extends Admin_Controller
     }
 
 
+    public function grid_participant($id)
+    {
+        $this->load->model("Com_participant_m");
+        $grid = $this->Com_participant_m->gridData($this->input->get(), ['filter' => ['program_id' => $id]]);
+        $this->output
+            ->set_content_type("application/json")
+            ->_display(json_encode($grid));
+    }
+
+
     public function save()
     {
         if ($this->input->method() != 'post')
             show_404("Page Not Found !");
         $post = $this->input->post();
-
-        if (isset($post['id'])) {
-            $program = $this->ComProgramModel->findOne($post['id']);
-        } else {
-            $program = new Complimentary_program_m();
+        $status = false;
+        if ($this->ComProgramModel->validate($post)) {
+            if (isset($post['id'])) {
+                $program = $this->ComProgramModel->findOne($post['id']);
+            } else {
+                $program = new Complimentary_program_m();
+            }
+            $program->setAttributes($post);
+            $status = $program->save();
         }
-        $program->setAttributes($post);
-        $status = $program->save();
         $this->output
             ->set_content_type("application/json")
-            ->_display(json_encode(['status' => $status, 'data' => $program->toArray()]));
+            ->_display(json_encode(['status' => $status, 'validation' => $this->ComProgramModel->getErrors()]));
     }
 
     public function delete()
@@ -80,5 +92,43 @@ class Complimentary extends Admin_Controller
             ->setTitle($program->name . " participant")
             ->setFilename($program->name . " participant")
             ->asExcel(['contact' => 'asPhone'], true);
+    }
+
+    public function save_participant()
+    {
+        if ($this->input->method() != 'post')
+            show_404("Page Not Found !");
+        $post = $this->input->post();
+        $this->load->model("Com_participant_m");
+        $status = false;
+        if ($this->Com_participant_m->validate($post)) {
+            if (isset($post['id'])) {
+                $program = $this->Com_participant_m->findOne($post['id']);
+            } else {
+                $program = new Com_participant_m();
+            }
+            $post['member_id'] = $this->session->user_session['username'];
+            $program->setAttributes($post);
+            $status = $program->save();
+        }
+        $this->output
+            ->set_content_type("application/json")
+            ->_display(json_encode(['status' => $status, 'validation' => $this->Com_participant_m->getErrors()]));
+    }
+
+    public function delete_participant()
+    {
+
+        if ($this->input->method() != 'post')
+            show_404("Page Not Found !");
+        $message = "";
+        $this->load->model("Com_participant_m");
+        $post = $this->input->post();
+        $status = $this->Com_participant_m->find()->where('id', $post['id'])->delete();
+        if ($status == false)
+            $message = "Failed to delete participant, error on server !";
+        $this->output
+            ->set_content_type("application/json")
+            ->_display(json_encode(['status' => $status, 'message' => $message]));
     }
 }
