@@ -1,6 +1,7 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 use Dompdf\Dompdf;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
@@ -18,6 +19,7 @@ class Exporter
 	public function setData($data)
 	{
 		$this->data = $data;
+		return $this;
 	}
 
 	/**
@@ -26,6 +28,7 @@ class Exporter
 	public function setTitle($title)
 	{
 		$this->title = $title;
+		return $this;
 	}
 
 	/**
@@ -34,6 +37,7 @@ class Exporter
 	public function setFilename($filename)
 	{
 		$this->filename = $filename;
+		return $this;
 	}
 
 	/**
@@ -62,26 +66,27 @@ class Exporter
 		return [];
 	}
 
-	public function summaryHotelAsExcel($data){
+	public function summaryHotelAsExcel($data)
+	{
 		$spreadsheet = new Spreadsheet();
 		$sheet = $spreadsheet->getActiveSheet();
 
 		$row = 1;
 		$col = 1;
-		$sheet->setCellValueByColumnAndRow($col,$row,"Hotel dan Ruangan")
-			  ->mergeCellsByColumnAndRow($col,$row,$col,$row+1);
+		$sheet->setCellValueByColumnAndRow($col, $row, "Hotel dan Ruangan")
+			->mergeCellsByColumnAndRow($col, $row, $col, $row + 1);
 		$col++;
-		foreach($data['rangeDate'] as $range){
+		foreach ($data['rangeDate'] as $range) {
 			$tgl = $range['date'];
-			$sheet->setCellValueByColumnAndRow($col,$row,$tgl)
-				->setCellValueByColumnAndRow($col,$row+1,"Waiting")
-				->setCellValueByColumnAndRow($col+1,$row+1,"Pending")
-				->setCellValueByColumnAndRow($col+2,$row+1,"Settlement")
-				->setCellValueByColumnAndRow($col+3,$row+1,"Sisa Kouta")
-				->mergeCellsByColumnAndRow($col,$row,$col+3,$row);
+			$sheet->setCellValueByColumnAndRow($col, $row, $tgl)
+				->setCellValueByColumnAndRow($col, $row + 1, "Waiting")
+				->setCellValueByColumnAndRow($col + 1, $row + 1, "Pending")
+				->setCellValueByColumnAndRow($col + 2, $row + 1, "Settlement")
+				->setCellValueByColumnAndRow($col + 3, $row + 1, "Sisa Kouta")
+				->mergeCellsByColumnAndRow($col, $row, $col + 3, $row);
 			$col += 4;
 		}
-		$sheet->getStyleByColumnAndRow(1, $row,$col, 2)->applyFromArray([
+		$sheet->getStyleByColumnAndRow(1, $row, $col, 2)->applyFromArray([
 			'fill' => [
 				'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
 				'color' => ['argb' => $this->color_heading]
@@ -91,29 +96,31 @@ class Exporter
 		]);
 
 		$row = 2;
-		foreach($data['roomList'] as $room){
-			$col=2;
+		foreach ($data['roomList'] as $room) {
+			$col = 2;
 			$row++;
-			$sheet->setCellValueByColumnAndRow(1,$row,$room['hotel_name']." - ".$room['room_name']);
-			foreach($data['rangeDate'] as $range){
+			$sheet->setCellValueByColumnAndRow(1, $row, $room['hotel_name'] . " - " . $room['room_name']);
+			foreach ($data['rangeDate'] as $range) {
 				$tgl = $range['date'];
-				$summary = $data['summary'][$tgl]["H".$room['hotel_id']]["R".$room['room_id']] ?? ['waiting'=>0,'pending'=>0,'settlement'=>0,'sum'=>0];
-				if($tgl >= $room['start_date'] && $tgl <= $room['end_date']){
-					$sheet->setCellValueByColumnAndRow($col,$row,$summary['waiting']) 
-						->setCellValueByColumnAndRow($col+1,$row,$summary['pending'])
-						->setCellValueByColumnAndRow($col+2,$row,$summary['settlement'])
-						->setCellValueByColumnAndRow($col+3,$row,$room['quota']-$summary['sum']);
-				}else{
-					$sheet->setCellValueByColumnAndRow($col,$row,"Tidak Tersedia Pada Tanggal Ini")
-						->mergeCellsByColumnAndRow($col,$row,$col+3,$row);
+				$summary = $data['summary'][$tgl]["H" . $room['hotel_id']]["R" . $room['room_id']] ?? ['waiting' => 0, 'pending' => 0, 'settlement' => 0, 'sum' => 0];
+				if ($tgl >= $room['start_date'] && $tgl <= $room['end_date']) {
+					$sheet->setCellValueByColumnAndRow($col, $row, $summary['waiting'])
+						->setCellValueByColumnAndRow($col + 1, $row, $summary['pending'])
+						->setCellValueByColumnAndRow($col + 2, $row, $summary['settlement'])
+						->setCellValueByColumnAndRow($col + 3, $row, $room['quota'] - $summary['sum']);
+				} else {
+					$sheet->setCellValueByColumnAndRow($col, $row, "Tidak Tersedia Pada Tanggal Ini")
+						->mergeCellsByColumnAndRow($col, $row, $col + 3, $row);
 				}
 				$col += 4;
 			}
 		}
-		$sheet->getStyleByColumnAndRow(1,1,$col, $row)->applyFromArray([
-			'borders' => ['allBorders' => [
-				'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-				'color' => ['argb' => '000']]
+		$sheet->getStyleByColumnAndRow(1, 1, $col, $row)->applyFromArray([
+			'borders' => [
+				'allBorders' => [
+					'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+					'color' => ['argb' => '000']
+				]
 			]
 		]);
 		$writer = new Xlsx($spreadsheet);
@@ -124,13 +131,13 @@ class Exporter
 	}
 
 
-	public function asExcel($costumType = [])
+	public function asExcel($costumType = [], $numberIndex = false)
 	{
 		$colTitle = $this->headingColumn();
 
 		$spreadsheet = new Spreadsheet();
 		$sheet = $spreadsheet->getActiveSheet();
-		$sheet->mergeCellsByColumnAndRow(1, 1, count($colTitle), 1)
+		$sheet->mergeCellsByColumnAndRow(1, 1, count($colTitle) + ($numberIndex ? 1 : 0), 1)
 			->setCellValueByColumnAndRow(1, 1, $this->title)
 			->getStyleByColumnAndRow(1, 1)->applyFromArray([
 				'alignment' => ['horizontal' => 'center'],
@@ -140,11 +147,15 @@ class Exporter
 
 		$row = $startRow;
 		$col = 1;
+		if ($numberIndex) {
+			$sheet->setCellValueByColumnAndRow($col, $row, "No");
+			$col++;
+		}
 		foreach ($colTitle as $title) {
 			$sheet->setCellValueByColumnAndRow($col, $row, $title);
 			$col++;
 		}
-		$sheet->getStyleByColumnAndRow(1, $row, count($colTitle), $row)->applyFromArray([
+		$sheet->getStyleByColumnAndRow(1, $row, count($colTitle) + ($numberIndex ? 1 : 0), $row)->applyFromArray([
 			'fill' => [
 				'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
 				'color' => ['argb' => $this->color_heading]
@@ -154,36 +165,43 @@ class Exporter
 		]);
 
 
-		foreach ($this->data as $rowData) {
+		foreach ($this->data as $rowIndex => $rowData) {
 			$row++;
 			$col = 1;
-            $isValueExplicit = false;
-			foreach ($rowData as $key=>$value) {
-				if(isset($costumType[$key])){
-					switch($costumType[$key]){
+			$isValueExplicit = false;
+			if ($numberIndex) {
+				$sheet->setCellValueByColumnAndRow($col, $row, $rowIndex + 1);
+				$col++;
+			}
+			foreach ($rowData as $key => $value) {
+				if (isset($costumType[$key])) {
+					switch ($costumType[$key]) {
 						case 'asCurrency':
-							$sheet->getStyleByColumnAndRow($col,$row)->getNumberFormat()->setFormatCode('#,##0.00');
+							$sheet->getStyleByColumnAndRow($col, $row)->getNumberFormat()->setFormatCode('#,##0.00');
 							break;
-                        case 'asPhone':
-                        	$isValueExplicit = true;
-                        	$value = $this->normalizeNumber($value);
+						case 'asPhone':
+							$isValueExplicit = true;
+							$value = $this->normalizeNumber($value);
 							break;
 					}
 				}
-              	if($isValueExplicit){
-    				$sheet->setCellValueExplicitByColumnAndRow($col, $row, $value,\PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);              
-                }else{
+				if ($isValueExplicit) {
+					$sheet->setCellValueExplicitByColumnAndRow($col, $row, $value, \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_STRING);
+				} else {
 					$sheet->setCellValueByColumnAndRow($col, $row, $value);
-                }
-				
+				}
+				$sheet->getColumnDimension(Coordinate::stringFromColumnIndex($col))
+					->setAutoSize(true);
 				$col++;
 			}
 		}
 
-		$sheet->getStyleByColumnAndRow(1, $startRow, count($colTitle), $row)->applyFromArray([
-			'borders' => ['allBorders' => [
-				'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-				'color' => ['argb' => '000']]
+		$sheet->getStyleByColumnAndRow(1, $startRow, count($colTitle) + ($numberIndex ? 1 : 0), $row)->applyFromArray([
+			'borders' => [
+				'allBorders' => [
+					'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+					'color' => ['argb' => '000']
+				]
 			]
 		]);
 
@@ -203,7 +221,7 @@ class Exporter
 						border-collapse: collapse;
 						width: 100%;
 					}
-					th{background-color: #".$this->color_heading.";text-align: center}
+					th{background-color: #" . $this->color_heading . ";text-align: center}
 					table, th, td {
 						border: 1px solid black;
 					}
@@ -249,16 +267,14 @@ class Exporter
 		header('filename:' . $this->getFilename() . '.csv');
 		header('Content-Type: text/csv');
 		header('Content-Disposition: attachment; filename="' . $this->getFilename() . '.csv"');
-
 	}
-  
-  	 protected function normalizeNumber($number){
-        $number = str_replace(["-","+"],"\n",$number);
-        if($number != "" && $number[0] == "0"){
-            $number = "62".substr($number,1,strlen($number));
-        }
-        return trim($number);
-    }
 
-
+	protected function normalizeNumber($number)
+	{
+		$number = str_replace(["-", "+"], "\n", $number);
+		if ($number != "" && $number[0] == "0") {
+			$number = "62" . substr($number, 1, strlen($number));
+		}
+		return trim($number);
+	}
 }

@@ -168,6 +168,18 @@ class Area extends MY_Controller
 		}
 	}
 
+	public function get_program_participant()
+	{
+		$this->load->model(["Com_participant_m", "Member_m"]);
+		$program_id = $this->input->post("program_id");
+		$member = Member_m::findOne(['username_account' => $this->session->user_session['username']]);
+		$participants = $this->Com_participant_m->find()->where("program_id", $program_id)
+			->where("member_id", $member->id)
+			->get()->result_array();
+		$this->output->set_content_type("application/json")
+			->_display(json_encode(['status' => true, 'participants' => $participants]));
+	}
+
 	public function save_com_participant()
 	{
 		$program_id = $this->input->post("program_id");
@@ -213,7 +225,8 @@ class Area extends MY_Controller
 	public function get_com_program()
 	{
 		$this->load->model("Complimentary_program_m");
-		$programs = $this->Complimentary_program_m->find()->get()->result_array();
+		$programs = $this->Complimentary_program_m->joinCountParticipant()->get()
+			->result_array();
 		$this->output->set_content_type("application/json")
 			->_display(json_encode(['status' => true, 'programs' => $programs,]));
 	}

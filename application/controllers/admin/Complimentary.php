@@ -66,4 +66,19 @@ class Complimentary extends Admin_Controller
             ->set_content_type("application/json")
             ->_display(json_encode(['status' => $status, 'message' => $message]));
     }
+
+    public function download_participant($id)
+    {
+        set_time_limit(0);
+        ini_set('memory_limit', '2048M');
+        $this->load->model("Com_participant_m");
+        $program = $this->ComProgramModel->findOne($id);
+        $data = $this->Com_participant_m->find()->select("name,contact")->where("program_id", $program->id)->get()->result_array();
+        $this->load->library('Exporter');
+        $exporter = new Exporter();
+        $exporter->setData($data)
+            ->setTitle($program->name . " participant")
+            ->setFilename($program->name . " participant")
+            ->asExcel(['contact' => 'asPhone'], true);
+    }
 }

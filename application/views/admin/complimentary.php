@@ -79,7 +79,7 @@
                         </div>
                     </div>
                     <div class="table-responsive">
-                        <datagrid ref="datagrid" api-url="<?= base_url('admin/complimentary/grid'); ?>" :fields="[{name:'name',sortField:'name'}, {name:'held_on',sortField:'held_on'},{name:'description',sortField:'description'},{name:'id',sortField:'id','title':'Actions'}]">
+                        <datagrid ref="datagrid" api-url="<?= base_url('admin/complimentary/grid'); ?>" :fields="[{name:'name',sortField:'name'}, {name:'held_on',sortField:'held_on'},{name:'description',sortField:'description'},{name:'countParticipant',sortField:'countParticipant','field':'Number of participants'},{name:'id',sortField:'id','title':'Actions'}]">
                             <template slot="id" slot-scope="props">
                                 <div class="table-button-container">
                                     <button @click="edit(props)" class="btn btn-info btn-sm">
@@ -88,6 +88,9 @@
                                     <button @click="deleteRow(props)" class="btn btn-warning btn-sm">
                                         <span class="fa fa-trash"></span> Delete
                                     </button>
+                                    <a :href="'<?= base_url('admin/complimentary/download_participant'); ?>/'+props.row.id" target="_blank" class="btn btn-info btn-sm">
+                                        <span class="fa fa-download"></span> Download Participant
+                                    </a>
                                 </div>
                             </template>
                         </datagrid>
@@ -181,7 +184,6 @@
                         app.message = res.message;
                         app.form.show = false;
                         Swal.fire("Success", "Program has been saved !", "success");
-
                     } else {
                         if (res.validation)
                             app.form.validation = res.validation;

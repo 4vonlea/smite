@@ -15,10 +15,10 @@ export default Vue.component("ComProgram", {
                         <h4>{{ program.name }}</h4>
                         <p class="px-2 mt-1 mb-3"><i class="fa fa-info-circle"></i> {{ program.held_on | formatDate }}</p>
                         <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">
-                            Participant : <span class="fw-bold">99 Orang</span>
+                            Participant : <span class="fw-bold">{{program.countParticipant}} Orang</span>
                         </span>
                         <p><span class="fw-bold">{{ program.description }}</span></p>
-                        <button @click="openParticipationForm(program)" class="btn btn-primary"><i class="fa fa-sign-in"></i> Participate</button>
+                        <v-button @click="(self) => openParticipationForm(self,program)" class="btn btn-primary" icon="fa fa-sign-in">Participate</v-button>
                     </div>
                 </div>
             </div>
@@ -96,7 +96,7 @@ export default Vue.component("ComProgram", {
 				.done((res) => {
 					if (res.status) {
 						Swal.fire("Success", "Participant has been saved !", "success");
-					} else {
+					} else if (res.message) {
 						Swal.fire("Warning", res.message, "warning");
 					}
 					this.participants = res.participants;
@@ -111,9 +111,25 @@ export default Vue.component("ComProgram", {
 		deleteParticipant(itemIndex, participant) {
 			this.participants.splice(itemIndex, 1);
 		},
-		openParticipationForm(program) {
-			this.currentProgram = program;
-			this.mode = "participation";
+		openParticipationForm(self, program) {
+			self.toggleLoading();
+			$.post(this.baseUrl + "get_program_participant", {
+				program_id: program.id,
+			})
+				.done((res) => {
+					this.currentProgram = program;
+					$.each(res.participants, (i, v) => {
+						v.validation = {};
+					});
+					this.participants = res.participants;
+					this.mode = "participation";
+				})
+				.fail(() => {
+					Swal.fire("Fail", "Failed to get participant !", "error");
+				})
+				.always(() => {
+					self.toggleLoading();
+				});
 		},
 		fetchProgram() {
 			this.loading = true;
