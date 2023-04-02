@@ -21,6 +21,14 @@ export default Vue.component("ComProgram", {
                         <v-button @click="(self) => openParticipationForm(self,program)" class="btn btn-primary" icon="fa fa-sign-in">Participate</v-button>
                     </div>
                 </div>
+				<div v-if="programs.length == 0" class="col-12">
+					<div class="alert alert-info d-flex align-items-center justify-content-center">
+					<i class="fa-solid fa-triangle-exclamation fa-2x"></i>
+						<div class="ms-2">
+							No programs available
+						</div>
+					</div>
+				</div>
             </div>
             <div v-if="mode == 'participation'" class="row">
                 <div class="col-12">

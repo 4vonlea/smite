@@ -597,7 +597,6 @@
         methods: {
             addSession(self) {
                 var url = "<?= base_url('admin/event/save_session'); ?>";
-                console.log(this.newSession);
                 this.newSession.session.push(this.newSession.value);
                 self.toggleLoading();
                 $.post(url, {
@@ -659,7 +658,9 @@
             sessionArray(session) {
                 if (session) {
                     try {
-                        return JSON.parse(session);
+                        let sessionObject = JSON.parse(session);
+                        if (sessionObject)
+                            return sessionObject;
                     } catch (e) {
                         console.log(e);
                         return [];
