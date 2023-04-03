@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /*
 | -------------------------------------------------------------------------
@@ -52,3 +52,5 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'Site';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+$route['member/register/group'] = "member/register_group";
+$route['member/register/group/(.+)'] = "member/register_group/map_method/$1";
