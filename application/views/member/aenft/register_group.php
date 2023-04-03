@@ -282,7 +282,7 @@ $theme_path = base_url("themes/aenft") . "/";
                                                         </p>
                                                     </td>
                                                 </tr>
-                                                <tr v-for="(member,index) in model.members">
+                                                <tr v-for="(member,index) in model.members" :key="member.id">
                                                     <td class="text-center border-end">
                                                         <h5>{{(index+1)}}</h5>
                                                     </td>
@@ -472,6 +472,7 @@ $theme_path = base_url("themes/aenft") . "/";
 <script src="<?= base_url("themes/script/chosen/chosen.jquery.min.js"); ?>"></script>
 <script src="<?= base_url("themes/script/v-button.js"); ?>"></script>
 <script src="https://unpkg.com/vue-select@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/uuid@latest/dist/umd/uuidv4.min.js"></script>
 
 <?php if (isset(Settings_m::getEspay()['jsKitUrl'])) : ?>
     <script src="<?= Settings_m::getEspay()['jsKitUrl']; ?>"></script>
@@ -647,11 +648,11 @@ $theme_path = base_url("themes/aenft") . "/";
                 self.toggleLoading();
                 $.post("<?= base_url('member/register/group/add_members'); ?>", this.model)
                     .done((res) => {
+                        Vue.set(this.model, 'members', res.members);
                         if (res.status) {
                             this.page = "select-event";
                         } else {
                             this.validation = res.message;
-                            Vue.set(this.model, 'members', res.members);
                         }
                     })
                     .fail(() => {
@@ -850,8 +851,9 @@ $theme_path = base_url("themes/aenft") . "/";
                 })
             },
             addMembers() {
-
+                console.log(uuidv4());
                 this.model.members.push({
+                    id: uuidv4(),
                     email: '',
                     fullname: '',
                     kta: '',

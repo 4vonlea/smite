@@ -324,7 +324,8 @@ class Register_group extends MY_Controller
 
     public function add_members()
     {
-        $members = $this->input->post("members");
+        $postData = $this->input->post();
+        $members = $postData['members'] ?? [];
         $this->load->model("Member_m");
         $this->load->library("form_validation");
         $this->form_validation->set_rules([
@@ -349,10 +350,14 @@ class Register_group extends MY_Controller
                 if ($this->form_validation->run() == false) {
                     $memberCheck = false;
                     $members[$index]['validation'] = $this->form_validation->error_array();
+                } else {
+                    $members[$index]['validation'] = ['nik' => ''];
                 }
             }
-            if ($memberCheck)
-                $this->session->set_userdata("group_model", $this->input->post());
+            if ($memberCheck) {
+                $postData['members'] = $members;
+                $this->session->set_userdata("group_model", $postData);
+            }
         }
         $this->output->set_content_type("application/json")
             ->_display(json_encode([
