@@ -316,14 +316,14 @@ class Payment extends MY_Controller
 			foreach($rs->result_array() as $row){
 				$orders[] = $row['id'];
 			}
-            echo "CHECK : ".$rs->num_rows()."<br/>";
+            //echo "CHECK : ".$rs->num_rows()."<br/>";
 		}else{
           $orders[] = $invoice;
         }
 		$espayConfig = Settings_m::getEspay();
 
 		foreach($orders as $order_id){
-          	echo "CHECK : $order_id <br/>";
+          	//echo "CHECK : $order_id <br/>";
 			$rs_date =  date("Y-m-d H:i:s");
 			$signature = $this->create_signature_espay($espayConfig['signature'],$order_id,"CHECKSTATUS",$rs_date);
 			$response = $this->request($espayConfig['apiLink']."status",[
