@@ -59,7 +59,6 @@ let templateSelectEvent = `
                                             <span
                                                 v-show="pricing.pricing[member].price_in_usd != 0">{{formatCurrency(pricing.pricing[member].price_in_usd,
                                                 'USD')}}</span>
-
                                             <button type="button"
                                                 @click="addToCart(pricing.pricing[member],member,event.name,event.id)"
                                                 v-if="pricing.pricing[member].available && !pricing.pricing[member].added && !pricing.pricing[member].waiting_payment"
@@ -97,104 +96,126 @@ let templateSelectEvent = `
     </div>
 </section>
 `;
-Vue.component('select-event', {
-    template: templateSelectEvent,
-    props: {
-        showHotelBooking: {
-            type: Boolean,
-            default: true,
-        },
-        tagNamePath:{
-            type:String
-        },
-        events:{
-            type:Array,
-            default:() => [],
-        },
-        addCartUrl:{
-            type:String,
-        }
-    },
-    computed:{
-        eventCategory() {
-            let category = {};
-            this.events.forEach(function (val) {
-                let heldOn = "";
-                try{
-                    let heldOnObject = JSON.parse(val.held_on);
-                    heldOn = heldOnObject.start == heldOnObject.end ? 
-                                                        moment(heldOnObject.start).format("DD MMM YYYY") :
-                                                        `${moment(heldOnObject.start).format("DD MMM YYYY")} - ${moment(heldOnObject.end).format("DD MMM YYYY")}` ;
-                }catch (e){
-                    console.log(e);
-                }
-                let categoryGroup = `${val.category} ${heldOn}`;
-                val.categoryGroup = categoryGroup;
-                let objectGroup = {
-                    name : categoryGroup,
-                    category : val.category,
-                    heldOn : heldOn
-                }
-                if (typeof category[categoryGroup] == 'undefined') {
-                    category[categoryGroup] = objectGroup;
-                }
-            });
-            let [firstKey] = Object.keys(category);
-            if(firstKey){
-                this.showCategory = category[firstKey].name;
-            }
-            return category;
-        },
-        countAdded() {
-            var count = 0;
-            for (var event in this.events) {
-                for (var pricingName in this.events[event].pricingName) {
-                    for (var pricing in this.events[event].pricingName[pricingName].pricing) {
-                        if (this.events[event].pricingName[pricingName].pricing[pricing].added == 1 && !this.events[event].followed) {
-                            count++;
-                        }
-                    }
-                }
-            }
-            return count;
-        },
-    },
-    data(){
-        return {
-            showCategory: "",
-            adding:false,
-        }
-    },
-    mounted(){
-     
-    },
-    methods:{
-        addToCart(event, statusMember, event_name, event_id) {
-            var page = this;
-            this.adding = true;
-            event.member_status = statusMember;
-            event.event_name = event_name;
-            event.event_id = event_id;
-            $.post(this.addCartUrl, event, function (res) {
-                if (res.status) {
-                    event.added = 1;
-                } else {
-                    Swal.fire('Info',res.message, 'warning');
-                }
-            }).fail(function () {
-                Swal.fire('Fail', "Failed adding to cart !", 'error');
-            }).always(function () {
-                page.adding = false;
-            });
-        },
-        tagNameUrl(eventId,userId){
-            return this.tagNamePath ?? + `${eventId}/${userId}`;
-        },
-        formatCurrency(price, currency = 'IDR') {
-            return new Intl.NumberFormat("id-ID", {
-                style: 'currency',
-                currency: currency
-            }).format(price);
-        }
-    }
-})
+Vue.component("select-event", {
+	template: templateSelectEvent,
+	emits: ["addEvent"],
+	props: {
+		showHotelBooking: {
+			type: Boolean,
+			default: true,
+		},
+		tagNamePath: {
+			type: String,
+		},
+		events: {
+			type: Array,
+			default: () => [],
+		},
+		addCartUrl: {
+			type: String,
+		},
+		onAdd: {
+			type: Function,
+			default: () => {},
+		},
+	},
+	computed: {
+		eventCategory() {
+			let category = {};
+			this.events.forEach(function (val) {
+				let heldOn = "";
+				try {
+					let heldOnObject = JSON.parse(val.held_on);
+					heldOn =
+						heldOnObject.start == heldOnObject.end
+							? moment(heldOnObject.start).format("DD MMM YYYY")
+							: `${moment(heldOnObject.start).format("DD MMM YYYY")} - ${moment(
+									heldOnObject.end
+							  ).format("DD MMM YYYY")}`;
+				} catch (e) {
+					console.log(e);
+				}
+				let categoryGroup = `${val.category} ${heldOn}`;
+				val.categoryGroup = categoryGroup;
+				let objectGroup = {
+					name: categoryGroup,
+					category: val.category,
+					heldOn: heldOn,
+				};
+				if (typeof category[categoryGroup] == "undefined") {
+					category[categoryGroup] = objectGroup;
+				}
+			});
+			let [firstKey] = Object.keys(category);
+			if (firstKey) {
+				this.showCategory = category[firstKey].name;
+			}
+			return category;
+		},
+		countAdded() {
+			var count = 0;
+			for (var event in this.events) {
+				for (var pricingName in this.events[event].pricingName) {
+					for (var pricing in this.events[event].pricingName[pricingName]
+						.pricing) {
+						if (
+							this.events[event].pricingName[pricingName].pricing[pricing]
+								.added == 1 &&
+							!this.events[event].followed
+						) {
+							count++;
+						}
+					}
+				}
+			}
+			return count;
+		},
+	},
+	data() {
+		return {
+			showCategory: "",
+			adding: false,
+		};
+	},
+	mounted() {},
+	methods: {
+		addToCart(event, statusMember, event_name, event_id) {
+			var page = this;
+			this.adding = true;
+			event.member_status = statusMember;
+			event.event_name = event_name;
+			event.event_id = event_id;
+			console.log("Add To Card");
+			if (this.addCartUrl) {
+				$.post(this.addCartUrl, event, (res) => {
+					if (res.status) {
+						event.added = 1;
+						page.onAdd(event);
+					} else {
+						Swal.fire("Info", res.message, "warning");
+						page.onAdd(false);
+					}
+				})
+					.fail(function () {
+						Swal.fire("Fail", "Failed adding to cart !", "error");
+					})
+					.always(function () {
+						page.adding = false;
+					});
+			}
+			if (!this.addCartUrl) {
+				event.added = 1;
+				page.onAdd(event);
+			}
+		},
+		tagNameUrl(eventId, userId) {
+			return this.tagNamePath ?? +`${eventId}/${userId}`;
+		},
+		formatCurrency(price, currency = "IDR") {
+			return new Intl.NumberFormat("id-ID", {
+				style: "currency",
+				currency: currency,
+			}).format(price);
+		},
+	},
+});

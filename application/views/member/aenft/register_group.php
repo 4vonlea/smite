@@ -366,69 +366,36 @@ $theme_path = base_url("themes/aenft") . "/";
             </div>
             <div class="row mt-2">
                 <div class="col-md-12">
-                    <ul class="nav nav-pills">
-                        <li v-for="cat in eventCategory" style="cursor:pointer" class="nav-item">
-                            <span class="nav-link text-center" @click="showCategory = cat.name" :class="{'active':showCategory == cat.name}">
-                                <span>{{ cat.category }}</span>
-                                <span class="d-block">{{ cat.heldOn }}</span>
-                            </span>
-                        </li>
-                    </ul>
+                    <table class="table">
+                        <tbody v-for="(member,index) in model.members" :key="member.id" class="text-light">
+                            <tr>
+                                <td colspan="2">
+                                    {{ member.fullname }} <span class="badge bg-info">{{ findStatus(member.status).kategory }}</span>
+                                </td>
+                                <td>
+                                    <button @click="showModal(member)" class="btn btn-info">
+                                        <i class="fa fa-plus"></i> Add Event
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr v-for="(followed,index) in model.transactions[member.id]" :key="followed.id+member.id">
+                                <td>
+                                    {{ Number(index)+1 }}
+                                </td>
+                                <td>
+                                    {{ followed.event_name}}
+                                </td>
+                                <td>
+                                    <v-button @click="(self) => deleteFollowedEvent(self,member,followed)" class="btn btn-danger">
+                                        <i class="fa fa-trash"></i> Delete Event
+                                    </v-button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            <div class="row">
-                <div class="accordion accordion-quaternary col-md-12">
-                    <div v-for="(event, index) in filteredEvent" v-bind:key="index">
-                        <div class="card card-default mt-2" v-show="showCategory == event.categoryGroup">
-                            <div class="card-header card-bg card__shadow ">
-                                <h4 class="card-title m-0">
-                                    {{ event.name }} <br />
-                                    <span style="font-size: 14px;" v-if="event.event_required">(You must follow event <strong>{{ event.event_required }}</strong> to participate this event)</span>
-                                </h4>
-                            </div>
-                            <div :id="'accordion-'+index" class="collapse show table-responsive">
-                                <div v-if="event.participant >= event.kouta" class="alert alert-warning text-center">
-                                    Sorry, quota for this event is full
-                                </div>
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th class="border-end">Category</th>
-                                            <th v-for="pricing in event.pricingName" class="text-center"><span v-html="pricing.title"></span></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr v-for="member in event.memberStatus">
-                                            <td class="border-end">{{ member }}</td>
-                                            <td v-for="pricing in event.pricingName" class="text-center">
-                                                <span v-if="pricing.pricing[member]">
-                                                    <span v-if="pricing.pricing[member].price != 0">{{ formatCurrency(pricing.pricing[member].price) }}</span>
-                                                    <span v-if="pricing.pricing[member].price != 0 && pricing.pricing[member].price_in_usd != 0"> / </span>
-                                                    <span v-if="pricing.pricing[member].price_in_usd != 0">{{formatCurrency(pricing.pricing[member].price_in_usd, 'USD')}}</span>
-                                                    <div v-if="member == status_text" class="form-check form-switch d-flex justify-content-center">
-                                                        <input type="checkbox" :id="`switch-unlock_${member}_${event.name}`" :value="pricing.pricing[member].added" class="form-check-input" :class="pricing.pricing[member].event_required_id" v-model="pricing.pricing[member].added" @click="addEvent($event,pricing.pricing[member],member,event)">
-                                                        <label :for="`switch-unlock_${member}_${event.name}`"></label>
-                                                    </div>
-                                                    <div v-else>
-                                                        <button type="button" v-if="member != status_text" style="cursor:not-allowed;color:#fff;" aria-disabled="true" disabled class="btn btn-sm btn-danger">Not Available</button>
-                                                    </div>
-                                                    <!-- <button type="button" @click="addEvent(pricing.pricing[member],member,event.name)" v-if="member == status_text" :disabled="pricing.pricing[member].added" class="btn btn-sm btn-warning">Add Event</button> -->
-                                                </span>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div v-if="validation.eventAdded" style="font-size: .875em;color: #F2AC38;">
-                        {{ validation.eventAdded }}
-                    </div>
-                    <div v-if="validation.requiredEvent" style="font-size: 1em;color: #F2AC38;">
-                        {{ validation.requiredEvent }}
-                    </div>
-                </div>
-            </div>
+
             <div class="card card-default mt-2">
                 <div class="card-header card-bg card__shadow  text-center" style="color:#fff">
                     <b>{{ formatCurrency(total()) }}</b>
@@ -445,6 +412,32 @@ $theme_path = base_url("themes/aenft") . "/";
                 <v-button type="button" @click="page = 'payment'" style="width: 300px;" class="btn btn-edge btn-primary">
                     Next
                 </v-button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-event" class="modal fade">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-dark">Select Event</h5>
+                </div>
+                <div class="modal-body">
+                    <select-event v-if="!loadingEvent" :add-cart-url="'<?= base_url('member/register/group/add_cart'); ?>/'+currentMember.id+'/'+currentMember.status" :on-add="selectedEvent" :events="events" :show-hotel-booking="false">
+                        <template v-slot:hotel-component>
+                            <hotel-booking label-class="text-dark" :unique-id="tempMemberId" :on-delete="onCancelBooking" :on-book="onBooking" :booking="hotelBooking.booking" book-url="<?= base_url('member/register/add_cart'); ?>" search-url="<?= base_url('api/available_room'); ?>" :min-date="hotelBooking.minBookingDate" :max-date="hotelBooking.maxBookingDate"></hotel-booking>
+                        </template>
+                        <template v-slot:footer="props">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class=" text-right alert alert-info">
+                                        <span>Jumlah event yang diikuti : {{ props.count }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                    </select-event>
+                </div>
             </div>
         </div>
     </div>
@@ -473,6 +466,8 @@ $theme_path = base_url("themes/aenft") . "/";
 <script src="<?= base_url("themes/script/v-button.js"); ?>"></script>
 <script src="https://unpkg.com/vue-select@latest"></script>
 <script src="https://cdn.jsdelivr.net/npm/uuid@latest/dist/umd/uuidv4.min.js"></script>
+<script src="<?= base_url("themes/script/vue-select-event.js?") ?>"></script>
+<script src="<?= base_url("themes/script/vue-hotel-booking.js?") ?>"></script>
 
 <?php if (isset(Settings_m::getEspay()['jsKitUrl'])) : ?>
     <script src="<?= Settings_m::getEspay()['jsKitUrl']; ?>"></script>
@@ -489,8 +484,10 @@ $theme_path = base_url("themes/aenft") . "/";
             model: <?= $model ? json_encode($model) : " {
                 bill_to: '',
                 email: '',
-                members: []
+                members: [],
+                transactions:{},
             }"; ?>,
+            currentMember: {},
             statusList: <?= json_encode($statusList); ?>,
             status_selected: "",
             status_text: "",
@@ -499,22 +496,16 @@ $theme_path = base_url("themes/aenft") . "/";
             validation: {
                 members: ''
             },
-            page: 'register',
+            page: 'select-event',
             paymentMethod: [],
             selectedPaymentMethod: '',
-            events: <?= json_encode($events) ?>,
-            eventAdded: [],
-            adding: false,
-            transactions: null,
+            events: [],
             paymentBank: null,
-            sponsor: {},
             isUsd: false,
-            continueTransaction: <?= isset($continueTransaction) ? json_encode($continueTransaction) : "null"; ?>,
-            showCategory: "",
             allowBack: true,
+            loadingEvent: false,
         },
         mounted: function() {
-
             // NOTE Set Payment Method
             let paymentData = <?= json_encode($paymentMethod) ?>;
             let tempPayment = [{
@@ -592,7 +583,6 @@ $theme_path = base_url("themes/aenft") . "/";
                 var statusSelected = this.status_selected;
                 var status = this.statusList.find(data => data.id == statusSelected);
                 status = status ? status.kategory : '';
-
                 var events = [];
                 if (this.events) {
                     this.events.forEach(function(item, index) {
@@ -605,37 +595,55 @@ $theme_path = base_url("themes/aenft") . "/";
             }
         },
         methods: {
+            deleteFollowedEvent(self, member, event) {
+                self.toggleLoading();
+                $.post("<?= base_url('member/register/group/delete_cart'); ?>", {
+                    member_id: member.id,
+                    event_pricing_id: event.id,
+                }, (res) => {
+                    if (res.status) {
+                        Vue.set(this.model.transactions, member.id, res.transactions);
+                    } else {
+                        Swal.fire("Info", res.message, "warning");
+
+                    }
+                }).fail((err) => {
+                    Swal.fire('Fail', 'Failed to get event data', 'error')
+                }).always(() => {
+                    self.toggleLoading();
+                })
+            },
+            selectedEvent(event) {
+                if (this.model.transactions[this.currentMember.id]) {
+                    this.model.transactions[this.currentMember.id].push(event);
+                } else {
+                    Vue.set(this.model.transactions, this.currentMember.id, [event]);
+                }
+            },
+            findStatus(id) {
+                return this.statusList.find(data => data.id == id);
+            },
+            showModal(member) {
+                this.loadingEvent = true;
+                this.currentMember = member;
+                $("#modal-event").modal("show");
+                $.post("<?= base_url('member/register/group/get_events'); ?>", {
+                    statusId: member.status,
+                    memberId: member.id,
+                }, (res) => {
+                    this.events = res.events;
+                }).fail((err) => {
+                    Swal.fire('Fail', 'Failed to get event data', 'error')
+                }).always(() => {
+                    this.loadingEvent = false;
+                })
+            },
             totalPrice(idr = true) {
                 var total = 0;
-                var isUsd = 0;
-                for (var i in this.transactions) {
-                    if (idr && this.transactions[i].price != 0) {
-                        total += parseFloat(this.transactions[i].price);
-                    } else {
-                        isUsd += 1;
-                        kurs_usd = <?= json_encode(json_decode(Settings_m::getSetting('kurs_usd'), true)); ?>;
-                        total += (parseFloat(item.price_in_usd) * kurs_usd.value);
-                    }
-                }
-                this.isUsd = isUsd > 0 ? true : false;
                 return total;
             },
             total(idr = true) {
                 var total = 0;
-                var isUsd = 0;
-                this.eventAdded.forEach((item, index) => {
-                    if (idr && item.price != 0) {
-                        total += parseFloat(item.price);
-                    } else {
-                        isUsd += 1;
-
-                        kurs_usd = <?= json_encode(json_decode(Settings_m::getSetting('kurs_usd'), true)); ?>;
-                        total += (parseFloat(item.price_in_usd) * kurs_usd.value);
-                    }
-                })
-                total = total * this.model.members.length;
-
-                this.isUsd = isUsd > 0 ? true : false;
                 return total;
             },
             onlyNumber($event) {
@@ -769,16 +777,6 @@ $theme_path = base_url("themes/aenft") . "/";
                     style: 'currency',
                     currency: currency
                 }).format(price);
-            },
-
-            // NOTE Menambah dan Menghapus Event
-            checkRequirement(event_required_id) {
-                let isRequired = true;
-                if (event_required_id != null && event_required_id != 0) {
-                    find = this.eventAdded.find(data => data.id_event == event_required_id);
-                    isRequired = find ? true : false;
-                }
-                return isRequired;
             },
             checkOverlap(event) {
                 try {
