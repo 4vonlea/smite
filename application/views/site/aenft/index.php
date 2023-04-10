@@ -31,7 +31,7 @@
     </button>
 
     <!-- Start Hero -->
-    <div id="home" class="cs-hero cs-style1 cs-type2 cs-bg text-center  cs-ripple_version" data-src="<?= base_url('themes/aenft'); ?>/assets/img/konas/bg-head.jpg" id="home">
+    <div id="home" class="cs-hero cs-style1 cs-type2 cs-bg text-center  cs-ripple_version" data-src="<?= base_url('themes/aenft'); ?>/assets/img/konas/bg-head.jpg">
         <div class="cs-dark_overlay">
 
         </div>
@@ -44,7 +44,7 @@
                 <li><a class="dropdown-item" href="<?= current_url() . "?language=indonesia"; ?>">Indonesia</a></li>
             </ul>
         </div>
-        <div class="container">
+        <div class="container scaled">
             <div class="cs-hero_img wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.3s">
                 <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/logo.png" style="width: 100%; max-width: 320px; height: auto;">
             </div>
@@ -109,40 +109,40 @@
         <!-- The slideshow/carousel -->
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/bg/1.jpg" alt="" class="d-block" style="width:100%">
+                <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/bg/1.jpg" alt="" class="d-block" style="width:100%; height: 700px; object-fit: cover;">
             </div>
             <div class="carousel-item">
-                <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/bg/2.jpeg" alt="" class="d-block" style="width:100%">
+                <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/bg/2.jpeg" alt="" class="d-block" style="width:100%; height: 700px; object-fit: cover;">
             </div>
             <div class="carousel-item">
-                <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/bg/3.jpg" alt="" class="d-block" style="width:100%">
+                <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/bg/3.jpg" alt="" class="d-block" style="width:100%; height: 700px; object-fit: cover;">
             </div>
             <div class="carousel-item">
-                <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/bg/4.jpg" alt="" class="d-block" style="width:100%">
+                <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/bg/4.jpg" alt="" class="d-block" style="width:100%; height: 700px; object-fit: cover;">
             </div>
             <div class="carousel-item">
-                <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/bg/5.jpg" alt="" class="d-block" style="width:100%">
+                <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/bg/5.jpg" alt="" class="d-block" style="width:100%; height: 700px; object-fit: cover;">
             </div>
             <div class="carousel-item">
-                <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/bg/6.jpg" alt="" class="d-block" style="width:100%">
+                <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/bg/6.jpg" alt="" class="d-block" style="width:100%; height: 700px; object-fit: cover;">
             </div>
             <div class="carousel-item">
-                <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/bg/7.jpg" alt="" class="d-block" style="width:100%">
+                <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/bg/7.jpg" alt="" class="d-block" style="width:100%; height: 700px; object-fit: cover;">
             </div>
             <div class="carousel-item">
-                <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/bg/8.jpg" alt="" class="d-block" style="width:100%">
+                <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/bg/8.jpg" alt="" class="d-block" style="width:100%; height: 700px; object-fit: cover;">
             </div>
             <div class="carousel-item">
-                <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/bg/9.jpg" alt="" class="d-block" style="width:100%">
+                <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/bg/9.jpg" alt="" class="d-block" style="width:100%; height: 700px; object-fit: cover;">
             </div>
             <div class="carousel-item">
-                <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/bg/10.jpg" alt="" class="d-block" style="width:100%">
+                <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/bg/10.jpg" alt="" class="d-block" style="width:100%; height: 700px; object-fit: cover;">
             </div>
             <div class="carousel-item">
-                <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/bg/11.jpg" alt="" class="d-block" style="width:100%">
+                <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/bg/11.jpg" alt="" class="d-block" style="width:100%; height: 700px; object-fit: cover;">
             </div>
             <div class="carousel-item">
-                <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/bg/12.jpg" alt="" class="d-block" style="width:100%">
+                <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/bg/12.jpg" alt="" class="d-block" style="width:100%; height: 700px; object-fit: cover;">
             </div>
         </div>
 
@@ -157,8 +157,8 @@
 
     <div class="cs-footer_wrap">
         <div class="row align-items-center wow fadeIn" data-wow-duration="1s" data-wow-delay="0.5s">
-            <div class="col-lg-12">
-                <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/konas.jpg" width="100%">
+            <div class="col-lg-12 text-center">
+                <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/konas.jpg" width="70%">
             </div>
         </div>
         <footer class="cs-footer text-center">

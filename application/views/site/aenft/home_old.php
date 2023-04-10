@@ -147,109 +147,282 @@
     </div>
     <!-- End Hero -->
 
-    <section id="sambutan">
+    <section id="team">
         <div class="cs-height_70 cs-height_lg_40"></div>
         <div class="container">
             <div class="cs-seciton_heading cs-style1 text-uppercase wow fadeInUp text-center" data-wow-duration="1s" data-wow-delay="0.2s">
-                <h3 class="cs-section_title cs-font_16 cs-font_14_sm cs-gradient_color">Kata Sambutan</h3>
-                <h2 class="cs-section_subtitle cs-m0 cs-font_36 cs-font_24_sm">KONSI XI PERDOSSI 2023 SEMARANG</h2>
+                <h3 class="cs-section_title cs-font_16 cs-font_14_sm cs-gradient_color">Status</h3>
+                <h2 class="cs-section_subtitle cs-m0 cs-font_36 cs-font_24_sm">Kepesertaan</h2>
             </div>
             <div class="cs-height_50 cs-height_lg_30"></div>
             <div class="row wow fadeIn" data-wow-duration="1s" data-wow-delay="0.4s">
-                <div class="col-lg-6 col-sm-6">
-                    <table border="0" cellpadding="4" cellspacing="4" width="100%">
-                        <tr>
-                            <td width="30%" valign="top" style="border-top: 0px;"><img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/sambutan1.png"></td>
-                            <td style="border-top: 0px;">
-                                <h4>Kata Sambutan</h4>
-                                <b>Ketua Perhimpunan Dokter Spesialis Saraf Indonesia <br> (PERDOSSI) Cabang Semarang</b> <br>
-                                Assalamualaikum wr.wb. <br> Sejawat yang terhormat,
-                            </td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" style="border-top: 0px;">
-                                <p align="justify">
-                                    Merupakan suatu kehormatan besar bagi kami, Perdossi Cabang Semarang, diberikan kesempatan menjadi tuan rumah penyelenggaraan Kongres Nasional XI Perhimpunan Dokter Spesialis Saraf Indonesia. Kongres Nasional ini tidak hanya menjadi ajang ilmiah namun juga pertemuan dokter spesialis saraf seluruh Indonesia yang rencana diselenggarakan pada 2 - 6 Agustus 2023.
-
-                                    <br><br>
-
-                                    <b>Kongres Nasional XI Perhimpunan Dokter Spesialis Saraf Indonesia</b> ini mengangkat tema “NeuroEngineering Update to Reach Outstanding Neurological service (NEURON)”, akan melibatkan sejumlah pakar baik nasional maupun internasional yang berkompeten di bidangnya menyampaikan perkembangan dan penemuan terkini dalam bidang neurologi. Kami percaya bahwa kegiatan ini akan memberikan banyak tambahan pengetahuan serta meningkatkan keterampilan yang bermanfaat bagi para sejawat sekalian.
-
-                                    <br><br>
-
-                                    Selain kegiatan ilmiah, tentu pada KONAS XI PERDOSSI 2023 juga terdapat rapat dan sidang organisasi serta kegiatan non ilmiah. Kami berharap sejawat sekalian dapat turut serta pada kegiatan Senam Neurobik massal bersama masyarakat awam dan telah kami siapkan acara Ladies Program bagi sejawat dan keluarga yang berminat.
-
-                                    <br><br>
-
-                                    Segenap panitia mengundang sejawat serta rekan-rekan sponsor untuk berpartisipasi dalam KONAS XI PERDOSSI 2023 di Semarang. Kiranya acara ini dapat terlaksana dengan lancar dan sukses.
-
-                                    <br><br>
-
-                                    Sampai berjumpa di Semarang!
-
-                                    <br><br>
-
-                                    Wassalamu’alaikum wr.wb.
-
-                                    <br><br>
-
-                                    Dr. dr. Retnaningsih, Sp. N, Subsp. NIITCC (K), KIC, M.KM <br>
-                                    Ketua PERDOSSI Cabang Semarang
-                                </p>
-                            </td>
-                        </tr>
-                    </table>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="cs-team cs-style1 text-center cs-white_bg">
+                        <div class="cs-height_30 cs-height_lg_30"></div>
+                        <div class="cs-member_thumb">
+                            <i class="i-col fa-solid fa-microphone-lines fa-3x wow pulse" data-wow-iteration="infinite" data-wow-duration="1500ms"></i>
+                        </div>
+                        <div class="cs-height_25 cs-height_lg_25"></div>
+                        <div class="cs-member_info">
+                            <h2 class="cs-font_22 cs-font_16_sm cs-m0">Pembicara</h2>
+                            <div class="cs-height_5 cs-height_lg_5"></div>
+                            <p data-count-to="tba" class="odometer cs-m0"></p>
+                            <div class="cs-height_20 cs-height_lg_20"></div>
+                        </div>
+                    </div>
+                    <div class="cs-height_25 cs-height_lg_25"></div>
                 </div>
-                <div class="col-lg-6 col-sm-6">
-                    <table border="0" cellpadding="4" cellspacing="4" width="100%">
-                        <tr>
-                            <td style="border-top: 0px;">
-                                <h4>Kata Sambutan</h4>
-                                <b>Ketua Umum Pusat <br> Perhimpunan Dokter Spesialis Saraf Indonesia (PERDOSSI)</b> <br>
-                                Assalamualaikum wr.wb. <br> Yang saya hormati para Guru Besar, Profesor, Doktor, Senior dan sejawat sekalian.
-                            </td>
-                            <td width="30%" valign="top" style="border-top: 0px;"><img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/sambutan2.png"></td>
-                        </tr>
-                        <tr>
-                            <td colspan="2" style="border-top: 0px;">
-                                <p align="justify">
-                                    Puji syukur kita panjatkan kehadirat Tuhan Yang Maha Esa atas limpahan rahmat dan karuniaNya senantiasa kepada kita semua dalam menjalankan tugas keprofesian dan berkarya dengan baik. Sebagai perwakilan dari Ketua Perhimpunan Dokter Spesialis Saraf Indonesia (PERDOSSI) Pusat, kami menyambut partisipasi sejawat dan kolega semua dalam <b>Kongres Nasional XI Perhimpunan Dokter Spesialis Saraf Indonesia</b> yang akan diselenggarakan pada 2 - 6 Agustus 2023 , di Semarang.
-
-                                    <br><br>
-
-                                    Mengusung tema “NeuroEngineering Update to Reach Outstanding Neurological service (NEURON)” diharapkan dapat mengakomodasi para dokter spesialis neurologi untuk terus meng-update keilmuan dan keterampilannya berdasarkan penelitian dan guideline terbaru melalui simposium dan workshop yang disajikan. Tentu akan sangat bermanfaat bagi praktik sehari-hari dan meningkatkan mutu pelayanan serta daya saing para neurolog Indonesia.
-
-                                    <br><br>
-
-                                    Melalui forum rapat dan sidang organisasi yang diadakan nantinya semakin memperkuat organisasi demi pengembangan Neurologi Indonesia di masa mendatang. Kegiatan KONAS XI PERDOSSI 2023 ini juga akan menjadi tonggak penting perubahan nama perhimpunan yang baru.
-
-                                    <br><br>
-
-                                    Kepada seluruh panitia penyelenggara dan kolega yang mendukung KONAS XI PERDOSSI 2023 kami mengucapkan terimakasih yang sebesar-besarnya.
-
-                                    <br><br>
-
-                                    Mari sukseskan KONAS XI PERDOSSI 2023 di Semarang!
-
-                                    <br><br>
-
-                                    Wassalamu’alaikum wr.wb.
-
-                                    <br><br>
-
-                                    Dr. dr. Dodik Tugasworo, Sp. N, Subsp. NIIOO (K) <br>
-                                    Ketua PP PERDOSSI
-
-                                </p>
-                            </td>
-                        </tr>
-                    </table>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="cs-team cs-style1 text-center cs-white_bg">
+                        <div class="cs-height_30 cs-height_lg_30"></div>
+                        <div class="cs-member_thumb">
+                            <i class="i-col fa-solid fa-users-gear fa-3x wow pulse" data-wow-iteration="infinite" data-wow-duration="1500ms"></i>
+                        </div>
+                        <div class="cs-height_25 cs-height_lg_25"></div>
+                        <div class="cs-member_info">
+                            <h2 class="cs-font_22 cs-font_16_sm cs-m0">Moderator</h2>
+                            <div class="cs-height_5 cs-height_lg_5"></div>
+                            <p data-count-to="tba" class="odometer cs-m0"></p>
+                            <div class="cs-height_20 cs-height_lg_20"></div>
+                        </div>
+                    </div>
+                    <div class="cs-height_25 cs-height_lg_25"></div>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="cs-team cs-style1 text-center cs-white_bg">
+                        <div class="cs-height_30 cs-height_lg_30"></div>
+                        <div class="cs-member_thumb">
+                            <i class="i-col fa-solid fa-people-roof fa-3x wow pulse" data-wow-iteration="infinite" data-wow-duration="1500ms"></i>
+                        </div>
+                        <div class="cs-height_25 cs-height_lg_25"></div>
+                        <div class="cs-member_info">
+                            <h2 class="cs-font_22 cs-font_16_sm cs-m0">Peserta</h2>
+                            <div class="cs-height_5 cs-height_lg_5"></div>
+                            <p data-count-to="<?php echo $participant; ?>" class="odometer cs-m0"></p>
+                            <div class="cs-height_20 cs-height_lg_20"></div>
+                        </div>
+                    </div>
+                    <div class="cs-height_25 cs-height_lg_25"></div>
+                </div>
+                <div class="col-lg-3 col-sm-6">
+                    <div class="cs-team cs-style1 text-center cs-white_bg">
+                        <div class="cs-height_30 cs-height_lg_30"></div>
+                        <div class="cs-member_thumb">
+                            <i class="i-col fa-solid fa-file-circle-check fa-3x wow pulse" data-wow-iteration="infinite" data-wow-duration="1500ms"></i>
+                        </div>
+                        <div class="cs-height_25 cs-height_lg_25"></div>
+                        <div class="cs-member_info">
+                            <h2 class="cs-font_22 cs-font_16_sm cs-m0">Abstract</h2>
+                            <div class="cs-height_5 cs-height_lg_5"></div>
+                            <p data-count-to="<?php echo $paper; ?>" class="odometer cs-m0"></p>
+                            <div class="cs-height_20 cs-height_lg_20"></div>
+                        </div>
+                    </div>
+                    <div class="cs-height_25 cs-height_lg_25"></div>
                 </div>
             </div>
         </div>
 
         <div class="cs-height_50 cs-height_lg_20"></div>
-
+        <div class="container">
+            <div class="cs-seciton_heading cs-style1 text-uppercase wow fadeInUp text-center" data-wow-duration="1s" data-wow-delay="0.2s">
+                <h3 class="cs-section_title cs-font_16 cs-font_14_sm cs-gradient_color">Daftar Hotel</h3>
+            </div>
+            <div class="cs-height_25 cs-height_lg_25"></div>
+            <div class="row wow fadeIn" data-wow-duration="1s" data-wow-delay="0.4s">
+                <div class="col-12">
+                    <div class="cs-team cs-style1 text-center cs-white_bg" data-bs-toggle="modal" data-bs-target="#venue">
+                        <div class="cs-height_30 cs-height_lg_30"></div>
+                        <div class="cs-member_thumb">
+                            <i class="i-col fa-solid fa-building-circle-check fa-3x wow pulse" data-wow-iteration="infinite" data-wow-duration="1500ms"></i>
+                        </div>
+                        <div class="cs-height_25 cs-height_lg_25"></div>
+                        <div class="cs-member_info">
+                            <h2 class="cs-font_22 cs-font_16_sm cs-m0">Padma Hotel Semarang</h2>
+                            <div class="cs-height_5 cs-height_lg_5"></div>
+                            <div class="text-center mt-0 mb-1">
+                                <i class="fa-solid fa-star i-col"></i>
+                                <i class="fa-solid fa-star i-col"></i>
+                                <i class="fa-solid fa-star i-col"></i>
+                                <i class="fa-solid fa-star i-col"></i>
+                                <i class="fa-solid fa-star i-col"></i>
+                            </div>
+                            <p>
+                                Jl. Sultan Agung No. 86, Kota Semarang, Jawa Tengah
+                            </p>
+                            <div class="cs-height_20 cs-height_lg_20"></div>
+                        </div>
+                    </div>
+                    <div class="cs-height_25 cs-height_lg_25"></div>
+                </div>
+            </div>
+            <div class="cs-height_50 cs-height_lg_30"></div>
+            <div class="cs-seciton_heading cs-style1 text-uppercase wow fadeInUp text-center" data-wow-duration="1s" data-wow-delay="0.2s">
+                <h3 class="cs-section_title cs-font_16 cs-font_14_sm cs-gradient_color">Daftar Hotel Terdekat</h3>
+                <!--<h2 class="cs-section_subtitle cs-m0 cs-font_36 cs-font_24_sm">Kamar Hotel</h2>-->
+            </div>
+            <div class="cs-height_50 cs-height_lg_30"></div>
+            <div class="row wow fadeIn" data-wow-duration="1s" data-wow-delay="0.4s">
+                <div class="col-lg-4 col-sm-6">
+                    <div class="cs-team cs-style1 text-center cs-white_bg" data-bs-toggle="modal" data-bs-target="#hotel1">
+                        <div class="cs-height_30 cs-height_lg_30"></div>
+                        <div class="cs-member_thumb">
+                            <i class="i-col fa-solid fa-building-circle-check fa-3x wow pulse" data-wow-iteration="infinite" data-wow-duration="1500ms"></i>
+                        </div>
+                        <div class="cs-height_25 cs-height_lg_25"></div>
+                        <div class="cs-member_info">
+                            <h2 class="cs-font_22 cs-font_16_sm cs-m0">Grand Candi</h2>
+                            <div class="cs-height_5 cs-height_lg_5"></div>
+                            <div class="text-center mt-0 mb-1">
+                                <i class="fa-solid fa-star i-col"></i>
+                                <i class="fa-solid fa-star i-col"></i>
+                                <i class="fa-solid fa-star i-col"></i>
+                                <i class="fa-solid fa-star i-col"></i>
+                                <i class="fa-solid fa-star i-col"></i>
+                            </div>
+                            <p>
+                                Jarak ke Venue : <span class="fw-bold">1,4 km</span><br>
+                                <span class="fw-bold">± 4 menit</span> berkendara
+                            </p>
+                            <!--<h6 class="badge bg-primary">Tersedia Kamar Kosong</h6>-->
+                            <div class="cs-height_20 cs-height_lg_20"></div>
+                        </div>
+                    </div>
+                    <div class="cs-height_25 cs-height_lg_25"></div>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <div class="cs-team cs-style1 text-center cs-white_bg" data-bs-toggle="modal" data-bs-target="#hotel2">
+                        <div class="cs-height_30 cs-height_lg_30"></div>
+                        <div class="cs-member_thumb">
+                            <i class="i-col fa-solid fa-building-circle-check fa-3x wow pulse" data-wow-iteration="infinite" data-wow-duration="1500ms"></i>
+                        </div>
+                        <div class="cs-height_25 cs-height_lg_25"></div>
+                        <div class="cs-member_info">
+                            <h2 class="cs-font_22 cs-font_16_sm cs-m0">Patra</h2>
+                            <div class="cs-height_5 cs-height_lg_5"></div>
+                            <div class="text-center mt-0 mb-1">
+                                <i class="fa-solid fa-star i-col"></i>
+                                <i class="fa-solid fa-star i-col"></i>
+                                <i class="fa-solid fa-star i-col"></i>
+                                <i class="fa-solid fa-star i-col"></i>
+                            </div>
+                            <p>
+                                Jarak ke Venue : <span class="fw-bold">1,5 km</span><br>
+                                <span class="fw-bold">± 5 menit</span> berkendara
+                            </p>
+                            <!--<h6 class="badge bg-primary">Tersedia Kamar Kosong</h6>-->
+                            <div class="cs-height_20 cs-height_lg_20"></div>
+                        </div>
+                    </div>
+                    <div class="cs-height_25 cs-height_lg_25"></div>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <div class="cs-team cs-style1 text-center cs-white_bg" data-bs-toggle="modal" data-bs-target="#hotel3">
+                        <div class="cs-height_30 cs-height_lg_30"></div>
+                        <div class="cs-member_thumb">
+                            <i class="i-col fa-solid fa-building-circle-check fa-3x wow pulse" data-wow-iteration="infinite" data-wow-duration="1500ms"></i>
+                        </div>
+                        <div class="cs-height_25 cs-height_lg_25"></div>
+                        <div class="cs-member_info">
+                            <h2 class="cs-font_22 cs-font_16_sm cs-m0">Arrus</h2>
+                            <div class="cs-height_5 cs-height_lg_5"></div>
+                            <div class="text-center mt-0 mb-1">
+                                <i class="fa-solid fa-star i-col"></i>
+                                <i class="fa-solid fa-star i-col"></i>
+                                <i class="fa-solid fa-star i-col"></i>
+                                <i class="fa-solid fa-star i-col"></i>
+                            </div>
+                            <p>
+                                Jarak ke Venue : <span class="fw-bold">1,9 km</span><br>
+                                <span class="fw-bold">± 4 menit</span> berkendara
+                            </p>
+                            <!--<h6 class="badge bg-primary">Tersedia Kamar Kosong</h6>-->
+                            <div class="cs-height_20 cs-height_lg_20"></div>
+                        </div>
+                    </div>
+                    <div class="cs-height_25 cs-height_lg_25"></div>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <div class="cs-team cs-style1 text-center cs-white_bg" data-bs-toggle="modal" data-bs-target="#hotel4">
+                        <div class="cs-height_30 cs-height_lg_30"></div>
+                        <div class="cs-member_thumb">
+                            <i class="i-col fa-solid fa-building-circle-check fa-3x wow pulse" data-wow-iteration="infinite" data-wow-duration="1500ms"></i>
+                        </div>
+                        <div class="cs-height_25 cs-height_lg_25"></div>
+                        <div class="cs-member_info">
+                            <h2 class="cs-font_22 cs-font_16_sm cs-m0">Louis Kienne</h2>
+                            <div class="cs-height_5 cs-height_lg_5"></div>
+                            <div class="text-center mt-0 mb-1">
+                                <i class="fa-solid fa-star i-col"></i>
+                                <i class="fa-solid fa-star i-col"></i>
+                                <i class="fa-solid fa-star i-col"></i>
+                                <i class="fa-solid fa-star i-col"></i>
+                            </div>
+                            <p>
+                                Jarak ke Venue : <span class="fw-bold">3,4 km</span><br>
+                                <span class="fw-bold">± 9 menit</span> berkendara
+                            </p>
+                            <!--<h6 class="badge bg-primary">Tersedia Kamar Kosong</h6>-->
+                            <div class="cs-height_20 cs-height_lg_20"></div>
+                        </div>
+                    </div>
+                    <div class="cs-height_25 cs-height_lg_25"></div>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <div class="cs-team cs-style1 text-center cs-white_bg" data-bs-toggle="modal" data-bs-target="#hotel5">
+                        <div class="cs-height_30 cs-height_lg_30"></div>
+                        <div class="cs-member_thumb">
+                            <i class="i-col fa-solid fa-building-circle-check fa-3x wow pulse" data-wow-iteration="infinite" data-wow-duration="1500ms"></i>
+                        </div>
+                        <div class="cs-height_25 cs-height_lg_25"></div>
+                        <div class="cs-member_info">
+                            <h2 class="cs-font_22 cs-font_16_sm cs-m0">Novotel</h2>
+                            <div class="cs-height_5 cs-height_lg_5"></div>
+                            <div class="text-center mt-0 mb-1">
+                                <i class="fa-solid fa-star i-col"></i>
+                                <i class="fa-solid fa-star i-col"></i>
+                                <i class="fa-solid fa-star i-col"></i>
+                                <i class="fa-solid fa-star i-col"></i>
+                            </div>
+                            <p>
+                                Jarak ke Venue : <span class="fw-bold">4,9 km</span><br>
+                                <span class="fw-bold">± 9 menit</span> berkendara
+                            </p>
+                            <!--<h6 class="badge bg-primary">Tersedia Kamar Kosong</h6>-->
+                            <div class="cs-height_20 cs-height_lg_20"></div>
+                        </div>
+                    </div>
+                    <div class="cs-height_25 cs-height_lg_25"></div>
+                </div>
+                <div class="col-lg-4 col-sm-6">
+                    <div class="cs-team cs-style1 text-center cs-white_bg" data-bs-toggle="modal" data-bs-target="#hotel6">
+                        <div class="cs-height_30 cs-height_lg_30"></div>
+                        <div class="cs-member_thumb">
+                            <i class="i-col fa-solid fa-building-circle-check fa-3x wow pulse" data-wow-iteration="infinite" data-wow-duration="1500ms"></i>
+                        </div>
+                        <div class="cs-height_25 cs-height_lg_25"></div>
+                        <div class="cs-member_info">
+                            <h2 class="cs-font_22 cs-font_16_sm cs-m0">Gumaya</h2>
+                            <div class="cs-height_5 cs-height_lg_5"></div>
+                            <div class="text-center mt-0 mb-1">
+                                <i class="fa-solid fa-star i-col"></i>
+                                <i class="fa-solid fa-star i-col"></i>
+                                <i class="fa-solid fa-star i-col"></i>
+                                <i class="fa-solid fa-star i-col"></i>
+                                <i class="fa-solid fa-star i-col"></i>
+                            </div>
+                            <p>
+                                Jarak ke Venue : <span class="fw-bold">5,6 km</span><br>
+                                <span class="fw-bold">± 10 menit</span> berkendara
+                            </p>
+                            <!--<h6 class="badge bg-primary">Tersedia Kamar Kosong</h6>-->
+                            <div class="cs-height_20 cs-height_lg_20"></div>
+                        </div>
+                    </div>
+                    <div class="cs-height_25 cs-height_lg_25"></div>
+                </div>
+            </div>
+        </div>
     </section>
 
     <div class="cs-height_50 cs-height_lg_20"></div>
@@ -286,41 +459,33 @@
     <?php foreach ($eventsList as $groupEvent) : ?>
         <section>
             <div class="container">
-                <div class="cs-seciton_heading cs-style1 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s">
-                    <h2 class="cs-section_subtitle cs-m0 cs-font_36 cs-font_24_sm text-uppercase text-center"><?= $groupEvent['kategory']; ?></h2>
-                    <h5 class="text-center"><?= $groupEvent['heldOn']; ?></h5>
-                    <div class="card card-bg card__shadow">
-                        <div class="row cs-cta cs-style3 cs-accent_bg">
-                            <table class="table table-striped table-bordered mb-0 table-responsive" style="color: white; width: 100%;">
-                                <thead bgcolor="#0052FF">
-                                    <tr>
-                                        <th>Tempat & Tanggal</th>
-                                        <th>Event</th>
-                                        <th>Kuota</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php foreach ($groupEvent['list'] as $event) : ?>
-                                        <tr>
-                                            <td><?= $event['held_in']; ?>, <?= $groupEvent['heldOn']; ?></td>
-                                            <td>
-                                                <?= $event['name']; ?>
-                                                <br>
-                                                <small class="fw-bold"><?= $event['description']; ?></small>
-                                            </td>
-                                            <td align="center"><span class="badge card-header-bg2 fw-bold"><?= $event['kouta']; ?> Orang</span></td>
-                                        </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
-                        </div>
+                <div class="cs-seciton_heading cs-style1 wow fadeInUp text-center" data-wow-duration="1s" data-wow-delay="0.2s">
+                    <h2 class="cs-section_subtitle cs-m0 cs-font_36 cs-font_24_sm text-uppercase">
+                        <?= $groupEvent['kategory']; ?>
+                    </h2>
+                    <h5><?= $groupEvent['heldOn']; ?></h5>
+                    <div class="cs-height_30 cs-height_lg_15"></div>
+                    <div class="row">
+                        <?php
+                        $colWidth = count($groupEvent['list']) == 1 ? 'col-12' : 'col-6';
+                        ?>
+                        <?php foreach ($groupEvent['list'] as $event) : ?>
+                            <div class="<?= $colWidth; ?> card card-bg card__shadow mb-2">
+                                <div class="cs-cta cs-style3 cs-accent_bg">
+                                    <h4><?= $event['name']; ?></h4>
+                                    <p class="px-2 mt-1 mb-3"><i class="fa fa-info-circle"></i> <?= $event['held_in']; ?>, <?= $groupEvent['heldOn']; ?></p>
+                                    <span class="badge card-header-bg2 cs-font_16 cs-font_10_sm">Kuota : <span class="fw-bold"><?= $event['kouta']; ?> Orang</span></span>
+                                    <p><span class="fw-bold"><?=$event['description'];?></span></p>
+                                </div>
+                            </div>
+                        <?php endforeach; ?>
                     </div>
                 </div>
             </div>
         </section>
-        <div class="cs-height_50 cs-height_lg_25"></div>
-    <?php endforeach; ?>
+        <div class="cs-height_70 cs-height_lg_40"></div>
 
+    <?php endforeach; ?>
     <div class="cs-height_75 cs-height_lg_45"></div>
 
     <section id="login" class="cs-bg p-5" data-src="<?= base_url('themes/aenft'); ?>/assets/img/konas/img4.jpg">
@@ -421,10 +586,11 @@
                     <span class="filter-item" data-filter="faq">faq</span>
                     <span class="filter-item" data-filter="jadwal">Jadwal Kegiatan</span>
                     <span class="filter-item" data-filter="pedoman">Pedoman Ilmiah</span>
+                    <span class="filter-item" data-filter="sambutan">Sambutan</span>
                     <span class="filter-item" data-filter="panitia">Kepanitiaan</span>
                     <span class="filter-item" data-filter="explore">Explore Semarang</span>
                     <span class="filter-item" data-filter="ladpro">Ladies Program</span>
-                    <span class="filter-item" data-filter="neuro">Neurotech Competition</span>
+                    <span class="filter-item" data-filter="neuro">Nerutotech Competition</span>
                 </div>
             </div>
             <div class="event-item tanggal">
@@ -485,6 +651,13 @@
                     <h4>Pedoman Ilmiah</h4>
                     <hr class="mb-4">
                     <a href="https://drive.google.com/file/d/1uszw547D0P1CRhoHMOFEFvk4-hzQEyc8/view?usp=share_link" target="_blank" class="btn btn-success btn-round"><i class="fa-solid fa-chart-gantt"></i> Ketentuan Oral dan E-poster (23 Feb 2023)</a>
+                </div>
+            </div>
+            <div class="event-item sambutan hide">
+                <div class="cs-iconbox cs-style1 cs-white_bg">
+                    <h4>Sambutan KONSI XI PERDOSSI 2023 SEMARANG</h4>
+                    <hr class="mb-4">
+                    <embed src="<?= base_url('themes/aenft'); ?>/assets/pdf/sambutan.pdf" width="100%" height="600px" align="center"></embed>
                 </div>
             </div>
             <div class="event-item panitia hide">
@@ -628,191 +801,6 @@
                 </div>
             <?php endif; ?>
             <div class="cs-height_50 cs-height_lg_30"></div>
-        </div>
-    </section>
-
-    <section>
-        <div class="cs-height_70 cs-height_lg_45"></div>
-        <div class="container">
-            <div class="cs-seciton_heading cs-style1 text-uppercase wow fadeInUp text-center" data-wow-duration="1s" data-wow-delay="0.2s">
-                <!-- <h3 class="cs-section_title cs-font_16 cs-font_14_sm cs-gradient_color">Daftar Hotel</h3> -->
-                <h2 class="cs-section_subtitle cs-m0 cs-font_36 cs-font_24_sm">Daftar Hotel </h2>
-            </div>
-            <div class="cs-height_25 cs-height_lg_25"></div>
-            <div class="row wow fadeIn" data-wow-duration="1s" data-wow-delay="0.4s">
-                <table class="table table-striped align-middle text-white">
-                    <tr>
-                        <td>
-                            <span class="text-white fw-bold">
-                                Padma Hotel Semarang <br>
-                                <i class="fa-solid fa-star i-col"></i>
-                                <i class="fa-solid fa-star i-col"></i>
-                                <i class="fa-solid fa-star i-col"></i>
-                                <i class="fa-solid fa-star i-col"></i>
-                                <i class="fa-solid fa-star i-col"></i>
-                            </span>
-                        </td>
-                        <td>
-                            <span class="text-white">
-                                Jl. Sultan Agung No. 86, Kota Semarang, Jawa Tengah
-                            </span>
-                        </td>
-                        <td align="center">
-                            <div class="cs-member_thumb">
-                                <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#venue">
-                                    <i class="i-col fa-solid fa-building-circle-check wow pulse" data-wow-iteration="infinite" data-wow-duration="1500ms"></i> Lokasi
-                                </a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span class="text-white fw-bold">
-                                Grand Candi <br>
-                                <i class="fa-solid fa-star i-col"></i>
-                                <i class="fa-solid fa-star i-col"></i>
-                                <i class="fa-solid fa-star i-col"></i>
-                                <i class="fa-solid fa-star i-col"></i>
-                                <i class="fa-solid fa-star i-col"></i>
-                            </span>
-                        </td>
-                        <td>
-                            <span class="text-white">
-                                Jarak ke Venue : <span class="fw-bold">1,4 km</span><br>
-                                <span class="fw-bold">± 4 menit</span> berkendara
-                            </span>
-                        </td>
-                        <td align="center">
-                            <div class="cs-member_thumb">
-                                <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#hotel1">
-                                    <i class="i-col fa-solid fa-building-circle-check wow pulse" data-wow-iteration="infinite" data-wow-duration="1500ms"></i> Lokasi
-                                </a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span class="text-white fw-bold">
-                                Patra <br>
-                                <i class="fa-solid fa-star i-col"></i>
-                                <i class="fa-solid fa-star i-col"></i>
-                                <i class="fa-solid fa-star i-col"></i>
-                                <i class="fa-solid fa-star i-col"></i>
-                            </span>
-                        </td>
-                        <td>
-                            <span class="text-white">
-                                Jarak ke Venue : <span class="fw-bold">1,5 km</span><br>
-                                <span class="fw-bold">± 5 menit</span> berkendara
-                            </span>
-                        </td>
-                        <td align="center">
-                            <div class="cs-member_thumb">
-                                <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#hotel2">
-                                    <i class="i-col fa-solid fa-building-circle-check wow pulse" data-wow-iteration="infinite" data-wow-duration="1500ms"></i> Lokasi
-                                </a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span class="text-white fw-bold">
-                                Arrus <br>
-                                <i class="fa-solid fa-star i-col"></i>
-                                <i class="fa-solid fa-star i-col"></i>
-                                <i class="fa-solid fa-star i-col"></i>
-                                <i class="fa-solid fa-star i-col"></i>
-                            </span>
-                        </td>
-                        <td>
-                            <span class="text-white">
-                                Jarak ke Venue : <span class="fw-bold">1,9 km</span><br>
-                                <span class="fw-bold">± 4 menit</span> berkendara
-                            </span>
-                        </td>
-                        <td align="center">
-                            <div class="cs-member_thumb">
-                                <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#hotel3">
-                                    <i class="i-col fa-solid fa-building-circle-check wow pulse" data-wow-iteration="infinite" data-wow-duration="1500ms"></i> Lokasi
-                                </a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span class="text-white fw-bold">
-                                Louis Kienne <br>
-                                <i class="fa-solid fa-star i-col"></i>
-                                <i class="fa-solid fa-star i-col"></i>
-                                <i class="fa-solid fa-star i-col"></i>
-                                <i class="fa-solid fa-star i-col"></i>
-                            </span>
-                        </td>
-                        <td>
-                            <span class="text-white">
-                                Jarak ke Venue : <span class="fw-bold">3,4 km</span><br>
-                                <span class="fw-bold">± 9 menit</span> berkendara
-                            </span>
-                        </td>
-                        <td align="center">
-                            <div class="cs-member_thumb">
-                                <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#hotel4">
-                                    <i class="i-col fa-solid fa-building-circle-check wow pulse" data-wow-iteration="infinite" data-wow-duration="1500ms"></i> Lokasi
-                                </a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span class="text-white fw-bold">
-                                Novotel <br>
-                                <i class="fa-solid fa-star i-col"></i>
-                                <i class="fa-solid fa-star i-col"></i>
-                                <i class="fa-solid fa-star i-col"></i>
-                                <i class="fa-solid fa-star i-col"></i>
-                            </span>
-                        </td>
-                        <td>
-                            <span class="text-white">
-                                Jarak ke Venue : <span class="fw-bold">4,9 km</span><br>
-                                <span class="fw-bold">± 9 menit</span> berkendara
-                            </span>
-                        </td>
-                        <td align="center">
-                            <div class="cs-member_thumb">
-                                <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#hotel5">
-                                    <i class="i-col fa-solid fa-building-circle-check wow pulse" data-wow-iteration="infinite" data-wow-duration="1500ms"></i> Lokasi
-                                </a>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <span class="text-white fw-bold">
-                                Gumaya <br>
-                                <i class="fa-solid fa-star i-col"></i>
-                                <i class="fa-solid fa-star i-col"></i>
-                                <i class="fa-solid fa-star i-col"></i>
-                                <i class="fa-solid fa-star i-col"></i>
-                                <i class="fa-solid fa-star i-col"></i>
-                            </span>
-                        </td>
-                        <td>
-                            <span class="text-white">
-                                Jarak ke Venue : <span class="fw-bold">5,6 km</span><br>
-                                <span class="fw-bold">± 10 menit</span> berkendara
-                            </span>
-                        </td>
-                        <td align="center">
-                            <div class="cs-member_thumb">
-                                <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#hotel6">
-                                    <i class="i-col fa-solid fa-building-circle-check wow pulse" data-wow-iteration="infinite" data-wow-duration="1500ms"></i> Lokasi
-                                </a>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-            </div>
         </div>
     </section>
 
