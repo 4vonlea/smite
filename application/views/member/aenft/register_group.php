@@ -383,7 +383,7 @@ $theme_path = base_url("themes/aenft") . "/";
                                     {{ Number(index)+1 }}
                                 </td>
                                 <td>
-                                    {{ followed.event_name}}
+                                    {{ followed.event_name}} - <span class="badge bg-success"> {{ formatCurrency(followed.price) }} </span>
                                 </td>
                                 <td>
                                     <v-button @click="(self) => deleteFollowedEvent(self,member,followed)" class="btn btn-danger">
@@ -398,7 +398,7 @@ $theme_path = base_url("themes/aenft") . "/";
 
             <div class="card card-default mt-2">
                 <div class="card-header card-bg card__shadow  text-center" style="color:#fff">
-                    <b>{{ formatCurrency(total()) }}</b>
+                    <b>{{ formatCurrency(totalPrice()) }}</b>
                     <span v-show="isUsd">
                         <br>
                         <p>After converting to rupiah</p>
@@ -640,10 +640,12 @@ $theme_path = base_url("themes/aenft") . "/";
             },
             totalPrice(idr = true) {
                 var total = 0;
-                return total;
-            },
-            total(idr = true) {
-                var total = 0;
+                this.model.transactions.map
+                Object.keys(this.model.transactions).forEach((keyId) => {
+                    this.model.transactions[keyId].forEach(item => {
+                        total += Number(item.price);
+                    })
+                })
                 return total;
             },
             onlyNumber($event) {
