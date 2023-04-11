@@ -283,31 +283,34 @@
 
     <div class="cs-height_50 cs-height_lg_20"></div>
 
-    <?php foreach ($eventsList as $groupEvent) : ?>
-        <section>
-            <div class="container">
-                <div class="cs-seciton_heading cs-style1 wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s">
-                    <h2 class="cs-section_subtitle cs-m0 cs-font_36 cs-font_24_sm text-uppercase text-center"><?= $groupEvent['kategory']; ?></h2>
-                    <h5 class="text-center"><?= $groupEvent['heldOn']; ?></h5>
-                    <div class="card card-bg card__shadow">
-                        <div class="row cs-cta cs-style3 cs-accent_bg">
-                            <table class="table table-striped table-bordered mb-0 table-responsive" style="color: white; width: 100%;">
+    <section>
+        <div class="container">
+            <div class="cs-seciton_heading cs-style1 text-uppercase text-center wow fadeInUp mb-2" data-wow-duration="1s" data-wow-delay="0.2s">
+                <!-- <h3 class="cs-section_title cs-font_16 cs-font_14_sm cs-gradient_color">Video</h3> -->
+                <h2 class="cs-section_subtitle cs-m0 cs-font_36 cs-font_24_sm">Event</h2>
+            </div>
+            <div class="wow fadeIn" data-wow-duration="1s" data-wow-delay="0.2s">
+                <?php foreach ($eventsList as $groupEvent) : ?>
+                    <button class="accordion mt-2"><?= $groupEvent['heldOn']; ?> (<?= $groupEvent['kategory']; ?>)</button>
+                    <div class="accordion-content">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-bordered my-3" style="color: white; width: 100%;">
                                 <thead bgcolor="#0052FF">
                                     <tr>
-                                        <th>Tempat & Tanggal</th>
                                         <th>Event</th>
+                                        <th>Tempat</th>
                                         <th>Kuota</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php foreach ($groupEvent['list'] as $event) : ?>
                                         <tr>
-                                            <td><?= $event['held_in']; ?>, <?= $groupEvent['heldOn']; ?></td>
                                             <td>
                                                 <?= $event['name']; ?>
                                                 <br>
                                                 <small class="fw-bold"><?= $event['description']; ?></small>
                                             </td>
+                                            <td><?= $event['held_in']; ?></td>
                                             <td align="center"><span class="badge card-header-bg2 fw-bold"><?= $event['kouta']; ?> Orang</span></td>
                                         </tr>
                                     <?php endforeach; ?>
@@ -315,11 +318,11 @@
                             </table>
                         </div>
                     </div>
-                </div>
+                <?php endforeach; ?>
             </div>
-        </section>
-        <div class="cs-height_50 cs-height_lg_25"></div>
-    <?php endforeach; ?>
+            <div class="cs-height_50 cs-height_lg_25"></div>
+        </div>
+    </section>
 
     <div class="cs-height_75 cs-height_lg_45"></div>
 
@@ -425,6 +428,7 @@
                     <span class="filter-item" data-filter="explore">Explore Semarang</span>
                     <span class="filter-item" data-filter="ladpro">Ladies Program</span>
                     <span class="filter-item" data-filter="neuro">Neurotech Competition</span>
+                    <span class="filter-item" data-filter="sertifikat">Sertifikat</span>
                 </div>
             </div>
             <div class="event-item tanggal">
@@ -529,8 +533,24 @@
                         <li>Peserta Ladies Program <b>maksimal 2 orang</b> terdaftar dari setiap akun peserta KONAS</li>
                         <li>Ladies Program akan diselenggarakan jika memenuhi <b>kuota minimal 50 orang</b></li>
                     </ol>
-                    <i class="fa-solid fa-info-circle"></i> <b>Lokasi Wisata :</b>
-                    <embed src="<?= base_url('themes/aenft'); ?>/assets/img/konas/ladpro.png" class="mt-3" width="100%" align="center"></embed>
+                    <i class="fa-solid fa-info-circle"></i> <b>Lokasi Wisata :</b><br>
+                    <div id="ladproSlide" class="carousel slide" data-bs-ride="carousel">
+
+                        <!-- The slideshow/carousel -->
+                        <div class="carousel-inner text-center">
+                            <div class="carousel-item active">
+                                <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/ladpro.png" class="mt-3" width="50%"></img>
+                            </div>
+                        </div>
+
+                        <!-- Left and right controls/icons -->
+                        <button class="carousel-control-prev" type="button" data-bs-target="#ladproSlide" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon"></span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#ladproSlide" data-bs-slide="next">
+                            <span class="carousel-control-next-icon"></span>
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -538,7 +558,36 @@
                 <div class="cs-iconbox cs-style1 cs-white_bg">
                     <h4>Neurotech Competition</h4>
                     <hr class="mb-4">
-                    <embed src="<?= base_url('themes/aenft'); ?>/assets/pdf/neurotech_competitioin.pdf" width="100%" height="600px" align="center"></embed>
+                    <div id="neuroSlide" class="carousel slide" data-bs-ride="carousel">
+
+                        <!-- The slideshow/carousel -->
+                        <div class="carousel-inner text-center">
+                            <div class="carousel-item active">
+                                <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/neuro_competition.png" class="mt-3" width="50%"></img>
+                            </div>
+                        </div>
+                        <!-- Left and right controls/icons -->
+                        <button class="carousel-control-prev" type="button" data-bs-target="#neuroSlide" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon"></span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#neuroSlide" data-bs-slide="next">
+                            <span class="carousel-control-next-icon"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="event-item sertifikat hide">
+                <div class="cs-iconbox cs-style1 cs-white_bg">
+                    <h4>Sertifikat</h4>
+                    <hr class="mb-4">
+                    <a href="https://konasperdossi2023.com/certificate/claim" target="_blank" class="btn btn-success btn-round"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-certificate" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                            <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+                            <path d="M5 8v-3a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2h-5" />
+                            <circle cx="6" cy="14" r="3" />
+                            <path d="M4.5 17l-1.5 5l3 -1.5l3 1.5l-1.5 -5" />
+                        </svg> Klaim Sertifikat</a>
                 </div>
             </div>
 
