@@ -51,8 +51,9 @@ $isGroup = ($member == null);
 		}
 
 		.table-event th,
-		.table-event td {
-			border: 1px solid;
+		.table-event td,
+		.table-event thead th {
+			border: 1px solid #000;
 			padding: 3px;
 		}
 
@@ -102,7 +103,7 @@ $isGroup = ($member == null);
 			<span style="font-family:times new roman,times,serif;font-size:12pt;text-align:start;background-color:#ffffff"><?= date("d F Y", strtotime($transaction->updated_at)); ?></span>
 		</p>
 		<p style="text-align:left">
-			Dear Participant <?= $member->sponsor ?? $transaction->member_id; ?>
+			Dear Participant <?= $member->fullname ?? $transaction->member_id; ?>
 		</p>
 		<p style="text-align:justify;text-justify:inter-word;">
 			Thank you for completing your payment in our event <?= Settings_m::getSetting("text_payment_proof"); ?>. We have received your payment and here are the registration and payment details:
@@ -198,18 +199,30 @@ $isGroup = ($member == null);
 						<?php
 						$total = 0;
 						$no = 1;
+						$tempMember = "";
 						foreach ($transaction->detailsWithEvent() as $d) {
-							echo "<tr>";
-							echo "<td style='text-align:center'>$no</td>";
 							$total += $d->price;
-							$name = ($isGroup && $d->member_name ? " / " . $d->member_name : "");
-							if ($d->price_usd > 0) {
-								echo "<td>$d->product_name <strong>$name</strong></td><td style='text-align:center'>USD " . $d->price_usd . "</td>";
+							echo "<tr>";
+							if ($isGroup && $tempMember != $d->member_id && $d->member_name) {
+								$no = 1;
+								echo "<td colspan='3' style='font-weight:bold;padding-right:10px'>{$d->member_name}</td>";
+								echo "</tr>";
+								echo "<tr>";
+							}
+							if ($d->member_name) {
+								echo "<td style='text-align:center'>$no</td>";
+								$colspan = 1;
 							} else {
-								echo "<td>$d->product_name <strong>$name</strong></td><td style='text-align:center'>Rp " . number_format($d->price, 2, ",", ".") . "</td>";
+								$colspan = 2;
+							}
+							if ($d->price_usd > 0) {
+								echo "<td colspan='{$colspan}'>$d->product_name</td><td style='text-align:center'>USD " . $d->price_usd . "</td>";
+							} else {
+								echo "<td colspan='{$colspan}'>$d->product_name</td><td style='text-align:center'>Rp " . number_format($d->price, 2, ",", ".") . "</td>";
 							}
 							echo "</tr>";
 							$no++;
+							$tempMember = $d->member_id;
 						};
 						?>
 					</tbody>
@@ -235,7 +248,7 @@ $isGroup = ($member == null);
 		<p>
 			<strong>No refund may be allowed after transaction</strong>. This payment proof (receipt) is a valid document and please used it properly. If needed, participants should show this receipt to the committee at the time of re-registration. Thank you
 		</p>
-			<table style="width: 100%;">
+		<table style="width: 100%;">
 			<tr>
 				<td>
 					<img style="width:150px;position: relative;left:0;bottom:0" src="data:image/png;base64,<?= $qr; ?>" />

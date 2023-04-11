@@ -489,7 +489,7 @@ class Area extends MY_Controller
 			$fee->save();
 		}
 		$response['id'] = $transaction->id;
-		$this->Transaction_m->setDiscount($transaction->id);
+		$this->Transaction_m->setDiscount($transaction->id, $this->session->user_session['id']);
 		$this->Transaction_m->getDB()->trans_complete();
 
 		$this->output->set_content_type("application/json")

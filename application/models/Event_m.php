@@ -240,7 +240,7 @@ class Event_m extends MY_Model
 	 * @param array $tempFollowed array berisi data sementara event yang diikuti (keperluan register group)
 	 * @return array
 	 */
-	public function eventVueModel($member_id = '', $userStatus = '', $filter = [], $onLyFollowed = false, $tempFollowed = [])
+	public function eventVueModel($member_id = '', $userStatus = '', $filter = [], $onLyFollowed = false)
 	{
 		if ($onLyFollowed == false) {
 			$filter = array_merge($filter, ['show' => '1']);
@@ -302,16 +302,8 @@ class Event_m extends MY_Model
 					$title .= $d1->format($frmt) . " - " . $d2->format($frmt);
 				}
 			}
-			if (count($tempFollowed) > 0) {
-				$added = 0;
-				foreach ($tempFollowed as $rowTemp) {
-					if ($rowTemp['id'] == $row['id_price']) {
-						$added = 1;
-					}
-				}
-			} else {
-				$added = ($row['followed'] != null && $row['checkout'] == 0 ? 1 : 0);
-			}
+
+			$added = ($row['followed'] != null && $row['checkout'] == 0 ? 1 : 0);
 			$waiting_payment = ($row['checkout'] == 1 && !in_array($row['status_payment'], [Transaction_m::STATUS_FINISH, Transaction_m::STATUS_UNFINISH, Transaction_m::STATUS_EXPIRE, Transaction_m::STATUS_DENY]));
 			if ($temp != $row['event_name'] && $avalaible) {
 				$index++;

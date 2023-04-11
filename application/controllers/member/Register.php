@@ -118,7 +118,7 @@ class Register extends MY_Controller
 			$fee->save();
 		}
 		$response['id'] = $transaction->id;
-		$this->Transaction_m->setDiscount($transaction->id);
+		$this->Transaction_m->setDiscount($transaction->id, $this->session->userdata('tempMemberId'));
 		$this->Transaction_m->getDB()->trans_complete();
 
 		$this->output->set_content_type("application/json")
@@ -305,70 +305,6 @@ class Register extends MY_Controller
 		return $this->upload->do_upload($name);
 	}
 
-	/**
-	 * transactions
-	 *
-	 * Mengisi data transaksi
-	 *
-	 * @return void
-	 */
-	private function transactions($data, $eventAdded, $transaction)
-	{
-		$this->load->model(["Transaction_m", "Transaction_detail_m", "Event_m"]);
-		foreach ($eventAdded as $key => $event) {
-			$event = (array)$event;
-			$response = ['status' => true];
-
-			$detail = $this->Transaction_detail_m->findOne(['transaction_id' => $transaction->id, 'member_id' => $data['id'], 'event_pricing_id' => $event['id']]);
-			if (!$detail) {
-				$detail = new Transaction_detail_m();
-			}
-
-
-			if ($this->Event_m->validateFollowing($event['id'], $event['member_status'])) {
-
-				// NOTE Harga sesuai dengan database
-				$price = $this->Event_pricing_m->findOne(['id' => $event['id'], 'condition' => $event['member_status']]);
-				if ($price->price != 0) {
-					$event['price'] = $price->price;
-				} else {
-					$kurs_usd = json_decode(Settings_m::getSetting('kurs_usd'), true);
-					$event['price'] = ($price->price_in_usd * $kurs_usd['value']);
-				}
-
-				$detail->event_pricing_id = $event['id'];
-				$detail->transaction_id = $transaction->id;
-				$detail->price = $event['price'];
-				$detail->price_usd = $price->price_in_usd;
-				$detail->member_id = $data['id'];
-				$detail->product_name = "$event[event_name] ($event[member_status])";
-				$detail->save();
-			} else {
-				$response['status'] = false;
-				$response['message'] = "You are prohibited from following !";
-			}
-		}
-		$feeAlready = false;
-		$fee = $this->Transaction_detail_m->findOne(['transaction_id' => $transaction->id, 'member_id' => $data['id'],  'event_pricing_id' => 0]);
-		if (!$fee) {
-			$fee = new Transaction_detail_m();
-		} else {
-			$feeAlready = true;
-		}
-		if ($this->Transaction_detail_m->sumPriceDetail($transaction->id) > 0 && $feeAlready == false) {
-			$check = $data['isGroup'] ? $this->Transaction_detail_m->findOne(['transaction_id' => $transaction->id, 'member_id' => $data['bill_to'], 'event_pricing_id' => 0]) : false;
-			if (!$check) {
-				$fee->event_pricing_id = 0; //$event['id'];
-				$fee->transaction_id = $transaction->id;
-				$fee->price = Transaction_m::ADMIN_FEE_START + rand(100, 500); //"6000";//$event['price'];
-				$fee->member_id = $data['isGroup'] ? $data['bill_to'] : $data['id'];
-				$fee->product_name = "Admin Fee";
-				$fee->save();
-			}
-		}
-		$this->Transaction_m->setDiscount($transaction->id);
-		$this->Transaction_m->getDB()->trans_complete();
-	}
 
 	public function clear_session()
 	{

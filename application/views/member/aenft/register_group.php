@@ -159,12 +159,17 @@ $theme_path = base_url("themes/aenft") . "/";
                             <tr>
                                 <td>Bill To</td>
                                 <td class="text-center">:</td>
-                                <th>{{data.bill_to}}</th>
+                                <th>{{model.bill_to}}</th>
                             </tr>
                             <tr>
-                                <td>Invoice ID</td>
+                                <td>Email</td>
                                 <td class="text-center">:</td>
-                                <th>{{data.id_invoice}}</th>
+                                <th>{{model.email}}</th>
+                            </tr>
+                            <tr>
+                                <td>ID Invoice</td>
+                                <td class="text-center">:</td>
+                                <th>{{model.transactions.invoice_id}}</th>
                             </tr>
                         </tbody>
                     </table>
@@ -173,36 +178,50 @@ $theme_path = base_url("themes/aenft") . "/";
 
             <div class="card mt-2">
                 <div class="card-header card-bg card__shadow  text-center">
-                    <h5 class="m-0 p-0">Event</h5>
+                    <h5 class="m-0 p-0">Event Selected</h5>
                 </div>
                 <div class="card-body">
                     <table class="table">
-                        <thead>
-                            <th>Event Name</th>
-                            <th>
-                                <p>Pricing
-                                    <span v-show="isUsd">
-                                        (<span style="color:#F4AD39">After converting to rupiah</span>)
+                        <tbody v-for="(member,index) in model.members" :key="member.id" class="text-dark">
+                            <tr>
+                                <th colspan="2">
+                                    {{ member.fullname }} <span class="badge bg-info">{{ findStatus(member.status).kategory }}</span>
+                                </th>
+                                <th>
+                                    Price
+                                </th>
+                            </tr>
+                            <tr v-for="(followed,index) in model.transactions[member.id]" :key="followed.id+member.id">
+                                <td>
+                                    {{ Number(index)+1 }}
+                                </td>
+                                <td>
+                                    {{ followed.product_name}}
+                                    <span v-if="validation.transactions[member.id] && validation.transactions[member.id][index]" class="text-danger d-block">
+                                        {{validation.transactions[member.id][index]}}, Please cancel or delete it.
                                     </span>
-                                </p>
-                            </th>
-                        </thead>
-                        <tbody>
-                            <tr v-for="item in transactionsSort">
-                                <td>{{ item.product_name}}</td>
-                                <td>{{ formatCurrency(item.price) }}</td>
+                                </td>
+                                <td>
+                                    {{ formatCurrency(followed.price) }}
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tbody v-if="model.transactions['REGISTER-GROUP : '+model.bill_to]">
+                            <tr v-for="(followed,index) in model.transactions['REGISTER-GROUP : '+model.bill_to]">
+                                <td colspan="2">
+                                    {{followed.product_name }}
+                                </td>
+                                <td>
+                                    {{ formatCurrency(followed.price) }}
+                                </td>
                             </tr>
                         </tbody>
                         <tfoot>
                             <tr>
-                                <td class="text-right font-weight-bold">Total :</td>
-                                <td>
+                                <th colspan="2">Total :</th>
+                                <th>
                                     {{ formatCurrency(totalPrice()) }}
-                                    <span v-show="isUsd">
-                                        <br>
-                                        <p>After converting to rupiah</p>
-                                    </span>
-                                </td>
+                                </th>
                             </tr>
                         </tfoot>
                     </table>
@@ -219,13 +238,13 @@ $theme_path = base_url("themes/aenft") . "/";
             </div>
             <hr />
             <div class="col-lg-12 text-center">
-                <button :disabled="saving" type="button" @click="checkout" class="btn btn-primary">
-                    <i v-if="saving" class="fa fa-spin fa-spinner"></i>
+                <button type="button" @click="page = 'select-event'" style="width: 300px;" class="btn btm-edge btn-primary">
+                    Prev
+                </button>
+                <v-button style="width: 300px;" @click="checkout" class="btn btm-edge btn-primary">
                     Checkout
-                </button>
-                <button v-if="allowBack" type="button" @click="page = 'register'" class="btn btn-primary">
-                    Back
-                </button>
+                </v-button>
+
             </div>
         </div>
 
@@ -369,8 +388,9 @@ $theme_path = base_url("themes/aenft") . "/";
                     <table class="table">
                         <tbody v-for="(member,index) in model.members" :key="member.id" class="text-light">
                             <tr>
-                                <td colspan="2">
-                                    {{ member.fullname }} <span class="badge bg-info">{{ findStatus(member.status).kategory }}</span>
+                                <td colspan="2" style="vertical-align: middle;">
+                                    <span class="h4 fw-bold">{{ member.fullname }} </span>
+                                    <span class="badge bg-info">{{ findStatus(member.status).kategory }}</span>
                                 </td>
                                 <td>
                                     <button @click="showModal(member)" class="btn btn-info">
@@ -378,15 +398,18 @@ $theme_path = base_url("themes/aenft") . "/";
                                     </button>
                                 </td>
                             </tr>
-                            <tr v-for="(followed,index) in model.transactions[member.id]" :key="followed.id+member.id">
+                            <tr v-for="(followed,index) in model.transactions[member.id]" :key="followed.id">
                                 <td>
                                     {{ Number(index)+1 }}
                                 </td>
                                 <td>
-                                    {{ followed.event_name}} - <span class="badge bg-success"> {{ formatCurrency(followed.price) }} </span>
+                                    {{ followed.product_name}} - <span class="badge bg-success"> {{ formatCurrency(followed.price) }} </span>
+                                    <span v-if="validation.transactions[member.id] && validation.transactions[member.id][index]" class="text-danger d-block">
+                                        {{validation.transactions[member.id][index]}}, Please cancel or delete it.
+                                    </span>
                                 </td>
                                 <td>
-                                    <v-button @click="(self) => deleteFollowedEvent(self,member,followed)" class="btn btn-danger">
+                                    <v-button v-if="followed.event_pricing_id > 0" @click="(self) => deleteFollowedEvent(self,member,followed)" class="btn btn-danger">
                                         <i class="fa fa-trash"></i> Delete Event
                                     </v-button>
                                 </td>
@@ -409,7 +432,7 @@ $theme_path = base_url("themes/aenft") . "/";
                 <v-button type="button" @click="page = 'register'" style="width: 300px;" class="btn btn-edge btn-primary">
                     Prev
                 </v-button>
-                <v-button type="button" @click="page = 'payment'" style="width: 300px;" class="btn btn-edge btn-primary">
+                <v-button type="button" @click="createTransaction" style="width: 300px;" class="btn btn-edge btn-primary">
                     Next
                 </v-button>
             </div>
@@ -484,26 +507,24 @@ $theme_path = base_url("themes/aenft") . "/";
             model: <?= $model ? json_encode($model) : " {
                 bill_to: '',
                 email: '',
+                invoice_id:'',
                 members: [],
                 transactions:{},
             }"; ?>,
             currentMember: {},
             statusList: <?= json_encode($statusList); ?>,
-            status_selected: "",
-            status_text: "",
             univList: <?= json_encode($univlist); ?>,
-            saving: false,
             validation: {
-                members: ''
+                members: '',
+                transactions: {},
             },
-            page: 'select-event',
+            loadingEvent: false,
+            page: 'register',
             paymentMethod: [],
             selectedPaymentMethod: '',
             events: [],
             paymentBank: null,
             isUsd: false,
-            allowBack: true,
-            loadingEvent: false,
         },
         mounted: function() {
             // NOTE Set Payment Method
@@ -519,106 +540,46 @@ $theme_path = base_url("themes/aenft") . "/";
                     desc: sp[1]
                 });
             })
-
             this.paymentMethod = tempPayment;
-            if (this.continueTransaction) {
-                this.page = 'payment';
-                this.data = this.continueTransaction.data; //JSON.parse(JSON.stringify(res.data));
-                this.model.members = this.continueTransaction.data.members; //JSON.parse(JSON.stringify(res.data.members))
-                this.status_selected = this.continueTransaction.status.status_selected;
-                this.status_text = this.continueTransaction.status.status_text;
-                this.transactions = this.continueTransaction.transactions ? this.continueTransaction.transactions.cart : [];
-                this.allowBack = false;
-                Vue.nextTick(() => {
-                    app.initEspayFrame();
-                });
-            }
-            if (this.events.length > 0) {
-                this.showCategory = this.events[0].category
-            }
-        },
-        computed: {
-            eventCategory() {
-                let category = {};
-                this.filteredEvent.forEach(function(val) {
-                    let heldOn = "";
-                    try {
-                        let heldOnObject = JSON.parse(val.held_on);
-                        heldOn = heldOnObject.start == heldOnObject.end ?
-                            moment(heldOnObject.start).format("DD MMM YYYY") :
-                            `${moment(heldOnObject.start).format("DD MMM YYYY")} - ${moment(heldOnObject.end).format("DD MMM YYYY")}`;
-                    } catch (e) {
-
-                    }
-                    let categoryGroup = `${val.category} ${heldOn}`;
-                    val.categoryGroup = categoryGroup;
-                    let objectGroup = {
-                        name: categoryGroup,
-                        category: val.category,
-                        heldOn: heldOn
-                    }
-                    if (typeof category[categoryGroup] == 'undefined') {
-                        category[categoryGroup] = objectGroup;
-                    }
-                });
-                return category;
-            },
-            needVerification() {
-                var ret = false;
-                var app = this;
-                $.each(this.statusList, function(i, v) {
-                    if (v.id == app.status_selected) {
-                        ret = v.need_verify == "1";
-                        return false;
-                    }
-                });
-                return ret;
-            },
-            transactionsSort() {
-                return this.transactions.sort(function(a, b) {
-                    return (a.event_pricing_id > b.event_pricing_id) ? -1 : 1;
-                })
-            },
-            filteredEvent() {
-                var statusSelected = this.status_selected;
-                var status = this.statusList.find(data => data.id == statusSelected);
-                status = status ? status.kategory : '';
-                var events = [];
-                if (this.events) {
-                    this.events.forEach(function(item, index) {
-                        if ($.inArray(status, item.memberStatus) !== -1) {
-                            events.push(item);
-                        }
-                    });
-                }
-                return events;
-            }
         },
         methods: {
+            createTransaction(self) {
+                self.toggleLoading();
+                $.post("<?= base_url('member/register/group/create_transaction'); ?>", null, (res) => {
+                        if (res.status) {
+                            this.model.transactions = res.transactions;
+                            this.page = "payment";
+                            this.initEspayFrame();
+                        } else {
+                            Swal.fire("Info", res.message, "warning");
+                        }
+                    }).fail(() => {
+                        Swal.fire('Fail', 'Failed to calculate transaction', 'error')
+                    })
+                    .always(() => {
+                        self.toggleLoading();
+                    })
+            },
             deleteFollowedEvent(self, member, event) {
                 self.toggleLoading();
                 $.post("<?= base_url('member/register/group/delete_cart'); ?>", {
                     member_id: member.id,
-                    event_pricing_id: event.id,
+                    transaction_detail_id: event.id,
                 }, (res) => {
                     if (res.status) {
-                        Vue.set(this.model.transactions, member.id, res.transactions);
+                        Vue.set(this.model.transactions, member.id, res.transactionsMember);
                     } else {
                         Swal.fire("Info", res.message, "warning");
-
                     }
                 }).fail((err) => {
-                    Swal.fire('Fail', 'Failed to get event data', 'error')
+                    Swal.fire('Fail', 'Failed to delete selected event', 'error')
                 }).always(() => {
                     self.toggleLoading();
                 })
             },
-            selectedEvent(event) {
-                if (this.model.transactions[this.currentMember.id]) {
-                    this.model.transactions[this.currentMember.id].push(event);
-                } else {
-                    Vue.set(this.model.transactions, this.currentMember.id, [event]);
-                }
+            selectedEvent(res) {
+                this.model.transactions.invoice_id = res.invoice_id;
+                Vue.set(this.model.transactions, this.currentMember.id, res.transactionsMember);
             },
             findStatus(id) {
                 return this.statusList.find(data => data.id == id);
@@ -642,9 +603,11 @@ $theme_path = base_url("themes/aenft") . "/";
                 var total = 0;
                 this.model.transactions.map
                 Object.keys(this.model.transactions).forEach((keyId) => {
-                    this.model.transactions[keyId].forEach(item => {
-                        total += Number(item.price);
-                    })
+                    if (keyId != "invoice_id" && Array.isArray(this.model.transactions[keyId])) {
+                        this.model.transactions[keyId].forEach(item => {
+                            total += Number(item.price);
+                        });
+                    }
                 })
                 return total;
             },
@@ -672,55 +635,8 @@ $theme_path = base_url("themes/aenft") . "/";
                         self.toggleLoading();
                     })
             },
-            register() {
-                var formData = new FormData(this.$refs.form);
-                // var birthday = moment(formData.get('birthday')).format("Y-MM-DD");
-                var birthday = moment().format("Y-MM-DD");
-                formData.set("birthday", birthday);
-
-                // NOTE Data Event dan Payment
-                formData.append('eventAdded', JSON.stringify(app.eventAdded));
-                formData.append('paymentMethod', JSON.stringify(app.paymentMethod));
-                formData.append('members', JSON.stringify(app.members));
-                formData.append('data', JSON.stringify(app.data));
-                formData.append('group', true);
-
-                this.saving = true;
-                $.ajax({
-                    url: '<?= base_url('member/register/group'); ?>',
-                    type: 'POST',
-                    contentType: false,
-                    cache: false,
-                    processData: false,
-                    data: formData
-                }).done(function(res) {
-                    if (res.status == false && res.data.validation) {
-                        app.validation = res.data.validation;
-                        app.members = res.data.members;
-                        Swal.fire('Fail', 'Some fields are invalid', 'error').then((result) => {
-                            if (result) {
-                                $("html, body").animate({
-                                    scrollTop: 0
-                                }, 1);
-                            }
-                        });
-                    } else if (res.status == false && res.message) {
-                        Swal.fire('Fail', res.message, 'error');
-                    } else {
-                        app.page = 'payment';
-                        app.data = JSON.parse(JSON.stringify(res.data));
-                        app.members = JSON.parse(JSON.stringify(res.data.members))
-                        app.transactions = res.transactions ? res.transactions.cart : [];
-                        app.initEspayFrame();
-                    }
-                }).fail(function(res) {
-                    Swal.fire('Fail', 'Server fail to response !', 'error');
-                }).always(function(res) {
-                    app.saving = false;
-                });
-            },
             initEspayFrame() {
-                var invoiceID = app.data.id_invoice;
+                var invoiceID = this.model.transaction.invoice_id;
                 var apiKeyEspay = "<?= Settings_m::getEspay()['apiKey']; ?>";
                 var data = {
                     key: apiKeyEspay,
@@ -868,20 +784,6 @@ $theme_path = base_url("themes/aenft") . "/";
                 });
             },
         }
-    });
-    $(function() {
-        $(document).on('change', '.chosen', function() {
-            // app.univ = $(this).data('index');
-            app.members[$(this).data('index')].univ = $(this).val();
-        });
-
-        // NOTE Status change event set null
-        $('#status').change(function(e) {
-            e.preventDefault();
-            app.status_text = $("#status option:selected").text();
-            app.eventAdded = [];
-        });
-
     });
 </script>
 <?php $this->layout->end_script(); ?>

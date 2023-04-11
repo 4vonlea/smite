@@ -190,10 +190,10 @@ Vue.component("select-event", {
 				$.post(this.addCartUrl, event, (res) => {
 					if (res.status) {
 						event.added = 1;
-						page.onAdd(event);
+						page.onAdd(res);
 					} else {
 						Swal.fire("Info", res.message, "warning");
-						page.onAdd(false);
+						page.onAdd(false, res);
 					}
 				})
 					.fail(function () {
@@ -205,7 +205,7 @@ Vue.component("select-event", {
 			}
 			if (!this.addCartUrl) {
 				event.added = 1;
-				page.onAdd(event);
+				page.onAdd(res);
 			}
 		},
 		tagNameUrl(eventId, userId) {
