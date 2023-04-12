@@ -34,8 +34,9 @@ let templateSelectEvent = `
                             <thead>
                                 <tr>
                                     <th class="text-start">{{ event.name }}
-                                    <br /><span style="font-size: 14px;" v-if="event.event_required">(You must follow event
-                                        <strong>{{ event.event_required }}</strong> to participate this event)</span></th>
+                                    <!--<br /><span style="font-size: 14px;" v-if="event.event_required">(You must follow event
+                                        <strong>{{ event.event_required }}</strong> to participate this event)</span>-->
+                                    </th>
                                     <th v-for="pricing in event.pricingName" class="text-center"><span
                                             v-html="pricing.title"></span></th>
                                 </tr>
