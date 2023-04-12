@@ -49,6 +49,10 @@ $this->layout->begin_head();
         color: white;
         background-color: #198747;
     }
+    
+    .card .table td, .card .table th{
+        color: #000 !important;
+    }
 
     .chosen-container-single .chosen-single {
         height: 38px;

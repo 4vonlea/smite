@@ -28,6 +28,9 @@ $theme_path = base_url("themes/aenft") . "/";
     .chosen-container-single .chosen-single div b {
         margin-top: 4px;
     }
+       .card .table td, .card .table th{
+        color: #000 !important;
+    }
 </style>
 <?php $this->layout->end_head(); ?>
 <!-- Start Hero -->
@@ -297,13 +300,13 @@ $theme_path = base_url("themes/aenft") . "/";
                                                             </div>
                                                             <table class="table">
                                                                 <thead>
-                                                                    <tr>
+                                                                    <tr class="text-dark">
                                                                         <th class="border-end">Category</th>
                                                                         <th v-for="pricing in event.pricingName" class="text-center"><span v-html="pricing.title"></span></th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                    <tr v-for="member in event.memberStatus">
+                                                                    <tr v-for="member in event.memberStatus" class="text-dark">
                                                                         <td class="border-end">{{ member }}</td>
                                                                         <td v-for="pricing in event.pricingName" class="text-center">
                                                                             <span v-if="pricing.pricing[member]">
