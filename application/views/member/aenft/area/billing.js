@@ -151,7 +151,7 @@ export default Vue.component("PageBilling", {
 									</tr>
 									<tr>
 										<th class="text-light">Address</th>
-										<td colspan="3">{{ user.address+", "+user.city }}</td>
+										<td colspan="3">{{ concatAlamat }}</td>
 									</tr>
 									<tr>
 										<th class="text-light">Total Price</th>
@@ -163,11 +163,14 @@ export default Vue.component("PageBilling", {
 											{{ detailModel.channel }}
 											<div v-if="detailModel.status_payment == 'pending' && detailModel.paymentGatewayInfo.product" class="card card-achievement mt-3">
 												<div class="card-body">
-													<h5 class="card-title" style="color:#212428">
+													<h5 class="card-text" style="color:#212428">
 														Bank Info : {{ detailModel.paymentGatewayInfo.product }}
 													</h5>
 													<h5 class="card-text text-dark">
 														Account Number : {{ detailModel.paymentGatewayInfo.productNumber}}
+													</h5>
+													<h5 class="card-text text-dark">
+														Expired At : {{ formatDate(detailModel.paymentGatewayInfo.expired) }}
 													</h5>
 												</div>
 											</div>
@@ -332,6 +335,16 @@ export default Vue.component("PageBilling", {
 		$route: "fetchTransaction",
 	},
 	computed: {
+		concatAlamat() {
+			let alamat = [];
+			if (this.detailModel.member.address) {
+				alamat.push(this.detailModel.member.address);
+			}
+			if (this.detailModel.member.city) {
+				alamat.push(this.detailModel.member.city);
+			}
+			return alamat.join(" , ");
+		},
 		totalPrice() {
 			var total = 0;
 			for (var i in this.cart) {

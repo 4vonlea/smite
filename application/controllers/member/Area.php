@@ -811,7 +811,12 @@ class Area extends MY_Controller
 		$detail = $this->Transaction_m->findOne($id);
 		if ($detail) {
 			$response = $detail->toArray();
-			$response['member'] = $detail->member ?  $detail->member->toArray() : ['member_id' => $detail->member_id];
+			if ($detail->member) {
+				$response['member'] = $detail->member->toArray();
+				$response['member']['city'] = $detail->member->city_name->nama ?? "";
+			} else {
+				$response['member'] = ['member_id' => $detail->member_id];
+			}
 			$response['finish'] = $response['status_payment'] == Transaction_m::STATUS_FINISH;
 			foreach ($detail->details as $row) {
 				$data = $row->toArray();
