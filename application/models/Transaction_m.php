@@ -171,7 +171,7 @@ class Transaction_m extends MY_Model
 			->join("event_pricing ep", "ep.id = t.event_pricing_id", "left")
 			->join("events e", "e.id = ep.event_id", "left")
 			->join("members m", "m.id = t.member_id", "left")
-			->order_by("product_name")
+			->order_by("member_id,event_pricing_id DESC")
 			->where("transaction_id", $this->id)->get("transaction_details t");
 		return $rs->result();
 	}
@@ -329,29 +329,16 @@ class Transaction_m extends MY_Model
 	}
 
 
-	public function setDiscount($transaction_id)
+	public function setDiscount($transaction_id, $member_id)
 	{
 		$transaction = $this->findOne($transaction_id);
-		$isGroup = strpos($transaction->member_id, "REGISTER-GROUP") !== false;
 		$pricingCategory = $this->db->select("event_pricing.name")
 			->join("event_pricing", "event_pricing.id = event_pricing_id")
 			->where("transaction_id", $transaction->id)
+			->where("member_id", $member_id)
 			->order_by("transaction_details.updated_at", "DESC")
 			->get("transaction_details")->row() ?? null;
 		if ($pricingCategory) {
-			$member_id = $transaction->member_id;
-			$groupMember = [];
-
-			if ($isGroup) {
-				$groupMember = $this->db->select("member_id")
-					->distinct(true)
-					->join("members", "members.id = member_id")
-					->where("transaction_id", $transaction->id)
-					->get("transaction_details")->result();
-				if (count($groupMember) > 0)
-					$member_id = $groupMember[0]->member_id;
-			}
-
 			$cekFollowed = $this->db->select("events.kategory,events.id,events.name")
 				->join("event_pricing", "event_pricing.id = event_pricing_id")
 				->join("events", "events.id = event_pricing.event_id")
@@ -360,7 +347,6 @@ class Transaction_m extends MY_Model
 				->where_in("transaction.status_payment", [self::STATUS_FINISH, self::STATUS_WAITING, self::STATUS_PENDING])
 				->group_by("events.id")
 				->get("transaction_details");
-
 			$ruleSatisfied['pricingCategory'] = $pricingCategory->name;
 			foreach ($cekFollowed->result() as $row) {
 				$ruleSatisfied[$row->kategory] = isset($ruleSatisfied[$row->kategory]) ?  $ruleSatisfied[$row->kategory] + 1 : 1;
@@ -393,7 +379,7 @@ class Transaction_m extends MY_Model
 				$discount = null;
 			}
 
-			$transactionDetailsExist = $this->db->where(['event_pricing_id' => '-2', 'transaction_id' => $transaction->id])->get("transaction_details")->row();
+			$transactionDetailsExist = $this->db->where(['event_pricing_id' => '-2', 'transaction_id' => $transaction->id, 'member_id' => $member_id])->get("transaction_details")->row();
 			if ($discount) {
 				$discountBefore = $this->db->query("SELECT COALESCE(SUM(td.price / jumlah_member) * -1,0) as total FROM transaction_details td
 					JOIN (
@@ -406,27 +392,24 @@ class Transaction_m extends MY_Model
 					WHERE td.transaction_id IN (
 					SELECT DISTINCT td.transaction_id FROM transaction_details td
 					JOIN transaction t ON t.id = td.transaction_id
-					WHERE td.member_id = '$transaction->member_id' AND t.status_payment IN ('settlement','pending')
+					WHERE td.member_id = '$member_id' AND t.status_payment IN ('settlement','pending')
 					) AND td.event_pricing_id = -2")->row();
 				$discountNominal = $discount->discount - $discountBefore->total;
-				if ($isGroup) {
-					$discountNominal = count($groupMember) * $discountNominal;
-				}
 
 				$discountNominal = ($discountNominal <= 0) ? 0 : 0 - $discountNominal;
 				if ($discountNominal != 0) {
 					if ($transactionDetailsExist == null) {
 						$this->db->insert("transaction_details", [
-							'member_id' => $isGroup ? $transaction->member_id : $member_id,
+							'member_id' => $member_id,
 							'transaction_id' => $transaction->id,
 							'event_pricing_id' => -2,
-							'product_name' => "Discount : " . $discount->name . ($isGroup ? "   (x " . count($groupMember) . " Member)" : ""),
+							'product_name' => "Discount : " . $discount->name,
 							'price' => $discountNominal,
 						]);
 					} else {
 						$this->db->update(
 							"transaction_details",
-							['product_name' => "Discount : " . $discount->name . ($isGroup ? "  (x " . count($groupMember) . " Member)" : ""), 'price' => $discountNominal],
+							['product_name' => "Discount : " . $discount->name, 'price' => $discountNominal],
 							['event_pricing_id' => '-2', 'transaction_id' => $transaction->id]
 						);
 					}

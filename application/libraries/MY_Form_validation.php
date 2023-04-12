@@ -1,7 +1,8 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
-class MY_Form_validation extends CI_Form_validation {
+class MY_Form_validation extends CI_Form_validation
+{
 
     protected $current_row = [];
 
@@ -11,16 +12,16 @@ class MY_Form_validation extends CI_Form_validation {
         return parent::run($group);
     }
 
-    public function is_unique_or_match($str, $field){
-        list($table,$fieldCurrent,$fieldMatch) = explode(",",$field);
-        if(isset($this->CI->db)){
-            $row = $this->CI->db->limit(1)->get_where($table,[$fieldCurrent=>$str])->row();
-            if($row){
-                return $row->{$fieldMatch} == $this->current_row[$fieldMatch] ?? ""; 
+    public function is_unique_or_match($str, $field)
+    {
+        list($table, $fieldCurrent, $fieldMatch) = explode(",", $field);
+        if (isset($this->CI->db)) {
+            $row = $this->CI->db->limit(1)->get_where($table, [$fieldCurrent => $str])->row();
+            if ($row) {
+                return $row->{$fieldMatch} == $this->current_row[$fieldMatch] ?? "";
             }
             return true;
         }
         return false;
     }
-
 }

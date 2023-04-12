@@ -35,14 +35,15 @@ class Event_m extends MY_Model
 		return $this->hasMany('Event_pricing_m', 'event_id');
 	}
 
-	public function groupByHeldOn(){
+	public function groupByHeldOn()
+	{
 		$return = [];
-		foreach($this->find()->get()->result_array() as $row){
-			$heldOn = json_decode($row['held_on'],true);
-			$startDate = $heldOn['start'] != "" ? DateTime::createFromFormat('Y-m-d', $heldOn['start'])->format("d M Y"):"";
-			$endDate = $heldOn['end'] != "" ? DateTime::createFromFormat('Y-m-d', $heldOn['end'])->format("d M Y"):"";
+		foreach ($this->find()->get()->result_array() as $row) {
+			$heldOn = json_decode($row['held_on'], true);
+			$startDate = $heldOn['start'] != "" ? DateTime::createFromFormat('Y-m-d', $heldOn['start'])->format("d M Y") : "";
+			$endDate = $heldOn['end'] != "" ? DateTime::createFromFormat('Y-m-d', $heldOn['end'])->format("d M Y") : "";
 			$heldOnString = ($startDate == $endDate ? $startDate : "$startDate - $endDate");
-			$title = $row['kategory']. " ".$heldOnString;
+			$title = $row['kategory'] . " " . $heldOnString;
 			$return[$title]['kategory'] = $row['kategory'];
 			$return[$title]['heldOn'] = $heldOnString;
 			$return[$title]['list'][] = $row;
@@ -185,8 +186,8 @@ class Event_m extends MY_Model
 						]
 					],
 					'memberStatus' => [$row['condition']],
-					'held_on'=>$row['held_on'],
-					'categoryGroup'=>$row['kategory'],
+					'held_on' => $row['held_on'],
+					'categoryGroup' => $row['kategory'],
 				];
 				$tempPricing = $row['name_pricing'];
 				$pId = 0;
@@ -231,6 +232,14 @@ class Event_m extends MY_Model
 		return $return;
 	}
 
+	/**
+	 * @param String $member_id ID yang diambil dari tabel member atau id sementara pada halaman register
+	 * @param String $userStatus status member berdasarkan pada tabel kategory_members
+	 * @param array $filter filter tambahan untuk data event yang ditampilkan
+	 * @param boolean $onlyFollowed jika false maka menampilkan event dengan show = 1
+	 * @param array $tempFollowed array berisi data sementara event yang diikuti (keperluan register group)
+	 * @return array
+	 */
 	public function eventVueModel($member_id = '', $userStatus = '', $filter = [], $onLyFollowed = false)
 	{
 		if ($onLyFollowed == false) {
@@ -293,6 +302,7 @@ class Event_m extends MY_Model
 					$title .= $d1->format($frmt) . " - " . $d2->format($frmt);
 				}
 			}
+
 			$added = ($row['followed'] != null && $row['checkout'] == 0 ? 1 : 0);
 			$waiting_payment = ($row['checkout'] == 1 && !in_array($row['status_payment'], [Transaction_m::STATUS_FINISH, Transaction_m::STATUS_UNFINISH, Transaction_m::STATUS_EXPIRE, Transaction_m::STATUS_DENY]));
 			if ($temp != $row['event_name'] && $avalaible) {
@@ -326,15 +336,15 @@ class Event_m extends MY_Model
 							]
 						]
 					],
-					'held_on'=>$row['held_on'],
-					'categoryGroup'=>$row['kategory'],
+					'held_on' => $row['held_on'],
+					'categoryGroup' => $row['kategory'],
 					'hasCertificate' => file_exists(APPPATH . "uploads/cert_template/$row[id_event].txt"),
 					'memberStatus' => [$row['condition']]
 				];
 				$tempPricing = $row['name_pricing'];
 				$pId = 0;
 				$temp = $row['event_name'];
-			} else if($avalaible) {
+			} else if ($avalaible) {
 				if ($return[$index]['followed'] == false && ($row['checkout'] == 1 && $row['followed'] != null && $row['status_payment'] == Transaction_m::STATUS_FINISH)) {
 					$return[$index]['followed'] = true;
 				}
@@ -589,47 +599,47 @@ class Event_m extends MY_Model
 	public function getDataPushP2KB($transactionDetailId)
 	{
 		$siteTitle = Settings_m::getSetting("site_title");
-		$member = $this->getParticipant()->select("m.p2kb_member_id")->where("td.id",$transactionDetailId)->get()->row_array();
-		if(!$member)
+		$member = $this->getParticipant()->select("m.p2kb_member_id")->where("td.id", $transactionDetailId)->get()->row_array();
+		if (!$member)
 			return "Data Member Tidak Ditemukan";
 
 		$event = $this->findOne($member['event_id']);
 		$row = $this->find()->where("id", $member['event_id'])->select("id,name,p2kb_mapping")->get()->row();
 
-		if($member['p2kb_member_id'] == "")
+		if ($member['p2kb_member_id'] == "")
 			return "Member tidak terdaftar pada database P2KB";
 
-		$ref_member_id = $member['p2kb_member_id'];	
+		$ref_member_id = $member['p2kb_member_id'];
 
 		$map = json_decode($row->p2kb_mapping, true) ?? [];
-		if(!isset( $map[$member['status_member']]['aktivitas']['aktivitas_code']))
+		if (!isset($map[$member['status_member']]['aktivitas']['aktivitas_code']))
 			return "Mapping Aktivitas untuk status $member[status_member] tidak ditemukan, Harap cek kembali";
 		//$aktivitasCode = $map[$member['status_member']]['aktivitas']['aktivitas_code'];
 
-		if(!isset( $map[$member['status_member']]['nilaiSkp']['skp']))
+		if (!isset($map[$member['status_member']]['nilaiSkp']['skp']))
 			return "Mapping Nilai SKP untuk status $member[status_member] tidak ditemukan, Harap cek kembali";
 		$skp =  $map[$member['status_member']]['nilaiSkp']['skp'];
 		$roleEvent =  $map[$member['status_member']]['nilaiSkp']['ref_role_code'];
 		$option =  $map[$member['status_member']]['nilaiSkp']['role_id'];
 		$judul = $event['name'];
 		$lokasi = $event['held_in'];
-		$date = json_decode($event['held_on'],true) ?? ['start'=>'','end'=>''];
-		$noRegistrasi = "TD-".$transactionDetailId;
-		$certificate = $this->exportCertificate($member,$member['event_id']);
-		file_put_contents("./application/cache/$transactionDetailId.pdf",$certificate->output());
-		
+		$date = json_decode($event['held_on'], true) ?? ['start' => '', 'end' => ''];
+		$noRegistrasi = "TD-" . $transactionDetailId;
+		$certificate = $this->exportCertificate($member, $member['event_id']);
+		file_put_contents("./application/cache/$transactionDetailId.pdf", $certificate->output());
+
 		return [
-			"select_event" => $roleEvent,// "101",
-			"judul" =>$judul,// "Panitia PINPERDOSSI",
-			"acara" =>$siteTitle,// "Perdossi 2020",
+			"select_event" => $roleEvent, // "101",
+			"judul" => $judul, // "Panitia PINPERDOSSI",
+			"acara" => $siteTitle, // "Perdossi 2020",
 			"lokasi" => $lokasi,
 			"tgl_mulai" => $date['start'] ?? "",
 			"tgl_selesai" => $date['end'] ?? "",
-			"no_registrasi" => $noRegistrasi,//"PINCI-01",
-			"ref_member_id" => 3639,// $ref_member_id,
-			"skp" => $skp,// "5",
-			"usr_crt" => $noRegistrasi,//"PINCI-01",
-			"usr_upd" => "generate-event-pin-".$noRegistrasi,
+			"no_registrasi" => $noRegistrasi, //"PINCI-01",
+			"ref_member_id" => 3639, // $ref_member_id,
+			"skp" => $skp, // "5",
+			"usr_crt" => $noRegistrasi, //"PINCI-01",
+			"usr_upd" => "generate-event-pin-" . $noRegistrasi,
 			"option" => $option,
 			"berkas" => base64_encode($certificate->output())
 		];

@@ -46,8 +46,9 @@ $isGroup = ($member == null);
 		}
 
 		.table-event th,
-		.table-event td {
-			border: 1px solid;
+		.table-event td,
+		.table-event thead th {
+			border: 1px solid #000;
 			padding: 3px;
 		}
 
@@ -213,18 +214,30 @@ $isGroup = ($member == null);
 					<?php
 					$total = 0;
 					$no = 1;
+					$tempMember = "";
 					foreach ($transaction->detailsWithEvent() as $d) {
-						echo "<tr>";
-						echo "<td style='text-align:center'>$no</td>";
 						$total += $d->price;
-						$name = ($isGroup && $d->member_name ? " / " . $d->member_name : "");
-						if ($d->price_usd > 0) {
-							echo "<td>$d->product_name <strong>$name</strong></td><td style='text-align:center'>USD " . $d->price_usd . "</td>";
+						echo "<tr>";
+						if ($isGroup && $tempMember != $d->member_id && $d->member_name) {
+							$no = 1;
+							echo "<td colspan='3' style='font-weight:bold;padding-right:10px'>{$d->member_name}</td>";
+							echo "</tr>";
+							echo "<tr>";
+						}
+						if ($d->member_name) {
+							echo "<td style='text-align:center'>$no</td>";
+							$colspan = 1;
 						} else {
-							echo "<td>$d->product_name <strong>$name</strong></td><td style='text-align:center'>Rp " . number_format($d->price, 2, ",", ".") . "</td>";
+							$colspan = 2;
+						}
+						if ($d->price_usd > 0) {
+							echo "<td colspan='{$colspan}'>$d->product_name</td><td style='text-align:center'>USD " . $d->price_usd . "</td>";
+						} else {
+							echo "<td colspan='{$colspan}'>$d->product_name</td><td style='text-align:center'>Rp " . number_format($d->price, 2, ",", ".") . "</td>";
 						}
 						echo "</tr>";
 						$no++;
+						$tempMember = $d->member_id;
 					};
 					?>
 				</tbody>

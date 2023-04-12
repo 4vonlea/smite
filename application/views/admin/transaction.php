@@ -522,7 +522,6 @@
 							price += Number(this.modifyModel.details[d].price);
 					}
 					return this.formatCurrency(price);
-
 				},
 				jQuery() {
 					return window.jQuery;
@@ -576,7 +575,7 @@
 				},
 				transactionsSort(data) {
 					return data.sort(function(a, b) {
-						return (a.product_name > b.product_name) ? -1 : 1;
+						return (a.member_id > b.member_id && a.product_name > b.product_name) ? -1 : 1;
 					})
 				},
 				saveModify(event) {
