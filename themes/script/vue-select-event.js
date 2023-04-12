@@ -34,6 +34,7 @@ let templateSelectEvent = `
                             <thead>
                                 <tr>
                                     <th class="text-start">{{ event.name }}
+                                    
                                     <!--<br /><span style="font-size: 14px;" v-if="event.event_required">(You must follow event
                                         <strong>{{ event.event_required }}</strong> to participate this event)</span>-->
                                     </th>
