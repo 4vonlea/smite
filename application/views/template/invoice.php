@@ -29,23 +29,28 @@ $isGroup = ($member == null);
 		.table td {
 			vertical-align: top;
 		}
-		.table-event{
+
+		.table-event {
 			width: 100%;
 			border-collapse: collapse;
 			margin-top: 10px;
 		}
 
-		.table-event thead{
+		.table-event thead {
 			background-color: green;
 			color: white;
 		}
+
 		.table-event th {
 			text-align: center;
 		}
-		.table-event th, .table-event td{
+
+		.table-event th,
+		.table-event td {
 			border: 1px solid;
-			padding:3px;
+			padding: 3px;
 		}
+
 		.watermark {
 			position: absolute;
 			top: 20%;
@@ -105,11 +110,7 @@ $isGroup = ($member == null);
 		<div class="col">Order Date</div>
 		<div class="col2">:</div>
 		<div class="col3">
-			<?php if ($transaction->checkout == 0) : ?>
-				<?= date("d F Y \a\\t H:i:s A"); ?>
-			<?php else : ?>
-				<?= date("d F Y \a\\t H:i:s A", strtotime($transaction->created_at)); ?>
-			<?php endif; ?>
+			<?= date("d F Y \a\\t H:i:s A", strtotime($transaction->created_at)); ?>
 		</div>
 	</div>
 	<div class="row">
@@ -185,19 +186,19 @@ $isGroup = ($member == null);
 			if ($data['paymentGatewayInfo']['productNumber']) {
 				echo " / " . $data['paymentGatewayInfo']['productNumber'] . ",<br/>";
 			}
-          	
+
 			?>
 		</div>
 	</div>
-	<?php 	if($data['paymentGatewayInfo']['expired']){ ?>
-  	<div class="row">
-		<div class="col">Payment Expired On</div>
-		<div class="col2">:</div>
-      	<div>
-            	<?=date("d F Y \a\\t H:i:s A", strtotime($data['paymentGatewayInfo']['expired']));?>
-      </div>
-  </div>
-    <?php } ?>
+	<?php if ($data['paymentGatewayInfo']['expired']) { ?>
+		<div class="row">
+			<div class="col">Payment Expired On</div>
+			<div class="col2">:</div>
+			<div>
+				<?= date("d F Y \a\\t H:i:s A", strtotime($data['paymentGatewayInfo']['expired'])); ?>
+			</div>
+		</div>
+	<?php } ?>
 	<div class="row">
 		<div class="">
 			<table class="table-event">
@@ -216,7 +217,7 @@ $isGroup = ($member == null);
 						echo "<tr>";
 						echo "<td style='text-align:center'>$no</td>";
 						$total += $d->price;
-						$name = ($isGroup && $d->member_name ? " / ".$d->member_name : "");
+						$name = ($isGroup && $d->member_name ? " / " . $d->member_name : "");
 						if ($d->price_usd > 0) {
 							echo "<td>$d->product_name <strong>$name</strong></td><td style='text-align:center'>USD " . $d->price_usd . "</td>";
 						} else {
@@ -239,10 +240,10 @@ $isGroup = ($member == null);
 				</tfoot>
 			</table>
 			<ul>
-			<li style="font-size:11pt">The amount price above include online bank payment administration fees</li>
-			<?php if (isset($transaction->note) && $transaction->note != "") : ?>
-			<li style="font-size:11pt"><?= $transaction->note; ?></li>
-			<?php endif;?>
+				<li style="font-size:11pt">The amount price above include online bank payment administration fees</li>
+				<?php if (isset($transaction->note) && $transaction->note != "") : ?>
+					<li style="font-size:11pt"><?= $transaction->note; ?></li>
+				<?php endif; ?>
 			</ul>
 		</div>
 	</div>
