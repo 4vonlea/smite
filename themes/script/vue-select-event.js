@@ -114,8 +114,9 @@ Vue.component("select-event", {
 			let category = {};
 			this.events.forEach(function (val) {
 				let heldOn = "";
+				let heldOnObject = {};
 				try {
-					let heldOnObject = JSON.parse(val.held_on);
+					heldOnObject = JSON.parse(val.held_on);
 					heldOn =
 						heldOnObject.start == heldOnObject.end
 							? moment(heldOnObject.start).format("DD MMM YYYY")
@@ -125,6 +126,7 @@ Vue.component("select-event", {
 				} catch (e) {
 					console.log(e);
 				}
+				let keyObject = `${val.category} ${moment(heldOnObject.start).unix()}`;
 				let categoryGroup = `${val.category} ${heldOn}`;
 				val.categoryGroup = categoryGroup;
 				let objectGroup = {
@@ -132,8 +134,8 @@ Vue.component("select-event", {
 					category: val.category,
 					heldOn: heldOn,
 				};
-				if (typeof category[categoryGroup] == "undefined") {
-					category[categoryGroup] = objectGroup;
+				if (typeof category[keyObject] == "undefined") {
+					category[keyObject] = objectGroup;
 				}
 			});
 
