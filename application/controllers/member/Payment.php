@@ -224,7 +224,7 @@ class Payment extends MY_Controller
 			}
 			$data = $this->input->post();
 			$data['amount_me'] = $amount;
-			$this->Transaction_m->update(['checkout'=>1,'channel'=>'ESPAY','status_payment'=>Transaction_m::STATUS_PENDING],$order_id);
+			$this->Transaction_m->update(['checkout'=>1,'channel'=>'ESPAY','status_payment'=>Transaction_m::STATUS_PENDING,'created_at'=>$date],$order_id);
 			$tr = $this->Transaction_m->findOne(['id'=>$order_id]);
 
 			$response['error_code'] = "0000";

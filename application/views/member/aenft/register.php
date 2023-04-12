@@ -28,6 +28,9 @@ $theme_path = base_url("themes/aenft") . "/";
     .chosen-container-single .chosen-single div b {
         margin-top: 4px;
     }
+       .card .table td, .card .table th{
+        color: #000 !important;
+    }
 </style>
 <link rel="stylesheet" href="https://unpkg.com/vue-select@latest/dist/vue-select.css">
 <?php $this->layout->end_head(); ?>
