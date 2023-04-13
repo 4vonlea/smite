@@ -17,3 +17,4 @@ jobs:
         private-ssh-key: ${{ secrets.SSH_KEY }}
         destination-path: ~/public_html/demo-smite.metamedika.site
         ssh-port: 65002
+        rsync-options: --archive --verbose --compress --human-readable --progress --delete-after --exclude=.git* --exclude=.git/ --exclude=README.md --exclude=readme.md --exclude=.gitignore  --exclude=.env --exclude=vendor/
