@@ -28,19 +28,19 @@ class Register extends MY_Controller
 		ini_set('memory_limit', '2048M');
 		if ($this->input->method() !== 'post')
 			show_404("Page not found !");
-		$this->load->model(["Event_m","Room_m"]);
+		$this->load->model(["Event_m", "Room_m"]);
 		$oldStatus = $this->session->userdata('tempStatusMember');
-		if($oldStatus !=  $this->input->post("status")){
-			$this->session->set_userdata('tempStatusMember',$this->input->post("status"));
-			$this->session->set_userdata('tempStatusId',$this->input->post("statusId"));
+		if ($oldStatus !=  $this->input->post("status")) {
+			$this->session->set_userdata('tempStatusMember', $this->input->post("status"));
+			$this->session->set_userdata('tempStatusId', $this->input->post("statusId"));
 			$this->load->model("Transaction_detail_m");
-			$this->Transaction_detail_m->find()->where("member_id",$this->session->userdata('tempMemberId'))->delete();	
+			$this->Transaction_detail_m->find()->where("member_id", $this->session->userdata('tempMemberId'))->delete();
 		}
-		$events = $this->Event_m->eventVueModel($this->session->userdata('tempMemberId'), $this->input->post("status"),[],false);
+		$events = $this->Event_m->eventVueModel($this->session->userdata('tempMemberId'), $this->input->post("status"), [], false);
 		$booking = $this->Room_m->bookedRoom($this->session->userdata('tempMemberId'));
 		$rangeBooking = $this->Room_m->rangeBooking();
 		$this->output->set_content_type("application/json")
-			->_display(json_encode(['status' => true, 'events' => $events,'booking'=>$booking,'rangeBooking'=>$rangeBooking]));
+			->_display(json_encode(['status' => true, 'events' => $events, 'booking' => $booking, 'rangeBooking' => $rangeBooking]));
 	}
 
 	public function add_cart()
@@ -75,8 +75,8 @@ class Register extends MY_Controller
 			$feeAlready = true;
 		}
 
-		if(!isset($data['is_hotel'])){
-			$addEventStatus = $this->Transaction_detail_m->validateAddEvent($data['id'], $this->session->userdata('tempMemberId'),$this->session->userdata('tempStatusMember'));
+		if (!isset($data['is_hotel'])) {
+			$addEventStatus = $this->Transaction_detail_m->validateAddEvent($data['id'], $this->session->userdata('tempMemberId'), $this->session->userdata('tempStatusMember'));
 			if ($addEventStatus === true) {
 				// NOTE Harga sesuai dengan database
 				$price = $this->Event_pricing_m->findOne(['id' => $data['id'], 'condition' => $this->session->userdata('tempStatusMember')]);
@@ -93,18 +93,17 @@ class Register extends MY_Controller
 				$detail->member_id = $this->session->userdata('tempMemberId');
 				$detail->product_name = "$data[event_name] ($data[member_status])";
 				$detail->save();
-				
 			} else {
 				$response['status'] = false;
 				$response['message'] = $addEventStatus ?? "You are prohibited from following !";
 			}
-		}else{
-			$result = $this->Transaction_detail_m->bookHotel($transaction->id,$this->session->userdata('tempMemberId'),$data);
+		} else {
+			$result = $this->Transaction_detail_m->bookHotel($transaction->id, $this->session->userdata('tempMemberId'), $data);
 			$data['price'] = 0;
-			if($result === true){
+			if ($result === true) {
 				$data['price'] = 1;
 				$response['status'] = true;
-			}else{
+			} else {
 				$response['status'] = false;
 				$response['message'] = $result;
 			}
@@ -132,9 +131,9 @@ class Register extends MY_Controller
 			show_404("Page not found !");
 		$id = $this->input->post('id');
 		$this->load->model(["Transaction_detail_m"]);
-		
+
 		$this->output->set_content_type("application/json")
-			->_display(json_encode($this->Transaction_detail_m->deleteItem($id,$this->input->post("transaction_id"))));
+			->_display(json_encode($this->Transaction_detail_m->deleteItem($id, $this->input->post("transaction_id"))));
 	}
 
 
@@ -164,10 +163,11 @@ class Register extends MY_Controller
 			$status = Category_member_m::withKey($status, "id");
 			$need_verify = (isset($status[$data['status']]) && $status[$data['status']]['need_verify'] == "1");
 			$dataMember = $this->Member_m->findOne(['id' => $this->session->userdata("tempMemberId") ?? "-"]);
-			$rules = $this->Member_m->rules($dataMember && 
-									$this->session->userdata('transaksiFinish') == '0' &&
-									$dataMember->nik == $data['nik'] && $dataMember->email == $data['email']
-								);
+			$rules = $this->Member_m->rules(
+				$dataMember &&
+					$this->session->userdata('transaksiFinish') == '0' &&
+					$dataMember->nik == $data['nik'] && $dataMember->email == $data['email']
+			);
 			$this->load->library("Form_validation");
 			$this->form_validation->set_rules($rules);
 			$this->form_validation->set_data($data);
@@ -220,45 +220,50 @@ class Register extends MY_Controller
 					], false);
 				}
 				$tempMemberId = $this->session->userdata("tempMemberId");
-				$transactionRow = $this->Transaction_m->findOne(["member_id"=>$tempMemberId]);
-				$transaction = $transactionRow->toArray();
-				$transaction['details'] = $this->Transaction_detail_m->find()->where(['transaction_id'=>$transactionRow->id])->get()->result_array();
-				$this->Transaction_m->find()->where("member_id",$tempMemberId)->set(['member_id'=>$id])->update();
-				$this->Transaction_detail_m->find()->where("member_id",$tempMemberId)->set(['member_id'=>$id])->update();
-				$this->Member_m->getDB()->trans_complete();
-				$error['statusData'] = $this->Member_m->getDB()->trans_status();
-				$error['message'] = $this->Member_m->getDB()->error();
-				if ($error['statusData']) {
-					$this->session->set_userdata("tempMemberId",$id);
-					$this->Notification_m->sendEmailConfirmation($data, $token);
-					$this->Notification_m->setType(Notification_m::TYPE_WA)->sendEmailConfirmation($data,$token);
+				$transactionRow = $this->Transaction_m->findOne(["member_id" => $tempMemberId]);
+				if ($transactionRow) {
+					$transaction = $transactionRow ? $transactionRow->toArray() : [];
+					$transaction['details'] = $this->Transaction_detail_m->find()->where(['transaction_id' => $transactionRow->id])->get()->result_array();
+					$this->Transaction_m->find()->where("member_id", $tempMemberId)->set(['member_id' => $id])->update();
+					$this->Transaction_detail_m->find()->where("member_id", $tempMemberId)->set(['member_id' => $id])->update();
+					$this->Member_m->getDB()->trans_complete();
+					$error['statusData'] = $this->Member_m->getDB()->trans_status();
+					$error['message'] = $this->Member_m->getDB()->error();
+					if ($error['statusData']) {
+						$this->session->set_userdata("tempMemberId", $id);
+						$this->Notification_m->sendEmailConfirmation($data, $token);
+						$this->Notification_m->setType(Notification_m::TYPE_WA)->sendEmailConfirmation($data, $token);
+					}
+				} else {
+					$error['statusData'] = false;
+					$error['message'] = "Please add minimal 1 events";
 				}
 			} else {
 				$error['statusData'] = false;
 				$error['validation_error'] = $this->form_validation->error_array();
 			}
 			$this->output->set_content_type("application/json")
-				->set_output(json_encode(array_merge($error, ['data' => $data,'transaction'=>$transaction])));
+				->set_output(json_encode(array_merge($error, ['data' => $data, 'transaction' => $transaction])));
 		} else {
 			$this->load->helper("form");
 			$participantsCategory = Category_member_m::asList($status, 'id', 'kategory', 'Please Select your status');
 			$participantsUniv = Univ_m::asList($univ, 'univ_id', 'univ_nama', 'Please Select your institution');
 			$participantsCountry = Country_m::asList($country, 'id', 'name', 'Please Select your country');
-			if(!$this->session->has_userdata('tempMemberId')){
-				$this->session->set_userdata("tempMemberId",uniqid());
+			if (!$this->session->has_userdata('tempMemberId')) {
+				$this->session->set_userdata("tempMemberId", uniqid());
 			}
-			$this->session->set_userdata('transaksiFinish','0');
+			$this->session->set_userdata('transaksiFinish', '0');
 			$data = [
-				'tempMemberId'=>$this->session->userdata('tempMemberId'),
-				'defaultMember'=>$this->Member_m->findOne($this->session->userdata('tempMemberId')),
+				'tempMemberId' => $this->session->userdata('tempMemberId'),
+				'defaultMember' => $this->Member_m->findOne($this->session->userdata('tempMemberId')),
 				'participantsCategory' => $participantsCategory,
 				'participantsUniv' => $participantsUniv,
 				'participantsCountry' => $participantsCountry,
 				'statusList' => $status,
 				'univlist' => $univ,
 				'paymentMethod' => Settings_m::getEnablePayment(),
-				'rangeBooking'=> $this->Room_m->rangeBooking(),
-				'kabupatenList'=>$kabupaten,
+				'rangeBooking' => $this->Room_m->rangeBooking(),
+				'kabupatenList' => $kabupaten,
 			];
 			$this->layout->render('member/' . $this->theme . '/register', $data);
 		}
@@ -453,8 +458,8 @@ class Register extends MY_Controller
 							'token_reset' => "verifyemail_" . $token
 						], false);
 
-						$this->Notification_m->sendEmailConfirmation($data,$token);
-						$this->Notification_m->setType(Notification_m::TYPE_WA)->sendEmailConfirmation($data,$token);
+						$this->Notification_m->sendEmailConfirmation($data, $token);
+						$this->Notification_m->setType(Notification_m::TYPE_WA)->sendEmailConfirmation($data, $token);
 					}
 
 					/* -------------------------------------------------------------------------- */
@@ -468,8 +473,8 @@ class Register extends MY_Controller
 
 					if ($error['statusData']) {
 						if ($data) {
-							$this->Notification_m->sendRegisteredByOther($data,$tr,$participantsCategory);
-							$this->Notification_m->setType(Notification_m::TYPE_WA)->sendRegisteredByOther($data,$tr,$participantsCategory);
+							$this->Notification_m->sendRegisteredByOther($data, $tr, $participantsCategory);
+							$this->Notification_m->setType(Notification_m::TYPE_WA)->sendRegisteredByOther($data, $tr, $participantsCategory);
 						}
 					}
 				}
@@ -512,17 +517,18 @@ class Register extends MY_Controller
 
 			if ($id_invoice) {
 				$transaction = $this->Transaction_m->findOne($id_invoice);
-				if($transaction->status_payment == Transaction_m::STATUS_WAITING){
+				if ($transaction->status_payment == Transaction_m::STATUS_WAITING) {
 					$error['transactions'] = $this->getTransactions($transaction);
 					$bill_to = $transaction->member_id;
 					$bill_to_input = str_replace("REGISTER-GROUP : ", "", $transaction->member_id);
 					$listMember = $this->Transaction_detail_m->find()->where("transaction_id", $id_invoice)
 						->join("members", "members.id = transaction_details.member_id")
-						->join("kategory_members km","km.id = members.status")
+						->join("kategory_members km", "km.id = members.status")
 						->select("members.*,km.kategory as status_text")
 						->get()->result();
 					$members = [];
-					$status_selected = "";$status_text = "";
+					$status_selected = "";
+					$status_text = "";
 					foreach ($listMember as $key => $dataMember) {
 						$members[$key]['id_invoice'] = $id_invoice;
 						$members[$key]['bill_to'] = $bill_to;
@@ -539,7 +545,7 @@ class Register extends MY_Controller
 						$members[$key]['univ'] = $dataMember->univ;
 						$members[$key]['p2kb_member_id'] = $dataMember->p2kb_member_id;
 						$members[$key]['status'] = $dataMember->status;
-						$members[$key]['validation_error'] = ['nik'=>null];
+						$members[$key]['validation_error'] = ['nik' => null];
 						$members[$key]['checking'] = false;
 						$status_selected = $dataMember->status;
 						$status_text = $dataMember->status_text;
@@ -547,7 +553,7 @@ class Register extends MY_Controller
 					$data['continueTransaction'] = (array_merge(
 						$error,
 						[
-							'status' => ['status_selected'=>$status_selected,'status_text'=>$status_text],
+							'status' => ['status_selected' => $status_selected, 'status_text' => $status_text],
 							'data' => [
 								'bill_to' => $bill_to_input,
 								'id_invoice' => $id_invoice,
@@ -627,7 +633,7 @@ class Register extends MY_Controller
 			if (!$detail) {
 				$detail = new Transaction_detail_m();
 			}
-			
+
 
 			if ($this->Event_m->validateFollowing($event['id'], $event['member_status'])) {
 
@@ -647,7 +653,6 @@ class Register extends MY_Controller
 				$detail->member_id = $data['id'];
 				$detail->product_name = "$event[event_name] ($event[member_status])";
 				$detail->save();
-				
 			} else {
 				$response['status'] = false;
 				$response['message'] = "You are prohibited from following !";
@@ -673,11 +678,11 @@ class Register extends MY_Controller
 		}
 		$this->Transaction_m->setDiscount($transaction->id);
 		$this->Transaction_m->getDB()->trans_complete();
-
 	}
 
-	public function clear_session(){
-		$this->session->set_userdata('transaksiFinish','1');
+	public function clear_session()
+	{
+		$this->session->set_userdata('transaksiFinish', '1');
 		$this->session->unset_userdata("tempMemberId");
 		$this->session->unset_userdata("tempStatusMember");
 		$this->session->unset_userdata("tempStatusId");
@@ -696,14 +701,14 @@ class Register extends MY_Controller
 		$post = $this->input->post();
 		$find =  ['id' => $post['id_invoice']];
 		$this->load->model("Transaction_m");
-		$this->session->set_userdata('transaksiFinish','1');
+		$this->session->set_userdata('transaksiFinish', '1');
 		$this->session->unset_userdata("tempMemberId");
 		$this->session->unset_userdata("tempStatusMember");
 		$this->session->unset_userdata("tempStatusId");
-		if($post['paymentMethod'] == "espay"){
+		if ($post['paymentMethod'] == "espay") {
 			$response['status'] = true;
 			$response['message'] = "Transaksi selesai";
-		}else if ($this->config->item("use_midtrans")) {
+		} else if ($this->config->item("use_midtrans")) {
 			$transaction = $this->Transaction_m->findOne($find);
 			if ($transaction) {
 				$total_price = 0;
@@ -808,11 +813,11 @@ class Register extends MY_Controller
 			if ($isGroup) {
 				foreach ($data['members'] as $key => $value) {
 					$member = $this->Member_m->findOne(['id' => $value['id']]);
-					$this->Notification_m->sendInvoice($member,$transaction);
+					$this->Notification_m->sendInvoice($member, $transaction);
 				}
 			} else {
 				$member = $this->Member_m->findOne(['id' => $transaction->member_id]);
-				$this->Notification_m->sendInvoice($member,$transaction);
+				$this->Notification_m->sendInvoice($member, $transaction);
 			}
 		}
 
@@ -956,10 +961,11 @@ class Register extends MY_Controller
 			->_display(json_encode($response));
 	}
 
-	public function info_member_perdossi($nik = null){
+	public function info_member_perdossi($nik = null)
+	{
 		$this->load->library('Api_perdossi');
-        $response = $this->api_perdossi->getMemberByNIK($nik);
-        $this->output
+		$response = $this->api_perdossi->getMemberByNIK($nik);
+		$this->output
 			->set_content_type("application/json")
 			->_display(json_encode($response));
 	}
