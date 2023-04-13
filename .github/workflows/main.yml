@@ -1,8 +1,5 @@
 name: Publish Development Branch
-on: 
-  push:
-    branches:
-      - development
+on: push
 jobs:
   web-deploy:
     name: 🚀 Deploy Website Every Commit
