@@ -47,8 +47,11 @@
         </div>
     </div> -->
 
-    <button class="btn btn-sm btn-primary position-fixed bottom-0 end-0 translate-middle d-none" onclick="scrollToTop()" id="back-to-up">
-        <i class="fa fa-arrow-up" aria-hidden="true"></i>
+    <button class="btn btn-sm btn-primary position-fixed bottom-0 end-0 translate-middle me-1 d-none" onclick="scrollToTop()" id="back-to-up">
+        <i class="fa fa-arrow-up fa-2x" aria-hidden="true"></i>
+    </button>
+  	<button style="z-index:1" onclick="document.getElementById('section-contact').scrollIntoView({behavior: 'smooth'});" class="btn btn-sm btn-primary position-fixed bottom-0 end-0 mb-5 translate-middle">
+        <i class="fa-2x fa-brands fa-whatsapp"></i>
     </button>
     <!-- Start Header Section -->
     <header class="cs-site_header cs-style1 cs-sticky-header cs-primary_color text-uppercase cs-white_bg">
@@ -61,15 +64,16 @@
                             <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/logo.png" alt="Logo" class="cs-hide_white">
                         </a>
                     </div>
-                    <!-- <div class="cs-main_header_center">
+                     <div class="cs-main_header_center">
                         <div class="cs-nav">
                             <ul class="cs-nav_list">
-                                <li><a href="#home" class="cs-smoth_scroll">Beranda</a></li>
-                                <li><a href="#login" class="cs-smoth_scroll">Masuk Login</a></li>
-                                <li><a href="#event" class="cs-smoth_scroll">Kegiatan</a></li>
+                                <li><a href="#home" class="cs-smoth_scroll"><?= lang("home"); ?></a></li>
+                                <li><a href="#login" class="cs-smoth_scroll"><?= lang("login"); ?></a></li>
+                                <li><a href="#event" class="cs-smoth_scroll"><?= lang("event"); ?></a></li>
+                              <li><a href="#news" class="cs-smoth_scroll"><?= lang("news"); ?></a></li>
                             </ul>
                         </div>
-                    </div> -->
+                    </div>
                     <div class="cs-main_header_right">
                         <div class="cs-toolbox">
                             <a href="<?= base_url('member/register'); ?>" class="cs-btn cs-btn_filed cs-accent_btn">
@@ -95,6 +99,7 @@
 
     <!-- Start Hero -->
     <div id="home" class="cs-hero cs-style1 cs-type2 cs-bg text-center cs-ripple_version" data-src="<?= base_url('themes/aenft'); ?>/assets/img/konas/bg-head.jpg" id="home">
+        <!--
         <nav class="floating-menu">
             <ul class="main-menu">
                 <li>
@@ -124,6 +129,7 @@
             </ul>
             <div class="menu-bg"></div>
         </nav>
+		-->
         <div class="cs-dark_overlay"></div>
         <div class="container">
             <div class="cs-hero_img wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.3s">
@@ -595,7 +601,7 @@
         </div>
     </section>
 
-    <section>
+    <section id="section-contact">
         <div class="cs-height_70 cs-height_lg_40"></div>
         <div class="container">
             <div class="cs-seciton_heading cs-style1 text-uppercase text-center wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s">
