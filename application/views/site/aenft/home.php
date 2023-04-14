@@ -152,7 +152,7 @@
         <div class="container">
             <div class="cs-seciton_heading cs-style1 text-uppercase wow fadeInUp text-center" data-wow-duration="1s" data-wow-delay="0.2s">
                 <h3 class="cs-section_title cs-font_16 cs-font_14_sm cs-gradient_color">Kata Sambutan</h3>
-                <h2 class="cs-section_subtitle cs-m0 cs-font_36 cs-font_24_sm">KONSI XI PERDOSSI 2023 SEMARANG</h2>
+                <h2 class="cs-section_subtitle cs-m0 cs-font_36 cs-font_24_sm">KONAS PERDOSSI 2023 SEMARANG</h2>
             </div>
             <div class="cs-height_50 cs-height_lg_30"></div>
             <div class="row wow fadeIn" data-wow-duration="1s" data-wow-delay="0.4s">
