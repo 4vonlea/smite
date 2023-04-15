@@ -129,20 +129,19 @@
                                     </li>
 
                                 <?php } else { ?>
-                                    <li><a href="#home" class="cs-smoth_scroll">
+                                    <li><a href="<?= base_url('site/home'); ?>#home" class="cs-smoth_scroll">
                                             <i class="fa fa-home me-1"></i>
-                                            <?= lang("home"); ?></a>
+                                            Home</a>
                                     </li>
-                                    <li><a href="#login" class="cs-smoth_scroll">
-                                            <i class="fa fa-sign-in me-1"></i>
-                                            <?= lang("login"); ?></a></li>
-                                    <li><a href="#event" class="cs-smoth_scroll">
+                                    <li><a href="<?= base_url('site/home'); ?>#event" class="cs-smoth_scroll">
                                             <i class="fa fa-calendar me-1"></i>
-
-                                            <?= lang("event"); ?></a></li>
-                                    <li><a href="#news" class="cs-smoth_scroll">
+                                            Event</li>
+                                    <li><a href="<?= base_url('site/home'); ?>#news" class="cs-smoth_scroll">
                                             <i class="fa fa-newspaper me-1"></i>
-                                            <?= lang("news"); ?></a></li>
+                                            News</li>
+                                    <li><a href="<?= base_url('site/home'); ?>#login" class="cs-smoth_scroll">
+                                            <i class="fa fa-sign-in me-1"></i>
+                                            Login</li>
                                 <?php } ?>
                             </ul>
                         </div>
@@ -162,7 +161,7 @@
                                 </a>
                             <?php endif; ?>
 
-                            <div class="dropdown ms-2">
+                            <!-- <div class="dropdown ms-2">
                                 <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="fa fa-language"></i> <?= ucfirst($this->config->item("language")); ?>
                                 </button>
@@ -170,7 +169,7 @@
                                     <li><a class="dropdown-item" href="<?= current_url() . "?language=english"; ?>">English</a></li>
                                     <li><a class="dropdown-item" href="<?= current_url() . "?language=indonesia"; ?>">Indonesia</a></li>
                                 </ul>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>

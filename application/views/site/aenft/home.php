@@ -87,18 +87,20 @@
                             <ul class="cs-nav_list">
                                 <li><a href="#home" class="cs-smoth_scroll">
                                         <i class="fa fa-home me-1"></i>
-                                        <?= lang("home"); ?></a>
+                                        Home</a>
                                 </li>
-                                <li><a href="#login" class="cs-smoth_scroll">
-                                        <i class="fa fa-sign-in me-1"></i>
-                                        <?= lang("login"); ?></a></li>
-                                <li><a href="#event" class="cs-smoth_scroll">
-                                        <i class="fa fa-calendar me-1"></i>
-
-                                        <?= lang("event"); ?></a></li>
                                 <li><a href="#news" class="cs-smoth_scroll">
                                         <i class="fa fa-newspaper me-1"></i>
-                                        <?= lang("news"); ?></a></li>
+                                        News</a></li>
+                                <li><a href="#event" class="cs-smoth_scroll">
+                                        <i class="fa fa-calendar me-1"></i>
+                                        Event</a></li>
+                                <li><a href="#registration" class="cs-smoth_scroll">
+                                        <i class="fa fa-edit me-1"></i>
+                                        Registration</a></li>
+                                <li><a href="#event" class="cs-smoth_scroll">
+                                        <i class="fa fa-info-circle me-1"></i>
+                                        Important Info</a></li>
                             </ul>
                         </div>
                     </div>
@@ -108,7 +110,7 @@
                                 <i class="fa-solid fa-clipboard-user"></i>&nbsp;<span><?= lang("registration"); ?></span>
                             </a>
                         </div>
-                        <div class="dropdown ms-2">
+                        <!-- <div class="dropdown ms-2">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fa fa-language"></i> <?= ucfirst($this->config->item("language")); ?>
                             </button>
@@ -116,7 +118,7 @@
                                 <li><a class="dropdown-item" href="<?= current_url() . "?language=english"; ?>">English</a></li>
                                 <li><a class="dropdown-item" href="<?= current_url() . "?language=indonesia"; ?>">Indonesia</a></li>
                             </ul>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
