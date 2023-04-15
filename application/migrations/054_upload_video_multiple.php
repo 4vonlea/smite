@@ -1,0 +1,27 @@
+<?php
+
+/**
+ * Class Migration_init
+ * @property CI_DB_forge $dbforge
+ * @property CI_DB_query_builder $db
+ */
+class Migration_upload_video_multiple extends CI_Migration
+{
+    public function up()
+    {
+        $this->dbforge->modify_column("upload_video", [
+            'filename' => [
+                'type' => 'text',
+            ],
+        ]);
+    }
+
+    public function down()
+    {
+        $this->dbforge->modify_column("upload_video", [
+            'filename' => [
+                'type' => 'varchar',
+            ],
+        ]);
+    }
+}

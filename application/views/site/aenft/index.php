@@ -87,7 +87,7 @@
                                     <input type="password" name="password" required="">
                                     <label for="">Password</label>
                                 </div>
-                                <div class="text-end text-white mb-3" style="margin-top: -20px; font-size: 14px; text-decoration: underline;">
+                                <div class="text-end text-white mb-3" style="margin-top:20px; font-size: 14px; text-decoration: underline;">
                                     <a href="#"><?= lang("forgot_password"); ?>?</a>
                                 </div>
                             <?php endif; ?>

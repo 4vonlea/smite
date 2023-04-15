@@ -34,6 +34,18 @@
 					<form ref="form">
 						<div class="card-body">
 							<div class="form-group row">
+								<label class="col-lg-3 control-label">Type</label>
+								<div class="col-lg-5">
+									<select v-model='form.model.type' class='form-control' :class="{'is-invalid':form.validation.type}">
+										<option disabled value="">Select Type</option>
+										<option v-for="(v,k) in listType" :value="k">{{ v }}</option>
+									</select>
+									<div v-if="form.validation.type" class="invalid-feedback">
+										{{ form.validation.type }}
+									</div>
+								</div>
+							</div>
+							<div class="form-group row">
 								<label class="col-lg-3 control-label">Video/Image</label>
 								<div class="col-lg-5">
 									<a v-if="form.model.filename" class="badge badge-info mb-1" target="_blank" :href="'<?= base_url('themes/uploads/video'); ?>/'+form.model.filename">Previous File Click Here</a>
@@ -66,18 +78,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="form-group row">
-								<label class="col-lg-3 control-label">Type</label>
-								<div class="col-lg-5">
-									<select v-model='form.model.type' class='form-control' :class="{'is-invalid':form.validation.type}">
-										<option disabled value="">Select Type</option>
-										<option v-for="(v,k) in listType" :value="k">{{ v }}</option>
-									</select>
-									<div v-if="form.validation.type" class="invalid-feedback">
-										{{ form.validation.type }}
-									</div>
-								</div>
-							</div>
+
 
 							<div class="form-group row">
 								<label class="col-lg-3 control-label">Description</label>
@@ -88,6 +89,12 @@
 									</div>
 								</div>
 							</div>
+							<!-- <div class="form-group row">
+								<label class="col-lg-12 control-label">File</label>
+								<div class="col-lg-12">
+									<vue-upload-image url=""></vue-upload-image>
+								</div>
+							</div> -->
 						</div>
 						<div class="card-footer text-right">
 							<button v-on:click="save" v-bind:disabled="form.saving" type="button" class="btn btn-primary"><i :class="[form.saving? 'fa fa-spin fa-spinner':'fa fa-save']"></i> Save
@@ -193,6 +200,8 @@
 <!-- Table -->
 
 <?php $this->layout->begin_script(); ?>
+<script src="<?= base_url("components/vue-upload-image.js"); ?>"></script>
+
 <script>
 	function model() {
 		return {
