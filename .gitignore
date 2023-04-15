@@ -70,7 +70,7 @@ public/themes/uploads/sponsor/*
 application/third_party/phpqrcode/cache/*
 application/application.zip
 
-themes/filemanager/*
+public/themes/filemanager/*
 
 public/themes/uploads/*.zip
 public/themes/uploads/video/*
