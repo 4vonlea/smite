@@ -44,6 +44,10 @@
             height: 400px;
         }
 
+        #news .swiper-slide {
+            cursor: pointer;
+        }
+
         .swiper-slide .title {
             position: absolute;
             font-weight: bold;
@@ -58,6 +62,10 @@
 
         .countdown-section {
             margin-right: 5px;
+        }
+
+        .modal.show {
+            display: flex !important;
         }
     </style>
 </head>
@@ -279,6 +287,16 @@
 
     <section id="news">
         <div class="cs-height_70 cs-height_lg_40"></div>
+        <!-- Button trigger modal -->
+
+        <!-- Modal -->
+        <div class="modal fade" id="modal-gallery" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog d-flex justify-content-center align-items-center p3">
+                <div class="modal-content">
+
+                </div>
+            </div>
+        </div>
         <div class="container">
             <div class="cs-seciton_heading cs-style1 text-uppercase wow fadeInUp text-center" data-wow-duration="1s" data-wow-delay="0.2s">
                 <h3 class="cs-section_title cs-font_16 cs-font_14_sm cs-gradient_color">News</h3>
@@ -325,10 +343,10 @@
                                     <div class="title" data-swiper-parallax="-300">Video Update</div>
                                     <img src="<?= base_url('themes/img/coming-soon.jpg'); ?>" />
                                 </div>
-                                <?php else : foreach ($videoAndPhoto['video'] as $in=>$video) : ?>
+                                <?php else : foreach ($videoAndPhoto['video'] as $in => $video) : ?>
                                     <div class="swiper-slide">
                                         <div class="title" data-swiper-parallax="-300"><?= $video['title']; ?></div>
-                                        <video controls="controls" src="<?= base_url('themes/uploads/video') . "/" . $video['filename']; ?>"<?=$in > 0 ? 'preload="none"':'';?>></video>
+                                        <video style="width:100%" src="<?= base_url('themes/uploads/video') . "/" . $video['filename']; ?>" preload="none"></video>
                                     </div>
                                 <?php endforeach; ?>
                             <?php endif; ?>
@@ -1378,6 +1396,18 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
     <script>
         $(function() {
+            $(".swiper-slide").click(function() {
+                let child = $(this).children("img, video");
+                if (child.length > 0) {
+                    let childrenClone = $(child[0]).clone();
+                    if (childrenClone.is("video")) {
+                        childrenClone.attr("controls", true);
+                        childrenClone.attr("preload", true);
+                    }
+                    $("#modal-gallery .modal-dialog .modal-content").html(childrenClone);
+                }
+                $("#modal-gallery").modal("show");
+            })
             $('.de_countdown').each(function() {
                 var y = $(this).data('year');
                 var m = $(this).data('month');
@@ -1417,7 +1447,7 @@
                         // var activeSlide = document.getElementsByClassName('swiper-slide')[activeIndex];
                         // var activeSlideVideo = activeSlide.getElementsByTagName('video')[0];
                         var videos = document.querySelectorAll('video');
-                        videos[activeIndex].play();
+                        // videos[activeIndex].play();
                         // console.log(activeIndex, activeSlide, activeSlideVideo);
                         // activeSlideVideo.play();
                     },
