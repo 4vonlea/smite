@@ -219,7 +219,7 @@
                                     We look forward to your presence and participation in Semarang, The venetie van Java!
                                     <br><br>
 
-                                    Wassalamu’alaikum wr.wb.
+                                    Wassalamualaikum wr.wb.
 
                                     <br><br>
 
@@ -325,10 +325,10 @@
                                     <div class="title" data-swiper-parallax="-300">Video Update</div>
                                     <img src="<?= base_url('themes/img/coming-soon.jpg'); ?>" />
                                 </div>
-                                <?php else : foreach ($videoAndPhoto['video'] as $video) : ?>
+                                <?php else : foreach ($videoAndPhoto['video'] as $in=>$video) : ?>
                                     <div class="swiper-slide">
                                         <div class="title" data-swiper-parallax="-300"><?= $video['title']; ?></div>
-                                        <video src="<?= base_url('themes/uploads/video') . "/" . $video['filename']; ?>" preload="none"></video>
+                                        <video controls="controls" src="<?= base_url('themes/uploads/video') . "/" . $video['filename']; ?>"<?=$in > 0 ? 'preload="none"':'';?>></video>
                                     </div>
                                 <?php endforeach; ?>
                             <?php endif; ?>

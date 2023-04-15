@@ -8,7 +8,7 @@ class Upload_video_m extends MY_Model
     const TYPE_VIDEO = 1;
     const TYPE_IMAGE = 2;
     const TYPE_LINK = 3;
-    const PATH = "themes/upload/video/";
+    const PATH = "themes/uploads/video/";
 
     public static $types = [
         self::TYPE_VIDEO => 'Video',
