@@ -141,10 +141,12 @@
 							<a class="btn btn-primary btn-sm" :href="'<?= base_url('admin/notification/index'); ?>/'+props.row.m_id" target="_blank">
 								<span class="fa fa-envelope"></span> Email
 							</a>
-
 							<button v-if="props.row.status_payment != 'waiting' && props.row.channel != '<?= Transaction_m::CHANNEL_GL; ?>'" @click="setAsGuaranteeLetter(props)" class="btn btn-info btn-sm">
 								<span class="fa fa-edit"></span> Set As GL Transaction
 							</button>
+							<v-button v-if="props.row.status_payment == '<?= Transaction_m::STATUS_EXPIRE; ?>'" @click="(self) => copyTransaction(self,props.row)" class="btn btn-warning btn-sm mt-2">
+								<span class="fa fa-copy"></span> Copy Transaction
+							</v-button>
 						</div>
 					</template>
 				</datagrid>
@@ -472,6 +474,7 @@
 	<script src="<?= base_url("themes/script/vuejs-datepicker.min.js"); ?>"></script>
 	<script src="https://cdn.jsdelivr.net/npm/vue-ctk-date-time-picker@2.5.0/dist/vue-ctk-date-time-picker.umd.js" charset="utf-8"></script>
 	<script src="https://unpkg.com/vue-select@latest"></script>
+	<script src="<?= base_url("themes/script/v-button.js"); ?>"></script>
 
 	<script>
 		var info = <?= json_encode(Transaction_m::$transaction_status); ?>;
@@ -567,6 +570,24 @@
 				}
 			},
 			methods: {
+				copyTransaction(self, row) {
+					self.toggleLoading();
+					$.post("<?= base_url('admin/transaction/copy'); ?>", {
+							id: row.invoice
+						}, null, 'JSON')
+						.done(function(res) {
+							if (res.status) {
+								Swal.fire("Success", res.message, "success");
+								app.$refs.datagrid.refresh();
+							} else {
+								Swal.fire("Failed", res.message, "warning");
+							}
+						}).always(function() {
+							self.toggleLoading();
+						}).fail(function() {
+							Swal.fire("Failed", "Failed to copy transaction", "error");
+						});
+				},
 				scrollModal() {
 					Vue.nextTick(() => {
 						$("#modal-modify .modal-body").animate({

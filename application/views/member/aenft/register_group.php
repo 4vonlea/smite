@@ -533,7 +533,6 @@ $theme_path = base_url("themes/aenft") . "/";
             allowBack: true,
         },
         mounted: function() {
-
             // NOTE Set Payment Method
             let paymentData = <?= json_encode($paymentMethod) ?>;
             let tempPayment = [{
@@ -547,7 +546,6 @@ $theme_path = base_url("themes/aenft") . "/";
                     desc: sp[1]
                 });
             })
-
             this.paymentMethod = tempPayment;
             if (paymentData.length == 1) {
                 this.selectedPaymentMethod = tempPayment[1].key;

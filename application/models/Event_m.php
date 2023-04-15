@@ -46,6 +46,10 @@ class Event_m extends MY_Model
 			$title = $row['kategory'] . " " . $heldOnString;
 			$return[$title]['kategory'] = $row['kategory'];
 			$return[$title]['heldOn'] = $heldOnString;
+			$return[$title]['held'] = [
+				'startDate' => DateTime::createFromFormat('Y-m-d', $heldOn['start']),
+				'endDate' => DateTime::createFromFormat('Y-m-d', $heldOn['end'])
+			];
 			$return[$title]['list'][] = $row;
 		}
 		return $return;

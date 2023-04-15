@@ -55,6 +55,10 @@
             padding: 3px;
             border-radius: 3px;
         }
+
+        .countdown-section {
+            margin-right: 5px;
+        }
     </style>
 </head>
 
@@ -387,7 +391,14 @@
             </div>
             <div class="wow fadeIn" data-wow-duration="1s" data-wow-delay="0.2s">
                 <?php foreach ($eventsList as $groupEvent) : ?>
-                    <button class="accordion mt-2"><?= $groupEvent['heldOn']; ?> (<?= $groupEvent['kategory']; ?>)</button>
+                    <button class="accordion mt-2">
+                        <?= $groupEvent['heldOn']; ?> (<?= $groupEvent['kategory']; ?>)
+                        <?php if ($groupEvent['held']['startDate'] == $groupEvent['held']['endDate']) : ?>
+                            | Countdown :
+                            <span class="de_countdown cs-iconbox_icon cs-font_26 cs-font_20_sm cs-m0" data-year="<?= $groupEvent['held']['startDate']->format("Y"); ?>" data-month="<?= $groupEvent['held']['startDate']->format("m"); ?>" data-day="<?= $groupEvent['held']['startDate']->format("d"); ?>" data-hour="0">
+                            </span>
+                        <?php endif; ?>
+                    </button>
                     <div class="accordion-content">
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered my-3" style="color: white; width: 100%;">
@@ -407,6 +418,7 @@
                                                 <small class="fw-bold"><?= $event['description']; ?></small>
                                             </td>
                                             <td><?= $event['held_in']; ?></td>
+
                                             <td align="center"><span class="badge card-header-bg2 fw-bold"><?= $event['kouta']; ?> Orang</span></td>
                                         </tr>
                                     <?php endforeach; ?>

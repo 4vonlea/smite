@@ -522,4 +522,42 @@ class Transaction extends Admin_Controller
 		$this->output->set_content_type("application/json")
 			->_display('{"status":true}');
 	}
+
+	public function copy()
+	{
+		$response = [
+			'status' => false,
+			'message' => 'Transactions cannot be copied, because its status is not expired'
+		];
+		$id = $this->input->post("id");
+		$this->load->model(["Transaction_detail_m", "Transaction_m"]);
+		$transaction = $this->Transaction_m->findOne($id);
+		if ($transaction && $transaction->status_payment == Transaction_m::STATUS_EXPIRE) {
+			$newTransaction = $transaction->toArray();
+			$newTransaction['id'] = $this->Transaction_m->generateInvoiceId();
+			$newTransaction['checkout'] = 0;
+			$newTransaction['status_payment'] = Transaction_m::STATUS_WAITING;
+			$newTransaction['message_payment'] = "";
+			$newTransaction['midtrans_data'] = "";
+			unset($newTransaction['paymentGatewayInfo']);
+			$this->Transaction_m->getDB()->trans_start();
+			$this->Transaction_m->insert($newTransaction);
+			foreach ($transaction->details as $detail) {
+				$newDetail = $detail->toArray();
+				$newDetail['transaction_id'] = $newTransaction['id'];
+				unset($newDetail['id']);
+				$this->Transaction_detail_m->insert($newDetail);
+			}
+			$this->Transaction_m->getDB()->trans_complete();
+			$status = $this->Transaction_m->getDB()->trans_status();
+			if ($status) {
+				$response['status'] = true;
+				$response['message'] = "Transaction successfully copied.<br/> New invoice id is <b>'{$newTransaction['id']}'</b>";
+			} else {
+				$response['message'] = "Failed to copy transaction";
+			}
+		}
+		$this->output->set_content_type("application/json")
+			->_display(json_encode($response));
+	}
 }
