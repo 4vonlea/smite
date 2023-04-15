@@ -34,6 +34,7 @@ let templateSelectEvent = `
                             <thead>
                                 <tr>
                                     <th class="text-start">{{ event.name }}
+                                    
                                     <!--<br /><span style="font-size: 14px;" v-if="event.event_required">(You must follow event
                                         <strong>{{ event.event_required }}</strong> to participate this event)</span>-->
                                     </th>
@@ -54,6 +55,7 @@ let templateSelectEvent = `
                                             <span
                                                 v-show="pricing.pricing[member].price_in_usd != 0">{{formatCurrency(pricing.pricing[member].price_in_usd,
                                                 'USD')}}</span>
+
                                             <button type="button"
                                                 @click="addToCart(pricing.pricing[member],member,event.name,event.id)"
                                                 v-if="pricing.pricing[member].available && !pricing.pricing[member].added && !pricing.pricing[member].waiting_payment"
@@ -93,7 +95,6 @@ let templateSelectEvent = `
 `;
 Vue.component("select-event", {
 	template: templateSelectEvent,
-	emits: ["addEvent"],
 	props: {
 		showHotelBooking: {
 			type: Boolean,
@@ -108,10 +109,6 @@ Vue.component("select-event", {
 		},
 		addCartUrl: {
 			type: String,
-		},
-		onAdd: {
-			type: Function,
-			default: () => {},
 		},
 	},
 	computed: {
@@ -189,28 +186,19 @@ Vue.component("select-event", {
 			event.member_status = statusMember;
 			event.event_name = event_name;
 			event.event_id = event_id;
-			console.log("Add To Card");
-			if (this.addCartUrl) {
-				$.post(this.addCartUrl, event, (res) => {
-					if (res.status) {
-						event.added = 1;
-						page.onAdd(res);
-					} else {
-						Swal.fire("Info", res.message, "warning");
-						page.onAdd(false, res);
-					}
+			$.post(this.addCartUrl, event, function (res) {
+				if (res.status) {
+					event.added = 1;
+				} else {
+					Swal.fire("Info", res.message, "warning");
+				}
+			})
+				.fail(function () {
+					Swal.fire("Fail", "Failed adding to cart !", "error");
 				})
-					.fail(function () {
-						Swal.fire("Fail", "Failed adding to cart !", "error");
-					})
-					.always(function () {
-						page.adding = false;
-					});
-			}
-			if (!this.addCartUrl) {
-				event.added = 1;
-				page.onAdd(res);
-			}
+				.always(function () {
+					page.adding = false;
+				});
 		},
 		tagNameUrl(eventId, userId) {
 			return this.tagNamePath ?? +`${eventId}/${userId}`;
