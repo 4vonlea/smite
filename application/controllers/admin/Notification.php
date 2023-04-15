@@ -368,7 +368,7 @@ class Notification extends Admin_Controller
 					->join('committee', 'committee.id = committee_id')
 					->join("events", "events.id = event_id")
 					->select('email,committee_attribute.id,events.id as event_id,events.name as event_name');
-				if($event_id != "all"){
+				if ($event_id != "all") {
 					$query->where('event_id', $event_id);
 				}
 				$attributes = $query->get()->result_array();
@@ -382,7 +382,7 @@ class Notification extends Admin_Controller
 		if (!file_exists(APPPATH . "cache/broadcast")) {
 			mkdir(APPPATH . "cache/broadcast");
 		}
-		$filename = APPPATH . "cache/broadcast/".$id . ".json";
+		$filename = APPPATH . "cache/broadcast/" . $id . ".json";
 		if (!$fp = fopen($filename, 'a')) {
 			$status = false;
 			$responseMessage = "Cannot write a attribute file";
@@ -398,11 +398,11 @@ class Notification extends Admin_Controller
 				'status' => 'Ready',
 			]);
 			foreach ($attributes as $row) {
-				fwrite($fp, json_encode($row).PHP_EOL);
+				fwrite($fp, json_encode($row) . PHP_EOL);
 			}
 			fclose($fp);
 		}
-		run_job("job", "run_broadcast", [$id]);
+		run_job("job", "run_broadcast", ['id' => $id]);
 		$responseMessage = "<p style='font-size:24px'>Broadcast berhasil dimulai</p> 
 							ID  : $id <br/>	Jumlah penerima : " . count($attributes) . "<br/>
 							Ikuti link berikut untuk monitoring <a href='" . base_url('admin/notification/history/' . $id) . "' target='_blank'>Klik Disini</a>";
@@ -431,24 +431,24 @@ class Notification extends Admin_Controller
 		$type = $this->input->post("type");
 		$sourcePath = APPPATH . "cache/broadcast/" . $id . ".json";
 		$resultPath = APPPATH . "cache/broadcast/" . $id . "-result.json";
-		if(file_exists($resultPath)){
-            $sourceFile = fopen($sourcePath, 'w');
-            $resultFile = fopen($resultPath, 'r');
+		if (file_exists($resultPath)) {
+			$sourceFile = fopen($sourcePath, 'w');
+			$resultFile = fopen($resultPath, 'r');
 			while (!feof($resultFile)) {
 				$rowRaw = fgets($resultFile);
 				if ($rowRaw != false) {
 					$row = json_decode($rowRaw, true);
 					$statusSending = $row['feedback']['status'] ?? false;
-					if($statusSending && $type == "onlyFailed"){
+					if ($statusSending && $type == "onlyFailed") {
 						$row['before'] = true;
-					}else{
+					} else {
 						unset($row['before']);
 					}
 					fwrite($sourceFile, json_encode($row) . PHP_EOL);
 				}
 			}
 		}
-		$status = run_job("job", "run_broadcast", [$id]);
+		$status = run_job("job", "run_broadcast", ['id' => $id]);
 		$this->db->update("broadcast", ['status' => 'Ready'], ['id' => $id]);
 		$status = true;
 		$this->output
@@ -464,16 +464,16 @@ class Notification extends Admin_Controller
 		$data['attribute'] = [];
 
 		$data['successCount'] = 0;
-		if(file_exists(APPPATH . "cache/broadcast/".$id."-result.json")){
-			$resultFile = fopen(APPPATH . "cache/broadcast/".$id."-result.json", 'r');
+		if (file_exists(APPPATH . "cache/broadcast/" . $id . "-result.json")) {
+			$resultFile = fopen(APPPATH . "cache/broadcast/" . $id . "-result.json", 'r');
 			while (!feof($resultFile)) {
-				$rowRaw = fgets($resultFile); 
-				if($rowRaw != false){
-					$row = json_decode($rowRaw,true);
-					if(isset($row['feedback']['status']) &&  $row['feedback']['status'] == true){
+				$rowRaw = fgets($resultFile);
+				if ($rowRaw != false) {
+					$row = json_decode($rowRaw, true);
+					if (isset($row['feedback']['status']) &&  $row['feedback']['status'] == true) {
 						$data['successCount']++;
 						$row['result'] = "Success";
-					}else{
+					} else {
 						$row['result'] = "Failed";
 					}
 					$data['attribute'][] = $row;

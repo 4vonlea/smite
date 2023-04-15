@@ -2,7 +2,8 @@
 if (!function_exists("run_job")) {
     function run_job($controller, $function, $params = [], $isNonBlocking = true)
     {
-        $params['actionUrl'] = base_url($controller . "/" . $function);
+        $body['actionUrl'] = base_url($controller . "/" . $function);
+        $body['params'] = $params;
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_URL => env("HOST_TASK_RUNNER") . ':' . env("PORT_TASK_RUNNER"),
@@ -13,7 +14,7 @@ if (!function_exists("run_job")) {
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS => json_encode($params),
+            CURLOPT_POSTFIELDS => json_encode($body),
             CURLOPT_HTTPHEADER => array(
                 'Content-Type: application/json'
             ),

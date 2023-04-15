@@ -12,10 +12,8 @@ class Job extends CI_Controller
         parent::__construct();
         $signature = $this->input->get_request_header("X-Token");
         $this->rawBody = file_get_contents('php://input');
+        $this->jsonBody = json_decode($rawBody, true);
         $checkSignature = $signature === sha1(env("SIGNATURE_KEY") . $this->rawBody);
-        echo $signature . PHP_EOL;
-        echo env("SIGNATURE_KEY") . $this->rawBody . PHP_EOL;
-        echo sha1(env("SIGNATURE_KEY") . $this->rawBody) . PHP_EOL;
         if (!is_cli() && $checkSignature == false) {
             die("Not From CLI Or Authorize Client");
         }
@@ -23,12 +21,14 @@ class Job extends CI_Controller
         set_time_limit(-1);
     }
 
-    public function send_unpaid_invoice($transaction_id, $sleep = 0)
+    public function send_unpaid_invoice()
     {
+        $transaction_id = $this->jsonBody['params']['id'] ?? "-";
+        $sleep = $this->jsonBody['params']['sleep'] ?? 5;
         if ($sleep > 0) {
             sleep($sleep);
         }
-        exec("php index.php member payment check_payment $transaction_id");
+        file_get_contents(base_url("member/payment/check_payment/$transaction_id"));
         $this->load->model(["Transaction_m", "Member_m", "Notification_m"]);
         $tr = $this->Transaction_m->findOne(['id' => $transaction_id]);
         $member = $tr->member;
@@ -44,8 +44,9 @@ class Job extends CI_Controller
         }
     }
 
-    public function run_broadcast($id)
+    public function run_broadcast()
     {
+        $id = $this->jsonBody['params']['id'] ?? "-";
         ini_set('memory_limit', '-1');
         $this->load->database('job');
         $processData = $this->db->get_where("broadcast", ['id' => $id])->row();

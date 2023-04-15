@@ -235,8 +235,8 @@ class Payment extends MY_Controller
 			$response['trx_date'] = $date;
 			$response['installment_period'] = "30D";
 			$result = run_job("job", "send_unpaid_invoice", [
-				$order_id,
-				30,
+				'id' => $order_id,
+				'sleep' => 30,
 			]);
 		} else {
 			$response['error_code'] = 1;
