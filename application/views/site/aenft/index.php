@@ -10,7 +10,7 @@
     <!-- Favicon Icon -->
     <link rel="icon" href="<?= base_url('themes/aenft'); ?>/assets/img/konas/logo.png" />
     <!-- Site Title -->
-    <title>KONAS XI PERDOSSI 2023 SEMARANG</title>
+    <title>National Congress of Indonesian Neurology Association 2023 SEMARANG</title>
     <link rel="stylesheet" href="<?= base_url('themes/aenft'); ?>/assets/css/plugins/bootstrap.min.css">
     <link rel="stylesheet" href="<?= base_url('themes/aenft'); ?>/assets/css/plugins/slick.css">
     <link rel="stylesheet" href="<?= base_url('themes/aenft'); ?>/assets/css/plugins/animate.css">
@@ -49,32 +49,32 @@
                 <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/logo.png" style="width: 100%; max-width: 320px; height: auto;">
             </div>
             <div class="cs-hero_text wow fadeIn" data-wow-duration="1s" data-wow-delay="0.45s" style="margin-top: -50px;">
-                <h2 class="cs-hero_title text-uppercase">KONAS XI PERDOSSI SEMARANG</h2>
-                <h3 class="cs-hero_subtitle text-uppercase">2 - 6 Agustus 2023</h3>
+                <h3 class="cs-hero_title text-uppercase">National Congress of Indonesian Neurology Association 2023 SEMARANG</h3>
+                <h3 class="cs-hero_subtitle text-uppercase">2 - 6 August 2023</h3>
                 <div class="row mt-5 align-middle">
                     <div class="col-lg-3 col-md-3 col-12 d-grid gap-2 mb-1">
-                        <a href="<?= base_url('site/home'); ?>" class="btn btn-success"><i class="fa-solid fa-earth-asia fa-2x mt-1"></i><br> <?= lang("visit_website_and_information"); ?></a>
+                        <a href="<?= base_url('site/home'); ?>" class="btn btn-success"><i class="fa-solid fa-earth-asia fa-2x mt-1"></i><br>Visit Full Website here</a>
                     </div>
                     <div class="col-lg-3 col-md-3 col-12 d-grid gap-2 mb-1">
-                        <a href="<?= base_url('member/register'); ?>" class="btn btn-primary"><i class="fa-solid fa-clipboard-user fa-2x mt-1"></i> <br><?= lang("individual_registration"); ?></a>
+                        <a href="<?= base_url('member/register'); ?>" class="btn btn-primary"><i class="fa-solid fa-clipboard-user fa-2x mt-1"></i> <br>Individual Registration</a>
                     </div>
                     <div class="col-lg-3 col-md-3 col-12 d-grid gap-2 mb-1">
-                        <a href="<?= base_url('member/register/group'); ?>" class="btn btn-success"><i class="fa-solid fa-user-group fa-2x mt-1"></i><br><?= lang("group_registration"); ?></a>
+                        <a href="<?= base_url('member/register/group'); ?>" class="btn btn-success"><i class="fa-solid fa-user-group fa-2x mt-1"></i><br>Group Registration</a>
                     </div>
                     <div class="col-lg-3 col-md-3 col-12 d-grid gap-2 mb-1">
-                        <a href="https://drive.google.com/file/d/1-W3ZyKGKAtLteoR7JQrkgQam-RzYvgfJ/view?usp=share_link" target="_blank" class="btn btn-primary"><i class="fa-solid fa-cloud-arrow-down fa-2x mt-1"></i> <br> <?= lang("download"); ?> First Announcement (Update 19 January 2023)</a>
+                        <a href="https://drive.google.com/file/d/1S7dkr-fvrvmWk9AFmbAkKYqG0-PYaKJd/view?usp=share_link" target="_blank" class="btn btn-primary"><i class="fa-solid fa-cloud-arrow-down fa-2x mt-1"></i><br>Download Second Announcement</a>
                     </div>
                 </div>
                 <hr class="mt-3 mb-3">
                 <div class="text-center">
                     <div class="col-12">
-                        <h6><?= lang("announce_1"); ?></h6>
-                        <h6><?= lang("announce_2"); ?></h6>
+                        <h6>Symposium, Workshop and Hotel Registration can only be done through the website. The committee does not accept registration through other mechanisms. </h6>
+                        <h6>E-Certificate integration into P2KB Online can only be given to participants who register via the website</h6>
                     </div>
                 </div>
                 <div class="d-grid gap-2 col-md-6 offset-md-3 mt-3 mb-3">
                     <div class="box">
-                        <h6><?= lang('announce_3'); ?></h6>
+                        <h6>For those who have registered, please login here.</h6>
                         <br>
 
                         <form action="<?= base_url('site/login'); ?>" method="post">
@@ -87,8 +87,8 @@
                                     <input type="password" name="password" required="">
                                     <label for="">Password</label>
                                 </div>
-                                <div class="text-end text-white mb-3" style="margin-top:20px; font-size: 14px; text-decoration: underline;">
-                                    <a href="#"><?= lang("forgot_password"); ?>?</a>
+                                <div class="text-end text-white mb-3" style="margin-top: 20px; font-size: 14px; text-decoration: underline;">
+                                    <a href="<?= base_url("site/forget"); ?>">Forgot password?</a>
                                 </div>
                             <?php endif; ?>
 
@@ -164,7 +164,7 @@
         <footer class="cs-footer text-center">
             <div class="container mt-4">
                 <div class="cs-copyright text-center wow fadeIn" data-wow-duration="1s" data-wow-delay="0.5s">
-                    <p>&copy; 2023 License to #Panitia KONAS PERDOSNI Semarang#</p>
+                    <p>&copy; 2023 License to #National Congress of Indonesian Neurology Association 2023 Semarang#</p>
                     <p>Developed by #CV. Meta Medika#</p><span class="cs-primary_font cs-primary_color"></span>
                 </div>
             </div>
