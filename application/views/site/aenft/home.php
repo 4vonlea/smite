@@ -98,7 +98,7 @@
                                 <li><a href="#registration" class="cs-smoth_scroll">
                                         <i class="fa fa-edit me-1"></i>
                                         Registration</a></li>
-                                <li><a href="#event" class="cs-smoth_scroll">
+                                <li><a href="#information" class="cs-smoth_scroll">
                                         <i class="fa fa-info-circle me-1"></i>
                                         Important Info</a></li>
                             </ul>
@@ -506,7 +506,7 @@
     </section>
 
     <div class="cs-height_70 cs-height_lg_40"></div>
-    <section id="event" class="event cs-bg" data-src="<?= base_url('themes/aenft'); ?>/assets/img/konas/bg-head1.jpg">
+    <section id="information" class="event cs-bg" data-src="<?= base_url('themes/aenft'); ?>/assets/img/konas/bg-head1.jpg">
         <div class="cs-height_70 cs-height_lg_40"></div>
         <div class="container">
             <div class="cs-seciton_heading cs-style1 text-uppercase text-center wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s">
