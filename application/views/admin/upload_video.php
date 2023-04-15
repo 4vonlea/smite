@@ -108,7 +108,7 @@
 								<h3>Upload Video</h3>
 							</div>
 							<div class="col-6 text-right">
-								<a href="<?=base_url('admin/upload_video/download_report');?>" class="btn btn-primary">Download as Excel</a>
+								<a href="<?= base_url('admin/upload_video/download_report'); ?>" class="btn btn-primary">Download as Excel</a>
 								<button @click="onAdd" type="button" class="btn btn-primary"><i class="fa fa-plus"></i> Add Video/Image</button>
 							</div>
 						</div>
@@ -157,7 +157,7 @@
 						<td colspan="2">
 							<video v-if="detail.type == 1" width="100%" style="width: 100%;" :src="'<?= base_url('themes/uploads/video'); ?>/'+detail.filename" controls>
 							</video>
-							<img v-if="detail.type == 2"  :src="'<?= base_url('themes/uploads/video'); ?>/'+detail.filename" />
+							<img v-if="detail.type == 2" class="img-fluid" :src="'<?= base_url('themes/uploads/video'); ?>/'+detail.filename" />
 						</td>
 					</tr>
 					<tr>
@@ -175,7 +175,7 @@
 								<div class="list-group-item list-group-item-action flex-column align-items-start">
 									<div class="d-flex w-100 justify-content-between">
 										<h4 class="mb-1">{{ com.username }} :</h5>
-										<small>{{ com.created_at | formatDate }}</small>
+											<small>{{ com.created_at | formatDate }}</small>
 									</div>
 									<p class="mb-1">{{ com.comment }}</p>
 								</div>
@@ -218,7 +218,7 @@
 				saving: false,
 				model: model()
 			},
-			detail:{},
+			detail: {},
 		},
 		filters: {
 			formatDate: function(val) {
@@ -227,8 +227,10 @@
 		},
 		methods: {
 			browseImage(event) {
-				if (event.target.files.length > 0) {
-					this.form.model.filenametemp = event.target.files[0].name;
+				let target = event.target;
+				if (target.files.length > 0) {
+					this.form.model.filenametemp = target.files[0].name;
+					console.log(this.form.model.filenametemp);
 				}
 			},
 			deleteRow(prop) {
@@ -264,7 +266,8 @@
 				this.form.show = true;
 				this.form.title = "Edit Video/Image";
 				props.row.filenametemp = "Select File";
-				this.form.model = props.row;
+				Vue.set(this.form, 'model', Object.assign({}, props.row))
+				console.log(this.form.model);
 				this.form.validation = {};
 			},
 			onAdd: function() {
@@ -276,18 +279,18 @@
 			formCancel: function() {
 				this.form.show = false;
 			},
-			onDetail: function(props,event) {
+			onDetail: function(props, event) {
 				event.target.innerHTML = '<i class="fa fa-spin fa-spinner"></i>';
 				event.target.setAttribute("disabled", "disabled");
-				$.get(`<?=base_url('admin/upload_video/detail');?>/${props.row.id}`,function(res){
+				$.get(`<?= base_url('admin/upload_video/detail'); ?>/${props.row.id}`, function(res) {
 					app.detail = res;
 					$("#modal-detail").modal("show");
-				},'JSON').fail(function(xhr){
+				}, 'JSON').fail(function(xhr) {
 					var message = xhr.getResponseHeader("Message");
 					if (!message)
 						message = 'Server fail to response !';
 					Swal.fire('Fail', message, 'error');
-				}).always(function(){
+				}).always(function() {
 					event.target.innerHTML = '<span class="fa fa-search"></span> Detail';
 					event.target.removeAttribute("disabled");
 				});

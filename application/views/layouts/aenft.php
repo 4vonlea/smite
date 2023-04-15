@@ -135,13 +135,13 @@
                                     </li>
                                     <li><a href="<?= base_url('site/home'); ?>#event" class="cs-smoth_scroll">
                                             <i class="fa fa-calendar me-1"></i>
-                                            Event</li>
+                                            Event</a></li>
                                     <li><a href="<?= base_url('site/home'); ?>#news" class="cs-smoth_scroll">
                                             <i class="fa fa-newspaper me-1"></i>
-                                            News</li>
+                                            News</a></li>
                                     <li><a href="<?= base_url('site/home'); ?>#login" class="cs-smoth_scroll">
                                             <i class="fa fa-sign-in me-1"></i>
-                                            Login</li>
+                                            Login</a></li>
                                 <?php } ?>
                             </ul>
                         </div>
