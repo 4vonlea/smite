@@ -1407,6 +1407,12 @@
                     $("#modal-gallery .modal-dialog .modal-content").html(childrenClone);
                 }
                 $("#modal-gallery").modal("show");
+            });
+            $("#modal-gallery").on("hide.bs.modal", function() {
+                let video = document.querySelector("#modal-gallery .modal-dialog .modal-content video");
+                if (video) {
+                    video.pause();
+                }
             })
             $('.de_countdown').each(function() {
                 var y = $(this).data('year');
