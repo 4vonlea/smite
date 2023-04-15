@@ -35,7 +35,7 @@ $this->layout->begin_head();
 						</div>
 
 						<div class="form-group row">
-							<label class="col-lg-3 control-label">Your Email* <small>(Invoice will be sent  to this email)</small></label>
+							<label class="col-lg-3 control-label">Your Email* <small>(Invoice will be sent to this email)</small></label>
 							<div class="col-lg-5">
 								<input type="text" :class="{'is-invalid': validation_error.email_group}" class="form-control" placeholder="Email" v.model="model.email_group" name="email_group" />
 								<div v-if="validation_error.email_group" class="invalid-feedback" v-html="validation_error.email_group"></div>
@@ -64,7 +64,7 @@ $this->layout->begin_head();
 						<div class="form-group row">
 							<label class="col-lg-3 control-label">Status Payment</label>
 							<div class="col-lg-5">
-								<?= form_dropdown('status_payment', ['pending'=>'Pending','settlement'=>'settlement'], 'pending', [':class' => "{'is-invalid':validation_error.status}", 'class' => 'form-control', 'placeholder' => 'Select your status !', 'v-model' => 'status_payment']); ?>
+								<?= form_dropdown('status_payment', ['pending' => 'Pending', 'settlement' => 'settlement'], 'pending', [':class' => "{'is-invalid':validation_error.status}", 'class' => 'form-control', 'placeholder' => 'Select your status !', 'v-model' => 'status_payment']); ?>
 							</div>
 						</div>
 
@@ -245,7 +245,7 @@ $this->layout->begin_head();
 			univ: "",
 			listStatus: <?= json_encode($participantsCategory); ?>,
 			channel: 'CASH',
-			status_payment:'pending',
+			status_payment: 'pending',
 			saving: false,
 			validation_error: {},
 			events: <?= json_encode($events); ?>
@@ -259,8 +259,17 @@ $this->layout->begin_head();
 						if (item.pricingName.length > 0) {
 							Object.keys(item.pricingName[0].pricing).forEach(function(key) {
 								if (key == status) {
+									let held = "";
+									try {
+										let heldOnObject = JSON.parse(item.held_on);
+										held = heldOnObject.start == heldOnObject.end ?
+											` (${moment(heldOnObject.start).format("DD MMM YYYY")})` :
+											`${moment(heldOnObject.start).format("DD MMM YYYY")} - ${moment(heldOnObject.end).format("DD MMM YYYY")}`;
+									} catch (e) {
+
+									}
 									rt[item.name] = item.pricingName[0].pricing[key];
-									rt[item.name].product_name = `${item.name} (${status})`;
+									rt[item.name].product_name = `${item.name}${held} As ${status}`;
 									rt[item.name].status = `${status}`;
 									rt[item.name].event_required = item.event_required;
 								}
@@ -352,22 +361,22 @@ $this->layout->begin_head();
 					currency: currency
 				}).format(price);
 			},
-			checkMember(member){
-                member.checking = true;
-                $.get("<?=base_url('member/register/info_member_perdossi');?>/"+member.nik,(res)=>{
-                    if(res.message == "success"){
-                            member.kta = res.member.perdossi_no;
-                            member.fullname = `${res.member.member_title_front} ${res.member.fullname} ${res.member.member_title_back}`;
-                            member.email = res.member.email;
-                            member.phone = res.member.member_phone;
-							member.p2kb_member_id = res.member.member_id;
-                    }
-                }).always(()=>{
-                    member.checking = false;
-                }).fail(()=>{
-                    Swal.fire('Fail', 'Failed to get member information in perdossi API', 'error')
-                })
-            },
+			checkMember(member) {
+				member.checking = true;
+				$.get("<?= base_url('member/register/info_member_perdossi'); ?>/" + member.nik, (res) => {
+					if (res.message == "success") {
+						member.kta = res.member.perdossi_no;
+						member.fullname = `${res.member.member_title_front} ${res.member.fullname} ${res.member.member_title_back}`;
+						member.email = res.member.email;
+						member.phone = res.member.member_phone;
+						member.p2kb_member_id = res.member.member_id;
+					}
+				}).always(() => {
+					member.checking = false;
+				}).fail(() => {
+					Swal.fire('Fail', 'Failed to get member information in perdossi API', 'error')
+				})
+			},
 			addMembers() {
 				// var status = [];
 				// app.model.selected.forEach((v, i) => {
@@ -384,10 +393,10 @@ $this->layout->begin_head();
 					sponsor: '',
 					price: '',
 					message_payment: '',
-					nik:'',
-                    checking:false,
-					kta:'',
-                    phone:'',
+					nik: '',
+					checking: false,
+					kta: '',
+					phone: '',
 					validation_error: {
 						status: [],
 					}
