@@ -379,7 +379,7 @@
 
     <div class="cs-height_50 cs-height_lg_20"></div>
 
-    <section>
+    <section id="event">
         <div class="container">
             <div class="cs-seciton_heading cs-style1 text-uppercase text-center wow fadeInUp mb-2" data-wow-duration="1s" data-wow-delay="0.2s">
                 <!-- <h3 class="cs-section_title cs-font_16 cs-font_14_sm cs-gradient_color">Video</h3> -->
@@ -422,7 +422,7 @@
 
     <div class="cs-height_75 cs-height_lg_45"></div>
 
-    <section id="login" class="cs-bg p-5" data-src="<?= base_url('themes/aenft'); ?>/assets/img/konas/img4.jpg">
+    <section id="registration" class="cs-bg p-5" data-src="<?= base_url('themes/aenft'); ?>/assets/img/konas/img4.jpg">
         <div class="container wow fadeIn" data-wow-duration="1s" data-wow-delay="0.2s">
             <h2 class="cs-section_subtitle cs-m0 cs-font_36 cs-font_24_sm text-uppercase text-center mb-5">Masuk / Registrasi</h2>
             <div class="row">
