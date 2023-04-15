@@ -17,27 +17,28 @@ class Upload_video extends Admin_Controller
 		$id = $this->input->post('id');
 		$data = $this->input->post('data');
 
-		if($id){
+		if ($id) {
 			$model = $this->Upload_video_m->findOne($id);
-		}else{
+		} else {
 			$model = new Upload_video_m();
 		}
 		$statusUpload = true;
 		$uploadError = "";
 
-		if(isset($_FILES['file'])){
+		if (isset($_FILES['file'])) {
 			$statusUpload = $this->handlingFile("file");
 			$uploadData =  $this->upload->data();
-			$uploadError =  $this->upload->display_errors("","");
+			$uploadError =  $this->upload->display_errors("", "");
 			$data['filename'] = $uploadData['file_name'];
-			if($data['type'] == Upload_video_m::TYPE_VIDEO && $uploadData['is_image']){
+			if ($data['type'] == Upload_video_m::TYPE_VIDEO && $uploadData['is_image']) {
 				$statusUpload = false;
 				$uploadError = "File uploaded not match with type field selected";
 				unlink($uploadData['full_path']);
-			}elseif($data['type'] == Upload_video_m::TYPE_IMAGE && !$uploadData['is_image']){
+			} elseif ($data['type'] == Upload_video_m::TYPE_IMAGE && !$uploadData['is_image']) {
 				$statusUpload = false;
 				$uploadError = "File uploaded not match with type field selected";
-				unlink($uploadData['full_path']);
+				if (file_exists($uploadData['full_path']))
+					unlink($uploadData['full_path']);
 			}
 		}
 
@@ -48,9 +49,9 @@ class Upload_video extends Admin_Controller
 		} else {
 			$return['status'] = false;
 			$return['validation'] = $this->Upload_video_m->getErrors();
-			if($uploadError)
+			if ($uploadError)
 				$return['validation']['filename'] = $uploadError;
-			elseif(isset($uploadData['full_path'])){
+			elseif (isset($uploadData['full_path'])) {
 				unlink($uploadData['full_path']);
 			}
 		}
@@ -59,7 +60,8 @@ class Upload_video extends Admin_Controller
 			->_display(json_encode($return));
 	}
 
-	public function download_report(){
+	public function download_report()
+	{
 		$this->load->library('Exporter');
 		$exporter = new Exporter();
 
@@ -71,7 +73,6 @@ class Upload_video extends Admin_Controller
 		$exporter->setTitle("Report Upload Video dan Gambar");
 		$exporter->setFilename("Report Upload Video dan Gambar");
 		$exporter->asExcel();
-
 	}
 
 	public function grid()
@@ -82,10 +83,10 @@ class Upload_video extends Admin_Controller
 		$this->output
 			->set_content_type("application/json")
 			->_display(json_encode($grid));
-
 	}
 
-	public function detail($id){
+	public function detail($id)
+	{
 		$this->load->model('Upload_video_m');
 		$data = $this->Upload_video_m->findDetail($id);
 		$this->output
@@ -100,6 +101,9 @@ class Upload_video extends Admin_Controller
 	protected function handlingFile($name)
 	{
 		$config['upload_path'] = 'themes/uploads/video/';
+		if (!file_exist($config['upload_path'])) {
+			mkdir($config['upload_path']);
+		}
 		$config['allowed_types'] = 'jpg|jpeg|png|mp4|mkv';
 		$config['max_size'] = 102400;
 		$config['file_name'] = time();
@@ -115,13 +119,12 @@ class Upload_video extends Admin_Controller
 		$this->load->model(["Upload_video_m"]);
 		$id = $this->input->post("id");
 		$message = "";
-		$status =$this->Upload_video_m->find()->where(['id'=>$id])->delete();
-		if($status == false)
+		$status = $this->Upload_video_m->find()->where(['id' => $id])->delete();
+		if ($status == false)
 			$message = "Failed to delete member, error on server !";
 
 		$this->output
 			->set_content_type("application/json")
 			->_display(json_encode(['status' => $status, 'message' => $message]));
 	}
-
 }

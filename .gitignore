@@ -50,17 +50,17 @@ public/themes/uploads/abstract_all.zip
 public/themes/uploads/fullpaper_all.zip
 public/themes/uploads/presentation_all.zip
 
-
 public/themes/uploads/*
 !public/themes/uploads/index.html
 !public/themes/uploads/paid.jpg
 !public/themes/uploads/payment_required.jpg
 !public/themes/uploads/people.jpg
+!public/themes/uploads/speaker/index.html
 
 application/uploads/material/*
 !application/uploads/material/index.html
 
-!public/themes/uploads/speaker/index.html
+public/themes/uploads/speaker/*
 public/themes/uploads/profile/*
 !public/themes/uploads/profile/index.html
 public/themes/uploads/sponsor/*
