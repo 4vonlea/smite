@@ -79,7 +79,7 @@ class Register extends MY_Controller
 			$addEventStatus = $this->Transaction_detail_m->validateAddEvent($data['id'], $this->session->userdata('tempMemberId'), $this->session->userdata('tempStatusMember'));
 			if ($addEventStatus === true) {
 				// NOTE Harga sesuai dengan database
-				$price = $this->Event_pricing_m->findOne(['id' => $data['id'], 'condition' => $this->session->userdata('tempStatusMember')]);
+				$price = $this->Event_pricing_m->findWithProductName(['id' => $data['id'], 'condition' => $this->session->userdata('tempStatusMember')]);
 				if ($price->price != 0) {
 					$data['price'] = $price->price;
 				} else {
@@ -91,7 +91,7 @@ class Register extends MY_Controller
 				$detail->price = $data['price'];
 				$detail->price_usd = $price->price_in_usd;
 				$detail->member_id = $this->session->userdata('tempMemberId');
-				$detail->product_name = "$data[event_name] ($data[member_status])";
+				$detail->product_name = $price->product_name;
 				$detail->save();
 			} else {
 				$response['status'] = false;
@@ -638,7 +638,7 @@ class Register extends MY_Controller
 			if ($this->Event_m->validateFollowing($event['id'], $event['member_status'])) {
 
 				// NOTE Harga sesuai dengan database
-				$price = $this->Event_pricing_m->findOne(['id' => $event['id'], 'condition' => $event['member_status']]);
+				$price = $this->Event_pricing_m->findWithProductName(['id' => $event['id'], 'condition' => $event['member_status']]);
 				if ($price->price != 0) {
 					$event['price'] = $price->price;
 				} else {
@@ -651,7 +651,7 @@ class Register extends MY_Controller
 				$detail->price = $event['price'];
 				$detail->price_usd = $price->price_in_usd;
 				$detail->member_id = $data['id'];
-				$detail->product_name = "$event[event_name] ($event[member_status])";
+				$detail->product_name = $price->product_name;
 				$detail->save();
 			} else {
 				$response['status'] = false;

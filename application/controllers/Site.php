@@ -494,4 +494,22 @@ class Site extends MY_Controller
         $this->output->set_content_type("application/json")
             ->_display(json_encode(['status' => '000']));
     }
+
+    public function set_product_name()
+    {
+
+        $result = $this->db->from("transaction_details td")
+            ->join("event_pricing ep", "ep.id = td.event_pricing_id")
+            ->select("td.id,td.event_pricing_id")
+            ->get()->result_array();
+        $this->load->model("Event_pricing_m");
+        $tempProductName = [];
+        foreach ($result as $row) {
+            if (!isset($tempProductName[$row['event_pricing_id']])) {
+                $ePricing = $this->Event_pricing_m->findWithProductName(['id' => $row['event_pricing_id']]);
+                $tempProductName[$row['event_pricing_id']] = $ePricing->product_name;
+            }
+            $this->db->where("id", $row['id'])->set("product_name", $tempProductName[$row['event_pricing_id']])->update("transaction_details");
+        }
+    }
 }
