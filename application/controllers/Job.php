@@ -1,13 +1,26 @@
 <?php
+
+/**
+ * @property CI_Input $input
+ */
 class Job extends CI_Controller
 {
+    protected $rawBody;
 
     public function __construct()
     {
         parent::__construct();
-        if (!is_cli()) {
-            die("Not From CLI");
+        $signature = $this->input->get_request_header("X-Token");
+        $this->rawBody = file_get_contents('php://input');
+        $checkSignature = $signature === sha1(env("SIGNATURE_KEY") . $this->rawBody);
+        echo $signature . PHP_EOL;
+        echo env("SIGNATURE_KEY") . $this->rawBody . PHP_EOL;
+        echo sha1(env("SIGNATURE_KEY") . $this->rawBody) . PHP_EOL;
+        if (!is_cli() && $checkSignature == false) {
+            die("Not From CLI Or Authorize Client");
         }
+        ini_set('memory_limit', '-1');
+        set_time_limit(-1);
     }
 
     public function send_unpaid_invoice($transaction_id, $sleep = 0)
@@ -20,12 +33,12 @@ class Job extends CI_Controller
         $tr = $this->Transaction_m->findOne(['id' => $transaction_id]);
         $member = $tr->member;
         if ($tr) {
-            if($member){
+            if ($member) {
                 $this->Notification_m->sendInvoice($member, $tr);
                 $this->Notification_m->setType(Notification_m::TYPE_WA)->sendInvoice($member, $tr);
-            }else{
-                $fullname = explode(":",$tr->member_id)[1] ?? "-";
-                $group = ['email'=>$tr->email_group,"phone"=>"0","fullname"=>$fullname];
+            } else {
+                $fullname = explode(":", $tr->member_id)[1] ?? "-";
+                $group = ['email' => $tr->email_group, "phone" => "0", "fullname" => $fullname];
                 $this->Notification_m->sendInvoice($group, $tr);
             }
         }
@@ -46,7 +59,7 @@ class Job extends CI_Controller
             $sourceFile = fopen($processData->attribute, 'r');
             $resultFile = fopen(APPPATH . "cache/broadcast/" . $id . "-result.json", 'w');
             require_once APPPATH . "controllers/admin/Notification.php";
-            $this->load->model(["Notification_m", "Committee_attributes_m", "Event_m", "Papers_m","Member_m"]);
+            $this->load->model(["Notification_m", "Committee_attributes_m", "Event_m", "Papers_m", "Member_m"]);
             while (!feof($sourceFile)) {
                 $rowRaw = fgets($sourceFile);
                 if ($rowRaw != false) {
@@ -122,9 +135,9 @@ class Job extends CI_Controller
         }
     }
 
-    public function test($params, $params2)
+    public function test()
     {
-        sleep(5);
-        file_put_contents("./tes.json", $params . " " . $params2);
+        sleep(60);
+        file_put_contents("./tes.json", $this->rawBody . date("Y-m-d H:i:s"));
     }
 }

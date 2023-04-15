@@ -512,4 +512,14 @@ class Site extends MY_Controller
             $this->db->where("id", $row['id'])->set("product_name", $tempProductName[$row['event_pricing_id']])->update("transaction_details");
         }
     }
+
+    public function tes_job()
+    {
+        run_job("job", "test", ['data']);
+    }
+
+    public function collect()
+    {
+        var_dump($_SERVER);
+    }
 }
