@@ -273,7 +273,7 @@
 
     </section>
 
-    <section id="gallery">
+    <section id="news">
         <div class="cs-height_70 cs-height_lg_40"></div>
         <div class="container">
             <div class="cs-seciton_heading cs-style1 text-uppercase wow fadeInUp text-center" data-wow-duration="1s" data-wow-delay="0.2s">
@@ -871,7 +871,7 @@
                         <td>
                             <span class="text-white">
                                 Jarak ke Venue : <span class="fw-bold">1,9 km</span><br>
-                                <span class="fw-bold">± 4 menit</span> berkendara
+                                <span class="fw-bold"> 4 menit</span> berkendara
                             </span>
                         </td>
                         <td align="center">
