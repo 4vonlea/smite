@@ -38,7 +38,7 @@ class Event_m extends MY_Model
 	public function groupByHeldOn()
 	{
 		$return = [];
-		foreach ($this->find()->get()->result_array() as $row) {
+		foreach ($this->find()->order_by("kategory,held_on")->get()->result_array() as $row) {
 			$heldOn = json_decode($row['held_on'], true);
 			$startDate = $heldOn['start'] != "" ? DateTime::createFromFormat('Y-m-d', $heldOn['start'])->format("d M Y") : "";
 			$endDate = $heldOn['end'] != "" ? DateTime::createFromFormat('Y-m-d', $heldOn['end'])->format("d M Y") : "";

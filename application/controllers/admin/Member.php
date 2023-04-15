@@ -40,15 +40,15 @@ class Member extends Admin_Controller
 		$this->load->model(["User_account_m", "Notification_m"]);
 		$account = $this->User_account_m->findWithBiodata($email);
 		if ($account) {
-			$token = explode("_",$account['token_reset']);
+			$token = explode("_", $account['token_reset']);
 			if (count($token) == 0) {
 				$token[1] = uniqid();
 				$this->User_account_m->update([
 					'token_reset' => "verifyemail_" . $token[1]
 				], ['username' => $email]);
 			}
-			$this->Notification_m->sendEmailConfirmation($account,$token[1]);
-			$this->Notification_m->setType(Notification_m::TYPE_WA)->sendEmailConfirmation($account,$token[1]);
+			$this->Notification_m->sendEmailConfirmation($account, $token[1]);
+			$this->Notification_m->setType(Notification_m::TYPE_WA)->sendEmailConfirmation($account, $token[1]);
 
 			$this->output
 				->set_content_type("application/json")
@@ -162,19 +162,19 @@ class Member extends Admin_Controller
 	public function send_nametag()
 	{
 		if ($this->input->post()) {
-			$this->load->model(["Notification_m", "Event_m","Member_m"]);
+			$this->load->model(["Notification_m", "Event_m", "Member_m"]);
 			$id = $this->input->post("id");
 			$event_name = $this->input->post("event_name");
 			if (file_exists(APPPATH . "uploads/nametag_template/$id.txt")) {
 				$member = $this->Member_m->findOne($this->input->post("m_id"));
 				$card = $member->getCard($id)->output();
-				$status = $this->Notification_m->sendNametag($member,$card,$event_name);
-				$this->Notification_m->setType(Notification_m::TYPE_WA)->sendNametag($member,$card,$event_name);
+				$status = $this->Notification_m->sendNametag($member, $card, $event_name);
+				$this->Notification_m->setType(Notification_m::TYPE_WA)->sendNametag($member, $card, $event_name);
 				$this->output
 					->set_content_type("application/json")
 					->_display(json_encode([
-						'status'=>$status['status'],
-						'data'=>$status,
+						'status' => $status['status'],
+						'data' => $status,
 					]));
 			} else {
 				$this->output
@@ -187,23 +187,23 @@ class Member extends Admin_Controller
 	public function send_certificate()
 	{
 		if ($this->input->post()) {
-			$this->load->model(["Notification_m", "Event_m","Member_m"]);
+			$this->load->model(["Notification_m", "Event_m", "Member_m"]);
 			$transactionDetailId = $this->input->post("td_id");
-			$member = $this->Event_m->getParticipant()->where("td.id",$transactionDetailId)->get()->row_array();
+			$member = $this->Event_m->getParticipant()->where("td.id", $transactionDetailId)->get()->row_array();
 			$event_name = $member['event_name'];
 			if ($member && file_exists(APPPATH . "uploads/cert_template/$member[event_id].txt")) {
 				$cert = $this->Event_m->exportCertificate($member, $member['event_id'])->output();
-				if($this->input->post("channel")){
-					$status = $this->Notification_m->setType($this->input->post("channel"))->sendCertificate($member,Notification_m::CERT_TYPE_EVENT,$event_name,$cert);
-				}else{
-					$status = $this->Notification_m->sendCertificate($member,Notification_m::CERT_TYPE_EVENT,$event_name,$cert);
-					$status['wa'] = $this->Notification_m->setType(Notification_m::TYPE_WA)->sendCertificate($member,Notification_m::CERT_TYPE_EVENT,$event_name,$cert);
+				if ($this->input->post("channel")) {
+					$status = $this->Notification_m->setType($this->input->post("channel"))->sendCertificate($member, Notification_m::CERT_TYPE_EVENT, $event_name, $cert);
+				} else {
+					$status = $this->Notification_m->sendCertificate($member, Notification_m::CERT_TYPE_EVENT, $event_name, $cert);
+					$status['wa'] = $this->Notification_m->setType(Notification_m::TYPE_WA)->sendCertificate($member, Notification_m::CERT_TYPE_EVENT, $event_name, $cert);
 				}
 				$this->output
 					->set_content_type("application/json")
 					->_display(json_encode([
-						'status'=>$status['status'],
-						'data'=>$status,
+						'status' => $status['status'],
+						'data' => $status,
 					]));
 			} else {
 				$this->output
@@ -216,7 +216,7 @@ class Member extends Admin_Controller
 	public function preview_certificate($transactionDetailId)
 	{
 		$this->load->model(["Notification_m", "Event_m"]);
-		$member = $this->Event_m->getParticipant()->where("td.id",$transactionDetailId)->get()->row_array();
+		$member = $this->Event_m->getParticipant()->where("td.id", $transactionDetailId)->get()->row_array();
 		if (file_exists(APPPATH . "uploads/cert_template/$member[event_id].txt")) {
 			$member['id'] = $member['m_id'];
 			$this->Event_m->exportCertificate($member, $member['event_id'])->stream('preview_cert.pdf', array('Attachment' => 0));
@@ -229,7 +229,7 @@ class Member extends Admin_Controller
 
 	public function register()
 	{
-		$this->load->model(["Category_member_m", "Event_m", "Univ_m", "Country_m", "Event_pricing_m","Event_discount_m"]);
+		$this->load->model(["Category_member_m", "Event_m", "Univ_m", "Country_m", "Event_pricing_m", "Event_discount_m"]);
 		$participantsCategory = Category_member_m::asList(Category_member_m::findAll(), 'id', 'kategory', 'Please Select your status');
 		if ($this->input->post()) {
 
@@ -295,9 +295,9 @@ class Member extends Admin_Controller
 					'checkout' => 1,
 					'message_payment' => $data['message_payment'],
 					'channel' => $data['channel'],
-					'status_payment' => $data['status_payment'],// Transaction_m::STATUS_FINISH,
+					'status_payment' => $data['status_payment'], // Transaction_m::STATUS_FINISH,
 					'payment_proof' => $data['payment_proof'],
-					'midtrans_data' => $data['channel'] == Transaction_m::CHANNEL_GL ? json_encode(['sponsorName'=>$this->input->post("sponsor")]) : ""
+					'midtrans_data' => $data['channel'] == Transaction_m::CHANNEL_GL ? json_encode(['sponsorName' => $this->input->post("sponsor")]) : ""
 				]);
 				$details = [];
 				foreach ($data['transaction']['event'] as $tr) {
@@ -308,10 +308,10 @@ class Member extends Admin_Controller
 					$price = $this->Event_pricing_m->findOne(['id' => $t[0], 'condition' => $t[4]]);
 					if ($price && $price->price != 0) {
 						$t['1'] = $price->price;
-					} elseif($price && $price->price_in_usd > 0) {
+					} elseif ($price && $price->price_in_usd > 0) {
 						$kurs_usd = json_decode(Settings_m::getSetting('kurs_usd'), true);
 						$t['1'] = ($price->price_in_usd * $kurs_usd['value']);
-					}else if($price){
+					} else if ($price) {
 						$t['1'] = $price->price;
 					}
 
@@ -332,9 +332,8 @@ class Member extends Admin_Controller
 				$error['email'] = $data['email'];
 				if ($error['status']) {
 					$tr = $this->Transaction_m->findOne($id_invoice);
-					$this->Notification_m->sendRegisteredByOther($data,$tr,$participantsCategory);
-					$this->Notification_m->setType(Notification_m::TYPE_WA)->sendRegisteredByOther($data,$tr,$participantsCategory);
-
+					$this->Notification_m->sendRegisteredByOther($data, $tr, $participantsCategory);
+					$this->Notification_m->setType(Notification_m::TYPE_WA)->sendRegisteredByOther($data, $tr, $participantsCategory);
 				}
 			} else {
 				$error['status'] = false;
@@ -357,7 +356,7 @@ class Member extends Admin_Controller
 			$data = [
 				'participantsCategory' => $participantsCategory,
 				'events' => $events,
-				'discount'=>$this->Event_discount_m->getLikeEvent(),
+				'discount' => $this->Event_discount_m->getLikeEvent(),
 				'univDl' => $univDl,
 				'countryDl' => $countryDl,
 			];
@@ -598,8 +597,8 @@ class Member extends Admin_Controller
 					'member_id' => "REGISTER-GROUP : {$bill_to}",
 					'checkout' => 1,
 					'message_payment' => '',
-					'channel' => $this->input->post('channel'),//$channel,
-					'status_payment' => $this->input->post('status_payment'),//Transaction_m::STATUS_FINISH,
+					'channel' => $this->input->post('channel'), //$channel,
+					'status_payment' => $this->input->post('status_payment'), //Transaction_m::STATUS_FINISH,
 					'payment_proof' => $data['payment_proof'],
 					'email_group' => $email_group,
 				]);
@@ -664,10 +663,10 @@ class Member extends Admin_Controller
 						$price = $this->Event_pricing_m->findOne(['id' => $event[0], 'condition' => $event[4]]);
 						if ($price->price != 0) {
 							$event['1'] = $price->price;
-						} elseif($price->price_in_usd > 0) {
+						} elseif ($price->price_in_usd > 0) {
 							$kurs_usd = json_decode(Settings_m::getSetting('kurs_usd'), true);
 							$event['1'] = ($price->price_in_usd * $kurs_usd['value']);
-						}else{
+						} else {
 							$event['1'] = $price->price;
 						}
 
@@ -690,9 +689,8 @@ class Member extends Admin_Controller
 					$error['email'] = $data['email'];
 					if ($error['status']) {
 						$tr = $this->Transaction_m->findOne($id_invoice);
-						$this->Notification_m->sendRegisteredByOther($data,$tr,$participantsCategory);
-						$this->Notification_m->setType(Notification_m::TYPE_WA)->sendRegisteredByOther($data,$tr,$participantsCategory);
-
+						$this->Notification_m->sendRegisteredByOther($data, $tr, $participantsCategory);
+						$this->Notification_m->setType(Notification_m::TYPE_WA)->sendRegisteredByOther($data, $tr, $participantsCategory);
 					}
 				}
 			}
@@ -720,57 +718,59 @@ class Member extends Admin_Controller
 		}
 	}
 
-	public function cek_member_perdossi(){
+	public function cek_member_perdossi()
+	{
 		$this->load->model('Member_m');
 		$id = $this->input->post("id");
 		$nik = $this->input->post("nik");
 		$this->load->library('Api_perdossi');
-        $response = $this->api_perdossi->getMemberByNIK($nik);
-		if($response['message'] == "success"){
+		$response = $this->api_perdossi->getMemberByNIK($nik);
+		if ($response['message'] == "success") {
 			$member = $response['member'];
 			$this->Member_m->update([
 				'kta' => $member['perdossi_no'],
 				'fullname' => "$member[member_title_front] $member[fullname] $member[member_title_back]",
 				'phone' => $member['member_phone'],
-				'p2kb_member_id'=>$member['member_id']
-			],$id,false);
-		}else if($response['message'] == "Anggota tidak ditemukan"){
+				'p2kb_member_id' => $member['member_id']
+			], $id, false);
+		} else if ($response['message'] == "Anggota tidak ditemukan") {
 			$this->Member_m->update([
 				'kta' => "-"
-			],$id,false);			
+			], $id, false);
 		}
-        $this->output
+		$this->output
 			->set_content_type("application/json")
 			->_display(json_encode($response));
 	}
 
-	public function get_all_member($type){
+	public function get_all_member($type)
+	{
 		$this->load->model('Member_m');
-		if($type == "partial"){
-			$data = $this->Member_m->find()->select("id,nik,fullname")->where("kta IS NULL")->or_where("kta","")->get()->result_array();
-		} else{
+		if ($type == "partial") {
+			$data = $this->Member_m->find()->select("id,nik,fullname")->where("kta IS NULL")->or_where("kta", "")->get()->result_array();
+		} else {
 			$data = $this->Member_m->find()->select("id,nik,fullname")->get()->result_array();
 		}
 		$this->output
-		->set_content_type("application/json")
-		->_display(json_encode([
-			'data'=>$data,
-		]));
+			->set_content_type("application/json")
+			->_display(json_encode([
+				'data' => $data,
+			]));
 	}
 
-	public function search(){
+	public function search()
+	{
 		$this->load->model('Member_m');
 		$search = $this->input->post("search");
 		$response = $this->Member_m->find()->select("id as code, CONCAT(fullname,' (',email,')') as label,status")
-									->like("fullname",$search)
-									->or_like("email",$search)
-									->get()->result_array();
+			->like("fullname", $search)
+			->or_like("email", $search)
+			->get()->result_array();
 		$this->output
 			->set_content_type("application/json")
 			->_display(json_encode([
-			'search'=>$search,
-			'data'=>$response,
-		]));
-
+				'search' => $search,
+				'data' => $response,
+			]));
 	}
 }

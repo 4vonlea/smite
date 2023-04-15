@@ -42,8 +42,8 @@ class Site extends MY_Controller
         $data['query']  = $category['data'];
         $news           = $this->NewsM->listnews();
         $data['query2'] = $news;
-        $allvid         = $this->VideoM->listvid_home();
-        $data['query3'] = $allvid['data'];
+        $videoAndPhoto         = $this->VideoM->fetchVideoAndPhoto();
+        $data['videoAndPhoto'] = $videoAndPhoto;
 
         $countparticipant = $this->TransactionM->count_participant();
         $data['participant'] = $countparticipant;
@@ -387,7 +387,7 @@ class Site extends MY_Controller
             $viewData['sertifikat']->stream();
         } else {
             $viewData['ketua_panitia'] = Settings_m::getSetting("ketua_panitia");
-            $viewData['url'] = base_url('site/sertifikat/'.$hashedId.'/sertifikat');
+            $viewData['url'] = base_url('site/sertifikat/' . $hashedId . '/sertifikat');
             $this->layout->render(
                 "site/" . $this->theme . "/view_sertifikat",
                 $viewData,
@@ -399,24 +399,24 @@ class Site extends MY_Controller
     {
 
         $this->load->model("Committee_attributes_m");
-        $committee = $this->Committee_attributes_m->findOne(['sha1(id)'=>$hashedId]);
+        $committee = $this->Committee_attributes_m->findOne(['sha1(id)' => $hashedId]);
         if ($isSertifikat && $isSertifikat != "") {
             $committee->exportCertificate()->stream();
         } else {
             $viewData['nik'] = "-";
             $viewData['fullname'] = $committee->committee->name;
             $viewData['email'] = $committee->committee->email;
-			$viewData['status_member'] = $committee->status;
-			$viewData['event_name'] = $committee->event->name;
-            $url = base_url('site/sertifikat_committee/'.$hashedId.'/sertifikat');
+            $viewData['status_member'] = $committee->status;
+            $viewData['event_name'] = $committee->event->name;
+            $url = base_url('site/sertifikat_committee/' . $hashedId . '/sertifikat');
             $this->layout->render(
                 "site/" . $this->theme . "/view_sertifikat",
                 [
-                    'hashedId'=>$hashedId,
-                    'data'=>$viewData,
-                    'ketua_panitia'=>Settings_m::getSetting("ketua_panitia"),
-                    'url'=>$url,
-                    'sertifikat'=>$committee->exportCertificate(),
+                    'hashedId' => $hashedId,
+                    'data' => $viewData,
+                    'ketua_panitia' => Settings_m::getSetting("ketua_panitia"),
+                    'url' => $url,
+                    'sertifikat' => $committee->exportCertificate(),
                 ],
             );
         }
@@ -493,5 +493,33 @@ class Site extends MY_Controller
         }
         $this->output->set_content_type("application/json")
             ->_display(json_encode(['status' => '000']));
+    }
+
+    public function set_product_name()
+    {
+
+        $result = $this->db->from("transaction_details td")
+            ->join("event_pricing ep", "ep.id = td.event_pricing_id")
+            ->select("td.id,td.event_pricing_id")
+            ->get()->result_array();
+        $this->load->model("Event_pricing_m");
+        $tempProductName = [];
+        foreach ($result as $row) {
+            if (!isset($tempProductName[$row['event_pricing_id']])) {
+                $ePricing = $this->Event_pricing_m->findWithProductName(['id' => $row['event_pricing_id']]);
+                $tempProductName[$row['event_pricing_id']] = $ePricing->product_name;
+            }
+            $this->db->where("id", $row['id'])->set("product_name", $tempProductName[$row['event_pricing_id']])->update("transaction_details");
+        }
+    }
+
+    public function tes_job()
+    {
+        run_job("job", "test", ['data']);
+    }
+
+    public function collect()
+    {
+        var_dump($_SERVER);
     }
 }

@@ -151,7 +151,7 @@ class Event extends Admin_Controller
                         if (isset($row['speakers'])) {
                             foreach ($row['speakers'] as $j => $speaker) {
                                 if (isset($speaker['image'])) {
-                                    $filename = $this->base64ImageSaver($speaker['image'], APPPATH . "../themes/uploads/speaker/", $i . $j . time());
+                                    $filename = $this->base64ImageSaver($speaker['image'], APPPATH . "../public/themes/uploads/speaker/", $i . $j . time());
                                     if ($filename !== false) {
                                         $special_link[$i]['speakers'][$j]['image'] = base_url('themes/uploads/speaker/' . $filename);
                                     }

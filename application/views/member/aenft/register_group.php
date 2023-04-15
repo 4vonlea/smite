@@ -546,6 +546,9 @@ $theme_path = base_url("themes/aenft") . "/";
                 });
             })
             this.paymentMethod = tempPayment;
+            if (paymentData.length == 1) {
+                this.selectedPaymentMethod = tempPayment[1].key;
+            }
         },
         methods: {
             createTransaction(self) {

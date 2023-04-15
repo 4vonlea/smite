@@ -94,4 +94,34 @@ class Event_pricing_m extends MY_Model
         }
         return array_values($return);
     }
+
+    public function findWithProductName($filter)
+    {
+        if (isset($filter['id'])) {
+            $filter['event_pricing.id'] = $filter['id'];
+            unset($filter['id']);
+        }
+        $row = $this->find()->where($filter)
+            ->join("events e", "e.id = event_pricing.event_id")
+            ->select("event_pricing.*,e.held_on,e.name as event_name")
+            ->get()->row();
+        if ($row) {
+            $heldOn = json_decode($row->held_on, true) ?? [];
+            $date = "";
+            $start = $heldOn['start'] ?? "";
+            $end = $heldOn['end'] ?? "";
+            if ($start == $end && $start != "") {
+                $date .= " (";
+                $date .= (new DateTime($start))->format("d M Y");
+                $date .= ")";
+            } else if ($start != "" && $end != "") {
+                $date .= " (";
+                $date .= (new DateTime($start))->format("d M Y");
+                $date .= " - " . (new DateTime($end))->format("d M Y");
+                $date .= ")";
+            }
+            $row->product_name = "{$row->event_name}{$date} As {$row->condition}";
+        }
+        return $row;
+    }
 }

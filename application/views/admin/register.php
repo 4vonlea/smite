@@ -9,8 +9,8 @@ $this->layout->begin_head();
 ?>
 <link href="<?= base_url(); ?>themes/script/chosen/chosen.css" rel="stylesheet">
 <style>
-	.cursor-pointer:hover{
-		cursor: pointer;	
+	.cursor-pointer:hover {
+		cursor: pointer;
 	}
 </style>
 <?php $this->layout->end_head(); ?>
@@ -30,7 +30,7 @@ $this->layout->begin_head();
 				<div class="card-body px-lg-5 py-lg-5">
 					<form id="form-register" ref="form">
 						<div class="form-group row">
-                            <label class="col-lg-3 control-label">NIK</label>
+							<label class="col-lg-3 control-label">NIK</label>
 							<div class="col-lg-5">
 								<div class="input-group">
 									<input maxlength="16" v-on:keyup.enter="checkMember" type="text" v-model="valueData.nik" :class="{'is-invalid':validation_error.nik}" class="form-control mb-0" name="nik" placeholder="NIK anda" />
@@ -40,11 +40,11 @@ $this->layout->begin_head();
 									</button>
 								</div>
 								<div v-if="validation_error.nik" class="invalid-feedback d-block">
-                                {{ validation_error.nik }}
-                            </div>
+									{{ validation_error.nik }}
+								</div>
 
 							</div>
-                        </div>
+						</div>
 						<div class="form-group row">
 							<label class="col-lg-3 control-label">Email</label>
 							<div class="col-lg-5">
@@ -109,14 +109,14 @@ $this->layout->begin_head();
 						</div>
 
 						<div class="form-group row">
-                            <label class="col-lg-3 control-label">KTA Perdossi</label>
+							<label class="col-lg-3 control-label">KTA Perdossi</label>
 							<div class="col-lg-5">
 								<input type="text" v-model="valueData.kta" readonly :class="{'is-invalid':validation_error.kta}" class="form-control mb-0" name="kta" placeholder="KTA" />
 								<div v-if="validation_error.kta" class="invalid-feedback">
 									{{ validation_error.kta }}
 								</div>
 							</div>
-                        </div>
+						</div>
 
 
 						<!-- <div class="form-group row">
@@ -218,7 +218,7 @@ $this->layout->begin_head();
 								<?= form_dropdown('channel', ['CASH' => 'CASH', 'EDC' => 'EDC', 'MANUAL TRANSFER' => 'MANUAL TRANSFER', Transaction_m::CHANNEL_GL => Transaction_m::CHANNEL_GL], 'CASH', [':class' => "{'is-invalid':validation_error.status}", 'class' => 'form-control', 'placeholder' => 'Select your status !', 'v-model' => 'channel']); ?>
 							</div>
 						</div>
-						<div v-if="channel =='MANUAL TRANSFER' || channel == '<?=Transaction_m::CHANNEL_GL;?>'" class="form-group row">
+						<div v-if="channel =='MANUAL TRANSFER' || channel == '<?= Transaction_m::CHANNEL_GL; ?>'" class="form-group row">
 							<label class="col-lg-3 control-label">Upload Bukti <small>(jpg,png,jpeg,pdf)</small></label>
 							<div class="col-lg-5">
 								<input type="file" name="proof" :class="{'is-invalid':validation_error.proof}" class="form-control-file" />
@@ -231,7 +231,7 @@ $this->layout->begin_head();
 						<div class="form-group row">
 							<label class="col-lg-3 control-label">Status Payment</label>
 							<div class="col-lg-5">
-								<?= form_dropdown('status_payment', ['pending'=>'Pending','settlement'=>'settlement'], 'pending', [':class' => "{'is-invalid':validation_error.status}", 'class' => 'form-control', 'placeholder' => 'Select your status !', 'v-model' => 'status_payment']); ?>
+								<?= form_dropdown('status_payment', ['pending' => 'Pending', 'settlement' => 'settlement'], 'pending', [':class' => "{'is-invalid':validation_error.status}", 'class' => 'form-control', 'placeholder' => 'Select your status !', 'v-model' => 'status_payment']); ?>
 							</div>
 						</div>
 						<div class="form-group row">
@@ -257,7 +257,7 @@ $this->layout->begin_head();
 											<label class="control-label h3 cursor-pointer" role="button">
 												<i :class="[showList.indexOf(event_name) !== -1 ? 'fa fa-caret-down':'fa fa-caret-right']"></i>
 												<input type="checkbox" v-model="showList" :value="event_name" class="hidden" />
-													{{event_name }}
+												{{event_name }}
 											</label>
 										</th>
 									</tr>
@@ -265,8 +265,8 @@ $this->layout->begin_head();
 										<td>
 											<label class="control-label h4 font-weight-normal">
 												<input type="checkbox" v-model="selected" name="transaction[event][]" :value="[ev.id,ev.price,ev.price_in_usd,ev.product_name,ev.status]" />
-												{{ ev.event_name }} 
-												<br/><span style="font-size: 14px;" v-if="ev.event_required">(Required to follow {{ ev.event_required }})</span>
+												{{ ev.event_name }}
+												<br /><span style="font-size: 14px;" v-if="ev.event_required">(Required to follow {{ ev.event_required }})</span>
 											</label>
 										</td>
 										<td>
@@ -289,8 +289,8 @@ $this->layout->begin_head();
 									<tr v-for="(ev,index) in discount" v-show="showList.indexOf('diskon') !== -1">
 										<td>
 											<label class="control-label h4 font-weight-normal">
-											<input type="checkbox" v-model="selected" name="transaction[event][]" :value="[ev.id,ev.price,ev.price_in_usd,ev.event_name,ev.condition]" />
-											{{ ev.event_name }}
+												<input type="checkbox" v-model="selected" name="transaction[event][]" :value="[ev.id,ev.price,ev.price_in_usd,ev.event_name,ev.condition]" />
+												{{ ev.event_name }}
 											</label>
 										</td>
 										<td>
@@ -338,21 +338,21 @@ $this->layout->begin_head();
 			listStatus: <?= json_encode($participantsCategory); ?>,
 			status_participant: '',
 			channel: 'CASH',
-			status_payment:'pending',
+			status_payment: 'pending',
 			saving: false,
 			validation_error: {},
 			events: <?= json_encode($events); ?>,
 			discount: <?= json_encode($discount); ?>,
-			valueData:{
-                nik:'',
-                kta:'',
-                fullname:'',
-                email:'',
-                phone:'',
-				p2kb_member_id:'',
-            },
-			showList:[],
-            checkingMember:false,
+			valueData: {
+				nik: '',
+				kta: '',
+				fullname: '',
+				email: '',
+				phone: '',
+				p2kb_member_id: '',
+			},
+			showList: [],
+			checkingMember: false,
 
 		},
 		computed: {
@@ -364,16 +364,24 @@ $this->layout->begin_head();
 						if (item.pricingName.length > 0) {
 							Object.keys(item.pricingName[0].pricing).forEach(function(key) {
 								// if (key == status) {
-									
-									let temp = item.pricingName[0].pricing[key];
-									temp.event_name = `${item.name} (${key})`;
-									temp.product_name = `${item.name} (${key})`;
-									temp.status = `${status}`;
-									temp.event_required = item.event_required;
-									if(!rt[item.name])
-										rt[item.name] = [];
+								let heldOn = "";
+								try {
+									let heldOnObject = JSON.parse(item.held_on);
+									heldOn = heldOnObject.start == heldOnObject.end ?
+										` (${moment(heldOnObject.start).format("DD MMM YYYY")})` :
+										`${moment(heldOnObject.start).format("DD MMM YYYY")} - ${moment(heldOnObject.end).format("DD MMM YYYY")}`;
+								} catch (e) {
 
-									rt[item.name].push(temp);
+								}
+								let temp = item.pricingName[0].pricing[key];
+								temp.event_name = `${item.name}${heldOn} As ${key}`;
+								temp.product_name = `${item.name}${heldOn} As ${key}`;
+								temp.status = `${status}`;
+								temp.event_required = item.event_required;
+								if (!rt[item.name])
+									rt[item.name] = [];
+
+								rt[item.name].push(temp);
 								// }
 							})
 						}
@@ -384,31 +392,31 @@ $this->layout->begin_head();
 			}
 		},
 		methods: {
-			checkMember(){
-                this.checkingMember = true;
-                $.get("<?=base_url('member/register/info_member_perdossi');?>/"+this.valueData.nik,(res)=>{
-                    if(res.message == "success"){
-                            this.valueData.kta = res.member.perdossi_no;
-                            this.valueData.fullname = `${res.member.member_title_front} ${res.member.fullname} ${res.member.member_title_back}`;
-                            this.valueData.email = res.member.email;
-                            this.valueData.phone = res.member.member_phone;
-							this.valueData.p2kb_member_id = res.member.member_id;
-                    }else{
-						Swal.fire('Info', `NIK.${this.valueData.nik} : ${res.message}` , 'info');
+			checkMember() {
+				this.checkingMember = true;
+				$.get("<?= base_url('member/register/info_member_perdossi'); ?>/" + this.valueData.nik, (res) => {
+					if (res.message == "success") {
+						this.valueData.kta = res.member.perdossi_no;
+						this.valueData.fullname = `${res.member.member_title_front} ${res.member.fullname} ${res.member.member_title_back}`;
+						this.valueData.email = res.member.email;
+						this.valueData.phone = res.member.member_phone;
+						this.valueData.p2kb_member_id = res.member.member_id;
+					} else {
+						Swal.fire('Info', `NIK.${this.valueData.nik} : ${res.message}`, 'info');
 					}
-                }).always(()=>{
-                    this.checkingMember = false;
-                }).fail(()=>{
-                    Swal.fire('Fail', 'Failed to get member information in perdossi API', 'error')
-                })
-            },
+				}).always(() => {
+					this.checkingMember = false;
+				}).fail(() => {
+					Swal.fire('Fail', 'Failed to get member information in perdossi API', 'error')
+				})
+			},
 			total(idr = true) {
 				var total = 0;
 				var selected = [];
 				var kurs_usd = <?= json_encode(json_decode(Settings_m::getSetting('kurs_usd'), true)); ?>;
 				this.selected.forEach(function(item) {
 					selected.push(item[0]);
-					if (idr && item[1]!= 0) {
+					if (idr && item[1] != 0) {
 						total += parseFloat(item[1]);
 					} else {
 						total += (parseFloat(item[2]) * kurs_usd.value);

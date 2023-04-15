@@ -45,38 +45,38 @@ application/uploads/nametag_template/*
 application/uploads/tmp/*
 !application/uploads/tmp/index.html
 
-themes/uploads/speaker/*
-themes/uploads/abstract_all.zip
-themes/uploads/fullpaper_all.zip
-themes/uploads/presentation_all.zip
+public/themes/uploads/speaker/*
+public/themes/uploads/abstract_all.zip
+public/themes/uploads/fullpaper_all.zip
+public/themes/uploads/presentation_all.zip
 
 
-themes/uploads/*
-!themes/uploads/index.html
-!themes/uploads/paid.jpg
-!themes/uploads/payment_required.jpg
-!themes/uploads/people.jpg
+public/themes/uploads/*
+!public/themes/uploads/index.html
+!public/themes/uploads/paid.jpg
+!public/themes/uploads/payment_required.jpg
+!public/themes/uploads/people.jpg
 
 application/uploads/material/*
 !application/uploads/material/index.html
 
-!themes/uploads/speaker/index.html
-
-themes/uploads/profile/*
-!themes/uploads/profile/index.html
-
-themes/uploads/sponsor/*
-!themes/uploads/sponsor/index.html
-!themes/uploads/sponsor/elearning.jpg
+!public/themes/uploads/speaker/index.html
+public/themes/uploads/profile/*
+!public/themes/uploads/profile/index.html
+public/themes/uploads/sponsor/*
+!public/themes/uploads/sponsor/index.html
+!public/themes/uploads/sponsor/elearning.jpg
 
 application/third_party/phpqrcode/cache/*
 application/application.zip
 
-themes/filemanager/*
+public/themes/filemanager/*
 
-themes/uploads/*.zip
-themes/uploads/video/*
-!themes/uploads/video/index.html
+public/themes/uploads/*.zip
+public/themes/uploads/video/*
+!public/themes/uploads/video/index.html
 application/uploads/guarantee_letter/*
 themes/gigaland/images/commitee.pdf
 themes/gigaland/images/event.pdf
+
+task-runner/node_modules

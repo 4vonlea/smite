@@ -75,7 +75,7 @@ export default Vue.component("PageBilling", {
 										</button>
 										<div class="dropdown-menu">
 											<span v-for="(method,ind) in paymentMethod">
-											<button v-if="ind > 0" class="dropdown-item" @click="selectedPaymentMethod=ind;return false;"> {{ method.desc }}</button>
+												<button v-if="ind > 0" class="dropdown-item" @click="selectedPaymentMethod=ind;return false;"> {{ method.desc }}</button>
 											</span>
 										</div>
 									</div>
@@ -540,6 +540,9 @@ export default Vue.component("PageBilling", {
 							let sp = v.split(";");
 							page.paymentMethod.push({ key: sp[0], desc: sp[1] });
 						});
+						if (res.paymentMethod.length == 1) {
+							page.selectedPaymentMethod = 1; //page.paymentMethod[1];
+						}
 						var invoiceID = this.current_invoice;
 						var data = {
 							key: page.apiKeyEspay,

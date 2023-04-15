@@ -28,7 +28,9 @@ $theme_path = base_url("themes/aenft") . "/";
     .chosen-container-single .chosen-single div b {
         margin-top: 4px;
     }
-       .card .table td, .card .table th{
+
+    .card .table td,
+    .card .table th {
         color: #000 !important;
     }
 </style>
@@ -416,7 +418,7 @@ $theme_path = base_url("themes/aenft") . "/";
                             <i class="fa fa-spin fa-spinner fa-4x"></i>
                             <p>Loading Events Data</p>
                         </div>
-                        <select-event  v-if="!loadingEvent" add-cart-url="<?= base_url('member/register/add_cart'); ?>" :events="events" :show-hotel-booking="false">
+                        <select-event v-if="!loadingEvent" add-cart-url="<?= base_url('member/register/add_cart'); ?>" :events="events" :show-hotel-booking="false">
                             <template v-slot:hotel-component>
                                 <hotel-booking label-class="text-dark" :unique-id="tempMemberId" :on-delete="onCancelBooking" :on-book="onBooking" :booking="hotelBooking.booking" book-url="<?= base_url('member/register/add_cart'); ?>" search-url="<?= base_url('api/available_room'); ?>" :min-date="hotelBooking.minBookingDate" :max-date="hotelBooking.maxBookingDate"></hotel-booking>
                             </template>
@@ -527,6 +529,9 @@ $theme_path = base_url("themes/aenft") . "/";
                 });
             })
             this.paymentMethod = tempPayment;
+            if (paymentData.length == 1) {
+                this.selectedPaymentMethod = tempPayment[1].key;
+            }
         },
         computed: {
             eventCategory() {
@@ -554,7 +559,7 @@ $theme_path = base_url("themes/aenft") . "/";
                 if (this.transaction.details) {
                     this.transaction.details.forEach((item) => {
                         total += Number(item.price);
-                        console.log(total,item  );
+                        console.log(total, item);
 
                     })
                 }
@@ -670,8 +675,8 @@ $theme_path = base_url("themes/aenft") . "/";
                         url: '<?= base_url('member/register/checkout'); ?>',
                         type: 'POST',
                         data: {
-                            paymentMethod:selected.key,
-                            id_invoice:this.transaction.id, 
+                            paymentMethod: selected.key,
+                            id_invoice: this.transaction.id,
                         }
                     }).done(function(res) {
                         if (res.statusData == false && res.validation_error) {

@@ -170,9 +170,23 @@ class Upload_video_m extends MY_Model
     public function downloadReport()
     {
         return $this->db->select("uploader as kontestan,title as judul,if(type = 1,'Video','Gambar') as jenis,COALESCE(jumlah_like,0) as jumlah_like,COALESCE(jumlah_komen,0) as jumlah_komen")
-                    ->from($this->table." as t")
-                    ->join("(SELECT video_id,COUNT(id) as jumlah_like FROM video_like GROUP BY video_id) as likes",'likes.video_id = t.id','left')
-                    ->join("(SELECT video_id,COUNT(id) as jumlah_komen FROM video_komen GROUP BY video_id) as comments",'comments.video_id = t.id','left')
-                    ->get()->result_array();
+            ->from($this->table . " as t")
+            ->join("(SELECT video_id,COUNT(id) as jumlah_like FROM video_like GROUP BY video_id) as likes", 'likes.video_id = t.id', 'left')
+            ->join("(SELECT video_id,COUNT(id) as jumlah_komen FROM video_komen GROUP BY video_id) as comments", 'comments.video_id = t.id', 'left')
+            ->get()->result_array();
+    }
+
+    public function fetchVideoAndPhoto()
+    {
+        $result = $this->findAll();
+        $return = ['photo' => [], 'video' => []];
+        foreach ($result as $row) {
+            if ($row->type == Upload_video_m::TYPE_VIDEO) {
+                $return['video'][] = $row->toArray();
+            } else {
+                $return['photo'][] = $row->toArray();
+            }
+        }
+        return $return;
     }
 }

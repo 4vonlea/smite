@@ -272,11 +272,11 @@
 						<i v-if="expiring" class="fa fa-spin fa-spinner"></i>
 						Expire Payment
 					</button>
-					<button v-if="detailModel.status_payment != '<?= Transaction_m::STATUS_EXPIRE; ?>' && detailModel.status_payment != '<?= Transaction_m::STATUS_FINISH; ?>'" @click="verifyPayment" type="button" class="btn btn-primary" :disabled="verifying">
+					<button v-if="detailModel.status_payment == '<?= Transaction_m::STATUS_PENDING; ?>'" @click="verifyPayment" type="button" class="btn btn-primary" :disabled="verifying">
 						<i v-if="verifying" class="fa fa-spin fa-spinner"></i>
 						Verify Payment
 					</button>
-					<a v-if="detailModel.status_payment != '<?= Transaction_m::STATUS_WAITING; ?>'" :href="'<?= base_url('admin/transaction/download/invoice'); ?>/'+detailModel.id" target="_blank" class="btn btn-primary">Download Invoice</a>
+					<a v-if="['<?= Transaction_m::STATUS_PENDING; ?>','<?= Transaction_m::STATUS_EXPIRE; ?>','<?= Transaction_m::STATUS_FINISH; ?>'].includes(detailModel.status_payment)" :href="'<?= base_url('admin/transaction/download/invoice'); ?>/'+detailModel.id" target="_blank" class="btn btn-primary">Download Invoice</a>
 					<a :href="'<?= base_url('admin/transaction/download/proof'); ?>/'+detailModel.id" target="_blank" v-if="detailModel.status_payment == '<?= Transaction_m::STATUS_FINISH; ?>'" class="btn btn-primary">Download Bukti Registrasi</a>
 					<button :disabled="sendingProof" v-on:click="resendPaymentProof(detailModel)" v-if="detailModel.status_payment == '<?= Transaction_m::STATUS_FINISH; ?>'" class="btn btn-primary"><i v-if="sendingProof" class="fa fa-spin fa-spinner"></i> Resend Bukti Registrasi</button>
 					<button :disabled="sendingProof" type="button" class="btn btn-danger" data-dismiss="modal">Close</button>

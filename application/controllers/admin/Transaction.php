@@ -161,12 +161,12 @@ class Transaction extends Admin_Controller
 			$tempDetails = [];
 			foreach ($detail->details as $row) {
 				$temp =  $row->toArray();
-				$member = in_array($temp['event_pricing_id'], ['0']) ? [] : ($row->member ? $row->member->toArray() : []);
+				$member = in_array($temp['event_pricing_id'], ['0', '-2']) ? [] : ($row->member ? $row->member->toArray() : []);
 				$temp['isDeleted'] = 0;
 				$tempDetails[] = array_merge(['member' => ['fullname' => $member['fullname'] ?? "", 'email' => $member['email'] ?? "",]], $temp);
 			}
 			usort($tempDetails, function ($a, $b) {
-				return  $b['member_id'] < $a['member_id'];
+				return $b['product_name'] < $a['product_name'];
 			});
 			$response['model']['details'] = $tempDetails;
 		}
@@ -462,7 +462,7 @@ class Transaction extends Admin_Controller
 			if ($this->Event_m->validateFollowing($data['id'], $memberStatus->kategory) && $valid) {
 
 				// NOTE Harga sesuai dengan database
-				$price = $this->Event_pricing_m->findOne(['id' => $data['id'], 'condition' => $memberStatus->kategory]);
+				$price = $this->Event_pricing_m->findWithProductName(['id' => $data['id'], 'condition' => $memberStatus->kategory]);
 				if ($price->price != 0) {
 					$data['price'] = $price->price;
 				} else {
@@ -475,7 +475,7 @@ class Transaction extends Admin_Controller
 				$detail->price = $data['price'];
 				$detail->price_usd = $price->price_in_usd;
 				$detail->member_id = $memberId;
-				$detail->product_name = "$data[event_name] ($data[member_status])";
+				$detail->product_name = $price->product_name;
 				$detail->save();
 			} else {
 				$response['status'] = false;

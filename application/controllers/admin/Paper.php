@@ -181,8 +181,8 @@ class Paper extends Admin_Controller
 				) as $type => $status) {
 					if (isset($statusList[$status])) {
 						$template = $type . "_" . $statusList[$status];
-						$this->Notification_m->sendInfoPaper($template,$member,$status,$type,$model);
-						$this->Notification_m->setType(Notification_m::TYPE_WA)->sendInfoPaper($template,$member,$status,$type,$model);
+						$this->Notification_m->sendInfoPaper($template, $member, $status, $type, $model);
+						$this->Notification_m->setType(Notification_m::TYPE_WA)->sendInfoPaper($template, $member, $status, $type, $model);
 					}
 				}
 			}
@@ -428,11 +428,11 @@ class Paper extends Admin_Controller
 					->get()->row_array();
 
 				$cert = $this->Papers_m->exportCertificate($data)->output();
-				$status = $this->Notification_m->sendCertificate($data,Notification_m::CERT_TYPE_PAPER,"Certificate of Manuscript",$cert);
-				
+				$status = $this->Notification_m->sendCertificate($data, Notification_m::CERT_TYPE_PAPER, "Certificate of Manuscript", $cert);
+
 				$status = $this->Notification_m->setType(Notification_m::TYPE_WA)
-								->sendCertificate($data,Notification_m::CERT_TYPE_PAPER,"Certificate of Manuscript",$cert);
-				
+					->sendCertificate($data, Notification_m::CERT_TYPE_PAPER, "Certificate of Manuscript", $cert);
+
 				$this->output
 					->set_content_type("application/json")
 					->_display(json_encode([
@@ -462,7 +462,7 @@ class Paper extends Admin_Controller
 			if (file_exists(APPPATH . "uploads/cert_template/Paper.txt")) {
 				$data = $this->Paper_champion_m->champion($id);
 				$cert = $this->Papers_m->exportCertificate($data)->output();
-				$status = $this->Notification_m->sendCertificate($data,Notification_m::CERT_TYPE_PAPER,"Certificate of Manuscript",$cert);
+				$status = $this->Notification_m->sendCertificate($data, Notification_m::CERT_TYPE_PAPER, "Certificate of Manuscript", $cert);
 				$this->output
 					->set_content_type("application/json")
 					->_display(json_encode([
