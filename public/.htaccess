@@ -1,0 +1,21 @@
+RewriteEngine on
+RewriteCond $1 !^(index\.php|resources|robots\.txt)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php/$1 [L,QSA]
+
+RewriteCond %{HTTPS} off
+RewriteRule (.*) https://%{HTTP_HOST}/%{REQUEST_URI [R,L]
+Header Set Access-Control-Allow-Origin "*"
+<Files .env>
+    Order allow,deny
+    Deny from all
+</Files>
+<DirectoryMatch "^/.*/\.git/">
+    Require all denied
+</DirectoryMatch>
+<Files ~ "^\.git">
+   Order allow,deny
+   Deny from all 
+   #Require all denied
+</Files>
