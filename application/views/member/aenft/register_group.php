@@ -28,7 +28,9 @@ $theme_path = base_url("themes/aenft") . "/";
     .chosen-container-single .chosen-single div b {
         margin-top: 4px;
     }
-       .card .table td, .card .table th{
+
+    .card .table td,
+    .card .table th {
         color: #000 !important;
     }
 </style>
@@ -125,9 +127,9 @@ $theme_path = base_url("themes/aenft") . "/";
 
             <div class="col-sm-4 mt-2" v-for="account in paymentBank">
                 <div class="card">
-                <div class="card-header card-bg card__shadow ">
-                            <h3 class="card-title ">{{ account.bank }}</h3>
-                        </div>
+                    <div class="card-header card-bg card__shadow ">
+                        <h3 class="card-title ">{{ account.bank }}</h3>
+                    </div>
                     <div class="card-body">
                         <table class="card-text" style="color: #F5AC39;">
                             <tr>
@@ -238,7 +240,9 @@ $theme_path = base_url("themes/aenft") . "/";
         <div v-if="page == 'register'" class="cs-iconbox cs-style1 cs-white_bg">
             <div class="alert alert-primary" role="alert">
                 <h4 class="text-black"><i class="icofont icofont-info-circle"></i> <b>Perhatian.</h4>
-                <p><span style="color: #ff0000;"><strong>1. Pembayaran tidak dapat di <em>refund</em></strong></span></p><p><span style="color: #000000;">2. Pastikan alamat email yang dimasukkan valid dan dapat Anda akses karena kami akan mengirimkan kode aktivasi melalui email tersebut. Akun Anda tidak dapat digunakan kecuali jika sudah&nbsp; diaktifkan terlebih dahulu.</span></p>            </div>
+                <p><span style="color: #ff0000;"><strong>1. Pembayaran tidak dapat di <em>refund</em></strong></span></p>
+                <p><span style="color: #000000;">2. Pastikan alamat email yang dimasukkan valid dan dapat Anda akses karena kami akan mengirimkan kode aktivasi melalui email tersebut. Akun Anda tidak dapat digunakan kecuali jika sudah&nbsp; diaktifkan terlebih dahulu.</span></p>
+            </div>
             <form id="form-register" class="form-border" ref="form">
                 <div class="de_tab tab_simple">
                     <!-- <p>
@@ -276,7 +280,7 @@ $theme_path = base_url("themes/aenft") . "/";
                                             <div class="col-md-12">
                                                 <ul class="nav nav-pills">
                                                     <li v-for="cat in eventCategory" style="cursor:pointer" class="nav-item">
-                                                            <span class="nav-link text-center" @click="showCategory = cat.name" :class="{'active':showCategory == cat.name}">
+                                                        <span class="nav-link text-center" @click="showCategory = cat.name" :class="{'active':showCategory == cat.name}">
                                                             <span>{{ cat.category }}</span>
                                                             <span class="d-block">{{ cat.heldOn }}</span>
                                                         </span>
@@ -478,18 +482,18 @@ $theme_path = base_url("themes/aenft") . "/";
 </section>
 
 <div class="modal" id="modal-select-payment">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header bg-secondary">
-                    <h4 class="modal-title">Select Payment Method</h4>
-                    <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <iframe id="sgoplus-iframe" sandbox="allow-same-origin allow-scripts allow-top-navigation allow-forms" style="width:100%"></iframe>
-                </div>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-secondary">
+                <h4 class="modal-title">Select Payment Method</h4>
+                <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <iframe id="sgoplus-iframe" sandbox="allow-same-origin allow-scripts allow-top-navigation allow-forms" style="width:100%"></iframe>
             </div>
         </div>
     </div>
+</div>
 <?php $this->layout->begin_script(); ?>
 <script src="<?= base_url("themes/script/sweetalert2@8.js"); ?>"></script>
 <script src="<?= base_url("themes/script/vuejs-datepicker.min.js"); ?>"></script>
@@ -526,7 +530,7 @@ $theme_path = base_url("themes/aenft") . "/";
             isUsd: false,
             continueTransaction: <?= isset($continueTransaction) ? json_encode($continueTransaction) : "null"; ?>,
             showCategory: "",
-            allowBack:true,
+            allowBack: true,
         },
         mounted: function() {
 
@@ -545,6 +549,9 @@ $theme_path = base_url("themes/aenft") . "/";
             })
 
             this.paymentMethod = tempPayment;
+            if (paymentData.length == 1) {
+                this.selectedPaymentMethod = tempPayment[1].key;
+            }
             if (this.continueTransaction) {
                 this.page = 'payment';
                 this.data = this.continueTransaction.data; //JSON.parse(JSON.stringify(res.data));
@@ -564,22 +571,22 @@ $theme_path = base_url("themes/aenft") . "/";
         computed: {
             eventCategory() {
                 let category = {};
-                this.filteredEvent.forEach(function (val) {
+                this.filteredEvent.forEach(function(val) {
                     let heldOn = "";
-                    try{
+                    try {
                         let heldOnObject = JSON.parse(val.held_on);
-                        heldOn = heldOnObject.start == heldOnObject.end ? 
-                                                            moment(heldOnObject.start).format("DD MMM YYYY") :
-                                                            `${moment(heldOnObject.start).format("DD MMM YYYY")} - ${moment(heldOnObject.end).format("DD MMM YYYY")}` ;
-                    }catch (e){
+                        heldOn = heldOnObject.start == heldOnObject.end ?
+                            moment(heldOnObject.start).format("DD MMM YYYY") :
+                            `${moment(heldOnObject.start).format("DD MMM YYYY")} - ${moment(heldOnObject.end).format("DD MMM YYYY")}`;
+                    } catch (e) {
 
                     }
                     let categoryGroup = `${val.category} ${heldOn}`;
                     val.categoryGroup = categoryGroup;
                     let objectGroup = {
-                        name : categoryGroup,
-                        category : val.category,
-                        heldOn : heldOn
+                        name: categoryGroup,
+                        category: val.category,
+                        heldOn: heldOn
                     }
                     if (typeof category[categoryGroup] == 'undefined') {
                         category[categoryGroup] = objectGroup;
@@ -777,18 +784,18 @@ $theme_path = base_url("themes/aenft") . "/";
                 }
                 return isRequired;
             },
-            checkOverlap(event){
-                try{
+            checkOverlap(event) {
+                try {
                     let eventHold = JSON.parse(event.held_on);
                     let countOverlap = 0;
                     this.eventAdded.forEach(evendExists => {
                         let eventExistHold = JSON.parse(evendExists.held_on);
-                        if(Date.parse(eventExistHold.end) >= Date.parse(eventHold.start) && Date.parse(eventExistHold.start) <= Date.parse(eventHold.end)){
+                        if (Date.parse(eventExistHold.end) >= Date.parse(eventHold.start) && Date.parse(eventExistHold.start) <= Date.parse(eventHold.end)) {
                             countOverlap++;
                         }
-                    })                
-                    return countOverlap > 0;    
-                }catch(e){
+                    })
+                    return countOverlap > 0;
+                } catch (e) {
                     console.log(e);
                     return true;
                 }
@@ -796,12 +803,12 @@ $theme_path = base_url("themes/aenft") . "/";
             addEvent(e, event, member, eventParent) {
                 let isRequired = this.checkRequirement(event.event_required_id);
                 let isOverlap = this.checkOverlap(eventParent);
-               
+
                 if (e.target.checked) {
-                    if(isOverlap){
+                    if (isOverlap) {
                         $(e.target).prop('checked', false);
                         Swal.fire('Info', `The Selected event overlap with another event!`, 'info');
-                    }else if (isRequired) {
+                    } else if (isRequired) {
                         event.member_status = member;
                         event.event_name = eventParent.name;
                         event.held_on = eventParent.held_on;

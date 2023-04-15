@@ -48,91 +48,104 @@
                         </a>
                     </div>
                     <div class="cs-main_header_center">
-						<div class="cs-nav">
-                          	<ul class="cs-nav_list">
-                              <?php if (isset($isLogin)) { ?>
-                                  <!-- mainmenu begin -->
-                                  <?php
-                                  $member = $this->router->class == "area";
-                                  $userDetail = array_merge($user->toArray(), ['status_member' => $user->status_member->kategory]);
-                                  ?>
-                                  <li>
-                                      <a class="cs-smoth_scroll" href="<?= base_url('site/home'); ?>#content">
-                                          <span><?= lang("home"); ?></span>
-                                      </a>
-                                  </li>
-                                  <li>
-                                      <a class="cs-smoth_scroll" href="<?= base_url('member/area'); ?>#/profile">
-                                        
-                                          <span><?= lang("profile"); ?></span>
-                                      </a>
-                                  </li>
-                                  
-                              	  <li class="menu-item-has-children">
-                                    <a href="#">Event & Program </a>
-                                    <span class="cs-munu_dropdown_toggle"></span>
-                                    <ul>
-                                      	<li>
-                                            <a class="cs-smoth_scroll" href="<?= base_url('member/area'); ?>#/events">
+                        <div class="cs-nav">
+                            <ul class="cs-nav_list">
+                                <?php if (isset($isLogin)) { ?>
+                                    <!-- mainmenu begin -->
+                                    <?php
+                                    $member = $this->router->class == "area";
+                                    $userDetail = array_merge($user->toArray(), ['status_member' => $user->status_member->kategory]);
+                                    ?>
+                                    <li>
+                                        <a class="cs-smoth_scroll" href="<?= base_url('site/home'); ?>#content">
+                                            <i class="fa fa-home me-1"></i>
+                                            <span><?= lang("home"); ?></span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="cs-smoth_scroll" href="<?= base_url('member/area'); ?>#/profile">
+                                            <i class="fa fa-user me-1"></i>
+                                            <span><?= lang("profile"); ?></span>
+                                        </a>
+                                    </li>
 
-                                                <span><?= lang("select_event"); ?></span>
-                                            </a>
-                                        </li>
-                                      <li>
-                                          <a class="cs-smoth_scroll" href="<?= base_url('member/area'); ?>#/billing">
+                                    <li class="menu-item-has-children">
+                                        <a href="#">
+                                            <i class="fa fa-calendar me-1"></i>Event & Program
+                                        </a>
+                                        <span class="fa fa-chevron-down"></span>
+                                        <ul>
+                                            <li>
+                                                <a class="cs-smoth_scroll" href="<?= base_url('member/area'); ?>#/events">
 
-                                              <span><?= lang("payment"); ?></span>
-                                          </a>
-                                      </li>
-                                       <li>
-                                          <a class="cs-smoth_scroll" href="<?= base_url('member/area'); ?>#/com_program">
+                                                    <span><?= lang("select_event"); ?></span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="cs-smoth_scroll" href="<?= base_url('member/area'); ?>#/billing">
 
-                                              <span><?= lang("com_program"); ?></span>
-                                          </a>
-                                      </li>
-                                      <?php if ($hasSettlementTransaction) : ?>
-                                      <li>
-                                          <a class="cs-smoth_scroll" href="<?= base_url('member/area'); ?>#/paper">
-                                              
-                                              <span><?= lang("send_abstrack"); ?></span>
-                                          </a>
-                                      </li>
-                                  <?php endif; ?>
-                                    </ul>
-                                  </li>
-                                  
-                                  
-                                 
-                                  <!-- <li>
+                                                    <span><?= lang("payment"); ?></span>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a class="cs-smoth_scroll" href="<?= base_url('member/area'); ?>#/com_program">
+
+                                                    <span><?= lang("com_program"); ?></span>
+                                                </a>
+                                            </li>
+                                            <?php if ($hasSettlementTransaction) : ?>
+                                                <li>
+                                                    <a class="cs-smoth_scroll" href="<?= base_url('member/area'); ?>#/paper">
+
+                                                        <span><?= lang("send_abstrack"); ?></span>
+                                                    </a>
+                                                </li>
+                                            <?php endif; ?>
+                                        </ul>
+                                    </li>
+
+
+
+                                    <!-- <li>
                                       <a href="<?= base_url('member/area'); ?>#/webminar">
                                           <i class="fa fa-cart-shopping fa-lg"></i>
                                           <span>Webinar Link</span>
                                       </a>
                                   </li> -->
-                                  <?php if (in_array($userDetail['status'], $statusToUpload)) : ?>
-                                      <li>
-                                          <a class="cs-smoth_scroll" href="<?= base_url('member/area'); ?>#/material">
-                                              
-                                              <span><?= lang("upload_material"); ?></span>
-                                          </a>
-                                      </li>
-                                  <?php endif; ?>
-                                  <!-- <li><a href="<?= base_url('member/area'); ?>#/sertifikat">Unduh Certificate</a></li> -->
-                                  <li>
-                                      <a class="cs-smoth_scroll" href="<?= base_url('member/area'); ?>#/presentation">
-                                         
-                                          <span><?= lang("scientific_presentation"); ?></span>
-                                      </a>
-                                  </li>
+                                    <?php if (in_array($userDetail['status'], $statusToUpload)) : ?>
+                                        <li>
+                                            <a class="cs-smoth_scroll" href="<?= base_url('member/area'); ?>#/material">
+                                                <i class="fa fa-upload me-1"></i>
+                                                <span><?= lang("upload_material"); ?></span>
+                                            </a>
+                                        </li>
+                                    <?php endif; ?>
+                                    <!-- <li><a href="<?= base_url('member/area'); ?>#/sertifikat">Unduh Certificate</a></li> -->
+                                    <li>
+                                        <a class="cs-smoth_scroll" href="<?= base_url('member/area'); ?>#/presentation">
+                                            <i class="fa fa-photo-video me-1"></i>
+                                            <span><?= lang("scientific_presentation"); ?></span>
+                                        </a>
+                                    </li>
 
-                              <?php } else { ?>
-                                  <li><a href="<?= base_url('site/home'); ?>#home" class="ripple cs-smoth_scroll"><span><?= lang("home"); ?></span></a></li>
-                                  <li><a href="<?= base_url('site/home'); ?>#login" class="ripple cs-smoth_scroll"><span><?= lang("login"); ?></span></a></li>
-                                  <li><a href="<?= base_url('site/home'); ?>#event" class="ripple cs-smoth_scroll"><span><?= lang("event"); ?></span></a></li>
-                                  <li><a href="<?= base_url('site/home'); ?>#news" class="ripple cs-smoth_scroll"><span><?= lang("news"); ?></span></a></li>
-                              <?php } ?>
-                          </ul>
-                      	</div>
+                                <?php } else { ?>
+                                    <li><a href="#home" class="cs-smoth_scroll">
+                                            <i class="fa fa-home me-1"></i>
+                                            <?= lang("home"); ?></a>
+                                    </li>
+                                    <li><a href="#login" class="cs-smoth_scroll">
+                                            <i class="fa fa-sign-in me-1"></i>
+                                            <?= lang("login"); ?></a></li>
+                                    <li><a href="#event" class="cs-smoth_scroll">
+                                            <i class="fa fa-calendar me-1"></i>
+
+                                            <?= lang("event"); ?></a></li>
+                                    <li><a href="#news" class="cs-smoth_scroll">
+                                            <i class="fa fa-newspaper me-1"></i>
+                                            <?= lang("news"); ?></a></li>
+                                <?php } ?>
+                            </ul>
+                        </div>
                     </div>
                     <div class="cs-main_header_right">
 

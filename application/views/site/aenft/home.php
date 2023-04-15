@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="<?= base_url('themes/aenft'); ?>/assets/css/style.css">
     <link rel="stylesheet" href="<?= base_url('themes/aenft'); ?>/assets/css/custom.css">
     <link rel="stylesheet" href="<?= base_url('themes/aenft'); ?>/assets/fontawesome/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
     <style>
         .scrollbar {
             scrollbar-width: thin;
@@ -37,6 +38,23 @@
             -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
             background-color: #555;
         }
+
+        .swiper {
+            width: 100%;
+            height: 400px;
+        }
+
+        .swiper-slide .title {
+            position: absolute;
+            font-weight: bold;
+            top: 10px;
+            left: 10px;
+            font-size: 20px;
+            color: #fff;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 3px;
+            border-radius: 3px;
+        }
     </style>
 </head>
 
@@ -50,7 +68,7 @@
     <button class="btn btn-sm btn-primary position-fixed bottom-0 end-0 translate-middle me-1 d-none" onclick="scrollToTop()" id="back-to-up">
         <i class="fa fa-arrow-up fa-2x" aria-hidden="true"></i>
     </button>
-  	<button style="z-index:1" onclick="document.getElementById('section-contact').scrollIntoView({behavior: 'smooth'});" class="btn btn-sm btn-primary position-fixed bottom-0 end-0 mb-5 translate-middle">
+    <button style="z-index:1" onclick="document.getElementById('section-contact').scrollIntoView({behavior: 'smooth'});" class="btn btn-sm btn-primary position-fixed bottom-0 end-0 mb-5 translate-middle">
         <i class="fa-2x fa-brands fa-whatsapp"></i>
     </button>
     <!-- Start Header Section -->
@@ -64,13 +82,23 @@
                             <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/logo.png" alt="Logo" class="cs-hide_white">
                         </a>
                     </div>
-                     <div class="cs-main_header_center">
+                    <div class="cs-main_header_center">
                         <div class="cs-nav">
                             <ul class="cs-nav_list">
-                                <li><a href="#home" class="cs-smoth_scroll"><?= lang("home"); ?></a></li>
-                                <li><a href="#login" class="cs-smoth_scroll"><?= lang("login"); ?></a></li>
-                                <li><a href="#event" class="cs-smoth_scroll"><?= lang("event"); ?></a></li>
-                              <li><a href="#news" class="cs-smoth_scroll"><?= lang("news"); ?></a></li>
+                                <li><a href="#home" class="cs-smoth_scroll">
+                                        <i class="fa fa-home me-1"></i>
+                                        <?= lang("home"); ?></a>
+                                </li>
+                                <li><a href="#login" class="cs-smoth_scroll">
+                                        <i class="fa fa-sign-in me-1"></i>
+                                        <?= lang("login"); ?></a></li>
+                                <li><a href="#event" class="cs-smoth_scroll">
+                                        <i class="fa fa-calendar me-1"></i>
+
+                                        <?= lang("event"); ?></a></li>
+                                <li><a href="#news" class="cs-smoth_scroll">
+                                        <i class="fa fa-newspaper me-1"></i>
+                                        <?= lang("news"); ?></a></li>
                             </ul>
                         </div>
                     </div>
@@ -250,6 +278,81 @@
                             </td>
                         </tr>
                     </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="cs-height_50 cs-height_lg_20"></div>
+
+    </section>
+
+    <section id="gallery">
+        <div class="cs-height_70 cs-height_lg_40"></div>
+        <div class="container">
+            <div class="cs-seciton_heading cs-style1 text-uppercase wow fadeInUp text-center" data-wow-duration="1s" data-wow-delay="0.2s">
+                <h3 class="cs-section_title cs-font_16 cs-font_14_sm cs-gradient_color">Recent Update</h3>
+                <h2 class="cs-section_subtitle cs-m0 cs-font_36 cs-font_24_sm">Recent Update</h2>
+            </div>
+            <div class="cs-height_50 cs-height_lg_30"></div>
+            <div class="row wow fadeIn" data-wow-duration="1s" data-wow-delay="0.4s">
+                <div class="col-lg-6 col-sm-6">
+                    <div id="swiper-photo" class="swiper">
+                        <!-- Additional required wrapper -->
+                        <div class="swiper-wrapper">
+                            <!-- Slides -->
+                            <?php if (count($videoAndPhoto['photo']) == 0) : ?>
+                                <div class="swiper-slide">
+                                    <div class="title" data-swiper-parallax="-300">Photo Update</div>
+                                    <img src="<?= base_url('themes/img/coming-soon.jpg'); ?>" />
+                                </div>
+                                <?php else : foreach ($videoAndPhoto['photo'] as $photo) : ?>
+                                    <div class="swiper-slide">
+                                        <div class="title" data-swiper-parallax="-300"><?= $photo['title']; ?></div>
+                                        <img src="<?= base_url('themes/uploads/video') . "/" . $photo['filename']; ?>" />
+                                    </div>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </div>
+                        <!-- If we need pagination -->
+                        <div class="swiper-pagination"></div>
+
+                        <!-- If we need navigation buttons -->
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-button-next"></div>
+
+                        <!-- If we need scrollbar -->
+                        <div class="swiper-scrollbar"></div>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-sm-6">
+                    <div id="swiper-video" class="swiper">
+                        <!-- Additional required wrapper -->
+                        <div class="swiper-wrapper">
+                            <!-- Slides -->
+                            <?php if (count($videoAndPhoto['video']) == 0) : ?>
+                                <div class="swiper-slide">
+                                    <div class="title" data-swiper-parallax="-300">Video Update</div>
+                                    <img src="<?= base_url('themes/img/coming-soon.jpg'); ?>" />
+                                </div>
+                                <?php else : foreach ($videoAndPhoto['video'] as $video) : ?>
+                                    <div class="swiper-slide">
+                                        <div class="title" data-swiper-parallax="-300"><?= $video['title']; ?></div>
+                                        <video src="<?= base_url('themes/uploads/video') . "/" . $video['filename']; ?>" preload="none"></video>
+                                    </div>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+
+                        </div>
+                        <!-- If we need pagination -->
+                        <div class="swiper-pagination"></div>
+
+                        <!-- If we need navigation buttons -->
+                        <div class="swiper-button-prev"></div>
+                        <div class="swiper-button-next"></div>
+
+                        <!-- If we need scrollbar -->
+                        <div class="swiper-scrollbar"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1274,6 +1377,7 @@
     <script src="<?= base_url('themes/gigaland'); ?>/js/jquery.plugin.js"></script>
     <script src="<?= base_url('themes/gigaland'); ?>/js/jquery.countTo.js"></script>
     <script src="<?= base_url('themes/gigaland'); ?>/js/jquery.countdown.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
     <script>
         $(function() {
             $('.de_countdown').each(function() {
@@ -1285,6 +1389,42 @@
                     until: new Date(y, m - 1, d, h)
                 });
             });
+            const swiperPhoto = new Swiper('#swiper-photo', {
+                loop: true,
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+                scrollbar: {
+                    el: '.swiper-scrollbar',
+                },
+            });
+            var swiperVideo = new Swiper('#swiper-video', {
+                direction: 'horizontal',
+                loop: false,
+                navigation: {
+                    nextEl: '.swiper-button-next',
+                    prevEl: '.swiper-button-prev',
+                },
+                on: {
+                    transitionStart: function() {
+                        var videos = document.querySelectorAll('video');
+                        Array.prototype.forEach.call(videos, function(video) {
+                            video.pause();
+                        });
+                    },
+
+                    transitionEnd: function() {
+                        var activeIndex = swiperVideo.activeIndex;
+                        // var activeSlide = document.getElementsByClassName('swiper-slide')[activeIndex];
+                        // var activeSlideVideo = activeSlide.getElementsByTagName('video')[0];
+                        var videos = document.querySelectorAll('video');
+                        videos[activeIndex].play();
+                        // console.log(activeIndex, activeSlide, activeSlideVideo);
+                        // activeSlideVideo.play();
+                    },
+                }
+            })
         })
     </script>
 </body>
