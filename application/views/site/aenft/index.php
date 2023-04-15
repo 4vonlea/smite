@@ -35,7 +35,7 @@
         <div class="cs-dark_overlay">
 
         </div>
-        <div class="dropdown mt-3 ms-3" style="position: absolute; right: 5px; top:5px;">
+        <!-- <div class="dropdown mt-3 ms-3" style="position: absolute; right: 5px; top:5px;">
             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="fa fa-language"></i> <?= ucfirst($this->config->item("language")); ?>
             </button>
@@ -43,7 +43,7 @@
                 <li><a class="dropdown-item" href="<?= current_url() . "?language=english"; ?>">English</a></li>
                 <li><a class="dropdown-item" href="<?= current_url() . "?language=indonesia"; ?>">Indonesia</a></li>
             </ul>
-        </div>
+        </div> -->
         <div class="container scaled">
             <div class="cs-hero_img wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.3s">
                 <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/logo.png" style="width: 100%; max-width: 320px; height: auto;">

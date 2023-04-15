@@ -87,18 +87,20 @@
                             <ul class="cs-nav_list">
                                 <li><a href="#home" class="cs-smoth_scroll">
                                         <i class="fa fa-home me-1"></i>
-                                        <?= lang("home"); ?></a>
+                                        Home</a>
                                 </li>
-                                <li><a href="#login" class="cs-smoth_scroll">
-                                        <i class="fa fa-sign-in me-1"></i>
-                                        <?= lang("login"); ?></a></li>
-                                <li><a href="#event" class="cs-smoth_scroll">
-                                        <i class="fa fa-calendar me-1"></i>
-
-                                        <?= lang("event"); ?></a></li>
                                 <li><a href="#news" class="cs-smoth_scroll">
                                         <i class="fa fa-newspaper me-1"></i>
-                                        <?= lang("news"); ?></a></li>
+                                        News</a></li>
+                                <li><a href="#event" class="cs-smoth_scroll">
+                                        <i class="fa fa-calendar me-1"></i>
+                                        Event</a></li>
+                                <li><a href="#registration" class="cs-smoth_scroll">
+                                        <i class="fa fa-edit me-1"></i>
+                                        Registration</a></li>
+                                <li><a href="#information" class="cs-smoth_scroll">
+                                        <i class="fa fa-info-circle me-1"></i>
+                                        Important Info</a></li>
                             </ul>
                         </div>
                     </div>
@@ -108,7 +110,7 @@
                                 <i class="fa-solid fa-clipboard-user"></i>&nbsp;<span><?= lang("registration"); ?></span>
                             </a>
                         </div>
-                        <div class="dropdown ms-2">
+                        <!-- <div class="dropdown ms-2">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fa fa-language"></i> <?= ucfirst($this->config->item("language")); ?>
                             </button>
@@ -116,7 +118,7 @@
                                 <li><a class="dropdown-item" href="<?= current_url() . "?language=english"; ?>">English</a></li>
                                 <li><a class="dropdown-item" href="<?= current_url() . "?language=indonesia"; ?>">Indonesia</a></li>
                             </ul>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -185,8 +187,8 @@
         <div class="cs-height_70 cs-height_lg_40"></div>
         <div class="container">
             <div class="cs-seciton_heading cs-style1 text-uppercase wow fadeInUp text-center" data-wow-duration="1s" data-wow-delay="0.2s">
-                <h3 class="cs-section_title cs-font_16 cs-font_14_sm cs-gradient_color">Kata Sambutan</h3>
-                <h2 class="cs-section_subtitle cs-m0 cs-font_36 cs-font_24_sm">KONAS PERDOSSI 2023 SEMARANG</h2>
+                <h3 class="cs-section_title cs-font_16 cs-font_14_sm cs-gradient_color">Welcome Messages</h3>
+                <h2 class="cs-section_subtitle cs-m0 cs-font_30 cs-font_20_sm">National Congress of the Indonesian Neurological Association 2023 SEMARANG</h2>
             </div>
             <div class="cs-height_50 cs-height_lg_30"></div>
             <div class="row wow fadeIn" data-wow-duration="1s" data-wow-delay="0.4s">
@@ -195,32 +197,22 @@
                         <tr>
                             <td width="30%" valign="top" style="border-top: 0px;"><img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/sambutan1.png"></td>
                             <td style="border-top: 0px;">
-                                <h4>Kata Sambutan</h4>
-                                <b>Ketua Perhimpunan Dokter Spesialis Saraf Indonesia <br> (PERDOSSI) Cabang Semarang</b> <br>
-                                Assalamualaikum wr.wb. <br> Sejawat yang terhormat,
+                                <h4>Welcome Messages</h4>
+                                <b>Chairman of Organizing Committee</b> <br>
+                                Assalamualaikum wr.wb. <br> Dear Colleagues,
                             </td>
                         </tr>
                         <tr>
                             <td colspan="2" style="border-top: 0px;">
                                 <p align="justify">
-                                    Merupakan suatu kehormatan besar bagi kami, Perdossi Cabang Semarang, diberikan kesempatan menjadi tuan rumah penyelenggaraan Kongres Nasional XI Perhimpunan Dokter Spesialis Saraf Indonesia. Kongres Nasional ini tidak hanya menjadi ajang ilmiah namun juga pertemuan dokter spesialis saraf seluruh Indonesia yang rencana diselenggarakan pada 2 - 6 Agustus 2023.
+                                    It is a great honor for us, Perdossi Semarang, to hold the 11th National Congress of the Indonesian Neurological Association in our beloved city. This National Congress is not only scientific event but also congress of Neurologists throughout Indonesia which is planned to be held on 2 - 6 August 2023
 
                                     <br><br>
 
-                                    <b>Kongres Nasional XI Perhimpunan Dokter Spesialis Saraf Indonesia</b> ini mengangkat tema “NeuroEngineering Update to Reach Outstanding Neurological service (NEURON)”, akan melibatkan sejumlah pakar baik nasional maupun internasional yang berkompeten di bidangnya menyampaikan perkembangan dan penemuan terkini dalam bidang neurologi. Kami percaya bahwa kegiatan ini akan memberikan banyak tambahan pengetahuan serta meningkatkan keterampilan yang bermanfaat bagi para sejawat sekalian.
-
+                                    The 11th National Congress of the Indonesian Neurological Association with the theme "NeuroEngineering Update to Reach Outstanding Neurological Service (NEURON)", will involve a number of experts from both Indonesia and International who are competent in their fields to convey the latest developments and discoveries in neurology. We believe this event will provide a lot of additional knowledge and improve the skills that are useful for all of us. Apart from scientific meetings, this event will also hold organizational meetings and nonscientific activities. We hope that all colleagues can participate in Neurobic exercise with the general public as our community service activity and we have prepared Ladies Program for colleagues and families who are interested. All committees invite colleagues and sponsors to participate in The 11th National Congress of the Indonesian Neurological Association in Semarang.
                                     <br><br>
 
-                                    Selain kegiatan ilmiah, tentu pada KONAS XI PERDOSSI 2023 juga terdapat rapat dan sidang organisasi serta kegiatan non ilmiah. Kami berharap sejawat sekalian dapat turut serta pada kegiatan Senam Neurobik massal bersama masyarakat awam dan telah kami siapkan acara Ladies Program bagi sejawat dan keluarga yang berminat.
-
-                                    <br><br>
-
-                                    Segenap panitia mengundang sejawat serta rekan-rekan sponsor untuk berpartisipasi dalam KONAS XI PERDOSSI 2023 di Semarang. Kiranya acara ini dapat terlaksana dengan lancar dan sukses.
-
-                                    <br><br>
-
-                                    Sampai berjumpa di Semarang!
-
+                                    We look forward to your presence and participation in Semarang, The venetie van Java!
                                     <br><br>
 
                                     Wassalamu’alaikum wr.wb.
@@ -228,7 +220,7 @@
                                     <br><br>
 
                                     Dr. dr. Retnaningsih, Sp. N, Subsp. NIITCC (K), KIC, M.KM <br>
-                                    Ketua PERDOSSI Cabang Semarang
+                                    Chairman of Organizing Committee
                                 </p>
                             </td>
                         </tr>
@@ -238,41 +230,36 @@
                     <table border="0" cellpadding="4" cellspacing="4" width="100%">
                         <tr>
                             <td style="border-top: 0px;">
-                                <h4>Kata Sambutan</h4>
-                                <b>Ketua Umum Pusat <br> Perhimpunan Dokter Spesialis Saraf Indonesia (PERDOSSI)</b> <br>
-                                Assalamualaikum wr.wb. <br> Yang saya hormati para Guru Besar, Profesor, Doktor, Senior dan sejawat sekalian.
+                                <h4>Welcome Messages</h4>
+                                <b>President of Indonesian Neurological Association</b> <br>
+                                Assalamualaikum wr.wb. <br> Dear Professors, Doctors, Seniors and colleagues.
                             </td>
                             <td width="30%" valign="top" style="border-top: 0px;"><img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/sambutan2.png"></td>
                         </tr>
                         <tr>
                             <td colspan="2" style="border-top: 0px;">
                                 <p align="justify">
-                                    Puji syukur kita panjatkan kehadirat Tuhan Yang Maha Esa atas limpahan rahmat dan karuniaNya senantiasa kepada kita semua dalam menjalankan tugas keprofesian dan berkarya dengan baik. Sebagai perwakilan dari Ketua Perhimpunan Dokter Spesialis Saraf Indonesia (PERDOSSI) Pusat, kami menyambut partisipasi sejawat dan kolega semua dalam <b>Kongres Nasional XI Perhimpunan Dokter Spesialis Saraf Indonesia</b> yang akan diselenggarakan pada 2 - 6 Agustus 2023 , di Semarang.
+                                    Praise and gratitude we pray for the presence of Allah SWT and for the abundance of His grace and gifts to all of us in carrying out our professional duties and working well.
+                                    <br><br>
+
+                                    As representatives of the President of the Indonesian Neurological Association (PERDOSSI), we welcome you in The XI National Congress of the Indonesian Neurological Association which will be held on 2 - 6 August 2023, in Semarang.
+                                    <br><br>
+
+                                    The theme "NeuroEngineering Update to Reach Outstanding Neurological service (NEURON)" is expected to accommodate neurologists to continue to update their knowledge and skills based on the latest research and guidelines through symposium and workshops. It will certainly be very beneficial for daily practice and improve the quality of service and competitiveness of Indonesian neurologists.
+                                    <br><br>
+
+                                    Through the forum of organizational meetings and sessions, it will further strengthen the bond and organization for the development of Indonesian Neurology in the future. This KONAS XI PERDOSSI 2023 activity will also be an important milestone in changing the name of the new association.
+                                    <br><br>
+
+                                    To all organizing committees and colleagues who support KONAS XI PERDOSSI 2023, we express our deepest gratitude.
+                                    <br><br>
+
+                                    Let's make KONAS XI PERDOSSI 2023 a success in Semarang!. Wassalamu’alaikum wr.wb.
 
                                     <br><br>
 
-                                    Mengusung tema “NeuroEngineering Update to Reach Outstanding Neurological service (NEURON)” diharapkan dapat mengakomodasi para dokter spesialis neurologi untuk terus meng-update keilmuan dan keterampilannya berdasarkan penelitian dan guideline terbaru melalui simposium dan workshop yang disajikan. Tentu akan sangat bermanfaat bagi praktik sehari-hari dan meningkatkan mutu pelayanan serta daya saing para neurolog Indonesia.
-
-                                    <br><br>
-
-                                    Melalui forum rapat dan sidang organisasi yang diadakan nantinya semakin memperkuat organisasi demi pengembangan Neurologi Indonesia di masa mendatang. Kegiatan KONAS XI PERDOSSI 2023 ini juga akan menjadi tonggak penting perubahan nama perhimpunan yang baru.
-
-                                    <br><br>
-
-                                    Kepada seluruh panitia penyelenggara dan kolega yang mendukung KONAS XI PERDOSSI 2023 kami mengucapkan terimakasih yang sebesar-besarnya.
-
-                                    <br><br>
-
-                                    Mari sukseskan KONAS XI PERDOSSI 2023 di Semarang!
-
-                                    <br><br>
-
-                                    Wassalamu’alaikum wr.wb.
-
-                                    <br><br>
-
-                                    Dr. dr. Dodik Tugasworo, Sp. N, Subsp. NIIOO (K) <br>
-                                    Ketua PP PERDOSSI
+                                    Dr. dr. Dodik Tugasworo, Sp. N, Subsp. NIIOO (K), M.H <br>
+                                    President of Indonesian Neurological Association
 
                                 </p>
                             </td>
@@ -290,7 +277,7 @@
         <div class="cs-height_70 cs-height_lg_40"></div>
         <div class="container">
             <div class="cs-seciton_heading cs-style1 text-uppercase wow fadeInUp text-center" data-wow-duration="1s" data-wow-delay="0.2s">
-                <h3 class="cs-section_title cs-font_16 cs-font_14_sm cs-gradient_color">Recent Update</h3>
+                <h3 class="cs-section_title cs-font_16 cs-font_14_sm cs-gradient_color">News</h3>
                 <h2 class="cs-section_subtitle cs-m0 cs-font_36 cs-font_24_sm">Recent Update</h2>
             </div>
             <div class="cs-height_50 cs-height_lg_30"></div>
@@ -392,7 +379,7 @@
 
     <div class="cs-height_50 cs-height_lg_20"></div>
 
-    <section>
+    <section id="event">
         <div class="container">
             <div class="cs-seciton_heading cs-style1 text-uppercase text-center wow fadeInUp mb-2" data-wow-duration="1s" data-wow-delay="0.2s">
                 <!-- <h3 class="cs-section_title cs-font_16 cs-font_14_sm cs-gradient_color">Video</h3> -->
@@ -435,7 +422,7 @@
 
     <div class="cs-height_75 cs-height_lg_45"></div>
 
-    <section id="login" class="cs-bg p-5" data-src="<?= base_url('themes/aenft'); ?>/assets/img/konas/img4.jpg">
+    <section id="registration" class="cs-bg p-5" data-src="<?= base_url('themes/aenft'); ?>/assets/img/konas/img4.jpg">
         <div class="container wow fadeIn" data-wow-duration="1s" data-wow-delay="0.2s">
             <h2 class="cs-section_subtitle cs-m0 cs-font_36 cs-font_24_sm text-uppercase text-center mb-5">Masuk / Registrasi</h2>
             <div class="row">
@@ -519,7 +506,7 @@
     </section>
 
     <div class="cs-height_70 cs-height_lg_40"></div>
-    <section id="event" class="event cs-bg" data-src="<?= base_url('themes/aenft'); ?>/assets/img/konas/bg-head1.jpg">
+    <section id="information" class="event cs-bg" data-src="<?= base_url('themes/aenft'); ?>/assets/img/konas/bg-head1.jpg">
         <div class="cs-height_70 cs-height_lg_40"></div>
         <div class="container">
             <div class="cs-seciton_heading cs-style1 text-uppercase text-center wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s">
@@ -715,42 +702,41 @@
                 <div class="card-cp">
                     <div class="name-tag text-center">
                         <img src="<?= base_url('themes/aenft'); ?>/assets/img/cs/cs1.png" alt="">
-                        <h5>Sekretariat</h5>
+                        <h5>Registrasi</h5>
                     </div>
                     <div class="overlay text-center">
-                        <h5 class="mb-2">Sekretariat</h5><br>
-                        <a href="http://wa.me/628112524392" target="_BLANK" class="btn btn-sm btn-primary mt-1"><i class="fa-brands fa-whatsapp"></i> dr. Gita</a><br>
+                        <h5 class="mb-2">Registrasi</h5><br>
+                        <a href="http://wa.me/6282140805759" target="_BLANK" class="btn btn-sm btn-primary mt-1"><i class="fa-brands fa-whatsapp"></i> dr. Yuna</a><br>
                     </div>
                 </div>
                 <div class="card-cp">
                     <div class="name-tag text-center">
                         <img src="<?= base_url('themes/aenft'); ?>/assets/img/cs/cs2.png" alt="">
-                        <h5>Registrasi</h5>
+                        <h5>Neurotech</h5>
                     </div>
                     <div class="overlay text-center">
-                        <h5 class="mb-2">Registrasi</h5><br>
-                        <a href="http://wa.me/62882007080200" target="_BLANK" class="btn btn-sm btn-primary mt-1"><i class="fa-brands fa-whatsapp"></i> dr. Resita</a><br>
+                        <h5 class="mb-2">Neurotech</h5><br>
+                        <a href="http://wa.me/6281216551865" target="_BLANK" class="btn btn-sm btn-primary mt-1"><i class="fa-brands fa-whatsapp"></i> dr. Ageng</a><br>
                     </div>
                 </div>
                 <div class="card-cp">
                     <div class="name-tag text-center">
                         <img src="<?= base_url('themes/aenft'); ?>/assets/img/cs/cs3.png" alt="">
-                        <h5>Poster / Ilmiah</h5>
+                        <h5>Poster</h5>
                     </div>
                     <div class="overlay text-center">
-                        <h5 class="mb-2">Poster / Ilmiah</h5><br>
-                        <a href="http://wa.me/6281327150069" target="_BLANK" class="btn btn-sm btn-primary mt-1"><i class="fa-brands fa-whatsapp"></i> dr. Nondang (Ilmiah)</a><br>
-                        <a href="http://wa.me/6281321532753 " target="_BLANK" class="btn btn-sm btn-primary mt-3"><i class="fa-brands fa-whatsapp"></i> dr. Nabil (Poster)</a><br>
+                        <h5 class="mb-2">Poster</h5><br>
+                        <a href="http://wa.me/6281321532753" target="_BLANK" class="btn btn-sm btn-primary mt-1"><i class="fa-brands fa-whatsapp"></i> dr. Nabil (Poster)</a><br>
                     </div>
                 </div>
                 <div class="card-cp">
                     <div class="name-tag text-center">
                         <img src="<?= base_url('themes/aenft'); ?>/assets/img/cs/cs4.png" alt="">
-                        <h5>Ladies Program</h5>
+                        <h5>Sekretariat</h5>
                     </div>
                     <div class="overlay text-center">
-                        <h5 class="mb-2">Ladies Program</h5><br>
-                        <a href="http://wa.me/6281290911717" target="_BLANK" class="btn btn-sm btn-primary mt-1"><i class="fa-brands fa-whatsapp"></i> dr. Dhilla</a><br>
+                        <h5 class="mb-2">Sekretariat</h5><br>
+                        <a href="#" target="_BLANK" class="btn btn-sm btn-primary mt-1"><i class="fa-brands fa-whatsapp"></i> dr. Rahmi</a><br>
                     </div>
                 </div>
             </div>
@@ -758,7 +744,7 @@
         </div>
     </section>
 
-    <section id="news" class="cs-bg" data-src="<?= base_url('themes/aenft'); ?>/assets/img/konas/img6.jpg">
+    <!--<section id="news" class="cs-bg" data-src="<?= base_url('themes/aenft'); ?>/assets/img/konas/img6.jpg">
         <div class="cs-height_70 cs-height_lg_40"></div>
         <div class="container">
             <div class="cs-seciton_heading cs-style1 text-uppercase text-center wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s">
@@ -787,7 +773,7 @@
             <?php endif; ?>
             <div class="cs-height_50 cs-height_lg_30"></div>
         </div>
-    </section>
+    </section>-->
 
     <section>
         <div class="cs-height_70 cs-height_lg_45"></div>
@@ -933,7 +919,7 @@
                         <td>
                             <span class="text-white">
                                 Jarak ke Venue : <span class="fw-bold">4,9 km</span><br>
-                                <span class="fw-bold">± 9 menit</span> berkendara
+                                <span class="fw-bold"> 9 menit</span> berkendara
                             </span>
                         </td>
                         <td align="center">
@@ -974,7 +960,7 @@
         </div>
     </section>
 
-    <section>
+    <!--<section>
         <div class="cs-height_70 cs-height_lg_40"></div>
         <div class="container">
             <div class="cs-seciton_heading cs-style1 text-uppercase wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s">
@@ -1094,7 +1080,7 @@
             </div>
             <div class="cs-height_50 cs-height_lg_30"></div>
         </div>
-    </section>
+    </section>-->
 
     <div class="cs-height_75 cs-height_lg_45"></div>
     <div class="cs-footer_wrap">
