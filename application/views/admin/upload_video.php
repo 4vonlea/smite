@@ -253,7 +253,6 @@
 						video.src = file
 					else
 						video.src = URL.createObjectURL(file);
-
 					video.onloadeddata = () => {
 						let ctx = canvas.getContext("2d");
 						canvas.width = video.videoWidth;
@@ -314,7 +313,10 @@
 				Vue.set(this.form, 'model', Object.assign({}, props.row))
 				app.previewImage = "";
 				if (this.form.model.type == '<?= Upload_video_m::TYPE_VIDEO; ?>') {
-					this.generateVideoThumbnail('<?= base_url('themes/uploads/video'); ?>/' + this.form.model.filename);
+					this.generateVideoThumbnail('<?= base_url('themes/uploads/video'); ?>/' + this.form.model.filename)
+						.then((canvas) => {
+							this.previewImage = canvas.toDataURL("image/png");
+						})
 				} else {
 					this.previewImage = '<?= base_url('themes/uploads/video'); ?>/' + this.form.model.filename;
 				}
