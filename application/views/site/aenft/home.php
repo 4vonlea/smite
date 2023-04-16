@@ -44,7 +44,8 @@
             height: 400px;
         }
 
-        #news .swiper-slide {
+        .swiper-slide,
+        .slide-pop {
             cursor: pointer;
         }
 
@@ -648,10 +649,10 @@
 
                         <!-- The slideshow/carousel -->
                         <div class="carousel-inner text-center">
-                            <div class="carousel-item active">
+                            <div class="carousel-item slide-pop active">
                                 <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/poster1.png" class="mt-3" width="50%"></img>
                             </div>
-                            <div class="carousel-item">
+                            <div class="carousel-item slide-pop">
                                 <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/poster2.png" class="mt-3" width="50%"></img>
                             </div>
                         </div>
@@ -712,7 +713,7 @@
 
                         <!-- The slideshow/carousel -->
                         <div class="carousel-inner text-center">
-                            <div class="carousel-item active">
+                            <div class="carousel-item slide-pop active">
                                 <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/ladpro.png" class="mt-3" width="50%"></img>
                             </div>
                         </div>
@@ -736,22 +737,22 @@
 
                         <!-- The slideshow/carousel -->
                         <div class="carousel-inner text-center">
-                            <div class="carousel-item active">
+                            <div class="carousel-item slide-pop active">
                                 <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/neuro_competition.png" class="mt-3" width="50%"></img>
                             </div>
-                            <div class="carousel-item">
+                            <div class="carousel-item slide-pop">
                                 <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/neurotech1.png" class="mt-3" width="50%"></img>
                             </div>
-                            <div class="carousel-item">
+                            <div class="carousel-item slide-pop">
                                 <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/neurotech2.png" class="mt-3" width="50%"></img>
                             </div>
-                            <div class="carousel-item">
+                            <div class="carousel-item slide-pop">
                                 <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/neurotech3.png" class="mt-3" width="50%"></img>
                             </div>
-                            <div class="carousel-item">
+                            <div class="carousel-item slide-pop">
                                 <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/neurotech4.png" class="mt-3" width="50%"></img>
                             </div>
-                            <div class="carousel-item">
+                            <div class="carousel-item slide-pop">
                                 <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/neurotech5.jpg" class="mt-3" width="50%"></img>
                             </div>
                         </div>
@@ -791,7 +792,7 @@
 
                         <!-- The slideshow/carousel -->
                         <div class="carousel-inner text-center">
-                            <div class="carousel-item active">
+                            <div class="carousel-item slide-pop active">
                                 <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/community_service.png" class="mt-3" width="50%"></img>
                             </div>
                         </div>
@@ -1485,13 +1486,15 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
     <script>
         $(function() {
-            $(".swiper-slide").click(function() {
+            $(".swiper-slide, .slide-pop").click(function() {
                 let child = $(this).children("img, video");
                 if (child.length > 0) {
                     let childrenClone = $(child[0]).clone();
                     if (childrenClone.is("video")) {
                         childrenClone.attr("controls", true);
                         childrenClone.attr("preload", true);
+                    } else {
+                        childrenClone.removeAttr("width");
                     }
                     $("#modal-gallery .modal-dialog .modal-content").html(childrenClone);
                     let video = document.querySelector("#modal-gallery .modal-dialog .modal-content video");
@@ -1505,6 +1508,8 @@
                 let video = document.querySelector("#modal-gallery .modal-dialog .modal-content video");
                 if (video) {
                     video.pause();
+                    video.src = "";
+                    video.load();
                 }
             })
             $('.de_countdown').each(function() {

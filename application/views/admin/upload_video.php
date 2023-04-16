@@ -249,14 +249,15 @@
 					// this is important
 					video.autoplay = true;
 					video.muted = true;
-					video.src = URL.createObjectURL(file);
+					if (typeof file == "string")
+						video.src = file
+					else
+						video.src = URL.createObjectURL(file);
 
 					video.onloadeddata = () => {
 						let ctx = canvas.getContext("2d");
-
 						canvas.width = video.videoWidth;
 						canvas.height = video.videoHeight;
-
 						ctx.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
 						video.pause();
 						return resolve(canvas);
@@ -311,7 +312,12 @@
 				this.form.title = "Edit Video/Image";
 				props.row.filenametemp = "Select File";
 				Vue.set(this.form, 'model', Object.assign({}, props.row))
-				console.log(this.form.model);
+				app.previewImage = "";
+				if (this.form.model.type == '<?= Upload_video_m::TYPE_VIDEO; ?>') {
+					this.generateVideoThumbnail('<?= base_url('themes/uploads/video'); ?>/' + this.form.model.filename);
+				} else {
+					this.previewImage = '<?= base_url('themes/uploads/video'); ?>/' + this.form.model.filename;
+				}
 				this.form.validation = {};
 			},
 			onAdd: function() {
