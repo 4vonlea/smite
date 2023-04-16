@@ -183,7 +183,13 @@ class Upload_video_m extends MY_Model
         $return = ['photo' => [], 'video' => []];
         foreach ($result as $row) {
             if ($row->type == Upload_video_m::TYPE_VIDEO) {
-                $return['video'][] = $row->toArray();
+                $rowArray = $row->toArray();
+                if (file_exists(self::PATH . "thumbs/" . $rowArray['filename'] . ".png")) {
+                    $rowArray['thumbs'] = self::PATH . "thumbs/" . $rowArray['filename'] . ".png";
+                } else {
+                    $rowArray['thumbs'] = "";
+                }
+                $return['video'][] = $rowArray;
             } else {
                 $return['photo'][] = $row->toArray();
             }

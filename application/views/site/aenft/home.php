@@ -60,6 +60,13 @@
             border-radius: 3px;
         }
 
+        .swiper-slide .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
         .countdown-section {
             margin-right: 5px;
         }
@@ -304,7 +311,7 @@
             </div>
             <div class="cs-height_50 cs-height_lg_30"></div>
             <div class="row wow fadeIn" data-wow-duration="1s" data-wow-delay="0.4s">
-                <div class="col-lg-6 col-sm-6">
+                <div class="col-lg-6 col-sm-6 ">
                     <div id="swiper-photo" class="swiper">
                         <!-- Additional required wrapper -->
                         <div class="swiper-wrapper">
@@ -333,7 +340,7 @@
                         <div class="swiper-scrollbar"></div>
                     </div>
                 </div>
-                <div class="col-lg-6 col-sm-6">
+                <div class="col-lg-6 col-sm-6 ">
                     <div id="swiper-video" class="swiper">
                         <!-- Additional required wrapper -->
                         <div class="swiper-wrapper">
@@ -346,7 +353,10 @@
                                 <?php else : foreach ($videoAndPhoto['video'] as $in => $video) : ?>
                                     <div class="swiper-slide">
                                         <div class="title" data-swiper-parallax="-300"><?= $video['title']; ?></div>
-                                        <video style="width:100%" src="<?= base_url('themes/uploads/video') . "/" . $video['filename']; ?>" preload="none"></video>
+                                        <span class="play-button">
+                                            <i class="fa fa-circle-play fa-4x"></i>
+                                        </span>
+                                        <video style="width:100%" poster="<?= base_url($video['thumbs']); ?>" src="<?= base_url('themes/uploads/video') . "/" . $video['filename']; ?>" preload="none"></video>
                                     </div>
                                 <?php endforeach; ?>
                             <?php endif; ?>
@@ -411,11 +421,6 @@
                 <?php foreach ($eventsList as $groupEvent) : ?>
                     <button class="accordion mt-2">
                         <?= $groupEvent['heldOn']; ?> (<?= $groupEvent['kategory']; ?>)
-                        <?php if ($groupEvent['held']['startDate'] == $groupEvent['held']['endDate']) : ?>
-                            | Countdown :
-                            <span class="de_countdown cs-iconbox_icon cs-font_26 cs-font_20_sm cs-m0" data-year="<?= $groupEvent['held']['startDate']->format("Y"); ?>" data-month="<?= $groupEvent['held']['startDate']->format("m"); ?>" data-day="<?= $groupEvent['held']['startDate']->format("d"); ?>" data-hour="0">
-                            </span>
-                        <?php endif; ?>
                     </button>
                     <div class="accordion-content">
                         <div class="table-responsive">
@@ -1405,6 +1410,10 @@
                         childrenClone.attr("preload", true);
                     }
                     $("#modal-gallery .modal-dialog .modal-content").html(childrenClone);
+                    let video = document.querySelector("#modal-gallery .modal-dialog .modal-content video");
+                    if (video) {
+                        video.play();
+                    }
                 }
                 $("#modal-gallery").modal("show");
             });

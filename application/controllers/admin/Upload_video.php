@@ -39,6 +39,15 @@ class Upload_video extends Admin_Controller
 		}
 
 		if ($this->Upload_video_m->validate($data) && $statusUpload) {
+			if ($this->input->post("video_thumb")) {
+				list($type, $dataImage) = explode(';', $_POST['video_thumb']);
+				list(, $dataImage)      = explode(',', $dataImage);
+				$dataImage = base64_decode($dataImage);
+				if (!file_exists(Upload_video_m::PATH . "thumbs")) {
+					mkdir(Upload_video_m::PATH . "thumbs");
+				}
+				file_put_contents(Upload_video_m::PATH . "thumbs/" . $data['filename'] . ".png", $dataImage);
+			}
 			$model->setAttributes($data);
 			$return['status'] = $model->save();
 			$return['message'] = "Data has been saved succesfully";

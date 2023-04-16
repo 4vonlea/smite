@@ -32,63 +32,68 @@
 						</div>
 					</div>
 					<form ref="form">
-						<div class="card-body">
-							<div class="form-group row">
-								<label class="col-lg-3 control-label">Type</label>
-								<div class="col-lg-5">
-									<select v-model='form.model.type' class='form-control' :class="{'is-invalid':form.validation.type}">
-										<option disabled value="">Select Type</option>
-										<option v-for="(v,k) in listType" :value="k">{{ v }}</option>
-									</select>
-									<div v-if="form.validation.type" class="invalid-feedback">
-										{{ form.validation.type }}
-									</div>
-								</div>
-							</div>
-							<div class="form-group row">
-								<label class="col-lg-3 control-label">Video/Image</label>
-								<div class="col-lg-5">
-									<a v-if="form.model.filename" class="badge badge-info mb-1" target="_blank" :href="'<?= base_url('themes/uploads/video'); ?>/'+form.model.filename">Previous File Click Here</a>
-									<div class="input-group mb-3">
-										<div class="custom-file">
-											<input type="file" ref="inputFile" accept="image/*,video/*" :class="{'is-invalid':form.validation.logo}" v-on:change="browseImage" class="custom-file-input" name="logo" id="inputGroupFile01">
-											<label class="custom-file-label" for="inputGroupFile01">{{ form.model.filenametemp }}</label>
+						<div class="card-body row">
+							<div class="col-md-6 col-sm-12">
+								<div class="form-group row">
+									<label class="col-lg-3 control-label">Type</label>
+									<div class="col-lg-9">
+										<select v-model='form.model.type' class='form-control' :class="{'is-invalid':form.validation.type}">
+											<option disabled value="">Select Type</option>
+											<option v-for="(v,k) in listType" :value="k">{{ v }}</option>
+										</select>
+										<div v-if="form.validation.type" class="invalid-feedback">
+											{{ form.validation.type }}
 										</div>
 									</div>
-									<div v-if="form.validation.filename" style="display:block" class="invalid-feedback">
-										{{ form.validation.filename }}
+								</div>
+								<div class="form-group row">
+									<label class="col-lg-3 control-label">Video/Image</label>
+									<div class="col-lg-9">
+										<a v-if="form.model.filename" class="badge badge-info mb-1" target="_blank" :href="'<?= base_url('themes/uploads/video'); ?>/'+form.model.filename">Previous File Click Here</a>
+										<div class="input-group mb-3">
+											<div class="custom-file">
+												<input type="file" ref="inputFile" accept="image/*,video/*" :class="{'is-invalid':form.validation.logo}" v-on:change="browseImage" class="custom-file-input" name="logo" id="inputGroupFile01">
+												<label class="custom-file-label" for="inputGroupFile01">{{ form.model.filenametemp }}</label>
+											</div>
+										</div>
+										<div v-if="form.validation.filename" style="display:block" class="invalid-feedback">
+											{{ form.validation.filename }}
+										</div>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-lg-3 control-label">Title</label>
+									<div class="col-lg-9">
+										<input type="text" :class="{'is-invalid':form.validation.title}" class="form-control" v-model="form.model.title" />
+										<div v-if="form.validation.title" class="invalid-feedback">
+											{{ form.validation.title }}
+										</div>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-lg-3 control-label">Contestant</label>
+									<div class="col-lg-9">
+										<input type="text" :class="{'is-invalid':form.validation.uploader}" class="form-control" v-model="form.model.uploader" />
+										<div v-if="form.validation.uploader" class="invalid-feedback">
+											{{ form.validation.uploader }}
+										</div>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-lg-3 control-label">Description</label>
+									<div class="col-lg-9">
+										<textarea :class="{'is-invalid':form.validation.description}" class="form-control" v-model="form.model.description"></textarea>
+										<div v-if="form.validation.description" class="invalid-feedback">
+											{{ form.validation.description }}
+										</div>
 									</div>
 								</div>
 							</div>
-							<div class="form-group row">
-								<label class="col-lg-3 control-label">Title</label>
-								<div class="col-lg-5">
-									<input type="text" :class="{'is-invalid':form.validation.title}" class="form-control" v-model="form.model.title" />
-									<div v-if="form.validation.title" class="invalid-feedback">
-										{{ form.validation.title }}
-									</div>
-								</div>
-							</div>
-							<div class="form-group row">
-								<label class="col-lg-3 control-label">Contestant</label>
-								<div class="col-lg-5">
-									<input type="text" :class="{'is-invalid':form.validation.uploader}" class="form-control" v-model="form.model.uploader" />
-									<div v-if="form.validation.uploader" class="invalid-feedback">
-										{{ form.validation.uploader }}
-									</div>
-								</div>
+							<div class="col-md-6 col-sm-12 text-center">
+								<label>Preview Image/Thumbnail Video</label>
+								<img :src="previewImage" class="img img-responsive img-thumbnail" />
 							</div>
 
-
-							<div class="form-group row">
-								<label class="col-lg-3 control-label">Description</label>
-								<div class="col-lg-5">
-									<textarea :class="{'is-invalid':form.validation.description}" class="form-control" v-model="form.model.description"></textarea>
-									<div v-if="form.validation.description" class="invalid-feedback">
-										{{ form.validation.description }}
-									</div>
-								</div>
-							</div>
 							<!-- <div class="form-group row">
 								<label class="col-lg-12 control-label">File</label>
 								<div class="col-lg-12">
@@ -227,6 +232,7 @@
 				saving: false,
 				model: model()
 			},
+			previewImage: "",
 			detail: {},
 		},
 		filters: {
@@ -235,11 +241,40 @@
 			}
 		},
 		methods: {
+			generateVideoThumbnail(file) {
+				return new Promise((resolve) => {
+					const canvas = document.createElement("canvas");
+					const video = document.createElement("video");
+
+					// this is important
+					video.autoplay = true;
+					video.muted = true;
+					video.src = URL.createObjectURL(file);
+
+					video.onloadeddata = () => {
+						let ctx = canvas.getContext("2d");
+
+						canvas.width = video.videoWidth;
+						canvas.height = video.videoHeight;
+
+						ctx.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
+						video.pause();
+						return resolve(canvas);
+					};
+				});
+			},
 			browseImage(event) {
 				let target = event.target;
 				if (target.files.length > 0) {
+					app.previewImage = "";
 					this.form.model.filenametemp = target.files[0].name;
-					console.log(this.form.model.filenametemp);
+					if (this.form.model.type == '<?= Upload_video_m::TYPE_VIDEO; ?>') {
+						this.generateVideoThumbnail(target.files[0]).then((canvas) => {
+							app.previewImage = canvas.toDataURL("image/png");
+						})
+					} else {
+						app.previewImage = URL.createObjectURL(target.files[0]);
+					}
 				}
 			},
 			deleteRow(prop) {
@@ -312,6 +347,9 @@
 					data.append("file", this.$refs.inputFile.files[0]);
 				if (this.form.model.id) {
 					data.append("id", this.form.model.id);
+				}
+				if (this.form.model.type == "<?= Upload_video_m::TYPE_VIDEO; ?>" && this.previewImage) {
+					data.append("video_thumb", this.previewImage);
 				}
 				data.append("data[title]", this.form.model.title);
 				data.append("data[uploader]", this.form.model.uploader);
