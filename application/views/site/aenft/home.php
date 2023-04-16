@@ -311,7 +311,7 @@
             </div>
             <div class="cs-height_50 cs-height_lg_30"></div>
             <div class="row wow fadeIn" data-wow-duration="1s" data-wow-delay="0.4s">
-                <div class="col-lg-6 col-sm-6 ">
+                <div class="col-lg-6 col-sm-6 m1">
                     <div id="swiper-photo" class="swiper">
                         <!-- Additional required wrapper -->
                         <div class="swiper-wrapper">
@@ -340,7 +340,7 @@
                         <div class="swiper-scrollbar"></div>
                     </div>
                 </div>
-                <div class="col-lg-6 col-sm-6 ">
+                <div class="col-lg-6 col-sm-6 m1">
                     <div id="swiper-video" class="swiper">
                         <!-- Additional required wrapper -->
                         <div class="swiper-wrapper">
