@@ -36,6 +36,8 @@ class Upload_video extends Admin_Controller
 				$uploadError = "File uploaded not match with type field selected";
 				unlink($uploadData['full_path']);
 			}
+		} else if ($model && $id) {
+			$data['filename'] = $model->filename;
 		}
 
 		if ($this->Upload_video_m->validate($data) && $statusUpload) {
