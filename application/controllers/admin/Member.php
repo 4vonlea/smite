@@ -41,7 +41,8 @@ class Member extends Admin_Controller
 		$account = $this->User_account_m->findWithBiodata($email);
 		if ($account) {
 			$token = explode("_", $account['token_reset']);
-			if (count($token) == 0) {
+          	
+			if (count($token) != 2) {
 				$token[1] = uniqid();
 				$this->User_account_m->update([
 					'token_reset' => "verifyemail_" . $token[1]
