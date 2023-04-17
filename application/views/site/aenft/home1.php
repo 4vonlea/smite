@@ -85,10 +85,10 @@
         </div>
     </div> -->
 
-    <button class="btn btn-sm btn-primary position-fixed bottom-0 end-0 translate-middle me-1 d-none" onclick="scrollToTop()" id="back-to-up" style="z-index: 3;">
+    <button class="btn btn-sm btn-primary position-fixed bottom-0 end-0 translate-middle me-1 d-none" onclick="scrollToTop()" id="back-to-up">
         <i class="fa fa-arrow-up fa-2x" aria-hidden="true"></i>
     </button>
-    <button style="z-index:3" onclick="document.getElementById('section-contact').scrollIntoView({behavior: 'smooth'});" class="btn btn-sm btn-primary position-fixed bottom-0 end-0 mb-5 translate-middle">
+    <button style="z-index:1" onclick="document.getElementById('section-contact').scrollIntoView({behavior: 'smooth'});" class="btn btn-sm btn-primary position-fixed bottom-0 end-0 mb-5 translate-middle">
         <i class="fa-2x fa-brands fa-whatsapp"></i>
     </button>
     <!-- Start Header Section -->
@@ -148,7 +148,7 @@
     <div class="cs-height_80 cs-height_lg_80"></div>
 
     <!-- Start Hero -->
-    <div id="home" class="cs-hero cs-style1 cs-type2 cs-bg text-center cs-ripple_version" data-src="<?= base_url('themes/aenft'); ?>/assets/img/konas/bg-head.png" id="home">
+    <div id="home" class="cs-hero cs-style1 cs-type2 cs-bg text-center cs-ripple_version" data-src="<?= base_url('themes/aenft'); ?>/assets/img/konas/bg-head.jpg" id="home">
         <!--
         <nav class="floating-menu">
             <ul class="main-menu">
@@ -226,8 +226,7 @@
     </div>
     <!-- End Hero -->
 
-    <section id="sambutan" style="z-index:1;position:relative;width:100%;">
-        <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/right.png" class="sambutan-right-image">
+    <section id="sambutan">
         <div class="cs-height_70 cs-height_lg_40"></div>
         <div class="container">
             <div class="cs-seciton_heading cs-style1 text-uppercase wow fadeInUp text-center" data-wow-duration="1s" data-wow-delay="0.2s">
@@ -313,8 +312,8 @@
             </div>
         </div>
 
-        <!-- <div class="cs-height_50 cs-height_lg_20"></div> -->
-        <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/left.png" class="sambutan-left-image">
+        <div class="cs-height_50 cs-height_lg_20"></div>
+
     </section>
 
     <section id="news">
@@ -436,8 +435,7 @@
 
     <div class="cs-height_50 cs-height_lg_20"></div>
 
-    <section id="event" style="z-index:1;position:relative;width:100%;">
-        <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/right.png" class="event-right-image">
+    <section id="event">
         <div class="container">
             <div class="cs-seciton_heading cs-style1 text-uppercase text-center wow fadeInUp mb-2" data-wow-duration="1s" data-wow-delay="0.2s">
                 <!-- <h3 class="cs-section_title cs-font_16 cs-font_14_sm cs-gradient_color">Video</h3> -->
@@ -479,7 +477,6 @@
             </div>
             <div class="cs-height_50 cs-height_lg_25"></div>
         </div>
-        <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/left.png" class="event-left-image">
     </section>
 
     <div class="cs-height_75 cs-height_lg_45"></div>
@@ -1206,9 +1203,7 @@
     </section>-->
 
     <div class="cs-height_75 cs-height_lg_45"></div>
-    <div class="cs-footer_wrap" style="position: relative;">
-        <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/footer-left.png" class="footer-left-image">
-        <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/footer-right.png" class="footer-right-image">
+    <div class="cs-footer_wrap">
         <div class="wow fadeIn" data-wow-duration="1s" data-wow-delay="0.2s">
             <div class="cs-cta cs-style2 cs-accent_bg">
                 <div class="row padding-lg-top">
