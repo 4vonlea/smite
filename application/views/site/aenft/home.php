@@ -71,6 +71,10 @@
             justify-content: center;
         }
 
+        #news .swiper {
+            max-height: 500px;
+        }
+
         #swiper-popup .swiper-slide {
             height: auto;
         }
