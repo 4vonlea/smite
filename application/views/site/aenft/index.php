@@ -103,9 +103,9 @@
         </div>
     </div>
     <!-- End Hero -->
-
-    <div id="demo" class="carousel slide" data-bs-ride="carousel">
-
+	<div class="row">
+    	<div class="col p-4">
+          <div id="demo" class="carousel slide" data-bs-ride="carousel">
         <!-- The slideshow/carousel -->
         <div class="carousel-inner">
             <div class="carousel-item active">
@@ -154,13 +154,19 @@
             <span class="carousel-control-next-icon"></span>
         </button>
     </div>
-
-    <div class="cs-footer_wrap">
-        <div class="row align-items-center wow fadeIn" data-wow-duration="1s" data-wow-delay="0.5s">
+        </div>
+        <div class="col p-4">
+           <div class="row align-items-center wow fadeIn" data-wow-duration="1s" data-wow-delay="0.5s">
             <div class="col-lg-12 text-center">
                 <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/konas.jpg" width="70%">
             </div>
         </div>
+        </div>
+    </div>
+    
+
+    <div class="cs-footer_wrap">
+       
         <footer class="cs-footer text-center">
             <div class="container mt-4">
                 <div class="cs-copyright text-center wow fadeIn" data-wow-duration="1s" data-wow-delay="0.5s">
