@@ -39,11 +39,6 @@
             background-color: #555;
         }
 
-        .swiper {
-            width: 100%;
-            height: 400px;
-        }
-
         .slide-pop {
             cursor: pointer;
         }
@@ -73,6 +68,22 @@
 
         .modal.show {
             display: flex !important;
+            justify-content: center;
+        }
+
+        #swiper-popup .swiper-slide {
+            height: auto;
+        }
+
+        #modal-gallery .modal-content {
+            background: transparent !important;
+            border: none;
+        }
+
+        #modal-gallery .swiper {
+            width: 100%;
+            padding-top: 50px;
+            padding-bottom: 50px;
         }
     </style>
 </head>
@@ -334,7 +345,7 @@
             </div>
             <div class="cs-height_50 cs-height_lg_30"></div>
             <div class="row wow fadeIn" data-wow-duration="1s" data-wow-delay="0.4s">
-                <div class="col-lg-6 col-sm-6 m-2">
+                <div class="col-lg-6 col-sm-6 p-2">
                     <div id="swiper-photo" class="swiper">
                         <!-- Additional required wrapper -->
                         <div class="swiper-wrapper">
@@ -363,7 +374,7 @@
                         <div class="swiper-scrollbar"></div>
                     </div>
                 </div>
-                <div class="col-lg-6 col-sm-6 m-2">
+                <div class="col-lg-6 col-sm-6 p-2">
                     <div id="swiper-video" class="swiper">
                         <!-- Additional required wrapper -->
                         <div class="swiper-wrapper">
@@ -1494,8 +1505,35 @@
                         childrenClone.attr("preload", true);
                     } else {
                         childrenClone.removeAttr("width");
+                        let baseUrl = "<?= base_url('themes/uploads/video'); ?>/";
+                        if (childrenClone.data("list")) {
+                            let list = childrenClone.data("list");
+                            let swiperWrapper = $(`<div class="swiper-wrapper"></div>`);
+                            list.forEach(item => {
+                                swiperWrapper.append(`
+                                <div class="swiper-slide">
+                                <img src="${baseUrl}${item}" class="img">
+                                </div>
+                                `)
+                            })
+                            childrenClone = $(`<div id="swiper-popup" class="swiper"></div>`);
+                            childrenClone.append(swiperWrapper);
+                            childrenClone.append(` <div class="swiper-button-prev"></div><div class="swiper-button-next"></div>`);
+
+                        }
                     }
                     $("#modal-gallery .modal-dialog .modal-content").html(childrenClone);
+                    new Swiper("#swiper-popup", {
+                        mode: 'horizontal',
+                        height: '600px',
+                        navigation: {
+                            nextEl: '.swiper-button-next',
+                            prevEl: '.swiper-button-prev',
+                        },
+                        scrollbar: {
+                            el: '.swiper-scrollbar',
+                        },
+                    });
                     let video = document.querySelector("#modal-gallery .modal-dialog .modal-content video");
                     if (video) {
                         video.play();

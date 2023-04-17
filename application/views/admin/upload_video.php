@@ -95,7 +95,7 @@
 								<div v-if="form.model.type == '<?= Upload_video_m::TYPE_IMAGE; ?>'" class="form-group row">
 									<label class="col-lg-12 control-label">File</label>
 									<div class="col-lg-12">
-										<vue-upload-image :initial-files="form.model.filename" path="<?= base_url(Upload_video_m::PATH); ?>" ref="multiUpload" url-upload="<?= base_url('admin/upload_video/append_file'); ?>"></vue-upload-image>
+										<vue-upload-image :id-row="form.model.id" :initial-files="form.model.filename" path="<?= base_url(Upload_video_m::PATH); ?>" ref="multiUpload" url-delete="<?= base_url('admin/upload_video/delete_file'); ?>" url-upload="<?= base_url('admin/upload_video/append_file'); ?>"></vue-upload-image>
 									</div>
 								</div>
 							</div>
