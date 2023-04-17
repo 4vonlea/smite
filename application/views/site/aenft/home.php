@@ -39,15 +39,6 @@
             background-color: #555;
         }
 
-<<<<<<< HEAD
-        .swiper {
-            width: 100%;
-            height: 400px;
-        }
-
-        .swiper-slide,
-=======
->>>>>>> 0585c2efd4a312e382b76ff448c1cdd971f708ca
         .slide-pop {
             cursor: pointer;
         }
@@ -355,11 +346,7 @@
             </div>
             <div class="cs-height_50 cs-height_lg_30"></div>
             <div class="row wow fadeIn" data-wow-duration="1s" data-wow-delay="0.4s">
-<<<<<<< HEAD
-                <div class="col-lg-6 col-sm-6 m1">
-=======
                 <div class="col-lg-6 col-sm-6 p-2">
->>>>>>> 0585c2efd4a312e382b76ff448c1cdd971f708ca
                     <div id="swiper-photo" class="swiper">
                         <!-- Additional required wrapper -->
                         <div class="swiper-wrapper">
@@ -388,11 +375,7 @@
                         <div class="swiper-scrollbar"></div>
                     </div>
                 </div>
-<<<<<<< HEAD
-                <div class="col-lg-6 col-sm-6 m1">
-=======
                 <div class="col-lg-6 col-sm-6 p-2">
->>>>>>> 0585c2efd4a312e382b76ff448c1cdd971f708ca
                     <div id="swiper-video" class="swiper">
                         <!-- Additional required wrapper -->
                         <div class="swiper-wrapper">
