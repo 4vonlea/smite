@@ -85,11 +85,12 @@
             justify-content: center;
         }
 
-        #modal-gallery .modal-title {
-            position: relative;
-            color: #F5F5F5;
-            top: 10px;
-            right: 10px;
+        #modal-gallery .swiper {
+            width: 100%;
+        }
+
+        .swiper-slide {
+            display: flex;
         }
 
         /* #modal-gallery .swiper-slide {
@@ -1495,7 +1496,7 @@
 
     <!-- Modal -->
     <div class="modal fade" id="modal-gallery" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog d-flex justify-content-center align-items-center p3">
+        <div class="modal-dialog d-flex justify-content-center align-items-center">
             <div class="modal-content">
                 <div class="modal-title text-end">
                     <button type="button" class="btn btn-info" data-bs-dismiss="modal" aria-label="Close">

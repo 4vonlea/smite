@@ -14,6 +14,11 @@ class Migration_upload_video_multiple extends CI_Migration
                 'type' => 'text',
             ],
         ]);
+        $this->dbforge->add_column("upload_video", [
+            'position' => [
+                'type' => 'int',
+            ],
+        ]);
     }
 
     public function down()
