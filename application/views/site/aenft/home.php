@@ -822,10 +822,10 @@
                 <div class="card-cp">
                     <div class="name-tag text-center">
                         <img src="<?= base_url('themes/aenft'); ?>/assets/img/cs/cs1.png" alt="">
-                        <h5>Registrasi</h5>
+                        <h5>Registration</h5>
                     </div>
                     <div class="overlay text-center">
-                        <h5 class="mb-2">Registrasi</h5><br>
+                        <h5 class="mb-2">Registration</h5><br>
                         <a href="http://wa.me/6282140805759" target="_BLANK" class="btn btn-sm btn-primary mt-1"><i class="fa-brands fa-whatsapp"></i> dr. Yuna</a><br>
                     </div>
                 </div>
@@ -852,11 +852,11 @@
                 <div class="card-cp">
                     <div class="name-tag text-center">
                         <img src="<?= base_url('themes/aenft'); ?>/assets/img/cs/cs4.png" alt="">
-                        <h5>Sekretariat</h5>
+                        <h5>Secretariat</h5>
                     </div>
                     <div class="overlay text-center">
-                        <h5 class="mb-2">Sekretariat</h5><br>
-                        <a href="http://wa.me/6281575099960" target="_BLANK" class="btn btn-sm btn-primary mt-1"><i class="fa-brands fa-whatsapp"></i> dr. Rahmi Ardhini, Sp.S(K)</a><br>
+                        <h5 class="mb-2">Secretariat</h5><br>
+                        <a href="#" target="_BLANK" class="btn btn-sm btn-primary mt-1"><i class="fa-brands fa-whatsapp"></i> dr. Rahmi Ardhini, Sp.S(K) 081575099960</a><br>
                     </div>
                 </div>
             </div>
