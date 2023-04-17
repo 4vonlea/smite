@@ -119,10 +119,10 @@ class Upload_video extends Admin_Controller
 				$response['message'] = $uploadError;
 				$response['data'] = $uploadData;
 			} else {
-				$tempFile = json_decode($model->filename) ?? [];
 				$tempFile[$index] = $this->input->post("file");
 				$response['data']['path'] = $this->input->post("file");
 			}
+			$response['list'] = $tempFile;
 			$model->filename = json_encode($tempFile);
 			$model->save();
 		}

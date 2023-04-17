@@ -19,7 +19,7 @@ class Upload_video_m extends MY_Model
     public function rules()
     {
         return [
-            ['field' => 'filename', 'label' => 'Video/Image', 'rules' => 'required|max_length[100]'],
+            ['field' => 'filename', 'label' => 'Video/Image', 'rules' => 'required'],
             ['field' => 'title', 'label' => 'Title', 'rules' => 'required|max_length[250]'],
             ['field' => 'type', 'label' => 'Type', 'rules' => 'required'],
             ['field' => 'uploader', 'label' => 'Contestant', 'rules' => 'required|max_length[100]'],

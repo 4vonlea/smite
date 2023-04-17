@@ -82,13 +82,19 @@
         #modal-gallery .modal-content {
             background: transparent !important;
             border: none;
+            justify-content: center;
         }
 
-        #modal-gallery .swiper {
-            width: 90vw;
-            padding-top: 50px;
-            padding-bottom: 50px;
+        #modal-gallery .modal-title {
+            position: relative;
+            color: #F5F5F5;
+            top: 10px;
+            right: 10px;
         }
+
+        /* #modal-gallery .swiper-slide {
+            max-height: 90vh;
+        } */
     </style>
 </head>
 
@@ -354,7 +360,7 @@
                                 <?php else : foreach ($videoAndPhoto['photo'] as $photo) : ?>
                                     <div class="swiper-slide slide-pop">
                                         <div class="title" data-swiper-parallax="-300"><?= $photo['title']; ?></div>
-                                        <img src="<?= base_url('themes/uploads/video') . "/" . $photo['filename']; ?>" data-list='<?=$photo['list'];?>' />
+                                        <img src="<?= base_url('themes/uploads/video') . "/" . $photo['filename']; ?>" data-list='<?= $photo['list']; ?>' />
                                     </div>
                                 <?php endforeach; ?>
                             <?php endif; ?>
@@ -1491,7 +1497,13 @@
     <div class="modal fade" id="modal-gallery" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog d-flex justify-content-center align-items-center p3">
             <div class="modal-content">
-
+                <div class="modal-title text-end">
+                    <button type="button" class="btn btn-info" data-bs-dismiss="modal" aria-label="Close">
+                        X
+                    </button>
+                </div>
+                <div class="modal-body">
+                </div>
             </div>
         </div>
     </div>
@@ -1538,7 +1550,7 @@
 
                         }
                     }
-                    $("#modal-gallery .modal-dialog .modal-content").html(childrenClone);
+                    $("#modal-gallery .modal-dialog .modal-content .modal-body").html(childrenClone);
                     new Swiper("#swiper-popup", {
                         mode: 'horizontal',
                         height: '600px',
