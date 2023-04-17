@@ -10,7 +10,7 @@
     <!-- Favicon Icon -->
     <link rel="icon" href="<?= base_url('themes/aenft'); ?>/assets/img/konas/logo.png" />
     <!-- Site Title -->
-    <title>KONAS XI PERDOSSI 2023 SEMARANG</title>
+    <title>NATIONAL CONGRESS OF INDONESIAN NEUROLOGY ASSOCIATION 2023 SEMARANG</title>
     <link rel="stylesheet" href="<?= base_url('themes/aenft'); ?>/assets/css/plugins/bootstrap.min.css">
     <link rel="stylesheet" href="<?= base_url('themes/aenft'); ?>/assets/css/plugins/slick.css">
     <link rel="stylesheet" href="<?= base_url('themes/aenft'); ?>/assets/css/plugins/animate.css">
@@ -44,7 +44,8 @@
             height: 400px;
         }
 
-        #news .swiper-slide {
+        .swiper-slide,
+        .slide-pop {
             cursor: pointer;
         }
 
@@ -58,6 +59,13 @@
             background-color: rgba(0, 0, 0, 0.5);
             padding: 3px;
             border-radius: 3px;
+        }
+
+        .swiper-slide .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
 
         .countdown-section {
@@ -119,7 +127,7 @@
                     <div class="cs-main_header_right">
                         <div class="cs-toolbox">
                             <a href="<?= base_url('member/register'); ?>" class="cs-btn cs-btn_filed cs-accent_btn">
-                                <i class="fa-solid fa-clipboard-user"></i>&nbsp;<span><?= lang("registration"); ?></span>
+                                <i class="fa-solid fa-clipboard-user"></i>&nbsp;<span>Registration</span>
                             </a>
                         </div>
                         <!-- <div class="dropdown ms-2">
@@ -178,17 +186,40 @@
                 <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/logo.png" style="width: 100%; max-width: 320px; height: auto;">
             </div>
             <div class="cs-hero_text wow fadeIn" data-wow-duration="1s" data-wow-delay="0.45s" style="margin-top: -50px;">
-                <h1 class="cs-hero_title text-uppercase cs-font_60 cs-font_36_sm cs-bold">KONAS XI PERDOSSI 2023 SEMARANG</h1>
+                <h3 class="cs-hero_title text-uppercase cs-font_40 cs-font_36_sm cs-bold">NATIONAL CONGRESS OF INDONESIAN NEUROLOGY ASSOCIATION 2023 SEMARANG</h3>
                 <!--<h3 class="cs-hero_subtitle cs-font_20 cs-font_16_sm cs-body_line_height">In Conjunction with</h3><br>
                 <blockquote>
                     <h2 class="cs-hero_secondary_title cs-font_40 cs-font_24_sm">The 17th International Congress of <br> Asian Society Againts Dementia (ASAD)</h2>
                 </blockquote>-->
-                <h3 class="cs-hero_subtitle cs-font_22 cs-font_18_sm cs-body_line_height">2 - 6 Agustus 2023</h3>
-                <div class="cs-btn_group">
+                <h3 class="cs-hero_subtitle cs-font_22 cs-font_18_sm cs-body_line_height">2 - 6 August 2023</h3>
+                <!--<div class="cs-btn_group">
                     <a href="https://drive.google.com/file/d/1-W3ZyKGKAtLteoR7JQrkgQam-RzYvgfJ/view?usp=share_link" class="btn btn-primary btn-round">
                         <i class="fa fa-info-circle"></i>
                         <span>Open Registration in January 2023, Download First Announcement (Update 19 January 2023)</span>
                     </a>
+                </div>-->
+                <div class="row mt-5">
+                    <div class="col-lg-12 wow fadeIn" data-wow-duration="1s" data-wow-delay="0.2s">
+                        <div class="cs-iconbox cs-style1 cs-white_bg text-center">
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-12 mb-4">
+                                    <h3 class="cs-iconbox_title cs-font_28 cs-font_22_sm cs-m0">Abstract Countdown</h3>
+                                    <div class="cs-height_10 cs-height_lg_10"></div>
+                                    <div class="cs-iconbox_subtitle">(<?= date_format($papercountdown, "F d, Y"); ?>)</div>
+                                    <div class="cs-height_10 cs-height_lg_10"></div>
+                                    <div class="de_countdown h4 cs-iconbox_icon cs-font_26 cs-font_20_sm cs-m0" data-year="<?= date_format($papercountdown, "Y"); ?>" data-month="<?= date_format($papercountdown, "m"); ?>" data-day="<?= date_format($papercountdown, "d"); ?>" data-hour="<?= date_format($papercountdown, "H"); ?>"></div>
+                                </div>
+                                <div class="col-lg-6 col-sm-12 mb-4">
+                                    <h3 class="cs-iconbox_title cs-font_28 cs-font_22_sm cs-m0">Event Countdown</h3>
+                                    <div class="cs-height_10 cs-height_lg_10"></div>
+                                    <div class="cs-iconbox_subtitle">(<?= date_format($eventcountdown, "F d, Y"); ?>)</div>
+                                    <div class="cs-height_10 cs-height_lg_10"></div>
+                                    <div class="de_countdown h4 cs-iconbox_icon cs-font_26 cs-font_20_sm cs-m0" data-year="<?= date_format($eventcountdown, "Y"); ?>" data-month="<?= date_format($eventcountdown, "m"); ?>" data-day="<?= date_format($eventcountdown, "d"); ?>" data-hour="<?= date_format($eventcountdown, "H"); ?>"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cs-height_25 cs-height_lg_25"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -300,11 +331,11 @@
         <div class="container">
             <div class="cs-seciton_heading cs-style1 text-uppercase wow fadeInUp text-center" data-wow-duration="1s" data-wow-delay="0.2s">
                 <h3 class="cs-section_title cs-font_16 cs-font_14_sm cs-gradient_color">News</h3>
-                <h2 class="cs-section_subtitle cs-m0 cs-font_36 cs-font_24_sm">Recent Update</h2>
+                <h2 class="cs-section_subtitle cs-m0 cs-font_36 cs-font_24_sm">2nd Announcement and Invitation Video</h2>
             </div>
             <div class="cs-height_50 cs-height_lg_30"></div>
             <div class="row wow fadeIn" data-wow-duration="1s" data-wow-delay="0.4s">
-                <div class="col-lg-6 col-sm-6">
+                <div class="col-lg-6 col-sm-6 m1">
                     <div id="swiper-photo" class="swiper">
                         <!-- Additional required wrapper -->
                         <div class="swiper-wrapper">
@@ -333,7 +364,7 @@
                         <div class="swiper-scrollbar"></div>
                     </div>
                 </div>
-                <div class="col-lg-6 col-sm-6">
+                <div class="col-lg-6 col-sm-6 m1">
                     <div id="swiper-video" class="swiper">
                         <!-- Additional required wrapper -->
                         <div class="swiper-wrapper">
@@ -346,7 +377,10 @@
                                 <?php else : foreach ($videoAndPhoto['video'] as $in => $video) : ?>
                                     <div class="swiper-slide">
                                         <div class="title" data-swiper-parallax="-300"><?= $video['title']; ?></div>
-                                        <video style="width:100%" src="<?= base_url('themes/uploads/video') . "/" . $video['filename']; ?>" preload="none"></video>
+                                        <span class="play-button">
+                                            <i class="fa fa-circle-play fa-4x"></i>
+                                        </span>
+                                        <video style="width:100%" poster="<?= base_url($video['thumbs']); ?>" src="<?= base_url('themes/uploads/video') . "/" . $video['filename']; ?>" preload="none"></video>
                                     </div>
                                 <?php endforeach; ?>
                             <?php endif; ?>
@@ -370,7 +404,7 @@
 
     </section>
 
-    <div class="cs-height_50 cs-height_lg_20"></div>
+    <!-- <div class="cs-height_50 cs-height_lg_20"></div>
     <section>
         <div class="container">
             <div class="row">
@@ -397,7 +431,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 
     <div class="cs-height_50 cs-height_lg_20"></div>
 
@@ -411,11 +445,6 @@
                 <?php foreach ($eventsList as $groupEvent) : ?>
                     <button class="accordion mt-2">
                         <?= $groupEvent['heldOn']; ?> (<?= $groupEvent['kategory']; ?>)
-                        <?php if ($groupEvent['held']['startDate'] == $groupEvent['held']['endDate']) : ?>
-                            | Countdown :
-                            <span class="de_countdown cs-iconbox_icon cs-font_26 cs-font_20_sm cs-m0" data-year="<?= $groupEvent['held']['startDate']->format("Y"); ?>" data-month="<?= $groupEvent['held']['startDate']->format("m"); ?>" data-day="<?= $groupEvent['held']['startDate']->format("d"); ?>" data-hour="0">
-                            </span>
-                        <?php endif; ?>
                     </button>
                     <div class="accordion-content">
                         <div class="table-responsive">
@@ -454,10 +483,10 @@
 
     <section id="registration" class="cs-bg p-5" data-src="<?= base_url('themes/aenft'); ?>/assets/img/konas/img4.jpg">
         <div class="container wow fadeIn" data-wow-duration="1s" data-wow-delay="0.2s">
-            <h2 class="cs-section_subtitle cs-m0 cs-font_36 cs-font_24_sm text-uppercase text-center mb-5">Masuk / Registrasi</h2>
+            <h2 class="cs-section_subtitle cs-m0 cs-font_36 cs-font_24_sm text-uppercase text-center mb-5">Sign in / Registration</h2>
             <div class="row">
                 <div class="col-lg-6 text-center mb-4">
-                    <h4>Masuk Login</h4>
+                    <h4>Login</h4>
                     <form name="contactForm" id="contact_form" class="form-border" method="post" action="<?= base_url('site/login'); ?>">
                         <?php if (!$hasSession) : ?>
                             <div class="field-set mb-2">
@@ -466,40 +495,40 @@
                             <div class="field-set mb-2">
                                 <input type="password" name="password" id="password" class="form-control" placeholder="Password">
                             </div>
-                            <a href="<?= base_url('site/forget'); ?>" class="mb-2">Lupa Password ?</a>
+                            <a href="<?= base_url('site/forget'); ?>" class="mb-2">Forgot Password ?</a>
                         <?php endif; ?>
 
                         <div class="d-grid">
                             <button type="submit" name="login" value="login" class="btn btn-round btn-primary mt-2">
-                                <span> <?= $hasSession ? "Back To Member Area" : "<i class='fa-solid fa-sign-in'></i> Sign in / Masuk"; ?></span>
+                                <span> <?= $hasSession ? "Back To Member Area" : "<i class='fa-solid fa-sign-in'></i> Click to Sign in "; ?></span>
                             </button>
                             <br>
                         </div>
                     </form>
                 </div>
                 <div class="col-lg-6">
-                    <h4 class="text-center">Cara Pendaftaran</h4>
+                    <h4 class="text-center">Registration Step</h4>
                     <p>
                     <ol>
-                        <li>Klik <b>Registrasi dibawah</b>, dan isi profil anda</li>
-                        <li>Pilih kegiatan yang ini diikuti</li>
-                        <li>Lakukan pembayaran secara online</li>
-                        <li>Bukti Pembayaran dan Registrasi akan dikirimkan via email. Mohon dibawa saat registrasi ulang</li>
+                        <li>Click <b>Registration button below</b>, and fill your profile</li>
+                        <li>Choose your event</li>
+                        <li>Make your payment</li>
+                        <li>Registration proof will be sent by email. Please bring it upon re-registration</li>
                     </ol>
                     </p>
                     <p class="mt-minus2"><i class="fa-solid fa-envelope circle-icon"></i>1 Email per Account</p>
-                    <p class="mt-minus2"><i class="fa-solid fa-id-card circle-icon"></i>Sertifikat akan dikirimkan melalui Email</p>
+                    <p class="mt-minus2"><i class="fa-solid fa-id-card circle-icon"></i>certificate will be sent by Email</p>
                 </div>
             </div>
             <div class="row mt-3">
                 <div class="col-lg-6 col-md-6 mb-2">
                     <div class="d-grid text-center">
-                        <a href="<?= base_url('member/register'); ?>" class="cs-btn cs-btn_filed btn-col"><span> <i class="fa-solid fa-clipboard-user"></i> Registrasi Individu</span> </a>
+                        <a href="<?= base_url('member/register'); ?>" class="cs-btn cs-btn_filed btn-col"><span> <i class="fa-solid fa-clipboard-user"></i> Individual Registration </span> </a>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <div class="d-grid text-center">
-                        <a href="<?= base_url('member/register/group'); ?>" class="cs-btn cs-btn_filed btn-col"><span> <i class="fa-solid fa-user-group"></i> Registrasi Grup / Kelompok</span> </a>
+                        <a href="<?= base_url('member/register/group'); ?>" class="cs-btn cs-btn_filed btn-col"><span> <i class="fa-solid fa-user-group"></i> Group Registration</span> </a>
                     </div>
                 </div>
             </div>
@@ -514,11 +543,11 @@
                 <h2 class="cs-section_subtitle cs-m0 cs-font_36 cs-font_24_sm">Tutorial</h2>
             </div>
             <div class="wow fadeIn" data-wow-duration="1s" data-wow-delay="0.2s">
-                <button class="accordion mt-4">Video Registrasi menggunakan pembayaran online</button>
+                <button class="accordion mt-4">Individual Registration and Online Payment </button>
                 <div class="accordion-content">
                     <embed src="https://drive.google.com/file/d/1AAbZZ9lENoCZlWRzrPogUTe4Tb_9VyKg/preview" width="100%" height="600px" align="center" allow="autoplay" class="mt-3 mb-3"></embed>
                 </div>
-                <button class="accordion mt-2">Video Registrasi secara berkelompok</button>
+                <button class="accordion mt-2">Group Registration and Online Payment</button>
                 <div class="accordion-content">
                     <embed src="https://drive.google.com/file/d/19zy8NB9nZo5Q7ctjQ_bQb0WwZkVxYqeq/preview" width="100%" height="600px" align="center" allow="autoplay" class="mt-3 mb-3"></embed>
                 </div>
@@ -526,7 +555,7 @@
                 <div class="accordion-content">
                     <embed src="#" width="100%" height="600px" align="center" allow="autoplay" class="mt-3 mb-3"></embed>
                 </div>-->
-                <button class="accordion mt-2">Video Tutorial Submisi Abstrak</button>
+                <button class="accordion mt-2">Submit abstract</button>
                 <div class="accordion-content">
                     <embed src="https://drive.google.com/file/d/1A1ptqak2pL9YLsK9GdHsQ5Kp5YUWlyQN/preview" width="100%" height="600px" align="center" allow="autoplay" class="mt-3 mb-3"></embed>
                 </div>
@@ -540,24 +569,25 @@
         <div class="cs-height_70 cs-height_lg_40"></div>
         <div class="container">
             <div class="cs-seciton_heading cs-style1 text-uppercase text-center wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s">
-                <h3 class="cs-section_title cs-font_16 cs-font_14_sm cs-gradient_color">Informasi</h3>
-                <h2 class="cs-section_subtitle cs-m0 cs-font_36 cs-font_24_sm">Kegiatan</h2>
+                <h3 class="cs-section_title cs-font_16 cs-font_14_sm cs-gradient_color">Information</h3>
+                <h2 class="cs-section_subtitle cs-m0 cs-font_36 cs-font_24_sm">Important Info</h2>
             </div>
 
             <div class="row mt-4 mb-2">
                 <div class="event-filter wow fadeIn" data-wow-duration="1s" data-wow-delay="0.2s">
-                    <span class="filter-item active" data-filter="tanggal">Tanggal Penting</span>
-                    <span class="filter-item" data-filter="faq">faq</span>
-                    <span class="filter-item" data-filter="jadwal">Jadwal Kegiatan</span>
-                    <span class="filter-item" data-filter="pedoman">Pedoman Ilmiah</span>
-                    <span class="filter-item" data-filter="panitia">Kepanitiaan</span>
+                    <!-- <span class="filter-item active" data-filter="tanggal">Tanggal Penting</span> -->
+                    <span class="filter-item active" data-filter="faq">faq</span>
+                    <!-- <span class="filter-item" data-filter="jadwal">Jadwal Kegiatan</span> -->
+                    <span class="filter-item" data-filter="poster">Poster</span>
+                    <!-- <span class="filter-item" data-filter="panitia">Kepanitiaan</span> -->
                     <span class="filter-item" data-filter="explore">Explore Semarang</span>
                     <span class="filter-item" data-filter="ladpro">Ladies Program</span>
                     <span class="filter-item" data-filter="neuro">Neurotech Competition</span>
-                    <span class="filter-item" data-filter="sertifikat">Sertifikat</span>
+                    <span class="filter-item" data-filter="certificate">Certificate</span>
+                    <span class="filter-item" data-filter="com_service">Community Service</span>
                 </div>
             </div>
-            <div class="event-item tanggal">
+            <!-- <div class="event-item tanggal">
                 <div class="wow fadeIn" data-wow-duration="1s" data-wow-delay="0.2s">
                     <div class="cs-iconbox cs-style1 cs-white_bg">
                         <h4>Tanggal Penting</h4>
@@ -570,25 +600,25 @@
                         </ul>
                     </div>
                 </div>
-            </div>
-            <div class="event-item faq hide">
+            </div> -->
+            <div class="event-item faq">
                 <div class="cs-iconbox cs-style1 cs-white_bg">
                     <h4>FAQ</h4>
                     <hr class="mb-4">
                     <ul>
                         <li>
-                            <i class="fa-solid fa-info-circle"></i> Apakah kegiatan ini dilakukan secara daring atau luring?<br>
-                            - Kegiatan ini dilakukan secara luring di Padma Hotel, Semarang
+                            <i class="fa-solid fa-info-circle"></i> Is this event online or offline?<br>
+                            - This event is offline at Padma Hotel, Semarang
                         </li>
                         <li>
-                            <i class="fa-solid fa-info-circle"></i> Bagaimana caranya login?<br>
-                            - Login menggunakan email user yang telah terdaftar di web https://kongresnasionalperdosni2023.com dengan password masing-masing.
+                            <i class="fa-solid fa-info-circle"></i> How to login?<br>
+                            - Login by your email after completing your registration at web https://konasperdossi2023.com with your own password.
                         </li>
                         <li>
-                            <i class="fa-solid fa-info-circle"></i> Bagaimana jika saya lupa password?<br>
-                            - Jika Anda lupa kata sandi Anda, silakan klik bagian Lupa Kata Sandi pada halaman login, dan masukkan email Anda yang terdaftar, lalu klik Atur Ulang. Password baru akan dikirimkan ke email yang dimasukkan saat proses reset.
+                            <i class="fa-solid fa-info-circle"></i> What if i forgot my password?<br>
+                            - Please click "forgot password" button. New Password will be delivered to your email.
                         </li>
-                        <li>
+                        <!--<li>
                             <i class="fa-solid fa-info-circle"></i> Saya tidak mengetahui username saya?<br>
                             - Silakan lakukan pencarian di inbox email dengan kata kunci: KONGRES PERDOSNI 2023 untuk mengetahui notifikasi username anda saat selesai mendaftar
                         </li>
@@ -599,31 +629,50 @@
                         <li>
                             <i class="fa-solid fa-info-circle"></i> Saya bukan peserta acara ini, tapi saya pembicara/moderator/juri di acara ini, bagaimana cara login?<br>
                             - Untuk pembicara, moderator, dan juri, kami telah mengirimkan akses akun yang dibuat secara otomatis ke email dokter Anda. Silakan periksa kotak masuk/spam Anda dan coba akses situs web kami dengan akun tersebut.
-                        </li>
+                        </li>-->
                     </ul>
                 </div>
             </div>
-            <div class="event-item jadwal hide">
+            <!-- <div class="event-item jadwal hide">
                 <div class="cs-iconbox cs-style1 cs-white_bg">
                     <h4>Jadwal Acara</h4>
                     <hr class="mb-4">
                     <a href="<?= base_url('themes/aenft'); ?>/assets/pdf/jadwal.pdf" target="_blank" class="btn btn-info btn-round"><i class="fa-solid fa-calendar-check"></i> Jadwal Acara</a>
                 </div>
-            </div>
-            <div class="event-item pedoman hide">
+            </div> -->
+            <div class="event-item poster hide">
                 <div class="cs-iconbox cs-style1 cs-white_bg">
-                    <h4>Pedoman Ilmiah</h4>
+                    <h4>Poster</h4>
                     <hr class="mb-4">
-                    <a href="https://drive.google.com/file/d/1uszw547D0P1CRhoHMOFEFvk4-hzQEyc8/view?usp=share_link" target="_blank" class="btn btn-success btn-round"><i class="fa-solid fa-chart-gantt"></i> Ketentuan Oral dan E-poster (23 Feb 2023)</a>
+                    <!-- <a href="https://drive.google.com/file/d/1uszw547D0P1CRhoHMOFEFvk4-hzQEyc8/view?usp=share_link" target="_blank" class="btn btn-success btn-round"><i class="fa-solid fa-chart-gantt"></i> Ketentuan Oral dan E-poster (23 Feb 2023)</a> -->
+                    <div id="posterSlide" class="carousel slide" data-bs-ride="carousel">
+
+                        <!-- The slideshow/carousel -->
+                        <div class="carousel-inner text-center">
+                            <div class="carousel-item slide-pop active">
+                                <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/poster1.png" class="mt-3" width="50%"></img>
+                            </div>
+                            <div class="carousel-item slide-pop">
+                                <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/poster2.png" class="mt-3" width="50%"></img>
+                            </div>
+                        </div>
+                        <!-- Left and right controls/icons -->
+                        <button class="carousel-control-prev" type="button" data-bs-target="#posterSlide" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon"></span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#posterSlide" data-bs-slide="next">
+                            <span class="carousel-control-next-icon"></span>
+                        </button>
+                    </div>
                 </div>
             </div>
-            <div class="event-item panitia hide">
+            <!-- <div class="event-item panitia hide">
                 <div class="cs-iconbox cs-style1 cs-white_bg">
                     <h4>Kepanitiaan KONSI XI PERDOSSI 2023 SEMARANG</h4>
                     <hr class="mb-4">
                     <embed src="<?= base_url('themes/aenft'); ?>/assets/pdf/panitia.pdf" width="100%" height="600px" align="center"></embed>
                 </div>
-            </div>
+            </div> -->
             <div class="event-item explore hide">
                 <div class="cs-iconbox cs-style1 cs-white_bg">
                     <h4>EXPLORING SEMARANG</h4>
@@ -648,23 +697,23 @@
 
             <div class="event-item ladpro hide">
                 <div class="cs-iconbox cs-style1 cs-white_bg">
-                    <h4>Ladies Program KONAS PERDOSSI</h4>
+                    <h4>Ladies Program</h4>
                     <hr class="mb-4">
-                    <i class="fa-solid fa-info-circle"></i> Waktu Kegiatan : <b>Sabtu, 5 Agustus 2023</b><br>
+                    <i class="fa-solid fa-info-circle"></i> Date : <b>Saturday, 5th August 2023</b><br>
                     <div class="my-2"></div>
 
                     <i class="fa-solid fa-info-circle"></i> <b>Term and Condition :</b>
                     <ol class="mb-2 mt-1" style="padding-left: 40px;">
-                        <li>Peserta Ladies Program <b>mendaftar</b> melalui akun peserta KONAS di website <b>konasperdossi2023.com</b> (mencantumkan nama peserta dan kontak yang dapat dihubungi)</li>
-                        <li>Peserta Ladies Program <b>maksimal 2 orang</b> terdaftar dari setiap akun peserta KONAS</li>
-                        <li>Ladies Program akan diselenggarakan jika memenuhi <b>kuota minimal 50 orang</b></li>
+                        <li>Please register by using your account at website <b>konasperdossi2023.com</b> (please add phone number)</li>
+                        <li>Each participant account has the right to register 1 person as a participant in the Ladies Program.</li>
+                        <li>Ladies Program will be run if minimum 50 participant is reached</li>
                     </ol>
-                    <i class="fa-solid fa-info-circle"></i> <b>Lokasi Wisata :</b><br>
+                    <i class="fa-solid fa-info-circle"></i> <b>Destination :</b><br>
                     <div id="ladproSlide" class="carousel slide" data-bs-ride="carousel">
 
                         <!-- The slideshow/carousel -->
                         <div class="carousel-inner text-center">
-                            <div class="carousel-item active">
+                            <div class="carousel-item slide-pop active">
                                 <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/ladpro.png" class="mt-3" width="50%"></img>
                             </div>
                         </div>
@@ -688,8 +737,23 @@
 
                         <!-- The slideshow/carousel -->
                         <div class="carousel-inner text-center">
-                            <div class="carousel-item active">
+                            <div class="carousel-item slide-pop active">
                                 <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/neuro_competition.png" class="mt-3" width="50%"></img>
+                            </div>
+                            <div class="carousel-item slide-pop">
+                                <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/neurotech1.png" class="mt-3" width="50%"></img>
+                            </div>
+                            <div class="carousel-item slide-pop">
+                                <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/neurotech2.png" class="mt-3" width="50%"></img>
+                            </div>
+                            <div class="carousel-item slide-pop">
+                                <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/neurotech3.png" class="mt-3" width="50%"></img>
+                            </div>
+                            <div class="carousel-item slide-pop">
+                                <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/neurotech4.png" class="mt-3" width="50%"></img>
+                            </div>
+                            <div class="carousel-item slide-pop">
+                                <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/neurotech5.jpg" class="mt-3" width="50%"></img>
                             </div>
                         </div>
                         <!-- Left and right controls/icons -->
@@ -703,17 +767,43 @@
                 </div>
             </div>
 
-            <div class="event-item sertifikat hide">
+            <div class="event-item certificate hide">
                 <div class="cs-iconbox cs-style1 cs-white_bg">
-                    <h4>Sertifikat</h4>
+                    <h4>Certificate (will be available after event)</h4>
                     <hr class="mb-4">
-                    <a href="https://konasperdossi2023.com/certificate/claim" target="_blank" class="btn btn-success btn-round"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-certificate" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <a href="https://konasperdossi2023.com/certificate/claim" target="_blank" class="btn btn-success btn-round">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-certificate" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
                             <path stroke="none" d="M0 0h24v24H0z" fill="none" />
                             <path d="M14 3v4a1 1 0 0 0 1 1h4" />
                             <path d="M5 8v-3a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2h-5" />
                             <circle cx="6" cy="14" r="3" />
                             <path d="M4.5 17l-1.5 5l3 -1.5l3 1.5l-1.5 -5" />
-                        </svg> Klaim Sertifikat</a>
+                        </svg>
+                        Claim Certificate
+                    </a>
+                </div>
+            </div>
+
+            <div class="event-item com_service hide">
+                <div class="cs-iconbox cs-style1 cs-white_bg">
+                    <h4>Community Service</h4>
+                    <hr class="mb-4">
+                    <div id="comSlider" class="carousel slide" data-bs-ride="carousel">
+
+                        <!-- The slideshow/carousel -->
+                        <div class="carousel-inner text-center">
+                            <div class="carousel-item slide-pop active">
+                                <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/community_service.png" class="mt-3" width="50%"></img>
+                            </div>
+                        </div>
+                        <!-- Left and right controls/icons -->
+                        <button class="carousel-control-prev" type="button" data-bs-target="#comSlider" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon"></span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#comSlider" data-bs-slide="next">
+                            <span class="carousel-control-next-icon"></span>
+                        </button>
+                    </div>
                 </div>
             </div>
 
@@ -732,10 +822,10 @@
                 <div class="card-cp">
                     <div class="name-tag text-center">
                         <img src="<?= base_url('themes/aenft'); ?>/assets/img/cs/cs1.png" alt="">
-                        <h5>Registrasi</h5>
+                        <h5>Registration</h5>
                     </div>
                     <div class="overlay text-center">
-                        <h5 class="mb-2">Registrasi</h5><br>
+                        <h5 class="mb-2">Registration</h5><br>
                         <a href="http://wa.me/6282140805759" target="_BLANK" class="btn btn-sm btn-primary mt-1"><i class="fa-brands fa-whatsapp"></i> dr. Yuna</a><br>
                     </div>
                 </div>
@@ -762,11 +852,11 @@
                 <div class="card-cp">
                     <div class="name-tag text-center">
                         <img src="<?= base_url('themes/aenft'); ?>/assets/img/cs/cs4.png" alt="">
-                        <h5>Sekretariat</h5>
+                        <h5>Secretariat</h5>
                     </div>
                     <div class="overlay text-center">
-                        <h5 class="mb-2">Sekretariat</h5><br>
-                        <a href="#" target="_BLANK" class="btn btn-sm btn-primary mt-1"><i class="fa-brands fa-whatsapp"></i> dr. Rahmi</a><br>
+                        <h5 class="mb-2">Secretariat</h5><br>
+                        <a href="#" target="_BLANK" class="btn btn-sm btn-primary mt-1"><i class="fa-brands fa-whatsapp"></i> dr. Rahmi Ardhini, Sp.S(K) 081575099960</a><br>
                     </div>
                 </div>
             </div>
@@ -810,7 +900,7 @@
         <div class="container">
             <div class="cs-seciton_heading cs-style1 text-uppercase wow fadeInUp text-center" data-wow-duration="1s" data-wow-delay="0.2s">
                 <!-- <h3 class="cs-section_title cs-font_16 cs-font_14_sm cs-gradient_color">Daftar Hotel</h3> -->
-                <h2 class="cs-section_subtitle cs-m0 cs-font_36 cs-font_24_sm">Daftar Hotel </h2>
+                <h2 class="cs-section_subtitle cs-m0 cs-font_36 cs-font_24_sm">Hotel List</h2>
             </div>
             <div class="cs-height_25 cs-height_lg_25"></div>
             <div class="row wow fadeIn" data-wow-duration="1s" data-wow-delay="0.4s">
@@ -834,7 +924,7 @@
                         <td align="center">
                             <div class="cs-member_thumb">
                                 <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#venue">
-                                    <i class="i-col fa-solid fa-building-circle-check wow pulse" data-wow-iteration="infinite" data-wow-duration="1500ms"></i> Lokasi
+                                    <i class="i-col fa-solid fa-building-circle-check wow pulse" data-wow-iteration="infinite" data-wow-duration="1500ms"></i>#
                                 </a>
                             </div>
                         </td>
@@ -852,14 +942,14 @@
                         </td>
                         <td>
                             <span class="text-white">
-                                Jarak ke Venue : <span class="fw-bold">1,4 km</span><br>
-                                <span class="fw-bold">± 4 menit</span> berkendara
+                                Distance to Venue : <span class="fw-bold">1,4 km</span><br>
+                                <span class="fw-bold">± 4 minutes</span> by vehicle
                             </span>
                         </td>
                         <td align="center">
                             <div class="cs-member_thumb">
                                 <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#hotel1">
-                                    <i class="i-col fa-solid fa-building-circle-check wow pulse" data-wow-iteration="infinite" data-wow-duration="1500ms"></i> Lokasi
+                                    <i class="i-col fa-solid fa-building-circle-check wow pulse" data-wow-iteration="infinite" data-wow-duration="1500ms"></i>#
                                 </a>
                             </div>
                         </td>
@@ -876,14 +966,14 @@
                         </td>
                         <td>
                             <span class="text-white">
-                                Jarak ke Venue : <span class="fw-bold">1,5 km</span><br>
-                                <span class="fw-bold">± 5 menit</span> berkendara
+                                Distance to Venue : <span class="fw-bold">1,5 km</span><br>
+                                <span class="fw-bold">± 5 minutes</span> by vehicle
                             </span>
                         </td>
                         <td align="center">
                             <div class="cs-member_thumb">
                                 <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#hotel2">
-                                    <i class="i-col fa-solid fa-building-circle-check wow pulse" data-wow-iteration="infinite" data-wow-duration="1500ms"></i> Lokasi
+                                    <i class="i-col fa-solid fa-building-circle-check wow pulse" data-wow-iteration="infinite" data-wow-duration="1500ms"></i> #
                                 </a>
                             </div>
                         </td>
@@ -900,14 +990,14 @@
                         </td>
                         <td>
                             <span class="text-white">
-                                Jarak ke Venue : <span class="fw-bold">1,9 km</span><br>
-                                <span class="fw-bold"> 4 menit</span> berkendara
+                                Distance to Venue : <span class="fw-bold">1,9 km</span><br>
+                                <span class="fw-bold"> 4 minutes</span> by vehicle
                             </span>
                         </td>
                         <td align="center">
                             <div class="cs-member_thumb">
                                 <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#hotel3">
-                                    <i class="i-col fa-solid fa-building-circle-check wow pulse" data-wow-iteration="infinite" data-wow-duration="1500ms"></i> Lokasi
+                                    <i class="i-col fa-solid fa-building-circle-check wow pulse" data-wow-iteration="infinite" data-wow-duration="1500ms"></i> #
                                 </a>
                             </div>
                         </td>
@@ -924,14 +1014,14 @@
                         </td>
                         <td>
                             <span class="text-white">
-                                Jarak ke Venue : <span class="fw-bold">3,4 km</span><br>
-                                <span class="fw-bold">± 9 menit</span> berkendara
+                                Distance to Venue : <span class="fw-bold">3,4 km</span><br>
+                                <span class="fw-bold">± 9 minutes</span> by vehicle
                             </span>
                         </td>
                         <td align="center">
                             <div class="cs-member_thumb">
                                 <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#hotel4">
-                                    <i class="i-col fa-solid fa-building-circle-check wow pulse" data-wow-iteration="infinite" data-wow-duration="1500ms"></i> Lokasi
+                                    <i class="i-col fa-solid fa-building-circle-check wow pulse" data-wow-iteration="infinite" data-wow-duration="1500ms"></i> #
                                 </a>
                             </div>
                         </td>
@@ -948,14 +1038,14 @@
                         </td>
                         <td>
                             <span class="text-white">
-                                Jarak ke Venue : <span class="fw-bold">4,9 km</span><br>
-                                <span class="fw-bold"> 9 menit</span> berkendara
+                                Distance to Venue : <span class="fw-bold">4,9 km</span><br>
+                                <span class="fw-bold"> 9 minutes</span> by vehicle
                             </span>
                         </td>
                         <td align="center">
                             <div class="cs-member_thumb">
                                 <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#hotel5">
-                                    <i class="i-col fa-solid fa-building-circle-check wow pulse" data-wow-iteration="infinite" data-wow-duration="1500ms"></i> Lokasi
+                                    <i class="i-col fa-solid fa-building-circle-check wow pulse" data-wow-iteration="infinite" data-wow-duration="1500ms"></i> #
                                 </a>
                             </div>
                         </td>
@@ -974,13 +1064,13 @@
                         <td>
                             <span class="text-white">
                                 Jarak ke Venue : <span class="fw-bold">5,6 km</span><br>
-                                <span class="fw-bold">± 10 menit</span> berkendara
+                                <span class="fw-bold"> 10 minutes</span> by vehicle
                             </span>
                         </td>
                         <td align="center">
                             <div class="cs-member_thumb">
                                 <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#hotel6">
-                                    <i class="i-col fa-solid fa-building-circle-check wow pulse" data-wow-iteration="infinite" data-wow-duration="1500ms"></i> Lokasi
+                                    <i class="i-col fa-solid fa-building-circle-check wow pulse" data-wow-iteration="infinite" data-wow-duration="1500ms"></i> #
                                 </a>
                             </div>
                         </td>
@@ -1121,15 +1211,15 @@
                         <div class="footer-middle-item-wrapper">
                             <div class="footer-middle-item mb-lg-0">
                                 <div class="fm-item-title">
-                                    <h5>Tanggal Penting</h5>
+                                    <h5>Important Dates</h5>
                                     <hr>
                                 </div>
                                 <div class="fm-item-content">
                                     <ul class="mt-3">
                                         <li>Early Registration : Januari - 30 April 2023</li>
-                                        <li>Pengumpulan Abstrak : April - Mei 2023</li>
-                                        <li>Pengumuman Penerimaan Abstrak : 20 Juli 2023</li>
-                                        <li>Late Registration : 1 Mei - 1 Agustus 2023</li>
+                                        <li>Abstract Submission: April - Mei 2023</li>
+                                        <li>Abstract Announcement: 20 Juli 2023</li>
+                                        <li>Regular Registration : 1 Mei - 1 Agustus 2023</li>
                                     </ul>
                                 </div>
                             </div>
@@ -1145,24 +1235,24 @@
                                 <div class="fm-item-content">
                                     <ul class="mt-3">
                                         <li>Neurovascular</li>
-                                        <li>Neurorestorasi</li>
+                                        <li>Neurorestoration</li>
                                         <li>Neurotrauma</li>
                                         <li>Neuropediatri</li>
-                                        <li>Neuroonkologi</li>
+                                        <li>Neurooncology</li>
                                         <li>Sleep disorder</li>
-                                        <li>Neuroinfeksi</li>
-                                        <li>Nyeri Kepala</li>
+                                        <li>Neuroinfection</li>
+                                        <li>Headache</li>
                                         <li>Neurobehavior</li>
-                                        <li>Neurootologi-Neurooftamologi</li>
-                                        <li>Neurointervensi</li>
-                                        <li>Nyeri</li>
+                                        <li>Neurootology-Neuroophtamology</li>
+                                        <li>Neurointervention</li>
+                                        <li>Pain</li>
                                         <li>Neurointensive</li>
-                                        <li>Gangguan Gerak</li>
+                                        <li>Movement Disorder</li>
                                         <li>Neurogeriatri</li>
-                                        <li>Epilepsi</li>
+                                        <li>Epilepsy</li>
                                         <li>Neuroimaging</li>
-                                        <li>Neuroepidemiologi</li>
-                                        <li>Neurofisiologi</li>
+                                        <li>Neuroepidemiology</li>
+                                        <li>Neurophysiology</li>
                                     </ul>
                                 </div>
                             </div>
@@ -1172,20 +1262,20 @@
                         <div class="footer-middle-item-wrapper">
                             <div class="footer-middle-item mb-lg-0">
                                 <div class="fm-item-title">
-                                    <h5>Biaya Registrasi Simposium</h5>
+                                    <h5>Symposium Fee</h5>
                                     <hr>
                                 </div>
                                 <div class="fm-item-content">
                                     <ul class="mt-3">
                                         <b>Early Bird</b> <br>
                                         <li>Spesialist : Rp. 3.500.000</li>
-                                        <li>Dokter Umum/PPDS : Rp. 2.000.000</li>
-                                        <b>Late</b> <br>
+                                        <li>GP/ Resident : Rp. 2.000.000</li>
+                                        <b>Regular</b> <br>
                                         <li>Spesialist : Rp. 4.000.000</li>
-                                        <li>Dokter Umum/PPDS : Rp. 2.250.000</li>
+                                        <li>GP/ Resident : Rp. 2.250.000</li>
                                         <b>Onsite</b> <br>
                                         <li>Spesialist : Rp. 4.500.000</li>
-                                        <li>Dokter Umum/PPDS : Rp. 2.500.000</li>
+                                        <li>GP/ Resident : Rp. 2.500.000</li>
                                     </ul>
                                 </div>
                             </div>
@@ -1195,14 +1285,14 @@
                         <div class="footer-middle-item-wrapper">
                             <div class="footer-middle-item mb-lg-0">
                                 <div class="fm-item-title">
-                                    <h5>Masuk / Registrasi</h5>
+                                    <h5>Login / Registration</h5>
                                     <hr>
                                 </div>
                                 <div class="fm-item-content">
                                     <div class="d-grid">
-                                        <a href="<?= base_url('site/login'); ?>" class="btn btn-primary mt-3"><i class="fa-solid fa-sign-in"></i> Masuk Login</a>
-                                        <a href="<?= base_url('member/register'); ?>" class="btn btn-primary mt-2"><i class="fa-solid fa-clipboard-user"></i> Registrasi Individu</a>
-                                        <a href="<?= base_url('member/register/group'); ?>" class="btn btn-primary mt-2"><i class="fa-solid fa-user-group"></i> Registrasi Grup / Kelompok</a>
+                                        <a href="<?= base_url('site/login'); ?>" class="btn btn-primary mt-3"><i class="fa-solid fa-sign-in"></i> Enter to Login</a>
+                                        <a href="<?= base_url('member/register'); ?>" class="btn btn-primary mt-2"><i class="fa-solid fa-clipboard-user"></i> Individual Registration</a>
+                                        <a href="<?= base_url('member/register/group'); ?>" class="btn btn-primary mt-2"><i class="fa-solid fa-user-group"></i> Group Registration</a>
                                     </div>
                                 </div>
                             </div>
@@ -1216,7 +1306,7 @@
         <footer class="cs-footer text-center">
             <div class="container mt-4">
                 <div class="cs-copyright text-center wow fadeIn" data-wow-duration="1s" data-wow-delay="0.5s">
-                    <p>&copy; 2023 License to #Panitia KONAS PERDOSNI Semarang#</p>
+                    <p>&copy; 2023 License to #NATIONAL CONGRESS OF THE INDONESIAN NEUROLOGICAL ASSOCIATION 2023#</p>
                     <p>Developed by #CV. Meta Medika#</p><span class="cs-primary_font cs-primary_color"></span>
                 </div>
             </div>
@@ -1396,15 +1486,21 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
     <script>
         $(function() {
-            $(".swiper-slide").click(function() {
+            $(".swiper-slide, .slide-pop").click(function() {
                 let child = $(this).children("img, video");
                 if (child.length > 0) {
                     let childrenClone = $(child[0]).clone();
                     if (childrenClone.is("video")) {
                         childrenClone.attr("controls", true);
                         childrenClone.attr("preload", true);
+                    } else {
+                        childrenClone.removeAttr("width");
                     }
                     $("#modal-gallery .modal-dialog .modal-content").html(childrenClone);
+                    let video = document.querySelector("#modal-gallery .modal-dialog .modal-content video");
+                    if (video) {
+                        video.play();
+                    }
                 }
                 $("#modal-gallery").modal("show");
             });
@@ -1412,6 +1508,8 @@
                 let video = document.querySelector("#modal-gallery .modal-dialog .modal-content video");
                 if (video) {
                     video.pause();
+                    video.src = "";
+                    video.load();
                 }
             })
             $('.de_countdown').each(function() {

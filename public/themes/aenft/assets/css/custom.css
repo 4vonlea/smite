@@ -556,23 +556,65 @@ table td {
     position: absolute;
     right: 0;
     z-index: -1;
-    width: 180px;
+    width: 150px;
     height: auto;
-    top: 10px;
+    top: -100px;
 }
 
 .event-left-image {
     position: absolute;
-    width: 180px;
+    width: 150px;
     z-index: -1;
     height: auto;
-    top: 900px;
+    top: 290px;
+}
+
+.cp-right-image {
+    position: absolute;
+    right: 0;
+    z-index: -1;
+    width: 150px;
+    height: auto;
+    top: 390px;
+}
+
+.cp-left-image {
+    position: absolute;
+    width: 150px;
+    z-index: -1;
+    height: auto;
+    top: 30px;
+}
+
+.vidtor-right-image {
+    position: absolute;
+    right: 0;
+    z-index: -1;
+    width: 70px;
+    height: auto;
+    top: 30px;
+}
+
+.vidtor-left-image {
+    position: absolute;
+    width: 70px;
+    z-index: -1;
+    height: auto;
+    top: 280px;
+}
+
+.hotel-left-image {
+    position: absolute;
+    width: 120px;
+    z-index: -1;
+    height: auto;
+    top: 450px;
 }
 
 .footer-left-image {
     position: absolute;
     bottom: 0;
-    width: 20%;
+    width: 17%;
     z-index: 1;
 }
 
@@ -580,7 +622,7 @@ table td {
     position: absolute;
     right: 0;
     bottom: 0;
-    width: 20%;
+    width: 17%;
     z-index: 1;
 }
 
@@ -595,6 +637,15 @@ table td {
         display: none;
     }
     .event-left-image {
+        display: none;
+    }
+    .cp-right-image {
+        display: none;
+    }
+    .cp-left-image {
+        display: none;
+    }
+    .hotel-left-image {
         display: none;
     }
     .footer-left-image {

@@ -44,6 +44,7 @@
             height: 400px;
         }
 
+        .swiper-slide,
         .slide-pop {
             cursor: pointer;
         }
@@ -316,7 +317,7 @@
         <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/left.png" class="sambutan-left-image">
     </section>
 
-    <section id="news">
+    <section id="news" style="z-index:1;position:relative;width:100%;">
         <div class="cs-height_70 cs-height_lg_40"></div>
         <!-- Button trigger modal -->
 
@@ -335,20 +336,20 @@
             </div>
             <div class="cs-height_50 cs-height_lg_30"></div>
             <div class="row wow fadeIn" data-wow-duration="1s" data-wow-delay="0.4s">
-                <div class="col-lg-6 col-sm-6 m-2">
+                <div class="col-lg-6 col-sm-6 m1">
                     <div id="swiper-photo" class="swiper">
                         <!-- Additional required wrapper -->
                         <div class="swiper-wrapper">
                             <!-- Slides -->
                             <?php if (count($videoAndPhoto['photo']) == 0) : ?>
-                                <div class="swiper-slide slide-pop">
+                                <div class="swiper-slide">
                                     <div class="title" data-swiper-parallax="-300">Photo Update</div>
                                     <img src="<?= base_url('themes/img/coming-soon.jpg'); ?>" />
                                 </div>
                                 <?php else : foreach ($videoAndPhoto['photo'] as $photo) : ?>
-                                    <div class="swiper-slide slide-pop">
+                                    <div class="swiper-slide">
                                         <div class="title" data-swiper-parallax="-300"><?= $photo['title']; ?></div>
-                                        <img src="<?= base_url('themes/uploads/video') . "/" . $photo['filename']; ?>" data-list='<?= $photo['list']; ?>' />
+                                        <img src="<?= base_url('themes/uploads/video') . "/" . $photo['filename']; ?>" />
                                     </div>
                                 <?php endforeach; ?>
                             <?php endif; ?>
@@ -364,18 +365,18 @@
                         <div class="swiper-scrollbar"></div>
                     </div>
                 </div>
-                <div class="col-lg-6 col-sm-6 m-2">
+                <div class="col-lg-6 col-sm-6 m1">
                     <div id="swiper-video" class="swiper">
                         <!-- Additional required wrapper -->
                         <div class="swiper-wrapper">
                             <!-- Slides -->
                             <?php if (count($videoAndPhoto['video']) == 0) : ?>
-                                <div class="swiper-slide slide-pop">
+                                <div class="swiper-slide">
                                     <div class="title" data-swiper-parallax="-300">Video Update</div>
                                     <img src="<?= base_url('themes/img/coming-soon.jpg'); ?>" />
                                 </div>
                                 <?php else : foreach ($videoAndPhoto['video'] as $in => $video) : ?>
-                                    <div class="swiper-slide slide-pop">
+                                    <div class="swiper-slide">
                                         <div class="title" data-swiper-parallax="-300"><?= $video['title']; ?></div>
                                         <span class="play-button">
                                             <i class="fa fa-circle-play fa-4x"></i>
@@ -537,7 +538,8 @@
         </div>
     </section>
 
-    <section>
+    <section style="z-index:1;position:relative;width:100%;">
+        <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/right.png" class="vidtor-right-image">
         <div class="cs-height_70 cs-height_lg_40"></div>
         <div class="container">
             <div class="cs-seciton_heading cs-style1 text-uppercase text-center wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s">
@@ -564,6 +566,7 @@
             </div>
             <div class="cs-height_50 cs-height_lg_30"></div>
         </div>
+        <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/left.png" class="vidtor-left-image">
     </section>
 
     <div class="cs-height_70 cs-height_lg_40"></div>
@@ -813,7 +816,8 @@
         </div>
     </section>
 
-    <section id="section-contact">
+    <section id="section-contact" style="z-index:1;position:relative;width:100%;">
+        <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/left.png" class="cp-left-image">
         <div class="cs-height_70 cs-height_lg_40"></div>
         <div class="container">
             <div class="cs-seciton_heading cs-style1 text-uppercase text-center wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s">
@@ -864,6 +868,8 @@
             </div>
             <div class="cs-height_50 cs-height_lg_30"></div>
         </div>
+
+        <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/right.png" class="cp-right-image">
     </section>
 
     <!--<section id="news" class="cs-bg" data-src="<?= base_url('themes/aenft'); ?>/assets/img/konas/img6.jpg">
@@ -897,7 +903,7 @@
         </div>
     </section>-->
 
-    <section>
+    <section style="z-index:1;position:relative;width:100%;">
         <div class="cs-height_70 cs-height_lg_45"></div>
         <div class="container">
             <div class="cs-seciton_heading cs-style1 text-uppercase wow fadeInUp text-center" data-wow-duration="1s" data-wow-delay="0.2s">
@@ -1080,6 +1086,8 @@
                 </table>
             </div>
         </div>
+
+        <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/left.png" class="hotel-left-image">
     </section>
 
     <!--<section>
@@ -1490,7 +1498,7 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
     <script>
         $(function() {
-            $(".slide-pop").click(function() {
+            $(".swiper-slide, .slide-pop").click(function() {
                 let child = $(this).children("img, video");
                 if (child.length > 0) {
                     let childrenClone = $(child[0]).clone();
