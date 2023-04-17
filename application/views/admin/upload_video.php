@@ -384,10 +384,9 @@
 						app.form.model = res.data;
 						if (typeof indexFirst != "undefined" && this.$refs.multiUpload) {
 							this.$refs.multiUpload.startUpload(res.data.id).then((result) => {
-								console.log(result);
-								// if (result.status) {
-								// 	app.form.show = false;
-								// }
+								if (result.status) {
+									app.form.show = false;
+								}
 							}).finally(() => {
 								app.form.saving = false;
 							})

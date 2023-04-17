@@ -329,16 +329,7 @@
 
     <section id="news" style="z-index:1;position:relative;width:100%;">
         <div class="cs-height_70 cs-height_lg_40"></div>
-        <!-- Button trigger modal -->
 
-        <!-- Modal -->
-        <div class="modal fade" id="modal-gallery" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog d-flex justify-content-center align-items-center p3">
-                <div class="modal-content">
-
-                </div>
-            </div>
-        </div>
         <div class="container">
             <div class="cs-seciton_heading cs-style1 text-uppercase wow fadeInUp text-center" data-wow-duration="1s" data-wow-delay="0.2s">
                 <h3 class="cs-section_title cs-font_16 cs-font_14_sm cs-gradient_color">News</h3>
@@ -352,12 +343,12 @@
                         <div class="swiper-wrapper">
                             <!-- Slides -->
                             <?php if (count($videoAndPhoto['photo']) == 0) : ?>
-                                <div class="swiper-slide">
+                                <div class="swiper-slide slide-pop">
                                     <div class="title" data-swiper-parallax="-300">Photo Update</div>
                                     <img src="<?= base_url('themes/img/coming-soon.jpg'); ?>" />
                                 </div>
                                 <?php else : foreach ($videoAndPhoto['photo'] as $photo) : ?>
-                                    <div class="swiper-slide">
+                                    <div class="swiper-slide slide-pop">
                                         <div class="title" data-swiper-parallax="-300"><?= $photo['title']; ?></div>
                                         <img src="<?= base_url('themes/uploads/video') . "/" . $photo['filename']; ?>" />
                                     </div>
@@ -381,12 +372,12 @@
                         <div class="swiper-wrapper">
                             <!-- Slides -->
                             <?php if (count($videoAndPhoto['video']) == 0) : ?>
-                                <div class="swiper-slide">
+                                <div class="swiper-slide slide-pop">
                                     <div class="title" data-swiper-parallax="-300">Video Update</div>
                                     <img src="<?= base_url('themes/img/coming-soon.jpg'); ?>" />
                                 </div>
                                 <?php else : foreach ($videoAndPhoto['video'] as $in => $video) : ?>
-                                    <div class="swiper-slide">
+                                    <div class="swiper-slide slide-pop">
                                         <div class="title" data-swiper-parallax="-300"><?= $video['title']; ?></div>
                                         <span class="play-button">
                                             <i class="fa fa-circle-play fa-4x"></i>
@@ -1492,6 +1483,15 @@
         </div>
     </div>
 
+    <!-- Modal -->
+    <div class="modal fade" id="modal-gallery" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog d-flex justify-content-center align-items-center p3">
+            <div class="modal-content">
+
+            </div>
+        </div>
+    </div>
+
     <!-- Script -->
     <script src="<?= base_url('themes/aenft'); ?>/assets/js/plugins/jquery-3.6.0.min.js"></script>
     <script src="<?= base_url('themes/aenft'); ?>/assets/js/plugins/jquery.slick.min.js"></script>
@@ -1508,7 +1508,7 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
     <script>
         $(function() {
-            $(".swiper-slide, .slide-pop").click(function() {
+            $(".slide-pop").click(function() {
                 let child = $(this).children("img, video");
                 if (child.length > 0) {
                     let childrenClone = $(child[0]).clone();
