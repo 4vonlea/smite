@@ -179,11 +179,10 @@ class Upload_video_m extends MY_Model
 
     public function fetchVideoAndPhoto()
     {
-        $result = $this->findAll();
+        $result = $this->find()->order_by("type,position")->get()->result_array();
         $return = ['photo' => [], 'video' => []];
-        foreach ($result as $row) {
-            if ($row->type == Upload_video_m::TYPE_VIDEO) {
-                $rowArray = $row->toArray();
+        foreach ($result as $rowArray) {
+            if ($rowArray['type'] == Upload_video_m::TYPE_VIDEO) {
                 if (file_exists(self::PATH . "thumbs/" . $rowArray['filename'] . ".png")) {
                     $rowArray['thumbs'] = self::PATH . "thumbs/" . $rowArray['filename'] . ".png";
                 } else {
@@ -191,12 +190,12 @@ class Upload_video_m extends MY_Model
                 }
                 $return['video'][] = $rowArray;
             } else {
-                $tempRow = $row->toArray();
-                $listFilename = json_decode($row->filename) ?? [];
+                $tempRow = $rowArray;
+                $listFilename = json_decode($rowArray['filename']) ?? [];
                 if (count($listFilename) > 0) {
                     $tempRow['filename'] = $listFilename[0];
                 }
-                $tempRow['list'] = $row->filename;
+                $tempRow['list'] = $rowArray['filename'];
                 $return['photo'][] = $tempRow;
             }
         }
