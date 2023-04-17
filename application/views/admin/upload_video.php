@@ -91,6 +91,11 @@
 							</div>
 							<div class="col-md-6 col-sm-12 text-center">
 								<label>Preview Image/Thumbnail Video</label>
+								<div v-if="form.model.type == '<?= Upload_video_m::TYPE_VIDEO; ?>' && false">
+									<video ref="videoDom" :src="videoSrc" width="100%"></video>
+									<input type="number" @change="setThumbnail" value="5" />
+								</div>
+								<i v-if="form.model.type == '<?= Upload_video_m::TYPE_VIDEO; ?>' && loadingThumbnail" class="fa fa-spin fa-spinner"></i>
 								<img v-if="form.model.type == '<?= Upload_video_m::TYPE_VIDEO; ?>'" :src="previewImage" class="img img-responsive img-thumbnail" />
 								<div v-if="form.model.type == '<?= Upload_video_m::TYPE_IMAGE; ?>'" class="form-group row">
 									<label class="col-lg-12 control-label">File</label>
@@ -233,6 +238,8 @@
 				saving: false,
 				model: model()
 			},
+			loadingThumbnail: false,
+			videoSrc: null,
 			previewImage: "",
 			detail: {},
 		},
@@ -242,11 +249,21 @@
 			}
 		},
 		methods: {
+			setThumbnail(event) {
+				if (this.$refs.videoDom) {
+					const canvas = document.createElement("canvas");
+					this.$refs.videoDom.currentTime = event.target.value;
+					let ctx = canvas.getContext("2d");
+					canvas.width = this.$refs.videoDom.videoWidth;
+					canvas.height = this.$refs.videoDom.videoHeight;
+					ctx.drawImage(this.$refs.videoDom, 0, 0, this.$refs.videoDom.videoWidth, this.$refs.videoDom.videoHeight);
+					app.previewImage = canvas.toDataURL("image/png");
+				}
+			},
 			generateVideoThumbnail(file) {
 				return new Promise((resolve) => {
 					const canvas = document.createElement("canvas");
 					const video = document.createElement("video");
-
 					// this is important
 					video.autoplay = true;
 					video.muted = true;
@@ -254,6 +271,7 @@
 						video.src = file + "#t=5";
 					else
 						video.src = URL.createObjectURL(file) + "#t=5";;
+					// app.videoSrc = video.src;
 					video.onloadeddata = () => {
 						let ctx = canvas.getContext("2d");
 						canvas.width = video.videoWidth;
@@ -270,8 +288,10 @@
 					app.previewImage = "";
 					this.form.model.filenametemp = target.files[0].name;
 					if (this.form.model.type == '<?= Upload_video_m::TYPE_VIDEO; ?>') {
+						this.loadingThumbnail = true;
 						this.generateVideoThumbnail(target.files[0]).then((canvas) => {
 							app.previewImage = canvas.toDataURL("image/png");
+							this.loadingThumbnail = false;
 						})
 					} else {
 						app.previewImage = URL.createObjectURL(target.files[0]);
@@ -314,8 +334,10 @@
 				Vue.set(this.form, 'model', Object.assign({}, props.row))
 				app.previewImage = "";
 				if (this.form.model.type == '<?= Upload_video_m::TYPE_VIDEO; ?>') {
+					this.loadingThumbnail = true;
 					this.generateVideoThumbnail('<?= base_url('themes/uploads/video'); ?>/' + this.form.model.filename)
 						.then((canvas) => {
+							this.loadingThumbnail = false;
 							this.previewImage = canvas.toDataURL("image/png");
 						})
 				} else {
