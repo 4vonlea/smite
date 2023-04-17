@@ -46,7 +46,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="form-group row">
+								<div v-if="form.model.type == '<?= Upload_video_m::TYPE_VIDEO; ?>'" class="form-group row">
 									<label class="col-lg-3 control-label">Video/Image</label>
 									<div class="col-lg-9">
 										<a v-if="form.model.filename" class="badge badge-info mb-1" target="_blank" :href="'<?= base_url('themes/uploads/video'); ?>/'+form.model.filename">Previous File Click Here</a>
@@ -91,15 +91,16 @@
 							</div>
 							<div class="col-md-6 col-sm-12 text-center">
 								<label>Preview Image/Thumbnail Video</label>
-								<img :src="previewImage" class="img img-responsive img-thumbnail" />
+								<img v-if="form.model.type == '<?= Upload_video_m::TYPE_VIDEO; ?>'" :src="previewImage" class="img img-responsive img-thumbnail" />
+								<div v-if="form.model.type == '<?= Upload_video_m::TYPE_IMAGE; ?>'" class="form-group row">
+									<label class="col-lg-12 control-label">File</label>
+									<div class="col-lg-12">
+										<vue-upload-image :initial-files="form.model.filename" path="<?= base_url(Upload_video_m::PATH); ?>" ref="multiUpload" url-upload="<?= base_url('admin/upload_video/append_file'); ?>"></vue-upload-image>
+									</div>
+								</div>
 							</div>
 
-							<!-- <div class="form-group row">
-								<label class="col-lg-12 control-label">File</label>
-								<div class="col-lg-12">
-									<vue-upload-image url=""></vue-upload-image>
-								</div>
-							</div> -->
+
 						</div>
 						<div class="card-footer text-right">
 							<button v-on:click="save" v-bind:disabled="form.saving" type="button" class="btn btn-primary"><i :class="[form.saving? 'fa fa-spin fa-spinner':'fa fa-save']"></i> Save
@@ -351,8 +352,14 @@
 				this.error = null;
 				this.form.saving = true;
 				var data = new FormData();
-				if (this.$refs.inputFile.files.length > 0)
+				let indexFirst = null;
+				if (this.$refs.inputFile && this.$refs.inputFile.files.length > 0)
 					data.append("file", this.$refs.inputFile.files[0]);
+
+				if (this.$refs.multiUpload && this.$refs.multiUpload.indexFirstFile != -1) {
+					indexFirst = this.$refs.multiUpload.indexFirstFile;
+					data.append("file", this.$refs.multiUpload.files[indexFirst]);
+				}
 				if (this.form.model.id) {
 					data.append("id", this.form.model.id);
 				}
@@ -371,10 +378,22 @@
 					method: "POST",
 					processData: false,
 					dataType: "JSON"
-				}).done(function(res, text, xhr) {
+				}).done((res, text, xhr) => {
 					if (res.status) {
 						app.message = res.message;
-						app.form.show = false;
+						app.form.model = res.data;
+						if (typeof indexFirst != "undefined" && this.$refs.multiUpload) {
+							this.$refs.multiUpload.startUpload(res.data.id).then((result) => {
+								console.log(result);
+								// if (result.status) {
+								// 	app.form.show = false;
+								// }
+							}).finally(() => {
+								app.form.saving = false;
+							})
+						} else {
+							app.form.show = false;
+						}
 					} else {
 						if (res.validation)
 							app.form.validation = res.validation;
@@ -390,8 +409,9 @@
 							message = 'Server fail to response !';
 						Swal.fire('Fail', message, 'error');
 					}
-				}).always(function() {
-					app.form.saving = false;
+				}).always(() => {
+					if (!this.$refs.multiUpload)
+						app.form.saving = false;
 				});
 			}
 		}

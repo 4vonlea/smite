@@ -1,7 +1,7 @@
 {
 	"scripts": {
 		"post-install-cmd": [
-			"php publci/index.php migrate"
+			"php public/index.php migrate"
 		]
 	},
 	"require": {

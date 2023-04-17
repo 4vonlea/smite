@@ -62,9 +62,51 @@ class Upload_video extends Admin_Controller
 				unlink($uploadData['full_path']);
 			}
 		}
+		$return['data'] = $model->toArray();
 		$this->output
 			->set_content_type("application/json")
 			->_display(json_encode($return));
+	}
+
+	public function append_file()
+	{
+		$this->load->model('Upload_video_m');
+
+		$id = $this->input->post('id');
+		$index = $this->input->post('index');
+		$model = $this->Upload_video_m->findOne($id);
+		$response = ['status' => false, "message" => "Data tidak ditemukan di database"];
+		if ($model) {
+			$response['status'] = true;
+			$tempFile = json_decode($model->filename, true) ?? [];
+			if (isset($_FILES['file'])) {
+				$statusUpload = $this->handlingFile("file", "{$id}/");
+				$uploadData =  $this->upload->data();
+				$uploadError =  $this->upload->display_errors("", "");
+				$filename = $uploadData['file_name'];
+				if (!$uploadData['is_image']) {
+					$statusUpload = false;
+					$uploadError = "File uploaded not match with type field selected";
+					unlink($uploadData['full_path']);
+				}
+				if ($statusUpload) {
+					$tempFile[$index] = "{$id}/" . $filename;
+				}
+				$uploadData['path'] = "{$id}/" . $filename;
+				$response['status'] = $statusUpload;
+				$response['message'] = $uploadError;
+				$response['data'] = $uploadData;
+			} else {
+				$tempFile = json_decode($model->filename) ?? [];
+				$tempFile[$index] = $this->input->post("file");
+				$response['data']['path'] = $this->input->post("file");
+			}
+			$model->filename = json_encode($tempFile);
+			$model->save();
+		}
+		$this->output
+			->set_content_type("application/json")
+			->_display(json_encode($response));
 	}
 
 	public function download_report()
@@ -105,10 +147,13 @@ class Upload_video extends Admin_Controller
 	 * @param $name
 	 * @return boolean
 	 */
-	protected function handlingFile($name)
+	protected function handlingFile($name, $additionalPath = "")
 	{
-		$config['upload_path'] = Upload_video_m::PATH;
-		if (!file_exists($config['upload_path'])) {
+		$config['upload_path'] = Upload_video_m::PATH . $additionalPath;
+		if (!file_exists(Upload_video_m::PATH)) {
+			mkdir(Upload_video_m::PATH);
+		}
+		if ($additionalPath && !file_exists($config['upload_path'])) {
 			mkdir($config['upload_path']);
 		}
 		$config['allowed_types'] = 'jpg|jpeg|png|mp4|mkv';

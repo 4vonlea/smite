@@ -1,366 +1,116 @@
 Vue.component("VueUploadImage", {
 	template: `
-    <div class="vue_component__upload--image" v-bind:class="{ 'dragover': onDragover }">
-        <form v-bind:id="'upload_image_form--' + input_id" enctype="multipart/form-data">
-            <div class="upload_image_form__thumbnails">
-                <div v-for="(value, key) in files" class="upload_image_form__thumbnail" v-on:click="fileClick($event, key)" v-bind:class="{ 'uploaded': value.uploaded, 'bad-size': value.bad_size }">
-                    <span v-on:click="fileDelete($event, key)">
-                    ✖
-                    </span>
-                    <img v-bind:src="image[key]" v-bind:class="{ 'show': image[key]}">
-                </div>
-            </div>
-            <input type="file" v-bind:id="'upload_image_form__input--' + input_id" hidden multiple>
-            <div>
-                <button type="submit" v-bind:class="button_class" v-on:click="submit" v-bind:disabled="onUploading" v-html="button_html"></button>
-            </div>
-        </form>
-    </div>
+	<div class="card card-body">
+		<div class="row">
+			<div v-for="(file,index) in files" style="position:relative">
+				<img style="max-height:180px" :src="convertLink(file)" class="img img-responsive img-thumbnail m-1" />
+				<div style="position:absolute;bottom:15px;right:15px;">
+				<button v-if="index > 0" type="button" @click="move(-1,index)"  class="btn btn-sm btn-info"><i class="fa fa-arrow-left"></i></button>
+				<button v-if="index < files.length" type="button" @click="move(1,index)"  class="btn btn-sm btn-info"><i class="fa fa-arrow-right"></i></button>
+				<button type="button" @click="deleteFile(file,index)"  class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
+				</div>
+			</div>
+		</div>
+		<input ref="inputFile" @change="onFileChange" type="file" multiple hidden/>
+		<button type="button" @click="changeFile" :class="classBtn">
+			Add File
+		</button>
+	</div>
 `,
 	name: "upload-image",
 	props: {
-		input_id: {
+		classBtn: {
 			type: String,
-			required: false,
-			default: "default",
+			default: "btn btn-primary",
 		},
-		url: {
+		urlUpload: {
 			type: String,
 			required: true,
-			default: null,
 		},
-		name: {
+		path: {
 			type: String,
-			required: false,
-			default: "images[]",
+			required: true,
 		},
-		disable_upload: {
-			type: Boolean,
-			required: false,
-			default: false,
-		},
-		max_batch: {
-			type: Number,
-			required: false,
-			default: 0,
-		},
-		max_files: {
-			type: Number,
-			required: false,
-			default: 10,
-		},
-		max_filesize: {
-			type: Number,
-			required: false,
-			default: 8000,
-		},
-		resize_enabled: {
-			type: Boolean,
-			required: false,
-			default: false,
-		},
-		resize_max_width: {
-			type: Number,
-			required: false,
-			default: 800,
-		},
-		resize_max_height: {
-			type: Number,
-			required: false,
-			default: 600,
-		},
-		button_html: {
+		initialFiles: {
 			type: String,
-			required: false,
-			default: "Upload Images",
-		},
-		button_class: {
-			type: String,
-			required: false,
-			default: "btn btn-primary",
+			default: [],
 		},
 	},
 	data: function () {
 		return {
-			form: null,
-			input: null,
-			index: 0,
-			total: 0,
-			files: {},
-			image: {},
-			batch: {},
-			onDragover: false,
-			onUploading: false,
+			files: [],
 		};
 	},
+	computed: {
+		indexFirstFile() {
+			return this.files.findIndex((item) => item instanceof File);
+		},
+	},
 	mounted: function () {
-		this.form = document.getElementById("upload_image_form--" + this.input_id);
-		this.input = document.getElementById(
-			"upload_image_form__input--" + this.input_id
-		);
-
-		[
-			"drag",
-			"dragstart",
-			"dragend",
-			"dragover",
-			"dragenter",
-			"dragleave",
-			"drop",
-		].forEach((event) =>
-			this.form.addEventListener(event, (e) => {
-				e.preventDefault();
-				e.stopPropagation();
-			})
-		);
-
-		["dragover", "dragenter"].forEach((event) =>
-			this.form.addEventListener(event, this.dragEnter)
-		);
-
-		["dragleave", "dragend", "drop"].forEach((event) =>
-			this.form.addEventListener(event, this.dragLeave)
-		);
-
-		["drop"].forEach((event) =>
-			this.form.addEventListener(event, this.fileDrop)
-		);
-
-		["change"].forEach((event) =>
-			this.input.addEventListener(event, this.fileDrop)
-		);
-
-		this.form.addEventListener("click", (e) => {
-			this.input.click();
-		});
+		try {
+			let files = JSON.parse(this.initialFiles);
+			this.files = typeof files != "string" ? files : [];
+		} catch {
+			this.files = [];
+		}
 	},
 	methods: {
-		_can_xhr() {
-			if (this.total >= this.max_files) {
-				return false;
+		move(increment, currentIndex) {
+			let newIndex = currentIndex + increment;
+			if (newIndex >= 0) {
+				let item = this.files[currentIndex];
+				this.files.splice(currentIndex, 1);
+				this.files.splice(newIndex, 0, item);
 			}
-			return true;
+			console.log(this.files);
 		},
-		_can_upload_file(key) {
-			let file = this.files[key];
-
-			if (file.attempted || file.bad_size) {
-				return false;
-			}
-			return true;
-		},
-		_xhr: function (formData, keys, callback) {
-			this.onUploading = true;
-			this.$emit("upload-image-attempt", formData);
-
-			keys.forEach((key) => {
-				this.$set(this.files[key], "attempted", true);
-			});
-
-			this.$http
-				.post(this.url, formData)
-				.then(
-					(response) => {
-						keys.forEach((key) => {
-							this.$set(this.files[key], "uploaded", true);
-
-							this.total++;
-						});
-
-						this.$emit("upload-image-success", [formData, response]);
-					},
-					(response) => {
-						this.$emit("upload-image-failure", [formData, response]);
+		startUpload(id) {
+			return Promise.all(
+				this.files.map(async (file, index) => {
+					let formData = new FormData();
+					formData.append("file", file);
+					formData.append("index", index);
+					formData.append("id", id);
+					let response = await fetch(this.urlUpload, {
+						method: "POST",
+						body: formData,
+					});
+					let dataResponse = await response.json();
+					if (dataResponse.status) {
+						Vue.set(this.files, index, dataResponse.data.path);
 					}
-				)
-				.then((response) => {
-					this.onUploading = false;
-
-					callback();
-				});
+					return dataResponse;
+				})
+			);
 		},
-		upload: function () {
-			if (!this._can_xhr()) return false;
-
-			for (let key in this.files) {
-				if (!this._can_upload_file(key)) continue;
-
-				let formData = new FormData();
-				formData.append(this.name, this.files[key].file, this.files[key].name);
-
-				this._xhr(formData, [key], this.upload);
-
-				return true;
+		setItem(file, index) {
+			if (index) {
+				Vue.set(this.files, index, file);
+			} else {
+				this.files.push(file);
 			}
 		},
-		upload_batch: function () {
-			if (!this._can_xhr()) return false;
-
-			for (let key in this.batch) {
-				this._xhr(
-					this.batch[key].form,
-					this.batch[key].keys,
-					this.upload_batch
-				);
-
-				delete this.batch[key];
-
-				return true;
+		deleteFile(file, index) {
+			if (file instanceof File) {
+				this.files.splice(index, 1);
 			}
 		},
-		create_batch: function () {
-			let index = 0;
-			let count = 0;
-
-			this.batch = {};
-
-			for (let key in this.files) {
-				if (!this._can_upload_file(key)) continue;
-
-				if (this.batch[index] == null || count == this.max_batch) {
-					index++;
-					count = 0;
-					this.batch[index] = {
-						form: new FormData(),
-						keys: [],
-					};
-				}
-
-				count++;
-				this.batch[index]["keys"].push(key);
-				this.batch[index]["form"].append(
-					this.name,
-					this.files[key].file,
-					this.files[key].name
-				);
+		convertLink(file) {
+			if (file instanceof File) {
+				return URL.createObjectURL(file);
+			} else if (typeof file == "string") {
+				return this.path + "/" + file;
 			}
 		},
-		submit: function (e) {
-			e.preventDefault();
-			e.stopPropagation();
-
-			this.$emit("upload-image-submit", this.files);
-
-			if (!this.disable_upload && !this.onUploading) {
-				if (this.max_batch > 1) {
-					this.create_batch();
-					return this.upload_batch();
-				}
-				this.upload();
-			}
+		changeFile() {
+			this.$refs.inputFile.click();
 		},
-		dragEnter: function (e) {
-			e.preventDefault();
-			this.onDragover = true;
-		},
-		dragLeave: function (e) {
-			e.preventDefault();
-			this.onDragover = false;
-		},
-		fileDrop: function (e) {
-			e.preventDefault();
-
-			let newFiles = e.target.files || e.dataTransfer.files;
-
-			for (let i = 0; i < newFiles.length; i++) {
-				this.$set(this.files, this.index, newFiles[i]);
-
-				if (newFiles[i].type.match(/image.*/)) {
-					this.fileInit(this.index);
-					this.fileRead(this.index);
-
-					this.index++;
+		onFileChange(event) {
+			if (event.target.files.length > 0) {
+				for (var i = 0; i < event.target.files.length; i++) {
+					this.files.push(event.target.files.item(i));
 				}
 			}
-			e.target.value = "";
-		},
-		fileInit: function (key) {
-			let file = this.files[key];
-
-			this.files[key] = {
-				name: this.files[key].name,
-				file: this.files[key],
-			};
-
-			if (file.size * 0.001 > this.max_filesize) {
-				this.$set(this.files[key], "bad_size", true);
-			}
-		},
-		fileRead: function (key) {
-			let reader = new FileReader();
-
-			reader.addEventListener("load", (e) => {
-				this.$set(this.image, key, reader.result);
-
-				if (this.resize_enabled) {
-					let imager = new Image();
-
-					imager.onload = () => {
-						let width = imager.width;
-						let height = imager.height;
-
-						if (
-							width > this.resize_max_width ||
-							height > this.resize_max_height
-						) {
-							if (
-								height / width -
-									this.resize_max_height / this.resize_max_width >
-								0
-							) {
-								width = (this.resize_max_height / height) * width;
-								height = this.resize_max_height;
-							} else {
-								height = (this.resize_max_width / width) * height;
-								width = this.resize_max_width;
-							}
-						}
-
-						let canvas = document.createElement("canvas");
-						canvas.width = width;
-						canvas.height = height;
-
-						let ctx = canvas.getContext("2d");
-						ctx.drawImage(imager, 0, 0, width, height);
-
-						let newImageData = canvas.toDataURL("image/png");
-
-						this.$set(this.image, key, newImageData);
-
-						//
-						let img = atob(newImageData.split(",")[1]);
-						let img_buffer = [];
-						let i = 0;
-						while (i < img.length) {
-							img_buffer.push(img.charCodeAt(i));
-							i++;
-						}
-						let u8Image = new Uint8Array(img_buffer);
-
-						this.$set(this.files, key, {
-							name: this.files[key].name,
-							file: new Blob([u8Image], {
-								filename: this.files[key].name,
-							}),
-						});
-
-						this.$emit("upload-image-loaded", this.files[key]);
-					};
-					imager.src = reader.result;
-				}
-			});
-
-			reader.readAsDataURL(this.files[key].file);
-		},
-		fileDelete: function (e, key) {
-			this.$emit("upload-image-removed", this.files[key]);
-			this.$delete(this.files, key);
-			this.$delete(this.image, key);
-		},
-		fileClick: function (e, key) {
-			e.preventDefault();
-			e.stopPropagation();
-			this.$emit("upload-image-clicked", this.files[key]);
 		},
 	},
 });
