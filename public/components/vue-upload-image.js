@@ -7,7 +7,10 @@ Vue.component("VueUploadImage", {
 				<div style="position:absolute;bottom:15px;right:15px;">
 				<button v-if="index > 0" type="button" @click="move(-1,index)"  class="btn btn-sm btn-info"><i class="fa fa-arrow-left"></i></button>
 				<button v-if="index < files.length" type="button" @click="move(1,index)"  class="btn btn-sm btn-info"><i class="fa fa-arrow-right"></i></button>
-				<button type="button" @click="deleteFile(file,index)"  class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
+				<button type="button" :disabled="deletingIndex == index" @click="deleteFile(file,index)"  class="btn btn-sm btn-danger">
+					<i v-if="deletingIndex != index" class="fa fa-trash"></i>
+					<i v-if="deletingIndex == index" class="fa fa-spin fa-spinner"></i>
+				</button>
 				</div>
 			</div>
 		</div>
@@ -35,10 +38,15 @@ Vue.component("VueUploadImage", {
 			type: String,
 			default: [],
 		},
+		idRow: {
+			type: String,
+			default: null,
+		},
 	},
 	data: function () {
 		return {
 			files: [],
+			deletingIndex: -1,
 		};
 	},
 	computed: {
@@ -65,11 +73,12 @@ Vue.component("VueUploadImage", {
 			console.log(this.files);
 		},
 		startUpload(id) {
-			return Promise.all(
-				this.files.map(async (file, index) => {
+			return new Promise(async (resolve) => {
+				let response = { status: true, message: "" };
+				for (i = 0; i < this.files.length; i++) {
 					let formData = new FormData();
-					formData.append("file", file);
-					formData.append("index", index);
+					formData.append("file", this.files[i]);
+					formData.append("index", i);
 					formData.append("id", id);
 					let response = await fetch(this.urlUpload, {
 						method: "POST",
@@ -77,11 +86,12 @@ Vue.component("VueUploadImage", {
 					});
 					let dataResponse = await response.json();
 					if (dataResponse.status) {
-						Vue.set(this.files, index, dataResponse.data.path);
+						Vue.set(this.files, i, dataResponse.data.path);
 					}
-					return dataResponse;
-				})
-			);
+					response.status = response.status && dataResponse.status;
+				}
+				resolve(response);
+			});
 		},
 		setItem(file, index) {
 			if (index) {
@@ -93,6 +103,25 @@ Vue.component("VueUploadImage", {
 		deleteFile(file, index) {
 			if (file instanceof File) {
 				this.files.splice(index, 1);
+			} else {
+				this.deletingIndex = index;
+				let formData = new FormData();
+				formData.append("file", file);
+				formData.append("index", index);
+				formData.append("id", this.idRow);
+				fetch(this.urlDelete, {
+					method: "POST",
+					body: formData,
+				})
+					.then((res) => res.json())
+					.then((json) => {
+						if (json.status) {
+							this.files.splice(index, 1);
+						}
+					})
+					.finally(() => {
+						this.deletingIndex = -1;
+					});
 			}
 		},
 		convertLink(file) {

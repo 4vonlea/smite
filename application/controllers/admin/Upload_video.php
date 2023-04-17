@@ -68,6 +68,28 @@ class Upload_video extends Admin_Controller
 			->_display(json_encode($return));
 	}
 
+	public function delete_file()
+	{
+		$this->load->model('Upload_video_m');
+
+		$id = $this->input->post('id');
+		$index = $this->input->post('index');
+		$model = $this->Upload_video_m->findOne($id);
+		$file = $this->input->post("file");
+		if ($model) {
+			$tempFile = json_decode($model->filename, true) ?? [];
+			if (file_exist(Upload_video_m::PATH . $file)) {
+				unlink(Upload_video_m::PATH . $file);
+			}
+			array_splice($tempFile, $index, 1);
+			$model->filename = json_encode($tempFile);
+			$model->save();
+		}
+		$this->output
+			->set_content_type("application/json")
+			->_display(json_encode(['status' => true]));
+	}
+
 	public function append_file()
 	{
 		$this->load->model('Upload_video_m');
