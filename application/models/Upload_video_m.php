@@ -191,7 +191,13 @@ class Upload_video_m extends MY_Model
                 }
                 $return['video'][] = $rowArray;
             } else {
-                $return['photo'][] = $row->toArray();
+                $tempRow = $row->toArray();
+                $listFilename = json_decode($row->filename) ?? [];
+                if (count($listFilename) > 0) {
+                    $tempRow['filename'] = $listFilename[0];
+                }
+                $tempRow['list'] = $row->filename;
+                $return['photo'][] = $tempRow;
             }
         }
         return $return;

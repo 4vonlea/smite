@@ -348,7 +348,7 @@
                                 <?php else : foreach ($videoAndPhoto['photo'] as $photo) : ?>
                                     <div class="swiper-slide">
                                         <div class="title" data-swiper-parallax="-300"><?= $photo['title']; ?></div>
-                                        <img src="<?= base_url('themes/uploads/video') . "/" . $photo['filename']; ?>" />
+                                        <img src="<?= base_url('themes/uploads/video') . "/" . $photo['filename']; ?>" data-list='<?= $photo['list']; ?>' />
                                     </div>
                                 <?php endforeach; ?>
                             <?php endif; ?>
