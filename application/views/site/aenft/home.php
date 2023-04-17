@@ -44,7 +44,6 @@
             height: 400px;
         }
 
-        .swiper-slide,
         .slide-pop {
             cursor: pointer;
         }
@@ -341,12 +340,12 @@
                         <div class="swiper-wrapper">
                             <!-- Slides -->
                             <?php if (count($videoAndPhoto['photo']) == 0) : ?>
-                                <div class="swiper-slide">
+                                <div class="swiper-slide slide-pop">
                                     <div class="title" data-swiper-parallax="-300">Photo Update</div>
                                     <img src="<?= base_url('themes/img/coming-soon.jpg'); ?>" />
                                 </div>
                                 <?php else : foreach ($videoAndPhoto['photo'] as $photo) : ?>
-                                    <div class="swiper-slide">
+                                    <div class="swiper-slide slide-pop">
                                         <div class="title" data-swiper-parallax="-300"><?= $photo['title']; ?></div>
                                         <img src="<?= base_url('themes/uploads/video') . "/" . $photo['filename']; ?>" data-list='<?= $photo['list']; ?>' />
                                     </div>
@@ -370,12 +369,12 @@
                         <div class="swiper-wrapper">
                             <!-- Slides -->
                             <?php if (count($videoAndPhoto['video']) == 0) : ?>
-                                <div class="swiper-slide">
+                                <div class="swiper-slide slide-pop">
                                     <div class="title" data-swiper-parallax="-300">Video Update</div>
                                     <img src="<?= base_url('themes/img/coming-soon.jpg'); ?>" />
                                 </div>
                                 <?php else : foreach ($videoAndPhoto['video'] as $in => $video) : ?>
-                                    <div class="swiper-slide">
+                                    <div class="swiper-slide slide-pop">
                                         <div class="title" data-swiper-parallax="-300"><?= $video['title']; ?></div>
                                         <span class="play-button">
                                             <i class="fa fa-circle-play fa-4x"></i>
@@ -1486,7 +1485,7 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
     <script>
         $(function() {
-            $(".swiper-slide, .slide-pop").click(function() {
+            $(".slide-pop").click(function() {
                 let child = $(this).children("img, video");
                 if (child.length > 0) {
                     let childrenClone = $(child[0]).clone();
