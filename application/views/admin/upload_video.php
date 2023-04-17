@@ -251,9 +251,9 @@
 					video.autoplay = true;
 					video.muted = true;
 					if (typeof file == "string")
-						video.src = file
+						video.src = file + "#t=5";
 					else
-						video.src = URL.createObjectURL(file);
+						video.src = URL.createObjectURL(file) + "#t=5";;
 					video.onloadeddata = () => {
 						let ctx = canvas.getContext("2d");
 						canvas.width = video.videoWidth;
