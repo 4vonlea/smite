@@ -85,7 +85,7 @@
         }
 
         #modal-gallery .swiper {
-            width: 100%;
+            width: 90vw;
             padding-top: 50px;
             padding-bottom: 50px;
         }
@@ -354,7 +354,7 @@
                                 <?php else : foreach ($videoAndPhoto['photo'] as $photo) : ?>
                                     <div class="swiper-slide slide-pop">
                                         <div class="title" data-swiper-parallax="-300"><?= $photo['title']; ?></div>
-                                        <img src="<?= base_url('themes/uploads/video') . "/" . $photo['filename']; ?>" />
+                                        <img src="<?= base_url('themes/uploads/video') . "/" . $photo['filename']; ?>" data-list='<?=$photo['list'];?>' />
                                     </div>
                                 <?php endforeach; ?>
                             <?php endif; ?>
