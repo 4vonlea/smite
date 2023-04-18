@@ -467,6 +467,7 @@
                                         <th>Event</th>
                                         <th>Tempat</th>
                                         <th>Kuota</th>
+                                        <th>Rundown</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -478,8 +479,14 @@
                                                 <small class="fw-bold"><?= $event['description']; ?></small>
                                             </td>
                                             <td><?= $event['held_in']; ?></td>
-
                                             <td align="center"><span class="badge card-header-bg2 fw-bold"><?= $event['kouta']; ?> Orang</span></td>
+                                            <td class="text-center">
+                                                <?php if ($event['material']) : ?>
+                                                    <button class="btn btn-info show-material" data-url="<?= $event['material']; ?>">
+                                                        Show Rundown
+                                                    </button>
+                                                <?php endif; ?>
+                                            </td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
@@ -1524,6 +1531,14 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
     <script>
         $(function() {
+            $(".show-material").click(function() {
+                let url = $(this).data("url");
+                console.log(url);
+                $("#modal-gallery .modal-dialog .modal-content .modal-body").html(`
+                <img src="${url}" class="img img-fluid" />
+                `);
+                $("#modal-gallery").modal("show");
+            });
             $(".slide-pop").click(function() {
                 let child = $(this).children("img, video");
                 if (child.length > 0) {
