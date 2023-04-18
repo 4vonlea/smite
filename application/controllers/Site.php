@@ -515,7 +515,7 @@ class Site extends MY_Controller
 
     public function tes_job()
     {
-        run_job("job", "test", ['data']);
+        echo run_job("job", "test", ['data']);
     }
 
     public function collect()
