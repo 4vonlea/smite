@@ -7,6 +7,8 @@ class Event_m extends MY_Model
 {
 	protected $table = "events";
 
+	const PATH_MATERIAL = "themes/uploads/material";
+
 	public function rules()
 	{
 		return [
@@ -50,6 +52,7 @@ class Event_m extends MY_Model
 				'startDate' => DateTime::createFromFormat('Y-m-d', $heldOn['start']),
 				'endDate' => DateTime::createFromFormat('Y-m-d', $heldOn['end'])
 			];
+			$row['material'] = $row['material'] ? base_url(self::PATH_MATERIAL . "/" . $row['material']) : null;
 			$return[$title]['list'][] = $row;
 		}
 		return $return;

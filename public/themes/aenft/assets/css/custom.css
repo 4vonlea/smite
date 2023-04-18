@@ -656,3 +656,15 @@ table td {
     }
 }
 
+
+.cs-dark .cs-site_header.cs-style1.cs-sticky-header {
+    background-color: transparent;
+}
+.cs-dark .cs-site_header.cs-style1.cs-sticky-active {
+    background-color: #0A2540;
+}
+
+.cs-nav .cs-nav_list > li {
+    margin-right: 14.5px;
+    height: inherit;
+}
