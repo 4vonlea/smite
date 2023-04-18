@@ -32,62 +32,80 @@
 						</div>
 					</div>
 					<form ref="form">
-						<div class="card-body">
-							<div class="form-group row">
-								<label class="col-lg-3 control-label">Video/Image</label>
-								<div class="col-lg-5">
-									<a v-if="form.model.filename" class="badge badge-info mb-1" target="_blank" :href="'<?= base_url('themes/uploads/video'); ?>/'+form.model.filename">Previous File Click Here</a>
-									<div class="input-group mb-3">
-										<div class="custom-file">
-											<input type="file" ref="inputFile" accept="image/*,video/*" :class="{'is-invalid':form.validation.logo}" v-on:change="browseImage" class="custom-file-input" name="logo" id="inputGroupFile01">
-											<label class="custom-file-label" for="inputGroupFile01">{{ form.model.filenametemp }}</label>
+						<div class="card-body row">
+							<div class="col-md-6 col-sm-12">
+								<div class="form-group row">
+									<label class="col-lg-3 control-label">Type</label>
+									<div class="col-lg-9">
+										<select v-model='form.model.type' class='form-control' :class="{'is-invalid':form.validation.type}">
+											<option disabled value="">Select Type</option>
+											<option v-for="(v,k) in listType" :value="k">{{ v }}</option>
+										</select>
+										<div v-if="form.validation.type" class="invalid-feedback">
+											{{ form.validation.type }}
 										</div>
 									</div>
-									<div v-if="form.validation.filename" style="display:block" class="invalid-feedback">
-										{{ form.validation.filename }}
+								</div>
+								<div v-if="form.model.type == '<?= Upload_video_m::TYPE_VIDEO; ?>'" class="form-group row">
+									<label class="col-lg-3 control-label">Video/Image</label>
+									<div class="col-lg-9">
+										<a v-if="form.model.filename" class="badge badge-info mb-1" target="_blank" :href="'<?= base_url('themes/uploads/video'); ?>/'+form.model.filename">Previous File Click Here</a>
+										<div class="input-group mb-3">
+											<div class="custom-file">
+												<input type="file" ref="inputFile" accept="image/*,video/*" :class="{'is-invalid':form.validation.logo}" v-on:change="browseImage" class="custom-file-input" name="logo" id="inputGroupFile01">
+												<label class="custom-file-label" for="inputGroupFile01">{{ form.model.filenametemp }}</label>
+											</div>
+										</div>
+										<div v-if="form.validation.filename" style="display:block" class="invalid-feedback">
+											{{ form.validation.filename }}
+										</div>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-lg-3 control-label">Title</label>
+									<div class="col-lg-9">
+										<input type="text" :class="{'is-invalid':form.validation.title}" class="form-control" v-model="form.model.title" />
+										<div v-if="form.validation.title" class="invalid-feedback">
+											{{ form.validation.title }}
+										</div>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-lg-3 control-label">Contestant</label>
+									<div class="col-lg-9">
+										<input type="text" :class="{'is-invalid':form.validation.uploader}" class="form-control" v-model="form.model.uploader" />
+										<div v-if="form.validation.uploader" class="invalid-feedback">
+											{{ form.validation.uploader }}
+										</div>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-lg-3 control-label">Description</label>
+									<div class="col-lg-9">
+										<textarea :class="{'is-invalid':form.validation.description}" class="form-control" v-model="form.model.description"></textarea>
+										<div v-if="form.validation.description" class="invalid-feedback">
+											{{ form.validation.description }}
+										</div>
 									</div>
 								</div>
 							</div>
-							<div class="form-group row">
-								<label class="col-lg-3 control-label">Title</label>
-								<div class="col-lg-5">
-									<input type="text" :class="{'is-invalid':form.validation.title}" class="form-control" v-model="form.model.title" />
-									<div v-if="form.validation.title" class="invalid-feedback">
-										{{ form.validation.title }}
-									</div>
+							<div class="col-md-6 col-sm-12 text-center">
+								<label>Preview Image/Thumbnail Video</label>
+								<div v-if="form.model.type == '<?= Upload_video_m::TYPE_VIDEO; ?>' && false">
+									<video ref="videoDom" :src="videoSrc" width="100%"></video>
+									<input type="number" @change="setThumbnail" value="5" />
 								</div>
-							</div>
-							<div class="form-group row">
-								<label class="col-lg-3 control-label">Contestant</label>
-								<div class="col-lg-5">
-									<input type="text" :class="{'is-invalid':form.validation.uploader}" class="form-control" v-model="form.model.uploader" />
-									<div v-if="form.validation.uploader" class="invalid-feedback">
-										{{ form.validation.uploader }}
-									</div>
-								</div>
-							</div>
-							<div class="form-group row">
-								<label class="col-lg-3 control-label">Type</label>
-								<div class="col-lg-5">
-									<select v-model='form.model.type' class='form-control' :class="{'is-invalid':form.validation.type}">
-										<option disabled value="">Select Type</option>
-										<option v-for="(v,k) in listType" :value="k">{{ v }}</option>
-									</select>
-									<div v-if="form.validation.type" class="invalid-feedback">
-										{{ form.validation.type }}
+								<i v-if="form.model.type == '<?= Upload_video_m::TYPE_VIDEO; ?>' && loadingThumbnail" class="fa fa-spin fa-spinner"></i>
+								<img v-if="form.model.type == '<?= Upload_video_m::TYPE_VIDEO; ?>'" :src="previewImage" class="img img-responsive img-thumbnail" />
+								<div v-if="form.model.type == '<?= Upload_video_m::TYPE_IMAGE; ?>'" class="form-group row">
+									<label class="col-lg-12 control-label">File</label>
+									<div class="col-lg-12">
+										<vue-upload-image :id-row="form.model.id" :initial-files="form.model.filename" path="<?= base_url(Upload_video_m::PATH); ?>" ref="multiUpload" url-delete="<?= base_url('admin/upload_video/delete_file'); ?>" url-upload="<?= base_url('admin/upload_video/append_file'); ?>"></vue-upload-image>
 									</div>
 								</div>
 							</div>
 
-							<div class="form-group row">
-								<label class="col-lg-3 control-label">Description</label>
-								<div class="col-lg-5">
-									<textarea :class="{'is-invalid':form.validation.description}" class="form-control" v-model="form.model.description"></textarea>
-									<div v-if="form.validation.description" class="invalid-feedback">
-										{{ form.validation.description }}
-									</div>
-								</div>
-							</div>
+
 						</div>
 						<div class="card-footer text-right">
 							<button v-on:click="save" v-bind:disabled="form.saving" type="button" class="btn btn-primary"><i :class="[form.saving? 'fa fa-spin fa-spinner':'fa fa-save']"></i> Save
@@ -193,6 +211,8 @@
 <!-- Table -->
 
 <?php $this->layout->begin_script(); ?>
+<script src="<?= base_url("components/vue-upload-image.js"); ?>"></script>
+
 <script>
 	function model() {
 		return {
@@ -218,6 +238,9 @@
 				saving: false,
 				model: model()
 			},
+			loadingThumbnail: false,
+			videoSrc: null,
+			previewImage: "",
 			detail: {},
 		},
 		filters: {
@@ -226,11 +249,53 @@
 			}
 		},
 		methods: {
+			setThumbnail(event) {
+				if (this.$refs.videoDom) {
+					const canvas = document.createElement("canvas");
+					this.$refs.videoDom.currentTime = event.target.value;
+					let ctx = canvas.getContext("2d");
+					canvas.width = this.$refs.videoDom.videoWidth;
+					canvas.height = this.$refs.videoDom.videoHeight;
+					ctx.drawImage(this.$refs.videoDom, 0, 0, this.$refs.videoDom.videoWidth, this.$refs.videoDom.videoHeight);
+					app.previewImage = canvas.toDataURL("image/png");
+				}
+			},
+			generateVideoThumbnail(file) {
+				return new Promise((resolve) => {
+					const canvas = document.createElement("canvas");
+					const video = document.createElement("video");
+					// this is important
+					video.autoplay = true;
+					video.muted = true;
+					if (typeof file == "string")
+						video.src = file + "#t=5";
+					else
+						video.src = URL.createObjectURL(file) + "#t=5";;
+					// app.videoSrc = video.src;
+					video.onloadeddata = () => {
+						let ctx = canvas.getContext("2d");
+						canvas.width = video.videoWidth;
+						canvas.height = video.videoHeight;
+						ctx.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
+						video.pause();
+						return resolve(canvas);
+					};
+				});
+			},
 			browseImage(event) {
 				let target = event.target;
 				if (target.files.length > 0) {
+					app.previewImage = "";
 					this.form.model.filenametemp = target.files[0].name;
-					console.log(this.form.model.filenametemp);
+					if (this.form.model.type == '<?= Upload_video_m::TYPE_VIDEO; ?>') {
+						this.loadingThumbnail = true;
+						this.generateVideoThumbnail(target.files[0]).then((canvas) => {
+							app.previewImage = canvas.toDataURL("image/png");
+							this.loadingThumbnail = false;
+						})
+					} else {
+						app.previewImage = URL.createObjectURL(target.files[0]);
+					}
 				}
 			},
 			deleteRow(prop) {
@@ -267,7 +332,17 @@
 				this.form.title = "Edit Video/Image";
 				props.row.filenametemp = "Select File";
 				Vue.set(this.form, 'model', Object.assign({}, props.row))
-				console.log(this.form.model);
+				app.previewImage = "";
+				if (this.form.model.type == '<?= Upload_video_m::TYPE_VIDEO; ?>') {
+					this.loadingThumbnail = true;
+					this.generateVideoThumbnail('<?= base_url('themes/uploads/video'); ?>/' + this.form.model.filename)
+						.then((canvas) => {
+							this.loadingThumbnail = false;
+							this.previewImage = canvas.toDataURL("image/png");
+						})
+				} else {
+					this.previewImage = '<?= base_url('themes/uploads/video'); ?>/' + this.form.model.filename;
+				}
 				this.form.validation = {};
 			},
 			onAdd: function() {
@@ -299,10 +374,19 @@
 				this.error = null;
 				this.form.saving = true;
 				var data = new FormData();
-				if (this.$refs.inputFile.files.length > 0)
+				let indexFirst = null;
+				if (this.$refs.inputFile && this.$refs.inputFile.files.length > 0)
 					data.append("file", this.$refs.inputFile.files[0]);
+
+				if (this.$refs.multiUpload && this.$refs.multiUpload.indexFirstFile != -1) {
+					indexFirst = this.$refs.multiUpload.indexFirstFile;
+					data.append("file", this.$refs.multiUpload.files[indexFirst]);
+				}
 				if (this.form.model.id) {
 					data.append("id", this.form.model.id);
+				}
+				if (this.form.model.type == "<?= Upload_video_m::TYPE_VIDEO; ?>" && this.previewImage) {
+					data.append("video_thumb", this.previewImage);
 				}
 				data.append("data[title]", this.form.model.title);
 				data.append("data[uploader]", this.form.model.uploader);
@@ -316,10 +400,21 @@
 					method: "POST",
 					processData: false,
 					dataType: "JSON"
-				}).done(function(res, text, xhr) {
+				}).done((res, text, xhr) => {
 					if (res.status) {
 						app.message = res.message;
-						app.form.show = false;
+						app.form.model = res.data;
+						if (typeof indexFirst != "undefined" && this.$refs.multiUpload) {
+							this.$refs.multiUpload.startUpload(res.data.id).then((result) => {
+								if (result.status) {
+									app.form.show = false;
+								}
+							}).finally(() => {
+								app.form.saving = false;
+							})
+						} else {
+							app.form.show = false;
+						}
 					} else {
 						if (res.validation)
 							app.form.validation = res.validation;
@@ -335,8 +430,9 @@
 							message = 'Server fail to response !';
 						Swal.fire('Fail', message, 'error');
 					}
-				}).always(function() {
-					app.form.saving = false;
+				}).always(() => {
+					if (!this.$refs.multiUpload)
+						app.form.saving = false;
 				});
 			}
 		}

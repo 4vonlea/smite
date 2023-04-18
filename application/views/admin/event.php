@@ -276,6 +276,11 @@
                             <template slot="name" slot-scope="props">
                                 <span>{{ props.row.name }}</span><br />
                                 <span class="badge badge-info">{{ props.row.kategory }}</span>
+                                <span v-if="props.row.material" class="badge badge-success">
+                                    <i class="fa fa-check"></i>
+                                    Rundown Image
+                                </span>
+
                             </template>
                             <template slot="session" slot-scope="props">
                                 <ul class="list-group list-group-flush" style="white-space: nowrap;">
@@ -298,6 +303,9 @@
                                     <button @click="openSession(props.row)" class="btn btn-sm btn-info mt-2"><i class="fa fa-plus"></i> New Session</button>
                                     <button @click="deleteRow(props)" class="btn btn-danger btn-sm mt-2">
                                         <span class="fa fa-trash"></span> Delete
+                                    </button>
+                                    <button @click="addMaterial(props.row)" class="btn btn-info btn-sm mt-2">
+                                        <span class="fa fa-upload"></span> Upload Rundown
                                     </button>
                                 </div>
                             </template>
@@ -469,6 +477,23 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="modal-material">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Upload Material</h4>
+                </div>
+                <div class="modal-body">
+                    <input @change="onChangeFile" class="form-control" type="file" ref="fileMaterial" />
+                    <img :src="uploadMaterial.material" class="img img-fluid img-thumbnail mt-2" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    <v-button type="button" @click="saveMaterial" class="btn btn-primary">Save</v-button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <!-- Table -->
 
@@ -578,6 +603,7 @@
             loadedSpeaker: 0,
             loadEvent: true,
             eventList: [],
+            uploadMaterial: {},
 
         },
         watch: {
@@ -595,6 +621,47 @@
             }
         },
         methods: {
+            onChangeFile(event) {
+                if (this.$refs.fileMaterial.files.length > 0) {
+                    this.uploadMaterial.material = URL.createObjectURL(this.$refs.fileMaterial.files[0]);
+                }
+            },
+            addMaterial(row) {
+                $("#modal-material").modal("show");
+                row.material = '<?= base_url(Event_m::PATH_MATERIAL); ?>/' + row.material;
+                this.uploadMaterial = row;
+            },
+            saveMaterial(self) {
+                let formData = new FormData();
+                if (this.$refs.fileMaterial.files.length > 0) {
+                    self.toggleLoading();
+                    formData.append('file', this.$refs.fileMaterial.files.item(0));
+                    formData.append("id", this.uploadMaterial.id);
+                    $.ajax({
+                        url: "<?= base_url('admin/event/upload_material'); ?>",
+                        data: formData,
+                        contentType: false,
+                        cache: false,
+                        method: "POST",
+                        processData: false,
+                        dataType: "JSON"
+                    }).done((res) => {
+                        if (res.status) {
+                            app.$refs.datagrid.refresh();
+                            Swal.fire('Success', "File uploaded successfully", 'success');
+                            $("#modal-material").modal("hide");
+                        } else {
+                            Swal.fire('Warning', res.message, 'warning');
+                        }
+                    }).fail(() => {
+                        Swal.fire('Fail', "Failed to upload", 'error');
+                    }).always(() => {
+                        self.toggleLoading();
+                    })
+                } else {
+                    Swal.fire('Warning', 'No file to upload', 'warning');
+                }
+            },
             addSession(self) {
                 var url = "<?= base_url('admin/event/save_session'); ?>";
                 this.newSession.session.push(this.newSession.value);

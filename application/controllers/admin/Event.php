@@ -18,7 +18,7 @@ class Event extends Admin_Controller
 
     public function index()
     {
-        $this->load->model('Category_member_m');
+        $this->load->model(['Category_member_m', 'Event_m']);
         $participantsCategory = Category_member_m::asList(Category_member_m::findAll(), 'id', 'kategory');
         $pricingDefault = [];
         foreach ($participantsCategory as $cat) {
@@ -236,5 +236,39 @@ class Event extends Admin_Controller
         $this->load->model('Event_m');
         $this->output->set_content_type("application/json")
             ->_display(json_encode(['data' => $this->Event_m->find()->get()->result_array()]));
+    }
+
+    /**
+     * @param $name
+     * @return boolean
+     */
+    public function upload_material()
+    {
+        $this->load->model("Event_m");
+        $config['upload_path'] = Event_m::PATH_MATERIAL;
+        if (!file_exists(Event_m::PATH_MATERIAL)) {
+            mkdir(Event_m::PATH_MATERIAL);
+        }
+        $model = $this->Event_m->findOne($this->input->post("id"));
+        if ($model) {
+            $config['allowed_types'] = 'jpg|jpeg|png';
+            $config['max_size'] = 1024 * 5;
+            $config['file_name'] = time();
+            $this->load->library('upload', $config);
+            if ($this->upload->do_upload('file')) {
+                $response['status'] = true;
+                $response['data'] =  $this->upload->data();
+                $model->material = $response['data']['file_name'];
+                $model->save();
+            } else {
+                $response['status'] = false;
+                $response['message'] =  $this->upload->display_errors("", "");
+            }
+        } else {
+            $response['status'] = false;
+            $response['message'] = "Event not found";
+        }
+        $this->output->set_content_type("application/json")
+            ->_display(json_encode($response));
     }
 }

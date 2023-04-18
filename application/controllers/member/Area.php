@@ -727,7 +727,9 @@ class Area extends MY_Controller
 		$config['max_size']             = 2048;
 		$config['overwrite']             = true;
 		$config['file_name']        = $user->id;
-
+		if (file_exists($config['upload_path'])) {
+			mkdir($config['upload_path']);
+		}
 		$this->load->library('upload', $config);
 		if ($this->upload->do_upload('file')) {
 			$data = $this->upload->data();

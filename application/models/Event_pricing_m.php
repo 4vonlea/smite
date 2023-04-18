@@ -28,7 +28,7 @@ class Event_pricing_m extends MY_Model
         $return = [];
         $ind = 0;
         foreach ($datas['event_pricing'] as $i => $row) {
-            if ($id == 0) {
+            if ($id == 0 && isset($row['price'])) {
                 foreach ($row['price'] as $j => $price) {
                     $return['name'][$ind] = trim($row['name']);
                     $return['condition'][$ind] =  $price['condition']; //(isset($participantsCategory[$price['condition']])?$participantsCategory[$price['condition']]:"1");
@@ -38,7 +38,7 @@ class Event_pricing_m extends MY_Model
                     $return['show'][$ind] =  ($price['show'] == "true" || $price['show'] == "1" ? "1" : "0");
                     $ind++;
                 }
-            } else {
+            } else if (isset($row['price'])) {
                 foreach ($row['price'] as $j => $price) {
                     $return[] = [
                         'id' => isset($price['id']) ? $price['id'] : null,
@@ -51,6 +51,8 @@ class Event_pricing_m extends MY_Model
                         'show' => ($price['show'] == "true" || $price['show'] == "1" ? "1" : "0")
                     ];
                 }
+            } else {
+                $this->_errors['price'] = "Bagian Price Per Status tidak boleh kosong";
             }
         }
         return $return;

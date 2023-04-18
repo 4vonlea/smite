@@ -1,9 +1,6 @@
 <?php
-
-
 class Upload_video extends Admin_Controller
 {
-
 	public function index()
 	{
 		$this->load->model('Upload_video_m');
@@ -40,9 +37,20 @@ class Upload_video extends Admin_Controller
 				if (file_exists($uploadData['full_path']))
 					unlink($uploadData['full_path']);
 			}
+		} else if ($model && $id) {
+			$data['filename'] = $model->filename;
 		}
 
 		if ($this->Upload_video_m->validate($data) && $statusUpload) {
+			if ($this->input->post("video_thumb")) {
+				list($type, $dataImage) = explode(';', $_POST['video_thumb']);
+				list(, $dataImage)      = explode(',', $dataImage);
+				$dataImage = base64_decode($dataImage);
+				if (!file_exists(Upload_video_m::PATH . "thumbs")) {
+					mkdir(Upload_video_m::PATH . "thumbs");
+				}
+				file_put_contents(Upload_video_m::PATH . "thumbs/" . $data['filename'] . ".png", $dataImage);
+			}
 			$model->setAttributes($data);
 			$return['status'] = $model->save();
 			$return['message'] = "Data has been saved succesfully";
@@ -55,9 +63,73 @@ class Upload_video extends Admin_Controller
 				unlink($uploadData['full_path']);
 			}
 		}
+		$return['data'] = $model->toArray();
 		$this->output
 			->set_content_type("application/json")
 			->_display(json_encode($return));
+	}
+
+	public function delete_file()
+	{
+		$this->load->model('Upload_video_m');
+
+		$id = $this->input->post('id');
+		$index = $this->input->post('index');
+		$model = $this->Upload_video_m->findOne($id);
+		$file = $this->input->post("file");
+		if ($model) {
+			$tempFile = json_decode($model->filename, true) ?? [];
+			if (file_exist(Upload_video_m::PATH . $file)) {
+				unlink(Upload_video_m::PATH . $file);
+			}
+			array_splice($tempFile, $index, 1);
+			$model->filename = json_encode($tempFile);
+			$model->save();
+		}
+		$this->output
+			->set_content_type("application/json")
+			->_display(json_encode(['status' => true]));
+	}
+
+	public function append_file()
+	{
+		$this->load->model('Upload_video_m');
+
+		$id = $this->input->post('id');
+		$index = $this->input->post('index');
+		$model = $this->Upload_video_m->findOne($id);
+		$response = ['status' => false, "message" => "Data tidak ditemukan di database"];
+		if ($model) {
+			$response['status'] = true;
+			$tempFile = json_decode($model->filename, true) ?? [];
+			if (isset($_FILES['file'])) {
+				$statusUpload = $this->handlingFile("file", "{$id}/");
+				$uploadData =  $this->upload->data();
+				$uploadError =  $this->upload->display_errors("", "");
+				$filename = $uploadData['file_name'];
+				if (!$uploadData['is_image']) {
+					$statusUpload = false;
+					$uploadError = "File uploaded not match with type field selected";
+					unlink($uploadData['full_path']);
+				}
+				if ($statusUpload) {
+					$tempFile[$index] = "{$id}/" . $filename;
+				}
+				$uploadData['path'] = "{$id}/" . $filename;
+				$response['status'] = $statusUpload;
+				$response['message'] = $uploadError;
+				$response['data'] = $uploadData;
+			} else {
+				$tempFile[$index] = $this->input->post("file");
+				$response['data']['path'] = $this->input->post("file");
+			}
+			$response['list'] = $tempFile;
+			$model->filename = json_encode($tempFile);
+			$model->save();
+		}
+		$this->output
+			->set_content_type("application/json")
+			->_display(json_encode($response));
 	}
 
 	public function download_report()
@@ -98,10 +170,13 @@ class Upload_video extends Admin_Controller
 	 * @param $name
 	 * @return boolean
 	 */
-	protected function handlingFile($name)
+	protected function handlingFile($name, $additionalPath = "")
 	{
-		$config['upload_path'] = 'themes/uploads/video/';
-		if (!file_exist($config['upload_path'])) {
+		$config['upload_path'] = Upload_video_m::PATH . $additionalPath;
+		if (!file_exists(Upload_video_m::PATH)) {
+			mkdir(Upload_video_m::PATH);
+		}
+		if ($additionalPath && !file_exists($config['upload_path'])) {
 			mkdir($config['upload_path']);
 		}
 		$config['allowed_types'] = 'jpg|jpeg|png|mp4|mkv';
@@ -119,7 +194,14 @@ class Upload_video extends Admin_Controller
 		$this->load->model(["Upload_video_m"]);
 		$id = $this->input->post("id");
 		$message = "";
-		$status = $this->Upload_video_m->find()->where(['id' => $id])->delete();
+		$row = $this->Upload_video_m->findOne($id);
+		$files = json_decode($row->filename) ?? $row->filename;
+		$files = is_array($files) ? $files : [$files];
+		foreach ($files as $file) {
+			if (file_exists(Upload_video_m::PATH . $file))
+				unlink(Upload_video_m::PATH . $file);
+		}
+		$status = $row->delete();
 		if ($status == false)
 			$message = "Failed to delete member, error on server !";
 

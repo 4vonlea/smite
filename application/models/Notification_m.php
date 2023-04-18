@@ -30,10 +30,10 @@ class Notification_m extends MY_Model
     public function getValue($name, $isJson = false)
     {
         $token = $this->findOne(['name' => $name]);
-        if($isJson){
-            return json_decode($token->value,true) ?? [];
+        if ($isJson) {
+            return $token ? (json_decode($token->value, true) ?? []) : [];
         }
-        return ($token ? ($isJson ?  json_decode($token->value, true) : $token->value) : ($isJson ? [] : '{}'));
+        return ($token ? ($token->value) : ('{}'));
     }
 
     public function setValue($name, $value)
@@ -103,7 +103,8 @@ class Notification_m extends MY_Model
         return $this;
     }
 
-    public function setMultitype($types){
+    public function setMultitype($types)
+    {
         $this->multitype = $types;
         return $this;
     }
@@ -114,7 +115,7 @@ class Notification_m extends MY_Model
     {
         $message = $this->wrapMessage($message);
         $subject = Settings_m::getSetting('site_title') . " - " . $subject;
-        foreach($this->multitype as $type){
+        foreach ($this->multitype as $type) {
             $this->type = $type;
             $class = $this->getClass();
             if ($class)
@@ -134,12 +135,13 @@ class Notification_m extends MY_Model
             return $class->sendMessageWithAttachment($to, $subject, $message, $attachment, $fname);
         return ['status' => false, 'code' => '0', 'message' => 'Failed to initialized class'];
     }
-    
-    public function sendExpiredTransaction($member,$transaction_id){
+
+    public function sendExpiredTransaction($member, $transaction_id)
+    {
         $member = is_array($member) ? (object) $member : $member;
         $response = null;
         $subject = "Transaction Expired $transaction_id";
-        $message = $this->load->view("template/email/expired_transaction",['nama'=>$member->fullname],true);
+        $message = $this->load->view("template/email/expired_transaction", ['nama' => $member->fullname], true);
         $to = $this->getType() == self::TYPE_WA ? $member->phone : $member->email;
         $response = $this->sendMessage($to, $subject, $message);
         return $response;
@@ -228,46 +230,46 @@ class Notification_m extends MY_Model
 
         $to = $this->getType() == self::TYPE_WA ? $member->phone : $member->email;
         if ($template) {
-            if($this->getType() == self::TYPE_WA){
+            if ($this->getType() == self::TYPE_WA) {
                 $bodyParams = [
-                    '1'=>$member->fullname,
-                    '2'=>$name,
-                    '3'=>$name,
-                    '4'=>'Mae',
-                    '5'=>'+6287733667120'
+                    '1' => $member->fullname,
+                    '2' => $name,
+                    '3' => $name,
+                    '4' => 'Mae',
+                    '5' => '+6287733667120'
                 ];
-                $response = $this->getClass()->sendTemplateMessageWithMedia($to,"new_send_certificate_event", $bodyParams, $certFile, "Certificate.pdf");
-                $this->getClass()->sendTemplateMessage($to,"additional_footer_send_certificate",null,[]);
-            }else{
+                $response = $this->getClass()->sendTemplateMessageWithMedia($to, "new_send_certificate_event", $bodyParams, $certFile, "Certificate.pdf");
+                $this->getClass()->sendTemplateMessage($to, "additional_footer_send_certificate", null, []);
+            } else {
                 $response = $this->sendMessageWithAttachment($to, $subject, $message, $certFile, "certificate.pdf");
             }
         }
         return $response;
     }
 
-    public function sendRegisteredByOther($member,$transaction,$participantsCategory)
+    public function sendRegisteredByOther($member, $transaction, $participantsCategory)
     {
         $member = is_array($member) ? (object) $member : $member;
         $subject = "Registration Success";
         $data['participantsCategory'] = $participantsCategory;
-        $message = $this->load->view('template/email/success_register_onsite',[
-            'fullname'=>$member->fullname,
-            'email'=>$member->email,
-            'password'=>$member->password,
-            'participantsCategory'=>$participantsCategory,
-            'status'=>$member->status
+        $message = $this->load->view('template/email/success_register_onsite', [
+            'fullname' => $member->fullname,
+            'email' => $member->email,
+            'password' => $member->password,
+            'participantsCategory' => $participantsCategory,
+            'status' => $member->status
         ], true);
         $attc = [
             $member->fullname . '-invoice.pdf' => $transaction->exportInvoice()->output(),
         ];
         if ($transaction->status_payment == Transaction_m::STATUS_FINISH) {
-            $attc[$member->fullname. '-bukti_registrasi.pdf'] = $transaction->exportPaymentProof()->output();
+            $attc[$member->fullname . '-bukti_registrasi.pdf'] = $transaction->exportPaymentProof()->output();
         }
         $to = $this->getType() == self::TYPE_WA ? $member->phone : $member->email;
         $response = $this->sendMessageWithAttachment($to, $subject, $message, $attc);
         return $response;
     }
- 
+
     public function sendEmailConfirmation($member, $token)
     {
         $member = is_array($member) ? (object) $member : $member;
@@ -282,13 +284,13 @@ class Notification_m extends MY_Model
         return $response;
     }
 
-    public function sendNametag($member, $nametagFile,$event_name)
+    public function sendNametag($member, $nametagFile, $event_name)
     {
         $member = is_array($member) ? (object) $member : $member;
         $response = null;
         $subject = "Nametag";
         $attc = [
-            $event_name.'-nametag.pdf' => $nametagFile,
+            $event_name . '-nametag.pdf' => $nametagFile,
         ];
         $message = $this->load->view("template/email/send_nametag", ['event_name' => $event_name], true);
         $to = $this->getType() == self::TYPE_WA ? $member->phone : $member->email;

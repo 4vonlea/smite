@@ -8,6 +8,7 @@ class Upload_video_m extends MY_Model
     const TYPE_VIDEO = 1;
     const TYPE_IMAGE = 2;
     const TYPE_LINK = 3;
+    const PATH = "themes/uploads/video/";
 
     public static $types = [
         self::TYPE_VIDEO => 'Video',
@@ -18,7 +19,7 @@ class Upload_video_m extends MY_Model
     public function rules()
     {
         return [
-            ['field' => 'filename', 'label' => 'Video/Image', 'rules' => 'required|max_length[100]'],
+            ['field' => 'filename', 'label' => 'Video/Image', 'rules' => 'required'],
             ['field' => 'title', 'label' => 'Title', 'rules' => 'required|max_length[250]'],
             ['field' => 'type', 'label' => 'Type', 'rules' => 'required'],
             ['field' => 'uploader', 'label' => 'Contestant', 'rules' => 'required|max_length[100]'],
@@ -178,13 +179,24 @@ class Upload_video_m extends MY_Model
 
     public function fetchVideoAndPhoto()
     {
-        $result = $this->findAll();
+        $result = $this->find()->order_by("type,position")->get()->result_array();
         $return = ['photo' => [], 'video' => []];
-        foreach ($result as $row) {
-            if ($row->type == Upload_video_m::TYPE_VIDEO) {
-                $return['video'][] = $row->toArray();
+        foreach ($result as $rowArray) {
+            if ($rowArray['type'] == Upload_video_m::TYPE_VIDEO) {
+                if (file_exists(self::PATH . "thumbs/" . $rowArray['filename'] . ".png")) {
+                    $rowArray['thumbs'] = self::PATH . "thumbs/" . $rowArray['filename'] . ".png";
+                } else {
+                    $rowArray['thumbs'] = "";
+                }
+                $return['video'][] = $rowArray;
             } else {
-                $return['photo'][] = $row->toArray();
+                $tempRow = $rowArray;
+                $listFilename = json_decode($rowArray['filename']) ?? [];
+                if (count($listFilename) > 0) {
+                    $tempRow['filename'] = $listFilename[0];
+                }
+                $tempRow['list'] = $rowArray['filename'];
+                $return['photo'][] = $tempRow;
             }
         }
         return $return;

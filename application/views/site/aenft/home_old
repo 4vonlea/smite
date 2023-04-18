@@ -85,12 +85,11 @@
             justify-content: center;
         }
 
-        #modal-gallery .swiper {
-            width: 100%;
-        }
-
-        .swiper-slide {
-            display: flex;
+        #modal-gallery .modal-title {
+            position: relative;
+            color: #F5F5F5;
+            top: 10px;
+            right: 10px;
         }
 
         /* #modal-gallery .swiper-slide {
@@ -166,7 +165,7 @@
         </div>
     </header>
     <!-- End Header Section -->
-    <!-- <div class="cs-height_80 cs-height_lg_80"></div> -->
+    <div class="cs-height_80 cs-height_lg_80"></div>
 
     <!-- Start Hero -->
     <div id="home" class="cs-hero cs-style1 cs-type2 cs-bg text-center cs-ripple_version" data-src="<?= base_url('themes/aenft'); ?>/assets/img/konas/bg-head.png" id="home">
@@ -204,7 +203,7 @@
         <div class="cs-dark_overlay"></div>
         <div class="container">
             <div class="cs-hero_img wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.3s">
-                <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/logo.png" style="width: 100%; max-width: 320px; height: auto; margin-top: 100px;">
+                <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/logo.png" style="width: 100%; max-width: 320px; height: auto;">
             </div>
             <div class="cs-hero_text wow fadeIn" data-wow-duration="1s" data-wow-delay="0.45s" style="margin-top: -50px;">
                 <h3 class="cs-hero_title text-uppercase cs-font_40 cs-font_36_sm cs-bold">NATIONAL CONGRESS OF INDONESIAN NEUROLOGY ASSOCIATION 2023 SEMARANG</h3>
@@ -221,19 +220,19 @@
                 </div>-->
                 <div class="row mt-5">
                     <div class="col-lg-12 wow fadeIn" data-wow-duration="1s" data-wow-delay="0.2s">
-                        <div class="cs-iconbox cs-style1 cs-white_bg text-center text-white" style="background-color: transparent;">
+                        <div class="cs-iconbox cs-style1 cs-white_bg text-center">
                             <div class="row">
                                 <div class="col-lg-6 col-sm-12 mb-4">
                                     <h3 class="cs-iconbox_title cs-font_28 cs-font_22_sm cs-m0">Abstract Countdown</h3>
                                     <div class="cs-height_10 cs-height_lg_10"></div>
-                                    <div class="cs-iconbox_subtitle fw-bold">(<?= date_format($papercountdown, "F d, Y"); ?>)</div>
+                                    <div class="cs-iconbox_subtitle">(<?= date_format($papercountdown, "F d, Y"); ?>)</div>
                                     <div class="cs-height_10 cs-height_lg_10"></div>
                                     <div class="de_countdown h4 cs-iconbox_icon cs-font_26 cs-font_20_sm cs-m0" data-year="<?= date_format($papercountdown, "Y"); ?>" data-month="<?= date_format($papercountdown, "m"); ?>" data-day="<?= date_format($papercountdown, "d"); ?>" data-hour="<?= date_format($papercountdown, "H"); ?>"></div>
                                 </div>
                                 <div class="col-lg-6 col-sm-12 mb-4">
                                     <h3 class="cs-iconbox_title cs-font_28 cs-font_22_sm cs-m0">Event Countdown</h3>
                                     <div class="cs-height_10 cs-height_lg_10"></div>
-                                    <div class="cs-iconbox_subtitle fw-bold">(<?= date_format($eventcountdown, "F d, Y"); ?>)</div>
+                                    <div class="cs-iconbox_subtitle">(<?= date_format($eventcountdown, "F d, Y"); ?>)</div>
                                     <div class="cs-height_10 cs-height_lg_10"></div>
                                     <div class="de_countdown h4 cs-iconbox_icon cs-font_26 cs-font_20_sm cs-m0" data-year="<?= date_format($eventcountdown, "Y"); ?>" data-month="<?= date_format($eventcountdown, "m"); ?>" data-day="<?= date_format($eventcountdown, "d"); ?>" data-hour="<?= date_format($eventcountdown, "H"); ?>"></div>
                                 </div>
@@ -468,7 +467,6 @@
                                         <th>Event</th>
                                         <th>Tempat</th>
                                         <th>Kuota</th>
-                                        <th>Rundown</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -480,14 +478,8 @@
                                                 <small class="fw-bold"><?= $event['description']; ?></small>
                                             </td>
                                             <td><?= $event['held_in']; ?></td>
+
                                             <td align="center"><span class="badge card-header-bg2 fw-bold"><?= $event['kouta']; ?> Orang</span></td>
-                                            <td class="text-center">
-                                                <?php if ($event['material']) : ?>
-                                                    <button class="btn btn-info show-material" data-url="<?= $event['material']; ?>">
-                                                        Show Rundown
-                                                    </button>
-                                                <?php endif; ?>
-                                            </td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
@@ -1503,15 +1495,14 @@
 
     <!-- Modal -->
     <div class="modal fade" id="modal-gallery" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog d-flex justify-content-center align-items-center">
+        <div class="modal-dialog d-flex justify-content-center align-items-center p3">
             <div class="modal-content">
-                <div style="position: absolute;top: 23px;right: 23px;z-index: 1000;">
+                <div class="modal-title text-end">
                     <button type="button" class="btn btn-info" data-bs-dismiss="modal" aria-label="Close">
                         X
                     </button>
                 </div>
                 <div class="modal-body">
-
                 </div>
             </div>
         </div>
@@ -1532,38 +1523,7 @@
     <script src="<?= base_url('themes/gigaland'); ?>/js/jquery.countdown.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
     <script>
-        function createCarousal(listImage) {
-            let baseUrl = "<?= base_url('themes/uploads/video'); ?>/";
-            let wrapper = $(`<div id="carousel-gallery" class="carousel slide" data-bs-ride="carousel">
-                        <div class="carousel-inner">
-                        </div>
-                        <button class="carousel-control-prev" type="button" data-bs-target="#carousel-gallery" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Previous</span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#carousel-gallery" data-bs-slide="next">
-                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                            <span class="visually-hidden">Next</span>
-                        </button>
-                    </div>`);
-            listImage.forEach((item, index) => {
-                wrapper.find(".carousel-inner").append(
-                    ` <div class="carousel-item ${index == 0 ? 'active':''}">
-                                <img class="d-block w-100" src="${baseUrl}${item}" alt="Third slide">
-                            </div>`
-                )
-            })
-            return wrapper;
-        }
         $(function() {
-            $(".show-material").click(function() {
-                let url = $(this).data("url");
-                console.log(url);
-                $("#modal-gallery .modal-dialog .modal-content .modal-body").html(`
-                <img src="${url}" class="img img-fluid" />
-                `);
-                $("#modal-gallery").modal("show");
-            });
             $(".slide-pop").click(function() {
                 let child = $(this).children("img, video");
                 if (child.length > 0) {
@@ -1576,18 +1536,18 @@
                         let baseUrl = "<?= base_url('themes/uploads/video'); ?>/";
                         if (childrenClone.data("list")) {
                             let list = childrenClone.data("list");
-                            childrenClone = createCarousal(list);
-                            // let swiperWrapper = $(`<div class="swiper-wrapper d-flex align-items-center"></div>`);
-                            // list.forEach(item => {
-                            //     swiperWrapper.append(`
-                            //     <div class="swiper-slide">
-                            //         <img src="${baseUrl}${item}" class="img img-fluid">
-                            //     </div>
-                            //     `)
-                            // })
-                            // childrenClone = $(`<div id="swiper-popup" class="swiper"></div>`);
-                            // childrenClone.append(swiperWrapper);
-                            // childrenClone.append(` <div class="swiper-button-prev"></div><div class="swiper-button-next"></div>`);
+                            let swiperWrapper = $(`<div class="swiper-wrapper"></div>`);
+                            list.forEach(item => {
+                                swiperWrapper.append(`
+                                <div class="swiper-slide">
+                                <img src="${baseUrl}${item}" class="img">
+                                </div>
+                                `)
+                            })
+                            childrenClone = $(`<div id="swiper-popup" class="swiper"></div>`);
+                            childrenClone.append(swiperWrapper);
+                            childrenClone.append(` <div class="swiper-button-prev"></div><div class="swiper-button-next"></div>`);
+
                         }
                     }
                     $("#modal-gallery .modal-dialog .modal-content .modal-body").html(childrenClone);
