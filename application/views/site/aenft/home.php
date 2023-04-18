@@ -165,7 +165,7 @@
         </div>
     </header>
     <!-- End Header Section -->
-    <div class="cs-height_80 cs-height_lg_80"></div>
+    <!-- <div class="cs-height_80 cs-height_lg_80"></div> -->
 
     <!-- Start Hero -->
     <div id="home" class="cs-hero cs-style1 cs-type2 cs-bg text-center cs-ripple_version" data-src="<?= base_url('themes/aenft'); ?>/assets/img/konas/bg-head.png" id="home">
@@ -203,7 +203,7 @@
         <div class="cs-dark_overlay"></div>
         <div class="container">
             <div class="cs-hero_img wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.3s">
-                <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/logo.png" style="width: 100%; max-width: 320px; height: auto;">
+                <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/logo.png" style="width: 100%; max-width: 320px; height: auto; margin-top: 100px;">
             </div>
             <div class="cs-hero_text wow fadeIn" data-wow-duration="1s" data-wow-delay="0.45s" style="margin-top: -50px;">
                 <h3 class="cs-hero_title text-uppercase cs-font_40 cs-font_36_sm cs-bold">NATIONAL CONGRESS OF INDONESIAN NEUROLOGY ASSOCIATION 2023 SEMARANG</h3>
@@ -220,19 +220,19 @@
                 </div>-->
                 <div class="row mt-5">
                     <div class="col-lg-12 wow fadeIn" data-wow-duration="1s" data-wow-delay="0.2s">
-                        <div class="cs-iconbox cs-style1 cs-white_bg text-center">
+                        <div class="cs-iconbox cs-style1 cs-white_bg text-center text-white" style="background-color: transparent;">
                             <div class="row">
                                 <div class="col-lg-6 col-sm-12 mb-4">
                                     <h3 class="cs-iconbox_title cs-font_28 cs-font_22_sm cs-m0">Abstract Countdown</h3>
                                     <div class="cs-height_10 cs-height_lg_10"></div>
-                                    <div class="cs-iconbox_subtitle">(<?= date_format($papercountdown, "F d, Y"); ?>)</div>
+                                    <div class="cs-iconbox_subtitle fw-bold">(<?= date_format($papercountdown, "F d, Y"); ?>)</div>
                                     <div class="cs-height_10 cs-height_lg_10"></div>
                                     <div class="de_countdown h4 cs-iconbox_icon cs-font_26 cs-font_20_sm cs-m0" data-year="<?= date_format($papercountdown, "Y"); ?>" data-month="<?= date_format($papercountdown, "m"); ?>" data-day="<?= date_format($papercountdown, "d"); ?>" data-hour="<?= date_format($papercountdown, "H"); ?>"></div>
                                 </div>
                                 <div class="col-lg-6 col-sm-12 mb-4">
                                     <h3 class="cs-iconbox_title cs-font_28 cs-font_22_sm cs-m0">Event Countdown</h3>
                                     <div class="cs-height_10 cs-height_lg_10"></div>
-                                    <div class="cs-iconbox_subtitle">(<?= date_format($eventcountdown, "F d, Y"); ?>)</div>
+                                    <div class="cs-iconbox_subtitle fw-bold">(<?= date_format($eventcountdown, "F d, Y"); ?>)</div>
                                     <div class="cs-height_10 cs-height_lg_10"></div>
                                     <div class="de_countdown h4 cs-iconbox_icon cs-font_26 cs-font_20_sm cs-m0" data-year="<?= date_format($eventcountdown, "Y"); ?>" data-month="<?= date_format($eventcountdown, "m"); ?>" data-day="<?= date_format($eventcountdown, "d"); ?>" data-hour="<?= date_format($eventcountdown, "H"); ?>"></div>
                                 </div>

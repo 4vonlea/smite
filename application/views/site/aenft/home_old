@@ -39,12 +39,6 @@
             background-color: #555;
         }
 
-        .swiper {
-            width: 100%;
-            height: 400px;
-        }
-
-        .swiper-slide,
         .slide-pop {
             cursor: pointer;
         }
@@ -74,7 +68,33 @@
 
         .modal.show {
             display: flex !important;
+            justify-content: center;
         }
+
+        #news .swiper {
+            max-height: 500px;
+        }
+
+        #swiper-popup .swiper-slide {
+            height: auto;
+        }
+
+        #modal-gallery .modal-content {
+            background: transparent !important;
+            border: none;
+            justify-content: center;
+        }
+
+        #modal-gallery .modal-title {
+            position: relative;
+            color: #F5F5F5;
+            top: 10px;
+            right: 10px;
+        }
+
+        /* #modal-gallery .swiper-slide {
+            max-height: 90vh;
+        } */
     </style>
 </head>
 
@@ -85,10 +105,10 @@
         </div>
     </div> -->
 
-    <button class="btn btn-sm btn-primary position-fixed bottom-0 end-0 translate-middle me-1 d-none" onclick="scrollToTop()" id="back-to-up">
+    <button class="btn btn-sm btn-primary position-fixed bottom-0 end-0 translate-middle me-1 d-none" onclick="scrollToTop()" id="back-to-up" style="z-index: 3;">
         <i class="fa fa-arrow-up fa-2x" aria-hidden="true"></i>
     </button>
-    <button style="z-index:1" onclick="document.getElementById('section-contact').scrollIntoView({behavior: 'smooth'});" class="btn btn-sm btn-primary position-fixed bottom-0 end-0 mb-5 translate-middle">
+    <button style="z-index:3" onclick="document.getElementById('section-contact').scrollIntoView({behavior: 'smooth'});" class="btn btn-sm btn-primary position-fixed bottom-0 end-0 mb-5 translate-middle">
         <i class="fa-2x fa-brands fa-whatsapp"></i>
     </button>
     <!-- Start Header Section -->
@@ -148,7 +168,7 @@
     <div class="cs-height_80 cs-height_lg_80"></div>
 
     <!-- Start Hero -->
-    <div id="home" class="cs-hero cs-style1 cs-type2 cs-bg text-center cs-ripple_version" data-src="<?= base_url('themes/aenft'); ?>/assets/img/konas/bg-head.jpg" id="home">
+    <div id="home" class="cs-hero cs-style1 cs-type2 cs-bg text-center cs-ripple_version" data-src="<?= base_url('themes/aenft'); ?>/assets/img/konas/bg-head.png" id="home">
         <!--
         <nav class="floating-menu">
             <ul class="main-menu">
@@ -226,7 +246,8 @@
     </div>
     <!-- End Hero -->
 
-    <section id="sambutan">
+    <section id="sambutan" style="z-index:1;position:relative;width:100%;">
+        <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/right.png" class="sambutan-right-image">
         <div class="cs-height_70 cs-height_lg_40"></div>
         <div class="container">
             <div class="cs-seciton_heading cs-style1 text-uppercase wow fadeInUp text-center" data-wow-duration="1s" data-wow-delay="0.2s">
@@ -312,22 +333,13 @@
             </div>
         </div>
 
-        <div class="cs-height_50 cs-height_lg_20"></div>
-
+        <!-- <div class="cs-height_50 cs-height_lg_20"></div> -->
+        <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/left.png" class="sambutan-left-image">
     </section>
 
-    <section id="news">
+    <section id="news" style="z-index:1;position:relative;width:100%;">
         <div class="cs-height_70 cs-height_lg_40"></div>
-        <!-- Button trigger modal -->
 
-        <!-- Modal -->
-        <div class="modal fade" id="modal-gallery" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog d-flex justify-content-center align-items-center p3">
-                <div class="modal-content">
-
-                </div>
-            </div>
-        </div>
         <div class="container">
             <div class="cs-seciton_heading cs-style1 text-uppercase wow fadeInUp text-center" data-wow-duration="1s" data-wow-delay="0.2s">
                 <h3 class="cs-section_title cs-font_16 cs-font_14_sm cs-gradient_color">News</h3>
@@ -335,20 +347,20 @@
             </div>
             <div class="cs-height_50 cs-height_lg_30"></div>
             <div class="row wow fadeIn" data-wow-duration="1s" data-wow-delay="0.4s">
-                <div class="col-lg-6 col-sm-6 m1">
+                <div class="col-lg-6 col-sm-6 p-2">
                     <div id="swiper-photo" class="swiper">
                         <!-- Additional required wrapper -->
                         <div class="swiper-wrapper">
                             <!-- Slides -->
                             <?php if (count($videoAndPhoto['photo']) == 0) : ?>
-                                <div class="swiper-slide">
+                                <div class="swiper-slide slide-pop">
                                     <div class="title" data-swiper-parallax="-300">Photo Update</div>
                                     <img src="<?= base_url('themes/img/coming-soon.jpg'); ?>" />
                                 </div>
                                 <?php else : foreach ($videoAndPhoto['photo'] as $photo) : ?>
-                                    <div class="swiper-slide">
+                                    <div class="swiper-slide slide-pop">
                                         <div class="title" data-swiper-parallax="-300"><?= $photo['title']; ?></div>
-                                        <img src="<?= base_url('themes/uploads/video') . "/" . $photo['filename']; ?>" />
+                                        <img src="<?= base_url('themes/uploads/video') . "/" . $photo['filename']; ?>" data-list='<?= $photo['list']; ?>' />
                                     </div>
                                 <?php endforeach; ?>
                             <?php endif; ?>
@@ -364,18 +376,18 @@
                         <div class="swiper-scrollbar"></div>
                     </div>
                 </div>
-                <div class="col-lg-6 col-sm-6 m1">
+                <div class="col-lg-6 col-sm-6 p-2">
                     <div id="swiper-video" class="swiper">
                         <!-- Additional required wrapper -->
                         <div class="swiper-wrapper">
                             <!-- Slides -->
                             <?php if (count($videoAndPhoto['video']) == 0) : ?>
-                                <div class="swiper-slide">
+                                <div class="swiper-slide slide-pop">
                                     <div class="title" data-swiper-parallax="-300">Video Update</div>
                                     <img src="<?= base_url('themes/img/coming-soon.jpg'); ?>" />
                                 </div>
                                 <?php else : foreach ($videoAndPhoto['video'] as $in => $video) : ?>
-                                    <div class="swiper-slide">
+                                    <div class="swiper-slide slide-pop">
                                         <div class="title" data-swiper-parallax="-300"><?= $video['title']; ?></div>
                                         <span class="play-button">
                                             <i class="fa fa-circle-play fa-4x"></i>
@@ -435,7 +447,8 @@
 
     <div class="cs-height_50 cs-height_lg_20"></div>
 
-    <section id="event">
+    <section id="event" style="z-index:1;position:relative;width:100%;">
+        <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/right.png" class="event-right-image">
         <div class="container">
             <div class="cs-seciton_heading cs-style1 text-uppercase text-center wow fadeInUp mb-2" data-wow-duration="1s" data-wow-delay="0.2s">
                 <!-- <h3 class="cs-section_title cs-font_16 cs-font_14_sm cs-gradient_color">Video</h3> -->
@@ -477,6 +490,7 @@
             </div>
             <div class="cs-height_50 cs-height_lg_25"></div>
         </div>
+        <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/left.png" class="event-left-image">
     </section>
 
     <div class="cs-height_75 cs-height_lg_45"></div>
@@ -535,7 +549,8 @@
         </div>
     </section>
 
-    <section>
+    <section style="z-index:1;position:relative;width:100%;">
+        <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/right.png" class="vidtor-right-image">
         <div class="cs-height_70 cs-height_lg_40"></div>
         <div class="container">
             <div class="cs-seciton_heading cs-style1 text-uppercase text-center wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s">
@@ -562,6 +577,7 @@
             </div>
             <div class="cs-height_50 cs-height_lg_30"></div>
         </div>
+        <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/left.png" class="vidtor-left-image">
     </section>
 
     <div class="cs-height_70 cs-height_lg_40"></div>
@@ -811,7 +827,8 @@
         </div>
     </section>
 
-    <section id="section-contact">
+    <section id="section-contact" style="z-index:1;position:relative;width:100%;">
+        <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/left.png" class="cp-left-image">
         <div class="cs-height_70 cs-height_lg_40"></div>
         <div class="container">
             <div class="cs-seciton_heading cs-style1 text-uppercase text-center wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s">
@@ -862,6 +879,8 @@
             </div>
             <div class="cs-height_50 cs-height_lg_30"></div>
         </div>
+
+        <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/right.png" class="cp-right-image">
     </section>
 
     <!--<section id="news" class="cs-bg" data-src="<?= base_url('themes/aenft'); ?>/assets/img/konas/img6.jpg">
@@ -895,7 +914,7 @@
         </div>
     </section>-->
 
-    <section>
+    <section style="z-index:1;position:relative;width:100%;">
         <div class="cs-height_70 cs-height_lg_45"></div>
         <div class="container">
             <div class="cs-seciton_heading cs-style1 text-uppercase wow fadeInUp text-center" data-wow-duration="1s" data-wow-delay="0.2s">
@@ -1078,6 +1097,8 @@
                 </table>
             </div>
         </div>
+
+        <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/left.png" class="hotel-left-image">
     </section>
 
     <!--<section>
@@ -1203,7 +1224,9 @@
     </section>-->
 
     <div class="cs-height_75 cs-height_lg_45"></div>
-    <div class="cs-footer_wrap">
+    <div class="cs-footer_wrap" style="position: relative;">
+        <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/footer-left.png" class="footer-left-image">
+        <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/footer-right.png" class="footer-right-image">
         <div class="wow fadeIn" data-wow-duration="1s" data-wow-delay="0.2s">
             <div class="cs-cta cs-style2 cs-accent_bg">
                 <div class="row padding-lg-top">
@@ -1470,6 +1493,21 @@
         </div>
     </div>
 
+    <!-- Modal -->
+    <div class="modal fade" id="modal-gallery" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog d-flex justify-content-center align-items-center p3">
+            <div class="modal-content">
+                <div class="modal-title text-end">
+                    <button type="button" class="btn btn-info" data-bs-dismiss="modal" aria-label="Close">
+                        X
+                    </button>
+                </div>
+                <div class="modal-body">
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Script -->
     <script src="<?= base_url('themes/aenft'); ?>/assets/js/plugins/jquery-3.6.0.min.js"></script>
     <script src="<?= base_url('themes/aenft'); ?>/assets/js/plugins/jquery.slick.min.js"></script>
@@ -1486,7 +1524,7 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
     <script>
         $(function() {
-            $(".swiper-slide, .slide-pop").click(function() {
+            $(".slide-pop").click(function() {
                 let child = $(this).children("img, video");
                 if (child.length > 0) {
                     let childrenClone = $(child[0]).clone();
@@ -1495,8 +1533,35 @@
                         childrenClone.attr("preload", true);
                     } else {
                         childrenClone.removeAttr("width");
+                        let baseUrl = "<?= base_url('themes/uploads/video'); ?>/";
+                        if (childrenClone.data("list")) {
+                            let list = childrenClone.data("list");
+                            let swiperWrapper = $(`<div class="swiper-wrapper"></div>`);
+                            list.forEach(item => {
+                                swiperWrapper.append(`
+                                <div class="swiper-slide">
+                                <img src="${baseUrl}${item}" class="img">
+                                </div>
+                                `)
+                            })
+                            childrenClone = $(`<div id="swiper-popup" class="swiper"></div>`);
+                            childrenClone.append(swiperWrapper);
+                            childrenClone.append(` <div class="swiper-button-prev"></div><div class="swiper-button-next"></div>`);
+
+                        }
                     }
-                    $("#modal-gallery .modal-dialog .modal-content").html(childrenClone);
+                    $("#modal-gallery .modal-dialog .modal-content .modal-body").html(childrenClone);
+                    new Swiper("#swiper-popup", {
+                        mode: 'horizontal',
+                        height: '600px',
+                        navigation: {
+                            nextEl: '.swiper-button-next',
+                            prevEl: '.swiper-button-prev',
+                        },
+                        scrollbar: {
+                            el: '.swiper-scrollbar',
+                        },
+                    });
                     let video = document.querySelector("#modal-gallery .modal-dialog .modal-content video");
                     if (video) {
                         video.play();
