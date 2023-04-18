@@ -467,6 +467,7 @@
                                         <th>Event</th>
                                         <th>Tempat</th>
                                         <th>Kuota</th>
+                                        <th>Rundown</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -478,8 +479,14 @@
                                                 <small class="fw-bold"><?= $event['description']; ?></small>
                                             </td>
                                             <td><?= $event['held_in']; ?></td>
-
                                             <td align="center"><span class="badge card-header-bg2 fw-bold"><?= $event['kouta']; ?> Orang</span></td>
+                                            <td class="text-center">
+                                                <?php if ($event['material']) : ?>
+                                                    <button class="btn btn-info show-material" data-url="<?= $event['material']; ?>">
+                                                        Show Rundown
+                                                    </button>
+                                                <?php endif; ?>
+                                            </td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
@@ -1497,12 +1504,13 @@
     <div class="modal fade" id="modal-gallery" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog d-flex justify-content-center align-items-center p3">
             <div class="modal-content">
-                <div class="modal-title text-end">
+                <div style="position: absolute;top: 23px;right: 23px;z-index: 1000;">
                     <button type="button" class="btn btn-info" data-bs-dismiss="modal" aria-label="Close">
                         X
                     </button>
                 </div>
                 <div class="modal-body">
+
                 </div>
             </div>
         </div>
@@ -1523,7 +1531,38 @@
     <script src="<?= base_url('themes/gigaland'); ?>/js/jquery.countdown.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
     <script>
+        function createCarousal(listImage) {
+            let baseUrl = "<?= base_url('themes/uploads/video'); ?>/";
+            let wrapper = $(`<div id="carousel-gallery" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carousel-gallery" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carousel-gallery" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>`);
+            listImage.forEach((item, index) => {
+                wrapper.find(".carousel-inner").append(
+                    ` <div class="carousel-item ${index == 0 ? 'active':''}">
+                                <img class="d-block w-100" src="${baseUrl}${item}" alt="Third slide">
+                            </div>`
+                )
+            })
+            return wrapper;
+        }
         $(function() {
+            $(".show-material").click(function() {
+                let url = $(this).data("url");
+                console.log(url);
+                $("#modal-gallery .modal-dialog .modal-content .modal-body").html(`
+                <img src="${url}" class="img img-fluid" />
+                `);
+                $("#modal-gallery").modal("show");
+            });
             $(".slide-pop").click(function() {
                 let child = $(this).children("img, video");
                 if (child.length > 0) {
@@ -1536,18 +1575,18 @@
                         let baseUrl = "<?= base_url('themes/uploads/video'); ?>/";
                         if (childrenClone.data("list")) {
                             let list = childrenClone.data("list");
-                            let swiperWrapper = $(`<div class="swiper-wrapper"></div>`);
-                            list.forEach(item => {
-                                swiperWrapper.append(`
-                                <div class="swiper-slide">
-                                <img src="${baseUrl}${item}" class="img">
-                                </div>
-                                `)
-                            })
-                            childrenClone = $(`<div id="swiper-popup" class="swiper"></div>`);
-                            childrenClone.append(swiperWrapper);
-                            childrenClone.append(` <div class="swiper-button-prev"></div><div class="swiper-button-next"></div>`);
-
+                            childrenClone = createCarousal(list);
+                            // let swiperWrapper = $(`<div class="swiper-wrapper d-flex align-items-center"></div>`);
+                            // list.forEach(item => {
+                            //     swiperWrapper.append(`
+                            //     <div class="swiper-slide">
+                            //         <img src="${baseUrl}${item}" class="img img-fluid">
+                            //     </div>
+                            //     `)
+                            // })
+                            // childrenClone = $(`<div id="swiper-popup" class="swiper"></div>`);
+                            // childrenClone.append(swiperWrapper);
+                            // childrenClone.append(` <div class="swiper-button-prev"></div><div class="swiper-button-next"></div>`);
                         }
                     }
                     $("#modal-gallery .modal-dialog .modal-content .modal-body").html(childrenClone);
