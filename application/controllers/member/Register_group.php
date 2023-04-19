@@ -85,7 +85,7 @@ class Register_group extends MY_Controller
         $errorValidation = $this->form_validation->error_array();
         $memberCheck = is_array($members) && !empty($members);
         $membersError = $memberCheck ? "" : "No data members added";
-        $status = $this->Category_member_m->find()->select("id,kategory,need_verify")->where('is_hide', '0')->get()->result_array();
+        // $statusList = $this->Category_member_m->find()->select("id,kategory,need_verify")->where('is_hide', '0')->get()->result_array();
 
         if ($status && $memberCheck) {
             foreach ($members as $index => $row) {

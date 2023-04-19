@@ -110,6 +110,10 @@ Vue.component("select-event", {
 		addCartUrl: {
 			type: String,
 		},
+		onAdd: {
+			type: Function,
+			default: () => {},
+		},
 	},
 	computed: {
 		eventCategory() {
@@ -186,14 +190,16 @@ Vue.component("select-event", {
 			event.member_status = statusMember;
 			event.event_name = event_name;
 			event.event_id = event_id;
-			$.post(this.addCartUrl, event, function (res) {
+			$.post(this.addCartUrl, event, (res) => {
 				if (res.status) {
 					event.added = 1;
 				} else {
 					Swal.fire("Info", res.message, "warning");
 				}
+				this.onAdd(res);
 			})
-				.fail(function () {
+				.fail(() => {
+					this.onAdd(false);
 					Swal.fire("Fail", "Failed adding to cart !", "error");
 				})
 				.always(function () {
