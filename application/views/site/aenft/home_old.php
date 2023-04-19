@@ -92,14 +92,6 @@
             right: 10px;
         }
 
-        @media only screen and (max-width: 992px) {
-
-            .mobile-hide {
-                display: none;
-            }
-        }
-
-
         /* #modal-gallery .swiper-slide {
             max-height: 90vh;
         } */
@@ -255,8 +247,7 @@
     <!-- End Hero -->
 
     <section id="sambutan" style="z-index:1;position:relative;width:100%;">
-        <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/header-neuro.png" style="position: absolute; right: 0; z-index: -1; width: 350px; height: auto;" class="mobile-hide">
-        <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/left-neuro-white.png" style="position: absolute; z-index: -1; width: 130px; height: auto;" class="mobile-hide">
+        <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/right.png" class="sambutan-right-image">
         <div class="cs-height_70 cs-height_lg_40"></div>
         <div class="container">
             <div class="cs-seciton_heading cs-style1 text-uppercase wow fadeInUp text-center" data-wow-duration="1s" data-wow-delay="0.2s">
@@ -347,7 +338,6 @@
     </section>
 
     <section id="news" style="z-index:1;position:relative;width:100%;">
-        <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/right-neuro.png" style="position: absolute; right: 0; z-index: -1;width: 120px; height: auto;" class="mobile-hide">
         <div class="cs-height_70 cs-height_lg_40"></div>
 
         <div class="container">
@@ -421,7 +411,7 @@
                 </div>
             </div>
         </div>
-        <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/left-neuro-white.png" style="position: absolute; z-index: -2;width: 120px; height: auto; top: -20px;" class="mobile-hide">
+
         <div class="cs-height_50 cs-height_lg_20"></div>
 
     </section>
@@ -459,8 +449,6 @@
 
     <section id="event" style="z-index:1;position:relative;width:100%;">
         <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/right.png" class="event-right-image">
-        <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/right-neuro-white.png" style="position: absolute; right: 0; z-index: -1;width: 120px; height: auto; top: 378px;" class="mobile-hide">
-        <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/left-neuro.png" style="position: absolute; z-index: -1; width: 120px; height: auto; top: -150px;" class="mobile-hide">
         <div class="container">
             <div class="cs-seciton_heading cs-style1 text-uppercase text-center wow fadeInUp mb-2" data-wow-duration="1s" data-wow-delay="0.2s">
                 <!-- <h3 class="cs-section_title cs-font_16 cs-font_14_sm cs-gradient_color">Video</h3> -->
@@ -509,7 +497,7 @@
             </div>
             <div class="cs-height_50 cs-height_lg_25"></div>
         </div>
-        <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/footer-left-neuro.png" style="position: absolute; z-index: -1; width: 300px; height: auto; bottom: -75px;" class="mobile-hide">
+        <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/left.png" class="event-left-image">
     </section>
 
     <div class="cs-height_75 cs-height_lg_45"></div>
@@ -569,8 +557,7 @@
     </section>
 
     <section style="z-index:1;position:relative;width:100%;">
-        <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/right.png" class="vidtor-right-image mobile-hide">
-        <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/left-neuro-white.png" style="position: absolute; z-index: -1; width: 90px; height: auto;" class="mobile-hide">
+        <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/right.png" class="vidtor-right-image">
         <div class="cs-height_70 cs-height_lg_40"></div>
         <div class="container">
             <div class="cs-seciton_heading cs-style1 text-uppercase text-center wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s">
@@ -578,31 +565,7 @@
                 <h2 class="cs-section_subtitle cs-m0 cs-font_36 cs-font_24_sm">Tutorial</h2>
             </div>
             <div class="wow fadeIn" data-wow-duration="1s" data-wow-delay="0.2s">
-                <button class="accordion mt-4">Registration Step</button>
-                <div class="accordion-content">
-                    <div id="regisStepSlide" class="carousel slide" data-bs-ride="carousel">
-                        <!-- The slideshow/carousel -->
-                        <div class="carousel-inner text-center my-4">
-                            <div class="carousel-item slide-pop active">
-                                <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/regis_step1.jpeg" class="mt-3" width="50%"></img>
-                            </div>
-                            <div class="carousel-item slide-pop">
-                                <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/regis_step2.jpeg" class="mt-3" width="50%"></img>
-                            </div>
-                            <div class="carousel-item slide-pop">
-                                <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/regis_step3.jpeg" class="mt-3" width="50%"></img>
-                            </div>
-                        </div>
-                        <!-- Left and right controls/icons -->
-                        <button class="carousel-control-prev" type="button" data-bs-target="#regisStepSlide" data-bs-slide="prev">
-                            <span class="carousel-control-prev-icon"></span>
-                        </button>
-                        <button class="carousel-control-next" type="button" data-bs-target="#regisStepSlide" data-bs-slide="next">
-                            <span class="carousel-control-next-icon"></span>
-                        </button>
-                    </div>
-                </div>
-                <button class="accordion mt-2">Individual Registration and Online Payment </button>
+                <button class="accordion mt-4">Individual Registration and Online Payment </button>
                 <div class="accordion-content">
                     <embed src="https://drive.google.com/file/d/1AAbZZ9lENoCZlWRzrPogUTe4Tb_9VyKg/preview" width="100%" height="600px" align="center" allow="autoplay" class="mt-3 mb-3"></embed>
                 </div>
@@ -621,9 +584,7 @@
             </div>
             <div class="cs-height_50 cs-height_lg_30"></div>
         </div>
-        <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/footer-neuro.png" style="position: absolute; z-index: -1; width: 250px; left: 20%; height: auto; bottom: -70px;" class="mobile-hide">
-        <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/footer-right-neuro.png" style="position: absolute; z-index: -1; width: 250px; right: 0; height: auto; bottom: -70px;" class="mobile-hide">
-        <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/left.png" class="vidtor-left-image mobile-hide">
+        <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/left.png" class="vidtor-left-image">
     </section>
 
     <div class="cs-height_70 cs-height_lg_40"></div>
@@ -874,9 +835,7 @@
     </section>
 
     <section id="section-contact" style="z-index:1;position:relative;width:100%;">
-        <!-- <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/left.png" class="cp-left-image"> -->
-        <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/header-neuro.png" style="position: absolute; right: 0; z-index: -1; width: 290px; height: auto;" class="mobile-hide">
-        <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/left-neuro-white.png" style="position: absolute; z-index: -1; width: 130px; height: auto;" class="mobile-hide">
+        <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/left.png" class="cp-left-image">
         <div class="cs-height_70 cs-height_lg_40"></div>
         <div class="container">
             <div class="cs-seciton_heading cs-style1 text-uppercase text-center wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s">
@@ -927,6 +886,7 @@
             </div>
             <div class="cs-height_50 cs-height_lg_30"></div>
         </div>
+
         <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/right.png" class="cp-right-image">
     </section>
 
@@ -1144,10 +1104,7 @@
                 </table>
             </div>
         </div>
-        <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/left-neuro.png" style="position: absolute; z-index: -2; width: 80px; height: auto; bottom: 150px;" class="mobile-hide">
-        <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/left-neuro.png" style="position: absolute; z-index: -2; width: 75px; height: auto; bottom: 300px;" class="mobile-hide">
-        <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/left-neuro.png" style="position: absolute; z-index: -2; width: 70px; height: auto; bottom: 420px;" class="mobile-hide">
-        <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/footer-right-neuro.png" style="position: absolute; z-index: -1; width: 250px; height: auto; right: 0; bottom: -75px;" class="mobile-hide">
+
         <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/left.png" class="hotel-left-image">
     </section>
 
@@ -1277,7 +1234,6 @@
     <div class="cs-footer_wrap" style="position: relative;">
         <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/footer-left.png" class="footer-left-image">
         <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/footer-right.png" class="footer-right-image">
-        <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/footer-neuro.png" style="position: absolute; z-index: 1; width: 170px; height: auto; left: 40%; bottom: 0;" class="mobile-hide">
         <div class="wow fadeIn" data-wow-duration="1s" data-wow-delay="0.2s">
             <div class="cs-cta cs-style2 cs-accent_bg">
                 <div class="row padding-lg-top">

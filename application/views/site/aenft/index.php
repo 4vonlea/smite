@@ -104,7 +104,7 @@
     </div>
     <!-- End Hero -->
 	<div class="row">
-    	<div class="col p-4">
+    	<div class="col-md-6 col-sm-12 p-4">
           <div id="demo" class="carousel slide" data-bs-ride="carousel">
         <!-- The slideshow/carousel -->
         <div class="carousel-inner">
@@ -155,7 +155,7 @@
         </button>
     </div>
         </div>
-        <div class="col p-4">
+        <div class="col-md-6 col-sm-12 p-4">
            <div class="row align-items-center wow fadeIn" data-wow-duration="1s" data-wow-delay="0.5s">
             <div class="col-lg-12 text-center">
                 <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/konas.jpg" width="70%">
