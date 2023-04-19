@@ -31,8 +31,8 @@ $this->layout->begin_head();
         margin-top: 4px;
     }
 
-    .table td,
-    .table th {
+    .card .table td,
+    .card .table th {
         color: #000 !important;
     }
 </style>
