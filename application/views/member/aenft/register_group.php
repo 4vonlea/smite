@@ -643,7 +643,7 @@ $this->layout->begin_head();
                     })
             },
             initEspayFrame() {
-                var invoiceID = this.model.transaction.invoice_id;
+                var invoiceID = this.model.transactions.invoice_id;
                 var apiKeyEspay = "<?= Settings_m::getEspay()['apiKey']; ?>";
                 var data = {
                     key: apiKeyEspay,
