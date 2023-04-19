@@ -6,13 +6,15 @@
  * @var array $participantsUniv
  * @var array $univList;
  */
-$this->layout->begin_head();
+
 
 /**
  * @var $content
  */
 $theme_path = base_url("themes/aenft") . "/";
+$this->layout->begin_head();
 ?>
+<link rel="stylesheet" href="https://unpkg.com/vue-select@latest/dist/vue-select.css">
 <link href="<?= base_url(); ?>themes/script/chosen/chosen.css" rel="stylesheet">
 <style>
     .chosen-container-single .chosen-single {
@@ -29,8 +31,8 @@ $theme_path = base_url("themes/aenft") . "/";
         margin-top: 4px;
     }
 
-    .card .table td,
-    .card .table th {
+    .table td,
+    .table th {
         color: #000 !important;
     }
 </style>
@@ -339,7 +341,7 @@ $theme_path = base_url("themes/aenft") . "/";
                                                                 </div>
                                                             </div>
 
-                                                            <div class="form-group col-6 p-2 dark-select">
+                                                            <div class="form-group col-6 p-2 text-dark dark-select">
                                                                 <label class="control-label text-light">Institution</label>
                                                                 <v-select placeholder="Select Institution" v-model="member.univ" label="univ_nama" :reduce="univ => univ.univ_id" :options="univList"></v-select>
                                                                 <div v-if="member.validation.univ" class="invalid-feedback">
@@ -484,9 +486,6 @@ $theme_path = base_url("themes/aenft") . "/";
         </div>
     </div>
 </div>
-<?php $this->layout->begin_head(); ?>
-<link rel="stylesheet" href="https://unpkg.com/vue-select@latest/dist/vue-select.css">
-<?php $this->layout->end_head(); ?>
 <?php $this->layout->begin_script(); ?>
 <script src="<?= base_url("themes/script/sweetalert2@8.js"); ?>"></script>
 <script src="<?= base_url("themes/script/vuejs-datepicker.min.js"); ?>"></script>
