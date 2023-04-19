@@ -19,9 +19,9 @@ if (!function_exists("run_job")) {
                 'Content-Type: application/json'
             ),
         ));
-        curl_exec($curl);
+        $response = ecurl_exec($curl);
         curl_close($curl);
-
+        return $response;
         // $cmd = "";
         // $formatParams = "";
         // if (is_array($params)) {

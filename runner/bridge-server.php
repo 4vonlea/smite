@@ -33,6 +33,7 @@ $http = new React\Http\HttpServer(function (Psr\Http\Message\ServerRequestInterf
         $status = false;
         $message = "Missing action url";
     }
+    echo PHP_EOL;
     return React\Http\Message\Response::json([
         'status' => $status,
         'actionUrl' => $actionUrl,
