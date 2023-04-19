@@ -402,7 +402,7 @@
                                         <span class="play-button">
                                             <i class="fa fa-circle-play fa-4x"></i>
                                         </span>
-                                        <video style="width:100%" poster="<?= base_url($video['thumbs']); ?>" src="<?= base_url('themes/uploads/video') . "/" . $video['filename']; ?>" preload="none"></video>
+                                        <video style="width:100%;" poster="<?= base_url($video['thumbs']); ?>" src="<?= base_url('themes/uploads/video') . "/" . $video['filename']; ?>" preload="none"></video>
                                     </div>
                                 <?php endforeach; ?>
                             <?php endif; ?>
@@ -477,8 +477,8 @@
                                 <thead bgcolor="#0052FF">
                                     <tr>
                                         <th>Event</th>
-                                        <th>Tempat</th>
-                                        <th>Kuota</th>
+                                        <th>Place</th>
+                                        <th>Quota</th>
                                         <th>Rundown</th>
                                     </tr>
                                 </thead>
@@ -892,6 +892,7 @@
                     <div class="overlay text-center">
                         <h5 class="mb-2">Registration</h5><br>
                         <a href="http://wa.me/6282140805759" target="_BLANK" class="btn btn-sm btn-primary mt-1"><i class="fa-brands fa-whatsapp"></i> dr. Yuna</a><br>
+                        <a href="http://wa.me/6282136020451" target="_BLANK" class="btn btn-sm btn-primary mt-1"><i class="fa-brands fa-whatsapp"></i> dr. Mayang</a><br>
                     </div>
                 </div>
                 <div class="card-cp">
