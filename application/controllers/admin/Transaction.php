@@ -431,14 +431,11 @@ class Transaction extends Admin_Controller
 			$transaction->save();
 		}
 
-		//$detail = $this->Transaction_detail_m->findOne(['transaction_id' => $idTransaction,'member_id'=>$memberId,'event_pricing_id' => $data['id']]);
-		//if (!$detail) {
 		$detail = new Transaction_detail_m();
-		//}
 
 		// NOTE Check Required Events
 		$valid = true;
-		$message = '';
+		$message = null;
 
 		if (!isset($data['is_hotel'])) {
 			$findEvent = $this->Event_m->findOne(['id' => $data['event_id']]);
@@ -459,10 +456,10 @@ class Transaction extends Admin_Controller
 				}
 			}
 
-			if ($this->Event_m->validateFollowing($data['id'], $memberStatus->kategory) && $valid) {
+			if ($this->Event_m->validateFollowing($data['id'],"all") && $valid) {
 
 				// NOTE Harga sesuai dengan database
-				$price = $this->Event_pricing_m->findWithProductName(['id' => $data['id'], 'condition' => $memberStatus->kategory]);
+				$price = $this->Event_pricing_m->findWithProductName(['id' => $data['id']]);
 				if ($price->price != 0) {
 					$data['price'] = $price->price;
 				} else {
