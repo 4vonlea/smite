@@ -58,6 +58,9 @@ class Register_group extends MY_Controller
         $this->load->helper("form");
         $participantsCategory = Category_member_m::asList($status, 'id', 'kategory', 'Please Select your status');
         $model = $this->session_model($id_invoice);
+        if ($model == false) {
+            redirect(base_url('member/register/group'));
+        }
 
         $data = [
             'participantsCategory' => $participantsCategory,
@@ -276,6 +279,9 @@ class Register_group extends MY_Controller
         $transaction = $this->Transaction_m->find()
             ->like("member_id", "REGISTER-GROUP", "after")
             ->where("id", $invoice_id ?? $model['transactions']['invoice_id'] ?? "")->get()->row();
+        if ($invoice_id && $transaction->status_payment != Transaction_m::STATUS_WAITING) {
+            return false;
+        }
         if ($model == null || !$transaction || $transaction->status_payment != Transaction_m::STATUS_WAITING) {
             $model = [
                 'bill_to' => '',
