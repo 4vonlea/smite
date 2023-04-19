@@ -90,6 +90,7 @@ class Transaction_m extends MY_Model
 			$relationship = (count($relationship) > 0 ? $relationship : $this->gridConfig());
 			$result = $this->db->like("fullname", $global_filter)
 				->or_like("email", $global_filter)
+				->or_like('transaction_details.product_name',$global_filter)
 				->from("members")
 				->select("transaction_id")
 				->join("transaction_details", "members.id = member_id")
