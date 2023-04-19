@@ -66,7 +66,7 @@
                                         <div class="form-group focused">
                                             <label class="form-control-label" for="input-username">Held On
                                                 (Date)</label>
-                                            <vue-ctk-date-time-picker only-date range :disabled="detailMode" :no-label="true" format="YYYY-MM-DD" formatted="DD MMMM YYYY" v-model="form.model.held_on"></vue-ctk-date-time-picker>
+                                            <vue-ctk-date-time-picker range :disabled="detailMode" :no-label="true" format="YYYY-MM-DD hh:mm" formatted="DD MMMM YYYY hh:mm" v-model="form.model.held_on"></vue-ctk-date-time-picker>
                                         </div>
                                     </div>
                                 </div>
