@@ -554,7 +554,8 @@ $this->layout->begin_head();
                 self.toggleLoading();
                 $.post("<?= base_url('member/register/group/create_transaction'); ?>", null, (res) => {
                         if (res.status) {
-                            this.model.transactions = res.transactions;
+                            Vue.set(this.model, 'transactions', res.transactions)
+                            // this.model.transactions = res.transactions;
                             this.page = "payment";
                             this.initEspayFrame();
                         } else {
