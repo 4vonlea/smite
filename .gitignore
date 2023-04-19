@@ -79,3 +79,6 @@ public/themes/uploads/video/*
 application/uploads/guarantee_letter/*
 themes/gigaland/images/commitee.pdf
 themes/gigaland/images/event.pdf
+
+runner/access.log
+runner/pid
