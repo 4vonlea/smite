@@ -66,7 +66,11 @@
                                         <div class="form-group focused">
                                             <label class="form-control-label" for="input-username">Held On
                                                 (Date)</label>
-                                            <vue-ctk-date-time-picker range :disabled="detailMode" :no-label="true" format="YYYY-MM-DD hh:mm" formatted="DD MMMM YYYY hh:mm" v-model="form.model.held_on"></vue-ctk-date-time-picker>
+                                            <div class="d-flex align-items-center">
+                                                <vue-ctk-date-time-picker :disabled="detailMode" :no-label="true" format="YYYY-MM-DD hh:mm" formatted="DD MMMM YYYY hh:mm" v-model="form.model.held_on.start"></vue-ctk-date-time-picker>
+                                                <span class="ml-2 mr-2">To</span>
+                                                <vue-ctk-date-time-picker :disabled="detailMode" :no-label="true" format="YYYY-MM-DD hh:mm" formatted="DD MMMM YYYY hh:mm" v-model="form.model.held_on.end"></vue-ctk-date-time-picker>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
