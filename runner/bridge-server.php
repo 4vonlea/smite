@@ -11,6 +11,7 @@ $http = new React\Http\HttpServer(function (Psr\Http\Message\ServerRequestInterf
     $message = "";
     $signatureKey = getenv("SIGNATURE_KEY") ?? "";
     echo date("Y-m-d H:i:s") . " ";
+    echo $request->getBody() . " ";
     if (isset($jsonBody['actionUrl'])) {
         $actionUrl = $jsonBody['actionUrl'];
         $status = true;
