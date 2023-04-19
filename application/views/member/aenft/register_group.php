@@ -588,6 +588,7 @@ $this->layout->begin_head();
             selectedEvent(res) {
                 this.model.transactions.invoice_id = res.invoice_id;
                 Vue.set(this.model.transactions, this.currentMember.id, res.transactionsMember);
+                console.log(res,this.currentMember,this.model.transactions);
             },
             findStatus(id) {
                 return this.statusList.find(data => data.id == id);

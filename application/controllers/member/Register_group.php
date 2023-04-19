@@ -40,7 +40,7 @@ class Register_group extends MY_Controller
         $transaction_detail_id = $this->input->post("transaction_detail_id");
         $response = $this->Transaction_detail_m->deleteItem($transaction_detail_id);
         $model = $this->session_model();
-        $response['transactionsMember'] = $model['transactions'][$member_id];
+        $response['transactionsMember'] = $model['transactions'][$member_id] ?? [];
         $this->output->set_content_type("application/json")
             ->_display(json_encode($response));
     }
@@ -249,6 +249,7 @@ class Register_group extends MY_Controller
                 $model['transactions'][$memberId][] = $detail->toArray();
                 $response['status'] = true;
                 $this->Transaction_m->setDiscount($model['transactions']['invoice_id'], $memberId);
+                $this->session->set_userdata("group_model", $model);
             } else {
                 $response['status'] = false;
                 $response['message'] = $addEventStatus ?? "You are prohibited from following !";

@@ -23,7 +23,7 @@ class Transaction_detail_m extends MY_Model
 	public function deleteItem($id)
 	{
 		$this->load->model("Transaction_m");
-		$check = $this->db->query("SELECT COUNT(*) AS countRequired,td.transaction_id,td.member_id FROM transaction_details td
+		$check = $this->db->query("SELECT COUNT(*) AS countRequired FROM transaction_details td
 			JOIN event_pricing ev ON ev.id = td.event_pricing_id
 			JOIN transaction_details tdo ON tdo.member_id = td.member_id
 			JOIN `transaction` `tro` ON tro.id = tdo.transaction_id AND tro.status_payment != 'expired'
@@ -37,15 +37,16 @@ class Transaction_detail_m extends MY_Model
 			return ['status' => false, 'message' => "Event tidak bisa dihapus, karena merupakan event wajib"];
 		}
 
-		$this->find()->where(['id' => $id])->delete();
+		$transactionDetails = $this->findOne($id);
+		$transactionDetails->delete();
 		$count = $this->find()->select("SUM(price) as c")
-			->where('transaction_id',  $check['transaction_id'])
+			->where('transaction_id',  $transactionDetails->transaction_id)
 			->where('event_pricing_id >', "0")
 			->get()->row_array();
 		if ($count['c'] == 0) {
-			$this->find()->where(['event_pricing_id' => 0, 'transaction_id' => $check['transaction_id']])->delete();
+			$this->find()->where(['event_pricing_id' => 0, 'transaction_id' => $transactionDetails->transaction_id])->delete();
 		}
-		$this->Transaction_m->setDiscount($check['transaction_id'], $check['member_id']);
+			$this->Transaction_m->setDiscount($transactionDetails->transaction_id, $transactionDetails->member_id);
 		return ['status' => true, 'message' => ''];
 	}
 
@@ -54,7 +55,8 @@ class Transaction_detail_m extends MY_Model
 	{
 		$this->load->model("Event_m");
 		$event = $this->Event_m->findOne($event_id);
-		$heldOn = json_decode($event->held_on, true) ?? ['start' => '-', 'end' => ''];
+		$heldOn = json_decode($event->held_on, true) ?? ['start' => date("Y-m-d H:i"), 'end' => date("Y-m-d H:i")];
+		$heldOn = $heldOn == "" || $heldOn == null ? ['start' => date("Y-m-d H:i"), 'end' => date("Y-m-d H:i")] : $heldOn;
 		return $this->db->from("transaction_details td")
 			->join("transaction tr", "tr.id = td.transaction_id")
 			->join("event_pricing", "event_pricing.id = event_pricing_id")
