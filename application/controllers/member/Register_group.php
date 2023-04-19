@@ -209,7 +209,6 @@ class Register_group extends MY_Controller
         $data = $this->input->post();
         $model = $this->session_model();
         $this->load->model(["Transaction_m", "Transaction_detail_m", "Event_m", "Event_pricing_m", "Category_member_m"]);
-
         if (!isset($model['transactions']['invoice_id']) || $model['transactions']['invoice_id'] == "") {
             $invoice_id = $this->Transaction_m->generateInvoiceID();
             $transaction = new Transaction_m();
@@ -275,14 +274,31 @@ class Register_group extends MY_Controller
     protected function session_model($invoice_id = null)
     {
         $model = $this->session->userdata("group_model");
-        $this->load->model("Transaction_m");
+        $this->load->model(["Transaction_m", "Transaction_detail_m"]);
         $transaction = $this->Transaction_m->find()
             ->like("member_id", "REGISTER-GROUP", "after")
             ->where("id", $invoice_id ?? $model['transactions']['invoice_id'] ?? "")->get()->row();
-        if ($invoice_id && $transaction->status_payment != Transaction_m::STATUS_WAITING) {
+
+        if ($transaction && $transaction->status_payment != Transaction_m::STATUS_WAITING) {
+            $this->session->unset_userdata("group_model");
             return false;
         }
-        if ($model == null || !$transaction || $transaction->status_payment != Transaction_m::STATUS_WAITING) {
+
+        if ($transaction && $transaction->status_payment == Transaction_m::STATUS_WAITING) {
+            $members = $this->Transaction_detail_m->find()->select("m.*, '' as validation")
+                ->join("members m", "m.id = member_id")
+                ->where("transaction_id", $transaction->id)
+                ->group_by("member_id")
+                ->get()->result_array();
+            $model['bill_to'] = str_replace("REGISTER-GROUP : ", "", $transaction->member_id);
+            $model['email'] = $transaction->email_group;
+            $model['members'] = isset($model['members']) && count($model['members']) > 0 ? $model['members'] : $members ?? [];
+            $model['transactions'] = [
+                'invoice_id' => $transaction->id
+            ];
+        } else if ($model) {
+            $model['transactions']['invoice_id'] = null;
+        } else if ($model == null) {
             $model = [
                 'bill_to' => '',
                 'email' => '',
@@ -292,21 +308,8 @@ class Register_group extends MY_Controller
                 ]
             ];
             $this->session->set_userdata("group_model", $model);
-        } else if ($invoice_id && $transaction) {
-            $members = $this->Transaction_detail_m->find()->select("m.*, '' as validation")
-                ->join("members m", "m.id = member_id")
-                ->where("transaction_id", $transaction->id)
-                ->group_by("member_id")
-                ->get()->result_array();
-            $model = [
-                'bill_to' => str_replace("REGISTER-GROUP : ", "", $transaction->member_id),
-                'email' => $transaction->email_group,
-                'members' => $members,
-                'transactions' => [
-                    'invoice_id' => $transaction->id
-                ]
-            ];
         }
+
         if (isset($model['transactions']['invoice_id']) && $model['transactions']['invoice_id'] != "") {
             $tempTransaction = [
                 'invoice_id' => $model['transactions']['invoice_id']
