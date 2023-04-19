@@ -60,8 +60,8 @@ class Transaction_detail_m extends MY_Model
 			->join("event_pricing", "event_pricing.id = event_pricing_id")
 			->join("events", "events.id = event_pricing.event_id")
 			->where("status_payment !=", Transaction_m::STATUS_EXPIRE)
-			->where('STR_TO_DATE(JSON_EXTRACT(held_on,"$.end"),\'"%Y-%m-%d"\') >=', $heldOn['start'])
-			->where('STR_TO_DATE(JSON_EXTRACT(held_on,"$.start"),\'"%Y-%m-%d"\') <=', $heldOn['end'])
+			->where('STR_TO_DATE(CAST(JSON_EXTRACT(held_on,"$.end") As CHAR),\'"%Y-%m-%d"\') >=', $heldOn['start'])
+			->where('STR_TO_DATE(CAST(JSON_EXTRACT(held_on,"$.start") As CHAR),\'"%Y-%m-%d"\') <=', $heldOn['end'])
 			->where("td.member_id", $member_id)->count_all_results() > 0;
 	}
 
