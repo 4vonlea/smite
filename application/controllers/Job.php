@@ -12,7 +12,7 @@ class Job extends CI_Controller
         parent::__construct();
         $signature = $this->input->get_request_header("X-Token");
         $this->rawBody = file_get_contents('php://input');
-        $this->jsonBody = json_decode($rawBody, true);
+        $this->jsonBody = json_decode($this->rawBody, true);
         $checkSignature = $signature === sha1(env("SIGNATURE_KEY") . $this->rawBody);
         if (!is_cli() && $checkSignature == false) {
             die("Not From CLI Or Authorize Client");
