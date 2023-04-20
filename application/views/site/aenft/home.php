@@ -1034,7 +1034,7 @@
                         <td>
                             <span class="text-white">
                                 Distance to Venue : <span class="fw-bold">1,5 km</span><br>
-                                <span class="fw-bold">± 5 minutes</span> by vehicle
+                                <span class="fw-bold"> 5 minutes</span> by vehicle
                             </span>
                         </td>
                         <td align="center">
@@ -1274,7 +1274,7 @@
         </div>
     </section>-->
 
-    <div class="cs-height_75 cs-height_lg_45"></div>
+    <!--<div class="cs-height_75 cs-height_lg_45"></div>-->
     <div class="cs-footer_wrap" style="position: relative;">
         <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/footer-left.png" class="footer-left-image">
         <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/footer-right.png" class="footer-right-image">
@@ -1291,10 +1291,10 @@
                                 </div>
                                 <div class="fm-item-content">
                                     <ul class="mt-3">
-                                        <li>Early Registration : Januari - 30 April 2023</li>
-                                        <li>Abstract Submission: April - Mei 2023</li>
-                                        <li>Abstract Announcement: 20 Juli 2023</li>
-                                        <li>Regular Registration : 1 Mei - 1 Agustus 2023</li>
+                                        <li>Early Registration : Januari - 31 May 2023</li>
+                                        <li>Abstract Submission: April - May 2023</li>
+                                        <li>Abstract Announcement: 20 July 2023</li>
+                                        <li>Regular Registration : 1 June - 1 August 2023</li>
                                     </ul>
                                 </div>
                             </div>
@@ -1309,25 +1309,7 @@
                                 </div>
                                 <div class="fm-item-content">
                                     <ul class="mt-3">
-                                        <li>Neurovascular</li>
-                                        <li>Neurorestoration</li>
-                                        <li>Neurotrauma</li>
-                                        <li>Neuropediatri</li>
-                                        <li>Neurooncology</li>
-                                        <li>Sleep disorder</li>
-                                        <li>Neuroinfection</li>
-                                        <li>Headache</li>
-                                        <li>Neurobehavior</li>
-                                        <li>Neurootology-Neuroophtamology</li>
-                                        <li>Neurointervention</li>
-                                        <li>Pain</li>
-                                        <li>Neurointensive</li>
-                                        <li>Movement Disorder</li>
-                                        <li>Neurogeriatri</li>
-                                        <li>Epilepsy</li>
-                                        <li>Neuroimaging</li>
-                                        <li>Neuroepidemiology</li>
-                                        <li>Neurophysiology</li>
+                                        <li>Neurovascular; Neurorestoration; Neurotrauma; Neuropediatri; Neurooncology; Sleep disorder; Neuroinfection; Headache; Neurobehavior; Neurootology-Neuroophtamology Neurointervention; Pain; Neurointensive; Movement Disorder; Neurogeriatri; Epilepsy; Neuroimaging; Neuroepidemiology; Neurophysiology</li>
                                     </ul>
                                 </div>
                             </div>

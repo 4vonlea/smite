@@ -10,7 +10,7 @@
     <!-- Favicon Icon -->
     <link rel="icon" href="<?= base_url('themes/aenft'); ?>/assets/img/konas/logo.png" />
     <!-- Site Title -->
-    <title>KONAS XI PERDOSSI 2023 SEMARANG</title>
+    <title>NATIONAL CONGRESS OF INDONESIAN NEUROLOGY ASSOCIATION 2023 SEMARANG</title>
     <link rel="stylesheet" href="<?= base_url('themes/aenft'); ?>/assets/css/plugins/bootstrap.min.css">
     <link rel="stylesheet" href="<?= base_url('themes/aenft'); ?>/assets/css/plugins/slick.css">
     <link rel="stylesheet" href="<?= base_url('themes/aenft'); ?>/assets/css/plugins/animate.css">
@@ -266,15 +266,15 @@
                         <div class="footer-middle-item-wrapper">
                             <div class="footer-middle-item mb-lg-0">
                                 <div class="fm-item-title">
-                                    <h5><?= lang("important_date"); ?></h5>
+                                    <h5>Important Dates</h5>
                                     <hr>
                                 </div>
                                 <div class="fm-item-content">
                                     <ul class="mt-3">
-                                        <li>Early Registration : Januari - 30 April 2023</li>
-                                        <li>Batas Pengumpulan Abstrak : 1 Juli 2023</li>
-                                        <li>Pengumuman Penerimaan Abstrak : 20 Juli 2023</li>
-                                        <li>Late Registration : 1 Mei - 1 Agustus 2023</li>
+                                        <li>Early Registration : Januari - 31 May 2023</li>
+                                        <li>Abstract Submission: April - May 2023</li>
+                                        <li>Abstract Announcement: 20 July 2023</li>
+                                        <li>Regular Registration : 1 June - 1 August 2023</li>
                                     </ul>
                                 </div>
                             </div>
@@ -289,15 +289,7 @@
                                 </div>
                                 <div class="fm-item-content">
                                     <ul class="mt-3">
-                                        <li>Stroke dan Pembuluh Darah,</li>
-                                        <li>Neurointervensi</li>
-                                        <li>Neurointensif</li>
-                                        <li>Neurobehaviour</li>
-                                        <li>Neurorestorasi</li>
-                                        <li>Neurogeriatri</li>
-                                        <li>Neuroinfeksi</li>
-                                        <li>Neuroimaging</li>
-                                        <li>Neuroonkologi</li>
+                                         <li>Neurovascular; Neurorestoration; Neurotrauma; Neuropediatri; Neurooncology; Sleep disorder; Neuroinfection; Headache; Neurobehavior; Neurootology-Neuroophtamology Neurointervention; Pain; Neurointensive; Movement Disorder; Neurogeriatri; Epilepsy; Neuroimaging; Neuroepidemiology; Neurophysiology</li>
                                     </ul>
                                 </div>
                             </div>
@@ -307,20 +299,20 @@
                         <div class="footer-middle-item-wrapper">
                             <div class="footer-middle-item mb-lg-0">
                                 <div class="fm-item-title">
-                                    <h5>Biaya Registrasi Simposium</h5>
+                                    <h5>Symposium Fee</h5>
                                     <hr>
                                 </div>
                                 <div class="fm-item-content">
                                     <ul class="mt-3">
                                         <b>Early Bird</b> <br>
                                         <li>Spesialist : Rp. 3.500.000</li>
-                                        <li>Dokter Umum/PPDS : Rp. 2.000.000</li>
-                                        <b>Late</b> <br>
+                                        <li>GP/ Resident : Rp. 2.000.000</li>
+                                        <b>Regular</b> <br>
                                         <li>Spesialist : Rp. 4.000.000</li>
-                                        <li>Dokter Umum/PPDS : Rp. 2.250.000</li>
+                                        <li>GP/ Resident : Rp. 2.250.000</li>
                                         <b>Onsite</b> <br>
                                         <li>Spesialist : Rp. 4.500.000</li>
-                                        <li>Dokter Umum/PPDS : Rp. 2.500.000</li>
+                                        <li>GP/ Resident : Rp. 2.500.000</li>
                                     </ul>
                                 </div>
                             </div>
@@ -330,14 +322,14 @@
                         <div class="footer-middle-item-wrapper">
                             <div class="footer-middle-item mb-lg-0">
                                 <div class="fm-item-title">
-                                    <h5>Masuk / Registrasi</h5>
+                                    <h5>Login / Registration</h5>
                                     <hr>
                                 </div>
                                 <div class="fm-item-content">
                                     <div class="d-grid">
-                                        <a href="<?= base_url('site/login'); ?>" class="btn btn-primary mt-3"><i class="fa-solid fa-sign-in"></i> Masuk Login</a>
-                                        <a href="<?= base_url('member/register'); ?>" class="btn btn-primary mt-2"><i class="fa-solid fa-clipboard-user"></i> <?= lang("individual_registration"); ?></a>
-                                        <a href="<?= base_url('member/register/group'); ?>" class="btn btn-primary mt-2"><i class="fa-solid fa-user-group"></i> <?= lang("group_registration"); ?></a>
+                                        <a href="<?= base_url('site/login'); ?>" class="btn btn-primary mt-3"><i class="fa-solid fa-sign-in"></i> Enter to Login</a>
+                                        <a href="<?= base_url('member/register'); ?>" class="btn btn-primary mt-2"><i class="fa-solid fa-clipboard-user"></i> Individual Registration</a>
+                                        <a href="<?= base_url('member/register/group'); ?>" class="btn btn-primary mt-2"><i class="fa-solid fa-user-group"></i> Group Registration</a>
                                     </div>
                                 </div>
                             </div>
@@ -351,8 +343,8 @@
         <footer class="cs-footer text-center">
             <div class="container mt-4">
                 <div class="cs-copyright text-center wow fadeIn" data-wow-duration="1s" data-wow-delay="0.5s">
-                    <p>&copy; 2023 License to #Panitia KONAS PERDOSNI Semarang#</p>
-                    <p>Developed by #CV. Meta Medika#</p> <span class="cs-primary_font cs-primary_color"></span>
+                    <p>&copy; 2023 License to #NATIONAL CONGRESS OF THE INDONESIAN NEUROLOGICAL ASSOCIATION 2023#</p>
+                    <p>Developed by #CV. Meta Medika#</p><span class="cs-primary_font cs-primary_color"></span>
                 </div>
             </div>
             <div class="cs-height_25 cs-height_lg_25"></div>
