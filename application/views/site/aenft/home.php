@@ -99,6 +99,10 @@
             }
         }
 
+        #modal-gallery .modal-dialog .modal-content video {
+            width: 100%;
+            height: auto !important;
+        }
 
         /* #modal-gallery .swiper-slide {
             max-height: 90vh;
@@ -266,6 +270,7 @@
             <div class="cs-height_50 cs-height_lg_30"></div>
             <div class="row wow fadeIn" data-wow-duration="1s" data-wow-delay="0.4s">
                 <div class="col-lg-6 col-sm-6">
+                    <iframe width="100%" height="345px" src="https://drive.google.com/file/d/1Aj_ljaELqsgbMa0izKzdMdx_JxLrmhEW/preview" allow="allowfullscreen"></iframe>
                     <table border="0" cellpadding="4" cellspacing="4" width="100%">
                         <tr>
                             <td width="30%" valign="top" style="border-top: 0px;"><img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/sambutan1.png"></td>
@@ -300,6 +305,7 @@
                     </table>
                 </div>
                 <div class="col-lg-6 col-sm-6">
+                    <iframe width="100%" height="345px" src="https://drive.google.com/file/d/1AoxDyDSdgZwxp4NXtBGnO3avKri0AjqC/preview" allow="allowfullscreen"></iframe>
                     <table border="0" cellpadding="4" cellspacing="4" width="100%">
                         <tr>
                             <td style="border-top: 0px;">
@@ -370,7 +376,7 @@
                                 <?php else : foreach ($videoAndPhoto['photo'] as $photo) : ?>
                                     <div class="swiper-slide slide-pop">
                                         <div class="title" data-swiper-parallax="-300"><?= $photo['title']; ?></div>
-                                        <img src="<?= base_url('themes/uploads/video') . "/" . $photo['filename']; ?>" data-list='<?= $photo['list']; ?>' />
+                                        <img src="<?= base_url('themes/uploads/video') . "/" . $photo['filename']; ?>" data-list='<?= $photo['list']; ?>' style="width: 100%; height: 380px; object-fit: cover;" />
                                     </div>
                                 <?php endforeach; ?>
                             <?php endif; ?>
@@ -402,7 +408,7 @@
                                         <span class="play-button">
                                             <i class="fa fa-circle-play fa-4x"></i>
                                         </span>
-                                        <video style="width:100%;" poster="<?= base_url($video['thumbs']); ?>" src="<?= base_url('themes/uploads/video') . "/" . $video['filename']; ?>" preload="none"></video>
+                                        <video style="width: 100%; height: 380px; object-fit: cover;" poster="<?= base_url($video['thumbs']); ?>" src="<?= base_url('themes/uploads/video') . "/" . $video['filename']; ?>" preload="none"></video>
                                     </div>
                                 <?php endforeach; ?>
                             <?php endif; ?>
@@ -1148,8 +1154,10 @@
         <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/left-neuro.png" style="position: absolute; z-index: -2; width: 80px; height: auto; bottom: 150px;" class="mobile-hide">
         <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/left-neuro.png" style="position: absolute; z-index: -2; width: 75px; height: auto; bottom: 300px;" class="mobile-hide">
         <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/left-neuro.png" style="position: absolute; z-index: -2; width: 70px; height: auto; bottom: 420px;" class="mobile-hide">
-        <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/footer-right-neuro.png" style="position: absolute; z-index: -1; width: 250px; height: auto; right: 0; bottom: -75px;" class="mobile-hide">
-        <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/left.png" class="hotel-left-image">
+        <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/footer-right-neuro.png" style="position: absolute; z-index: -1; width: 250px; height: auto; right: 0; bottom: 0px;" class="mobile-hide">
+        <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/left.png" style="position: absolute; z-index: -1; width: 120px; height: auto; top: 350px;" class="mobile-hide">
+
+        <div class="cs-height_50 cs-height_lg_25"></div>
     </section>
 
     <!--<section>

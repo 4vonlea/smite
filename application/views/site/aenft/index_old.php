@@ -31,7 +31,7 @@
     </button>
 
     <!-- Start Hero -->
-    <div id="home" class="cs-hero cs-style1 cs-type2 cs-bg text-center  cs-ripple_version" data-src="<?= base_url('themes/aenft'); ?>/assets/img/konas/bg-head.jpg">
+    <div id="home" class="cs-hero cs-style1 cs-type2 cs-bg text-center  cs-ripple_version" data-src="<?= base_url('themes/aenft'); ?>/assets/img/konas/bg-head.png">
         <div class="cs-dark_overlay">
 
         </div>
@@ -103,9 +103,15 @@
         </div>
     </div>
     <!-- End Hero -->
-
-    <div id="demo" class="carousel slide" data-bs-ride="carousel">
-
+  <br><br>      
+  <div class="container">
+            <div class="cs-seciton_heading cs-style1 text-uppercase wow fadeInUp text-center" data-wow-duration="1s" data-wow-delay="0.2s">
+                <h3 class="cs-section_title cs-font_16 cs-font_14_sm cs-gradient_color">News</h3>
+                <h2 class="cs-section_subtitle cs-m0 cs-font_36 cs-font_24_sm">Explore Semarang and Join our event</h2>
+            </div>
+  <div class="row">
+    	<div class="col-md-6 col-sm-12 p-4">
+          <div id="demo" class="carousel slide" data-bs-ride="carousel">
         <!-- The slideshow/carousel -->
         <div class="carousel-inner">
             <div class="carousel-item active">
@@ -154,13 +160,19 @@
             <span class="carousel-control-next-icon"></span>
         </button>
     </div>
-
-    <div class="cs-footer_wrap">
-        <div class="row align-items-center wow fadeIn" data-wow-duration="1s" data-wow-delay="0.5s">
+        </div>
+        <div class="col-md-6 col-sm-12 p-4">
+           <div class="row align-items-center wow fadeIn" data-wow-duration="1s" data-wow-delay="0.5s">
             <div class="col-lg-12 text-center">
-                <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/konas.jpg" width="70%">
+                <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/konas.jpg" alt="" class="d-block" style="width:100%; height: 700px; object-fit: contain;">
             </div>
         </div>
+        </div>
+    </div>
+    
+
+    <div class="cs-footer_wrap">
+       
         <footer class="cs-footer text-center">
             <div class="container mt-4">
                 <div class="cs-copyright text-center wow fadeIn" data-wow-duration="1s" data-wow-delay="0.5s">
