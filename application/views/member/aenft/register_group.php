@@ -37,13 +37,13 @@ $theme_path = base_url("themes/aenft") . "/";
 <?php $this->layout->end_head(); ?>
 <!-- Start Hero -->
 <div id="home" class="cs-hero cs-style1 cs-type2 cs-bg text-center  cs-ripple_version" data-src="<?= $theme_path; ?>/assets/img/konas/bg-head.jpg" id="home">
-    <div class="cs-dark_overlay"></div>
+    <div class="cs-dark_overlay" style="background:linear-gradient(0deg, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.5));opacity:0.7"></div>
     <div class="container">
         <div class="cs-hero_img wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.3s">
             <img src="<?= $theme_path; ?>/assets/img/konas/logo.png" style="width: 100%; max-width: 320px; height: auto;">
         </div>
         <div class="cs-hero_text wow fadeIn" data-wow-duration="1s" data-wow-delay="0.45s" style="margin-top: -50px;">
-            <h1 class="cs-hero_title text-uppercase cs-font_60 cs-font_36_sm cs-bold">Registrasi Grup</h1>
+            <h3 class="cs-hero_title text-uppercase cs-font_40 cs-font_25_sm cs-bold">Registrasi Grup</h3>
             <ol class="breadcrumb justify-content-center mb-0">
                 <li class="breadcrumb-item"><a href="index.html">Beranda</a></li>
                 <li class="breadcrumb-item active text-info" aria-current="page"><i class="fa-solid fa-user-group"></i> Registrasi Grup</li>
@@ -52,12 +52,12 @@ $theme_path = base_url("themes/aenft") . "/";
     </div>
 </div>
 <!-- End Hero -->
-<section id="app" class="padding-top padding-bottom">
+<section id="app" class="padding-top padding-bottom py-5" style="background:#b7dcce">
 
-    <div class="cs-height_70 cs-height_lg_40"></div>
+    <div class="cs-height_70 cs-height_lg_40 d-none"></div>
     <div class="container wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s">
         <!-- NOTE Setelah Submmit -->
-        <div v-if="page == 'registered'" class="cs-iconbox cs-style1 cs-white_bg">
+        <div v-if="page == 'registered'" class="cs-iconbox cs-style1 cs-white_bg" style="background-color: rgb(61, 160, 124);">
             <div class="alert alert-success">
                 <h4 class="text-dark"><i class="fa fa-info"></i> Registration Success</h4>
                 <p>We have sent a confirmation link to your email address. To complete the registration process, please click <i>confirmation link</i>.
@@ -155,7 +155,7 @@ $theme_path = base_url("themes/aenft") . "/";
         </div>
 
         <!-- NOTE Payment -->
-        <div v-if="page == 'payment'" class="cs-iconbox cs-style1 cs-white_bg">
+        <div v-if="page == 'payment'" class="cs-iconbox cs-style1 cs-white_bg" style="background-color: rgb(61, 160, 124);">
             <div class="card mt-2">
                 <div class="card-header card-bg card__shadow  text-center">
                     <h5 class="m-0 p-0">Account</h5>
@@ -226,20 +226,20 @@ $theme_path = base_url("themes/aenft") . "/";
             </div>
             <hr />
             <div class="col-lg-12 text-center">
-                <button :disabled="saving" type="button" @click="checkout" class="btn btn-primary">
+                <button :disabled="saving" type="button" @click="checkout" class="btn btn-blue-1">
                     <i v-if="saving" class="fa fa-spin fa-spinner"></i>
                     Checkout
                 </button>
-                <button v-if="allowBack" type="button" @click="page = 'register'" class="btn btn-primary">
+                <button v-if="allowBack" type="button" @click="page = 'register'" class="btn btn-blue-1">
                     Back
                 </button>
             </div>
         </div>
 
         <!-- NOTE Sebelum Submit -->
-        <div v-if="page == 'register'" class="cs-iconbox cs-style1 cs-white_bg">
+        <div v-if="page == 'register'" class="cs-iconbox cs-style1 cs-white_bg" style="background-color: rgb(61, 160, 124);">
             <div class="alert alert-primary" role="alert">
-                <h4 class="text-black"><i class="icofont icofont-info-circle"></i> <b>Perhatian.</h4>
+                <h4 class="text-black"><i class="icofont icofont-info-circle"></i> <b>Perhatian.</b></h4>
                 <p><span style="color: #ff0000;"><strong>1. Pembayaran tidak dapat di <em>refund</em></strong></span></p>
                 <p><span style="color: #000000;">2. Pastikan alamat email yang dimasukkan valid dan dapat Anda akses karena kami akan mengirimkan kode aktivasi melalui email tersebut. Akun Anda tidak dapat digunakan kecuali jika sudah&nbsp; diaktifkan terlebih dahulu.</span></p>
             </div>
@@ -360,7 +360,7 @@ $theme_path = base_url("themes/aenft") . "/";
                                                         <h5>Data Members</h5>
                                                     </th>
                                                     <th class="border-end" width="10%">
-                                                        <button @click="addMembers" type="button" class="btn btn-primary"><i class="fa fa-plus"></i>
+                                                        <button @click="addMembers" type="button" class="btn btn-blue-1"><i class="fa fa-plus"></i>
                                                         </button>
                                                     </th>
                                                 </tr>
@@ -381,7 +381,7 @@ $theme_path = base_url("themes/aenft") . "/";
                                                                 <label class="control-label text-light">NIK KTP (wajib diisi untuk integrasi P2KB)</label>
                                                                 <div class="input-group">
                                                                     <input type="text" v-on:keyup.enter="checkMember(member)" v-model="member.nik" placeholder="NIK anda" :class="{'is-invalid':member.validation_error.nik}" class="form-control mb-0" name="nik" />
-                                                                    <button :disabled="member.checking" @click="checkMember(member)" class="btn btn-primary" type="button">
+                                                                    <button :disabled="member.checking" @click="checkMember(member)" class="btn btn-blue-1" type="button">
                                                                         <i v-if="member.checking" class="fa fa-spin fa-spinner"></i> Cek NIK di Database P2KB
                                                                     </button>
                                                                 </div>
@@ -468,8 +468,8 @@ $theme_path = base_url("themes/aenft") . "/";
                     </div>
                 </div>
                 <hr />
-                <div class="col-lg-12 text-center">
-                    <button :disabled="saving" type="button" @click="register" style="width: 300px;" class="btn btn-edge btn-primary">
+                <div class="col-lg-12 text-end pt-4">
+                    <button :disabled="saving" type="button" @click="register" style="width: 300px;" class="btn btn-edge btn-blue-1">
                         <i v-if="saving" class="fa fa-spin fa-spinner"></i>
                         Next
                     </button>

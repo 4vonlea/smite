@@ -92,6 +92,42 @@
             right: 10px;
         }
 
+        .btn-green-1 {
+            --bs-btn-color: #fff;
+            --bs-btn-bg: #3da07c;
+            --bs-btn-border-color: #3da07c;
+            --bs-btn-hover-color: #fff;
+            --bs-btn-hover-bg: #157347;
+            --bs-btn-hover-border-color: #146c43;
+            --bs-btn-focus-shadow-rgb: 60,153,110;
+            --bs-btn-active-color: #fff;
+            --bs-btn-active-bg: #146c43;
+            --bs-btn-active-border-color: #13653f;
+            --bs-btn-disabled-color: #fff;
+            --bs-btn-disabled-bg: #3da07c;
+            --bs-btn-disabled-border-color: #3da07c;
+        }
+
+        .btn-blue-1 {
+            --bs-btn-color: #fff;
+            --bs-btn-bg: #1999d6;
+            --bs-btn-border-color: #1c9dd8;
+            --bs-btn-hover-color: #fff;
+            --bs-btn-hover-bg: #0b5ed7;
+            --bs-btn-hover-border-color: #0a58ca;
+            --bs-btn-focus-shadow-rgb: 49,132,253;
+            --bs-btn-active-color: #fff;
+            --bs-btn-active-bg: #0a58ca;
+            --bs-btn-active-border-color: #0a53be;
+            --bs-btn-disabled-color: #fff;
+            --bs-btn-disabled-bg: #1999d6;
+            --bs-btn-disabled-border-color: #1999d6;
+        }
+        
+        .cs-dark .cs-site_header.cs-style1.cs-sticky-active {
+            background:linear-gradient(90deg, rgba(52, 117, 90, 0.5), rgba(5, 28, 67, 0.5));
+        }
+
         @media only screen and (max-width: 992px) {
 
             .mobile-hide {
@@ -107,10 +143,16 @@
         /* #modal-gallery .swiper-slide {
             max-height: 90vh;
         } */
+
+        .event .event-filter .filter-item.active {
+            color: white;
+            border-color: #f28721;
+            background: #cf462b;
+        }
     </style>
 </head>
 
-<body class="cs-dark">
+<body class="cs-dark" style="background:linear-gradient(90deg, rgba(52, 117, 90, 1), rgba(5, 28, 67, 1))">
     <!-- <div class="cs-preloader cs-white_bg cs-center">
         <div class="cs-preloader_in">
             <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/logo.png" alt="Logo">
@@ -120,7 +162,7 @@
     <button class="btn btn-sm btn-primary position-fixed bottom-0 end-0 translate-middle me-1 d-none" onclick="scrollToTop()" id="back-to-up" style="z-index: 3;">
         <i class="fa fa-arrow-up fa-2x" aria-hidden="true"></i>
     </button>
-    <button style="z-index:3" onclick="document.getElementById('section-contact').scrollIntoView({behavior: 'smooth'});" class="btn btn-sm btn-primary position-fixed bottom-0 end-0 mb-5 translate-middle">
+    <button style="z-index:3" onclick="document.getElementById('section-contact').scrollIntoView({behavior: 'smooth'});" class="btn btn-sm btn-success position-fixed bottom-0 end-0 mb-5 translate-middle">
         <i class="fa-2x fa-brands fa-whatsapp"></i>
     </button>
     <!-- Start Header Section -->
@@ -137,28 +179,28 @@
                     <div class="cs-main_header_center">
                         <div class="cs-nav">
                             <ul class="cs-nav_list">
-                                <li><a href="#home" class="cs-smoth_scroll">
-                                        <i class="fa fa-home me-1"></i>
+                                <li class="mr-4"><a href="#home" class="cs-smoth_scroll">
+                                        <!-- <i class="fa fa-home me-1"></i> -->
                                         Home</a>
                                 </li>
-                                <li><a href="#news" class="cs-smoth_scroll">
-                                        <i class="fa fa-newspaper me-1"></i>
+                                <li class="mx-4"><a href="#news" class="cs-smoth_scroll">
+                                        <!-- <i class="fa fa-newspaper me-1"></i> -->
                                         News</a></li>
-                                <li><a href="#event" class="cs-smoth_scroll">
-                                        <i class="fa fa-calendar me-1"></i>
+                                <li class="mx-4"><a href="#event" class="cs-smoth_scroll">
+                                        <!-- <i class="fa fa-calendar me-1"></i> -->
                                         Event</a></li>
-                                <li><a href="#registration" class="cs-smoth_scroll">
-                                        <i class="fa fa-edit me-1"></i>
+                                <li class="mx-4"><a href="#registration" class="cs-smoth_scroll">
+                                        <!-- <i class="fa fa-edit me-1"></i> -->
                                         Registration</a></li>
-                                <li><a href="#information" class="cs-smoth_scroll">
-                                        <i class="fa fa-info-circle me-1"></i>
+                                <li class="ml-4"><a href="#information" class="cs-smoth_scroll">
+                                        <!-- <i class="fa fa-info-circle me-1"></i> -->
                                         Important Info</a></li>
                             </ul>
                         </div>
                     </div>
                     <div class="cs-main_header_right">
                         <div class="cs-toolbox">
-                            <a href="<?= base_url('member/register'); ?>" class="cs-btn cs-btn_filed cs-accent_btn">
+                            <a href="<?= base_url('member/register'); ?>" class="cs-btn cs-btn_filed btn-blue-1">
                                 <i class="fa-solid fa-clipboard-user"></i>&nbsp;<span>Registration</span>
                             </a>
                         </div>
@@ -212,13 +254,13 @@
             <div class="menu-bg"></div>
         </nav>
 		-->
-        <div class="cs-dark_overlay"></div>
+        <div class="cs-dark_overlay" style="background:linear-gradient(0deg, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.5));opacity:0.7"></div>
         <div class="container">
             <div class="cs-hero_img wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.3s">
                 <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/logo.png" style="width: 100%; max-width: 320px; height: auto; margin-top: 100px;">
             </div>
             <div class="cs-hero_text wow fadeIn" data-wow-duration="1s" data-wow-delay="0.45s" style="margin-top: -50px;">
-                <h3 class="cs-hero_title text-uppercase cs-font_40 cs-font_36_sm cs-bold">NATIONAL CONGRESS OF INDONESIAN NEUROLOGY ASSOCIATION 2023 SEMARANG</h3>
+                <h3 class="cs-hero_title text-uppercase cs-font_30 cs-font_20_sm cs-bold">NATIONAL CONGRESS OF INDONESIAN NEUROLOGY ASSOCIATION 2023 SEMARANG</h3>
                 <!--<h3 class="cs-hero_subtitle cs-font_20 cs-font_16_sm cs-body_line_height">In Conjunction with</h3><br>
                 <blockquote>
                     <h2 class="cs-hero_secondary_title cs-font_40 cs-font_24_sm">The 17th International Congress of <br> Asian Society Againts Dementia (ASAD)</h2>
@@ -230,6 +272,7 @@
                         <span>Open Registration in January 2023, Download First Announcement (Update 19 January 2023)</span>
                     </a>
                 </div>-->
+                
                 <div class="row mt-5">
                     <div class="col-lg-12 wow fadeIn" data-wow-duration="1s" data-wow-delay="0.2s">
                         <div class="cs-iconbox cs-style1 cs-white_bg text-center text-white" style="background-color: transparent;">
@@ -276,29 +319,29 @@
                             <td width="30%" valign="top" style="border-top: 0px;"><img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/sambutan1.png"></td>
                             <td style="border-top: 0px;">
                                 <h4>Welcome Messages</h4>
-                                <b>Chairman of Organizing Committee</b> <br>
-                                Assalamualaikum wr.wb. <br> Dear Colleagues,
+                                <b>Dr. dr. Retnaningsih, Sp. N, Subsp. NIITCC (K), KIC, M.KM</b> <br>
+                                <small>Chairman of Organizing Committee<small>
                             </td>
                         </tr>
                         <tr>
                             <td colspan="2" style="border-top: 0px;">
                                 <p align="justify">
+                                Assalamualaikum Wr. Wb.
+                                </p>
+                                Dear Colleagues, <br>
+                                <p align="justify">
                                     It is a great honor for us, Perdossi Semarang, to hold the 11th National Congress of the Indonesian Neurological Association in our beloved city. This National Congress is not only scientific event but also congress of Neurologists throughout Indonesia which is planned to be held on 2 - 6 August 2023
-
-                                    <br><br>
-
+                    </p>
+                                    <p align="justify">
                                     The 11th National Congress of the Indonesian Neurological Association with the theme "NeuroEngineering Update to Reach Outstanding Neurological Service (NEURON)", will involve a number of experts from both Indonesia and International who are competent in their fields to convey the latest developments and discoveries in neurology. We believe this event will provide a lot of additional knowledge and improve the skills that are useful for all of us. Apart from scientific meetings, this event will also hold organizational meetings and nonscientific activities. We hope that all colleagues can participate in Neurobic exercise with the general public as our community service activity and we have prepared Ladies Program for colleagues and families who are interested. All committees invite colleagues and sponsors to participate in The 11th National Congress of the Indonesian Neurological Association in Semarang.
-                                    <br><br>
-
+                    </p>
+                    <p align="justify">
                                     We look forward to your presence and participation in Semarang, The venetie van Java!
-                                    <br><br>
+                    </p>
+                                    <p align="justify">
 
                                     Wassalamualaikum wr.wb.
-
-                                    <br><br>
-
-                                    Dr. dr. Retnaningsih, Sp. N, Subsp. NIITCC (K), KIC, M.KM <br>
-                                    Chairman of Organizing Committee
+                    </p>
                                 </p>
                             </td>
                         </tr>
@@ -310,35 +353,36 @@
                         <tr>
                             <td style="border-top: 0px;">
                                 <h4>Welcome Messages</h4>
-                                <b>President of Indonesian Neurological Association</b> <br>
-                                Assalamualaikum wr.wb. <br> Dear Professors, Doctors, Seniors and colleagues.
+                                <b>Dr. dr. Dodik Tugasworo, Sp. N, Subsp. NIIOO (K), M.H</b> <br>
+                                <small>President of Indonesian Neurological Association</small>
                             </td>
                             <td width="30%" valign="top" style="border-top: 0px;"><img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/sambutan2.png"></td>
                         </tr>
                         <tr>
                             <td colspan="2" style="border-top: 0px;">
                                 <p align="justify">
+                                Assalamualaikum wr.wb.
+                    </p>
+                                <p align="justify">
+                                Dear Professors, Doctors, Seniors and colleagues.<br>
                                     Praise and gratitude we pray for the presence of Allah SWT and for the abundance of His grace and gifts to all of us in carrying out our professional duties and working well.
-                                    <br><br>
+                                    </p><p align="justify">
 
                                     As representatives of the President of the Indonesian Neurological Association (PERDOSSI), we welcome you in The XI National Congress of the Indonesian Neurological Association which will be held on 2 - 6 August 2023, in Semarang.
-                                    <br><br>
+                                    </p><p align="justify">
 
                                     The theme "NeuroEngineering Update to Reach Outstanding Neurological service (NEURON)" is expected to accommodate neurologists to continue to update their knowledge and skills based on the latest research and guidelines through symposium and workshops. It will certainly be very beneficial for daily practice and improve the quality of service and competitiveness of Indonesian neurologists.
-                                    <br><br>
+                                    </p><p align="justify">
 
                                     Through the forum of organizational meetings and sessions, it will further strengthen the bond and organization for the development of Indonesian Neurology in the future. This KONAS XI PERDOSSI 2023 activity will also be an important milestone in changing the name of the new association.
-                                    <br><br>
-
+                                    </p>
+                                    <p align="justify">
                                     To all organizing committees and colleagues who support KONAS XI PERDOSSI 2023, we express our deepest gratitude.
-                                    <br><br>
-
+                                    </p>
+                                    <p align="justify">
                                     Let's make KONAS XI PERDOSSI 2023 a success in Semarang!. Wassalamu’alaikum wr.wb.
 
-                                    <br><br>
-
-                                    Dr. dr. Dodik Tugasworo, Sp. N, Subsp. NIIOO (K), M.H <br>
-                                    President of Indonesian Neurological Association
+                                    </p>
 
                                 </p>
                             </td>
@@ -480,7 +524,7 @@
                     <div class="accordion-content">
                         <div class="table-responsive">
                             <table class="table table-striped table-bordered my-3" style="color: white; width: 100%;">
-                                <thead bgcolor="#0052FF">
+                                <thead bgcolor="#051c43">
                                     <tr>
                                         <th>Event</th>
                                         <th>Place</th>
@@ -538,7 +582,7 @@
                         <?php endif; ?>
 
                         <div class="d-grid">
-                            <button type="submit" name="login" value="login" class="btn btn-round btn-primary mt-2">
+                            <button type="submit" name="login" value="login" class="btn btn-round btn-blue-1 mt-2">
                                 <span> <?= $hasSession ? "Back To Member Area" : "<i class='fa-solid fa-sign-in'></i> Click to Sign in "; ?></span>
                             </button>
                             <br>
@@ -562,12 +606,12 @@
             <div class="row mt-3">
                 <div class="col-lg-6 col-md-6 mb-2">
                     <div class="d-grid text-center">
-                        <a href="<?= base_url('member/register'); ?>" class="cs-btn cs-btn_filed btn-col"><span> <i class="fa-solid fa-clipboard-user"></i> Individual Registration </span> </a>
+                        <a href="<?= base_url('member/register'); ?>" class="cs-btn cs-btn_filed btn-col" style="background-color:#3da07c"><span> <i class="fa-solid fa-clipboard-user"></i> Individual Registration </span> </a>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <div class="d-grid text-center">
-                        <a href="<?= base_url('member/register/group'); ?>" class="cs-btn cs-btn_filed btn-col"><span> <i class="fa-solid fa-user-group"></i> Group Registration</span> </a>
+                        <a href="<?= base_url('member/register/group'); ?>" class="cs-btn cs-btn_filed btn-col" style="background-color:#3da07c"><span> <i class="fa-solid fa-user-group"></i> Group Registration</span> </a>
                     </div>
                 </div>
             </div>
@@ -670,7 +714,7 @@
                 </div>
             </div> -->
             <div class="event-item faq">
-                <div class="cs-iconbox cs-style1 cs-white_bg">
+                <div class="cs-iconbox cs-style1 cs-white_bg" style="background:rgba(52, 117, 90, 1)">
                     <h4>FAQ</h4>
                     <hr class="mb-4">
                     <ul>
@@ -709,7 +753,7 @@
                 </div>
             </div> -->
             <div class="event-item poster hide">
-                <div class="cs-iconbox cs-style1 cs-white_bg">
+                <div class="cs-iconbox cs-style1 cs-white_bg" style="background:rgba(52, 117, 90, 1)">
                     <h4>Poster</h4>
                     <hr class="mb-4">
                     <!-- <a href="https://drive.google.com/file/d/1uszw547D0P1CRhoHMOFEFvk4-hzQEyc8/view?usp=share_link" target="_blank" class="btn btn-success btn-round"><i class="fa-solid fa-chart-gantt"></i> Ketentuan Oral dan E-poster (23 Feb 2023)</a> -->
@@ -742,7 +786,7 @@
                 </div>
             </div> -->
             <div class="event-item explore hide">
-                <div class="cs-iconbox cs-style1 cs-white_bg">
+                <div class="cs-iconbox cs-style1 cs-white_bg" style="background:rgba(52, 117, 90, 1)">
                     <h4>EXPLORING SEMARANG</h4>
                     <hr class="mb-4">
                     <div class="d-grid gap-2">
@@ -764,20 +808,15 @@
             </div>
 
             <div class="event-item ladpro hide">
-                <div class="cs-iconbox cs-style1 cs-white_bg">
+                <div class="cs-iconbox cs-style1 cs-white_bg" style="background:rgba(52, 117, 90, 1)">
                     <h4>Ladies Program</h4>
                     <hr class="mb-4">
-                    <i class="fa-solid fa-info-circle"></i> Date : <b>Saturday, 5th August 2023</b><br>
-                    <div class="my-2"></div>
-
-                    <i class="fa-solid fa-info-circle"></i> <b>Term and Condition :</b>
-                    <ol class="mb-2 mt-1" style="padding-left: 40px;">
-                        <li>Please register by using your account at website <b>konasperdossi2023.com</b> (please add phone number)</li>
-                        <li>Each participant account has the right to register 1 person as a participant in the Ladies Program.</li>
-                        <li>Ladies Program will be run if minimum 50 participant is reached</li>
-                    </ol>
-                    <i class="fa-solid fa-info-circle"></i> <b>Destination :</b><br>
-                    <div id="ladproSlide" class="carousel slide" data-bs-ride="carousel">
+                    <div class="row">
+                        
+                    <div class="col-md-6">
+                    <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/ladpro.png" class="mt-3" width="100%"></img>
+                    <!-- <i class="fa-solid fa-info-circle"></i> <b>Destination :</b><br> -->
+                    <div id="ladproSlide" class="carousel slide d-none" data-bs-ride="carousel">
 
                         <!-- The slideshow/carousel -->
                         <div class="carousel-inner text-center">
@@ -794,11 +833,24 @@
                             <span class="carousel-control-next-icon"></span>
                         </button>
                     </div>
+                    </div>
+                        <div class="col-md-6">
+                    <i class="fa-solid fa-info-circle"></i> Date : <b>Saturday, 5th August 2023</b><br>
+                    <div class="my-2"></div>
+
+                    <i class="fa-solid fa-info-circle"></i> <b>Term and Condition :</b>
+                    <ol class="mb-2 mt-1" style="padding-left: 40px;">
+                        <li>Please register by using your account at website <b>konasperdossi2023.com</b> (please add phone number)</li>
+                        <li>Each participant account has the right to register 1 person as a participant in the Ladies Program.</li>
+                        <li>Ladies Program will be run if minimum 50 participant is reached</li>
+                    </ol>
+                    </div>
+                    </div>
                 </div>
             </div>
 
             <div class="event-item neuro hide">
-                <div class="cs-iconbox cs-style1 cs-white_bg">
+                <div class="cs-iconbox cs-style1 cs-white_bg" style="background:rgba(52, 117, 90, 1)">
                     <h4>Neurotech Competition</h4>
                     <hr class="mb-4">
                     <div id="neuroSlide" class="carousel slide" data-bs-ride="carousel">
@@ -836,7 +888,7 @@
             </div>
 
             <div class="event-item certificate hide">
-                <div class="cs-iconbox cs-style1 cs-white_bg">
+                <div class="cs-iconbox cs-style1 cs-white_bg" style="background:rgba(52, 117, 90, 1)">
                     <h4>Certificate (will be available after event)</h4>
                     <hr class="mb-4">
                     <a href="https://konasperdossi2023.com/certificate/claim" target="_blank" class="btn btn-success btn-round">
@@ -853,7 +905,7 @@
             </div>
 
             <div class="event-item com_service hide">
-                <div class="cs-iconbox cs-style1 cs-white_bg">
+                <div class="cs-iconbox cs-style1 cs-white_bg" style="background:rgba(52, 117, 90, 1)">
                     <h4>Community Service</h4>
                     <hr class="mb-4">
                     <div id="comSlider" class="carousel slide" data-bs-ride="carousel">
@@ -1288,7 +1340,7 @@
         <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/footer-right.png" class="footer-right-image">
         <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/footer-neuro.png" style="position: absolute; z-index: 1; width: 170px; height: auto; left: 40%; bottom: 0;" class="mobile-hide">
         <div class="wow fadeIn" data-wow-duration="1s" data-wow-delay="0.2s">
-            <div class="cs-cta cs-style2 cs-accent_bg">
+            <div class="cs-cta cs-style2 cs-accent_bg" style="background:rgba(0,0,0,0.2)">
                 <div class="row padding-lg-top">
                     <div class="col-lg-3 col-sm-6 col-12">
                         <div class="footer-middle-item-wrapper">
@@ -1297,7 +1349,7 @@
                                     <h5>Important Dates</h5>
                                     <hr>
                                 </div>
-                                <div class="fm-item-content">
+                                <div class="fm-item-content" style="font-size:14px">
                                     <ul class="mt-3">
                                         <li>Early Registration : Januari - 31 May 2023</li>
                                         <li>Abstract Submission: April - May 2023</li>
@@ -1315,7 +1367,7 @@
                                     <h5>POKDI</h5>
                                     <hr>
                                 </div>
-                                <div class="fm-item-content">
+                                <div class="fm-item-content" style="font-size:14px">
                                     <ul class="mt-3">
                                         <li>Neurovascular; Neurorestoration; Neurotrauma; Neuropediatri; Neurooncology; Sleep disorder; Neuroinfection; Headache; Neurobehavior; Neurootology-Neuroophtamology Neurointervention; Pain; Neurointensive; Movement Disorder; Neurogeriatri; Epilepsy; Neuroimaging; Neuroepidemiology; Neurophysiology</li>
                                     </ul>
@@ -1330,7 +1382,7 @@
                                     <h5>Symposium Fee</h5>
                                     <hr>
                                 </div>
-                                <div class="fm-item-content">
+                                <div class="fm-item-content" style="font-size:14px">
                                     <ul class="mt-3">
                                         <b>Early Bird</b> <br>
                                         <li>Spesialist : Rp. 3.500.000</li>
@@ -1355,9 +1407,9 @@
                                 </div>
                                 <div class="fm-item-content">
                                     <div class="d-grid">
-                                        <a href="<?= base_url('site/login'); ?>" class="btn btn-primary mt-3"><i class="fa-solid fa-sign-in"></i> Enter to Login</a>
-                                        <a href="<?= base_url('member/register'); ?>" class="btn btn-primary mt-2"><i class="fa-solid fa-clipboard-user"></i> Individual Registration</a>
-                                        <a href="<?= base_url('member/register/group'); ?>" class="btn btn-primary mt-2"><i class="fa-solid fa-user-group"></i> Group Registration</a>
+                                        <a href="<?= base_url('site/login'); ?>" class="btn btn-blue-1 mt-3"><i class="fa-solid fa-sign-in"></i> Enter to Login</a>
+                                        <a href="<?= base_url('member/register'); ?>" class="btn btn-blue-1 mt-2"><i class="fa-solid fa-clipboard-user"></i> Individual Registration</a>
+                                        <a href="<?= base_url('member/register/group'); ?>" class="btn btn-blue-1 mt-2"><i class="fa-solid fa-user-group"></i> Group Registration</a>
                                     </div>
                                 </div>
                             </div>
@@ -1371,8 +1423,8 @@
         <footer class="cs-footer text-center">
             <div class="container mt-4">
                 <div class="cs-copyright text-center wow fadeIn" data-wow-duration="1s" data-wow-delay="0.5s">
-                    <p>&copy; 2023 License to #NATIONAL CONGRESS OF THE INDONESIAN NEUROLOGICAL ASSOCIATION 2023#</p>
-                    <p>Developed by #CV. Meta Medika#</p><span class="cs-primary_font cs-primary_color"></span>
+                <small><p class="mb-3">&copy; 2023 License to <strong>National Congress of Indonesian Neurology Association 2023 Semarang</strong></p>
+                    <p>Developed by <span class="blockquote-footer text-white"></span><strong>CV. Meta Medika</strong></p><span class="cs-primary_font cs-primary_color"></span></small>
                 </div>
             </div>
             <div class="cs-height_25 cs-height_lg_25"></div>

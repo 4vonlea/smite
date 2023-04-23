@@ -38,7 +38,7 @@ $theme_path = base_url("themes/aenft") . "/";
 <?php $this->layout->end_head(); ?>
 <!-- Start Hero -->
 <div id="home" class="cs-hero cs-style1 cs-type2 cs-bg text-center  cs-ripple_version" data-src="<?= $theme_path; ?>assets/img/konas/bg-head.jpg" id="home" style="padding-top: 150px">
-    <div class="cs-dark_overlay"></div>
+    <div class="cs-dark_overlay" style="background:linear-gradient(0deg, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.5));opacity:0.7"></div>
     <div class="container">
         <div class="cs-hero_img wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.3s">
             <img src="<?= $theme_path; ?>assets/img/konas/logo.png" style="width: 100%; max-width: 320px; height: auto;">
