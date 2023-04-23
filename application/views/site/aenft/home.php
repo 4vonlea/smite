@@ -144,10 +144,34 @@
             max-height: 90vh;
         } */
 
+        /* .event .event-filter .filter-item {
+            color: #f28721;
+            border-color: #f28721;
+        } */
+
         .event .event-filter .filter-item.active {
             color: white;
             border-color: #f28721;
             background: #cf462b;
+        }
+
+        .event-title{ 
+            padding-left: 20px;
+            position: relative;
+            background: linear-gradient(108.18deg, #cf462b -2.02%, #f28721 100%);
+            background-clip: border-box;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .event-title:before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 2px;
+            width: 10px;
+            height: 50px;
+            background: linear-gradient(108.18deg, #cf462b -2.02%, #f28721 100%);
         }
     </style>
 </head>
@@ -505,16 +529,16 @@
         </div>
     </section> -->
 
-    <div class="cs-height_50 cs-height_lg_20"></div>
+    <div class="cs-height_50 cs-height_lg_20 d-none"></div>
 
-    <section id="event" style="z-index:1;position:relative;width:100%;">
+    <section id="event" style="z-index:1;position:relative;width:100%;padding:40px 0;background:#eee">
         <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/right.png" class="event-right-image">
         <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/right-neuro-white.png" style="position: absolute; right: 0; z-index: -1;width: 120px; height: auto; top: 378px;" class="mobile-hide">
         <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/left-neuro.png" style="position: absolute; z-index: -1; width: 120px; height: auto; top: -150px;" class="mobile-hide">
         <div class="container">
-            <div class="cs-seciton_heading cs-style1 text-uppercase text-center wow fadeInUp mb-2" data-wow-duration="1s" data-wow-delay="0.2s">
+            <div class="cs-seciton_heading cs-style1 text-uppercase wow fadeInUp mb-2" data-wow-duration="1s" data-wow-delay="0.2s">
                 <!-- <h3 class="cs-section_title cs-font_16 cs-font_14_sm cs-gradient_color">Video</h3> -->
-                <h2 class="cs-section_subtitle cs-m0 cs-font_36 cs-font_24_sm">Event</h2>
+                <h2 class="cs-section_subtitle cs-font_24_sm event-title"">Event</h2>
             </div>
             <div class="wow fadeIn" data-wow-duration="1s" data-wow-delay="0.2s">
                 <?php foreach ($eventsList as $groupEvent) : ?>
@@ -562,9 +586,9 @@
         <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/footer-left-neuro.png" style="position: absolute; z-index: -1; width: 300px; height: auto; bottom: -75px;" class="mobile-hide">
     </section>
 
-    <div class="cs-height_75 cs-height_lg_45"></div>
+    <div class="cs-height_75 cs-height_lg_45 d-none"></div>
 
-    <section id="registration" class="cs-bg p-5" data-src="<?= base_url('themes/aenft'); ?>/assets/img/konas/img4.jpg">
+    <section id="registration" class="cs-bg p-5" data-src="<?//= base_url('themes/aenft'); ?>/assets/img/konas/img4.jpg">
         <div class="container wow fadeIn" data-wow-duration="1s" data-wow-delay="0.2s">
             <h2 class="cs-section_subtitle cs-m0 cs-font_36 cs-font_24_sm text-uppercase text-center mb-5">Sign in / Registration</h2>
             <div class="row">
@@ -618,14 +642,14 @@
         </div>
     </section>
 
-    <section style="z-index:1;position:relative;width:100%;">
+    <section style="z-index:1;position:relative;width:100%;padding:50px 0;background:#eee">
         <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/right.png" class="vidtor-right-image mobile-hide">
         <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/left-neuro-white.png" style="position: absolute; z-index: -1; width: 90px; height: auto;" class="mobile-hide">
-        <div class="cs-height_70 cs-height_lg_40"></div>
+        <div class="cs-height_70 cs-height_lg_40 d-none"></div>
         <div class="container">
             <div class="cs-seciton_heading cs-style1 text-uppercase text-center wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s">
                 <h3 class="cs-section_title cs-font_16 cs-font_14_sm cs-gradient_color">Video</h3>
-                <h2 class="cs-section_subtitle cs-m0 cs-font_36 cs-font_24_sm">Tutorial</h2>
+                <h2 class="cs-section_subtitle cs-m0 cs-font_36 cs-font_24_sm cs-gradient_color">Tutorial</h2>
             </div>
             <div class="wow fadeIn" data-wow-duration="1s" data-wow-delay="0.2s">
                 <button class="accordion mt-4">Registration Step</button>
@@ -669,16 +693,16 @@
                     <embed src="https://drive.google.com/file/d/1A1ptqak2pL9YLsK9GdHsQ5Kp5YUWlyQN/preview" width="100%" height="600px" align="center" allow="autoplay" class="mt-3 mb-3"></embed>
                 </div>
             </div>
-            <div class="cs-height_50 cs-height_lg_30"></div>
+            <div class="cs-height_50 cs-height_lg_30 d-none"></div>
         </div>
         <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/footer-neuro.png" style="position: absolute; z-index: -1; width: 250px; left: 20%; height: auto; bottom: -70px;" class="mobile-hide">
         <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/footer-right-neuro.png" style="position: absolute; z-index: -1; width: 250px; right: 0; height: auto; bottom: -70px;" class="mobile-hide">
         <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/left.png" class="vidtor-left-image mobile-hide">
     </section>
 
-    <div class="cs-height_70 cs-height_lg_40"></div>
-    <section id="information" class="event cs-bg" data-src="<?= base_url('themes/aenft'); ?>/assets/img/konas/bg-head1.jpg">
-        <div class="cs-height_70 cs-height_lg_40"></div>
+    <div class="cs-height_70 cs-height_lg_40 d-none"></div>
+    <section id="information" class="event cs-bg p-5" data-src="<?= base_url('themes/aenft'); ?>/assets/img/konas/bg-head1.jpg">
+        <div class="cs-height_70 cs-height_lg_40 d-none"></div>
         <div class="container">
             <div class="cs-seciton_heading cs-style1 text-uppercase text-center wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s">
                 <h3 class="cs-section_title cs-font_16 cs-font_14_sm cs-gradient_color">Information</h3>
