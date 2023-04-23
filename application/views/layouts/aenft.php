@@ -24,9 +24,48 @@
     <?php endif; ?>
     <?= $additional_head; ?>
 
+    <style>
+        .cs-dark .cs-site_header.cs-style1.cs-sticky-active {
+            background:linear-gradient(90deg, rgba(52, 117, 90, 0.5), rgba(5, 28, 67, 0.5));
+        }
+
+        
+        .btn-blue-1 {
+            --bs-btn-color: #fff;
+            --bs-btn-bg: #1c9dd8;
+            --bs-btn-border-color: #1c9dd8;
+            --bs-btn-hover-color: #fff;
+            --bs-btn-hover-bg: #0b5ed7;
+            --bs-btn-hover-border-color: #0a58ca;
+            --bs-btn-focus-shadow-rgb: 49,132,253;
+            --bs-btn-active-color: #fff;
+            --bs-btn-active-bg: #0a58ca;
+            --bs-btn-active-border-color: #0a53be;
+            --bs-btn-disabled-color: #fff;
+            --bs-btn-disabled-bg: #1c9dd8;
+            --bs-btn-disabled-border-color: #1c9dd8;
+        }
+
+        .btn-orange-1 {
+            --bs-btn-color: #000;
+            --bs-btn-bg: #f28721;
+            --bs-btn-border-color: #f28721;
+            --bs-btn-hover-color: #000;
+            --bs-btn-hover-bg: #ffca2c;
+            --bs-btn-hover-border-color: #ffc720;
+            --bs-btn-focus-shadow-rgb: 217,164,6;
+            --bs-btn-active-color: #000;
+            --bs-btn-active-bg: #ffcd39;
+            --bs-btn-active-border-color: #ffc720;
+            --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+            --bs-btn-disabled-color: #000;
+            --bs-btn-disabled-bg: #f28721;
+            --bs-btn-disabled-border-color: #f28721;
+        }
+    </style>
 </head>
 
-<body class="cs-dark">
+<body class="cs-dark" style="background:linear-gradient(90deg, rgba(52, 117, 90, 1), rgba(5, 28, 67, 1))">
     <div class="cs-preloader cs-white_bg cs-center">
         <div class="cs-preloader_in">
             <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/logo.png" alt="Logo">
@@ -129,18 +168,18 @@
                                     </li>
 
                                 <?php } else { ?>
-                                    <li><a href="<?= base_url('site/home'); ?>#home" class="cs-smoth_scroll">
-                                            <i class="fa fa-home me-1"></i>
+                                    <li class="mx-4"><a href="<?= base_url('site/home'); ?>#home" class="cs-smoth_scroll">
+                                            <!-- <i class="fa fa-home me-1"></i> -->
                                             Home</a>
                                     </li>
-                                    <li><a href="<?= base_url('site/home'); ?>#event" class="cs-smoth_scroll">
-                                            <i class="fa fa-calendar me-1"></i>
+                                    <li class="mx-4"><a href="<?= base_url('site/home'); ?>#event" class="cs-smoth_scroll">
+                                            <!-- <i class="fa fa-calendar me-1"></i> -->
                                             Event</a></li>
-                                    <li><a href="<?= base_url('site/home'); ?>#news" class="cs-smoth_scroll">
-                                            <i class="fa fa-newspaper me-1"></i>
+                                    <li class="mx-4"><a href="<?= base_url('site/home'); ?>#news" class="cs-smoth_scroll">
+                                            <!-- <i class="fa fa-newspaper me-1"></i> -->
                                             News</a></li>
-                                    <li><a href="<?= base_url('site/home'); ?>#login" class="cs-smoth_scroll">
-                                            <i class="fa fa-sign-in me-1"></i>
+                                    <li class="mx-4"><a href="<?= base_url('site/home'); ?>#login" class="cs-smoth_scroll">
+                                            <!-- <i class="fa fa-sign-in me-1"></i> -->
                                             Login</a></li>
                                 <?php } ?>
                             </ul>
@@ -155,7 +194,7 @@
                                     <span>Logout</span>
                                 </a>
                             <?php else : ?>
-                                <a href="<?= base_url('member/register'); ?>" class="cs-btn cs-btn_filed cs-accent_btn">
+                                <a href="<?= base_url('member/register'); ?>" class="cs-btn cs-btn_filed btn-blue-1">
                                     <i class="fa-solid fa-clipboard-user"></i>
                                     &nbsp;<span><?= lang("registration"); ?></span>
                                 </a>
@@ -177,7 +216,7 @@
         </div>
     </header>
     <!-- End Header Section -->
-    <div class="cs-height_95 cs-height_lg_95"></div>
+    <div class="cs-height_95 cs-height_lg_95 d-none"></div>
     <!--
     <nav class="floating-menu">
         <ul class="main-menu">
@@ -257,10 +296,10 @@
     </nav>
 	-->
     <?= $content; ?>
-    <div class="cs-height_75 cs-height_lg_45"></div>
-    <div class="cs-footer_wrap">
+    <div class="cs-height_75 cs-height_lg_45 d-none"></div>
+    <div class="cs-footer_wrap text-small">
         <div class="wow fadeIn" data-wow-duration="1s" data-wow-delay="0.2s">
-            <div class="cs-cta cs-style2 cs-accent_bg">
+            <div class="cs-cta cs-style2 cs-accent_bg"  style="background:transparent">
                 <div class="row padding-lg-top">
                     <div class="col-lg-3 col-sm-6 col-12">
                         <div class="footer-middle-item-wrapper">
@@ -269,7 +308,7 @@
                                     <h5>Important Dates</h5>
                                     <hr>
                                 </div>
-                                <div class="fm-item-content">
+                                <div class="fm-item-content" style="font-size:14px">
                                     <ul class="mt-3">
                                         <li>Early Registration : Januari - 31 May 2023</li>
                                         <li>Abstract Submission: April - May 2023</li>
@@ -287,7 +326,7 @@
                                     <h5>POKDI</h5>
                                     <hr>
                                 </div>
-                                <div class="fm-item-content">
+                                <div class="fm-item-content" style="font-size:14px">
                                     <ul class="mt-3">
                                          <li>Neurovascular; Neurorestoration; Neurotrauma; Neuropediatri; Neurooncology; Sleep disorder; Neuroinfection; Headache; Neurobehavior; Neurootology-Neuroophtamology Neurointervention; Pain; Neurointensive; Movement Disorder; Neurogeriatri; Epilepsy; Neuroimaging; Neuroepidemiology; Neurophysiology</li>
                                     </ul>
@@ -302,7 +341,7 @@
                                     <h5>Symposium Fee</h5>
                                     <hr>
                                 </div>
-                                <div class="fm-item-content">
+                                <div class="fm-item-content" style="font-size:14px">
                                     <ul class="mt-3">
                                         <b>Early Bird</b> <br>
                                         <li>Spesialist : Rp. 3.500.000</li>
@@ -327,9 +366,9 @@
                                 </div>
                                 <div class="fm-item-content">
                                     <div class="d-grid">
-                                        <a href="<?= base_url('site/login'); ?>" class="btn btn-primary mt-3"><i class="fa-solid fa-sign-in"></i> Enter to Login</a>
-                                        <a href="<?= base_url('member/register'); ?>" class="btn btn-primary mt-2"><i class="fa-solid fa-clipboard-user"></i> Individual Registration</a>
-                                        <a href="<?= base_url('member/register/group'); ?>" class="btn btn-primary mt-2"><i class="fa-solid fa-user-group"></i> Group Registration</a>
+                                        <a href="<?= base_url('site/login'); ?>" class="btn btn-blue-1 mt-3"><i class="fa-solid fa-sign-in"></i> Login</a>
+                                        <a href="<?= base_url('member/register'); ?>" class="btn btn-blue-1 mt-2"><i class="fa-solid fa-clipboard-user"></i> Individual Registration</a>
+                                        <a href="<?= base_url('member/register/group'); ?>" class="btn btn-blue-1 mt-2"><i class="fa-solid fa-user-group"></i> Group Registration</a>
                                     </div>
                                 </div>
                             </div>
@@ -341,10 +380,10 @@
         <!-- End CTA -->
         <!-- Start Footer -->
         <footer class="cs-footer text-center">
-            <div class="container mt-4">
-                <div class="cs-copyright text-center wow fadeIn" data-wow-duration="1s" data-wow-delay="0.5s">
-                    <p>&copy; 2023 License to #NATIONAL CONGRESS OF THE INDONESIAN NEUROLOGICAL ASSOCIATION 2023#</p>
-                    <p>Developed by #CV. Meta Medika#</p><span class="cs-primary_font cs-primary_color"></span>
+        <div class="container mt-5">
+        <div class="cs-copyright text-center wow fadeIn" data-wow-duration="1s" data-wow-delay="0.5s">
+                    <small><p class="mb-3">&copy; 2023 License to <strong>National Congress of Indonesian Neurology Association 2023 Semarang</strong></p>
+                    <p>Developed by <span class="blockquote-footer text-white"></span><strong>CV. Meta Medika</strong></p><span class="cs-primary_font cs-primary_color"></span></small>
                 </div>
             </div>
             <div class="cs-height_25 cs-height_lg_25"></div>

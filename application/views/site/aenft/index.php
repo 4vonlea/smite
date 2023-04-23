@@ -24,6 +24,43 @@
             height: 700px;
         }
 
+        .btn-green-1 {
+            --bs-btn-color: #fff;
+            --bs-btn-bg: #3da07c;
+            --bs-btn-border-color: #3da07c;
+            --bs-btn-hover-color: #fff;
+            --bs-btn-hover-bg: #157347;
+            --bs-btn-hover-border-color: #146c43;
+            --bs-btn-focus-shadow-rgb: 60,153,110;
+            --bs-btn-active-color: #fff;
+            --bs-btn-active-bg: #146c43;
+            --bs-btn-active-border-color: #13653f;
+            --bs-btn-disabled-color: #fff;
+            --bs-btn-disabled-bg: #3da07c;
+            --bs-btn-disabled-border-color: #3da07c;
+        }
+
+        .btn-blue-1 {
+            --bs-btn-color: #fff;
+            --bs-btn-bg: #1c9dd8;
+            --bs-btn-border-color: #1c9dd8;
+            --bs-btn-hover-color: #fff;
+            --bs-btn-hover-bg: #0b5ed7;
+            --bs-btn-hover-border-color: #0a58ca;
+            --bs-btn-focus-shadow-rgb: 49,132,253;
+            --bs-btn-active-color: #fff;
+            --bs-btn-active-bg: #0a58ca;
+            --bs-btn-active-border-color: #0a53be;
+            --bs-btn-disabled-color: #fff;
+            --bs-btn-disabled-bg: #1c9dd8;
+            --bs-btn-disabled-border-color: #1c9dd8;
+        }
+
+        .bg-custom-2 {
+            background: #3da07c;
+            border: none;
+        }
+
         @media only screen and (max-width: 992px) {
             .mobile-hide {
                 display: none;
@@ -37,7 +74,7 @@
     </style>
 </head>
 
-<body class="cs-dark">
+<body class="cs-dark" style="background:linear-gradient(90deg, rgba(52, 117, 90, 1), rgba(5, 28, 67, 1))">
     <!-- <div class="cs-preloader cs-white_bg cs-center">
         <div class="cs-preloader_in">
             <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/logo.png" alt="Logo">
@@ -50,7 +87,7 @@
 
     <!-- Start Hero -->
     <div id="home" class="cs-hero cs-style1 cs-type2 cs-bg text-center  cs-ripple_version" data-src="<?= base_url('themes/aenft'); ?>/assets/img/konas/bg-head.png">
-        <div class="cs-dark_overlay">
+        <div class="cs-dark_overlay" style="background:linear-gradient(0deg, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.5));opacity:0.7">
 
         </div>
         <!-- <div class="dropdown mt-3 ms-3" style="position: absolute; right: 5px; top:5px;">
@@ -69,30 +106,33 @@
             <div class="cs-hero_text wow fadeIn" data-wow-duration="1s" data-wow-delay="0.45s" style="margin-top: -50px;">
                 <h3 class="cs-hero_title text-uppercase">National Congress of Indonesian Neurology Association 2023 SEMARANG</h3>
                 <h3 class="cs-hero_subtitle text-uppercase">2 - 6 August 2023</h3>
-                <div class="row mt-5 align-middle">
-                    <div class="col-lg-3 col-md-3 col-12 d-grid gap-2 mb-1">
-                        <a href="<?= base_url('site/home'); ?>" class="btn btn-success"><i class="fa-solid fa-earth-asia fa-2x mt-1"></i><br>Visit Full Website here</a>
+                <div class="row mt-5">
+                <div class="col-sm-8 px-5 py-2">
+                <div class="row align-middle">
+                    <div class="col-md-6 col-12 d-grid gap-2 mb-1 mt-4">
+                        <a href="<?= base_url('site/home'); ?>" class="btn btn-blue-1"><i class="fa-solid fa-earth-asia fa-2x mt-1"></i><br><small>Visit Full Website here</small></a>
                     </div>
-                    <div class="col-lg-3 col-md-3 col-12 d-grid gap-2 mb-1">
-                        <a href="<?= base_url('member/register'); ?>" class="btn btn-primary"><i class="fa-solid fa-clipboard-user fa-2x mt-1"></i> <br>Individual Registration</a>
+                    <div class="col-md-6 col-12 d-grid gap-2 mb-1 mt-4">
+                        <a href="<?= base_url('member/register'); ?>" class="btn btn-green-1"><i class="fa-solid fa-clipboard-user fa-2x mt-1"></i> <br><small>Individual Registration</small></a>
                     </div>
-                    <div class="col-lg-3 col-md-3 col-12 d-grid gap-2 mb-1">
-                        <a href="<?= base_url('member/register/group'); ?>" class="btn btn-success"><i class="fa-solid fa-user-group fa-2x mt-1"></i><br>Group Registration</a>
                     </div>
-                    <div class="col-lg-3 col-md-3 col-12 d-grid gap-2 mb-1">
-                        <a href="https://drive.google.com/file/d/1S7dkr-fvrvmWk9AFmbAkKYqG0-PYaKJd/view?usp=share_link" target="_blank" class="btn btn-primary"><i class="fa-solid fa-cloud-arrow-down fa-2x mt-1"></i><br>Download Second Announcement</a>
+                <div class="row align-middle">
+                    <div class="col-md-6 col-12 d-grid gap-2 mb-1 mt-4">
+                        <a href="https://drive.google.com/file/d/1S7dkr-fvrvmWk9AFmbAkKYqG0-PYaKJd/view?usp=share_link" target="_blank" class="btn btn-blue-1"><i class="fa-solid fa-cloud-arrow-down fa-2x mt-1"></i><br><small>Download Second Announcement</small></a>
+                    </div>
+                    <div class="col-md-6 col-12 d-grid gap-2 mb-1 mt-4">
+                        <a href="<?= base_url('member/register/group'); ?>" class="btn btn-green-1"><i class="fa-solid fa-user-group fa-2x mt-1"></i><br><small>Group Registration</small></a>
                     </div>
                 </div>
-                <hr class="mt-3 mb-3">
-                <div class="text-center">
-                    <div class="col-12">
+                <div class="col-12 mt-4 text-start">
                         <h6>Symposium, Workshop and Hotel Registration can only be done through the website. The committee does not accept registration through other mechanisms. </h6>
                         <h6>E-Certificate integration into P2KB Online can only be given to participants who register via the website</h6>
                     </div>
                 </div>
-                <div class="d-grid gap-2 col-md-6 offset-md-3 mt-3 mb-3">
+                <div class="col-sm-4 p-4" style="border: 5px solid rgba(255,255,255,0.3);box-shadow: 0 0 25px #eee;background:linear-gradient(270deg, rgba(52, 117, 90, 0.3), rgba(5, 28, 67, 0.3))">
+
                     <div class="box">
-                        <h6>For those who have registered, please login here.</h6>
+                        <h6 class="text-start">For those who have registered, please login here.</h6>
                         <br>
 
                         <form action="<?= base_url('site/login'); ?>" method="post">
@@ -110,12 +150,14 @@
                                 </div>
                             <?php endif; ?>
 
-                            <button type="submit" value="login" name="login" class="btn btn-primary w-100" style="margin-top: -3px;">
+                            <button type="submit" value="login" name="login" class="btn btn-green-1 w-100" style="margin-top: -3px;">
                                 <span> <?= $hasSession ? lang("back_to_member_area") : lang("login"); ?></span>
                             </button>
                         </form>
                     </div>
                 </div>
+                </div>
+                <!-- <hr class="mt-3 mb-3"> -->
             </div>
 
         </div>
@@ -197,17 +239,16 @@
         <img src="<?= base_url('themes/aenft'); ?>/assets/img/konas/border/left.png" style="position: absolute; z-index: -1; width: 130px; height: auto; top: 380px;" class="mobile-hide">
 
     </section>
-
     <div class="cs-footer_wrap">
 
         <footer class="cs-footer text-center">
-            <div class="container mt-4">
+            <div class="container mt-5">
                 <div class="cs-copyright text-center wow fadeIn" data-wow-duration="1s" data-wow-delay="0.5s">
-                    <p>&copy; 2023 License to #National Congress of Indonesian Neurology Association 2023 Semarang#</p>
-                    <p>Developed by #CV. Meta Medika#</p><span class="cs-primary_font cs-primary_color"></span>
+                    <small><p class="mb-3">&copy; 2023 License to <strong>National Congress of Indonesian Neurology Association 2023 Semarang</strong></p>
+                    <p>Developed by <span class="blockquote-footer text-white"></span><strong>CV. Meta Medika</strong></p><span class="cs-primary_font cs-primary_color"></span></small>
                 </div>
             </div>
-            <div class="cs-height_25 cs-height_lg_25"></div>
+            <div class="cs-height_25 cs-height_lg_25 d-none"></div>
         </footer>
         <!-- End Footer -->
     </div>

@@ -37,14 +37,14 @@ $theme_path = base_url("themes/aenft") . "/";
 <link rel="stylesheet" href="https://unpkg.com/vue-select@latest/dist/vue-select.css">
 <?php $this->layout->end_head(); ?>
 <!-- Start Hero -->
-<div id="home" class="cs-hero cs-style1 cs-type2 cs-bg text-center  cs-ripple_version" data-src="<?= $theme_path; ?>assets/img/konas/bg-head.jpg" id="home">
+<div id="home" class="cs-hero cs-style1 cs-type2 cs-bg text-center  cs-ripple_version" data-src="<?= $theme_path; ?>assets/img/konas/bg-head.jpg" id="home" style="padding-top: 150px">
     <div class="cs-dark_overlay"></div>
     <div class="container">
         <div class="cs-hero_img wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.3s">
             <img src="<?= $theme_path; ?>assets/img/konas/logo.png" style="width: 100%; max-width: 320px; height: auto;">
         </div>
         <div class="cs-hero_text wow fadeIn" data-wow-duration="1s" data-wow-delay="0.45s" style="margin-top: -50px;">
-            <h1 class="cs-hero_title text-uppercase cs-font_60 cs-font_36_sm cs-bold"><?= lang("individual_registration"); ?></h1>
+            <h3 class="cs-hero_title text-uppercase cs-font_40 cs-font_25_sm cs-bold"><?= lang("individual_registration"); ?></h3>
             <ol class="breadcrumb justify-content-center mb-0">
                 <li class="breadcrumb-item"><a href="index.html"><?= lang("home"); ?></a></li>
                 <li class="breadcrumb-item active text-info" aria-current="page"><i class="fa-solid fa-clipboard-user"></i> <?= lang("registration"); ?></li>
@@ -54,8 +54,8 @@ $theme_path = base_url("themes/aenft") . "/";
 </div>
 <!-- End Hero -->
 
-<section id="app" class="padding-top padding-bottom">
-    <div class="cs-height_70 cs-height_lg_40"></div>
+<section id="app" class="padding-top padding-bottom py-5" style="background:#b7dcce">
+    <div class="cs-height_70 cs-height_lg_40 d-none"></div>
     <div class="container wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.2s">
         <!-- NOTE Setelah Submmit -->
         <div v-if="page == 'registered'" class="col-lg-12">
@@ -217,12 +217,12 @@ $theme_path = base_url("themes/aenft") . "/";
 
         <!-- NOTE Sebelum Submit -->
         <div v-show="page == 'register'">
-            <div class="alert alert-primary" role="alert">
-                <h4 class="text-primary text-uppercase"><i class="fa-solid fa-info-circle"></i> <?= lang('attention'); ?></h4>
-                <p class="mt-minus2"><?= lang('email_attention'); ?></p>
+            <div class="alert alert-warning" role="alert">
+                <h4 class="text-uppercase" style="color:#f28721"><i class="fa-solid fa-info-circle"></i> <?= lang('attention'); ?></h4>
+                <p class="mt-minus2" style="color:#cf462b"><?= lang('email_attention'); ?></p>
             </div>
-            <div class="cs-iconbox cs-style1 cs-white_bg">
-                <h4 class="text-center text-uppercase">Registrasi Sekarang. <p><span style="color: #ffff00;"><strong>Pembayaran tidak dapat di <em>refund</em></strong></span></p>
+            <div class="cs-iconbox cs-style1 cs-white_bg" style="background-color: #3da07c;">
+                <h4 class="text-center text-uppercase">Registrasi Sekarang. <p><span style="color: #c84b21;"><strong>Pembayaran tidak dapat di-<em>refund</em></strong></span></p>
                 </h4>
                 <form id="form-register" style="text-align: left; font-size: 18px; font-weight: 500;" ref="form">
                     <div class="form-group mb-2">
@@ -231,7 +231,7 @@ $theme_path = base_url("themes/aenft") . "/";
                         <div class="input-group">
                             <input v-on:keyup.enter="checkMember" type="text" v-model="valueData.nik" :class="{'is-invalid':validation_error.nik}" class="form-control mb-0" name="nik" placeholder="NIK anda" />
                             <input type="hidden" :value="valueData.p2kb_member_id" name="p2kb_member_id" />
-                            <button :disabled="checkingMember" @click="checkMember" class="btn btn-primary" type="button">
+                            <button :disabled="checkingMember" @click="checkMember" class="btn btn-blue-1" type="button">
                                 <i v-if="checkingMember" class="fa fa-spin fa-spinner"></i> Cek NIK di Database P2KB
                             </button>
                         </div>
@@ -411,8 +411,8 @@ $theme_path = base_url("themes/aenft") . "/";
                         <hr />
                         <div class="alert alert-primary">
                             <h4 class="text-black"><i class="icofont icofont-info-circle"></i> <b>Event</b></h4>
-                            <p class="text-center">Pilih kegiatan yang ingin anda ikuti. Untuk kenyamaan anda, Kami harap pembayaran dapat langsung dilakukan tanpa penundaan setelah checkout.</p>
-                            <p class="text-center">Untuk Hotel, Tidak dapat dipesan menggunakan Guarantee Letter</p>
+                            <p>Pilih kegiatan yang ingin anda ikuti. Untuk kenyamaan anda, Kami harap pembayaran dapat langsung dilakukan tanpa penundaan setelah checkout.</p>
+                            <p>Untuk Hotel, tidak dapat dipesan menggunakan Guarantee Letter</p>
                         </div>
                         <div v-if="loadingEvent" class="alert alert-info text-center">
                             <i class="fa fa-spin fa-spinner fa-4x"></i>
@@ -434,9 +434,8 @@ $theme_path = base_url("themes/aenft") . "/";
                         </select-event>
                     </div>
                 </form>
-                <hr />
-                <div class="col-lg-12 text-center pt-4">
-                    <button :disabled="saving" type="button" @click="register" style="width:300px;" class="btn btn-primary">
+                <div class="col-lg-12 pt-4" style="text-align:right">
+                    <button :disabled="saving" type="button" @click="register" style="width:300px;" class="btn btn-blue-1">
                         <i v-if="saving" class="fa fa-spin fa-spinner"></i>
                         Next
                     </button>
